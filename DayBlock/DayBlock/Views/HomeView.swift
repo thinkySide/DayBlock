@@ -38,9 +38,7 @@ final class HomeView: UIView {
         return label
     }()
     
-    
-    // MARK: - Variable
-    
+    private let blockPreview = BlockPreview()
     
     
     // MARK: - Initial
@@ -55,7 +53,7 @@ final class HomeView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     
     
     // MARK: - Method
@@ -66,7 +64,10 @@ final class HomeView: UIView {
     
     func setupAddSubView() {
         
-        [dateLabel, timeLabel, productivityLabel]
+        [
+            dateLabel, timeLabel, productivityLabel,
+            blockPreview,
+        ]
             .forEach {
                 
                 /// 1. addSubView(component)
@@ -87,13 +88,19 @@ final class HomeView: UIView {
             dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Margin.defaults),
             
             // timeLabel
-            timeLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 3),
+            timeLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 5),
             timeLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Margin.defaults),
             timeLabel.heightAnchor.constraint(equalToConstant: timeLabel.font.pointSize),
             
             // productivityLabel
             productivityLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 3),
             productivityLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Margin.defaults),
+            
+            // blockPreview
+            blockPreview.centerYAnchor.constraint(equalTo: timeLabel.centerYAnchor),
+            blockPreview.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Margin.defaults),
+            blockPreview.widthAnchor.constraint(equalToConstant: 128),
+            blockPreview.heightAnchor.constraint(equalToConstant: 84),
         ])
     }
 }

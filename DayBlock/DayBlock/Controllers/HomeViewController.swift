@@ -23,9 +23,16 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupInitial()
     }
-
+    
+    
+    
+    // MARK: - Method
+    
+    func setupInitial() {
+        title = "자기계발"
+    }
 
 }
 
