@@ -10,6 +10,12 @@ import UIKit
 final class HomeView: UIView {
     
     // MARK: - Component
+    private let myLabel: UILabel = {
+        let label = UILabel()
+        label.text = "안녕하세요. 프리텐다드입니다!"
+        label.font = UIFont(name: Pretendard.medium, size: 16)
+        return label
+    }()
     
     
     
@@ -38,17 +44,18 @@ final class HomeView: UIView {
     
     func setupAddSubView() {
         // 1. addSubView(component)
-        
+        addSubview(myLabel)
     }
 
     func setupConstraints() {
         // 2. translatesAutoresizingMaskIntoConstraints = false
-//        [<#component#>]
-//            .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        [myLabel]
+            .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         // 3. NSLayoutConstraint.activate
         NSLayoutConstraint.activate([
-            
+            myLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            myLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
         ])
     }
 }
