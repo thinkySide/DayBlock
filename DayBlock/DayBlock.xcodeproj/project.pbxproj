@@ -24,6 +24,7 @@
 		078C50E529D72BD100F239BA /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 078C50DC29D72BD100F239BA /* Pretendard-Thin.otf */; };
 		078C50E629D72BD100F239BA /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 078C50DD29D72BD100F239BA /* Pretendard-Bold.otf */; };
 		078C50E829D72D2900F239BA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50E729D72D2900F239BA /* Constants.swift */; };
+		078C50EB29D72EE300F239BA /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 078C50EA29D72EE300F239BA /* Poppins-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		078C50DC29D72BD100F239BA /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
 		078C50DD29D72BD100F239BA /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		078C50E729D72D2900F239BA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		078C50EA29D72EE300F239BA /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				078C50D429D72BA300F239BA /* Pretendard */,
+				078C50E929D72ECC00F239BA /* Poppins */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -154,6 +157,14 @@
 				078C50DB29D72BD100F239BA /* Pretendard-Black.otf */,
 			);
 			path = Pretendard;
+			sourceTree = "<group>";
+		};
+		078C50E929D72ECC00F239BA /* Poppins */ = {
+			isa = PBXGroup;
+			children = (
+				078C50EA29D72EE300F239BA /* Poppins-Bold.ttf */,
+			);
+			path = Poppins;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,6 +232,7 @@
 				078C50C229D7153000F239BA /* Assets.xcassets in Resources */,
 				078C50E029D72BD100F239BA /* Pretendard-ExtraBold.otf in Resources */,
 				078C50E429D72BD100F239BA /* Pretendard-Black.otf in Resources */,
+				078C50EB29D72EE300F239BA /* Poppins-Bold.ttf in Resources */,
 				078C50DE29D72BD100F239BA /* Pretendard-Light.otf in Resources */,
 				078C50E329D72BD100F239BA /* Pretendard-Regular.otf in Resources */,
 				078C50DF29D72BD100F239BA /* Pretendard-SemiBold.otf in Resources */,

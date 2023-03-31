@@ -12,8 +12,8 @@ final class HomeView: UIView {
     // MARK: - Component
     private let myLabel: UILabel = {
         let label = UILabel()
-        label.text = "안녕하세요. 프리텐다드입니다!"
-        label.font = UIFont(name: Pretendard.medium, size: 16)
+        label.text = "22:30"
+        label.font = UIFont(name: Poppins.bold, size: 40)
         return label
     }()
     

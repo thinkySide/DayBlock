@@ -18,3 +18,7 @@ enum Pretendard {
     static let extraBold = "Pretendard-ExtraBold"
     static let black = "Pretendard-Black"
 }
+
+enum Poppins {
+    static let bold = "Poppins-Bold"
+}
