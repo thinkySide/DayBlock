@@ -13,6 +13,7 @@
 		078C50C029D7152F00F239BA /* DayBlock.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 078C50BE29D7152F00F239BA /* DayBlock.xcdatamodeld */; };
 		078C50C229D7153000F239BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 078C50C129D7153000F239BA /* Assets.xcassets */; };
 		078C50C529D7153000F239BA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 078C50C329D7153000F239BA /* LaunchScreen.storyboard */; };
+		078C50D129D726FE00F239BA /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50D029D726FE00F239BA /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		078C50C129D7153000F239BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		078C50C429D7153000F239BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		078C50C629D7153000F239BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		078C50D029D726FE00F239BA /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +58,48 @@
 		078C50B429D7152F00F239BA /* DayBlock */ = {
 			isa = PBXGroup;
 			children = (
-				078C50B529D7152F00F239BA /* AppDelegate.swift */,
-				078C50B729D7152F00F239BA /* SceneDelegate.swift */,
-				078C50B929D7152F00F239BA /* HomeViewController.swift */,
-				078C50C129D7153000F239BA /* Assets.xcassets */,
-				078C50C329D7153000F239BA /* LaunchScreen.storyboard */,
 				078C50C629D7153000F239BA /* Info.plist */,
 				078C50BE29D7152F00F239BA /* DayBlock.xcdatamodeld */,
+				078C50C129D7153000F239BA /* Assets.xcassets */,
+				078C50C329D7153000F239BA /* LaunchScreen.storyboard */,
+				078C50CC29D7263600F239BA /* Essentials */,
+				078C50CE29D7266E00F239BA /* Models */,
+				078C50CF29D7267A00F239BA /* Views */,
+				078C50CD29D7266400F239BA /* Controllers */,
 			);
 			path = DayBlock;
+			sourceTree = "<group>";
+		};
+		078C50CC29D7263600F239BA /* Essentials */ = {
+			isa = PBXGroup;
+			children = (
+				078C50B529D7152F00F239BA /* AppDelegate.swift */,
+				078C50B729D7152F00F239BA /* SceneDelegate.swift */,
+			);
+			path = Essentials;
+			sourceTree = "<group>";
+		};
+		078C50CD29D7266400F239BA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				078C50B929D7152F00F239BA /* HomeViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		078C50CE29D7266E00F239BA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		078C50CF29D7267A00F239BA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				078C50D029D726FE00F239BA /* HomeView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,6 +175,7 @@
 				078C50BA29D7152F00F239BA /* HomeViewController.swift in Sources */,
 				078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */,
 				078C50C029D7152F00F239BA /* DayBlock.xcdatamodeld in Sources */,
+				078C50D129D726FE00F239BA /* HomeView.swift in Sources */,
 				078C50B829D7152F00F239BA /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
