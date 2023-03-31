@@ -10,6 +10,7 @@ import UIKit
 final class HomeViewController: UIViewController {
     
     // MARK: - Object
+    
     private let viewManager = HomeView()
     
 

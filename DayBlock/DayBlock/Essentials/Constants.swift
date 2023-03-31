@@ -21,6 +21,7 @@ enum GrayScale {
 }
 
 
+
 // MARK: - Fonts
 
 enum Pretendard {
@@ -37,4 +38,12 @@ enum Pretendard {
 
 enum Poppins {
     static let bold = "Poppins-Bold"
+}
+
+
+
+// MARK: - Margin
+
+enum Margin {
+    static let defaults: CGFloat = 20
 }

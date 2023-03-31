@@ -7,9 +7,18 @@
 
 import UIKit
 
+/// HEX 코드로 Color 생성하기
 extension UIColor {
     
-    // HEX 코드로 Color 생성하기
+    convenience init(red: Int, green: Int, blue: Int, a: Int = 0xFF) {
+        self.init(
+            red: CGFloat(red) / 255.0,
+            green: CGFloat(green) / 255.0,
+            blue: CGFloat(blue) / 255.0,
+            alpha: CGFloat(a) / 255.0
+        )
+    }
+    
     convenience init(rgb: Int) {
         self.init(
             red: (rgb >> 16) & 0xFF,
