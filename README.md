@@ -32,3 +32,26 @@
 - 블럭 생성 후 애니메이션 효과로 블럭 쌓기 (마이크로인터랙션 추가로 긍정적인 반응 이끌어내기)
 - 통계 리포트 내 황금블럭 전환율 보기 추가 (일반 블럭 및 생산선 블럭 구분으로 효율 계산)
 - 친구 추가를 이용한 활동 공유 (서로의 활동 공유로 동기부여 제공)
+
+<br>
+
+## 🧑‍💻 개발 일지
+
+### **Day 31 - 23.03.31**
+
+오늘부터 본격적인 개발을 시작합니다.   
+`Code base`로 레이아웃을 잡고, `MVC` 패턴을 이용해 전체 구조를 잡을 예정입니다.   
+
+- Github 연동
+- Code base 레이아웃 환경 세팅
+- View/Controller 분리
+- 커스텀 폰트 추가(Pretendard, Poppins)
+- 컬러 등록
+- HomeView 메인 라벨 추가
+- UINavigationController 추가
+
+<img width="300" src="https://user-images.githubusercontent.com/113565086/229175142-f9953d52-920d-4a49-9b09-1d42c0af1225.png">
+
+---
+
+<br>
