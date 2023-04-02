@@ -39,7 +39,7 @@
 
 ### **Day 31 - 23.03.31**
 
-오늘부터 본격적인 개발을 시작합니다.   
+금일부터 본격적인 개발을 시작합니다.   
 `Code base`로 레이아웃을 잡고, `MVC` 패턴을 이용해 전체 구조를 잡을 예정입니다.   
 
 - Github 연동
@@ -55,3 +55,13 @@
 ---
 
 <br>
+
+### **Day 33 - 23.04.02**
+
+`BlockPreview` 는 앞으로 많이 사용하게 될 예정이기에 컴포넌트화 시켰습니다.   
+총 24개의 블럭을 각각의 `UIView`로 구성했습니다.
+
+- Block Preview 컴포넌트 추가
+- UITabBarController 추가
+
+<img width="300" src="https://user-images.githubusercontent.com/113565086/229357605-5766c3c0-8d80-470b-843d-9f70886e36e3.png">
