@@ -42,6 +42,17 @@ enum Poppins {
 
 
 
+// MARK: - Icon
+
+enum Icon {
+    static let home = "home"
+    static let schedule = "schedule"
+    static let storage = "storage"
+    
+}
+
+
+
 // MARK: - Margin
 
 enum Margin {

@@ -31,7 +31,7 @@ final class HomeViewController: UIViewController {
     // MARK: - Method
     
     func setupInitial() {
-        title = "자기계발"
+        // title = "자기계발"
     }
 
 }

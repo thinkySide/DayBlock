@@ -27,6 +27,8 @@
 		078C50EB29D72EE300F239BA /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 078C50EA29D72EE300F239BA /* Poppins-Bold.ttf */; };
 		078C50EE29D72F9D00F239BA /* RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50ED29D72F9D00F239BA /* RGB.swift */; };
 		078C50F429D73D0200F239BA /* BlockPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F329D73D0200F239BA /* BlockPreview.swift */; };
+		078C50F629D9BBB200F239BA /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F529D9BBB200F239BA /* ScheduleViewController.swift */; };
+		078C50F829D9BBFE00F239BA /* StorageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F729D9BBFE00F239BA /* StorageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +54,8 @@
 		078C50EA29D72EE300F239BA /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		078C50ED29D72F9D00F239BA /* RGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGB.swift; sourceTree = "<group>"; };
 		078C50F329D73D0200F239BA /* BlockPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPreview.swift; sourceTree = "<group>"; };
+		078C50F529D9BBB200F239BA /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
+		078C50F729D9BBFE00F239BA /* StorageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +117,8 @@
 			isa = PBXGroup;
 			children = (
 				078C50B929D7152F00F239BA /* HomeViewController.swift */,
+				078C50F529D9BBB200F239BA /* ScheduleViewController.swift */,
+				078C50F729D9BBFE00F239BA /* StorageViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -264,10 +270,12 @@
 				078C50BA29D7152F00F239BA /* HomeViewController.swift in Sources */,
 				078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */,
 				078C50F429D73D0200F239BA /* BlockPreview.swift in Sources */,
+				078C50F629D9BBB200F239BA /* ScheduleViewController.swift in Sources */,
 				078C50C029D7152F00F239BA /* DayBlock.xcdatamodeld in Sources */,
 				078C50D129D726FE00F239BA /* HomeView.swift in Sources */,
 				078C50EE29D72F9D00F239BA /* RGB.swift in Sources */,
 				078C50B829D7152F00F239BA /* SceneDelegate.swift in Sources */,
+				078C50F829D9BBFE00F239BA /* StorageViewController.swift in Sources */,
 				078C50E829D72D2900F239BA /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
