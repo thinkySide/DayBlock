@@ -39,14 +39,21 @@
 
 ### **Day 31 - 23.03.31**
 
-금일부터 본격적인 개발을 시작합니다.   
-`Code base`로 레이아웃을 잡고, `MVC` 패턴을 이용해 전체 구조를 잡을 예정입니다.   
+- **Github 연동**   
+Repository를 만들고, README 페이지를 생성했습니다.
 
-- Github 연동
-- Code base 레이아웃 환경 세팅
-- View/Controller 분리
-- 커스텀 폰트 추가(Pretendard, Poppins)
-- 컬러 등록
+- **Code base 레이아웃 환경 세팅**   
+Storyboard 사용 대신 `Code Base 레이아웃`을 사용합니다.
+
+- **View/Controller 분리**   
+가장 익숙한 `MVC` 패턴을 이용해 전체 구조를 잡을 예정입니다.
+
+- **커스텀 폰트 추가**   
+Pretendard, Poppins 폰트를 추가했습니다.
+
+- **컬러 등록**   
+GrayScale 컬러를 NameSpace에 등록했습니다.
+
 - HomeView 메인 라벨 추가
 - UINavigationController 추가
 
@@ -58,11 +65,11 @@
 
 ### **Day 33 - 23.04.02**
 
+- **Block Preview 컴포넌트 추가**    
 `BlockPreview` 는 앞으로 많이 사용하게 될 예정이기에 컴포넌트화 시켰습니다.   
 총 24개의 블럭을 각각의 `UIView`로 구성했습니다.
 
-- Block Preview 컴포넌트 추가
-- UITabBarController 추가
+- UITabBarController 추가   
 
 <img width="300" src="https://user-images.githubusercontent.com/113565086/229357605-5766c3c0-8d80-470b-843d-9f70886e36e3.png">
 
@@ -72,14 +79,16 @@
 
 ### **Day 34 - 23.04.03**
 
+- **Block, Group 모델 추가**   
+Block, Group의 필요 데이터에 맞게 Struct를 생성했습니다.
+
+- **UICollectionView 셋팅**   
 `CollectionView`를 이용해 블럭 선택창 틀을 잡았습니다.   
+
+- **BlockCollectionView에 캐러셀 이펙트 추가**   
 처음 구현해보는 `Carousel Effect`가 어려웠지만 레퍼런스를 참고해 구현했습니다.   
-핵심은 보이지 않는 레이아웃용 블럭 사이즈를 크게 잡고,   
+핵심은 보이지 않는 레이아웃용 블럭 사이즈를 크게 잡고,    
 `scrollViewWillEndDragging` 메서드를 활용해 몇번째 블럭인지 index값을 구해 포커싱 하는 방식입니다.   
 캐러셀 이펙트는 다양한 레이아웃에 활용될 것으로 예상하기에, 꼼꼼히 돌아볼 예정입니다.
-
-- Block, Group 모델 추가
-- UICollectionView 셋팅
-- BlockCollectionView에 캐러셀 이펙트 추가
 
 <img width="300" src="https://user-images.githubusercontent.com/113565086/229537564-0c05dbff-76cc-4417-abd2-db93c1a675d0.png">
