@@ -65,3 +65,21 @@
 - UITabBarController 추가
 
 <img width="300" src="https://user-images.githubusercontent.com/113565086/229357605-5766c3c0-8d80-470b-843d-9f70886e36e3.png">
+
+---
+
+<br>
+
+### **Day 34 - 23.04.03**
+
+`CollectionView`를 이용해 블럭 선택창 틀을 잡았습니다.   
+처음 구현해보는 `Carousel Effect`가 어려웠지만 레퍼런스를 참고해 구현했습니다.   
+핵심은 보이지 않는 레이아웃용 블럭 사이즈를 크게 잡고,   
+`scrollViewWillEndDragging` 메서드를 활용해 몇번째 블럭인지 index값을 구해 포커싱 하는 방식입니다.   
+캐러셀 이펙트는 다양한 레이아웃에 활용될 것으로 예상하기에, 꼼꼼히 돌아볼 예정입니다.
+
+- Block, Group 모델 추가
+- UICollectionView 셋팅
+- BlockCollectionView에 캐러셀 이펙트 추가
+
+<img width="300" src="https://user-images.githubusercontent.com/113565086/229537564-0c05dbff-76cc-4417-abd2-db93c1a675d0.png">
