@@ -41,15 +41,21 @@ final class HomeView: UIView {
     private let blockPreview = BlockPreview()
     
     lazy var blockCollectionView: UICollectionView = {
+        
+        /// layout
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: blockSize, height: blockSize)
-        layout.minimumLineSpacing = 32
+        layout.itemSize = Size.blockSize
+        layout.minimumLineSpacing = Size.blockSpacing
+        layout.minimumInteritemSpacing = 0
         
+        /// collectionView
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.showsHorizontalScrollIndicator = true
+        collectionView.backgroundColor = .clear
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.clipsToBounds = true
-        collectionView.backgroundColor = .gray
+        collectionView.contentInsetAdjustmentBehavior = .never
+        collectionView.decelerationRate = .fast
         return collectionView
     }()
     
@@ -67,10 +73,6 @@ final class HomeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    
-    // MARK: - Variable
-    private let blockSize: CGFloat = 160
     
     
     // MARK: - Method
@@ -103,20 +105,20 @@ final class HomeView: UIView {
             
             // dateLabel
             dateLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
-            dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Margin.defaults),
+            dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             
             // timeLabel
             timeLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 5),
-            timeLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Margin.defaults),
+            timeLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             timeLabel.heightAnchor.constraint(equalToConstant: timeLabel.font.pointSize),
             
             // productivityLabel
             productivityLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 3),
-            productivityLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Margin.defaults),
+            productivityLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             
             // blockPreview
             blockPreview.centerYAnchor.constraint(equalTo: timeLabel.centerYAnchor),
-            blockPreview.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Margin.defaults),
+            blockPreview.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
             blockPreview.widthAnchor.constraint(equalToConstant: 128),
             blockPreview.heightAnchor.constraint(equalToConstant: 84),
             
@@ -124,7 +126,7 @@ final class HomeView: UIView {
             blockCollectionView.topAnchor.constraint(equalTo: productivityLabel.bottomAnchor, constant: 32),
             blockCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             blockCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            blockCollectionView.heightAnchor.constraint(equalToConstant: blockSize),
+            blockCollectionView.heightAnchor.constraint(equalToConstant: Size.blockSize.height),
         ])
     }
 }

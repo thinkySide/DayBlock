@@ -53,10 +53,12 @@ enum Icon {
 
 
 
-// MARK: - Margin
+// MARK: - Size
 
-enum Margin {
-    static let defaults: CGFloat = 20
+enum Size {
+    static let margin: CGFloat = 20
+    static let blockSize = CGSize(width: 160, height: 160)
+    static let blockSpacing: CGFloat = 32
 }
 
 
