@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0719648129DAF38A009CA1A4 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648029DAF38A009CA1A4 /* Block.swift */; };
+		0719648329DAF4B5009CA1A4 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648229DAF4B5009CA1A4 /* Group.swift */; };
 		078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B529D7152F00F239BA /* AppDelegate.swift */; };
 		078C50B829D7152F00F239BA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B729D7152F00F239BA /* SceneDelegate.swift */; };
 		078C50BA29D7152F00F239BA /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B929D7152F00F239BA /* HomeViewController.swift */; };
@@ -32,6 +34,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0719648029DAF38A009CA1A4 /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
+		0719648229DAF4B5009CA1A4 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		078C50B229D7152F00F239BA /* DayBlock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayBlock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		078C50B529D7152F00F239BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		078C50B729D7152F00F239BA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -126,6 +130,8 @@
 		078C50CE29D7266E00F239BA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0719648029DAF38A009CA1A4 /* Block.swift */,
+				0719648229DAF4B5009CA1A4 /* Group.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -270,10 +276,12 @@
 				078C50BA29D7152F00F239BA /* HomeViewController.swift in Sources */,
 				078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */,
 				078C50F429D73D0200F239BA /* BlockPreview.swift in Sources */,
+				0719648329DAF4B5009CA1A4 /* Group.swift in Sources */,
 				078C50F629D9BBB200F239BA /* ScheduleViewController.swift in Sources */,
 				078C50C029D7152F00F239BA /* DayBlock.xcdatamodeld in Sources */,
 				078C50D129D726FE00F239BA /* HomeView.swift in Sources */,
 				078C50EE29D72F9D00F239BA /* RGB.swift in Sources */,
+				0719648129DAF38A009CA1A4 /* Block.swift in Sources */,
 				078C50B829D7152F00F239BA /* SceneDelegate.swift in Sources */,
 				078C50F829D9BBFE00F239BA /* StorageViewController.swift in Sources */,
 				078C50E829D72D2900F239BA /* Constants.swift in Sources */,
