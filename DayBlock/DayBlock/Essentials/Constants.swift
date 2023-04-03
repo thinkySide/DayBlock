@@ -58,3 +58,11 @@ enum Icon {
 enum Margin {
     static let defaults: CGFloat = 20
 }
+
+
+
+// MARK: - Cell
+
+enum Cell {
+    static let block = "BlockCell"
+}

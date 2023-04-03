@@ -24,6 +24,7 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupInitial()
+        setupDelegate()
     }
     
     
@@ -31,8 +32,37 @@ final class HomeViewController: UIViewController {
     // MARK: - Method
     
     func setupInitial() {
-        // title = "자기계발"
+        navigationItem.title = "자기계발"
+    }
+    
+    func setupDelegate() {
+        
+        /// blockCollectionView
+        viewManager.blockCollectionView.dataSource = self
+        viewManager.blockCollectionView.delegate = self
+        viewManager.blockCollectionView.register(BlockCollectionViewCell.self,
+                                                 forCellWithReuseIdentifier: Cell.block)
     }
 
 }
 
+
+
+// MARK: - UICollectionViewDelegate
+
+extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = viewManager.blockCollectionView.dequeueReusableCell(
+            withReuseIdentifier: Cell.block, for: indexPath) as! BlockCollectionViewCell
+        
+        cell.backgroundColor = .red
+        
+        return cell
+    }
+    
+}

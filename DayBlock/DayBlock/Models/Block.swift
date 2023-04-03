@@ -8,11 +8,9 @@
 import UIKit
 
 struct Block {
-    
     var label: String
     var icon: UIImage
     var output: Double
     var color: UIColor
     var group: Group
-    
 }

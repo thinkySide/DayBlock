@@ -40,6 +40,19 @@ final class HomeView: UIView {
     
     private let blockPreview = BlockPreview()
     
+    lazy var blockCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: blockSize, height: blockSize)
+        layout.minimumLineSpacing = 32
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.showsHorizontalScrollIndicator = true
+        collectionView.clipsToBounds = true
+        collectionView.backgroundColor = .gray
+        return collectionView
+    }()
+    
     
     // MARK: - Initial
     
@@ -56,6 +69,10 @@ final class HomeView: UIView {
     
     
     
+    // MARK: - Variable
+    private let blockSize: CGFloat = 160
+    
+    
     // MARK: - Method
     
     func setupInitial() {
@@ -67,6 +84,7 @@ final class HomeView: UIView {
         [
             dateLabel, timeLabel, productivityLabel,
             blockPreview,
+            blockCollectionView,
         ]
             .forEach {
                 
@@ -101,6 +119,12 @@ final class HomeView: UIView {
             blockPreview.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Margin.defaults),
             blockPreview.widthAnchor.constraint(equalToConstant: 128),
             blockPreview.heightAnchor.constraint(equalToConstant: 84),
+            
+            // blockCollectionView
+            blockCollectionView.topAnchor.constraint(equalTo: productivityLabel.bottomAnchor, constant: 32),
+            blockCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            blockCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            blockCollectionView.heightAnchor.constraint(equalToConstant: blockSize),
         ])
     }
 }
