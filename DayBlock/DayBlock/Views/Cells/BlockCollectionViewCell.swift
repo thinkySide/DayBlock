@@ -15,7 +15,7 @@ final class BlockCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "+"
         label.font = UIFont(name: Poppins.bold, size: 18)
-        label.textColor = UIColor(rgb: 0x0076FF)
+        label.textColor = UIColor(rgb: 0x0076FF) // ⛳️
         label.textAlignment = .left
         return label
     }()
@@ -27,6 +27,18 @@ final class BlockCollectionViewCell: UICollectionViewCell {
         label.textColor = GrayScale.mainText
         label.textAlignment = .left
         return label
+    }()
+    
+    private let blockColorTag: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(rgb: 0x0076FF) // ⛳️
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 9
+        
+        /// 하단 왼쪽, 하단 오른쪽만 cornerRadius 값 주기
+        view.layer.maskedCorners = CACornerMask(
+            arrayLiteral: .layerMinXMaxYCorner, .layerMaxXMaxYCorner)
+        return view
     }()
     
     private let blockIcon: UIImageView = {
@@ -66,7 +78,7 @@ final class BlockCollectionViewCell: UICollectionViewCell {
         
         /// addSubView & translatesAutoresizingMaskIntoConstraints
         [
-            plusLabel, totalProductivityLabel,
+            plusLabel, totalProductivityLabel, blockColorTag,
             blockIcon, blockLabel,
         ]
             .forEach {
@@ -84,6 +96,12 @@ final class BlockCollectionViewCell: UICollectionViewCell {
             /// totalProductivityLabel
             totalProductivityLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             totalProductivityLabel.leadingAnchor.constraint(equalTo: plusLabel.trailingAnchor),
+            
+            /// blockColorTag
+            blockColorTag.topAnchor.constraint(equalTo: topAnchor),
+            blockColorTag.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
+            blockColorTag.widthAnchor.constraint(equalToConstant: 20),
+            blockColorTag.heightAnchor.constraint(equalToConstant: 30),
             
             /// blockIcon
             blockIcon.topAnchor.constraint(equalTo: topAnchor, constant: 54),
