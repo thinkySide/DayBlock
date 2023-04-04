@@ -12,7 +12,7 @@ final class HomeViewController: UIViewController {
     // MARK: - Object
     
     private let viewManager = HomeView()
-    
+    private let blockManager = BlockManager()
     
     
     // MARK: - ViewController LifeCycle
@@ -67,14 +67,19 @@ final class HomeViewController: UIViewController {
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return blockManager.getBlockList("자기계발").list.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = viewManager.blockCollectionView.dequeueReusableCell(
             withReuseIdentifier: Cell.block, for: indexPath) as! BlockCollectionViewCell
-        
-        cell.backgroundColor = GrayScale.contentsBlock
+
+        let blockData = blockManager.getBlockList("자기계발").list[indexPath.row]
+        cell.plusLabel.textColor = blockData.color
+        cell.totalProductivityLabel.text = "\(blockData.output)"
+        cell.blockColorTag.backgroundColor = blockData.color
+        cell.blockIcon.image = blockData.icon
+        cell.blockLabel.text = blockData.label
         
         return cell
     }

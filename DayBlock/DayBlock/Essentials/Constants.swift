@@ -9,6 +9,13 @@ import UIKit
 
 // MARK: - Colors
 
+enum Color {
+    static let testBlue = UIColor(rgb: 0x1673FF)
+    static let testPink = UIColor(rgb: 0xFF16A2)
+    static let testGreen = UIColor(rgb: 0x43D662)
+    static let testYellow = UIColor(rgb: 0xFFA216)
+}
+
 enum GrayScale {
     
     /// Text Color

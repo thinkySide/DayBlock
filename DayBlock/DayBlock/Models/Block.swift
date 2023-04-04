@@ -12,5 +12,4 @@ struct Block {
     var icon: UIImage
     var output: Double
     var color: UIColor
-    var group: Group
 }

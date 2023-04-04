@@ -13,7 +13,7 @@ final class HomeView: UIView {
     
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.text = "3월 8일 수요일"
+        label.text = "3월 8일 수요일" // ⛳️
         label.font = UIFont(name: Pretendard.semiBold, size: 16)
         label.textColor = GrayScale.subText
         label.textAlignment = .left
@@ -22,7 +22,7 @@ final class HomeView: UIView {
     
     private let timeLabel: UILabel = {
         let label = UILabel()
-        label.text = "22:37"
+        label.text = "22:37" // ⛳️
         label.font = UIFont(name: Poppins.bold, size: 56)
         label.textColor = GrayScale.mainText
         label.textAlignment = .left
@@ -31,7 +31,7 @@ final class HomeView: UIView {
     
     private let productivityLabel: UILabel = {
         let label = UILabel()
-        label.text = "TODAY +5.5"
+        label.text = "TODAY +5.5" // ⛳️
         label.font = UIFont(name: Poppins.bold, size: 23)
         label.textColor = GrayScale.mainText
         label.textAlignment = .left
@@ -61,7 +61,7 @@ final class HomeView: UIView {
     
     private let messageLabel: UILabel = {
         let label = UILabel()
-        label.text = "오늘 하루는 어떤 블럭으로\n채우고 계신가요?"
+        label.text = "오늘 하루는 어떤 블럭으로\n채우고 계신가요?" // ⛳️
         label.font = UIFont(name: Pretendard.semiBold, size: 18)
         label.textColor = GrayScale.mainText
         label.alpha = 0.4

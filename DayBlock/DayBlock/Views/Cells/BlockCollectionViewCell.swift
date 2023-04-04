@@ -11,7 +11,7 @@ final class BlockCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Component
     
-    private let plusLabel: UILabel = {
+    let plusLabel: UILabel = {
         let label = UILabel()
         label.text = "+"
         label.font = UIFont(name: Poppins.bold, size: 18)
@@ -20,7 +20,7 @@ final class BlockCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let totalProductivityLabel: UILabel = {
+    let totalProductivityLabel: UILabel = {
         let label = UILabel()
         label.text = "72.5" // ⛳️
         label.font = UIFont(name: Poppins.bold, size: 18)
@@ -29,7 +29,7 @@ final class BlockCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let blockColorTag: UIView = {
+    let blockColorTag: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(rgb: 0x0076FF) // ⛳️
         view.clipsToBounds = true
@@ -41,15 +41,15 @@ final class BlockCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
-    private let blockIcon: UIImageView = {
+    let blockIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(systemName: "book.closed.fill")
+        image.image = UIImage(systemName: "book.closed.fill") // ⛳️
         image.contentMode = .scaleAspectFit
         image.tintColor = GrayScale.mainText
         return image
     }()
     
-    private let blockLabel: UILabel = {
+    let blockLabel: UILabel = {
         let label = UILabel()
         label.text = "SwiftUI 강의" // ⛳️
         label.font = UIFont(name: Pretendard.bold, size: 17)
@@ -64,6 +64,7 @@ final class BlockCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupAutoLayout()
+        backgroundColor = GrayScale.contentsBlock
         
         /// CornerRadius
         clipsToBounds = true
