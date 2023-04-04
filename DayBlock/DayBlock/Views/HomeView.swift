@@ -81,6 +81,7 @@ final class HomeView: UIView {
     
     func setupInitial() {
         backgroundColor = .white
+        tabBarStackView.switchTabBarActive(.home)
     }
     
     func setupAddSubView() {

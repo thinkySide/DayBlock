@@ -7,29 +7,52 @@
 
 import UIKit
 
-class TabBarActiveStackView: UIStackView {
+final class TabBarActiveStackView: UIStackView {
+    
+    enum SwitchTabBar {
+        case home
+        case schedule
+        case storage
+    }
     
     // MARK: - Component
-    private let firstActive: UIView = {
+    private let homeActive: UIView = {
         let view = UIView()
         view.backgroundColor = GrayScale.mainText
         view.alpha = 1
         return view
     }()
     
-    private let secondActive: UIView = {
+    private let scheduleActive: UIView = {
         let view = UIView()
         view.backgroundColor = GrayScale.mainText
         view.alpha = 0
         return view
     }()
     
-    private let thirdActive: UIView = {
+    private let storageActive: UIView = {
         let view = UIView()
         view.backgroundColor = GrayScale.mainText
         view.alpha = 0
         return view
     }()
+    
+    func switchTabBarActive(_ currentView: SwitchTabBar) {
+        switch currentView {
+        case .home:
+            homeActive.alpha = 1
+            scheduleActive.alpha = 0
+            storageActive.alpha = 0
+        case .schedule:
+            homeActive.alpha = 0
+            scheduleActive.alpha = 1
+            storageActive.alpha = 0
+        case .storage:
+            homeActive.alpha = 0
+            scheduleActive.alpha = 0
+            storageActive.alpha = 1
+        }
+    }
     
     
     // MARK: - Method
@@ -45,9 +68,9 @@ class TabBarActiveStackView: UIStackView {
         spacing = 0
         
         /// StackView에 추가
-        addArrangedSubview(firstActive)
-        addArrangedSubview(secondActive)
-        addArrangedSubview(thirdActive)
+        addArrangedSubview(homeActive)
+        addArrangedSubview(scheduleActive)
+        addArrangedSubview(storageActive)
     }
     
     required init(coder: NSCoder) {
