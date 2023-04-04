@@ -92,3 +92,21 @@ Block, Group의 필요 데이터에 맞게 Struct를 생성했습니다.
 캐러셀 이펙트는 다양한 레이아웃에 활용될 것으로 예상하기에, 꼼꼼히 돌아볼 예정입니다.
 
 <img width="300" src="https://user-images.githubusercontent.com/113565086/229537564-0c05dbff-76cc-4417-abd2-db93c1a675d0.png">
+
+<br>
+
+### **Day 35 - 23.04.04**
+
+- BlockCollectionViewCell 디자인
+
+- **TabBarActiveStackView 디자인 및 컴포넌트화**   
+현재 어떤 View에 위치해 있는지 시각적으로 알려주는 컴포넌트를 TabBar 상단에 추가했습니다.   
+class로 만들어 추가해주고, 간단한 메서드를 만들어 페이지에 따라 switch 될 수 있게 구현했습니다.   
+
+- MessageLabel, TrackingButton 추가
+
+- **BlockDataManager 추가 및 TestData로 테스트**   
+BlockGroup 안에 Block을 넣어 관리하는 구조로 구성했습니다.   
+테스트 데이터로 구현은 성공하였으나, BlockGroup 이름을 어떻게 관리해야할지는 더 고민해야 할 부분입니다.   
+
+<img width="300" src="https://user-images.githubusercontent.com/113565086/229819118-59407ef9-0dd0-438b-8732-9a921129c464.png">
