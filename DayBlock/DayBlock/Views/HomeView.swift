@@ -58,6 +58,8 @@ final class HomeView: UIView {
         collectionView.decelerationRate = .fast
         return collectionView
     }()
+
+    private let tabBarStackView = TabBarActiveStackView()
     
     
     // MARK: - Initial
@@ -87,6 +89,7 @@ final class HomeView: UIView {
             dateLabel, timeLabel, productivityLabel,
             blockPreview,
             blockCollectionView,
+            tabBarStackView,
         ]
             .forEach {
                 
@@ -103,30 +106,36 @@ final class HomeView: UIView {
         /// 3. isActive = true
         NSLayoutConstraint.activate([
             
-            // dateLabel
+            /// dateLabel
             dateLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
             dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             
-            // timeLabel
+            /// timeLabel
             timeLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 5),
             timeLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             timeLabel.heightAnchor.constraint(equalToConstant: timeLabel.font.pointSize),
             
-            // productivityLabel
+            /// productivityLabel
             productivityLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 3),
             productivityLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             
-            // blockPreview
+            /// blockPreview
             blockPreview.centerYAnchor.constraint(equalTo: timeLabel.centerYAnchor),
             blockPreview.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
             blockPreview.widthAnchor.constraint(equalToConstant: 128),
             blockPreview.heightAnchor.constraint(equalToConstant: 84),
             
-            // blockCollectionView
+            /// blockCollectionView
             blockCollectionView.topAnchor.constraint(equalTo: productivityLabel.bottomAnchor, constant: 32),
             blockCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             blockCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             blockCollectionView.heightAnchor.constraint(equalToConstant: Size.blockSize.height),
+            
+            /// tabBarStackView
+            tabBarStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            tabBarStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            tabBarStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            tabBarStackView.heightAnchor.constraint(equalToConstant: 2),
         ])
     }
 }
