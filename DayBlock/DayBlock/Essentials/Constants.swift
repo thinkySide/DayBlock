@@ -57,7 +57,7 @@ enum Icon {
 
 enum Size {
     static let margin: CGFloat = 20
-    static let blockSize = CGSize(width: 160, height: 160)
+    static let blockSize = CGSize(width: 180, height: 180)
     static let blockSpacing: CGFloat = 32
 }
 

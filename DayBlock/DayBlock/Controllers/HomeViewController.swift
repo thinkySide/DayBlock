@@ -74,7 +74,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         let cell = viewManager.blockCollectionView.dequeueReusableCell(
             withReuseIdentifier: Cell.block, for: indexPath) as! BlockCollectionViewCell
         
-        cell.backgroundColor = .systemBlue
+        cell.backgroundColor = GrayScale.contentsBlock
         
         return cell
     }
