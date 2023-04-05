@@ -13,7 +13,15 @@ final class HomeView: UIView {
     
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.text = "3월 8일 수요일" // ⛳️
+        
+        /// 현재 날짜 및 요일 구하기
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .medium
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.dateFormat = "M월 d일 EEEEEE요일"
+        label.text = dateFormatter.string(from: Date())
+        
         label.font = UIFont(name: Pretendard.semiBold, size: 16)
         label.textColor = GrayScale.subText
         label.textAlignment = .left
