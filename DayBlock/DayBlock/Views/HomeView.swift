@@ -16,10 +16,8 @@ final class HomeView: UIView {
         
         /// 현재 날짜 및 요일 구하기
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .medium
         dateFormatter.locale = Locale(identifier: "ko_KR")
-        dateFormatter.dateFormat = "M월 d일 EEEEEE요일"
+        dateFormatter.dateFormat = "M월 d일 E요일"
         label.text = dateFormatter.string(from: Date())
         
         label.font = UIFont(name: Pretendard.semiBold, size: 16)
@@ -30,7 +28,13 @@ final class HomeView: UIView {
     
     private let timeLabel: UILabel = {
         let label = UILabel()
-        label.text = "22:37" // ⛳️
+        
+        /// 현재 시간 구하기
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.dateFormat = "HH:mm"
+        label.text = dateFormatter.string(from: Date())
+        
         label.font = UIFont(name: Poppins.bold, size: 56)
         label.textColor = GrayScale.mainText
         label.textAlignment = .left
