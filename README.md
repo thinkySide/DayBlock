@@ -110,3 +110,15 @@ BlockGroup 안에 Block을 넣어 관리하는 구조로 구성했습니다.
 테스트 데이터로 구현은 성공하였으나, BlockGroup 이름을 어떻게 관리해야할지는 더 고민해야 할 부분입니다.   
 
 <img width="300" src="https://user-images.githubusercontent.com/113565086/229819118-59407ef9-0dd0-438b-8732-9a921129c464.png">
+
+<br>
+
+### **Day 36 - 23.04.05**
+
+- **현재 날짜, 요일, 시간 구하기**   
+`dateFormatter`를 활용해 현재 날짜 및 시간 정보를 불러왔습니다.
+
+- **날짜 및 시간 실시간 업데이트**   
+`Timer`를 활용해 1초 간격으로 날짜 및 시간 정보를 업데이트 합니다.
+
+<img width="300" src="https://user-images.githubusercontent.com/113565086/230119913-3163ffe5-adcc-48f4-9a2e-e4cf4572071b.png">

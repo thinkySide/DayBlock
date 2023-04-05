@@ -161,6 +161,7 @@ final class BlockPreview: UIView {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
+        /// 전체 블럭 공통 설정
         [
             block00, block01, block02, block03, block04, block05,
             block06, block07, block08, block09, block10, block11,
@@ -179,8 +180,7 @@ final class BlockPreview: UIView {
                 /// Block CornerRadius
                 $0.clipsToBounds = true
                 $0.layer.cornerRadius = 6
-            }
-    }
+            }    }
     
     func setupInitial() {
         // backgroundColor = GrayScale.entireBlock
