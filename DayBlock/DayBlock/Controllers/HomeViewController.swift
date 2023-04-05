@@ -13,6 +13,7 @@ final class HomeViewController: UIViewController {
     
     private let viewManager = HomeView()
     private let blockManager = BlockManager()
+    private var timer: Timer!
     
     
     // MARK: - ViewController LifeCycle
@@ -35,6 +36,14 @@ final class HomeViewController: UIViewController {
     
     func setupInitial() {
         navigationItem.title = "자기계발"
+        updateDate()
+        
+        /// 날짜 및 시간 업데이트용 타이머 설정
+        timer = Timer.scheduledTimer(timeInterval: 1,
+                                     target: self,
+                                     selector: #selector(updateDate),
+                                     userInfo: nil,
+                                     repeats: true)
     }
     
     func setupDelegate() {
@@ -56,6 +65,21 @@ final class HomeViewController: UIViewController {
         
         /// CollectionView의 contentInset 설정
         viewManager.blockCollectionView.contentInset = contentInset
+    }
+    
+    @objc func updateDate() {
+        
+        /// 현재 날짜 및 요일 업데이트
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.dateFormat = "M월 d일 E요일"
+        viewManager.dateLabel.text = dateFormatter.string(from: Date())
+        
+        /// 현재 시간 업데이트
+        let timeFormatter = DateFormatter()
+        timeFormatter.locale = Locale(identifier: "ko_KR")
+        timeFormatter.dateFormat = "HH:mm"
+        viewManager.timeLabel.text = timeFormatter.string(from: Date())
     }
     
 }
