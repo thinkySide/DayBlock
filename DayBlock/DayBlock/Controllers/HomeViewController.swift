@@ -14,6 +14,7 @@ final class HomeViewController: UIViewController {
     private let viewManager = HomeView()
     private let blockManager = BlockManager()
     private var timer: Timer!
+
     
     
     // MARK: - ViewController LifeCycle
@@ -28,6 +29,11 @@ final class HomeViewController: UIViewController {
         setupInitial()
         setupDelegate()
         setupContentInset()
+        
+        // 테스트용 블럭 색칠
+        viewManager.blockPreview.block03.painting(.firstHalf)
+        viewManager.blockPreview.block17.painting(.secondHalf)
+        viewManager.blockPreview.block12.painting(.fullTime)
     }
     
     
@@ -37,11 +43,12 @@ final class HomeViewController: UIViewController {
     func setupInitial() {
         navigationItem.title = "자기계발"
         updateDate()
+        updateTime()
         
         /// 날짜 및 시간 업데이트용 타이머 설정
         timer = Timer.scheduledTimer(timeInterval: 1,
                                      target: self,
-                                     selector: #selector(updateDate),
+                                     selector: #selector(updateTime),
                                      userInfo: nil,
                                      repeats: true)
     }
@@ -67,19 +74,23 @@ final class HomeViewController: UIViewController {
         viewManager.blockCollectionView.contentInset = contentInset
     }
     
-    @objc func updateDate() {
-        
-        /// 현재 날짜 및 요일 업데이트
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "ko_KR")
-        dateFormatter.dateFormat = "M월 d일 E요일"
-        viewManager.dateLabel.text = dateFormatter.string(from: Date())
-        
-        /// 현재 시간 업데이트
+    /// 현재 시간 업데이트
+    @objc func updateTime() {
         let timeFormatter = DateFormatter()
         timeFormatter.locale = Locale(identifier: "ko_KR")
         timeFormatter.dateFormat = "HH:mm"
         viewManager.timeLabel.text = timeFormatter.string(from: Date())
+        
+        /// 00:00에 날짜 업데이트
+        if viewManager.timeLabel.text == "00:00" { updateDate() }
+    }
+    
+    /// 현재 날짜 및 요일 업데이트
+    func updateDate() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.dateFormat = "M월 d일 E요일"
+        viewManager.dateLabel.text = dateFormatter.string(from: Date())
     }
     
 }
@@ -97,7 +108,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = viewManager.blockCollectionView.dequeueReusableCell(
             withReuseIdentifier: Cell.block, for: indexPath) as! BlockCollectionViewCell
-
+        
         let blockData = blockManager.getBlockList("자기계발").list[indexPath.row]
         cell.plusLabel.textColor = blockData.color
         cell.totalProductivityLabel.text = "\(blockData.output)"

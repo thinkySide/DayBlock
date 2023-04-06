@@ -36,7 +36,10 @@ final class HomeView: UIView {
         return label
     }()
     
-    private let blockPreview = BlockPreview()
+    let blockPreview: BlockPreview = {
+        let preview = BlockPreview()
+        return preview
+    }()
     
     lazy var blockCollectionView: UICollectionView = {
         
