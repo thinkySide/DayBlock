@@ -9,12 +9,16 @@ import UIKit
 
 final class HomeViewController: UIViewController {
     
-    // MARK: - Object
+    // MARK: - Manager
     
     private let viewManager = HomeView()
     private let blockManager = BlockManager()
+    
+    // MARK: - Component
+    
     private var timer: Timer!
-
+    private let groupSelectButton = GroupSelectButton()
+    
     
     
     // MARK: - ViewController LifeCycle
@@ -26,7 +30,8 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupInitial()
+        setupNavigation()
+        setupTimer()
         setupDelegate()
         setupContentInset()
         
@@ -37,11 +42,16 @@ final class HomeViewController: UIViewController {
     }
     
     
-    
     // MARK: - Method
     
-    func setupInitial() {
-        navigationItem.title = "자기계발"
+    func setupNavigation() {
+        /// 그룹 선택 버튼
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(groupSelectButtonTapped))
+        groupSelectButton.addGestureRecognizer(gesture)
+        navigationItem.titleView = groupSelectButton
+    }
+    
+    func setupTimer() {
         updateDate()
         updateTime()
         
@@ -83,6 +93,10 @@ final class HomeViewController: UIViewController {
         
         /// 00:00에 날짜 업데이트
         if viewManager.timeLabel.text == "00:00" { updateDate() }
+    }
+    
+    @objc func groupSelectButtonTapped() {
+        print(#function)
     }
     
     /// 현재 날짜 및 요일 업데이트

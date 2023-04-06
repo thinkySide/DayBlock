@@ -13,6 +13,7 @@
 		0719648829DC5066009CA1A4 /* TabBarActiveStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648729DC5066009CA1A4 /* TabBarActiveStackView.swift */; };
 		0719648A29DC5CB4009CA1A4 /* BlockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648929DC5CB4009CA1A4 /* BlockManager.swift */; };
 		0719648C29DDB1C0009CA1A4 /* PaintBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648B29DDB1C0009CA1A4 /* PaintBlock.swift */; };
+		0719648E29DF044C009CA1A4 /* GroupSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648D29DF044C009CA1A4 /* GroupSelectButton.swift */; };
 		078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B529D7152F00F239BA /* AppDelegate.swift */; };
 		078C50B829D7152F00F239BA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B729D7152F00F239BA /* SceneDelegate.swift */; };
 		078C50BA29D7152F00F239BA /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B929D7152F00F239BA /* HomeViewController.swift */; };
@@ -44,6 +45,7 @@
 		0719648729DC5066009CA1A4 /* TabBarActiveStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarActiveStackView.swift; sourceTree = "<group>"; };
 		0719648929DC5CB4009CA1A4 /* BlockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockManager.swift; sourceTree = "<group>"; };
 		0719648B29DDB1C0009CA1A4 /* PaintBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintBlock.swift; sourceTree = "<group>"; };
+		0719648D29DF044C009CA1A4 /* GroupSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSelectButton.swift; sourceTree = "<group>"; };
 		078C50B229D7152F00F239BA /* DayBlock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayBlock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		078C50B529D7152F00F239BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		078C50B729D7152F00F239BA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 			children = (
 				078C50F329D73D0200F239BA /* BlockPreview.swift */,
 				0719648B29DDB1C0009CA1A4 /* PaintBlock.swift */,
+				0719648D29DF044C009CA1A4 /* GroupSelectButton.swift */,
 				0719648729DC5066009CA1A4 /* TabBarActiveStackView.swift */,
 			);
 			path = Components;
@@ -296,6 +299,7 @@
 				078C50BA29D7152F00F239BA /* HomeViewController.swift in Sources */,
 				078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */,
 				0719648C29DDB1C0009CA1A4 /* PaintBlock.swift in Sources */,
+				0719648E29DF044C009CA1A4 /* GroupSelectButton.swift in Sources */,
 				0719648A29DC5CB4009CA1A4 /* BlockManager.swift in Sources */,
 				078C50F429D73D0200F239BA /* BlockPreview.swift in Sources */,
 				0719648329DAF4B5009CA1A4 /* BlockGroup.swift in Sources */,
