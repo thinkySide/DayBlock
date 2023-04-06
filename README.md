@@ -122,3 +122,22 @@ BlockGroup 안에 Block을 넣어 관리하는 구조로 구성했습니다.
 `Timer`를 활용해 1초 간격으로 날짜 및 시간 정보를 업데이트 합니다.
 
 <img width="300" src="https://user-images.githubusercontent.com/113565086/230119913-3163ffe5-adcc-48f4-9a2e-e4cf4572071b.png">
+
+<br>
+
+### **Day 37 - 23.04.06**
+
+- **BlockPreview 내부 PaintBlock 클래스 생성**   
+기존의 UIView로 만들어져있던 각각의 블럭을 재사용을 위해 `PaintBlock` 클래스로 만들었습니다.   
+그 과정에서 인스턴스 생성 시점에 따른 frameSize가 설정되지 않아, 배경색상이 정확히 반영되지 않는 오류를 발견해 해결했습니다.   
+
+- **PaintBlock 상태에 따른 Switch**   
+열거형을 활용하여 블럭이 반만 찼을 때, 모두 찼을 때 등의 케이스를 구분해 메서드로 구현했습니다.
+
+- **Group 선택 버튼 디자인**   
+`GroupSelectButton` 클래스를 만들어 navigation titleView에 적용했습니다.   
+추후 터치 시 그룹 간 전환 기능을 추가 할 예정입니다.
+
+<img width="300" src="https://user-images.githubusercontent.com/113565086/230411129-0049dcdd-c637-4223-902e-8483b98141ef.png">
+
+<br>
