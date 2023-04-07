@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  HomeViewController.swift
 //  DayBlock
 //
 //  Created by 김민준 on 2023/03/31.
@@ -148,6 +148,16 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             cell.backgroundColor = .white
             cell.stroke.isHidden = false
             return cell
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let count = blockManager.getBlockList("자기계발").list.count
+        if count == indexPath.row {
+            
+            /// Push to AddBlockViewController
+            let addBlockVC = AddBlockViewController()
+            navigationController?.pushViewController(addBlockVC, animated: true)
         }
     }
 }
