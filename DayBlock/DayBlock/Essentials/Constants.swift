@@ -27,6 +27,7 @@ enum GrayScale {
     static let contentsBlock = UIColor(rgb: 0xF4F5F7)
     
     /// Component Color
+    static let seperator = UIColor(rgb: 0xDADADA)
     static let addBlockButton = UIColor(rgb: 0xC5C5C5)
 }
 
@@ -70,6 +71,7 @@ enum Size {
     static let margin: CGFloat = 20
     static let blockSize = CGSize(width: 180, height: 180)
     static let blockSpacing: CGFloat = 32
+    static let seperator: CGFloat = 1
 }
 
 

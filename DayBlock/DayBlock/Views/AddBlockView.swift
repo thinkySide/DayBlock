@@ -22,7 +22,7 @@ final class AddBlockView: UIView {
     
     private let blockPreviewColorTag: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(rgb: 0x0076FF) // ⛳️
+        view.backgroundColor = GrayScale.mainText // ⛳️
         view.clipsToBounds = true
         view.layer.cornerRadius = 9
         
@@ -50,11 +50,16 @@ final class AddBlockView: UIView {
         return label
     }()
     
-    private let nameTextField: MainTextFieldView = {
-        let field = MainTextFieldView()
+    private let nameTextField: FieldForm = {
+        let field = FieldForm()
         return field
     }()
     
+    private let groupSelect: SelectForm = {
+        let select = SelectForm()
+        
+        return select
+    }()
     
     
     // MARK: - Variable
@@ -93,14 +98,14 @@ final class AddBlockView: UIView {
         
         /// 1. addSubView(component)
         [
-            blockPreview, nameTextField,
+            blockPreview, nameTextField, groupSelect,
         ]
             .forEach { addSubview($0) }
         
         /// 2. translatesAutoresizingMaskIntoConstraints = false
         [
             blockPreview, blockPreviewColorTag, blockPreviewIcon, blockPreviewLabel,
-            nameTextField,
+            nameTextField, groupSelect,
         ]
             .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }
@@ -137,6 +142,11 @@ final class AddBlockView: UIView {
             nameTextField.topAnchor.constraint(equalTo: blockPreview.bottomAnchor, constant: 32),
             nameTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             nameTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
+            
+            /// groupSelect
+            groupSelect.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 32),
+            groupSelect.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
+            groupSelect.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }
 }

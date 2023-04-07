@@ -35,6 +35,6 @@ final class AddBlockViewController: UIViewController {
     // MARK: - Method
     
     func setupNavigion() {
-        title = "블럭 추가"
+        title = "블럭 생성"
     }
 }
