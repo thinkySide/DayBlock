@@ -41,10 +41,20 @@ final class HomeViewController: UIViewController {
         viewManager.blockPreview.block12.painting(.fullTime)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
+    
     
     // MARK: - Method
     
     func setupNavigation() {
+        /// 뒤로가기 버튼
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = GrayScale.mainText
+        navigationItem.backBarButtonItem = backBarButtonItem
+        
         /// 그룹 선택 버튼
         let gesture = UITapGestureRecognizer(target: self, action: #selector(groupSelectButtonTapped))
         groupSelectButton.addGestureRecognizer(gesture)
@@ -56,11 +66,7 @@ final class HomeViewController: UIViewController {
         updateTime()
         
         /// 날짜 및 시간 업데이트용 타이머 설정
-        timer = Timer.scheduledTimer(timeInterval: 1,
-                                     target: self,
-                                     selector: #selector(updateTime),
-                                     userInfo: nil,
-                                     repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
     }
     
     func setupDelegate() {
@@ -157,6 +163,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             
             /// Push to AddBlockViewController
             let addBlockVC = AddBlockViewController()
+            addBlockVC.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(addBlockVC, animated: true)
         }
     }

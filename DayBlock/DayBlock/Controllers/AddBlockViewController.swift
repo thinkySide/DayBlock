@@ -23,14 +23,18 @@ final class AddBlockViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupInitial()
+        setupNavigion()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
     
     
     // MARK: - Method
     
-    func setupInitial() {
+    func setupNavigion() {
         title = "블럭 추가"
     }
 }
