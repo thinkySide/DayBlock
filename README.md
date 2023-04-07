@@ -141,3 +141,22 @@ BlockGroup 안에 Block을 넣어 관리하는 구조로 구성했습니다.
 <img width="300" src="https://user-images.githubusercontent.com/113565086/230411129-0049dcdd-c637-4223-902e-8483b98141ef.png">
 
 <br>
+
+### **Day 38 - 23.04.07**
+
+- **블럭 추가 버튼 컬렉션뷰 마지막에 생성**   
+`blockDataList`의 count 보다 1개 많은 컬렉션 뷰를 생성 후,   
+마지막 인덱스에 블럭 추가 셀을 삽입했습니다.   
+셀의 재사용으로 인한 오류를 막기 위해 `prepareForReuse` 메서드에 기본값을 설정했습니다.   
+
+- **블럭 추가 화면 생성 + 탭바 숨기기**   
+`hidesBottomBarWhenPushed` 메서드를 활용해 push시 TabBar를 숨겨주었습니다.
+
+- **MainTextFieldView 컴포넌트화**   
+blockPreview에 이어 2번째 컴포넌트를 생성했습니다.   
+그 과정 속에서 제약을 확실하게 걸지 않으면 디버깅이 어려운 점을 발견해,   
+init메서드에 print문을 찍으며 오류를 잡아냈습니다.   
+
+<img width="300" src="https://user-images.githubusercontent.com/113565086/230638454-51d49dca-df1d-450c-9f7f-3c40315fdb7b.png">
+
+<br>
