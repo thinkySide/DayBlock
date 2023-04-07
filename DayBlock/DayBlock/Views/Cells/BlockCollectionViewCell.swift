@@ -59,12 +59,37 @@ final class BlockCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    lazy var stroke: CAShapeLayer = {
+        let stroke = CAShapeLayer()
+        stroke.strokeColor = GrayScale.entireBlock.cgColor
+        stroke.lineWidth = 6
+        stroke.lineDashPattern = [6, 6]
+        stroke.frame = self.bounds
+        stroke.fillColor = nil
+        stroke.path = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.bounds.height / 7).cgPath
+        return stroke
+    }()
+    
+
+    
     // MARK: - Method
+    
+    override func prepareForReuse() {
+        /// 블럭 재사용 문제 해결
+        plusLabel.isHidden = false
+        totalProductivityLabel.isHidden = false
+        blockColorTag.isHidden = false
+        blockIcon.tintColor = GrayScale.mainText
+        blockLabel.isHidden = false
+        stroke.isHidden = true
+        self.backgroundColor = GrayScale.contentsBlock
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupAutoLayout()
         backgroundColor = GrayScale.contentsBlock
+        self.layer.addSublayer(stroke)
         
         /// CornerRadius
         clipsToBounds = true

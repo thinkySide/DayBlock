@@ -116,23 +116,40 @@ final class HomeViewController: UIViewController {
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return blockManager.getBlockList("자기계발").list.count
+        return blockManager.getBlockList("자기계발").list.count + 1 /// 블럭 추가 버튼 + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = viewManager.blockCollectionView.dequeueReusableCell(
             withReuseIdentifier: Cell.block, for: indexPath) as! BlockCollectionViewCell
         
-        let blockData = blockManager.getBlockList("자기계발").list[indexPath.row]
-        cell.plusLabel.textColor = blockData.color
-        cell.totalProductivityLabel.text = "\(blockData.output)"
-        cell.blockColorTag.backgroundColor = blockData.color
-        cell.blockIcon.image = blockData.icon
-        cell.blockLabel.text = blockData.label
+        let index = indexPath.row
+        let blockDataList = blockManager.getBlockList("자기계발").list
         
-        return cell
+        /// 일반 블럭 생성
+        if index+1 <= blockDataList.count {  // 1 6
+            cell.plusLabel.textColor = blockDataList[index].color
+            cell.totalProductivityLabel.text = "\(blockDataList[index].output)"
+            cell.blockColorTag.backgroundColor = blockDataList[index].color
+            cell.blockIcon.image = blockDataList[index].icon
+            cell.blockLabel.text = blockDataList[index].label
+            cell.stroke.isHidden = true
+            return cell
+        }
+        
+        /// 블럭 추가 버튼
+        else {
+            cell.plusLabel.isHidden = true
+            cell.totalProductivityLabel.isHidden = true
+            cell.blockColorTag.isHidden = true
+            cell.blockLabel.isHidden = true
+            cell.blockIcon.image = UIImage(systemName: "plus.circle.fill")
+            cell.blockIcon.tintColor = GrayScale.addBlockButton
+            cell.backgroundColor = .white
+            cell.stroke.isHidden = false
+            return cell
+        }
     }
-    
 }
 
 

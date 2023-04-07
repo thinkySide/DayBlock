@@ -25,6 +25,9 @@ enum GrayScale {
     /// Block Background Color
     static let entireBlock = UIColor(rgb: 0xE8E8E8)
     static let contentsBlock = UIColor(rgb: 0xF4F5F7)
+    
+    /// Component Color
+    static let addBlockButton = UIColor(rgb: 0xC5C5C5)
 }
 
 
