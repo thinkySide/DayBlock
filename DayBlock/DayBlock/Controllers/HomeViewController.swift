@@ -133,7 +133,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         let blockDataList = blockManager.getBlockList("자기계발").list
         
         /// 일반 블럭 생성
-        if index+1 <= blockDataList.count {  // 1 6
+        if index+1 <= blockDataList.count {
             cell.plusLabel.textColor = blockDataList[index].color
             cell.totalProductivityLabel.text = "\(blockDataList[index].output)"
             cell.blockColorTag.backgroundColor = blockDataList[index].color

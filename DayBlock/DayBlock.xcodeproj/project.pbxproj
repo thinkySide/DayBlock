@@ -16,6 +16,7 @@
 		0719648E29DF044C009CA1A4 /* GroupSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648D29DF044C009CA1A4 /* GroupSelectButton.swift */; };
 		0719649029E04F7E009CA1A4 /* AddBlockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648F29E04F7E009CA1A4 /* AddBlockViewController.swift */; };
 		0719649229E04FD8009CA1A4 /* AddBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719649129E04FD8009CA1A4 /* AddBlockView.swift */; };
+		0719649429E0692E009CA1A4 /* MainTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719649329E0692E009CA1A4 /* MainTextFieldView.swift */; };
 		078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B529D7152F00F239BA /* AppDelegate.swift */; };
 		078C50B829D7152F00F239BA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B729D7152F00F239BA /* SceneDelegate.swift */; };
 		078C50BA29D7152F00F239BA /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B929D7152F00F239BA /* HomeViewController.swift */; };
@@ -50,6 +51,7 @@
 		0719648D29DF044C009CA1A4 /* GroupSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSelectButton.swift; sourceTree = "<group>"; };
 		0719648F29E04F7E009CA1A4 /* AddBlockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBlockViewController.swift; sourceTree = "<group>"; };
 		0719649129E04FD8009CA1A4 /* AddBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBlockView.swift; sourceTree = "<group>"; };
+		0719649329E0692E009CA1A4 /* MainTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTextFieldView.swift; sourceTree = "<group>"; };
 		078C50B229D7152F00F239BA /* DayBlock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayBlock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		078C50B529D7152F00F239BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		078C50B729D7152F00F239BA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				0719648B29DDB1C0009CA1A4 /* PaintBlock.swift */,
 				0719648D29DF044C009CA1A4 /* GroupSelectButton.swift */,
 				0719648729DC5066009CA1A4 /* TabBarActiveStackView.swift */,
+				0719649329E0692E009CA1A4 /* MainTextFieldView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -318,6 +321,7 @@
 				0719648829DC5066009CA1A4 /* TabBarActiveStackView.swift in Sources */,
 				078C50B829D7152F00F239BA /* SceneDelegate.swift in Sources */,
 				0719649029E04F7E009CA1A4 /* AddBlockViewController.swift in Sources */,
+				0719649429E0692E009CA1A4 /* MainTextFieldView.swift in Sources */,
 				0719648629DAF9A5009CA1A4 /* BlockCollectionViewCell.swift in Sources */,
 				078C50F829D9BBFE00F239BA /* StorageViewController.swift in Sources */,
 				078C50E829D72D2900F239BA /* Constants.swift in Sources */,
