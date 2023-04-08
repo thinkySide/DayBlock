@@ -57,7 +57,7 @@ final class AddBlockView: UIView {
     
     private let groupSelect: SelectForm = {
         let select = SelectForm()
-        
+        select.ofType(.label)
         return select
     }()
     

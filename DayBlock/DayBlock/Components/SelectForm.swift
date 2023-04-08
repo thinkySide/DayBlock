@@ -9,6 +9,12 @@ import UIKit
 
 final class SelectForm: UIView {
     
+    enum SelectType {
+        case label
+        case icon
+        case color
+    }
+    
     // MARK: - Component
     
     private lazy var contentView: UIView = {
@@ -19,7 +25,7 @@ final class SelectForm: UIView {
     }()
     
     private lazy var contentStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [selectLabel, selectStackView])
+        let stack = UIStackView(arrangedSubviews: [selectTitle, selectStackView])
         stack.axis = .horizontal
         stack.distribution = .fill
         stack.alignment = .center
@@ -27,7 +33,7 @@ final class SelectForm: UIView {
         return stack
     }()
     
-    private let selectLabel: UILabel = {
+    private let selectTitle: UILabel = {
         let label = UILabel()
         label.text = "그룹"
         label.font = UIFont(name: Pretendard.semiBold, size: 16)
@@ -37,12 +43,21 @@ final class SelectForm: UIView {
     }()
     
     private lazy var selectStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [polygon])
+        let stack = UIStackView()
         stack.axis = .horizontal
         stack.distribution = .fill
         stack.alignment = .fill
         stack.spacing = 8
         return stack
+    }()
+    
+    private let selectLabel: UILabel = {
+        let label = UILabel()
+        label.text = "자기계발" // ⛳️
+        label.font = UIFont(name: Pretendard.semiBold, size: 18)
+        label.textColor = GrayScale.mainText
+        label.textAlignment = .right
+        return label
     }()
     
     private let polygon: UIImageView = {
@@ -65,6 +80,22 @@ final class SelectForm: UIView {
     
     
     // MARK: - Method
+    
+    func ofType(_ type: SelectType) {
+        switch type {
+        case .label:
+            [selectLabel, polygon].forEach {
+                selectStackView.addArrangedSubview($0)}
+            
+        case .icon:
+            [polygon].forEach {
+                selectStackView.addArrangedSubview($0)}
+            
+        case .color:
+            [selectLabel, polygon].forEach {
+                selectStackView.addArrangedSubview($0)}
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -91,7 +122,11 @@ final class SelectForm: UIView {
             .forEach { addSubview($0) }
         
         /// 2. translatesAutoresizingMaskIntoConstraints = false
-        [contentView, contentStackView, selectLabel, selectStackView, polygon, seperator]
+        [
+            contentView, contentStackView, selectTitle, selectStackView,
+            selectLabel ,polygon,
+            seperator
+        ]
             .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }
     
