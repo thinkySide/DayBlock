@@ -9,6 +9,15 @@ import UIKit
 
 final class HomeView: UIView {
     
+    // MARK: - TrackingMode
+    
+    enum TrakingMode {
+        case active
+        case inactive
+    }
+    
+    var trackingMode: TrakingMode = .inactive
+    
     // MARK: - Component
     
     let dateLabel: UILabel = {
@@ -71,9 +80,28 @@ final class HomeView: UIView {
         return label
     }()
     
+    private let trackingTimeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "00:00:00"
+        label.font = UIFont(name: Poppins.bold, size: 36)
+        label.textColor = GrayScale.mainText
+        label.textAlignment = .center
+        label.isHidden = true
+        return label
+    }()
+    
+    private let trackingProgressView: UIProgressView = {
+        let progress = UIProgressView()
+        progress.trackTintColor = GrayScale.contentsBlock
+        progress.progressTintColor = .systemBlue
+        progress.progress = 0.7
+        progress.isHidden = true
+        return progress
+    }()
+    
     private lazy var trackingButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: Icon.trackingStartButton), for: .normal)
+        button.setImage(UIImage(named: Icon.trackingStart), for: .normal)
         button.addTarget(self, action: #selector(trackingButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -85,7 +113,46 @@ final class HomeView: UIView {
     // MARK: - Method
     
     @objc func trackingButtonTapped() {
-        print(#function)
+        
+        /// Tracking 모드 변경
+        trackingMode = trackingMode == .inactive ? .active : .inactive
+        
+        /// Tracking 모드 설정
+        switch trackingMode {
+        case .active:
+            print("Tracking 시작")
+            
+            /// Tracking 버튼 설정
+            trackingButton.setImage(
+                UIImage(named: Icon.trackingStop),
+                for: .normal)
+            
+            /// messageLabel 설정
+            messageLabel.isHidden = true
+            
+            /// trackingTimeLabel 설정
+            trackingTimeLabel.isHidden = false
+            
+            /// trackingProgressView 설정
+            trackingProgressView.isHidden = false
+            
+        case .inactive:
+            print("Tracking 종료")
+            
+            /// Tracking 버튼 설정
+            trackingButton.setImage(
+                UIImage(named: Icon.trackingStart),
+                for: .normal)
+            
+            /// messageLabel 설정
+            messageLabel.isHidden = false
+            
+            /// trackingTimeLabel 설정
+            trackingTimeLabel.isHidden = true
+            
+            /// trackingProgressView 설정
+            trackingProgressView.isHidden = true
+        }
     }
     
     override init(frame: CGRect) {
@@ -111,6 +178,8 @@ final class HomeView: UIView {
             blockPreview,
             blockCollectionView,
             messageLabel,
+            trackingTimeLabel,
+            trackingProgressView,
             trackingButton,
             tabBarStackView,
         ]
@@ -131,7 +200,7 @@ final class HomeView: UIView {
             
             /// dateLabel
             dateLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
-            dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
+            dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin+2), /// 시각 보정
             
             /// timeLabel
             timeLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 5),
@@ -140,7 +209,7 @@ final class HomeView: UIView {
             
             /// productivityLabel
             productivityLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 3),
-            productivityLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
+            productivityLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin+2), /// 시각 보정
             
             /// blockPreview
             blockPreview.centerYAnchor.constraint(equalTo: timeLabel.centerYAnchor),
@@ -157,6 +226,16 @@ final class HomeView: UIView {
             /// messageLabel
             messageLabel.topAnchor.constraint(equalTo: blockCollectionView.bottomAnchor, constant: 64),
             messageLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            /// trackingTimeLabel
+            trackingTimeLabel.bottomAnchor.constraint(equalTo: trackingButton.topAnchor, constant: -24),
+            trackingTimeLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            /// trackingProgressView
+            trackingProgressView.centerYAnchor.constraint(equalTo: trackingButton.centerYAnchor),
+            trackingProgressView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: -1),
+            trackingProgressView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 1),
+            trackingProgressView.heightAnchor.constraint(equalToConstant: 10),
             
             /// trackingButton
             trackingButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -48),

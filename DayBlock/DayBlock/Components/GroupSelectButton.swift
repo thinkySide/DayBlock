@@ -59,8 +59,8 @@ final class GroupSelectButton: UIButton {
             groupStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             
             /// groupPolygon
-            groupPolygon.widthAnchor.constraint(equalToConstant: 28),
-            groupPolygon.heightAnchor.constraint(equalToConstant: 28),
+            groupPolygon.widthAnchor.constraint(equalToConstant: 22),
+            groupPolygon.heightAnchor.constraint(equalToConstant: 22),
         ])
     }
     
