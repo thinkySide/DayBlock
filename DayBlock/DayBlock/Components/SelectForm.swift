@@ -60,6 +60,21 @@ final class SelectForm: UIView {
         return label
     }()
     
+    private let selectIcon: UIImageView = {
+        let image = UIImageView()
+        image.contentMode = .scaleAspectFill
+        image.tintColor = GrayScale.mainText
+        image.image = UIImage(systemName: "batteryblock.fill")
+        return image
+    }()
+    
+    private let selectColor: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemBlue // ⛳️
+        view.clipsToBounds = true
+        return view
+    }()
+    
     private let polygon: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
@@ -79,23 +94,34 @@ final class SelectForm: UIView {
     
     
     
-    // MARK: - Method
+    // MARK: - Custom Method
     
-    func ofType(_ type: SelectType) {
+    func ofType(_ label: String, _ type: SelectType) {
+        
+        /// SelectForm 제목 라벨
+        selectTitle.text = label
+        
+        /// SelectForm 스타일 설정
         switch type {
         case .label:
             [selectLabel, polygon].forEach {
                 selectStackView.addArrangedSubview($0)}
             
         case .icon:
-            [polygon].forEach {
+            [selectIcon, polygon].forEach {
                 selectStackView.addArrangedSubview($0)}
             
         case .color:
-            [selectLabel, polygon].forEach {
+            [selectColor, polygon].forEach {
                 selectStackView.addArrangedSubview($0)}
         }
     }
+    
+    @objc func selectFormTapped() {
+        print(#function)
+    }
+    
+    // MARK: - Initial
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -108,12 +134,16 @@ final class SelectForm: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    
-    // MARK: - Method
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        
+        /// CornerRadius
+        selectColor.layer.cornerRadius = selectColor.frame.height / 4
+    }
     
     func setupInitial() {
-        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(selectFormTapped))
+        self.addGestureRecognizer(gesture)
     }
     
     func setupAddSubView() {
@@ -148,6 +178,15 @@ final class SelectForm: UIView {
             contentStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
             contentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             contentStackView.heightAnchor.constraint(equalToConstant: 40),
+            
+            
+            /// selectIcon
+            selectIcon.widthAnchor.constraint(equalToConstant: 24),
+            selectIcon.heightAnchor.constraint(equalTo: selectIcon.widthAnchor),
+            
+            /// selectColor
+            selectColor.widthAnchor.constraint(equalToConstant: 24),
+            selectColor.heightAnchor.constraint(equalTo: selectColor.widthAnchor),
             
             /// seperator
             seperator.topAnchor.constraint(equalTo: contentStackView.bottomAnchor, constant: 8),
