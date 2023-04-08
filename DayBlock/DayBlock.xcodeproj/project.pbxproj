@@ -18,6 +18,7 @@
 		0719649229E04FD8009CA1A4 /* AddBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719649129E04FD8009CA1A4 /* AddBlockView.swift */; };
 		0719649429E0692E009CA1A4 /* FieldForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719649329E0692E009CA1A4 /* FieldForm.swift */; };
 		0719649629E0763C009CA1A4 /* SelectForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719649529E0763C009CA1A4 /* SelectForm.swift */; };
+		0719649829E148CA009CA1A4 /* ContentsBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719649729E148CA009CA1A4 /* ContentsBlock.swift */; };
 		078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B529D7152F00F239BA /* AppDelegate.swift */; };
 		078C50B829D7152F00F239BA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B729D7152F00F239BA /* SceneDelegate.swift */; };
 		078C50BA29D7152F00F239BA /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B929D7152F00F239BA /* HomeViewController.swift */; };
@@ -54,6 +55,7 @@
 		0719649129E04FD8009CA1A4 /* AddBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBlockView.swift; sourceTree = "<group>"; };
 		0719649329E0692E009CA1A4 /* FieldForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldForm.swift; sourceTree = "<group>"; };
 		0719649529E0763C009CA1A4 /* SelectForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectForm.swift; sourceTree = "<group>"; };
+		0719649729E148CA009CA1A4 /* ContentsBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsBlock.swift; sourceTree = "<group>"; };
 		078C50B229D7152F00F239BA /* DayBlock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayBlock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		078C50B529D7152F00F239BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		078C50B729D7152F00F239BA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		078C50D229D728C800F239BA /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				0719649729E148CA009CA1A4 /* ContentsBlock.swift */,
 				078C50F329D73D0200F239BA /* BlockPreview.swift */,
 				0719648B29DDB1C0009CA1A4 /* PaintBlock.swift */,
 				0719648D29DF044C009CA1A4 /* GroupSelectButton.swift */,
@@ -313,6 +316,7 @@
 				078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */,
 				0719648C29DDB1C0009CA1A4 /* PaintBlock.swift in Sources */,
 				0719648E29DF044C009CA1A4 /* GroupSelectButton.swift in Sources */,
+				0719649829E148CA009CA1A4 /* ContentsBlock.swift in Sources */,
 				0719648A29DC5CB4009CA1A4 /* BlockManager.swift in Sources */,
 				078C50F429D73D0200F239BA /* BlockPreview.swift in Sources */,
 				0719648329DAF4B5009CA1A4 /* BlockGroup.swift in Sources */,

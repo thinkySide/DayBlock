@@ -69,6 +69,12 @@ final class HomeView: UIView {
         return collectionView
     }()
     
+    private let trackingBlock: ContentsBlock = {
+        let block = ContentsBlock()
+        block.isHidden = true
+        return block
+    }()
+    
     private let messageLabel: UILabel = {
         let label = UILabel()
         label.text = "오늘 하루는 어떤 블럭으로\n채우고 계신가요?" // ⛳️
@@ -127,6 +133,12 @@ final class HomeView: UIView {
                 UIImage(named: Icon.trackingStop),
                 for: .normal)
             
+            /// blockCollectionView 설정
+            blockCollectionView.isHidden = true
+            
+            /// trackingBlock 설정
+            trackingBlock.isHidden = false
+            
             /// messageLabel 설정
             messageLabel.isHidden = true
             
@@ -143,6 +155,12 @@ final class HomeView: UIView {
             trackingButton.setImage(
                 UIImage(named: Icon.trackingStart),
                 for: .normal)
+            
+            /// blockCollectionView 설정
+            blockCollectionView.isHidden = false
+            
+            /// trackingBlock 설정
+            trackingBlock.isHidden = true
             
             /// messageLabel 설정
             messageLabel.isHidden = false
@@ -177,6 +195,7 @@ final class HomeView: UIView {
             dateLabel, timeLabel, productivityLabel,
             blockPreview,
             blockCollectionView,
+            trackingBlock,
             messageLabel,
             trackingTimeLabel,
             trackingProgressView,
@@ -184,7 +203,6 @@ final class HomeView: UIView {
             tabBarStackView,
         ]
             .forEach {
-                
                 /// 1. addSubView(component)
                 addSubview($0)
                 
@@ -222,6 +240,10 @@ final class HomeView: UIView {
             blockCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             blockCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             blockCollectionView.heightAnchor.constraint(equalToConstant: Size.blockSize.height),
+            
+            /// trackingBlock
+            trackingBlock.topAnchor.constraint(equalTo: productivityLabel.bottomAnchor, constant: 32),
+            trackingBlock.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             /// messageLabel
             messageLabel.topAnchor.constraint(equalTo: blockCollectionView.bottomAnchor, constant: 64),
