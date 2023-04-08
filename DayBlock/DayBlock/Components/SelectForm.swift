@@ -46,7 +46,7 @@ final class SelectForm: UIView {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.distribution = .fill
-        stack.alignment = .fill
+        stack.alignment = .center
         stack.spacing = 8
         return stack
     }()
@@ -78,6 +78,7 @@ final class SelectForm: UIView {
     private let polygon: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
+        image.tintColor = UIColor(rgb: 0x676767)
         image.image = UIImage(named: Icon.groupPolygon)
         return image
     }()

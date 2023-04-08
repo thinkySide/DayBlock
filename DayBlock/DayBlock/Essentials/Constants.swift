@@ -72,6 +72,7 @@ enum Size {
     static let blockSize = CGSize(width: 180, height: 180)
     static let blockSpacing: CGFloat = 32
     static let seperator: CGFloat = 1
+    static let selectFormSpacing: CGFloat = 24
 }
 
 

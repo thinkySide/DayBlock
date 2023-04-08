@@ -22,7 +22,7 @@ final class AddBlockView: UIView {
     
     private let blockPreviewColorTag: UIView = {
         let view = UIView()
-        view.backgroundColor = GrayScale.mainText // ⛳️
+        view.backgroundColor = .systemBlue // ⛳️
         view.clipsToBounds = true
         view.layer.cornerRadius = 9
         
@@ -55,9 +55,31 @@ final class AddBlockView: UIView {
         return field
     }()
     
+    private lazy var selectFormStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [
+            groupSelect, colorSelect, iconSelect])
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
+        stack.spacing = Size.selectFormSpacing
+        return stack
+    }()
+    
     private let groupSelect: SelectForm = {
         let select = SelectForm()
         select.ofType("그룹", .label)
+        return select
+    }()
+    
+    private let colorSelect: SelectForm = {
+        let select = SelectForm()
+        select.ofType("색상", .color)
+        return select
+    }()
+    
+    private let iconSelect: SelectForm = {
+        let select = SelectForm()
+        select.ofType("아이콘", .icon)
         return select
     }()
     
@@ -98,14 +120,15 @@ final class AddBlockView: UIView {
         
         /// 1. addSubView(component)
         [
-            blockPreview, nameTextField, groupSelect,
+            blockPreview, nameTextField, selectFormStackView,
         ]
             .forEach { addSubview($0) }
         
         /// 2. translatesAutoresizingMaskIntoConstraints = false
         [
-            blockPreview, blockPreviewColorTag, blockPreviewIcon, blockPreviewLabel,
-            nameTextField, groupSelect,
+            blockPreview, blockPreviewColorTag, blockPreviewIcon,
+            blockPreviewLabel, nameTextField, selectFormStackView,
+            groupSelect, colorSelect, iconSelect,
         ]
             .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }
@@ -143,10 +166,10 @@ final class AddBlockView: UIView {
             nameTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             nameTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
             
-            /// groupSelect
-            groupSelect.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 32),
-            groupSelect.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
-            groupSelect.trailingAnchor.constraint(equalTo: trailingAnchor),
+            /// selectFormStackView
+            selectFormStackView.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 24),
+            selectFormStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
+            selectFormStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }
 }
