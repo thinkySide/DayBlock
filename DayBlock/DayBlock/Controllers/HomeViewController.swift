@@ -40,11 +40,7 @@ final class HomeViewController: UIViewController {
         viewManager.blockPreview.block17.painting(.secondHalf)
         viewManager.blockPreview.block12.painting(.fullTime)
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-    }
+
     
     
     // MARK: - Method
@@ -70,6 +66,9 @@ final class HomeViewController: UIViewController {
     }
     
     func setupDelegate() {
+        
+        /// HomeView
+        viewManager.delegate = self
         
         /// blockCollectionView
         viewManager.blockCollectionView.dataSource = self
@@ -191,4 +190,15 @@ extension HomeViewController: UIScrollViewDelegate {
                                               y: scrollView.contentInset.top)
     }
     
+}
+
+
+
+// MARK: - HomeViewDelegate
+
+extension HomeViewController: HomeViewDelegate {
+    func hideTabBar() {
+        viewManager.tabBarStackView.isHidden = viewManager.tabBarStackView.isHidden == true ? false : true
+        tabBarController?.tabBar.isHidden = tabBarController?.tabBar.isHidden == true ? false : true
+    }
 }

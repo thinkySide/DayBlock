@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol HomeViewDelegate: AnyObject {
+    func hideTabBar()
+}
+
 final class HomeView: UIView {
     
     // MARK: - TrackingMode
@@ -17,6 +21,9 @@ final class HomeView: UIView {
     }
     
     var trackingMode: TrakingMode = .inactive
+    weak var delegate: HomeViewDelegate?
+    
+    
     
     // MARK: - Component
     
@@ -70,7 +77,7 @@ final class HomeView: UIView {
     }()
     
     private let trackingBlock: ContentsBlock = {
-        let block = ContentsBlock(frame: .zero, blockSize: .middle)
+        let block = ContentsBlock(frame: .zero, blockSize: .large)
         block.isHidden = true
         return block
     }()
@@ -112,7 +119,7 @@ final class HomeView: UIView {
         return button
     }()
 
-    private let tabBarStackView = TabBarActiveStackView()
+    let tabBarStackView = TabBarActiveStackView()
     
     
     
@@ -133,22 +140,13 @@ final class HomeView: UIView {
                 UIImage(named: Icon.trackingStop),
                 for: .normal)
             
-            /// blockCollectionView 설정
+            /// 공통 설정
+            delegate?.hideTabBar()
             blockCollectionView.isHidden = true
-            
-            /// trackingBlock 설정
             trackingBlock.isHidden = false
-            
-            /// messageLabel 설정
             messageLabel.isHidden = true
-            
-            /// trackingTimeLabel 설정
             trackingTimeLabel.isHidden = false
-            
-            /// trackingProgressView 설정
             trackingProgressView.isHidden = false
-            
-            
             
         case .inactive:
             print("Tracking 종료")
@@ -158,19 +156,12 @@ final class HomeView: UIView {
                 UIImage(named: Icon.trackingStart),
                 for: .normal)
             
-            /// blockCollectionView 설정
+            /// 공통 설정
+            delegate?.hideTabBar()
             blockCollectionView.isHidden = false
-            
-            /// trackingBlock 설정
             trackingBlock.isHidden = true
-            
-            /// messageLabel 설정
             messageLabel.isHidden = false
-            
-            /// trackingTimeLabel 설정
             trackingTimeLabel.isHidden = true
-            
-            /// trackingProgressView 설정
             trackingProgressView.isHidden = true
         }
     }

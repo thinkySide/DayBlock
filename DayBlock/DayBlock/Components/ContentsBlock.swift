@@ -95,7 +95,6 @@ final class ContentsBlock: UIView {
         setupInitial()
         setupAddSubView()
         setupConstraints()
-        print(self.blockSize)
     }
     
     required init?(coder: NSCoder) {
