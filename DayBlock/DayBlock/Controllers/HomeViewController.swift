@@ -198,7 +198,7 @@ extension HomeViewController: UIScrollViewDelegate {
 
 extension HomeViewController: HomeViewDelegate {
     func hideTabBar() {
-        viewManager.tabBarStackView.isHidden = viewManager.tabBarStackView.isHidden == true ? false : true
-        tabBarController?.tabBar.isHidden = tabBarController?.tabBar.isHidden == true ? false : true
+        viewManager.tabBarStackView.alpha = viewManager.tabBarStackView.alpha == 1 ? 0 : 1
+        tabBarController?.tabBar.alpha = tabBarController?.tabBar.alpha == 1 ? 0 : 1
     }
 }
