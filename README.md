@@ -160,3 +160,21 @@ init메서드에 print문을 찍으며 오류를 잡아냈습니다.
 <img width="300" src="https://user-images.githubusercontent.com/113565086/230638454-51d49dca-df1d-450c-9f7f-3c40315fdb7b.png">
 
 <br>
+
+### **Day 39 - 23.04.08**
+
+- SelectForm 컴포넌트화 
+
+- **SelectForm 스타일 열거형 정의**     
+그룹 선택, 색상, 아이콘 SelectForm을 미리 지정한 style에 맞게 변경 가능하도록   
+열거형과 메서드를 생성했습니다. `ofType(_ label: String, _ type: SelectType)`
+
+- **TrackingMode 화면 디자인**       
+ trackingButton 클릭 시 전환되는 화면을 구성했습니다.   
+ 추후 애니메이션을 적용시킬 예정입니다.
+
+- ContentsBlock 컴포넌트화
+
+<img width="300" src="https://user-images.githubusercontent.com/113565086/230752253-00def2c7-be44-4e40-b409-648bcde0b76e.png">
+
+<br>
