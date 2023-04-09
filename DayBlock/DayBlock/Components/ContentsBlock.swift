@@ -79,7 +79,7 @@ final class ContentsBlock: UIView {
     
     // MARK: - Variable
     private let middleSize = CGSize(width: 180, height: 180)
-    private let largeSize = CGSize(width: 280, height: 280)
+    private let largeSize = CGSize(width: 260, height: 260)
     
     
     
@@ -114,14 +114,21 @@ final class ContentsBlock: UIView {
             
             /// 디자인 설정
             plus.font = UIFont(name: Poppins.bold, size: 18)
+            plus.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 16).isActive = true
+            plus.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 16).isActive = true
+            
             totalProductivityLabel.font = UIFont(name: Poppins.bold, size: 18)
+            totalProductivityLabel.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 16).isActive = true
+            
             colorTag.layer.cornerRadius = 9
             colorTag.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -32).isActive = true
             colorTag.widthAnchor.constraint(equalToConstant: 20).isActive = true
             colorTag.heightAnchor.constraint(equalToConstant: 30).isActive = true
+            
             icon.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 54).isActive = true
             icon.widthAnchor.constraint(equalToConstant: 56).isActive = true
             icon.heightAnchor.constraint(equalToConstant: 56).isActive = true
+            
             taskLabel.font = UIFont(name: Pretendard.bold, size: 17)
             
         case .large:
@@ -130,14 +137,21 @@ final class ContentsBlock: UIView {
             
             /// 디자인 설정
             plus.font = UIFont(name: Poppins.bold, size: 24)
+            plus.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 24).isActive = true
+            plus.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 24).isActive = true
+            
             totalProductivityLabel.font = UIFont(name: Poppins.bold, size: 24)
+            totalProductivityLabel.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 24).isActive = true
+            
             colorTag.layer.cornerRadius = 11
             colorTag.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -48).isActive = true
             colorTag.widthAnchor.constraint(equalToConstant: 26).isActive = true
             colorTag.heightAnchor.constraint(equalToConstant: 38).isActive = true
-            icon.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 72).isActive = true
+            
+            icon.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 68).isActive = true
             icon.widthAnchor.constraint(equalToConstant: 88).isActive = true
             icon.heightAnchor.constraint(equalToConstant: 88).isActive = true
+            
             taskLabel.font = UIFont(name: Pretendard.bold, size: 24)
         }
     }
@@ -163,12 +177,7 @@ final class ContentsBlock: UIView {
             contentsView.leadingAnchor.constraint(equalTo: leadingAnchor),
             contentsView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
-            /// plus
-            plus.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 16),
-            plus.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 16),
-            
             /// totalProductivityLabel
-            totalProductivityLabel.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 16),
             totalProductivityLabel.leadingAnchor.constraint(equalTo: plus.trailingAnchor),
             
             /// colorTag

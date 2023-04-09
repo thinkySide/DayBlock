@@ -47,7 +47,6 @@ final class BlockPreview: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        print(#function)
         setupInitial()
         setupAddSubView()
         setupConstraints()
