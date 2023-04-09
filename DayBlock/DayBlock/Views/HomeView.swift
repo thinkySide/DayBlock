@@ -70,7 +70,7 @@ final class HomeView: UIView {
     }()
     
     private let trackingBlock: ContentsBlock = {
-        let block = ContentsBlock()
+        let block = ContentsBlock(frame: .zero, blockSize: .middle)
         block.isHidden = true
         return block
     }()
@@ -147,6 +147,8 @@ final class HomeView: UIView {
             
             /// trackingProgressView 설정
             trackingProgressView.isHidden = false
+            
+            
             
         case .inactive:
             print("Tracking 종료")

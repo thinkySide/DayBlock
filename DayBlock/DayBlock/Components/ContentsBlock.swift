@@ -9,6 +9,17 @@ import UIKit
 
 final class ContentsBlock: UIView {
     
+    // MARK: - Size
+    
+    enum BlockSize {
+        case middle
+        case large
+    }
+    
+    var blockSize: BlockSize
+    
+    
+    
     // MARK: - Component
 
     private lazy var contentsView: UIView = {
@@ -69,17 +80,22 @@ final class ContentsBlock: UIView {
     }()
     
     
+    
     // MARK: - Variable
+    private let middleSize = CGSize(width: 180, height: 180)
+    private let largeSize = CGSize(width: 240, height: 240)
     
     
     
     // MARK: - Method
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, blockSize: BlockSize) {
+        self.blockSize = blockSize
         super.init(frame: frame)
         setupInitial()
         setupAddSubView()
         setupConstraints()
+        print(self.blockSize)
     }
     
     required init?(coder: NSCoder) {
@@ -88,17 +104,22 @@ final class ContentsBlock: UIView {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        
+
         /// CornerRaius
         self.clipsToBounds = true
         self.layer.cornerRadius = self.frame.height / 7
     }
-    
-    
-    
-    // MARK: - Method
+
     func setupInitial() {
-        
+        /// BlockSize
+        switch blockSize {
+        case .middle:
+            self.widthAnchor.constraint(equalToConstant: middleSize.width).isActive = true
+            self.heightAnchor.constraint(equalToConstant: middleSize.height).isActive = true
+        case .large:
+            self.widthAnchor.constraint(equalToConstant: largeSize.width).isActive = true
+            self.heightAnchor.constraint(equalToConstant: largeSize.height).isActive = true
+        }
     }
     
     func setupAddSubView() {
@@ -115,10 +136,6 @@ final class ContentsBlock: UIView {
     func setupConstraints() {
         /// 3. NSLayoutConstraint.activate
         NSLayoutConstraint.activate([
-            
-            /// ContentsBlock(self)
-            self.widthAnchor.constraint(equalToConstant: Size.blockSize.width),
-            self.heightAnchor.constraint(equalToConstant: Size.blockSize.height),
             
             /// contentsView
             contentsView.topAnchor.constraint(equalTo: topAnchor),
