@@ -179,20 +179,23 @@ init메서드에 print문을 찍으며 오류를 잡아냈습니다.
 
 <br>
 
-### **Day 39 - 23.04.08**
+### **Day 40 - 23.04.09**
 
-- SelectForm 컴포넌트화 
+- **ContentsBlock 커스텀 생성자 사용**   
+ContentsBlock을 컴포넌트화 하기 위해 .middle, .large 사이즈로 나눠 생성할 수 있도록 했습니다.   
+기존 UIView의 생성자를 재정의해서 사용하는 것이 아닌, 커스텀 생성자를 만들어 구현했습니다.   
+[문제 해결 기록 : 유동적인 사이즈의 컴포넌트 생성하기](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/27.md)
 
-- **SelectForm 스타일 열거형 정의**     
-그룹 선택, 색상, 아이콘 SelectForm을 미리 지정한 style에 맞게 변경 가능하도록   
-열거형과 메서드를 생성했습니다. `ofType(_ label: String, _ type: SelectType)`
+- **HomeViewDelegate 생성**    
+트래킹 모드 진입 시, TabBarController를 숨기기 위해 커스텀 Delegate 패턴을 활용해 구현했습니다.
 
-- **TrackingMode 화면 디자인**       
- trackingButton 클릭 시 전환되는 화면을 구성했습니다.   
- 추후 애니메이션을 적용시킬 예정입니다.
+- **TrackingMode 사이즈 조정**   
+trackingTimeLabel을 trackingBlock과 trackingButton 가운데에 배치하기 위해 제약조건을 업데이트했습니다.   
+[문제 해결 기록 : 두개 View 사이 정가운데에 View 배치하기](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/28.md)
 
-- ContentsBlock 컴포넌트화
+**+ 프로젝트 기간 점검**   
+환경 셋팅, MVC 패턴 구성, 메인화면 레이아웃 잡기 목표를 가지고 계획했던 23.04.09 기준 진행상황은 예정보다 약 20% 정도 더 진행되었습니다. 트래킹, 블럭 추가 화면의 디자인이 거의 마무리되었기 때문에 남는 시간은 CoreData 관련 공부, 리팩토링에 집중할 계획입니다.
 
-<img width="300" src="https://user-images.githubusercontent.com/113565086/230752253-00def2c7-be44-4e40-b409-648bcde0b76e.png">
+<img width="300" src="https://user-images.githubusercontent.com/113565086/230778508-5ab590e9-d78c-4607-a5c9-43f64ee0c00b.png">
 
 <br>
