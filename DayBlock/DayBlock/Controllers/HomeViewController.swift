@@ -13,10 +13,13 @@ final class HomeViewController: UIViewController {
     
     private let viewManager = HomeView()
     private let blockManager = BlockManager()
+    private var timeTracker = TimeTracker()
+    
     
     // MARK: - Component
     
     private var dateTimer: Timer!
+    private var trackingTimer: Timer!
     private let groupSelectButton = GroupSelectButton()
     
     
@@ -112,6 +115,8 @@ final class HomeViewController: UIViewController {
         viewManager.dateLabel.text = dateFormatter.string(from: Date())
     }
     
+    /// 시간 Tracking
+    
 }
 
 
@@ -197,6 +202,20 @@ extension HomeViewController: UIScrollViewDelegate {
 // MARK: - HomeViewDelegate
 
 extension HomeViewController: HomeViewDelegate {
+    func startTracking() {
+        trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTrackingTime), userInfo: nil, repeats: true)
+    }
+    
+    func stopTracking() {
+        trackingTimer.invalidate()
+        timeTracker.totalTime = 0
+    }
+    
+    @objc func updateTrackingTime() {
+        timeTracker.totalTime += 1
+        viewManager.updateTrackingLabel(time: timeTracker.timeFormatter)
+    }
+    
     func hideTabBar() {
         viewManager.tabBarStackView.alpha = viewManager.tabBarStackView.alpha == 1 ? 0 : 1
         tabBarController?.tabBar.alpha = tabBarController?.tabBar.alpha == 1 ? 0 : 1

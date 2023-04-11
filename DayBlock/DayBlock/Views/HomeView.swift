@@ -9,15 +9,14 @@ import UIKit
 
 protocol HomeViewDelegate: AnyObject {
     func hideTabBar()
+    func startTracking()
+    func stopTracking()
 }
 
 final class HomeView: UIView {
     
     // MARK: - Variable
     weak var delegate: HomeViewDelegate?
-    var trackingTimer: Timer!
-    var timeTracker = TimeTracker()
-    // var totalTrackingTime = 0
     
     
     
@@ -114,7 +113,7 @@ final class HomeView: UIView {
         let progress = UIProgressView()
         progress.trackTintColor = GrayScale.contentsBlock
         progress.progressTintColor = .systemBlue
-        progress.progress = 0.7
+        progress.progress = 0
         progress.isHidden = true
         return progress
     }()
@@ -165,7 +164,7 @@ final class HomeView: UIView {
         case .active:
             
             /// Tracking 시작
-            trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTrackingTime), userInfo: nil, repeats: true)
+            delegate?.startTracking()
             
             /// Tracking 버튼 설정
             trackingButton.setImage(
@@ -184,8 +183,7 @@ final class HomeView: UIView {
         case .inactive:
             
             /// Tracking 종료
-            trackingTimer.invalidate()
-            timeTracker.totalTime = 0
+            delegate?.stopTracking()
             trackingTimeLabel.text = "00:00:00"
             
             /// Tracking 버튼 설정
@@ -204,10 +202,8 @@ final class HomeView: UIView {
         }
     }
     
-    @objc func updateTrackingTime() {
-        timeTracker.totalTime += 1
-        trackingTimeLabel.text = "\(timeTracker.timeFormatter)"
-        print(timeTracker.totalTime)
+    func updateTrackingLabel(time: String) {
+        trackingTimeLabel.text = time
     }
     
     @objc func buildBlockButtonTapped() {
