@@ -16,7 +16,7 @@ final class HomeViewController: UIViewController {
     
     // MARK: - Component
     
-    private var timer: Timer!
+    private var dateTimer: Timer!
     private let groupSelectButton = GroupSelectButton()
     
     
@@ -62,7 +62,7 @@ final class HomeViewController: UIViewController {
         updateTime()
         
         /// 날짜 및 시간 업데이트용 타이머 설정
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+        dateTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
     }
     
     func setupDelegate() {

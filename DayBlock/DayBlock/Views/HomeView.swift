@@ -13,6 +13,14 @@ protocol HomeViewDelegate: AnyObject {
 
 final class HomeView: UIView {
     
+    // MARK: - Variable
+    weak var delegate: HomeViewDelegate?
+    var trackingTimer: Timer!
+    var timeTracker = TimeTracker()
+    // var totalTrackingTime = 0
+    
+    
+    
     // MARK: - TrackingMode
     
     enum TrakingMode {
@@ -21,7 +29,6 @@ final class HomeView: UIView {
     }
     
     var trackingMode: TrakingMode = .inactive
-    weak var delegate: HomeViewDelegate?
     
     
     
@@ -45,7 +52,7 @@ final class HomeView: UIView {
     
     private let productivityLabel: UILabel = {
         let label = UILabel()
-        label.text = "TODAY +5.5" // ⛳️
+        label.text = "TODAY +2.0" // ⛳️
         label.font = UIFont(name: Poppins.bold, size: 23)
         label.textColor = GrayScale.mainText
         label.textAlignment = .left
@@ -156,7 +163,9 @@ final class HomeView: UIView {
         /// Tracking 모드 설정
         switch trackingMode {
         case .active:
-            print("Tracking 시작")
+            
+            /// Tracking 시작
+            trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTrackingTime), userInfo: nil, repeats: true)
             
             /// Tracking 버튼 설정
             trackingButton.setImage(
@@ -173,7 +182,11 @@ final class HomeView: UIView {
             buildBlockButton.isHidden = false
             
         case .inactive:
-            print("Tracking 종료")
+            
+            /// Tracking 종료
+            trackingTimer.invalidate()
+            timeTracker.totalTime = 0
+            trackingTimeLabel.text = "00:00:00"
             
             /// Tracking 버튼 설정
             trackingButton.setImage(
@@ -189,6 +202,12 @@ final class HomeView: UIView {
             trackingProgressView.isHidden = true
             buildBlockButton.isHidden = true
         }
+    }
+    
+    @objc func updateTrackingTime() {
+        timeTracker.totalTime += 1
+        trackingTimeLabel.text = "\(timeTracker.timeFormatter)"
+        print(timeTracker.totalTime)
     }
     
     @objc func buildBlockButtonTapped() {
@@ -219,7 +238,6 @@ final class HomeView: UIView {
     }
     
     func setupAddSubView() {
-        
         [
             dateLabel, timeLabel, productivityLabel,
             blockPreview,

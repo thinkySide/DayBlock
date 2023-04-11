@@ -19,6 +19,7 @@
 		0719649429E0692E009CA1A4 /* FieldForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719649329E0692E009CA1A4 /* FieldForm.swift */; };
 		0719649629E0763C009CA1A4 /* SelectForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719649529E0763C009CA1A4 /* SelectForm.swift */; };
 		0719649829E148CA009CA1A4 /* ContentsBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719649729E148CA009CA1A4 /* ContentsBlock.swift */; };
+		0770802D29E55E7C00D66900 /* TimeTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770802C29E55E7C00D66900 /* TimeTracker.swift */; };
 		0771983F29E2F4D10021088A /* ButtonBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0771983E29E2F4D10021088A /* ButtonBackgroundColor.swift */; };
 		078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B529D7152F00F239BA /* AppDelegate.swift */; };
 		078C50B829D7152F00F239BA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B729D7152F00F239BA /* SceneDelegate.swift */; };
@@ -57,6 +58,7 @@
 		0719649329E0692E009CA1A4 /* FieldForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldForm.swift; sourceTree = "<group>"; };
 		0719649529E0763C009CA1A4 /* SelectForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectForm.swift; sourceTree = "<group>"; };
 		0719649729E148CA009CA1A4 /* ContentsBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsBlock.swift; sourceTree = "<group>"; };
+		0770802C29E55E7C00D66900 /* TimeTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTracker.swift; sourceTree = "<group>"; };
 		0771983E29E2F4D10021088A /* ButtonBackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonBackgroundColor.swift; sourceTree = "<group>"; };
 		078C50B229D7152F00F239BA /* DayBlock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayBlock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		078C50B529D7152F00F239BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				0719648029DAF38A009CA1A4 /* Block.swift */,
 				0719648229DAF4B5009CA1A4 /* BlockGroup.swift */,
 				0719648929DC5CB4009CA1A4 /* BlockManager.swift */,
+				0770802C29E55E7C00D66900 /* TimeTracker.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 				078C50F829D9BBFE00F239BA /* StorageViewController.swift in Sources */,
 				0719649629E0763C009CA1A4 /* SelectForm.swift in Sources */,
 				078C50E829D72D2900F239BA /* Constants.swift in Sources */,
+				0770802D29E55E7C00D66900 /* TimeTracker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
