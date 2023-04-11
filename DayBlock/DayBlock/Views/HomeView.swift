@@ -10,6 +10,7 @@ import UIKit
 protocol HomeViewDelegate: AnyObject {
     func hideTabBar()
     func startTracking()
+    // func pausedTracking()
     func stopTracking()
 }
 
@@ -32,6 +33,13 @@ final class HomeView: UIView {
     
     
     // MARK: - Component
+    
+    lazy var groupSelectButton: GroupSelectButton = {
+        let group = GroupSelectButton()
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(groupSelectButtonTapped))
+        group.addGestureRecognizer(gesture)
+        return group
+    }()
     
     let dateLabel: UILabel = {
         let label = UILabel()
@@ -132,8 +140,7 @@ final class HomeView: UIView {
         button.titleLabel?.font = UIFont(name: Pretendard.bold, size: 17)
         
         /// .normal
-        button.setTitle("블럭 1개 쌓기", for: .normal)
-        button.setTitleColor(GrayScale.mainText, for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.setBackgroundColor(GrayScale.mainText, for: .normal)
         
         /// .disabled
@@ -154,6 +161,10 @@ final class HomeView: UIView {
     
     // MARK: - Method
     
+    @objc func groupSelectButtonTapped() {
+        print(#function)
+    }
+    
     @objc func trackingButtonTapped() {
         
         /// Tracking 모드 변경
@@ -173,6 +184,7 @@ final class HomeView: UIView {
             
             /// 공통 설정
             delegate?.hideTabBar()
+            groupSelectButton.isHidden = true
             blockCollectionView.isHidden = true
             trackingBlock.isHidden = false
             messageLabel.isHidden = true
@@ -184,7 +196,6 @@ final class HomeView: UIView {
             
             /// Tracking 종료
             delegate?.stopTracking()
-            trackingTimeLabel.text = "00:00:00"
             
             /// Tracking 버튼 설정
             trackingButton.setImage(
@@ -193,6 +204,7 @@ final class HomeView: UIView {
             
             /// 공통 설정
             delegate?.hideTabBar()
+            groupSelectButton.isHidden = false
             blockCollectionView.isHidden = false
             trackingBlock.isHidden = true
             messageLabel.isHidden = false
@@ -205,6 +217,11 @@ final class HomeView: UIView {
     func updateTracking(time: String, progress: Float) {
         trackingTimeLabel.text = time
         trackingProgressView.setProgress(progress, animated: true)
+    }
+    
+    func updateBuildingButton(count: Float) {
+        buildBlockButton.isEnabled = true
+        buildBlockButton.setTitle("블럭 \(count)개 쌓기", for: .normal)
     }
     
     @objc func buildBlockButtonTapped() {
@@ -293,13 +310,11 @@ final class HomeView: UIView {
             trackingBlock.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             /// messageLabel
-            // messageLabel.topAnchor.constraint(equalTo: blockCollectionView.bottomAnchor, constant: 64),
             messageLabel.topAnchor.constraint(equalTo: blockCollectionView.bottomAnchor),
             messageLabel.bottomAnchor.constraint(equalTo: trackingButton.topAnchor),
             messageLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             /// trackingTimeLabel
-            // trackingTimeLabel.bottomAnchor.constraint(equalTo: trackingButton.topAnchor, constant: -24),
             trackingTimeLabel.topAnchor.constraint(equalTo: trackingBlock.bottomAnchor),
             trackingTimeLabel.bottomAnchor.constraint(equalTo: trackingButton.topAnchor),
             trackingTimeLabel.centerXAnchor.constraint(equalTo: centerXAnchor),

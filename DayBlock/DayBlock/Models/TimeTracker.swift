@@ -8,8 +8,9 @@
 import Foundation
 
 struct TimeTracker {
-    var totalTime = 0
-    var currentTime: Float = 0
+    var totalTime = 1790
+    var currentTime: Float = 1790
+    var totalBlock: Float = 0
     
     var timeFormatter: String {
         let h = totalTime / 3600

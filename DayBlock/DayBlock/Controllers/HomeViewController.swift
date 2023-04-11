@@ -20,7 +20,6 @@ final class HomeViewController: UIViewController {
     
     private var dateTimer: Timer!
     private var trackingTimer: Timer!
-    private let groupSelectButton = GroupSelectButton()
     
     
     
@@ -55,9 +54,7 @@ final class HomeViewController: UIViewController {
         navigationItem.backBarButtonItem = backBarButtonItem
         
         /// 그룹 선택 버튼
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(groupSelectButtonTapped))
-        groupSelectButton.addGestureRecognizer(gesture)
-        navigationItem.titleView = groupSelectButton
+        navigationItem.titleView = viewManager.groupSelectButton
     }
     
     func setupTimer() {
@@ -114,9 +111,6 @@ final class HomeViewController: UIViewController {
         dateFormatter.dateFormat = "M월 d일 E요일"
         viewManager.dateLabel.text = dateFormatter.string(from: Date())
     }
-    
-    /// 시간 Tracking
-    
 }
 
 
@@ -208,15 +202,23 @@ extension HomeViewController: HomeViewDelegate {
     
     func stopTracking() {
         trackingTimer.invalidate()
+        viewManager.updateTracking(time: "00:00:00", progress: 0)
         timeTracker.totalTime = 0
+        timeTracker.currentTime = 0
+        timeTracker.totalBlock = 0
     }
     
+    /// 1초마다 실행되는 메서드
     @objc func updateTrackingTime() {
         timeTracker.totalTime += 1
         timeTracker.currentTime += 1
         
-        /// 30분 단위로 현재 시간 초기화 (0.5블럭)
-        if timeTracker.totalTime == 1800 { timeTracker.currentTime = 0 }
+        /// 30분 단위 블럭 추가 및 현재 시간 초기화 (0.5블럭)
+        if timeTracker.totalTime == 1800 {
+            timeTracker.totalBlock += 0.5
+            viewManager.updateBuildingButton(count: timeTracker.totalBlock)
+            timeTracker.currentTime = 0
+        }
         
         /// TimeLabel & ProgressView 업데이트
         viewManager.updateTracking(time: timeTracker.timeFormatter,
