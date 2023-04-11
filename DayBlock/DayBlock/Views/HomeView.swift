@@ -202,8 +202,9 @@ final class HomeView: UIView {
         }
     }
     
-    func updateTrackingLabel(time: String) {
+    func updateTracking(time: String, progress: Float) {
         trackingTimeLabel.text = time
+        trackingProgressView.setProgress(progress, animated: true)
     }
     
     @objc func buildBlockButtonTapped() {

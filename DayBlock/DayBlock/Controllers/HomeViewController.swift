@@ -213,7 +213,14 @@ extension HomeViewController: HomeViewDelegate {
     
     @objc func updateTrackingTime() {
         timeTracker.totalTime += 1
-        viewManager.updateTrackingLabel(time: timeTracker.timeFormatter)
+        timeTracker.currentTime += 1
+        
+        /// 30분 단위로 현재 시간 초기화 (0.5블럭)
+        if timeTracker.totalTime == 1800 { timeTracker.currentTime = 0 }
+        
+        /// TimeLabel & ProgressView 업데이트
+        viewManager.updateTracking(time: timeTracker.timeFormatter,
+                                   progress: timeTracker.currentTime / 1800)
     }
     
     func hideTabBar() {
