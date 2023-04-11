@@ -199,3 +199,15 @@ trackingTimeLabel을 trackingBlock과 trackingButton 가운데에 배치하기 �
 <img width="300" src="https://user-images.githubusercontent.com/113565086/230778508-5ab590e9-d78c-4607-a5c9-43f64ee0c00b.png">
 
 <br>
+
+### **Day 41 - 23.04.11**
+
+- **TimeTracker 구조체 생성 및 View에 연결**   
+`String(format: "%02d:%02d:%02d")` 메서드를 활용해 TimeTracker 값을 표시했습니다.
+
+- **TimeTracker progressView 연결**   
+현재 second에 기본 블럭 단위 30분(1800)과 나누어 progressView에 적용했습니다.
+
+<img width="300" src="https://user-images.githubusercontent.com/113565086/231180512-ad2a6f35-b802-493d-a6fd-4511017bc35c.png">
+
+<br>
