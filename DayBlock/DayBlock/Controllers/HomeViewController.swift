@@ -252,14 +252,13 @@ extension HomeViewController: HomeViewDelegate {
         if timeTracker.totalTime == 1800 {
             timeTracker.totalBlock += 0.5
             viewManager.updateBuildingButton(count: timeTracker.totalBlock)
+            viewManager.updateCurrentProductivityLabel(timeTracker.totalBlock)
             timeTracker.currentTime = 0
         }
         
         /// TimeLabel & ProgressView 업데이트
         viewManager.updateTracking(time: timeTracker.timeFormatter,
                                    progress: timeTracker.currentTime / 1800)
-        
-        print(timeTracker.currentTime / 1800)
     }
     
     func showTabBar() {

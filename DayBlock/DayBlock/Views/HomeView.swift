@@ -259,6 +259,10 @@ final class HomeView: UIView {
         trackingProgressView.setProgress(progress, animated: true)
     }
     
+    func updateCurrentProductivityLabel(_ amount: Float) {
+        trackingBlock.currentProductivityLabel.text = String(amount)
+    }
+    
     func updateBuildingButton(count: Float) {
         buildBlockButton.isEnabled = true
         buildBlockButton.setTitle("블럭 \(count)개 쌓기", for: .normal)

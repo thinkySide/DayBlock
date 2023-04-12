@@ -39,7 +39,7 @@ final class ContentsBlock: UIView {
         return label
     }()
     
-    let currentProductivityLabel: UILabel = {
+    var currentProductivityLabel: UILabel = {
         let label = UILabel()
         label.text = "0.0"
         label.textColor = GrayScale.mainText
