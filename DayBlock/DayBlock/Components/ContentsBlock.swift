@@ -26,7 +26,7 @@ final class ContentsBlock: UIView {
         let view = UIView()
         view.backgroundColor = GrayScale.contentsBlock
         view.clipsToBounds = true
-        [plus, totalProductivityLabel, colorTag, icon, taskLabel]
+        [plus, currentProductivityLabel, colorTag, icon, taskLabel]
             .forEach { view.addSubview($0) }
         return view
     }()
@@ -39,9 +39,9 @@ final class ContentsBlock: UIView {
         return label
     }()
     
-    let totalProductivityLabel: UILabel = {
+    let currentProductivityLabel: UILabel = {
         let label = UILabel()
-        label.text = "72.5" // ⛳️
+        label.text = "0.0" // ⛳️
         label.textColor = GrayScale.mainText
         label.textAlignment = .left
         return label
@@ -79,11 +79,18 @@ final class ContentsBlock: UIView {
     
     // MARK: - Variable
     private let middleSize = CGSize(width: 180, height: 180)
-    private let largeSize = CGSize(width: 260, height: 260)
+    private let largeSize = CGSize(width: 250, height: 250)
     
     
     
     // MARK: - Method
+    
+    func setupBlockContents(with block: Block) {
+        plus.textColor = block.color
+        colorTag.backgroundColor = block.color
+        icon.image = block.icon
+        taskLabel.text = block.taskLabel
+    }
     
     init(frame: CGRect, blockSize: BlockSize) {
         self.blockSize = blockSize
@@ -117,8 +124,8 @@ final class ContentsBlock: UIView {
             plus.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 16).isActive = true
             plus.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 16).isActive = true
             
-            totalProductivityLabel.font = UIFont(name: Poppins.bold, size: 18)
-            totalProductivityLabel.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 16).isActive = true
+            currentProductivityLabel.font = UIFont(name: Poppins.bold, size: 18)
+            currentProductivityLabel.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 16).isActive = true
             
             colorTag.layer.cornerRadius = 9
             colorTag.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -32).isActive = true
@@ -140,8 +147,8 @@ final class ContentsBlock: UIView {
             plus.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 24).isActive = true
             plus.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 24).isActive = true
             
-            totalProductivityLabel.font = UIFont(name: Poppins.bold, size: 24)
-            totalProductivityLabel.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 24).isActive = true
+            currentProductivityLabel.font = UIFont(name: Poppins.bold, size: 24)
+            currentProductivityLabel.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 24).isActive = true
             
             colorTag.layer.cornerRadius = 11
             colorTag.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -48).isActive = true
@@ -162,7 +169,7 @@ final class ContentsBlock: UIView {
             .forEach { addSubview($0) }
         
         /// 2. translatesAutoresizingMaskIntoConstraints = false
-        [contentsView, plus, totalProductivityLabel,
+        [contentsView, plus, currentProductivityLabel,
          colorTag, icon, taskLabel]
             .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }
@@ -178,7 +185,7 @@ final class ContentsBlock: UIView {
             contentsView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
             /// totalProductivityLabel
-            totalProductivityLabel.leadingAnchor.constraint(equalTo: plus.trailingAnchor),
+            currentProductivityLabel.leadingAnchor.constraint(equalTo: plus.trailingAnchor),
             
             /// colorTag
             colorTag.topAnchor.constraint(equalTo: contentsView.topAnchor),

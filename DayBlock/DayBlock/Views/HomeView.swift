@@ -44,7 +44,7 @@ final class HomeView: UIView {
     
     lazy var trackingStopBarButtonItem: UIBarButtonItem = {
         let button = UIButton()
-        button.frame = CGRect(x: 0, y: 0, width: 12, height: 12)
+        button.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         button.setImage(UIImage(named: Icon.trackingStop), for: .normal)
         button.tintColor = GrayScale.contentsBlock
         button.addTarget(self, action: #selector(trackingStopBarButtonItemTapped), for: .touchUpInside)
@@ -102,7 +102,7 @@ final class HomeView: UIView {
         return collectionView
     }()
     
-    private let trackingBlock: ContentsBlock = {
+    let trackingBlock: ContentsBlock = {
         let block = ContentsBlock(frame: .zero, blockSize: .large)
         block.isHidden = true
         return block
@@ -197,6 +197,7 @@ final class HomeView: UIView {
         trackingProgressView.isHidden = true
         buildBlockButton.isHidden = true
         trackingStopBarButtonItem.customView?.isHidden = true
+        trackingProgressView.progressTintColor = .systemBlue
     }
     
     @objc func trackingButtonTapped() {
@@ -216,6 +217,8 @@ final class HomeView: UIView {
                 UIImage(named: Icon.trackingPause),
                 for: .normal)
             
+            trackingProgressView.progressTintColor = .systemBlue
+            
         case .inactive:
             
             /// Tracking 일시정지
@@ -225,6 +228,9 @@ final class HomeView: UIView {
             trackingButton.setImage(
                 UIImage(named: Icon.trackingStart),
                 for: .normal)
+            
+            /// ProgressView 컬러 설정
+            trackingProgressView.progressTintColor = GrayScale.disabledText
         }
         
         /// 공통 설정
@@ -346,8 +352,8 @@ final class HomeView: UIView {
             
             /// trackingProgressView
             trackingProgressView.centerYAnchor.constraint(equalTo: trackingButton.centerYAnchor),
-            trackingProgressView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: -1),
-            trackingProgressView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 1),
+            trackingProgressView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: -2),
+            trackingProgressView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 2),
             trackingProgressView.heightAnchor.constraint(equalToConstant: 10),
             
             /// trackingButton

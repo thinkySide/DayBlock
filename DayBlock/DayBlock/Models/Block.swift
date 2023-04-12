@@ -8,7 +8,7 @@
 import UIKit
 
 struct Block {
-    var label: String
+    var taskLabel: String
     var icon: UIImage
     var output: Double
     var color: UIColor

@@ -20,7 +20,7 @@ final class HomeViewController: UIViewController {
     
     private var dateTimer: Timer!
     private var trackingTimer: Timer!
-    
+    private var blockIndex = 0 /// 현재 블럭 인덱스
     
     
     // MARK: - ViewController LifeCycle
@@ -124,7 +124,7 @@ final class HomeViewController: UIViewController {
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return blockManager.getBlockList("자기계발").list.count + 1 /// 블럭 추가 버튼 + 1
+        return blockManager.getBlockList("자기계발").list.count + 1 /// 블럭 추가 버튼 + 1 // ⛳️
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -132,7 +132,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             withReuseIdentifier: Cell.block, for: indexPath) as! BlockCollectionViewCell
         
         let index = indexPath.row
-        let blockDataList = blockManager.getBlockList("자기계발").list
+        let blockDataList = blockManager.getBlockList("자기계발").list // ⛳️
         
         /// 일반 블럭 생성
         if index+1 <= blockDataList.count {
@@ -140,7 +140,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             cell.totalProductivityLabel.text = "\(blockDataList[index].output)"
             cell.blockColorTag.backgroundColor = blockDataList[index].color
             cell.blockIcon.image = blockDataList[index].icon
-            cell.blockLabel.text = blockDataList[index].label
+            cell.blockLabel.text = blockDataList[index].taskLabel
             cell.stroke.isHidden = true
             return cell
         }
@@ -160,7 +160,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let count = blockManager.getBlockList("자기계발").list.count
+        let count = blockManager.getBlockList("자기계발").list.count // ⛳️
         if count == indexPath.row {
             
             /// Push to AddBlockViewController
@@ -186,10 +186,12 @@ extension HomeViewController: UIScrollViewDelegate {
         let blockWidth = Size.blockSize.width + Size.blockSpacing
         
         /// 블럭 인덱스 = 스크롤된 크기 / 블럭 크기
-        let blockIndex = round(scrollSize / blockWidth)
+        let currentBlockIndex = round(scrollSize / blockWidth)
+        blockIndex = Int(currentBlockIndex)
+        print(blockIndex)
         
         /// 최종 스크롤 위치 지정
-        targetContentOffset.pointee = CGPoint(x: blockIndex * blockWidth - scrollView.contentInset.left,
+        targetContentOffset.pointee = CGPoint(x: currentBlockIndex * blockWidth - scrollView.contentInset.left,
                                               y: scrollView.contentInset.top)
     }
     
@@ -204,12 +206,15 @@ extension HomeViewController: HomeViewDelegate {
     func startTracking() {
         trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTrackingTime), userInfo: nil, repeats: true)
         
+        /// 블럭 업데이트
+        let blockDataList = blockManager.getBlockList("자기계발").list // ⛳️
+        viewManager.trackingBlock.setupBlockContents(with: blockDataList[blockIndex])
+        
         /// 화면 꺼짐 방지
         UIApplication.shared.isIdleTimerDisabled = true
     }
     
     func pausedTracking() {
-        print(#function)
         trackingTimer.invalidate()
     }
     
