@@ -61,7 +61,8 @@ enum Icon {
     static let schedule = "schedule"
     static let storage = "storage"
     static let trackingStart = "trackingStartButton"
-    static let trackingStop = "trackingStopButton"
+    static let trackingPause = "trackingPauseButton"
+    static let trackingStop = "trackingStopBarButtonItem"
     static let groupPolygon = "groupPolygon"
 }
 

@@ -55,6 +55,10 @@ final class HomeViewController: UIViewController {
         
         /// 그룹 선택 버튼
         navigationItem.titleView = viewManager.groupSelectButton
+        
+        /// TrackingStopButton
+        let trackingStopBarButtomItem = viewManager.trackingStopBarButtonItem
+        navigationItem.rightBarButtonItem = trackingStopBarButtomItem
     }
     
     func setupTimer() {
@@ -196,11 +200,17 @@ extension HomeViewController: UIScrollViewDelegate {
 // MARK: - HomeViewDelegate
 
 extension HomeViewController: HomeViewDelegate {
+    
     func startTracking() {
         trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTrackingTime), userInfo: nil, repeats: true)
         
         /// 화면 꺼짐 방지
         UIApplication.shared.isIdleTimerDisabled = true
+    }
+    
+    func pausedTracking() {
+        print(#function)
+        trackingTimer.invalidate()
     }
     
     func stopTracking() {
@@ -231,8 +241,13 @@ extension HomeViewController: HomeViewDelegate {
                                    progress: timeTracker.currentTime / 1800)
     }
     
+    func showTabBar() {
+        viewManager.tabBarStackView.alpha = 1
+        tabBarController?.tabBar.alpha = 1
+    }
+    
     func hideTabBar() {
-        viewManager.tabBarStackView.alpha = viewManager.tabBarStackView.alpha == 1 ? 0 : 1
-        tabBarController?.tabBar.alpha = tabBarController?.tabBar.alpha == 1 ? 0 : 1
+        viewManager.tabBarStackView.alpha = 0
+        tabBarController?.tabBar.alpha = 0
     }
 }

@@ -9,8 +9,9 @@ import UIKit
 
 protocol HomeViewDelegate: AnyObject {
     func hideTabBar()
+    func showTabBar()
     func startTracking()
-    // func pausedTracking()
+    func pausedTracking()
     func stopTracking()
 }
 
@@ -39,6 +40,17 @@ final class HomeView: UIView {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(groupSelectButtonTapped))
         group.addGestureRecognizer(gesture)
         return group
+    }()
+    
+    lazy var trackingStopBarButtonItem: UIBarButtonItem = {
+        let button = UIButton()
+        button.frame = CGRect(x: 0, y: 0, width: 12, height: 12)
+        button.setImage(UIImage(named: Icon.trackingStop), for: .normal)
+        button.tintColor = GrayScale.contentsBlock
+        button.addTarget(self, action: #selector(trackingStopBarButtonItemTapped), for: .touchUpInside)
+        let item = UIBarButtonItem(customView: button)
+        item.customView?.isHidden = true
+        return item
     }()
     
     let dateLabel: UILabel = {
@@ -165,6 +177,28 @@ final class HomeView: UIView {
         print(#function)
     }
     
+    @objc func trackingStopBarButtonItemTapped() {
+        /// Tracking 종료
+        delegate?.stopTracking()
+        
+        /// Tracking 버튼 설정
+        trackingButton.setImage(
+            UIImage(named: Icon.trackingStart),
+            for: .normal)
+        
+        /// 공통 설정
+        delegate?.showTabBar()
+        trackingMode = .inactive
+        groupSelectButton.isHidden = false
+        blockCollectionView.isHidden = false
+        trackingBlock.isHidden = true
+        messageLabel.isHidden = false
+        trackingTimeLabel.isHidden = true
+        trackingProgressView.isHidden = true
+        buildBlockButton.isHidden = true
+        trackingStopBarButtonItem.customView?.isHidden = true
+    }
+    
     @objc func trackingButtonTapped() {
         
         /// Tracking 모드 변경
@@ -179,39 +213,30 @@ final class HomeView: UIView {
             
             /// Tracking 버튼 설정
             trackingButton.setImage(
-                UIImage(named: Icon.trackingStop),
+                UIImage(named: Icon.trackingPause),
                 for: .normal)
-            
-            /// 공통 설정
-            delegate?.hideTabBar()
-            groupSelectButton.isHidden = true
-            blockCollectionView.isHidden = true
-            trackingBlock.isHidden = false
-            messageLabel.isHidden = true
-            trackingTimeLabel.isHidden = false
-            trackingProgressView.isHidden = false
-            buildBlockButton.isHidden = false
             
         case .inactive:
             
-            /// Tracking 종료
-            delegate?.stopTracking()
+            /// Tracking 일시정지
+            delegate?.pausedTracking()
             
             /// Tracking 버튼 설정
             trackingButton.setImage(
                 UIImage(named: Icon.trackingStart),
                 for: .normal)
-            
-            /// 공통 설정
-            delegate?.hideTabBar()
-            groupSelectButton.isHidden = false
-            blockCollectionView.isHidden = false
-            trackingBlock.isHidden = true
-            messageLabel.isHidden = false
-            trackingTimeLabel.isHidden = true
-            trackingProgressView.isHidden = true
-            buildBlockButton.isHidden = true
         }
+        
+        /// 공통 설정
+        delegate?.hideTabBar()
+        groupSelectButton.isHidden = true
+        blockCollectionView.isHidden = true
+        trackingBlock.isHidden = false
+        messageLabel.isHidden = true
+        trackingTimeLabel.isHidden = false
+        trackingProgressView.isHidden = false
+        buildBlockButton.isHidden = false
+        trackingStopBarButtonItem.customView?.isHidden = false
     }
     
     func updateTracking(time: String, progress: Float) {
