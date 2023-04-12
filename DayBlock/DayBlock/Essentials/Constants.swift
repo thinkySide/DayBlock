@@ -63,7 +63,8 @@ enum Icon {
     static let trackingStart = "trackingStartButton"
     static let trackingPause = "trackingPauseButton"
     static let trackingStop = "trackingStopBarButtonItem"
-    static let groupPolygon = "groupPolygon"
+    static let menuIcon = "menuIcon"
+    static let selectIcon = "selectIcon"
 }
 
 

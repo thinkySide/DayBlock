@@ -49,17 +49,19 @@ final class HomeViewController: UIViewController {
     // MARK: - Setup Method
     
     func setupNavigation() {
-        /// 뒤로가기 버튼
-        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = GrayScale.mainText
-        navigationItem.backBarButtonItem = backBarButtonItem
         
         /// 그룹 선택 버튼
-        navigationItem.titleView = viewManager.groupSelectButton
+        // navigationItem.titleView = viewManager.groupSelectButton
+        navigationItem.leftBarButtonItem = viewManager.groupSelectButton
         
         /// TrackingStopButton
         let trackingStopBarButtomItem = viewManager.trackingStopBarButtonItem
         navigationItem.rightBarButtonItem = trackingStopBarButtomItem
+        
+        /// 뒤로가기 버튼
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = GrayScale.mainText
+        navigationItem.backBarButtonItem = backBarButtonItem
     }
     
     func setupDelegate() {
@@ -251,7 +253,6 @@ extension HomeViewController: HomeViewDelegate {
         /// 30분 단위 블럭 추가 및 현재 시간 초기화 (0.5블럭)
         if timeTracker.totalTime == 1800 {
             timeTracker.totalBlock += 0.5
-            viewManager.updateBuildingButton(count: timeTracker.totalBlock)
             viewManager.updateCurrentProductivityLabel(timeTracker.totalBlock)
             timeTracker.currentTime = 0
         }

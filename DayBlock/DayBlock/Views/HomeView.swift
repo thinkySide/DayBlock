@@ -41,11 +41,12 @@ final class HomeView: UIView {
     
     // MARK: - Component
     
-    lazy var groupSelectButton: GroupSelectButton = {
+    lazy var groupSelectButton: UIBarButtonItem = {
         let group = GroupSelectButton()
         let gesture = UITapGestureRecognizer(target: self, action: #selector(groupSelectButtonTapped))
         group.addGestureRecognizer(gesture)
-        return group
+        let item = UIBarButtonItem(customView: group)
+        return item
     }()
     
     lazy var trackingStopBarButtonItem: UIBarButtonItem = {
@@ -149,28 +150,6 @@ final class HomeView: UIView {
         button.addTarget(self, action: #selector(trackingButtonTapped), for: .touchUpInside)
         return button
     }()
-    
-    private lazy var buildBlockButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = GrayScale.mainText
-        button.tintColor = .white
-        button.titleLabel?.font = UIFont(name: Pretendard.bold, size: 17)
-        
-        /// .normal
-        button.setTitleColor(.white, for: .normal)
-        button.setBackgroundColor(GrayScale.mainText, for: .normal)
-        
-        /// .disabled
-        button.setTitle("블럭 만드는 중...", for: .disabled)
-        button.setTitleColor(GrayScale.disabledText, for: .disabled)
-        button.setBackgroundColor(GrayScale.contentsBlock, for: .disabled)
-        
-        button.clipsToBounds = true
-        button.isHidden = true
-        button.isEnabled = false
-        button.addTarget(self, action: #selector(buildBlockButtonTapped), for: .touchUpInside)
-        return button
-    }()
 
     let tabBarStackView = TabBarActiveStackView()
     
@@ -194,13 +173,12 @@ final class HomeView: UIView {
         /// 공통 설정
         delegate?.showTabBar()
         trackingMode = .inactive
-        groupSelectButton.isHidden = false
+        groupSelectButton.customView?.isHidden = false
         blockCollectionView.isHidden = false
         trackingBlock.isHidden = true
         messageLabel.isHidden = false
         trackingTimeLabel.isHidden = true
         trackingProgressView.isHidden = true
-        buildBlockButton.isHidden = true
         trackingStopBarButtonItem.customView?.isHidden = true
     }
     
@@ -240,13 +218,12 @@ final class HomeView: UIView {
         
         /// 공통 설정
         delegate?.hideTabBar()
-        groupSelectButton.isHidden = true
+        groupSelectButton.customView?.isHidden = true
         blockCollectionView.isHidden = true
         trackingBlock.isHidden = false
         messageLabel.isHidden = true
         trackingTimeLabel.isHidden = false
         trackingProgressView.isHidden = false
-        buildBlockButton.isHidden = false
         trackingStopBarButtonItem.customView?.isHidden = false
     }
     
@@ -261,15 +238,6 @@ final class HomeView: UIView {
     
     func updateCurrentProductivityLabel(_ amount: Float) {
         trackingBlock.currentProductivityLabel.text = String(amount)
-    }
-    
-    func updateBuildingButton(count: Float) {
-        buildBlockButton.isEnabled = true
-        buildBlockButton.setTitle("블럭 \(count)개 쌓기", for: .normal)
-    }
-    
-    @objc func buildBlockButtonTapped() {
-        print(#function)
     }
     
     override init(frame: CGRect) {
@@ -287,7 +255,7 @@ final class HomeView: UIView {
         super.draw(rect)
 
         /// CornerRadius
-        buildBlockButton.layer.cornerRadius = buildBlockButton.frame.height / 4
+        
     }
     
     func setupInitial() {
@@ -305,7 +273,6 @@ final class HomeView: UIView {
             trackingTimeLabel,
             trackingProgressView,
             trackingButton,
-            buildBlockButton,
             tabBarStackView,
         ]
             .forEach {
@@ -323,7 +290,7 @@ final class HomeView: UIView {
         NSLayoutConstraint.activate([
             
             /// dateLabel
-            dateLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 4),
+            dateLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 12),
             dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin+2), /// 시각 보정
             dateLabel.heightAnchor.constraint(equalToConstant: 18),
             
@@ -344,7 +311,7 @@ final class HomeView: UIView {
             blockPreview.heightAnchor.constraint(equalToConstant: 84),
             
             /// blockCollectionView
-            blockCollectionView.topAnchor.constraint(equalTo: productivityLabel.bottomAnchor, constant: 28),
+            blockCollectionView.topAnchor.constraint(equalTo: productivityLabel.bottomAnchor, constant: 32),
             blockCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             blockCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             blockCollectionView.heightAnchor.constraint(equalToConstant: Size.blockSize.height),
@@ -370,16 +337,10 @@ final class HomeView: UIView {
             trackingProgressView.heightAnchor.constraint(equalToConstant: 10),
             
             /// trackingButton
-            trackingButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -64),
+            trackingButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -48),
             trackingButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             trackingButton.widthAnchor.constraint(equalToConstant: 72),
             trackingButton.heightAnchor.constraint(equalToConstant: 72),
-            
-            /// buildBlockButton
-            buildBlockButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
-            buildBlockButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
-            buildBlockButton.heightAnchor.constraint(equalToConstant: 56),
-            buildBlockButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -56),
             
             /// tabBarStackView
             tabBarStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),

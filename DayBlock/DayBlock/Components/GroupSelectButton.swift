@@ -15,13 +15,15 @@ final class GroupSelectButton: UIButton {
         stack.distribution = .fill
         stack.alignment = .center
         stack.spacing = 0
+        stack.layoutMargins = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 0) /// 시각보정
+        stack.isLayoutMarginsRelativeArrangement = true
         return stack
     }()
     
     let groupLabel: UILabel = {
         let label = UILabel()
         label.text = "자기계발"
-        label.font = UIFont(name: Pretendard.semiBold, size: 18)
+        label.font = UIFont(name: Pretendard.bold, size: 18)
         label.textColor = GrayScale.mainText
         label.textAlignment = .center
         return label
@@ -30,7 +32,7 @@ final class GroupSelectButton: UIButton {
     private let groupPolygon: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
-        image.image = UIImage(named: Icon.groupPolygon)
+        image.image = UIImage(named: Icon.menuIcon)
         return image
     }()
     
