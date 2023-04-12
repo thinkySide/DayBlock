@@ -50,8 +50,9 @@ final class AddBlockView: UIView {
         return label
     }()
     
-    private let nameTextField: FieldForm = {
+    lazy var taskLabelTextField: FieldForm = {
         let field = FieldForm()
+        field.textField.addTarget(self, action: #selector(taskLabelTextFieldChanged), for: .editingChanged)
         return field
     }()
     
@@ -84,14 +85,16 @@ final class AddBlockView: UIView {
     }()
     
     
+    
     // MARK: - Variable
     
     
     
     // MARK: - Method
     
-    @objc func blockNameTextFieldChanged() {
-        print(#function)
+    @objc func taskLabelTextFieldChanged() {
+        guard let text = taskLabelTextField.textField.text else { return }
+        taskLabelTextField.countLabel.text = "\(text.count)/18"
     }
     
     override init(frame: CGRect) {
@@ -120,14 +123,14 @@ final class AddBlockView: UIView {
         
         /// 1. addSubView(component)
         [
-            blockPreview, nameTextField, selectFormStackView,
+            blockPreview, taskLabelTextField, selectFormStackView,
         ]
             .forEach { addSubview($0) }
         
         /// 2. translatesAutoresizingMaskIntoConstraints = false
         [
             blockPreview, blockPreviewColorTag, blockPreviewIcon,
-            blockPreviewLabel, nameTextField, selectFormStackView,
+            blockPreviewLabel, taskLabelTextField, selectFormStackView,
             groupSelect, colorSelect, iconSelect,
         ]
             .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
@@ -162,12 +165,12 @@ final class AddBlockView: UIView {
             blockPreviewLabel.trailingAnchor.constraint(equalTo: blockPreview.trailingAnchor, constant: -20),
             
             /// nameTextField
-            nameTextField.topAnchor.constraint(equalTo: blockPreview.bottomAnchor, constant: 32),
-            nameTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
-            nameTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
+            taskLabelTextField.topAnchor.constraint(equalTo: blockPreview.bottomAnchor, constant: 32),
+            taskLabelTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
+            taskLabelTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
             
             /// selectFormStackView
-            selectFormStackView.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 24),
+            selectFormStackView.topAnchor.constraint(equalTo: taskLabelTextField.bottomAnchor, constant: 24),
             selectFormStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             selectFormStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])

@@ -37,7 +37,7 @@ final class FieldForm: UIView {
         return stack
     }()
     
-    private lazy var textField: UITextField = {
+    lazy var textField: UITextField = {
         let field = UITextField()
         field.placeholder = "블럭 쌓기"
         field.font = .systemFont(ofSize: 18, weight: .bold)
@@ -45,11 +45,10 @@ final class FieldForm: UIView {
         field.autocorrectionType = .no
         field.autocapitalizationType = .none
         field.isSecureTextEntry = false
-        field.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
         return field
     }()
     
-    private let countLabel: UILabel = {
+    let countLabel: UILabel = {
         let label = UILabel()
         label.text = "0/18"
         label.font = UIFont(name: Pretendard.semiBold, size: 14)
@@ -64,10 +63,6 @@ final class FieldForm: UIView {
     
     
     // MARK: - Method
-    
-    @objc func textFieldChanged() {
-        print(#function)
-    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

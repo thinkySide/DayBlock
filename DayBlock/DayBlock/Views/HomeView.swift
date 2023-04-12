@@ -193,6 +193,7 @@ final class HomeView: UIView {
             
             /// Tracking 시작
             delegate?.startTracking()
+            trackingTimeLabel.textColor = GrayScale.mainText
             
             /// Tracking 버튼 설정
             trackingButton.setImage(
@@ -206,6 +207,7 @@ final class HomeView: UIView {
             
             /// Tracking 일시정지
             delegate?.pausedTracking()
+            trackingTimeLabel.textColor = GrayScale.disabledText
             
             /// Tracking 버튼 설정
             trackingButton.setImage(

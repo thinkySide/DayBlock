@@ -15,7 +15,7 @@ final class GroupSelectButton: UIButton {
         stack.distribution = .fill
         stack.alignment = .center
         stack.spacing = 0
-        stack.layoutMargins = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 0) /// 시각보정
+        stack.layoutMargins = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 0) /// 시각보정
         stack.isLayoutMarginsRelativeArrangement = true
         return stack
     }()
@@ -59,6 +59,8 @@ final class GroupSelectButton: UIButton {
             /// groupStackView
             groupStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             groupStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            
+            groupStackView.heightAnchor.constraint(equalToConstant: 40),
             
             /// groupPolygon
             groupPolygon.widthAnchor.constraint(equalToConstant: 22),

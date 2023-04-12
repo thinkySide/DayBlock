@@ -204,7 +204,6 @@ extension HomeViewController: UIScrollViewDelegate {
         /// 블럭 인덱스 = 스크롤된 크기 / 블럭 크기
         let currentBlockIndex = round(scrollSize / blockWidth)
         blockIndex = Int(currentBlockIndex)
-        print(blockIndex)
         
         /// 최종 스크롤 위치 지정
         targetContentOffset.pointee = CGPoint(x: currentBlockIndex * blockWidth - scrollView.contentInset.left,
