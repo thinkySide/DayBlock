@@ -242,7 +242,7 @@ TrackingMode 진입 시 해당 블럭의 인덱스로 접근하는 기능을 추
 - **GroupSelectBarButtonItem 위치 변경**   
 가운데 위치하고 있던 `groupSelectBarButtonItem`의 위치를 왼쪽 정렬했습니다.   
 그 과정에서 시각 보정을 위해 왼쪽 `layoutMargin` 속성을 사용했습니다.   
-[문제 해결 기록 : 두개 View 사이 정가운데에 View 배치하기](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/30.md)
+[문제 해결 기록 : UIStackView에 ContentsInset 주기](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/30.md)
 
 - **블럭 추가화면 작업명 TextField 글자수 제한 로직 추가**   
 `UITextFieldDelegate`의 `shouldChangeCharactersIn` 메서드를 사용해 글자수 제한 로직을 추가했습니다.
