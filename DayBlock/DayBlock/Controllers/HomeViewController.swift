@@ -198,6 +198,9 @@ extension HomeViewController: UIScrollViewDelegate {
 extension HomeViewController: HomeViewDelegate {
     func startTracking() {
         trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTrackingTime), userInfo: nil, repeats: true)
+        
+        /// 화면 꺼짐 방지
+        UIApplication.shared.isIdleTimerDisabled = true
     }
     
     func stopTracking() {
@@ -206,6 +209,9 @@ extension HomeViewController: HomeViewDelegate {
         timeTracker.totalTime = 0
         timeTracker.currentTime = 0
         timeTracker.totalBlock = 0
+        
+        /// 화면 꺼짐 해제
+        UIApplication.shared.isIdleTimerDisabled = false
     }
     
     /// 1초마다 실행되는 메서드
