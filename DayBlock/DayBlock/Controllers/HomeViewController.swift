@@ -33,9 +33,10 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigation()
-        setupTimer()
         setupDelegate()
         setupContentInset()
+        setupTimer()
+        setupContentsBlock()
         
         // 테스트용 블럭 색칠
         viewManager.blockPreview.block03.painting(.firstHalf)
@@ -45,7 +46,7 @@ final class HomeViewController: UIViewController {
 
     
     
-    // MARK: - Method
+    // MARK: - Setup Method
     
     func setupNavigation() {
         /// 뒤로가기 버튼
@@ -59,14 +60,6 @@ final class HomeViewController: UIViewController {
         /// TrackingStopButton
         let trackingStopBarButtomItem = viewManager.trackingStopBarButtonItem
         navigationItem.rightBarButtonItem = trackingStopBarButtomItem
-    }
-    
-    func setupTimer() {
-        updateDate()
-        updateTime()
-        
-        /// 날짜 및 시간 업데이트용 타이머 설정
-        dateTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
     }
     
     func setupDelegate() {
@@ -93,6 +86,27 @@ final class HomeViewController: UIViewController {
         viewManager.blockCollectionView.contentInset = contentInset
     }
     
+    func setupTimer() {
+        updateDate()
+        updateTime()
+        
+        /// 날짜 및 시간 업데이트용 타이머 설정
+        dateTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+    }
+    
+    func setupContentsBlock() {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(trackingBlockTapped))
+        viewManager.trackingBlock.addGestureRecognizer(gesture)
+    }
+
+    
+    
+    // MARK: - Custom Method
+    
+    @objc func groupSelectButtonTapped() {
+        print(#function)
+    }
+
     /// 현재 시간 업데이트
     @objc func updateTime() {
         let timeFormatter = DateFormatter()
@@ -104,16 +118,16 @@ final class HomeViewController: UIViewController {
         if viewManager.timeLabel.text == "00:00" { updateDate() }
     }
     
-    @objc func groupSelectButtonTapped() {
-        print(#function)
-    }
-    
     /// 현재 날짜 및 요일 업데이트
     func updateDate() {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko_KR")
         dateFormatter.dateFormat = "M월 d일 E요일"
         viewManager.dateLabel.text = dateFormatter.string(from: Date())
+    }
+    
+    @objc func trackingBlockTapped() {
+        print(#function)
     }
 }
 
@@ -244,6 +258,8 @@ extension HomeViewController: HomeViewDelegate {
         /// TimeLabel & ProgressView 업데이트
         viewManager.updateTracking(time: timeTracker.timeFormatter,
                                    progress: timeTracker.currentTime / 1800)
+        
+        print(timeTracker.currentTime / 1800)
     }
     
     func showTabBar() {
@@ -254,5 +270,10 @@ extension HomeViewController: HomeViewDelegate {
     func hideTabBar() {
         viewManager.tabBarStackView.alpha = 0
         tabBarController?.tabBar.alpha = 0
+    }
+    
+    func setupProgressViewColor() {
+        let blockDataList = blockManager.getBlockList("자기계발").list // ⛳️
+        viewManager.setupProgressViewColor(color: blockDataList[blockIndex].color)
     }
 }

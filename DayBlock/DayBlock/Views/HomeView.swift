@@ -8,11 +8,17 @@
 import UIKit
 
 protocol HomeViewDelegate: AnyObject {
+    /// TabBar
     func hideTabBar()
     func showTabBar()
+    
+    /// Tracking
     func startTracking()
     func pausedTracking()
     func stopTracking()
+    
+    /// Custom
+    func setupProgressViewColor()
 }
 
 final class HomeView: UIView {
@@ -129,10 +135,9 @@ final class HomeView: UIView {
         return label
     }()
     
-    private let trackingProgressView: UIProgressView = {
+    let trackingProgressView: UIProgressView = {
         let progress = UIProgressView()
         progress.trackTintColor = GrayScale.contentsBlock
-        progress.progressTintColor = .systemBlue
         progress.progress = 0
         progress.isHidden = true
         return progress
@@ -197,7 +202,6 @@ final class HomeView: UIView {
         trackingProgressView.isHidden = true
         buildBlockButton.isHidden = true
         trackingStopBarButtonItem.customView?.isHidden = true
-        trackingProgressView.progressTintColor = .systemBlue
     }
     
     @objc func trackingButtonTapped() {
@@ -217,7 +221,8 @@ final class HomeView: UIView {
                 UIImage(named: Icon.trackingPause),
                 for: .normal)
             
-            trackingProgressView.progressTintColor = .systemBlue
+            /// ProgressView 컬러 설정
+            delegate?.setupProgressViewColor()
             
         case .inactive:
             
@@ -229,7 +234,7 @@ final class HomeView: UIView {
                 UIImage(named: Icon.trackingStart),
                 for: .normal)
             
-            /// ProgressView 컬러 설정
+            /// ProgressView 컬러
             trackingProgressView.progressTintColor = GrayScale.disabledText
         }
         
@@ -243,6 +248,10 @@ final class HomeView: UIView {
         trackingProgressView.isHidden = false
         buildBlockButton.isHidden = false
         trackingStopBarButtonItem.customView?.isHidden = false
+    }
+    
+    func setupProgressViewColor(color: UIColor) {
+        trackingProgressView.progressTintColor = color
     }
     
     func updateTracking(time: String, progress: Float) {
@@ -352,8 +361,8 @@ final class HomeView: UIView {
             
             /// trackingProgressView
             trackingProgressView.centerYAnchor.constraint(equalTo: trackingButton.centerYAnchor),
-            trackingProgressView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: -2),
-            trackingProgressView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 2),
+            trackingProgressView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: -4),
+            trackingProgressView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 4),
             trackingProgressView.heightAnchor.constraint(equalToConstant: 10),
             
             /// trackingButton

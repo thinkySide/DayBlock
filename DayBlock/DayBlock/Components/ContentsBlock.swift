@@ -34,14 +34,14 @@ final class ContentsBlock: UIView {
     let plus: UILabel = {
         let label = UILabel()
         label.text = "+"
-        label.textColor = .systemBlue // ⛳️
+        label.textColor = .systemBlue
         label.textAlignment = .left
         return label
     }()
     
     let currentProductivityLabel: UILabel = {
         let label = UILabel()
-        label.text = "0.0" // ⛳️
+        label.text = "0.0"
         label.textColor = GrayScale.mainText
         label.textAlignment = .left
         return label
@@ -49,7 +49,7 @@ final class ContentsBlock: UIView {
     
     private let colorTag: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemBlue // ⛳️
+        view.backgroundColor = .systemBlue
         view.clipsToBounds = true
         
         /// 하단 왼쪽, 하단 오른쪽만 cornerRadius 값 주기
@@ -60,7 +60,7 @@ final class ContentsBlock: UIView {
     
     private let icon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(systemName: "batteryblock.fill") // ⛳️
+        image.image = UIImage(systemName: "batteryblock.fill")
         image.contentMode = .scaleAspectFit
         image.tintColor = GrayScale.mainText
         return image
@@ -68,7 +68,7 @@ final class ContentsBlock: UIView {
     
     private let taskLabel: UILabel = {
         let label = UILabel()
-        label.text = "Github 브랜치 관리하기" // ⛳️
+        label.text = "Github 브랜치 관리하기"
         label.textColor = GrayScale.mainText
         label.textAlignment = .center
         label.numberOfLines = 2
