@@ -93,6 +93,8 @@ Block, Group의 필요 데이터에 맞게 Struct를 생성했습니다.
 
 <img width="300" src="https://user-images.githubusercontent.com/113565086/229537564-0c05dbff-76cc-4417-abd2-db93c1a675d0.png">
 
+---
+
 <br>
 
 ### **Day 35 - 23.04.04**
@@ -123,6 +125,8 @@ BlockGroup 안에 Block을 넣어 관리하는 구조로 구성했습니다.
 
 <img width="300" src="https://user-images.githubusercontent.com/113565086/230119913-3163ffe5-adcc-48f4-9a2e-e4cf4572071b.png">
 
+---
+
 <br>
 
 ### **Day 37 - 23.04.06**
@@ -139,6 +143,8 @@ BlockGroup 안에 Block을 넣어 관리하는 구조로 구성했습니다.
 추후 터치 시 그룹 간 전환 기능을 추가 할 예정입니다.
 
 <img width="300" src="https://user-images.githubusercontent.com/113565086/230411129-0049dcdd-c637-4223-902e-8483b98141ef.png">
+
+---
 
 <br>
 
@@ -159,6 +165,8 @@ init메서드에 print문을 찍으며 오류를 잡아냈습니다.
 
 <img width="300" src="https://user-images.githubusercontent.com/113565086/230638454-51d49dca-df1d-450c-9f7f-3c40315fdb7b.png">
 
+---
+
 <br>
 
 ### **Day 39 - 23.04.08**
@@ -176,6 +184,8 @@ init메서드에 print문을 찍으며 오류를 잡아냈습니다.
 - ContentsBlock 컴포넌트화
 
 <img width="300" src="https://user-images.githubusercontent.com/113565086/230752253-00def2c7-be44-4e40-b409-648bcde0b76e.png">
+
+---
 
 <br>
 
@@ -198,9 +208,11 @@ trackingTimeLabel을 trackingBlock과 trackingButton 가운데에 배치하기 �
 
 <img width="300" src="https://user-images.githubusercontent.com/113565086/230778508-5ab590e9-d78c-4607-a5c9-43f64ee0c00b.png">
 
+---
+
 <br>
 
-### **Day 41 - 23.04.11**
+### **Day 42 - 23.04.11**
 
 - **TimeTracker 구조체 생성 및 View에 연결**   
 `String(format: "%02d:%02d:%02d")` 메서드를 활용해 TimeTracker 값을 표시했습니다.
@@ -209,5 +221,34 @@ trackingTimeLabel을 trackingBlock과 trackingButton 가운데에 배치하기 �
 현재 second에 기본 블럭 단위 30분(1800)과 나누어 progressView에 적용했습니다.
 
 <img width="300" src="https://user-images.githubusercontent.com/113565086/231180512-ad2a6f35-b802-493d-a6fd-4511017bc35c.png">
+
+---
+
+<br>
+
+### **Day 43 - 23.04.12**
+
+- **TimeTracker Paused 상태 추가**   
+Paused 상태일 때 타이머와 `progressView`가 멈추도록 구현했습니다.
+
+- **stopTacker BarButtonItem 추가**    
+오른쪽 상단 종료 버튼 아이템을 추가했습니다.   
+추후 클릭 이벤트 발생 시, 한번 더 종료를 확인하는 alert창을 추가할 예정입니다.
+
+- **TrackingMode 블럭 매치**   
+스크롤된 크기를 이용해 현재 포커싱된 블럭의 인덱스를 구한 후,   
+TrackingMode 진입 시 해당 블럭의 인덱스로 접근하는 기능을 추가했습니다.   
+
+- **GroupSelectBarButtonItem 위치 변경**   
+가운데 위치하고 있던 `groupSelectBarButtonItem`의 위치를 왼쪽 정렬했습니다.   
+그 과정에서 시각 보정을 위해 왼쪽 `layoutMargin` 속성을 사용했습니다.   
+[문제 해결 기록 : 두개 View 사이 정가운데에 View 배치하기](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/30.md)
+
+- **블럭 추가화면 작업명 TextField 글자수 제한 로직 추가**   
+`UITextFieldDelegate`의 `shouldChangeCharactersIn` 메서드를 사용해 글자수 제한 로직을 추가했습니다.
+
+<img width="300" src="https://user-images.githubusercontent.com/113565086/231484013-bff3254d-51d9-45f0-92ad-8aae75cd14d1.png">
+
+---
 
 <br>

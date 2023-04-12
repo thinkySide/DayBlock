@@ -48,6 +48,8 @@ extension AddBlockViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
+        // 붙여넣기도 막아야함! ⭐️⭐️⭐️
+        
         let maxString = 18
         guard let count = textField.text?.count else { return false }
         
