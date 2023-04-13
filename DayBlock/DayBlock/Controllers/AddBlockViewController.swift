@@ -37,6 +37,9 @@ final class AddBlockViewController: UIViewController {
     
     func setupDelegate() {
         viewManager.taskLabelTextField.textField.delegate = self
+        viewManager.groupSelect.delegate = self
+        viewManager.colorSelect.delegate = self
+        viewManager.iconSelect.delegate = self
     }
 }
 
@@ -62,5 +65,25 @@ extension AddBlockViewController: UITextFieldDelegate {
         /// 최대 글자수 제한
         if (count+1) > maxString { return false }
         else { return true }
+    }
+}
+
+
+
+// MARK: - SelectFormDelegate
+
+extension AddBlockViewController: SelectFormDelegate {
+    
+    func groupFormTapped() {
+        let selectGroupVC = SelectGroupViewController()
+        present(selectGroupVC, animated: true)
+    }
+    
+    func iconFormTapped() {
+        print(#function)
+    }
+    
+    func colorFormTapped() {
+        print(#function)
     }
 }

@@ -7,6 +7,12 @@
 
 import UIKit
 
+protocol SelectFormDelegate: AnyObject {
+    func groupFormTapped()
+    func iconFormTapped()
+    func colorFormTapped()
+}
+
 final class SelectForm: UIView {
     
     enum SelectType {
@@ -16,6 +22,7 @@ final class SelectForm: UIView {
     }
     
     var selectType: SelectType?
+    weak var delegate: SelectFormDelegate?
     
     
     
@@ -126,8 +133,14 @@ final class SelectForm: UIView {
     }
     
     @objc func selectFormTapped() {
-        print(#function)
-        print(selectType!)
+        switch selectType! {
+        case .group:
+            delegate?.groupFormTapped()
+        case .icon:
+            delegate?.iconFormTapped()
+        case .color:
+            delegate?.colorFormTapped()
+        }
     }
     
     // MARK: - Initial
