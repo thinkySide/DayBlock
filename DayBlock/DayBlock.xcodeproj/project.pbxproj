@@ -22,6 +22,10 @@
 		0770802D29E55E7C00D66900 /* TimeTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770802C29E55E7C00D66900 /* TimeTracker.swift */; };
 		0770802F29E78C9200D66900 /* SelectGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770802E29E78C9200D66900 /* SelectGroupViewController.swift */; };
 		0770803129E78D0500D66900 /* SelectGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770803029E78D0500D66900 /* SelectGroupView.swift */; };
+		0770803429E797E100D66900 /* SelectIconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770803329E797E100D66900 /* SelectIconViewController.swift */; };
+		0770803629E7981300D66900 /* SelectIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770803529E7981300D66900 /* SelectIconView.swift */; };
+		0770803829E7988100D66900 /* SelectColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770803729E7988100D66900 /* SelectColorView.swift */; };
+		0770803A29E7989B00D66900 /* SelectColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770803929E7989A00D66900 /* SelectColorViewController.swift */; };
 		0771983F29E2F4D10021088A /* ButtonBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0771983E29E2F4D10021088A /* ButtonBackgroundColor.swift */; };
 		078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B529D7152F00F239BA /* AppDelegate.swift */; };
 		078C50B829D7152F00F239BA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B729D7152F00F239BA /* SceneDelegate.swift */; };
@@ -63,6 +67,10 @@
 		0770802C29E55E7C00D66900 /* TimeTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTracker.swift; sourceTree = "<group>"; };
 		0770802E29E78C9200D66900 /* SelectGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGroupViewController.swift; sourceTree = "<group>"; };
 		0770803029E78D0500D66900 /* SelectGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGroupView.swift; sourceTree = "<group>"; };
+		0770803329E797E100D66900 /* SelectIconViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIconViewController.swift; sourceTree = "<group>"; };
+		0770803529E7981300D66900 /* SelectIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIconView.swift; sourceTree = "<group>"; };
+		0770803729E7988100D66900 /* SelectColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectColorView.swift; sourceTree = "<group>"; };
+		0770803929E7989A00D66900 /* SelectColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectColorViewController.swift; sourceTree = "<group>"; };
 		0771983E29E2F4D10021088A /* ButtonBackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonBackgroundColor.swift; sourceTree = "<group>"; };
 		078C50B229D7152F00F239BA /* DayBlock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayBlock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		078C50B529D7152F00F239BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -101,7 +109,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0719648429DAF97E009CA1A4 /* Cells */ = {
+		0770803229E7958000D66900 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
 				0719648529DAF9A5009CA1A4 /* BlockCollectionViewCell.swift */,
@@ -137,6 +145,7 @@
 				078C50CF29D7267A00F239BA /* Views */,
 				078C50CD29D7266400F239BA /* Controllers */,
 				078C50EC29D72F7900F239BA /* Extensions */,
+				0770803229E7958000D66900 /* Cells */,
 				078C50D229D728C800F239BA /* Components */,
 				078C50D329D72A8C00F239BA /* Fonts */,
 			);
@@ -161,6 +170,8 @@
 				078C50F729D9BBFE00F239BA /* StorageViewController.swift */,
 				0719648F29E04F7E009CA1A4 /* AddBlockViewController.swift */,
 				0770802E29E78C9200D66900 /* SelectGroupViewController.swift */,
+				0770803329E797E100D66900 /* SelectIconViewController.swift */,
+				0770803929E7989A00D66900 /* SelectColorViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -182,7 +193,8 @@
 				078C50D029D726FE00F239BA /* HomeView.swift */,
 				0719649129E04FD8009CA1A4 /* AddBlockView.swift */,
 				0770803029E78D0500D66900 /* SelectGroupView.swift */,
-				0719648429DAF97E009CA1A4 /* Cells */,
+				0770803529E7981300D66900 /* SelectIconView.swift */,
+				0770803729E7988100D66900 /* SelectColorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -327,6 +339,8 @@
 				078C50BA29D7152F00F239BA /* HomeViewController.swift in Sources */,
 				0719649229E04FD8009CA1A4 /* AddBlockView.swift in Sources */,
 				078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */,
+				0770803A29E7989B00D66900 /* SelectColorViewController.swift in Sources */,
+				0770803829E7988100D66900 /* SelectColorView.swift in Sources */,
 				0719648C29DDB1C0009CA1A4 /* PaintBlock.swift in Sources */,
 				0719648E29DF044C009CA1A4 /* GroupSelectButton.swift in Sources */,
 				0719649829E148CA009CA1A4 /* ContentsBlock.swift in Sources */,
@@ -338,8 +352,10 @@
 				078C50C029D7152F00F239BA /* DayBlock.xcdatamodeld in Sources */,
 				0770802F29E78C9200D66900 /* SelectGroupViewController.swift in Sources */,
 				078C50D129D726FE00F239BA /* HomeView.swift in Sources */,
+				0770803629E7981300D66900 /* SelectIconView.swift in Sources */,
 				078C50EE29D72F9D00F239BA /* RGB.swift in Sources */,
 				0719648129DAF38A009CA1A4 /* Block.swift in Sources */,
+				0770803429E797E100D66900 /* SelectIconViewController.swift in Sources */,
 				0719648829DC5066009CA1A4 /* TabBarActiveStackView.swift in Sources */,
 				078C50B829D7152F00F239BA /* SceneDelegate.swift in Sources */,
 				0719649029E04F7E009CA1A4 /* AddBlockViewController.swift in Sources */,
@@ -492,6 +508,7 @@
 				INFOPLIST_FILE = DayBlock/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
@@ -521,6 +538,7 @@
 				INFOPLIST_FILE = DayBlock/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;

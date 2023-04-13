@@ -80,7 +80,8 @@ extension AddBlockViewController: SelectFormDelegate {
     }
     
     func iconFormTapped() {
-        print(#function)
+        let selectIconVC = SelectIconViewController()
+        present(selectIconVC, animated: true)
     }
     
     func colorFormTapped() {
