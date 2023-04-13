@@ -10,10 +10,14 @@ import UIKit
 final class SelectForm: UIView {
     
     enum SelectType {
-        case label
+        case group
         case icon
         case color
     }
+    
+    var selectType: SelectType?
+    
+    
     
     // MARK: - Component
     
@@ -104,15 +108,18 @@ final class SelectForm: UIView {
         
         /// SelectForm 스타일 설정
         switch type {
-        case .label:
+        case .group:
+            selectType = .group
             [selectLabel, polygon].forEach {
                 selectStackView.addArrangedSubview($0)}
             
         case .icon:
+            selectType = .icon
             [selectIcon, polygon].forEach {
                 selectStackView.addArrangedSubview($0)}
             
         case .color:
+            selectType = .color
             [selectColor, polygon].forEach {
                 selectStackView.addArrangedSubview($0)}
         }
@@ -120,6 +127,7 @@ final class SelectForm: UIView {
     
     @objc func selectFormTapped() {
         print(#function)
+        print(selectType!)
     }
     
     // MARK: - Initial

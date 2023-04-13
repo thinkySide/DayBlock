@@ -66,19 +66,19 @@ final class AddBlockView: UIView {
         return stack
     }()
     
-    private let groupSelect: SelectForm = {
+    let groupSelect: SelectForm = {
         let select = SelectForm()
-        select.ofType("그룹", .label)
+        select.ofType("그룹", .group)
         return select
     }()
     
-    private let colorSelect: SelectForm = {
+    let colorSelect: SelectForm = {
         let select = SelectForm()
         select.ofType("색상", .color)
         return select
     }()
     
-    private let iconSelect: SelectForm = {
+    let iconSelect: SelectForm = {
         let select = SelectForm()
         select.ofType("아이콘", .icon)
         return select
