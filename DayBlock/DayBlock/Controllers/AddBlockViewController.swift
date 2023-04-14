@@ -76,15 +76,19 @@ extension AddBlockViewController: SelectFormDelegate {
     
     func groupFormTapped() {
         let selectGroupVC = SelectGroupViewController()
-        present(selectGroupVC, animated: true)
+        let navController = UINavigationController(rootViewController: selectGroupVC)
+        present(navController, animated: true)
     }
     
     func iconFormTapped() {
         let selectIconVC = SelectIconViewController()
-        present(selectIconVC, animated: true)
+        let navController = UINavigationController(rootViewController: selectIconVC)
+        present(navController, animated: true)
     }
     
     func colorFormTapped() {
-        print(#function)
+        let selectColorVC = SelectColorViewController()
+        let navController = UINavigationController(rootViewController: selectColorVC)
+        present(navController, animated: true)
     }
 }
