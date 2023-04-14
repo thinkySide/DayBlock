@@ -90,7 +90,7 @@ final class SelectForm: UIView {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
         image.tintColor = UIColor(rgb: 0x676767)
-        image.image = UIImage(named: Icon.selectIcon)
+        image.image = UIImage(named: Icon.menuIcon)
         return image
     }()
     
