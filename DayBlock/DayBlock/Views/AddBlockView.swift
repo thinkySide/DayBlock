@@ -9,13 +9,20 @@ import UIKit
 
 final class AddBlockView: UIView {
     
+    enum Select {
+        case taskLabel
+        case group
+        case color
+        case icon
+    }
+    
     // MARK: - Component
     
     private lazy var blockPreview: UIView = {
         let view = UIView()
         view.backgroundColor = GrayScale.contentsBlock
         view.clipsToBounds = true
-        [blockPreviewColorTag, blockPreviewIcon, blockPreviewLabel]
+        [blockPreviewColorTag, blockPreviewIcon, blockTaskLabel]
             .forEach { view.addSubview($0) }
         return view
     }()
@@ -40,7 +47,7 @@ final class AddBlockView: UIView {
         return image
     }()
     
-    private let blockPreviewLabel: UILabel = {
+    private let blockTaskLabel: UILabel = {
         let label = UILabel()
         label.text = "블럭 쌓기" // ⛳️
         label.font = UIFont(name: Pretendard.bold, size: 17)
@@ -97,6 +104,24 @@ final class AddBlockView: UIView {
         taskLabelTextField.countLabel.text = "\(text.count)/18"
     }
     
+    /// Block 정보 업데이트
+    func updateBlockInfo(for select: Select, _ value: Any?) {
+        switch select {
+        case .taskLabel:
+            let text = value as? String
+            blockTaskLabel.text = text == "" ? "블럭 쌓기" : value as? String
+            
+        case .group:
+            break
+            
+        case .color:
+            break
+            
+        case .icon:
+            break
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupInitial()
@@ -130,7 +155,7 @@ final class AddBlockView: UIView {
         /// 2. translatesAutoresizingMaskIntoConstraints = false
         [
             blockPreview, blockPreviewColorTag, blockPreviewIcon,
-            blockPreviewLabel, taskLabelTextField, selectFormStackView,
+            blockTaskLabel, taskLabelTextField, selectFormStackView,
             groupSelect, colorSelect, iconSelect,
         ]
             .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
@@ -160,9 +185,9 @@ final class AddBlockView: UIView {
             blockPreviewIcon.heightAnchor.constraint(equalToConstant: 56),
 
             /// blockLabel
-            blockPreviewLabel.topAnchor.constraint(equalTo: blockPreviewIcon.bottomAnchor, constant: 12),
-            blockPreviewLabel.leadingAnchor.constraint(equalTo: blockPreview.leadingAnchor, constant: 20),
-            blockPreviewLabel.trailingAnchor.constraint(equalTo: blockPreview.trailingAnchor, constant: -20),
+            blockTaskLabel.topAnchor.constraint(equalTo: blockPreviewIcon.bottomAnchor, constant: 12),
+            blockTaskLabel.leadingAnchor.constraint(equalTo: blockPreview.leadingAnchor, constant: 20),
+            blockTaskLabel.trailingAnchor.constraint(equalTo: blockPreview.trailingAnchor, constant: -20),
             
             /// nameTextField
             taskLabelTextField.topAnchor.constraint(equalTo: blockPreview.bottomAnchor, constant: 32),

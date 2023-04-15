@@ -25,6 +25,7 @@ final class AddBlockViewController: UIViewController {
         super.viewDidLoad()
         setupNavigion()
         setupDelegate()
+        setupAddTarget()
     }
     
     
@@ -41,6 +42,11 @@ final class AddBlockViewController: UIViewController {
         viewManager.groupSelect.delegate = self
         viewManager.colorSelect.delegate = self
         viewManager.iconSelect.delegate = self
+    }
+    
+    func setupAddTarget() {
+        let taskLabelTap = UITapGestureRecognizer(target: self, action: #selector(taskLabelTapped))
+        viewManager.taskLabelTextField.addGestureRecognizer(taskLabelTap)
     }
 }
 
@@ -67,6 +73,21 @@ extension AddBlockViewController: UITextFieldDelegate {
         /// 최대 글자수 제한
         if (text.count+1) > maxString { return false }
         else { return true }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        viewManager.updateBlockInfo(for: .taskLabel, textField.text)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        viewManager.updateBlockInfo(for: .taskLabel, textField.text)
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    /// FieldForm 전체 영역 선택 가능
+    @objc func taskLabelTapped() {
+        viewManager.taskLabelTextField.textField.becomeFirstResponder()
     }
 }
 

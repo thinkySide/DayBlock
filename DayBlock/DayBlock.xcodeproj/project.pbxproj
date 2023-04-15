@@ -179,8 +179,8 @@
 				078C50F529D9BBB200F239BA /* ScheduleViewController.swift */,
 				078C50F729D9BBFE00F239BA /* StorageViewController.swift */,
 				0770802E29E78C9200D66900 /* SelectGroupViewController.swift */,
-				0770803329E797E100D66900 /* SelectIconViewController.swift */,
 				0770803929E7989A00D66900 /* SelectColorViewController.swift */,
+				0770803329E797E100D66900 /* SelectIconViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -203,8 +203,8 @@
 				07454DDC29EA4FDD00B3458D /* SwitchGroupView.swift */,
 				0719649129E04FD8009CA1A4 /* AddBlockView.swift */,
 				0770803029E78D0500D66900 /* SelectGroupView.swift */,
-				0770803529E7981300D66900 /* SelectIconView.swift */,
 				0770803729E7988100D66900 /* SelectColorView.swift */,
+				0770803529E7981300D66900 /* SelectIconView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
