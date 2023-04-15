@@ -229,6 +229,14 @@ final class HomeView: UIView {
         trackingStopBarButtonItem.customView?.isHidden = false
     }
     
+    func toggleTrackingButton(_ bool: Bool) {
+        if bool {
+            trackingButton.isEnabled = true
+        } else {
+            trackingButton.isEnabled = false
+        }
+    }
+    
     func setupProgressViewColor(color: UIColor) {
         trackingProgressView.progressTintColor = color
     }

@@ -20,7 +20,19 @@ final class HomeViewController: UIViewController {
     
     private var dateTimer: Timer!
     private var trackingTimer: Timer!
-    private var blockIndex = 0 /// 현재 블럭 인덱스
+    
+    /// 현재 블럭 인덱스
+    private var blockIndex = 0 {
+        
+        /// 마지막 블럭 분기
+        didSet {
+            if blockManager.getBlockList("자기계발").list.count == blockIndex {
+                viewManager.toggleTrackingButton(false)
+            } else {
+                viewManager.toggleTrackingButton(true)
+            }
+        }
+    }
     
     
     // MARK: - ViewController LifeCycle
