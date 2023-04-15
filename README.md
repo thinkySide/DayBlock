@@ -252,3 +252,13 @@ TrackingMode 진입 시 해당 블럭의 인덱스로 접근하는 기능을 추
 ---
 
 <br>
+
+### **Day 45 - 23.04.14**
+
+- SelectForm Tap 제스처 추가 및 화면 연결
+
+<img width="300" src="https://user-images.githubusercontent.com/113565086/232178664-59a41743-a52e-43fd-92bc-9cbfb66ce4c0.png">
+
+---
+
+<br>
