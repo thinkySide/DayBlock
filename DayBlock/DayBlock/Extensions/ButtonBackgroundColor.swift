@@ -7,9 +7,9 @@
 
 import UIKit
 
+/// UIButton backgroundColor 설정
 extension UIButton {
     
-    /// UIButton backgroundColor 설정
     func setBackgroundColor(_ color: UIColor, for state: UIControl.State) {
         UIGraphicsBeginImageContext(CGSize(width: 1.0, height: 1.0))
         guard let context = UIGraphicsGetCurrentContext() else { return }

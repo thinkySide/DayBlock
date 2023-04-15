@@ -116,10 +116,6 @@ final class HomeViewController: UIViewController {
     
     
     // MARK: - Custom Method
-    
-    @objc func groupSelectButtonTapped() {
-        print(#function)
-    }
 
     /// 현재 시간 업데이트
     @objc func updateTime() {
@@ -229,6 +225,12 @@ extension HomeViewController: UIScrollViewDelegate {
 // MARK: - HomeViewDelegate
 
 extension HomeViewController: HomeViewDelegate {
+    
+    func switchGroupButtonTapped() {
+        let switchGroupVC = SwitchGroupViewController()
+        let navController = UINavigationController(rootViewController: switchGroupVC)
+        present(navController, animated: true)
+    }
     
     func startTracking() {
         trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTrackingTime), userInfo: nil, repeats: true)

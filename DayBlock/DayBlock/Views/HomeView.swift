@@ -18,6 +18,7 @@ protocol HomeViewDelegate: AnyObject {
     func stopTracking()
     
     /// Custom
+    func switchGroupButtonTapped()
     func setupProgressViewColor()
 }
 
@@ -158,7 +159,7 @@ final class HomeView: UIView {
     // MARK: - Method
     
     @objc func groupSelectButtonTapped() {
-        print(#function)
+        delegate?.switchGroupButtonTapped()
     }
     
     @objc func trackingStopBarButtonItemTapped() {

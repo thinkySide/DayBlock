@@ -33,6 +33,7 @@ final class AddBlockViewController: UIViewController {
     
     func setupNavigion() {
         title = "블럭 생성"
+        hideKeyboard()
     }
     
     func setupDelegate() {
@@ -51,9 +52,10 @@ extension AddBlockViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        // 붙여넣기도 막아야함! ⭐️⭐️⭐️
-        
+        /// 최대 글자수
         let maxString = 18
+        
+        /// 작성한 글자
         guard let count = textField.text?.count else { return false }
         
         /// Backspace 감지
@@ -65,6 +67,10 @@ extension AddBlockViewController: UITextFieldDelegate {
         /// 최대 글자수 제한
         if (count+1) > maxString { return false }
         else { return true }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        print(#function)
     }
 }
 
