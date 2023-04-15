@@ -22,6 +22,7 @@
 		07454DDD29EA4FDD00B3458D /* SwitchGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454DDC29EA4FDD00B3458D /* SwitchGroupView.swift */; };
 		07454DDF29EA501400B3458D /* SwitchGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454DDE29EA501400B3458D /* SwitchGroupViewController.swift */; };
 		07454DE329EA6CEE00B3458D /* HideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454DE229EA6CEE00B3458D /* HideKeyboard.swift */; };
+		07454DE729EA94EB00B3458D /* CustomUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454DE629EA94EB00B3458D /* CustomUITextField.swift */; };
 		0770802D29E55E7C00D66900 /* TimeTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770802C29E55E7C00D66900 /* TimeTracker.swift */; };
 		0770802F29E78C9200D66900 /* SelectGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770802E29E78C9200D66900 /* SelectGroupViewController.swift */; };
 		0770803129E78D0500D66900 /* SelectGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770803029E78D0500D66900 /* SelectGroupView.swift */; };
@@ -70,6 +71,7 @@
 		07454DDC29EA4FDD00B3458D /* SwitchGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchGroupView.swift; sourceTree = "<group>"; };
 		07454DDE29EA501400B3458D /* SwitchGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SwitchGroupViewController.swift; path = ../../../../../../../../Applications/SwitchGroupViewController.swift; sourceTree = "<group>"; };
 		07454DE229EA6CEE00B3458D /* HideKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideKeyboard.swift; sourceTree = "<group>"; };
+		07454DE629EA94EB00B3458D /* CustomUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUITextField.swift; sourceTree = "<group>"; };
 		0770802C29E55E7C00D66900 /* TimeTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTracker.swift; sourceTree = "<group>"; };
 		0770802E29E78C9200D66900 /* SelectGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGroupViewController.swift; sourceTree = "<group>"; };
 		0770803029E78D0500D66900 /* SelectGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGroupView.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				0719648D29DF044C009CA1A4 /* GroupSelectButton.swift */,
 				0719648729DC5066009CA1A4 /* TabBarActiveStackView.swift */,
 				0719649329E0692E009CA1A4 /* FieldForm.swift */,
+				07454DE629EA94EB00B3458D /* CustomUITextField.swift */,
 				0719649529E0763C009CA1A4 /* SelectForm.swift */,
 			);
 			path = Components;
@@ -352,6 +355,7 @@
 				0770803A29E7989B00D66900 /* SelectColorViewController.swift in Sources */,
 				0770803829E7988100D66900 /* SelectColorView.swift in Sources */,
 				0719648C29DDB1C0009CA1A4 /* PaintBlock.swift in Sources */,
+				07454DE729EA94EB00B3458D /* CustomUITextField.swift in Sources */,
 				0719648E29DF044C009CA1A4 /* GroupSelectButton.swift in Sources */,
 				0719649829E148CA009CA1A4 /* ContentsBlock.swift in Sources */,
 				0719648A29DC5CB4009CA1A4 /* BlockManager.swift in Sources */,

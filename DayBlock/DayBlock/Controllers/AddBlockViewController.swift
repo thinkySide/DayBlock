@@ -56,7 +56,7 @@ extension AddBlockViewController: UITextFieldDelegate {
         let maxString = 18
         
         /// 작성한 글자
-        guard let count = textField.text?.count else { return false }
+        guard let text = textField.text else { return false }
         
         /// Backspace 감지
         if let char = string.cString(using: String.Encoding.utf8) {
@@ -65,12 +65,8 @@ extension AddBlockViewController: UITextFieldDelegate {
         }
         
         /// 최대 글자수 제한
-        if (count+1) > maxString { return false }
+        if (text.count+1) > maxString { return false }
         else { return true }
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        print(#function)
     }
 }
 

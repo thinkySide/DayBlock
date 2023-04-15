@@ -37,8 +37,8 @@ final class FieldForm: UIView {
         return stack
     }()
     
-    lazy var textField: UITextField = {
-        let field = UITextField()
+    lazy var textField: CustomUITextField = {
+        let field = CustomUITextField()
         field.placeholder = "블럭 쌓기"
         field.font = .systemFont(ofSize: 18, weight: .bold)
         field.textColor = GrayScale.mainText
