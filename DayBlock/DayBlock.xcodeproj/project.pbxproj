@@ -25,6 +25,8 @@
 		07454DE729EA94EB00B3458D /* CustomUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454DE629EA94EB00B3458D /* CustomUITextField.swift */; };
 		07454E0F29EBE50500B3458D /* CustomBottomModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E0E29EBE50500B3458D /* CustomBottomModal.swift */; };
 		07454E1129EBFDF200B3458D /* ConfirmButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1029EBFDF200B3458D /* ConfirmButton.swift */; };
+		07454E1329EC138E00B3458D /* GroupSelectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1229EC138E00B3458D /* GroupSelectTableViewCell.swift */; };
+		07454E1529EC170600B3458D /* Seperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1429EC170600B3458D /* Seperator.swift */; };
 		0770802D29E55E7C00D66900 /* TimeTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770802C29E55E7C00D66900 /* TimeTracker.swift */; };
 		0770802F29E78C9200D66900 /* SelectGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770802E29E78C9200D66900 /* SelectGroupViewController.swift */; };
 		0770803129E78D0500D66900 /* SelectGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770803029E78D0500D66900 /* SelectGroupView.swift */; };
@@ -76,6 +78,8 @@
 		07454DE629EA94EB00B3458D /* CustomUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUITextField.swift; sourceTree = "<group>"; };
 		07454E0E29EBE50500B3458D /* CustomBottomModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBottomModal.swift; sourceTree = "<group>"; };
 		07454E1029EBFDF200B3458D /* ConfirmButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmButton.swift; sourceTree = "<group>"; };
+		07454E1229EC138E00B3458D /* GroupSelectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSelectTableViewCell.swift; sourceTree = "<group>"; };
+		07454E1429EC170600B3458D /* Seperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seperator.swift; sourceTree = "<group>"; };
 		0770802C29E55E7C00D66900 /* TimeTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTracker.swift; sourceTree = "<group>"; };
 		0770802E29E78C9200D66900 /* SelectGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGroupViewController.swift; sourceTree = "<group>"; };
 		0770803029E78D0500D66900 /* SelectGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGroupView.swift; sourceTree = "<group>"; };
@@ -125,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				0719648529DAF9A5009CA1A4 /* BlockCollectionViewCell.swift */,
+				07454E1229EC138E00B3458D /* GroupSelectTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -219,6 +224,7 @@
 				0719649729E148CA009CA1A4 /* ContentsBlock.swift */,
 				078C50F329D73D0200F239BA /* BlockPreview.swift */,
 				0719648B29DDB1C0009CA1A4 /* PaintBlock.swift */,
+				07454E1429EC170600B3458D /* Seperator.swift */,
 				0719648D29DF044C009CA1A4 /* GroupSelectButton.swift */,
 				0719648729DC5066009CA1A4 /* TabBarActiveStackView.swift */,
 				0719649329E0692E009CA1A4 /* FieldForm.swift */,
@@ -364,6 +370,7 @@
 				0719648C29DDB1C0009CA1A4 /* PaintBlock.swift in Sources */,
 				07454DE729EA94EB00B3458D /* CustomUITextField.swift in Sources */,
 				0719648E29DF044C009CA1A4 /* GroupSelectButton.swift in Sources */,
+				07454E1529EC170600B3458D /* Seperator.swift in Sources */,
 				0719649829E148CA009CA1A4 /* ContentsBlock.swift in Sources */,
 				0719648A29DC5CB4009CA1A4 /* BlockManager.swift in Sources */,
 				078C50F429D73D0200F239BA /* BlockPreview.swift in Sources */,
@@ -373,6 +380,7 @@
 				078C50C029D7152F00F239BA /* DayBlock.xcdatamodeld in Sources */,
 				0770802F29E78C9200D66900 /* SelectGroupViewController.swift in Sources */,
 				078C50D129D726FE00F239BA /* HomeView.swift in Sources */,
+				07454E1329EC138E00B3458D /* GroupSelectTableViewCell.swift in Sources */,
 				07454E1129EBFDF200B3458D /* ConfirmButton.swift in Sources */,
 				0770803629E7981300D66900 /* SelectIconView.swift in Sources */,
 				078C50EE29D72F9D00F239BA /* RGB.swift in Sources */,

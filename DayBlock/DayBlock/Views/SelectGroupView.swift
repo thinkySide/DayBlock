@@ -13,7 +13,7 @@ final class SelectGroupView: UIView {
     
     let tableView: UITableView = {
         let table = UITableView()
-        table.backgroundColor = .systemBlue
+        table.separatorStyle = .none
         return table
     }()
     

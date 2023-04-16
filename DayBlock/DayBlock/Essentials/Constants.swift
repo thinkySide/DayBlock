@@ -85,4 +85,5 @@ enum Size {
 
 enum Cell {
     static let block = "BlockCell"
+    static let groupSelect = "GroupSelect"
 }

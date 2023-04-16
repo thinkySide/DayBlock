@@ -38,6 +38,24 @@ final class SelectGroupViewController: UIViewController {
     }
     
     func setupDelegate() {
+        viewManager.tableView.dataSource = self
+        viewManager.tableView.delegate = self
+        viewManager.tableView.register(GroupSelectTableViewCell.self, forCellReuseIdentifier: Cell.groupSelect)
+    }
+}
+
+
+
+// MARK: - UITableView
+
+extension SelectGroupViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = viewManager.tableView.dequeueReusableCell(withIdentifier: Cell.groupSelect, for: indexPath) as! GroupSelectTableViewCell
         
+        return cell
     }
 }
