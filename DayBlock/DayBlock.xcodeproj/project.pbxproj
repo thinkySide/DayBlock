@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0719648129DAF38A009CA1A4 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648029DAF38A009CA1A4 /* Block.swift */; };
-		0719648329DAF4B5009CA1A4 /* BlockGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648229DAF4B5009CA1A4 /* BlockGroup.swift */; };
+		0719648329DAF4B5009CA1A4 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648229DAF4B5009CA1A4 /* Group.swift */; };
 		0719648629DAF9A5009CA1A4 /* BlockCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648529DAF9A5009CA1A4 /* BlockCollectionViewCell.swift */; };
 		0719648829DC5066009CA1A4 /* TabBarActiveStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648729DC5066009CA1A4 /* TabBarActiveStackView.swift */; };
 		0719648A29DC5CB4009CA1A4 /* BlockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648929DC5CB4009CA1A4 /* BlockManager.swift */; };
@@ -61,7 +61,7 @@
 
 /* Begin PBXFileReference section */
 		0719648029DAF38A009CA1A4 /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
-		0719648229DAF4B5009CA1A4 /* BlockGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockGroup.swift; sourceTree = "<group>"; };
+		0719648229DAF4B5009CA1A4 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		0719648529DAF9A5009CA1A4 /* BlockCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockCollectionViewCell.swift; sourceTree = "<group>"; };
 		0719648729DC5066009CA1A4 /* TabBarActiveStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarActiveStackView.swift; sourceTree = "<group>"; };
 		0719648929DC5CB4009CA1A4 /* BlockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockManager.swift; sourceTree = "<group>"; };
@@ -198,7 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				0719648029DAF38A009CA1A4 /* Block.swift */,
-				0719648229DAF4B5009CA1A4 /* BlockGroup.swift */,
+				0719648229DAF4B5009CA1A4 /* Group.swift */,
 				0719648929DC5CB4009CA1A4 /* BlockManager.swift */,
 				0770802C29E55E7C00D66900 /* TimeTracker.swift */,
 			);
@@ -374,7 +374,7 @@
 				0719649829E148CA009CA1A4 /* ContentsBlock.swift in Sources */,
 				0719648A29DC5CB4009CA1A4 /* BlockManager.swift in Sources */,
 				078C50F429D73D0200F239BA /* BlockPreview.swift in Sources */,
-				0719648329DAF4B5009CA1A4 /* BlockGroup.swift in Sources */,
+				0719648329DAF4B5009CA1A4 /* Group.swift in Sources */,
 				078C50F629D9BBB200F239BA /* ScheduleViewController.swift in Sources */,
 				0771983F29E2F4D10021088A /* ButtonBackgroundColor.swift in Sources */,
 				078C50C029D7152F00F239BA /* DayBlock.xcdatamodeld in Sources */,

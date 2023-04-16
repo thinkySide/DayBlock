@@ -71,7 +71,7 @@ final class SelectForm: UIView {
         return label
     }()
     
-    private let selectIcon: UIImageView = {
+    let selectIcon: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
         image.tintColor = GrayScale.mainText
@@ -79,7 +79,7 @@ final class SelectForm: UIView {
         return image
     }()
     
-    private let selectColor: UIView = {
+    let selectColor: UIView = {
         let view = UIView()
         view.backgroundColor = .systemBlue // ⛳️
         view.clipsToBounds = true

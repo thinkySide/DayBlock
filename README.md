@@ -278,3 +278,23 @@ TrackingMode 진입 시 해당 블럭의 인덱스로 접근하는 기능을 추
 ---
 
 <br>
+
+### **Day 46 - 23.04.15**
+
+- **CustomBottomModal 추가**   
+아래에서 반만 올라오는 `CustomBottomModal`을 추가했습니다.   
+애플에서 공식적으로 지원하는 `UISheetPresentationController`를 사용할 수도 있었지만,   
+iOS 15.0 부터 지원하는 기능이기 때문에 해당 방법을 선택했습니다. [참고 레퍼런스](https://thecosmos.tistory.com/4)
+
+- ConfirmButton 컴포넌트화
+
+**+ 프로젝트 기간 점검**   
+금일까지 블럭 추가에 필요한 모든 화면을 구성하는 것이 계획이었지만 달성하지 못했습니다.   
+`BlockManager` 의 효과적인 설계를 위해 해당 기능개발 기간을 2일에서 7일로 연장하기로 결정했습니다. ~04.21   
+전주 계획까지는 순조롭게 진행이 되었었지만 점점 커지다보니 개발 속도가 느려지고 있는 것이 주요한 이유로 예상됩니다.
+
+<img width="300" src="https://user-images.githubusercontent.com/113565086/232316401-ea1c258e-ef05-4f4f-b582-5671d10863ef.png">
+
+---
+
+<br>

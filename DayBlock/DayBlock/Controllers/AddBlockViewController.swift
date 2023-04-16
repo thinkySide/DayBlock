@@ -12,6 +12,7 @@ final class AddBlockViewController: UIViewController {
     // MARK: - Variable
     
     private let viewManager = AddBlockView()
+    private let blockManager = BlockManager()
     private let customBottomModalDelegate = CustomBottomModalDelegate()
     
     
@@ -23,20 +24,26 @@ final class AddBlockViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupInitial()
         setupNavigion()
         setupDelegate()
         setupAddTarget()
+        hideKeyboard()
     }
     
     
     
     // MARK: - Method
     
+    func setupInitial() {
+        
+        /// 기본 블럭 설정
+    }
+    
     func setupNavigion() {
         title = "블럭 생성"
         navigationController?.navigationBar
             .titleTextAttributes = [.font: UIFont(name: Pretendard.semiBold, size: 16)!]
-        hideKeyboard()
     }
     
     func setupDelegate() {

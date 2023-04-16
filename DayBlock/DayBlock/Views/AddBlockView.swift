@@ -76,7 +76,6 @@ final class AddBlockView: UIView {
     let groupSelect: SelectForm = {
         let select = SelectForm()
         select.ofType("그룹", .group)
-        select.selectLabel.text = "그룹 없음"
         return select
     }()
     
@@ -103,6 +102,13 @@ final class AddBlockView: UIView {
     @objc func taskLabelTextFieldChanged() {
         guard let text = taskLabelTextField.textField.text else { return }
         taskLabelTextField.countLabel.text = "\(text.count)/18"
+    }
+    
+    func updateInfo(taskLabel: String, group: String, color: UIColor, icon: UIImage) {
+        blockTaskLabel.text = taskLabel
+        groupSelect.selectLabel.text = group
+        colorSelect.selectColor.backgroundColor = color
+        iconSelect.selectIcon.image = icon
     }
     
     /// Block 정보 업데이트
