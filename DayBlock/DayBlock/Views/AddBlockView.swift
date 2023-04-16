@@ -76,6 +76,7 @@ final class AddBlockView: UIView {
     let groupSelect: SelectForm = {
         let select = SelectForm()
         select.ofType("그룹", .group)
+        select.selectLabel.text = "그룹 없음"
         return select
     }()
     

@@ -12,7 +12,7 @@ final class SelectGroupViewController: UIViewController {
     // MARK: - Variable
     
     private let viewManager = SelectGroupView()
-    
+    private let blockManager = BlockManager()
     
     
     // MARK: - ViewController LifeCycle
@@ -23,24 +23,29 @@ final class SelectGroupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigion()
         setupDelegate()
+        setupAddTarget()
     }
     
     
     
-    // MARK: - Method
-    
-    func setupNavigion() {
-        title = "그룹 선택"
-        navigationController?.navigationBar
-            .titleTextAttributes = [.font: UIFont(name: Pretendard.semiBold, size: 16)!]
-    }
+    // MARK: - Initial
     
     func setupDelegate() {
         viewManager.tableView.dataSource = self
         viewManager.tableView.delegate = self
         viewManager.tableView.register(GroupSelectTableViewCell.self, forCellReuseIdentifier: Cell.groupSelect)
+    }
+    
+    func setupAddTarget() {
+        viewManager.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
+    }
+    
+    
+    
+    // MARK: - Method
+    @objc func confirmButtonTapped() {
+        dismiss(animated: true)
     }
 }
 
@@ -50,12 +55,20 @@ final class SelectGroupViewController: UIViewController {
 
 extension SelectGroupViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return blockManager.getBlockGroupList().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = viewManager.tableView.dequeueReusableCell(withIdentifier: Cell.groupSelect, for: indexPath) as! GroupSelectTableViewCell
         
+        let group = blockManager.getBlockGroupList()[indexPath.row]
+        cell.groupLabel.text = group.name
+        cell.countLabel.text = "+\(group.list.count)"
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
 }

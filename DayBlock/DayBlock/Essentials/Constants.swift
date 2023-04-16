@@ -21,6 +21,7 @@ enum GrayScale {
     /// Text Color
     static let mainText = UIColor(rgb: 0x323232)
     static let subText = UIColor(rgb: 0x5B5B5B)
+    static let countText = UIColor(rgb: 0x676767)
     static let disabledText = UIColor(rgb: 0xB2B5BD)
     
     /// Block Background Color

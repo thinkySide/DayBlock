@@ -14,7 +14,7 @@ final class GroupSelectTableViewCell: UITableViewCell {
     let groupLabel: UILabel = {
         let label = UILabel()
         label.text = "그룹 없음" // ⛳️
-        label.font = UIFont(name: Pretendard.semiBold, size: 17)
+        label.font = UIFont(name: Pretendard.semiBold, size: 16)
         label.textColor = GrayScale.mainText
         label.textAlignment = .left
         return label
@@ -24,7 +24,7 @@ final class GroupSelectTableViewCell: UITableViewCell {
         let label = UILabel()
         label.text = "+7" // ⛳️
         label.font = UIFont(name: Pretendard.medium, size: 15)
-        label.textColor = GrayScale.subText
+        label.textColor = GrayScale.countText
         label.textAlignment = .left
         return label
     }()
@@ -39,11 +39,17 @@ final class GroupSelectTableViewCell: UITableViewCell {
         image.image = UIImage(systemName: "checkmark.circle.fill")
         image.contentMode = .scaleAspectFit
         image.tintColor = GrayScale.mainText
+        image.isHidden = true
         return image
     }()
     
 
     // MARK: - Initial
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        blockPreviewIcon.isHidden = selected ? false : true
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -56,7 +62,7 @@ final class GroupSelectTableViewCell: UITableViewCell {
     }
     
     func setupInitial() {
-        self.heightAnchor.constraint(equalToConstant: 52).isActive = true
+        self.heightAnchor.constraint(equalToConstant: 56).isActive = true
         self.selectionStyle = .none
     }
     
@@ -85,7 +91,7 @@ final class GroupSelectTableViewCell: UITableViewCell {
             /// blockPreviewIcon
             blockPreviewIcon.centerYAnchor.constraint(equalTo: centerYAnchor),
             blockPreviewIcon.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
-            blockPreviewIcon.widthAnchor.constraint(equalToConstant: 22),
+            blockPreviewIcon.widthAnchor.constraint(equalToConstant: 24),
             blockPreviewIcon.heightAnchor.constraint(equalTo: blockPreviewIcon.widthAnchor),
             
             /// seperator

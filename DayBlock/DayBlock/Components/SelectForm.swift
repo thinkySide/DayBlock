@@ -62,10 +62,10 @@ final class SelectForm: UIView {
         return stack
     }()
     
-    private let selectLabel: UILabel = {
+    let selectLabel: UILabel = {
         let label = UILabel()
         label.text = "자기계발" // ⛳️
-        label.font = UIFont(name: Pretendard.semiBold, size: 18)
+        label.font = UIFont(name: Pretendard.semiBold, size: 17)
         label.textColor = GrayScale.mainText
         label.textAlignment = .right
         return label
