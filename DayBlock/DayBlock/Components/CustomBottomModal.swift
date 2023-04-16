@@ -63,11 +63,11 @@ final class CustomBottomModal: UIPresentationController {
         view.alpha = 0
         
         guard let coordinator = presentedViewController.transitionCoordinator else {
-            view.alpha = 0.6
+            view.alpha = 0.4
             return
         }
 
-        coordinator.animate { _ in view.alpha = 0.6 }
+        coordinator.animate { _ in view.alpha = 0.4 }
     }
     
     /// dismiss 실행 준비

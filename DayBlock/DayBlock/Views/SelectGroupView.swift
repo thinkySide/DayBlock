@@ -11,6 +11,17 @@ final class SelectGroupView: UIView {
     
     // MARK: - Component
     
+    let tableView: UITableView = {
+        let table = UITableView()
+        table.backgroundColor = .systemBlue
+        return table
+    }()
+    
+    let confirmButton: ConfirmButton = {
+        let button = ConfirmButton()
+        button.setTitle("확인", for: .normal)
+        return button
+    }()
     
     
     // MARK: - Variable
@@ -41,18 +52,31 @@ final class SelectGroupView: UIView {
     }
     
     func setupAddSubView() {
-        // 1. addSubView(component)
-        
+        [tableView, confirmButton]
+            .forEach {
+                /// 1. addSubView(component)
+                addSubview($0)
+                
+                /// 2. translatesAutoresizingMaskIntoConstraints = false
+                $0.translatesAutoresizingMaskIntoConstraints = false
+            }
     }
     
     func setupConstraints() {
-        // 2. translatesAutoresizingMaskIntoConstraints = false
-//        [<#component#>]
-//            .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
-        // 3. NSLayoutConstraint.activate
+        /// 3. NSLayoutConstraint.activate
         NSLayoutConstraint.activate([
             
+            /// tableView
+            tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
+            tableView.bottomAnchor.constraint(equalTo: confirmButton.topAnchor, constant: -24),
+            tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
+            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            
+            /// confirmButton
+            confirmButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            confirmButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
+            confirmButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
         ])
     }
 }
