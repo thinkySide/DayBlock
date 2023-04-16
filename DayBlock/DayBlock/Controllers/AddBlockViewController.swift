@@ -34,6 +34,8 @@ final class AddBlockViewController: UIViewController {
     
     func setupNavigion() {
         title = "블럭 생성"
+        navigationController?.navigationBar
+            .titleTextAttributes = [.font: UIFont(name: Pretendard.semiBold, size: 16)!]
         hideKeyboard()
     }
     
@@ -108,12 +110,16 @@ extension AddBlockViewController: SelectFormDelegate {
     func iconFormTapped() {
         let selectIconVC = SelectIconViewController()
         let navController = UINavigationController(rootViewController: selectIconVC)
+        navController.modalPresentationStyle = .custom
+        navController.transitioningDelegate = customBottomModalDelegate
         present(navController, animated: true)
     }
     
     func colorFormTapped() {
         let selectColorVC = SelectColorViewController()
         let navController = UINavigationController(rootViewController: selectColorVC)
+        navController.modalPresentationStyle = .custom
+        navController.transitioningDelegate = customBottomModalDelegate
         present(navController, animated: true)
     }
 }

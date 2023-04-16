@@ -34,6 +34,8 @@ final class SelectGroupView: UIView {
     // MARK: - Method
     func setupInitial() {
         backgroundColor = .white
+        
+        /// CornerRadius
         self.clipsToBounds = true
         self.layer.cornerRadius = 30
     }

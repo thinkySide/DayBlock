@@ -34,6 +34,10 @@ final class SelectColorView: UIView {
     // MARK: - Method
     func setupInitial() {
         backgroundColor = .white
+        
+        /// CornerRadius
+        self.clipsToBounds = true
+        self.layer.cornerRadius = 30
     }
     
     func setupAddSubView() {

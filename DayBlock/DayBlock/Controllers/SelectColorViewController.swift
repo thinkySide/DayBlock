@@ -33,6 +33,8 @@ final class SelectColorViewController: UIViewController {
     
     func setupNavigion() {
         title = "색상 선택"
+        navigationController?.navigationBar
+            .titleTextAttributes = [.font: UIFont(name: Pretendard.semiBold, size: 16)!]
     }
     
     func setupDelegate() {

@@ -33,6 +33,8 @@ final class SelectGroupViewController: UIViewController {
     
     func setupNavigion() {
         title = "그룹 선택"
+        navigationController?.navigationBar
+            .titleTextAttributes = [.font: UIFont(name: Pretendard.semiBold, size: 16)!]
     }
     
     func setupDelegate() {

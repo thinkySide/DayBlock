@@ -14,6 +14,7 @@ final class HomeViewController: UIViewController {
     private let viewManager = HomeView()
     private let blockManager = BlockManager()
     private var timeTracker = TimeTracker()
+    private let customBottomModalDelegate = CustomBottomModalDelegate()
     
     
     // MARK: - Component
@@ -229,6 +230,8 @@ extension HomeViewController: HomeViewDelegate {
     func switchGroupButtonTapped() {
         let switchGroupVC = SwitchGroupViewController()
         let navController = UINavigationController(rootViewController: switchGroupVC)
+        navController.modalPresentationStyle = .custom
+        navController.transitioningDelegate = customBottomModalDelegate
         present(navController, animated: true)
     }
     
