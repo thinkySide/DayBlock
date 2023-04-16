@@ -12,7 +12,7 @@ final class AddBlockViewController: UIViewController {
     // MARK: - Variable
     
     private let viewManager = AddBlockView()
-    
+    private let customBottomModalDelegate = CustomBottomModalDelegate()
     
     
     // MARK: - ViewController LifeCycle
@@ -100,6 +100,8 @@ extension AddBlockViewController: SelectFormDelegate {
     func groupFormTapped() {
         let selectGroupVC = SelectGroupViewController()
         let navController = UINavigationController(rootViewController: selectGroupVC)
+        navController.modalPresentationStyle = .custom
+        navController.transitioningDelegate = customBottomModalDelegate
         present(navController, animated: true)
     }
     
