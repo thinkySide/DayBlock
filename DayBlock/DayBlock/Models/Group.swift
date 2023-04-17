@@ -7,6 +7,7 @@
 
 import Foundation
 
-struct Group: Hashable {
+struct Group {
     var name: String
+    var list: [Block]
 }

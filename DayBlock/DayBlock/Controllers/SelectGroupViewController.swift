@@ -55,15 +55,15 @@ final class SelectGroupViewController: UIViewController {
 
 extension SelectGroupViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return blockManager.getBlockGroupList().count
+        return blockManager.getGroupListCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = viewManager.tableView.dequeueReusableCell(withIdentifier: Cell.groupSelect, for: indexPath) as! GroupSelectTableViewCell
         
-        let group = blockManager.getBlockGroupList()[indexPath.row]
+        let group = blockManager.getGroupList()[indexPath.row]
         cell.groupLabel.text = group.name
-        cell.countLabel.text = "+\(group.list.count)"
+        cell.countLabel.text = "+\(blockManager.getGroupListCount())"
         
         return cell
     }
