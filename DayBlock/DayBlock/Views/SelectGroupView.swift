@@ -18,7 +18,9 @@ final class SelectGroupView: UIView {
     // MARK: - Component
     
     lazy var addBarButtonItem: UIBarButtonItem = {
-        let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addBarButtonItemTapped))
+        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 20)
+        let plus = UIImage(systemName: "plus", withConfiguration: symbolConfiguration)
+        let item = UIBarButtonItem(image: plus, style: .plain, target: self, action: #selector(addBarButtonItemTapped))
         item.tintColor = GrayScale.mainText
         return item
     }()

@@ -46,11 +46,6 @@ final class GroupSelectTableViewCell: UITableViewCell {
 
     // MARK: - Initial
     
-//    override func prepareForReuse() {
-//        /// 셀 재사용 문제 해결
-//        checkMark.isHidden = true
-//    }
-    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         checkMark.isHidden = selected ? false : true
