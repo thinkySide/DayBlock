@@ -43,6 +43,8 @@ final class SelectGroupViewController: UIViewController {
     // MARK: - Initial
     
     func setupNavigation() {
+        
+        /// 커스텀
         title = "그룹 선택"
         navigationController?.navigationBar
             .titleTextAttributes = [.font: UIFont(name: Pretendard.semiBold, size: 16)!]
@@ -54,9 +56,13 @@ final class SelectGroupViewController: UIViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         navigationController?.navigationBar.clipsToBounds = true
         navigationController?.navigationBar.layer.cornerRadius = 30
+        
+        /// 그룹 추가 버튼
+        navigationItem.rightBarButtonItem = viewManager.addBarButtonItem
     }
     
     func setupDelegate() {
+        viewManager.delegate = self
         viewManager.tableView.dataSource = self
         viewManager.tableView.delegate = self
         viewManager.tableView.register(GroupSelectTableViewCell.self, forCellReuseIdentifier: Cell.groupSelect)
@@ -104,5 +110,15 @@ extension SelectGroupViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let group = blockManager.getGroupList()[indexPath.row]
         blockManager.updateCreation(group: group.name)
+    }
+}
+
+
+
+// MARK: - SelectGroupViewDelegate
+
+extension SelectGroupViewController: SelectGroupViewDelegate {
+    func addButtonTapped() {
+        print(#function)
     }
 }

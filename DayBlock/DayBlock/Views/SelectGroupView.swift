@@ -7,18 +7,21 @@
 
 import UIKit
 
+protocol SelectGroupViewDelegate: AnyObject {
+    func addButtonTapped()
+}
+
 final class SelectGroupView: UIView {
+    
+    weak var delegate: SelectGroupViewDelegate?
     
     // MARK: - Component
     
-//    let title: UILabel = {
-//        let label = UILabel()
-//        label.text = "그룹 선택" // ⛳️
-//        label.font = UIFont(name: Pretendard.semiBold, size: 17)
-//        label.textColor = GrayScale.mainText
-//        label.textAlignment = .center
-//        return label
-//    }()
+    lazy var addBarButtonItem: UIBarButtonItem = {
+        let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addBarButtonItemTapped))
+        item.tintColor = GrayScale.mainText
+        return item
+    }()
     
     let tableView: UITableView = {
         let table = UITableView()
@@ -53,6 +56,11 @@ final class SelectGroupView: UIView {
     
     
     // MARK: - Method
+    
+    @objc func addBarButtonItemTapped() {
+        delegate?.addButtonTapped()
+    }
+    
     func setupInitial() {
         backgroundColor = .white
         
