@@ -12,7 +12,7 @@ final class HomeViewController: UIViewController {
     // MARK: - Manager
     
     private let viewManager = HomeView()
-    private let blockManager = BlockManager()
+    private let blockManager = BlockManager.shared
     private var timeTracker = TimeTracker()
     private let customBottomModalDelegate = CustomBottomModalDelegate()
     

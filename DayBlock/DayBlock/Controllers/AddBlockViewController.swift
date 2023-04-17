@@ -12,7 +12,7 @@ final class AddBlockViewController: UIViewController {
     // MARK: - Variable
     
     private let viewManager = AddBlockView()
-    private let blockManager = BlockManager()
+    private let blockManager = BlockManager.shared
     private let customBottomModalDelegate = CustomBottomModalDelegate()
     
     
@@ -29,6 +29,10 @@ final class AddBlockViewController: UIViewController {
         setupDelegate()
         setupAddTarget()
         hideKeyboard()
+    }
+
+    deinit {
+        blockManager.resetCreation()
     }
     
     
@@ -86,11 +90,17 @@ extension AddBlockViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if let text = textField.text { viewManager.updateTaskLabel(text) }
+        if let text = textField.text {
+            blockManager.updateCreation(label: text)
+            viewManager.updateTaskLabel(text)
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if let text = textField.text { viewManager.updateTaskLabel(text) }
+        if let text = textField.text {
+            blockManager.updateCreation(label: text)
+            viewManager.updateTaskLabel(text)
+        }
         textField.resignFirstResponder()
         return true
     }

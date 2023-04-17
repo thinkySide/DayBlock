@@ -34,7 +34,7 @@ final class GroupSelectTableViewCell: UITableViewCell {
         return line
     }()
     
-    private let blockPreviewIcon: UIImageView = {
+    let checkMark: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(systemName: "checkmark.circle.fill")
         image.contentMode = .scaleAspectFit
@@ -46,9 +46,14 @@ final class GroupSelectTableViewCell: UITableViewCell {
 
     // MARK: - Initial
     
+//    override func prepareForReuse() {
+//        /// 셀 재사용 문제 해결
+//        checkMark.isHidden = true
+//    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        blockPreviewIcon.isHidden = selected ? false : true
+        checkMark.isHidden = selected ? false : true
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -70,7 +75,7 @@ final class GroupSelectTableViewCell: UITableViewCell {
         
         /// addSubView & translatesAutoresizingMaskIntoConstraints
         [
-            groupLabel, countLabel, blockPreviewIcon, seperator,
+            groupLabel, countLabel, checkMark, seperator,
         ]
             .forEach {
                 addSubview($0)
@@ -89,10 +94,10 @@ final class GroupSelectTableViewCell: UITableViewCell {
             countLabel.leadingAnchor.constraint(equalTo: groupLabel.trailingAnchor, constant: 8),
             
             /// blockPreviewIcon
-            blockPreviewIcon.centerYAnchor.constraint(equalTo: centerYAnchor),
-            blockPreviewIcon.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
-            blockPreviewIcon.widthAnchor.constraint(equalToConstant: 24),
-            blockPreviewIcon.heightAnchor.constraint(equalTo: blockPreviewIcon.widthAnchor),
+            checkMark.centerYAnchor.constraint(equalTo: centerYAnchor),
+            checkMark.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
+            checkMark.widthAnchor.constraint(equalToConstant: 24),
+            checkMark.heightAnchor.constraint(equalTo: checkMark.widthAnchor),
             
             /// seperator
             seperator.bottomAnchor.constraint(equalTo: bottomAnchor),

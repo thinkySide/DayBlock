@@ -8,9 +8,12 @@
 import UIKit
 
 final class BlockManager {
+    
+    static let shared = BlockManager()
+    private init() {}
 
     // 테스트용 그룹 리스트
-    var testGroupList: [Group] = [
+    private var testGroupList: [Group] = [
         Group(name: "그룹 없음", list: [
             Block(taskLabel: "코딩테스트 문제 풀이",
                   icon: UIImage(systemName: "testtube.2")!, output: 32.0, color: Color.testBlue),
@@ -43,10 +46,76 @@ final class BlockManager {
             Block(taskLabel: "간식으로 훈련시키기",
                   icon: UIImage(systemName: "iphone.gen2")!, output: 8.0, color: Color.testGreen),
         ]),
+        
+        Group(name: "자기계발", list: [
+            Block(taskLabel: "코딩테스트 문제 풀이",
+                  icon: UIImage(systemName: "testtube.2")!, output: 32.0, color: Color.testBlue),
+            Block(taskLabel: "프로젝트 진행",
+                  icon: UIImage(systemName: "videoprojector.fill")!, output: 27.5, color: Color.testPink),
+            Block(taskLabel: "iOS 개발팀 스탠드업",
+                  icon: UIImage(systemName: "iphone.gen2")!, output: 8.0, color: Color.testGreen),
+            Block(taskLabel: "Github 브랜치 관리",
+                  icon: UIImage(systemName: "folder.fill")!, output: 124.5, color: Color.testYellow),
+            Block(taskLabel: "Swift 문법 공부",
+                  icon: UIImage(systemName: "pencil")!, output: 85.0, color: Color.testBlue),
+        ]),
+        
+        Group(name: "청소", list: [
+            Block(taskLabel: "팔굽혀펴기",
+                  icon: UIImage(systemName: "testtube.2")!, output: 32.0, color: Color.testBlue),
+            Block(taskLabel: "윗몸 일으키기",
+                  icon: UIImage(systemName: "videoprojector.fill")!, output: 27.5, color: Color.testPink),
+            Block(taskLabel: "조깅하기",
+                  icon: UIImage(systemName: "iphone.gen2")!, output: 8.0, color: Color.testGreen),
+        ]),
+        
+        Group(name: "스탠드업", list: [
+            Block(taskLabel: "산책시키기",
+                  icon: UIImage(systemName: "testtube.2")!, output: 32.0, color: Color.testBlue),
+            Block(taskLabel: "사료 채워넣기",
+                  icon: UIImage(systemName: "videoprojector.fill")!, output: 27.5, color: Color.testPink),
+            Block(taskLabel: "장난감으로 놀아주기",
+                  icon: UIImage(systemName: "iphone.gen2")!, output: 8.0, color: Color.testGreen),
+            Block(taskLabel: "간식으로 훈련시키기",
+                  icon: UIImage(systemName: "iphone.gen2")!, output: 8.0, color: Color.testGreen),
+        ]),
+        
+        Group(name: "빨래", list: [
+            Block(taskLabel: "코딩테스트 문제 풀이",
+                  icon: UIImage(systemName: "testtube.2")!, output: 32.0, color: Color.testBlue),
+            Block(taskLabel: "프로젝트 진행",
+                  icon: UIImage(systemName: "videoprojector.fill")!, output: 27.5, color: Color.testPink),
+            Block(taskLabel: "iOS 개발팀 스탠드업",
+                  icon: UIImage(systemName: "iphone.gen2")!, output: 8.0, color: Color.testGreen),
+            Block(taskLabel: "Github 브랜치 관리",
+                  icon: UIImage(systemName: "folder.fill")!, output: 124.5, color: Color.testYellow),
+            Block(taskLabel: "Swift 문법 공부",
+                  icon: UIImage(systemName: "pencil")!, output: 85.0, color: Color.testBlue),
+        ]),
+        
+        Group(name: "디자인", list: [
+            Block(taskLabel: "팔굽혀펴기",
+                  icon: UIImage(systemName: "testtube.2")!, output: 32.0, color: Color.testBlue),
+            Block(taskLabel: "윗몸 일으키기",
+                  icon: UIImage(systemName: "videoprojector.fill")!, output: 27.5, color: Color.testPink),
+            Block(taskLabel: "조깅하기",
+                  icon: UIImage(systemName: "iphone.gen2")!, output: 8.0, color: Color.testGreen),
+        ]),
+        
+        Group(name: "생산성", list: [
+            Block(taskLabel: "산책시키기",
+                  icon: UIImage(systemName: "testtube.2")!, output: 32.0, color: Color.testBlue),
+            Block(taskLabel: "사료 채워넣기",
+                  icon: UIImage(systemName: "videoprojector.fill")!, output: 27.5, color: Color.testPink),
+            Block(taskLabel: "장난감으로 놀아주기",
+                  icon: UIImage(systemName: "iphone.gen2")!, output: 8.0, color: Color.testGreen),
+            Block(taskLabel: "간식으로 훈련시키기",
+                  icon: UIImage(systemName: "iphone.gen2")!, output: 8.0, color: Color.testGreen),
+        ]),
     ]
     
     /// 블럭 생성용
-    var creation = Group(name: "그룹 없음", list: [Block(taskLabel: "블럭 쌓기", icon: UIImage(systemName: "batteryblock.fill")!, output: 0.0, color: Color.testBlue)])
+    var creation = Group(name: "디자인", list: [Block(taskLabel: "블럭 쌓기", icon: UIImage(systemName: "batteryblock.fill")!, output: 0.0, color: Color.testBlue)])
     
     
     
@@ -82,5 +151,37 @@ final class BlockManager {
         }
         print("블럭을 찾을 수 없습니다.")
         return nil
+    }
+    
+    
+    
+    // MARK: - Update
+    
+    func updateCreation(group: String) {
+        creation.name = group
+    }
+    
+    func updateCreation(label: String) {
+        creation.list[0].taskLabel = label
+    }
+    
+    func updateCreation(icon: UIImage) {
+        creation.list[0].icon = icon
+    }
+    
+    func updateCreation(output: Double) {
+        creation.list[0].output = output
+    }
+    
+    func updateCreation(color: UIColor) {
+        creation.list[0].color = color
+    }
+    
+    
+    
+    // MARK: - Reset
+
+    func resetCreation() {
+        creation = Group(name: "그룹 없음", list: [Block(taskLabel: "블럭 쌓기", icon: UIImage(systemName: "batteryblock.fill")!, output: 0.0, color: Color.testBlue)])
     }
 }
