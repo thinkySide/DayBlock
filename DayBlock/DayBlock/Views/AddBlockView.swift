@@ -9,13 +9,6 @@ import UIKit
 
 final class AddBlockView: UIView {
     
-    enum Select {
-        case taskLabel
-        case group
-        case color
-        case icon
-    }
-    
     // MARK: - Component
     
     private lazy var blockPreview: UIView = {
@@ -104,30 +97,35 @@ final class AddBlockView: UIView {
         taskLabelTextField.countLabel.text = "\(text.count)/18"
     }
     
-    func updateInfo(taskLabel: String, group: String, color: UIColor, icon: UIImage) {
-        blockTaskLabel.text = taskLabel
-        groupSelect.selectLabel.text = group
-        colorSelect.selectColor.backgroundColor = color
-        iconSelect.selectIcon.image = icon
+    /// Block 정보 업데이트
+    func updateBlockInfo(_ group: Group) {
+        let block = group.list[0]
+        groupSelect.selectLabel.text = group.name
+        blockTaskLabel.text = block.taskLabel
+        colorSelect.selectColor.backgroundColor = block.color
+        iconSelect.selectIcon.image = block.icon
     }
     
-    /// Block 정보 업데이트
-    func updateBlockInfo(for select: Select, _ value: Any?) {
-        switch select {
-        case .taskLabel:
-            let text = value as? String
-            blockTaskLabel.text = text == "" ? "블럭 쌓기" : value as? String
-            
-        case .group:
-            break
-            
-        case .color:
-            break
-            
-        case .icon:
-            break
-        }
+    func updateTaskLabel(_ text: String) {
+        blockTaskLabel.text = text == "" ? "블럭 쌓기" : text
     }
+
+//    func updateBlockInfo(for select: Select, _ value: Any?) {
+//        switch select {
+//        case .taskLabel:
+//            let text = value as? String
+//            blockTaskLabel.text = text == "" ? "블럭 쌓기" : value as? String
+//
+//        case .group:
+//            break
+//
+//        case .color:
+//            break
+//
+//        case .icon:
+//            break
+//        }
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

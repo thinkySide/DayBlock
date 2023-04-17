@@ -13,7 +13,7 @@ final class SelectGroupView: UIView {
     
     let title: UILabel = {
         let label = UILabel()
-        label.text = "그룹 추가" // ⛳️
+        label.text = "그룹 선택" // ⛳️
         label.font = UIFont(name: Pretendard.semiBold, size: 17)
         label.textColor = GrayScale.mainText
         label.textAlignment = .center

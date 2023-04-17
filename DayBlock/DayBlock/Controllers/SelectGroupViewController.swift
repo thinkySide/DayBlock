@@ -63,7 +63,7 @@ extension SelectGroupViewController: UITableViewDataSource, UITableViewDelegate 
         
         let group = blockManager.getGroupList()[indexPath.row]
         cell.groupLabel.text = group.name
-        cell.countLabel.text = "+\(blockManager.getGroupListCount())"
+        cell.countLabel.text = "+\(blockManager.getBlockListCount(group.name))"
         
         return cell
     }

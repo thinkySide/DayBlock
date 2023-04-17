@@ -23,8 +23,35 @@ final class BlockManager {
             Block(taskLabel: "Swift 문법 공부",
                   icon: UIImage(systemName: "pencil")!, output: 85.0, color: Color.testBlue),
         ]),
+        
+        Group(name: "운동", list: [
+            Block(taskLabel: "팔굽혀펴기",
+                  icon: UIImage(systemName: "testtube.2")!, output: 32.0, color: Color.testBlue),
+            Block(taskLabel: "윗몸 일으키기",
+                  icon: UIImage(systemName: "videoprojector.fill")!, output: 27.5, color: Color.testPink),
+            Block(taskLabel: "조깅하기",
+                  icon: UIImage(systemName: "iphone.gen2")!, output: 8.0, color: Color.testGreen),
+        ]),
+        
+        Group(name: "민톨이", list: [
+            Block(taskLabel: "산책시키기",
+                  icon: UIImage(systemName: "testtube.2")!, output: 32.0, color: Color.testBlue),
+            Block(taskLabel: "사료 채워넣기",
+                  icon: UIImage(systemName: "videoprojector.fill")!, output: 27.5, color: Color.testPink),
+            Block(taskLabel: "장난감으로 놀아주기",
+                  icon: UIImage(systemName: "iphone.gen2")!, output: 8.0, color: Color.testGreen),
+            Block(taskLabel: "간식으로 훈련시키기",
+                  icon: UIImage(systemName: "iphone.gen2")!, output: 8.0, color: Color.testGreen),
+        ]),
     ]
     
+    /// 블럭 생성용
+    var creation = Group(name: "그룹 없음", list: [Block(taskLabel: "블럭 쌓기", icon: UIImage(systemName: "batteryblock.fill")!, output: 0.0, color: Color.testBlue)])
+    
+    
+    
+    // MARK: - Get Method
+
     /// 그룹 리스트 받아오기
     func getGroupList() -> [Group] {
         return testGroupList
@@ -56,5 +83,4 @@ final class BlockManager {
         print("블럭을 찾을 수 없습니다.")
         return nil
     }
-    
 }

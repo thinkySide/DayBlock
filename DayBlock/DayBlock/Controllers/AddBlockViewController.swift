@@ -38,6 +38,7 @@ final class AddBlockViewController: UIViewController {
     func setupInitial() {
         
         /// 기본 블럭 설정
+        viewManager.updateBlockInfo(blockManager.creation)
     }
     
     func setupNavigion() {
@@ -85,11 +86,11 @@ extension AddBlockViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        viewManager.updateBlockInfo(for: .taskLabel, textField.text)
+        if let text = textField.text { viewManager.updateTaskLabel(text) }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        viewManager.updateBlockInfo(for: .taskLabel, textField.text)
+        if let text = textField.text { viewManager.updateTaskLabel(text) }
         textField.resignFirstResponder()
         return true
     }
@@ -107,6 +108,11 @@ extension AddBlockViewController: UITextFieldDelegate {
 extension AddBlockViewController: SelectFormDelegate {
     
     func groupFormTapped() {
+        
+        /// 키보드 해제
+        viewManager.taskLabelTextField.endEditing(true)
+        
+        /// present
         let selectGroupVC = SelectGroupViewController()
         selectGroupVC.modalPresentationStyle = .custom
         selectGroupVC.transitioningDelegate = customBottomModalDelegate
@@ -114,6 +120,11 @@ extension AddBlockViewController: SelectFormDelegate {
     }
     
     func iconFormTapped() {
+        
+        /// 키보드 해제
+        viewManager.taskLabelTextField.endEditing(true)
+        
+        /// present
         let selectIconVC = SelectIconViewController()
         selectIconVC.modalPresentationStyle = .custom
         selectIconVC.transitioningDelegate = customBottomModalDelegate
@@ -121,6 +132,11 @@ extension AddBlockViewController: SelectFormDelegate {
     }
     
     func colorFormTapped() {
+        
+        /// 키보드 해제
+        viewManager.taskLabelTextField.endEditing(true)
+        
+        /// present
         let selectColorVC = SelectColorViewController()
         selectColorVC.modalPresentationStyle = .custom
         selectColorVC.transitioningDelegate = customBottomModalDelegate
