@@ -35,9 +35,9 @@ final class CreateGroupView: UIView {
     func setupInitial() {
         backgroundColor = .white
         
-//        /// CornerRadius
-//        self.clipsToBounds = true
-//        self.layer.cornerRadius = 30
+        /// CornerRadius
+        self.clipsToBounds = true
+        self.layer.cornerRadius = 30
     }
     
     func setupAddSubView() {

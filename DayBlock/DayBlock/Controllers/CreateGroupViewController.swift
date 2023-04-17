@@ -32,6 +32,8 @@ final class CreateGroupViewController: UIViewController {
     // MARK: - Method
     
     func setupNavigion() {
+        
+        /// Custom
         title = "그룹 생성"
         navigationController?.navigationBar
             .titleTextAttributes = [.font: UIFont(name: Pretendard.semiBold, size: 16)!]
