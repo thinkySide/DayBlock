@@ -115,11 +115,16 @@ final class BlockManager {
     ]
     
     /// 블럭 생성용
-    var creation = Group(name: "디자인", list: [Block(taskLabel: "블럭 쌓기", icon: UIImage(systemName: "batteryblock.fill")!, output: 0.0, color: Color.testBlue)])
+    private var creation = Group(name: "그룹 없음", list: [Block(taskLabel: "블럭 쌓기", icon: UIImage(systemName: "batteryblock.fill")!, output: 0.0, color: Color.testBlue)])
     
     
     
     // MARK: - Get Method
+    
+    /// 생성용 블럭 받아오기
+    func getCreation() -> Group {
+        return creation
+    }
 
     /// 그룹 리스트 받아오기
     func getGroupList() -> [Group] {

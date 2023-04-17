@@ -42,7 +42,7 @@ final class AddBlockViewController: UIViewController {
     func setupInitial() {
         
         /// 기본 블럭 설정
-        viewManager.updateBlockInfo(blockManager.creation)
+        viewManager.updateBlockInfo(blockManager.getCreation())
     }
     
     func setupNavigion() {
@@ -124,6 +124,7 @@ extension AddBlockViewController: SelectFormDelegate {
         
         /// present
         let selectGroupVC = SelectGroupViewController()
+        selectGroupVC.delegate = self
         selectGroupVC.modalPresentationStyle = .custom
         selectGroupVC.transitioningDelegate = customBottomModalDelegate
         present(selectGroupVC, animated: true)
@@ -151,5 +152,16 @@ extension AddBlockViewController: SelectFormDelegate {
         selectColorVC.modalPresentationStyle = .custom
         selectColorVC.transitioningDelegate = customBottomModalDelegate
         present(selectColorVC, animated: true)
+    }
+}
+
+
+
+// MARK: - SelectViewControllerDelegate
+
+extension AddBlockViewController: SelectGroupViewControllerDelegate {
+    
+    func updateGroup() {
+        viewManager.updateBlockInfo(blockManager.getCreation())
     }
 }

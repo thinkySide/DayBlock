@@ -7,12 +7,17 @@
 
 import UIKit
 
+protocol SelectGroupViewControllerDelegate: AnyObject {
+    func updateGroup()
+}
+
 final class SelectGroupViewController: UIViewController {
     
     // MARK: - Variable
     
     private let viewManager = SelectGroupView()
     private let blockManager = BlockManager.shared
+    weak var delegate: SelectGroupViewControllerDelegate?
     
     
     // MARK: - ViewController LifeCycle
@@ -28,6 +33,10 @@ final class SelectGroupViewController: UIViewController {
         setupTableViewCell()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        delegate?.updateGroup()
+    }
     
     
     // MARK: - Initial
@@ -45,7 +54,7 @@ final class SelectGroupViewController: UIViewController {
     func setupTableViewCell() {
         
         /// 기본 선택값
-        let index = blockManager.getGroupList().firstIndex { $0.name == blockManager.creation.name }!
+        let index = blockManager.getGroupList().firstIndex { $0.name == blockManager.getCreation().name }!
         viewManager.tableView.selectRow(at: IndexPath(row: index, section: 0), animated: false, scrollPosition: .top)
     }
     
@@ -74,15 +83,11 @@ extension SelectGroupViewController: UITableViewDataSource, UITableViewDelegate 
         cell.groupLabel.text = group.name
         cell.countLabel.text = "+\(blockManager.getBlockListCount(group.name))"
         
-//        /// 셀 선택
-//        if cell.groupLabel.text == blockManager.creation.name {
-//            tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
-//        }
-        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let group = blockManager.getGroupList()[indexPath.row]
+        blockManager.updateCreation(group: group.name)
     }
 }
