@@ -11,14 +11,14 @@ final class SelectGroupView: UIView {
     
     // MARK: - Component
     
-    let title: UILabel = {
-        let label = UILabel()
-        label.text = "그룹 선택" // ⛳️
-        label.font = UIFont(name: Pretendard.semiBold, size: 17)
-        label.textColor = GrayScale.mainText
-        label.textAlignment = .center
-        return label
-    }()
+//    let title: UILabel = {
+//        let label = UILabel()
+//        label.text = "그룹 선택" // ⛳️
+//        label.font = UIFont(name: Pretendard.semiBold, size: 17)
+//        label.textColor = GrayScale.mainText
+//        label.textAlignment = .center
+//        return label
+//    }()
     
     let tableView: UITableView = {
         let table = UITableView()
@@ -62,7 +62,7 @@ final class SelectGroupView: UIView {
     }
     
     func setupAddSubView() {
-        [title, tableView, confirmButton]
+        [tableView, confirmButton]
             .forEach {
                 /// 1. addSubView(component)
                 addSubview($0)
@@ -77,12 +77,8 @@ final class SelectGroupView: UIView {
         /// 3. NSLayoutConstraint.activate
         NSLayoutConstraint.activate([
             
-            /// title
-            title.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            title.centerXAnchor.constraint(equalTo: centerXAnchor),
-            
             /// tableView
-            tableView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 12),
+            tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 12),
             tableView.bottomAnchor.constraint(equalTo: confirmButton.topAnchor, constant: -24),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),

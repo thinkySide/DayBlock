@@ -28,6 +28,7 @@ final class SelectGroupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigation()
         setupDelegate()
         setupAddTarget()
         setupTableViewCell()
@@ -40,6 +41,20 @@ final class SelectGroupViewController: UIViewController {
     
     
     // MARK: - Initial
+    
+    func setupNavigation() {
+        title = "그룹 선택"
+        navigationController?.navigationBar
+            .titleTextAttributes = [.font: UIFont(name: Pretendard.semiBold, size: 16)!]
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .white
+        appearance.shadowColor = .clear
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.clipsToBounds = true
+        navigationController?.navigationBar.layer.cornerRadius = 30
+    }
     
     func setupDelegate() {
         viewManager.tableView.dataSource = self

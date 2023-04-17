@@ -125,9 +125,10 @@ extension CreateBlockViewController: SelectFormDelegate {
         /// present
         let selectGroupVC = SelectGroupViewController()
         selectGroupVC.delegate = self
-        selectGroupVC.modalPresentationStyle = .custom
-        selectGroupVC.transitioningDelegate = customBottomModalDelegate
-        present(selectGroupVC, animated: true)
+        let navController = UINavigationController(rootViewController: selectGroupVC)
+        navController.modalPresentationStyle = .custom
+        navController.transitioningDelegate = customBottomModalDelegate
+        present(navController, animated: true)
     }
     
     func iconFormTapped() {
