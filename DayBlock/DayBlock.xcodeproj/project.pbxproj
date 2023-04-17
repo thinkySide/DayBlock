@@ -14,8 +14,8 @@
 		0719648A29DC5CB4009CA1A4 /* BlockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648929DC5CB4009CA1A4 /* BlockManager.swift */; };
 		0719648C29DDB1C0009CA1A4 /* PaintBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648B29DDB1C0009CA1A4 /* PaintBlock.swift */; };
 		0719648E29DF044C009CA1A4 /* GroupSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648D29DF044C009CA1A4 /* GroupSelectButton.swift */; };
-		0719649029E04F7E009CA1A4 /* AddBlockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648F29E04F7E009CA1A4 /* AddBlockViewController.swift */; };
-		0719649229E04FD8009CA1A4 /* AddBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719649129E04FD8009CA1A4 /* AddBlockView.swift */; };
+		0719649029E04F7E009CA1A4 /* CreateBlockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648F29E04F7E009CA1A4 /* CreateBlockViewController.swift */; };
+		0719649229E04FD8009CA1A4 /* CreateBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719649129E04FD8009CA1A4 /* CreateBlockView.swift */; };
 		0719649429E0692E009CA1A4 /* FieldForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719649329E0692E009CA1A4 /* FieldForm.swift */; };
 		0719649629E0763C009CA1A4 /* SelectForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719649529E0763C009CA1A4 /* SelectForm.swift */; };
 		0719649829E148CA009CA1A4 /* ContentsBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719649729E148CA009CA1A4 /* ContentsBlock.swift */; };
@@ -35,6 +35,8 @@
 		0770803A29E7989B00D66900 /* SelectColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770803929E7989A00D66900 /* SelectColorViewController.swift */; };
 		0771983F29E2F4D10021088A /* ButtonBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0771983E29E2F4D10021088A /* ButtonBackgroundColor.swift */; };
 		077A662E29ECC74A00D99C68 /* SwitchGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077A662D29ECC74A00D99C68 /* SwitchGroupViewController.swift */; };
+		077A663429ED2AB000D99C68 /* CreateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077A663329ED2AB000D99C68 /* CreateGroupViewController.swift */; };
+		077A663629ED2ABA00D99C68 /* CreateGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077A663529ED2ABA00D99C68 /* CreateGroupView.swift */; };
 		078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B529D7152F00F239BA /* AppDelegate.swift */; };
 		078C50B829D7152F00F239BA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B729D7152F00F239BA /* SceneDelegate.swift */; };
 		078C50BA29D7152F00F239BA /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B929D7152F00F239BA /* HomeViewController.swift */; };
@@ -67,8 +69,8 @@
 		0719648929DC5CB4009CA1A4 /* BlockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockManager.swift; sourceTree = "<group>"; };
 		0719648B29DDB1C0009CA1A4 /* PaintBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintBlock.swift; sourceTree = "<group>"; };
 		0719648D29DF044C009CA1A4 /* GroupSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSelectButton.swift; sourceTree = "<group>"; };
-		0719648F29E04F7E009CA1A4 /* AddBlockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBlockViewController.swift; sourceTree = "<group>"; };
-		0719649129E04FD8009CA1A4 /* AddBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBlockView.swift; sourceTree = "<group>"; };
+		0719648F29E04F7E009CA1A4 /* CreateBlockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBlockViewController.swift; sourceTree = "<group>"; };
+		0719649129E04FD8009CA1A4 /* CreateBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBlockView.swift; sourceTree = "<group>"; };
 		0719649329E0692E009CA1A4 /* FieldForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldForm.swift; sourceTree = "<group>"; };
 		0719649529E0763C009CA1A4 /* SelectForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectForm.swift; sourceTree = "<group>"; };
 		0719649729E148CA009CA1A4 /* ContentsBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsBlock.swift; sourceTree = "<group>"; };
@@ -88,6 +90,8 @@
 		0770803929E7989A00D66900 /* SelectColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectColorViewController.swift; sourceTree = "<group>"; };
 		0771983E29E2F4D10021088A /* ButtonBackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonBackgroundColor.swift; sourceTree = "<group>"; };
 		077A662D29ECC74A00D99C68 /* SwitchGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchGroupViewController.swift; sourceTree = "<group>"; };
+		077A663329ED2AB000D99C68 /* CreateGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupViewController.swift; sourceTree = "<group>"; };
+		077A663529ED2ABA00D99C68 /* CreateGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupView.swift; sourceTree = "<group>"; };
 		078C50B229D7152F00F239BA /* DayBlock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayBlock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		078C50B529D7152F00F239BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		078C50B729D7152F00F239BA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -184,7 +188,8 @@
 			children = (
 				078C50B929D7152F00F239BA /* HomeViewController.swift */,
 				077A662D29ECC74A00D99C68 /* SwitchGroupViewController.swift */,
-				0719648F29E04F7E009CA1A4 /* AddBlockViewController.swift */,
+				0719648F29E04F7E009CA1A4 /* CreateBlockViewController.swift */,
+				077A663329ED2AB000D99C68 /* CreateGroupViewController.swift */,
 				078C50F529D9BBB200F239BA /* ScheduleViewController.swift */,
 				078C50F729D9BBFE00F239BA /* StorageViewController.swift */,
 				0770802E29E78C9200D66900 /* SelectGroupViewController.swift */,
@@ -210,7 +215,8 @@
 			children = (
 				078C50D029D726FE00F239BA /* HomeView.swift */,
 				07454DDC29EA4FDD00B3458D /* SwitchGroupView.swift */,
-				0719649129E04FD8009CA1A4 /* AddBlockView.swift */,
+				0719649129E04FD8009CA1A4 /* CreateBlockView.swift */,
+				077A663529ED2ABA00D99C68 /* CreateGroupView.swift */,
 				0770803029E78D0500D66900 /* SelectGroupView.swift */,
 				0770803729E7988100D66900 /* SelectColorView.swift */,
 				0770803529E7981300D66900 /* SelectIconView.swift */,
@@ -361,15 +367,17 @@
 			files = (
 				0770803129E78D0500D66900 /* SelectGroupView.swift in Sources */,
 				078C50BA29D7152F00F239BA /* HomeViewController.swift in Sources */,
-				0719649229E04FD8009CA1A4 /* AddBlockView.swift in Sources */,
+				0719649229E04FD8009CA1A4 /* CreateBlockView.swift in Sources */,
 				07454E0F29EBE50500B3458D /* CustomBottomModal.swift in Sources */,
 				07454DDD29EA4FDD00B3458D /* SwitchGroupView.swift in Sources */,
 				078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */,
 				0770803A29E7989B00D66900 /* SelectColorViewController.swift in Sources */,
 				0770803829E7988100D66900 /* SelectColorView.swift in Sources */,
+				077A663429ED2AB000D99C68 /* CreateGroupViewController.swift in Sources */,
 				0719648C29DDB1C0009CA1A4 /* PaintBlock.swift in Sources */,
 				07454DE729EA94EB00B3458D /* CustomUITextField.swift in Sources */,
 				0719648E29DF044C009CA1A4 /* GroupSelectButton.swift in Sources */,
+				077A663629ED2ABA00D99C68 /* CreateGroupView.swift in Sources */,
 				07454E1529EC170600B3458D /* Seperator.swift in Sources */,
 				0719649829E148CA009CA1A4 /* ContentsBlock.swift in Sources */,
 				0719648A29DC5CB4009CA1A4 /* BlockManager.swift in Sources */,
@@ -390,7 +398,7 @@
 				07454DE329EA6CEE00B3458D /* HideKeyboard.swift in Sources */,
 				0719648829DC5066009CA1A4 /* TabBarActiveStackView.swift in Sources */,
 				078C50B829D7152F00F239BA /* SceneDelegate.swift in Sources */,
-				0719649029E04F7E009CA1A4 /* AddBlockViewController.swift in Sources */,
+				0719649029E04F7E009CA1A4 /* CreateBlockViewController.swift in Sources */,
 				0719649429E0692E009CA1A4 /* FieldForm.swift in Sources */,
 				0719648629DAF9A5009CA1A4 /* BlockCollectionViewCell.swift in Sources */,
 				078C50F829D9BBFE00F239BA /* StorageViewController.swift in Sources */,

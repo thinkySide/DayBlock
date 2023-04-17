@@ -189,7 +189,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         if count == indexPath.row {
             
             /// Push to AddBlockViewController
-            let addBlockVC = AddBlockViewController()
+            let addBlockVC = CreateBlockViewController()
             addBlockVC.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(addBlockVC, animated: true)
         }

@@ -7,11 +7,11 @@
 
 import UIKit
 
-final class AddBlockViewController: UIViewController {
+final class CreateBlockViewController: UIViewController {
     
     // MARK: - Variable
     
-    private let viewManager = AddBlockView()
+    private let viewManager = CreateBlockView()
     private let blockManager = BlockManager.shared
     private let customBottomModalDelegate = CustomBottomModalDelegate()
     
@@ -68,7 +68,7 @@ final class AddBlockViewController: UIViewController {
 
 // MARK: - UITextFieldDelegate
 
-extension AddBlockViewController: UITextFieldDelegate {
+extension CreateBlockViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
@@ -115,7 +115,7 @@ extension AddBlockViewController: UITextFieldDelegate {
 
 // MARK: - SelectFormDelegate
 
-extension AddBlockViewController: SelectFormDelegate {
+extension CreateBlockViewController: SelectFormDelegate {
     
     func groupFormTapped() {
         
@@ -159,7 +159,7 @@ extension AddBlockViewController: SelectFormDelegate {
 
 // MARK: - SelectViewControllerDelegate
 
-extension AddBlockViewController: SelectGroupViewControllerDelegate {
+extension CreateBlockViewController: SelectGroupViewControllerDelegate {
     
     func updateGroup() {
         viewManager.updateBlockInfo(blockManager.getCreation())
