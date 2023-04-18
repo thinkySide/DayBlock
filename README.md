@@ -298,3 +298,17 @@ iOS 15.0 부터 지원하는 기능이기 때문에 해당 방법을 선택했�
 ---
 
 <br>
+
+### **Day 48 - 23.04.17**
+
+- **BlockManager 구조 변경(싱글톤)**   
+화면 간 효과적인 업데이트를 위해 `BlockManager'를 싱글톤 구조로 변경했습니다.   
+현재 블럭 검색은 배열의 앞부분부터 찾을 때까지 돌기 때문에 추후 더 효과적인 알고리즘 구현이 필요합니다.
+
+- SelectGroupVIew TableView 기본값 선택
+
+<img width="300" src="https://user-images.githubusercontent.com/113565086/232637830-77b2b851-15cf-45a8-bf95-f6c68652a8d0.png">
+
+---
+
+<br>
