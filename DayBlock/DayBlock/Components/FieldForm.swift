@@ -11,7 +11,7 @@ final class FieldForm: UIView {
     
     // MARK: - Component
     
-    private let textFieldLabel: UILabel = {
+    let textFieldLabel: UILabel = {
         let label = UILabel()
         label.text = "작업명"
         label.font = UIFont(name: Pretendard.semiBold, size: 16)
@@ -57,16 +57,12 @@ final class FieldForm: UIView {
         return label
     }()
     
-    
-    // MARK: - Variable
-    
-    
+
     
     // MARK: - Method
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupInitial()
         setupAddSubView()
         setupConstraints()
     }
@@ -85,9 +81,6 @@ final class FieldForm: UIView {
     
     
     // MARK: - Method
-    func setupInitial() {
-        
-    }
     
     func setupAddSubView() {
         /// 1. addSubView(component)

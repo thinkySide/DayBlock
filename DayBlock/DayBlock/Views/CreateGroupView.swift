@@ -24,6 +24,14 @@ final class CreateGroupView: UIView {
         return item
     }()
     
+    let groupLabel: FieldForm = {
+        let form = FieldForm()
+        form.textFieldLabel.text = "그룹명"
+        form.textField.placeholder = "자기계발"
+        form.countLabel.text = "0/8"
+        return form
+    }()
+    
     
     
     // MARK: - Variable
@@ -56,15 +64,15 @@ final class CreateGroupView: UIView {
     }
     
     func setupAddSubView() {
-//        []
-//            .forEach {
-//
-//                /// 1. addSubView(component)
-//                addSubview($0)
-//
-//                /// 2. translatesAutoresizingMaskIntoConstraints = false
-//                $0.translatesAutoresizingMaskIntoConstraints = false
-//            }
+        [groupLabel]
+            .forEach {
+
+                /// 1. addSubView(component)
+                addSubview($0)
+
+                /// 2. translatesAutoresizingMaskIntoConstraints = false
+                $0.translatesAutoresizingMaskIntoConstraints = false
+            }
     }
     
     func setupConstraints() {
@@ -72,7 +80,10 @@ final class CreateGroupView: UIView {
         /// 3. NSLayoutConstraint.activate
         NSLayoutConstraint.activate([
             
-            
+            /// groupLabel
+            groupLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
+            groupLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
+            groupLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
         ])
     }
 }
