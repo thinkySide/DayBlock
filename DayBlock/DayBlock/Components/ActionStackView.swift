@@ -12,17 +12,12 @@ final class ActionStackView: UIStackView {
     // MARK: - Button
     
     let cancelButton: ActionButton = {
-        let button = ActionButton()
-        button.setBackgroundColor(GrayScale.cancelButton, for: .normal)
-        button.titleLabel?.font = UIFont(name: Pretendard.semiBold, size: 17)
-        button.setTitleColor(GrayScale.subText, for: .normal)
-        button.setTitle("취소", for: .normal)
+        let button = ActionButton(frame: .zero, mode: .cancel)
         return button
     }()
     
     let confirmButton: ActionButton = {
-        let button = ActionButton()
-        button.setTitle("확인", for: .normal)
+        let button = ActionButton(frame: .zero, mode: .confirm)
         return button
     }()
     

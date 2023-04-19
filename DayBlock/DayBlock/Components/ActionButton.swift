@@ -16,14 +16,24 @@ final class ActionButton: UIButton {
     
     // MARK: - Initial
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, mode: Mode) {
         super.init(frame: frame)
         
-        /// .normal
-        self.setBackgroundColor(GrayScale.mainText, for: .normal)
-        self.titleLabel?.font = UIFont(name: Pretendard.semiBold, size: 17)
-        self.setTitleColor(.white, for: .normal)
-        
+        switch mode {
+        case .confirm:
+            self.setBackgroundColor(GrayScale.mainText, for: .normal)
+            self.titleLabel?.font = UIFont(name: Pretendard.semiBold, size: 17)
+            self.setTitleColor(.white, for: .normal)
+            self.setTitle("확인", for: .normal)
+            
+        case .cancel:
+            self.setBackgroundColor(GrayScale.cancelButton, for: .normal)
+            self.setBackgroundColor(GrayScale.entireBlock, for: .highlighted)
+            self.titleLabel?.font = UIFont(name: Pretendard.semiBold, size: 17)
+            self.setTitleColor(GrayScale.subText, for: .normal)
+            self.setTitle("취소", for: .normal)
+        }
+
         /// Corener Raduis
         self.clipsToBounds = true
         self.layer.cornerRadius = 13
