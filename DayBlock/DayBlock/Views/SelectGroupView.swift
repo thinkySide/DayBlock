@@ -101,7 +101,7 @@ final class SelectGroupView: UIView {
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
-            /// confirmButton
+            /// actionStackView
             actionStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
             actionStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             actionStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),

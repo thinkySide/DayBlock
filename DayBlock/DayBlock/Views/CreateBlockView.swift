@@ -83,11 +83,7 @@ final class CreateBlockView: UIView {
         select.ofType("아이콘", .icon)
         return select
     }()
-    
-    
-    
-    // MARK: - Variable
-    
+
     
     
     // MARK: - Method
@@ -110,23 +106,6 @@ final class CreateBlockView: UIView {
         blockTaskLabel.text = text == "" ? "블럭 쌓기" : text
     }
 
-//    func updateBlockInfo(for select: Select, _ value: Any?) {
-//        switch select {
-//        case .taskLabel:
-//            let text = value as? String
-//            blockTaskLabel.text = text == "" ? "블럭 쌓기" : value as? String
-//
-//        case .group:
-//            break
-//
-//        case .color:
-//            break
-//
-//        case .icon:
-//            break
-//        }
-//    }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupInitial()

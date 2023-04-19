@@ -83,21 +83,21 @@ extension CreateBlockViewController: UITextFieldDelegate {
             let isBackSpace = strcmp(char, "\\b")
             if isBackSpace == -92 { return true }
         }
-        
+                
         /// 최대 글자수 제한
         if (text.count+1) > maxString { return false }
         else { return true }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if let text = textField.text {
+        if let text = textField.text?.trimmingCharacters(in: .whitespaces) {
             blockManager.updateCreation(label: text)
             viewManager.updateTaskLabel(text)
         }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if let text = textField.text {
+        if let text = textField.text?.trimmingCharacters(in: .whitespaces) {
             blockManager.updateCreation(label: text)
             viewManager.updateTaskLabel(text)
         }

@@ -63,9 +63,9 @@ final class SelectGroupViewController: UIViewController {
     
     @objc func addButtonTapped() {
         let createGroupVC = CreateGroupViewController()
-        createGroupVC.modalPresentationStyle = .custom
-        createGroupVC.transitioningDelegate = customBottomModalDelegate
-        present(createGroupVC, animated: true)
+        let navController = UINavigationController(rootViewController: createGroupVC)
+        navController.modalPresentationStyle = .overFullScreen
+        present(navController, animated: true)
     }
     
     @objc func confirmButtonTapped() {

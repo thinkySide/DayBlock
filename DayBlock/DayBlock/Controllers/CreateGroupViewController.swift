@@ -23,6 +23,7 @@ final class CreateGroupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigation()
         setupDelegate()
         setupAddTarget()
     }
@@ -31,19 +32,38 @@ final class CreateGroupViewController: UIViewController {
     
     // MARK: - Initial Method
     
-    func setupDelegate() {
+    func setupNavigation() {
         
+        /// Custom
+        title = "새 그룹 생성"
+        navigationController?.navigationBar
+            .titleTextAttributes = [.font: UIFont(name: Pretendard.semiBold, size: 16)!]
+        
+        /// 뒤로가기 버튼
+        navigationItem.leftBarButtonItem = viewManager.backBarButtonItem
+    }
+    
+    func setupDelegate() {
+        viewManager.delegate = self
     }
     
     func setupAddTarget() {
-        viewManager.dismissButton.addTarget(self, action: #selector(dismissButtonTapped), for: .touchUpInside)
+        
     }
     
     
     
     // MARK: - Custom Method
+
     
-    @objc func dismissButtonTapped() {
+}
+
+
+
+// MARK: - CreateGroupViewDelegate
+
+extension CreateGroupViewController: CreateGroupViewDelegate {
+    func dismissVC() {
         dismiss(animated: true)
     }
 }
