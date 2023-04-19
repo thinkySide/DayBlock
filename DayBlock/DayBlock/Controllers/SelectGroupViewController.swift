@@ -28,7 +28,6 @@ final class SelectGroupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigation()
         setupDelegate()
         setupAddTarget()
         setupTableViewCell()
@@ -42,39 +41,14 @@ final class SelectGroupViewController: UIViewController {
     
     // MARK: - Initial
     
-    func setupNavigation() {
-        
-        /// 커스텀
-        title = "그룹 선택"
-        navigationController?.navigationBar
-            .titleTextAttributes = [.font: UIFont(name: Pretendard.semiBold, size: 16)!]
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 6)
-        appearance.backgroundColor = .clear
-        appearance.shadowColor = .clear
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        navigationController?.navigationBar.clipsToBounds = true
-        navigationController?.navigationBar.layer.cornerRadius = 30
-        
-        /// 뒤로가기 버튼
-        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = GrayScale.mainText
-        navigationItem.backBarButtonItem = backBarButtonItem
-        
-        /// 그룹 추가 버튼
-        navigationItem.rightBarButtonItem = viewManager.addBarButtonItem
-    }
-    
     func setupDelegate() {
-        viewManager.delegate = self
         viewManager.tableView.dataSource = self
         viewManager.tableView.delegate = self
         viewManager.tableView.register(GroupSelectTableViewCell.self, forCellReuseIdentifier: Cell.groupSelect)
     }
     
     func setupAddTarget() {
+        viewManager.addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
         viewManager.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
     }
     
@@ -88,6 +62,12 @@ final class SelectGroupViewController: UIViewController {
     
     
     // MARK: - Method
+    
+    @objc func addButtonTapped() {
+        let createGroupVC = CreateGroupViewController()
+        createGroupVC.modalPresentationStyle = .fullScreen
+        present(createGroupVC, animated: true)
+    }
     
     @objc func confirmButtonTapped() {
         dismiss(animated: true)
@@ -117,16 +97,5 @@ extension SelectGroupViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let group = blockManager.getGroupList()[indexPath.row]
         blockManager.updateCreation(group: group.name)
-    }
-}
-
-
-
-// MARK: - SelectGroupViewDelegate
-
-extension SelectGroupViewController: SelectGroupViewDelegate {
-    func addButtonTapped() {
-        let createGroupVC = CreateGroupViewController()
-        navigationController?.pushViewController(createGroupVC, animated: true)
     }
 }

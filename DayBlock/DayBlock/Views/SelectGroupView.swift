@@ -7,22 +7,25 @@
 
 import UIKit
 
-protocol SelectGroupViewDelegate: AnyObject {
-    func addButtonTapped()
-}
-
 final class SelectGroupView: UIView {
-    
-    weak var delegate: SelectGroupViewDelegate?
     
     // MARK: - Component
     
-    lazy var addBarButtonItem: UIBarButtonItem = {
-        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 20)
-        let plus = UIImage(systemName: "plus", withConfiguration: symbolConfiguration)
-        let item = UIBarButtonItem(image: plus, style: .plain, target: self, action: #selector(addBarButtonItemTapped))
-        item.tintColor = GrayScale.mainText
-        return item
+    private let title: UILabel = {
+        let label = UILabel()
+        label.text = "그룹 선택"
+        label.font = UIFont(name: Pretendard.semiBold, size: 16)
+        label.textColor = GrayScale.mainText
+        label.textAlignment = .center
+        return label
+    }()
+    
+    let addButton: UIButton = {
+        let button = UIButton()
+        let icon = UIImage.SymbolConfiguration(pointSize: 24, weight: .regular)
+        button.setImage(UIImage(systemName: "plus", withConfiguration: icon), for: .normal)
+        button.tintColor = GrayScale.mainText
+        return button
     }()
     
     let tableView: UITableView = {
@@ -59,10 +62,6 @@ final class SelectGroupView: UIView {
     
     // MARK: - Method
     
-    @objc func addBarButtonItemTapped() {
-        delegate?.addButtonTapped()
-    }
-    
     func setupInitial() {
         backgroundColor = .white
         
@@ -72,7 +71,7 @@ final class SelectGroupView: UIView {
     }
     
     func setupAddSubView() {
-        [tableView, confirmButton]
+        [title, addButton, tableView, confirmButton]
             .forEach {
                 /// 1. addSubView(component)
                 addSubview($0)
@@ -87,8 +86,18 @@ final class SelectGroupView: UIView {
         /// 3. NSLayoutConstraint.activate
         NSLayoutConstraint.activate([
             
+            /// title
+            title.topAnchor.constraint(equalTo: topAnchor, constant: 12),
+            title.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            /// addButton
+            addButton.centerYAnchor.constraint(equalTo: title.centerYAnchor),
+            addButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+            addButton.widthAnchor.constraint(equalToConstant: 40),
+            addButton.heightAnchor.constraint(equalTo: addButton.widthAnchor),
+            
             /// tableView
-            tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 12),
+            tableView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 12),
             tableView.bottomAnchor.constraint(equalTo: confirmButton.topAnchor, constant: -24),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
