@@ -64,7 +64,6 @@ final class HomeViewController: UIViewController {
     func setupNavigation() {
         
         /// 그룹 선택 버튼
-        // navigationItem.titleView = viewManager.groupSelectButton
         navigationItem.leftBarButtonItem = viewManager.groupSelectButton
         
         /// TrackingStopButton
@@ -227,12 +226,11 @@ extension HomeViewController: UIScrollViewDelegate {
 
 extension HomeViewController: HomeViewDelegate {
     
-    func switchGroupButtonTapped() {
-        let switchGroupVC = SwitchGroupViewController()
-        let navController = UINavigationController(rootViewController: switchGroupVC)
-        navController.modalPresentationStyle = .custom
-        navController.transitioningDelegate = customBottomModalDelegate
-        present(navController, animated: true)
+    func selectGroupButtonTapped() {
+        let selectGroupVC = SelectGroupViewController()
+        selectGroupVC.modalPresentationStyle = .custom
+        selectGroupVC.transitioningDelegate = customBottomModalDelegate
+        present(selectGroupVC, animated: true)
     }
     
     func startTracking() {

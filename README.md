@@ -312,3 +312,13 @@ iOS 15.0 부터 지원하는 기능이기 때문에 해당 방법을 선택했�
 ---
 
 <br>
+
+### **Day 50 - 23.04.19**
+
+- ActionButton, ActionStackView 컴포넌트화  
+
+<img width="300" src="https://user-images.githubusercontent.com/113565086/233085913-e5e678ed-075c-454d-b400-35de7611b452.png">
+
+---
+
+<br>
