@@ -102,9 +102,6 @@ final class SelectForm: UIView {
     
     
     
-    // MARK: - Variable
-    
-    
     
     // MARK: - Custom Method
     

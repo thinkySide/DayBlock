@@ -35,10 +35,9 @@ final class SelectGroupView: UIView {
         return table
     }()
     
-    let confirmButton: ConfirmButton = {
-        let button = ConfirmButton()
-        button.setTitle("확인", for: .normal)
-        return button
+    let actionStackView: ActionStackView = {
+        let stack = ActionStackView()
+        return stack
     }()
     
     
@@ -71,7 +70,7 @@ final class SelectGroupView: UIView {
     }
     
     func setupAddSubView() {
-        [title, addButton, tableView, confirmButton]
+        [title, addButton, tableView, actionStackView]
             .forEach {
                 /// 1. addSubView(component)
                 addSubview($0)
@@ -98,14 +97,14 @@ final class SelectGroupView: UIView {
             
             /// tableView
             tableView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 12),
-            tableView.bottomAnchor.constraint(equalTo: confirmButton.topAnchor, constant: -24),
+            tableView.bottomAnchor.constraint(equalTo: actionStackView.topAnchor, constant: -24),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
             /// confirmButton
-            confirmButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            confirmButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
-            confirmButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
+            actionStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            actionStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
+            actionStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
         ])
     }
 }

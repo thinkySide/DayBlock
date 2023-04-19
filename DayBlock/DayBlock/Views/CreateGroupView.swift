@@ -11,6 +11,22 @@ final class CreateGroupView: UIView {
     
     // MARK: - Component
     
+    let dismissButton: UIButton = {
+        let button = UIButton()
+        let icon = UIImage.SymbolConfiguration(pointSize: 24, weight: .regular)
+        button.setImage(UIImage(systemName: "xmark", withConfiguration: icon), for: .normal)
+        button.tintColor = GrayScale.mainText
+        return button
+    }()
+    
+    private let title: UILabel = {
+        let label = UILabel()
+        label.text = "그룹 생성"
+        label.font = UIFont(name: Pretendard.semiBold, size: 16)
+        label.textColor = GrayScale.mainText
+        label.textAlignment = .center
+        return label
+    }()
     
     
     // MARK: - Variable
@@ -41,18 +57,31 @@ final class CreateGroupView: UIView {
     }
     
     func setupAddSubView() {
-        // 1. addSubView(component)
-        
+        [dismissButton, title]
+            .forEach {
+                
+                /// 1. addSubView(component)
+                addSubview($0)
+                
+                /// 2. translatesAutoresizingMaskIntoConstraints = false
+                $0.translatesAutoresizingMaskIntoConstraints = false
+            }
     }
     
     func setupConstraints() {
-        // 2. translatesAutoresizingMaskIntoConstraints = false
-//        [<#component#>]
-//            .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
-        // 3. NSLayoutConstraint.activate
+        /// 3. NSLayoutConstraint.activate
         NSLayoutConstraint.activate([
             
+            /// dismissButton
+            dismissButton.centerYAnchor.constraint(equalTo: title.centerYAnchor),
+            dismissButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            dismissButton.widthAnchor.constraint(equalToConstant: 40),
+            dismissButton.heightAnchor.constraint(equalTo: dismissButton.widthAnchor),
+            
+            /// title
+            title.topAnchor.constraint(equalTo: topAnchor, constant: 12),
+            title.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
     }
 }

@@ -7,7 +7,12 @@
 
 import UIKit
 
-final class ConfirmButton: UIButton {
+final class ActionButton: UIButton {
+    
+    enum Mode {
+        case confirm
+        case cancel
+    }
     
     // MARK: - Initial
     

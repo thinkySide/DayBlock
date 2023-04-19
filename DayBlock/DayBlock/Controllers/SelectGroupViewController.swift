@@ -17,6 +17,7 @@ final class SelectGroupViewController: UIViewController {
     
     private let viewManager = SelectGroupView()
     private let blockManager = BlockManager.shared
+    private let customBottomModalDelegate = CustomBottomModalDelegate()
     weak var delegate: SelectGroupViewControllerDelegate?
     
     
@@ -49,7 +50,7 @@ final class SelectGroupViewController: UIViewController {
     
     func setupAddTarget() {
         viewManager.addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
-        viewManager.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
+        viewManager.actionStackView.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
     }
     
     func setupTableViewCell() {
@@ -65,7 +66,8 @@ final class SelectGroupViewController: UIViewController {
     
     @objc func addButtonTapped() {
         let createGroupVC = CreateGroupViewController()
-        createGroupVC.modalPresentationStyle = .fullScreen
+        createGroupVC.modalPresentationStyle = .custom
+        createGroupVC.transitioningDelegate = customBottomModalDelegate
         present(createGroupVC, animated: true)
     }
     
