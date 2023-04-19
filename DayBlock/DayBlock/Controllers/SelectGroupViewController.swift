@@ -34,10 +34,6 @@ final class SelectGroupViewController: UIViewController {
         setupTableViewCell()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        delegate?.updateGroup()
-    }
     
     
     // MARK: - Initial
@@ -51,6 +47,7 @@ final class SelectGroupViewController: UIViewController {
     func setupAddTarget() {
         viewManager.addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
         viewManager.actionStackView.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
+        viewManager.actionStackView.cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
     }
     
     func setupTableViewCell() {
@@ -72,6 +69,18 @@ final class SelectGroupViewController: UIViewController {
     }
     
     @objc func confirmButtonTapped() {
+        
+        /// 현재 선택된 indexPath 값으로 블럭 정보 업데이트
+        if let indexPath = viewManager.tableView.indexPathForSelectedRow {
+            let group = blockManager.getGroupList()[indexPath.row]
+            blockManager.updateCreation(group: group.name)
+        }
+        
+        delegate?.updateGroup()
+        dismiss(animated: true)
+    }
+    
+    @objc func cancelButtonTapped() {
         dismiss(animated: true)
     }
 }
@@ -97,7 +106,6 @@ extension SelectGroupViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let group = blockManager.getGroupList()[indexPath.row]
-        blockManager.updateCreation(group: group.name)
+        
     }
 }

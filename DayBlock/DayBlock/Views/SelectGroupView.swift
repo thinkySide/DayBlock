@@ -96,7 +96,7 @@ final class SelectGroupView: UIView {
             addButton.heightAnchor.constraint(equalTo: addButton.widthAnchor),
             
             /// tableView
-            tableView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 12),
+            tableView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 16),
             tableView.bottomAnchor.constraint(equalTo: actionStackView.topAnchor, constant: -24),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
