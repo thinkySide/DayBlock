@@ -7,8 +7,9 @@
 
 import UIKit
 
-protocol SelectGroupViewControllerDelegate: AnyObject {
-    func updateGroup()
+@objc protocol SelectGroupViewControllerDelegate: AnyObject {
+    @objc optional func updateCreationGroup()
+    @objc optional func switchHomeGroup()
 }
 
 final class SelectGroupViewController: UIViewController {
@@ -87,7 +88,8 @@ final class SelectGroupViewController: UIViewController {
             blockManager.updateCreation(group: group.name)
         }
         
-        delegate?.updateGroup()
+        delegate?.updateCreationGroup?()
+        delegate?.switchHomeGroup?()
         dismiss(animated: true)
     }
     

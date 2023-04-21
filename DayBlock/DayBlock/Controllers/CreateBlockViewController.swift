@@ -160,8 +160,8 @@ extension CreateBlockViewController: SelectFormDelegate {
 // MARK: - SelectViewControllerDelegate
 
 extension CreateBlockViewController: SelectGroupViewControllerDelegate {
-    
-    func updateGroup() {
+
+    func updateCreationGroup() {
         viewManager.updateBlockInfo(blockManager.getCreation())
     }
 }

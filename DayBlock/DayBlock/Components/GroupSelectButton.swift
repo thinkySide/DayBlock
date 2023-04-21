@@ -22,7 +22,7 @@ final class GroupSelectButton: UIButton {
     
     let groupLabel: UILabel = {
         let label = UILabel()
-        label.text = "자기계발"
+        label.text = "그룹 없음"
         label.font = UIFont(name: Pretendard.bold, size: 18)
         label.textColor = GrayScale.mainText
         label.textAlignment = .center

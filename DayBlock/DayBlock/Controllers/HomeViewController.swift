@@ -228,6 +228,7 @@ extension HomeViewController: HomeViewDelegate {
     
     func selectGroupButtonTapped() {
         let selectGroupVC = SelectGroupViewController()
+        selectGroupVC.delegate = self
         selectGroupVC.modalPresentationStyle = .custom
         selectGroupVC.transitioningDelegate = customBottomModalDelegate
         present(selectGroupVC, animated: true)
@@ -290,5 +291,15 @@ extension HomeViewController: HomeViewDelegate {
     func setupProgressViewColor() {
         let blockDataList = blockManager.getBlockList("그룹 없음") // ⛳️
         viewManager.setupProgressViewColor(color: blockDataList[blockIndex].color)
+    }
+}
+
+
+
+// MARK: - SelectGroupViewControllerDelegate
+
+extension HomeViewController: SelectGroupViewControllerDelegate {
+    func switchHomeGroup() {
+        viewManager.blockCollectionView.reloadData()
     }
 }
