@@ -299,7 +299,10 @@ extension HomeViewController: HomeViewDelegate {
 // MARK: - SelectGroupViewControllerDelegate
 
 extension HomeViewController: SelectGroupViewControllerDelegate {
-    func switchHomeGroup() {
+    func switchHomeGroup(index: Int) {
+        
+        /// 그룹 업데이트
+        blockManager.updateCurrentGroup(index: index)
         viewManager.group.groupLabel.text = blockManager.getCurrentGroup().name
         viewManager.blockCollectionView.reloadData()
     }

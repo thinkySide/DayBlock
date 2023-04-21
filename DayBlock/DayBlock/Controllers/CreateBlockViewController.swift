@@ -160,8 +160,7 @@ extension CreateBlockViewController: SelectFormDelegate {
 // MARK: - SelectViewControllerDelegate
 
 extension CreateBlockViewController: SelectGroupViewControllerDelegate {
-
-    func updateCreationGroup() {
-        viewManager.updateBlockInfo(blockManager.getCreation())
+    func updateGroupLabel(name: String) {
+        viewManager.groupSelect.selectLabel.text = name
     }
 }

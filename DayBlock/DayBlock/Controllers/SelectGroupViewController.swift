@@ -8,8 +8,8 @@
 import UIKit
 
 @objc protocol SelectGroupViewControllerDelegate: AnyObject {
-    @objc optional func updateCreationGroup()
-    @objc optional func switchHomeGroup()
+    @objc optional func updateGroupLabel(name: String)
+    @objc optional func switchHomeGroup(index: Int)
 }
 
 final class SelectGroupViewController: UIViewController {
@@ -54,7 +54,8 @@ final class SelectGroupViewController: UIViewController {
     func setupTableViewCell() {
         
         /// 기본 선택값
-        let index = blockManager.getGroupList().firstIndex { $0.name == blockManager.getCreation().name }!
+        // let index = blockManager.getGroupList().firstIndex { $0.name == blockManager.getCreation().name }!
+        let index = blockManager.getCurrentGroupIndex()
         let indexPath = IndexPath(row: index, section: 0)
         
         /// 마지막 인덱스 일시 화면에서 가려지기 때문에 scrollPosition Bottom으로
@@ -86,13 +87,9 @@ final class SelectGroupViewController: UIViewController {
         guard let indexPath = viewManager.tableView.indexPathForSelectedRow else { return }
         let group = blockManager.getGroupList()[indexPath.row]
         
-        /// 생성 블럭, 그룹 업데이트
-        blockManager.updateCreation(group: group.name)
-        blockManager.updateCurrentGroup(index: indexPath.row)
-        
         /// delegate
-        delegate?.switchHomeGroup?()
-        delegate?.updateCreationGroup?()
+        delegate?.switchHomeGroup?(index: indexPath.row)
+        delegate?.updateGroupLabel?(name: group.name)
         dismiss(animated: true)
     }
     

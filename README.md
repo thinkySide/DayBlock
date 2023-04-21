@@ -322,3 +322,17 @@ iOS 15.0 부터 지원하는 기능이기 때문에 해당 방법을 선택했�
 ---
 
 <br>
+
+### **Day 52 - 23.04.21**
+
+- **CreateGroup ConfirmBarButtonItem 커스텀**   
+[문제 해결 기록 : UIBarButtonItem의 title font 커스텀하기](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/34.md)
+
+- **그룹 전환 기능 추가**   
+현재 CreateBlockView와 HomeView와 공유하며 사용하고 있기 때문에 클래스 내 분기처리가 필요함.
+
+<img width="300" src="https://user-images.githubusercontent.com/113565086/233672788-a6f60046-5e70-4087-b059-b62985687259.png">
+
+---
+
+<br>

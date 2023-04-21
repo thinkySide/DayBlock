@@ -144,6 +144,11 @@ final class BlockManager {
         return testGroupList[currentGroupIndex]
     }
     
+    /// 현재 그룹 인덱스 받아오기
+    func getCurrentGroupIndex() -> Int {
+        return currentGroupIndex
+    }
+    
     /// 현재 그룹에 속한 블럭 리스트 받아오기
     func getCurrentBlockList() -> [Block] {
         return testGroupList[currentGroupIndex].list
