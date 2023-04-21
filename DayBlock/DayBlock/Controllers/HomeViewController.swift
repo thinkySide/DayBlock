@@ -27,7 +27,7 @@ final class HomeViewController: UIViewController {
         
         /// 마지막 블럭 분기
         didSet {
-            if blockManager.getBlockListCount("그룹 없음") == blockIndex {
+            if blockManager.getCurrentBlockList().count == blockIndex {
                 viewManager.toggleTrackingButton(false)
             } else {
                 viewManager.toggleTrackingButton(true)
@@ -148,7 +148,7 @@ final class HomeViewController: UIViewController {
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return blockManager.getBlockListCount("그룹 없음") + 1 /// 블럭 추가 버튼 + 1 // ⛳️
+        return blockManager.getCurrentBlockList().count + 1 /// 블럭 추가 버튼 + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -156,7 +156,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             withReuseIdentifier: Cell.block, for: indexPath) as! BlockCollectionViewCell
         
         let index = indexPath.row
-        let blockDataList = blockManager.getBlockList("그룹 없음") // ⛳️
+        let blockDataList = blockManager.getCurrentBlockList()
         
         /// 일반 블럭 생성
         if index+1 <= blockDataList.count {
@@ -184,7 +184,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let count = blockManager.getBlockListCount("그룹 없음") // ⛳️
+        let count = blockManager.getCurrentBlockList().count
         if count == indexPath.row {
             
             /// Push to AddBlockViewController
@@ -238,7 +238,7 @@ extension HomeViewController: HomeViewDelegate {
         trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTrackingTime), userInfo: nil, repeats: true)
         
         /// 블럭 업데이트
-        let blockDataList = blockManager.getBlockList("그룹 없음") // ⛳️
+        let blockDataList = blockManager.getCurrentBlockList()
         viewManager.trackingBlock.setupBlockContents(with: blockDataList[blockIndex])
         
         /// 화면 꺼짐 방지
@@ -289,7 +289,7 @@ extension HomeViewController: HomeViewDelegate {
     }
     
     func setupProgressViewColor() {
-        let blockDataList = blockManager.getBlockList("그룹 없음") // ⛳️
+        let blockDataList = blockManager.getCurrentBlockList()
         viewManager.setupProgressViewColor(color: blockDataList[blockIndex].color)
     }
 }

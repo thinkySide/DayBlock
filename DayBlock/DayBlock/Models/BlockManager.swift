@@ -114,6 +114,9 @@ final class BlockManager {
         ]),
     ]
     
+    /// 현재 그룹 인덱스
+    private var currentGroupIndex = 0
+    
     /// 블럭 생성용
     private var creation = Group(name: "그룹 없음", list: [Block(taskLabel: "블럭 쌓기", icon: UIImage(systemName: "batteryblock.fill")!, output: 0.0, color: Color.testBlue)])
     
@@ -131,21 +134,14 @@ final class BlockManager {
         return testGroupList
     }
     
-    /// 그룹 리스트 개수 받아오기
-    func getGroupListCount() -> Int {
-        return testGroupList.count
+    /// 지정한 그룹에 속한 블럭 리스트 받아오기
+    func getBlockList(_ index: Int) -> [Block] {
+        return testGroupList[index].list
     }
     
-    /// 그룹에 속한 블럭 리스트 받아오기
-    func getBlockList(_ groupName: String) -> [Block] {
-        let group = testGroupList.filter { $0.name == groupName }
-        return group[0].list
-    }
-    
-    /// 그룹에 속한 블럭 리스트 개수 받아오기
-    func getBlockListCount(_ groupName: String) -> Int {
-        let group = testGroupList.filter { $0.name == groupName }
-        return group[0].list.count
+    /// 현재 그룹에 속한 블럭 리스트 받아오기
+    func getCurrentBlockList() -> [Block] {
+        return testGroupList[currentGroupIndex].list
     }
     
     /// taskLabel로 블럭 가져오기
