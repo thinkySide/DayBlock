@@ -85,8 +85,12 @@ final class SelectGroupViewController: UIViewController {
         /// 현재 선택된 indexPath 값으로 블럭 정보 업데이트
         guard let indexPath = viewManager.tableView.indexPathForSelectedRow else { return }
         let group = blockManager.getGroupList()[indexPath.row]
-        blockManager.updateCreation(group: group.name)
         
+        /// 생성 블럭, 그룹 업데이트
+        blockManager.updateCreation(group: group.name)
+        blockManager.updateCurrentGroup(index: indexPath.row)
+        
+        /// delegate
         delegate?.switchHomeGroup?()
         delegate?.updateCreationGroup?()
         dismiss(animated: true)

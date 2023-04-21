@@ -129,7 +129,7 @@ final class BlockManager {
         return creation
     }
 
-    /// 그룹 리스트 받아오기
+    /// 전체 그룹 리스트 받아오기
     func getGroupList() -> [Group] {
         return testGroupList
     }
@@ -137,6 +137,11 @@ final class BlockManager {
     /// 지정한 그룹에 속한 블럭 리스트 받아오기
     func getBlockList(_ index: Int) -> [Block] {
         return testGroupList[index].list
+    }
+    
+    /// 현재 그룹 받아오기
+    func getCurrentGroup() -> Group {
+        return testGroupList[currentGroupIndex]
     }
     
     /// 현재 그룹에 속한 블럭 리스트 받아오기
@@ -157,6 +162,10 @@ final class BlockManager {
     
     
     // MARK: - Update
+    
+    func updateCurrentGroup(index: Int) {
+        currentGroupIndex = index
+    }
     
     func updateCreation(group: String) {
         creation.name = group

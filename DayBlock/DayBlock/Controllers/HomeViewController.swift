@@ -300,6 +300,7 @@ extension HomeViewController: HomeViewDelegate {
 
 extension HomeViewController: SelectGroupViewControllerDelegate {
     func switchHomeGroup() {
+        viewManager.group.groupLabel.text = blockManager.getCurrentGroup().name
         viewManager.blockCollectionView.reloadData()
     }
 }

@@ -42,8 +42,9 @@ final class HomeView: UIView {
     
     // MARK: - Component
     
+    let group = GroupSelectButton()
+    
     lazy var groupSelectButton: UIBarButtonItem = {
-        let group = GroupSelectButton()
         let gesture = UITapGestureRecognizer(target: self, action: #selector(groupSelectButtonTapped))
         group.addGestureRecognizer(gesture)
         let item = UIBarButtonItem(customView: group)
