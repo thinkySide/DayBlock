@@ -9,6 +9,7 @@ import UIKit
 
 protocol CreateGroupViewDelegate: AnyObject {
     func dismissVC()
+    func createGroup()
 }
 
 final class CreateGroupView: UIView {
@@ -33,6 +34,15 @@ final class CreateGroupView: UIView {
         return form
     }()
     
+    lazy var createBarButtonItem: UIBarButtonItem = {
+        let item = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(createBarButtonItemTapped))
+        let font = UIFont(name: Pretendard.semiBold, size: 18)
+        let attributes = [NSAttributedString.Key.font: font]
+        item.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .normal)
+        item.tintColor = GrayScale.mainText
+        return item
+    }()
+    
     
     
     // MARK: - Initial
@@ -54,6 +64,10 @@ final class CreateGroupView: UIView {
     
     @objc func backBarButtonItemTapped() {
         delegate?.dismissVC()
+    }
+    
+    @objc func createBarButtonItemTapped() {
+        delegate?.createGroup()
     }
     
     @objc func groupLabelTextFieldChanged() {

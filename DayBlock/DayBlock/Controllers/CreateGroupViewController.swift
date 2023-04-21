@@ -42,6 +42,9 @@ final class CreateGroupViewController: UIViewController {
         
         /// 뒤로가기 버튼
         navigationItem.leftBarButtonItem = viewManager.backBarButtonItem
+        
+        /// 생성 버튼
+        navigationItem.rightBarButtonItem = viewManager.createBarButtonItem
     }
     
     func setupDelegate() {
@@ -97,5 +100,9 @@ extension CreateGroupViewController: UITextFieldDelegate {
 extension CreateGroupViewController: CreateGroupViewDelegate {
     func dismissVC() {
         dismiss(animated: true)
+    }
+    
+    func createGroup() {
+        print(#function)
     }
 }
