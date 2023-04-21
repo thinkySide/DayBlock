@@ -39,7 +39,9 @@ final class CreateGroupView: UIView {
         let font = UIFont(name: Pretendard.semiBold, size: 18)
         let attributes = [NSAttributedString.Key.font: font]
         item.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .normal)
+        item.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .disabled)
         item.tintColor = GrayScale.mainText
+        item.isEnabled = false
         return item
     }()
     
@@ -73,6 +75,10 @@ final class CreateGroupView: UIView {
     @objc func groupLabelTextFieldChanged() {
         guard let text = groupLabel.textField.text else { return }
         groupLabel.countLabel.text = "\(text.count)/8"
+        
+        /// 텍스트가 비어있을 경우 그룹 생성 비활성화
+        if text.isEmpty { createBarButtonItem.isEnabled = false }
+        else { createBarButtonItem.isEnabled = true }
     }
     
     func setupInitial() {

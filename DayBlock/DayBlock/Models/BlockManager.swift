@@ -119,7 +119,7 @@ final class BlockManager {
     
     
     
-    // MARK: - Get Method
+    // MARK: - Get
     
     /// 생성용 블럭 받아오기
     func getCreation() -> Group {
@@ -182,6 +182,14 @@ final class BlockManager {
         creation.list[0].color = color
     }
     
+    
+    
+    // MARK: - Create
+
+    func createGroup(name: String) {
+        let newGroup = Group(name: name, list: [])
+        testGroupList.append(newGroup)
+    }
     
     
     // MARK: - Reset

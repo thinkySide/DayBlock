@@ -12,7 +12,7 @@ final class CreateGroupViewController: UIViewController {
     // MARK: - Variable
     
     private let viewManager = CreateGroupView()
-    
+    private let blockManager = BlockManager.shared
     
     
     // MARK: - ViewController LifeCycle
@@ -103,6 +103,7 @@ extension CreateGroupViewController: CreateGroupViewDelegate {
     }
     
     func createGroup() {
-        print(#function)
+        // viewManager.groupLabel.textField.text
+        // blockManager.createGroup(name: <#T##String#>)
     }
 }
