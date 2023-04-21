@@ -51,9 +51,9 @@ final class CreateBlockView: UIView {
     }()
     
     lazy var taskLabelTextField: FieldForm = {
-        let field = FieldForm()
-        field.textField.addTarget(self, action: #selector(taskLabelTextFieldChanged), for: .editingChanged)
-        return field
+        let form = FieldForm()
+        form.textField.addTarget(self, action: #selector(taskLabelTextFieldChanged), for: .editingChanged)
+        return form
     }()
     
     private lazy var selectFormStackView: UIStackView = {

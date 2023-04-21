@@ -26,6 +26,7 @@ final class CreateGroupViewController: UIViewController {
         setupNavigation()
         setupDelegate()
         setupAddTarget()
+        hideKeyboard()
     }
     
     
@@ -45,6 +46,7 @@ final class CreateGroupViewController: UIViewController {
     
     func setupDelegate() {
         viewManager.delegate = self
+        viewManager.groupLabel.textField.delegate = self
     }
     
     func setupAddTarget() {
@@ -56,6 +58,36 @@ final class CreateGroupViewController: UIViewController {
     // MARK: - Custom Method
 
     
+}
+
+
+
+// MARK: - UITextFieldDelegate
+
+extension CreateGroupViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        /// 최대 글자수
+        let maxString = 8
+        
+        /// 작성한 글자
+        guard let text = textField.text else { return false }
+        
+        /// Backspace 감지
+        if let char = string.cString(using: String.Encoding.utf8) {
+            let isBackSpace = strcmp(char, "\\b")
+            if isBackSpace == -92 { return true }
+        }
+                
+        /// 최대 글자수 제한
+        if (text.count+1) > maxString { return false }
+        else { return true }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
 
 

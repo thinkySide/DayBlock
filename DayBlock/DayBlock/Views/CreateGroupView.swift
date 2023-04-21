@@ -24,17 +24,14 @@ final class CreateGroupView: UIView {
         return item
     }()
     
-    let groupLabel: FieldForm = {
+    lazy var groupLabel: FieldForm = {
         let form = FieldForm()
         form.textFieldLabel.text = "그룹명"
         form.textField.placeholder = "자기계발"
         form.countLabel.text = "0/8"
+        form.textField.addTarget(self, action: #selector(groupLabelTextFieldChanged), for: .editingChanged)
         return form
     }()
-    
-    
-    
-    // MARK: - Variable
     
     
     
@@ -57,6 +54,11 @@ final class CreateGroupView: UIView {
     
     @objc func backBarButtonItemTapped() {
         delegate?.dismissVC()
+    }
+    
+    @objc func groupLabelTextFieldChanged() {
+        guard let text = groupLabel.textField.text else { return }
+        groupLabel.countLabel.text = "\(text.count)/8"
     }
     
     func setupInitial() {
