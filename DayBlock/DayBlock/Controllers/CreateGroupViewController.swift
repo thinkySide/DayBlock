@@ -7,12 +7,17 @@
 
 import UIKit
 
+protocol CreateGroupViewControllerDelegate: AnyObject {
+    func updateGroupList()
+}
+
 final class CreateGroupViewController: UIViewController {
     
     // MARK: - Variable
     
     private let viewManager = CreateGroupView()
     private let blockManager = BlockManager.shared
+    weak var delegate: CreateGroupViewControllerDelegate?
     
     
     // MARK: - ViewController LifeCycle
@@ -25,10 +30,13 @@ final class CreateGroupViewController: UIViewController {
         super.viewDidLoad()
         setupNavigation()
         setupDelegate()
-        setupAddTarget()
         hideKeyboard()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewManager.groupLabel.textField.becomeFirstResponder()
+    }
     
     
     // MARK: - Initial Method
@@ -50,10 +58,6 @@ final class CreateGroupViewController: UIViewController {
     func setupDelegate() {
         viewManager.delegate = self
         viewManager.groupLabel.textField.delegate = self
-    }
-    
-    func setupAddTarget() {
-        
     }
     
     
@@ -103,7 +107,13 @@ extension CreateGroupViewController: CreateGroupViewDelegate {
     }
     
     func createGroup() {
-        // viewManager.groupLabel.textField.text
-        // blockManager.createGroup(name: <#T##String#>)
+        guard let groupName = viewManager.groupLabel.textField.text else { return }
+        
+        /// 그룹 생성
+        blockManager.createGroup(name: groupName)
+        
+        /// selectView의 그룹 리스트 업데이트
+        delegate?.updateGroupList()
+        dismiss(animated: true)
     }
 }

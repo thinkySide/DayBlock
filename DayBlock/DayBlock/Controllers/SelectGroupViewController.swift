@@ -54,7 +54,16 @@ final class SelectGroupViewController: UIViewController {
         
         /// 기본 선택값
         let index = blockManager.getGroupList().firstIndex { $0.name == blockManager.getCreation().name }!
-        viewManager.tableView.selectRow(at: IndexPath(row: index, section: 0), animated: false, scrollPosition: .top)
+        let indexPath = IndexPath(row: index, section: 0)
+        
+        /// 마지막 인덱스 일시 화면에서 가려지기 때문에 scrollPosition Bottom으로
+        let tableView = viewManager.tableView
+        if index == blockManager.getGroupListCount() - 1 {
+            tableView.selectRow(at: indexPath, animated: false, scrollPosition: .bottom)
+            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 56, right: 0)
+        } else {
+            tableView.selectRow(at: indexPath, animated: false, scrollPosition: .top)
+        }
     }
     
     
@@ -63,6 +72,8 @@ final class SelectGroupViewController: UIViewController {
     
     @objc func addButtonTapped() {
         let createGroupVC = CreateGroupViewController()
+        createGroupVC.delegate = self
+        
         let navController = UINavigationController(rootViewController: createGroupVC)
         navController.modalPresentationStyle = .overFullScreen
         present(navController, animated: true)
@@ -104,8 +115,17 @@ extension SelectGroupViewController: UITableViewDataSource, UITableViewDelegate 
         
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+}
+
+
+
+// MARK: - CreateGroupViewControllerDelegate
+
+extension SelectGroupViewController: CreateGroupViewControllerDelegate {
+    func updateGroupList() {
+        let lastIndex = blockManager.getGroupListCount() - 1
+        viewManager.tableView.reloadData()
+        viewManager.tableView.selectRow(at: IndexPath(row: lastIndex, section: 0), animated: false, scrollPosition: .bottom)
     }
 }
+
