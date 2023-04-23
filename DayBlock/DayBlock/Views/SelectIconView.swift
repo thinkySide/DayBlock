@@ -11,6 +11,19 @@ final class SelectIconView: UIView {
     
     // MARK: - Component
     
+    private let title: UILabel = {
+        let label = UILabel()
+        label.text = "아이콘 선택"
+        label.font = UIFont(name: Pretendard.semiBold, size: 16)
+        label.textColor = GrayScale.mainText
+        label.textAlignment = .center
+        return label
+    }()
+    
+    let actionStackView: ActionStackView = {
+        let stack = ActionStackView()
+        return stack
+    }()
     
     
     // MARK: - Variable
@@ -41,18 +54,29 @@ final class SelectIconView: UIView {
     }
     
     func setupAddSubView() {
-        // 1. addSubView(component)
-        
+        [title, actionStackView]
+            .forEach {
+                /// 1. addSubView(component)
+                addSubview($0)
+                
+                /// 2. translatesAutoresizingMaskIntoConstraints = false
+                $0.translatesAutoresizingMaskIntoConstraints = false
+            }
     }
     
     func setupConstraints() {
-        // 2. translatesAutoresizingMaskIntoConstraints = false
-//        [<#component#>]
-//            .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
-        // 3. NSLayoutConstraint.activate
+        /// 3. NSLayoutConstraint.activate
         NSLayoutConstraint.activate([
             
+            /// title
+            title.topAnchor.constraint(equalTo: topAnchor, constant: 12),
+            title.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            /// actionStackView
+            actionStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            actionStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
+            actionStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
         ])
     }
 }

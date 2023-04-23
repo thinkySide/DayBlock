@@ -23,7 +23,6 @@ final class SelectColorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigion()
         setupDelegate()
     }
     
@@ -31,14 +30,33 @@ final class SelectColorViewController: UIViewController {
     
     // MARK: - Method
     
-    func setupNavigion() {
-        title = "색상 선택"
-        navigationController?.navigationBar
-            .titleTextAttributes = [.font: UIFont(name: Pretendard.semiBold, size: 16)!]
-    }
-    
     func setupDelegate() {
         
+        /// CollectionView
+        let collectionView = viewManager.colorCollectionView
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(ColorCollectionViewCell.self, forCellWithReuseIdentifier: Cell.colorSelect)
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        collectionView.collectionViewLayout = viewManager.createCompositionalLayout()
+    }
+}
+
+
+
+// MARK: - UICollectionView
+
+extension SelectColorViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 55
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        print(#function)
+        let cell = viewManager.colorCollectionView.dequeueReusableCell(
+            withReuseIdentifier: Cell.colorSelect, for: indexPath) as! ColorCollectionViewCell
+        
+        return cell
     }
 }
 

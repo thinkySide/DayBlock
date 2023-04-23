@@ -28,7 +28,7 @@ final class SelectGroupView: UIView {
         return button
     }()
     
-    let tableView: UITableView = {
+    let groupTableView: UITableView = {
         let table = UITableView()
         table.separatorStyle = .none
         table.showsVerticalScrollIndicator = true
@@ -70,7 +70,7 @@ final class SelectGroupView: UIView {
     }
     
     func setupAddSubView() {
-        [title, addButton, tableView, actionStackView]
+        [title, addButton, groupTableView, actionStackView]
             .forEach {
                 /// 1. addSubView(component)
                 addSubview($0)
@@ -95,11 +95,11 @@ final class SelectGroupView: UIView {
             addButton.widthAnchor.constraint(equalToConstant: 40),
             addButton.heightAnchor.constraint(equalTo: addButton.widthAnchor),
             
-            /// tableView
-            tableView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 16),
-            tableView.bottomAnchor.constraint(equalTo: actionStackView.topAnchor, constant: -24),
-            tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
-            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            /// groupTableView
+            groupTableView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 16),
+            groupTableView.bottomAnchor.constraint(equalTo: actionStackView.topAnchor, constant: -24),
+            groupTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
+            groupTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
             /// actionStackView
             actionStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),

@@ -43,8 +43,8 @@ final class CustomBottomModal: UIPresentationController {
     /// present 할 프레임 설정
     override var frameOfPresentedViewInContainerView: CGRect {
         let screenBounds = UIScreen.main.bounds
-        let origin = CGPoint(x: .zero, y: screenBounds.height * 0.5)
-        let size = CGSize(width: screenBounds.width, height: screenBounds.height * 0.5)
+        let origin = CGPoint(x: .zero, y: screenBounds.height * 0.4)
+        let size = CGSize(width: screenBounds.width, height: screenBounds.height * 0.6)
         return CGRect(origin: origin, size: size)
     }
     
