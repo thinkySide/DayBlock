@@ -105,6 +105,10 @@ final class CreateBlockView: UIView {
     func updateTaskLabel(_ text: String) {
         blockTaskLabel.text = text == "" ? "블럭 쌓기" : text
     }
+    
+    func updateColorTag(_ color: UIColor) {
+        blockPreviewColorTag.backgroundColor = color
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)

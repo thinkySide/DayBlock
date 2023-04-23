@@ -122,12 +122,21 @@ final class BlockManager {
     
     
     
-    // MARK: - Get
+    // MARK: - Remote Block
     
-    /// 생성용 블럭 받아오기
+    /// 리모트 블럭(그룹) 받아오기
     func getRemoteBlock() -> Group {
         return remoteBlock
     }
+    
+    /// 리모트 블럭 컬러 받아오기
+    func getRemoteBlockColor() -> UIColor {
+        return remoteBlock.list[0].color
+    }
+    
+    
+    
+    // MARK: - Get
 
     /// 전체 그룹 리스트 받아오기
     func getGroupList() -> [Group] {

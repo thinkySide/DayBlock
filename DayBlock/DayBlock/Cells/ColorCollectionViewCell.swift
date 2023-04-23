@@ -33,11 +33,6 @@ final class ColorCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Method
     
-    /// 블럭 재사용 문제 해결
-    override func prepareForReuse() {
-        // selectCircle.isHidden = true
-    }
-    
     override var isSelected: Bool {
         didSet {
             if isSelected {

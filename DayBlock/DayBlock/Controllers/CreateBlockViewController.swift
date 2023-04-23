@@ -131,6 +131,19 @@ extension CreateBlockViewController: SelectFormDelegate {
         present(selectGroupVC, animated: true)
     }
     
+    func colorFormTapped() {
+        
+        /// 키보드 해제
+        viewManager.taskLabelTextField.endEditing(true)
+        
+        /// present
+        let selectColorVC = SelectColorViewController()
+        selectColorVC.delegate = self
+        selectColorVC.modalPresentationStyle = .custom
+        selectColorVC.transitioningDelegate = customBottomModalDelegate
+        present(selectColorVC, animated: true)
+    }
+    
     func iconFormTapped() {
         
         /// 키보드 해제
@@ -142,26 +155,23 @@ extension CreateBlockViewController: SelectFormDelegate {
         selectIconVC.transitioningDelegate = customBottomModalDelegate
         present(selectIconVC, animated: true)
     }
-    
-    func colorFormTapped() {
-        
-        /// 키보드 해제
-        viewManager.taskLabelTextField.endEditing(true)
-        
-        /// present
-        let selectColorVC = SelectColorViewController()
-        selectColorVC.modalPresentationStyle = .custom
-        selectColorVC.transitioningDelegate = customBottomModalDelegate
-        present(selectColorVC, animated: true)
-    }
 }
 
 
 
-// MARK: - SelectViewControllerDelegate
+// MARK: - Update Block Info
 
-extension CreateBlockViewController: SelectGroupViewControllerDelegate {
+extension CreateBlockViewController: SelectGroupViewControllerDelegate, SelectColorViewControllerDelegate {
+    
+    /// SelectGroupViewControllerDelegate
     func updateGroupLabel(name: String) {
         viewManager.groupSelect.selectLabel.text = name
+    }
+    
+    /// SelectColorViewControllerDelegate
+    func updateColor() {
+        let color = blockManager.getRemoteBlockColor()
+        viewManager.colorSelect.selectColor.backgroundColor = color
+        viewManager.updateColorTag(color)
     }
 }
