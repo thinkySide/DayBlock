@@ -8,7 +8,7 @@
 import UIKit
 
 @objc protocol SelectGroupViewControllerDelegate: AnyObject {
-    @objc optional func updateGroupLabel(name: String)
+    @objc optional func updateGroup()
     @objc optional func switchHomeGroup(index: Int)
 }
 
@@ -89,7 +89,7 @@ final class SelectGroupViewController: UIViewController {
         
         /// delegate
         delegate?.switchHomeGroup?(index: indexPath.row)
-        delegate?.updateGroupLabel?(name: group.name)
+        delegate?.updateGroup?()
         dismiss(animated: true)
     }
     
@@ -112,6 +112,7 @@ extension SelectGroupViewController: UITableViewDataSource, UITableViewDelegate 
         
         /// 셀 업데이트
         let groupList = blockManager.getGroupList()
+        cell.color.backgroundColor = groupList[indexPath.row].color
         cell.groupLabel.text = groupList[indexPath.row].name
         cell.countLabel.text = "+\(blockManager.getBlockList(indexPath.row).count)"
         

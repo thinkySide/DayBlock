@@ -11,6 +11,13 @@ final class GroupSelectTableViewCell: UITableViewCell {
     
     // MARK: - Components
     
+    let color: UIView = {
+        let view = UIView()
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 7
+        return view
+    }()
+    
     let groupLabel: UILabel = {
         let label = UILabel()
         label.text = "그룹 없음" // ⛳️
@@ -70,7 +77,7 @@ final class GroupSelectTableViewCell: UITableViewCell {
         
         /// addSubView & translatesAutoresizingMaskIntoConstraints
         [
-            groupLabel, countLabel, checkMark, seperator,
+            color, groupLabel, countLabel, checkMark, seperator,
         ]
             .forEach {
                 addSubview($0)
@@ -80,9 +87,15 @@ final class GroupSelectTableViewCell: UITableViewCell {
         /// Constraint
         NSLayoutConstraint.activate([
             
+            /// color
+            color.centerYAnchor.constraint(equalTo: centerYAnchor),
+            color.leadingAnchor.constraint(equalTo: leadingAnchor),
+            color.widthAnchor.constraint(equalToConstant: 22),
+            color.heightAnchor.constraint(equalTo: color.widthAnchor),
+            
             /// groupLabel
             groupLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            groupLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            groupLabel.leadingAnchor.constraint(equalTo: color.trailingAnchor, constant: 8),
             
             /// countLabel
             countLabel.centerYAnchor.constraint(equalTo: centerYAnchor),

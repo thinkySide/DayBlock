@@ -41,7 +41,7 @@ final class BlockManager {
     private var currentGroupIndex = 0
     
     /// 생성, 스위칭용 블럭
-    private var remoteBlock = Group(name: "그룹 없음", color: Color.testBlue, list: [Block(taskLabel: "블럭 쌓기", output: 0.0, icon: UIImage(systemName: "batteryblock.fill")!)])
+    private var remoteBlock = Group(name: "그룹 없음", color: UIColor(rgb: 0x323232), list: [Block(taskLabel: "블럭 쌓기", output: 0.0, icon: UIImage(systemName: "batteryblock.fill")!)])
     
     
     
@@ -106,6 +106,7 @@ final class BlockManager {
     
     func updateRemoteBlock(group: Group) {
         remoteBlock.name = group.name
+        remoteBlock.color = group.color
     }
     
     func updateRemoteBlock(label: String) {
@@ -134,6 +135,8 @@ final class BlockManager {
 
     func resetRemoteBlock() {
         let group = testGroupList[currentGroupIndex]
-        remoteBlock = Group(name: group.name, color: Color.testBlue, list: [Block(taskLabel: "블럭 쌓기", output: 0.0, icon: UIImage(systemName: "batteryblock.fill")!)])
+        
+        
+        remoteBlock = Group(name: group.name, color: group.color, list: [Block(taskLabel: "블럭 쌓기", output: 0.0, icon: UIImage(systemName: "batteryblock.fill")!)])
     }
 }

@@ -91,7 +91,9 @@ final class CreateBlockView: UIView {
     func updateBlockInfo(_ group: Group) {
         let block = group.list[0]
         groupSelect.selectLabel.text = group.name
+        groupSelect.selectColor.backgroundColor = group.color
         blockTaskLabel.text = block.taskLabel
+        blockPreviewColorTag.backgroundColor = group.color
         iconSelect.selectIcon.image = block.icon
     }
     

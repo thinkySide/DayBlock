@@ -163,8 +163,10 @@ extension CreateBlockViewController: SelectFormDelegate {
 extension CreateBlockViewController: SelectGroupViewControllerDelegate, SelectColorViewControllerDelegate {
     
     /// SelectGroupViewControllerDelegate
-    func updateGroupLabel(name: String) {
-        viewManager.groupSelect.selectLabel.text = name
+    func updateGroup() {
+        viewManager.groupSelect.selectLabel.text = blockManager.getRemoteBlock().name
+        viewManager.groupSelect.selectColor.backgroundColor = blockManager.getRemoteBlock().color
+        viewManager.updateColorTag(blockManager.getRemoteBlock().color)
     }
     
     /// SelectColorViewControllerDelegate
