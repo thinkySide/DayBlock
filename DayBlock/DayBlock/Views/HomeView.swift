@@ -42,13 +42,11 @@ final class HomeView: UIView {
     
     // MARK: - Component
     
-    let group = GroupSelectButton()
-    
-    lazy var groupSelectButton: UIBarButtonItem = {
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(groupSelectButtonTapped))
-        group.addGestureRecognizer(gesture)
-        let item = UIBarButtonItem(customView: group)
-        return item
+    lazy var groupSelectButton: GroupSelectButton = {
+        let group = GroupSelectButton()
+        let gestrue = UITapGestureRecognizer(target: self, action: #selector(groupSelectButtonTapped))
+        group.addGestureRecognizer(gestrue)
+        return group
     }()
     
     lazy var trackingStopBarButtonItem: UIBarButtonItem = {
@@ -175,7 +173,7 @@ final class HomeView: UIView {
         /// 공통 설정
         delegate?.showTabBar()
         trackingMode = .inactive
-        groupSelectButton.customView?.isHidden = false
+        groupSelectButton.isHidden = false
         blockCollectionView.isHidden = false
         trackingBlock.isHidden = true
         messageLabel.isHidden = false
@@ -222,7 +220,7 @@ final class HomeView: UIView {
         
         /// 공통 설정
         delegate?.hideTabBar()
-        groupSelectButton.customView?.isHidden = true
+        groupSelectButton.isHidden = true
         blockCollectionView.isHidden = true
         trackingBlock.isHidden = false
         messageLabel.isHidden = true

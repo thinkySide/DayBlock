@@ -27,6 +27,30 @@ final class BlockManager {
                   icon: UIImage(systemName: "pencil")!),
         ]),
         
+        Group(name: "청소", color: UIColor(rgb: 0xEE719E), list: [
+            Block(taskLabel: "빗자루질", output: 32.0,
+                  icon: UIImage(systemName: "sailboat.fill")!),
+            Block(taskLabel: "물걸레질", output: 27.5,
+                  icon: UIImage(systemName: "key.horizontal.fill")!),
+            Block(taskLabel: "환기시키기", output: 8.0,
+                  icon: UIImage(systemName: "signpost.right.fill")!),
+            Block(taskLabel: "청소기 돌리기", output: 8.0,
+                  icon: UIImage(systemName: "tent.fill")!),
+        ]),
+        
+        Group(name: "자기계발", color: UIColor(rgb: 0x0061FD), list: [
+            Block(taskLabel: "웨이트 트레이닝", output: 32.0,
+                  icon: UIImage(systemName: "figure.strengthtraining.traditional")!),
+            Block(taskLabel: "독서하기", output: 27.5,
+                  icon: UIImage(systemName: "text.book.closed.fill")!),
+            Block(taskLabel: "조깅하기", output: 8.0,
+                  icon: UIImage(systemName: "figure.highintensity.intervaltraining")!),
+            Block(taskLabel: "물 많이 마시기", output: 8.0,
+                  icon: UIImage(systemName: "tent.fill")!),
+            Block(taskLabel: "영어 공부하기", output: 8.0,
+                  icon: UIImage(systemName: "lifepreserver.fill")!),
+        ]),
+        
         Group(name: "민톨이 키우기", color: UIColor(rgb: 0x96D35F), list: [
             Block(taskLabel: "쓰다듬어 주기", output: 32.0,
                   icon: UIImage(systemName: "camera.macro")!),
@@ -34,6 +58,18 @@ final class BlockManager {
                   icon: UIImage(systemName: "fish.fill")!),
             Block(taskLabel: "산책 시키기", output: 8.0,
                   icon: UIImage(systemName: "pawprint.fill")!),
+        ]),
+        
+        Group(name: "코딩", color: UIColor(rgb: 0xFEB43F), list: [
+            Block(taskLabel: "1일 1커밋", output: 32.0,
+                  icon: UIImage(systemName: "hourglass.circle.fill")!),
+            Block(taskLabel: "오토 레이아웃 점검", output: 27.5,
+                  icon: UIImage(systemName: "box.truck.fill")!),
+        ]),
+        
+        Group(name: "인간관계", color: UIColor(rgb: 0xFF4015), list: [
+            Block(taskLabel: "생일 챙기기", output: 32.0,
+                  icon: UIImage(systemName: "tree.fill")!),
         ]),
     ]
     

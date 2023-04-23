@@ -329,9 +329,36 @@ iOS 15.0 부터 지원하는 기능이기 때문에 해당 방법을 선택했�
 [문제 해결 기록 : UIBarButtonItem의 title font 커스텀하기](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/34.md)
 
 - **그룹 전환 기능 추가**   
-현재 CreateBlockView와 HomeView와 공유하며 사용하고 있기 때문에 클래스 내 분기처리가 필요함.
+현재 CreateBlockView와 HomeView와 공유하며 사용하고 있기 때문에 클래스 내 분기처리가 필요합니다.
 
 <img width="300" src="https://user-images.githubusercontent.com/113565086/233672788-a6f60046-5e70-4087-b059-b62985687259.png">
+
+---
+
+<br>
+
+### **Day 54 - 23.04.23**
+
+- **그룹 전환 기능 수정**   
+createBlockViewController의 시점을 조정하여 그룹 전환 기능 수정 완료했습니다.
+
+- SelectColor CollectionView 셋팅
+
+- **ColorManager 생성**   
+색상 선택을 위한 컬러 팔레트를 50개 추가하였습니다.
+
+- Color 선택 시 업데이트
+
+- **Group Color 사용**   
+기존 블럭마다 개별 컬러를 가지고 있었지만, 그룹마다 컬러를 지정하는 것이    
+더 효과적을 것으로 판단해 전체적인 구조를 개선함과 동시에 수정했습니다.
+
+**+ 프로젝트 기간 점검**   
+원래 일정대로라면 오늘 통계 페이지를 모두 완성했어야 합니다. 조정된 일정을 반영하였음에도 불구하고 기능 개발에 시간이 더 필요할 것으로 판단해   
+데드라인을 늘리는 방법과, 기능 개발을 대폭 축소해 배포하는 단계로 나누어 선택이 필요합니다.    
+첫 APP 개발이라 기능 개발에 소요되는 시간을 정확히 계산하지 못한게 아쉬움으로 남습니다.
+
+<img width="300" src="https://user-images.githubusercontent.com/113565086/233845089-86e8aafc-4f03-4dce-9001-bb7772d9c95e.png">
 
 ---
 

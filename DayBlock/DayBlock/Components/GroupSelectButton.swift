@@ -7,7 +7,14 @@
 
 import UIKit
 
-final class GroupSelectButton: UIButton {
+final class GroupSelectButton: UIView {
+    
+    let color: UIView = {
+        let view = UIView()
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 7
+        return view
+    }()
     
     lazy var groupStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [groupLabel, groupPolygon])
@@ -15,7 +22,6 @@ final class GroupSelectButton: UIButton {
         stack.distribution = .fill
         stack.alignment = .center
         stack.spacing = 0
-        stack.layoutMargins = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 0) /// 시각보정
         stack.isLayoutMarginsRelativeArrangement = true
         return stack
     }()
@@ -44,8 +50,9 @@ final class GroupSelectButton: UIButton {
         super.init(frame: frame)
         
         /// addSubView & resizingMask
+        addSubview(color)
         addSubview(groupStackView)
-        [groupStackView, groupLabel, groupPolygon]
+        [groupStackView, color, groupLabel, groupPolygon]
             .forEach {
                 $0.translatesAutoresizingMaskIntoConstraints = false
             }
@@ -56,15 +63,20 @@ final class GroupSelectButton: UIButton {
             self.widthAnchor.constraint(equalTo: groupStackView.widthAnchor),
             self.heightAnchor.constraint(equalToConstant: 40),
             
-            /// groupStackView
-            groupStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            groupStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            /// color
+            color.centerYAnchor.constraint(equalTo: centerYAnchor),
+            color.leadingAnchor.constraint(equalTo: leadingAnchor),
+            color.widthAnchor.constraint(equalToConstant: 20),
+            color.heightAnchor.constraint(equalTo: color.widthAnchor),
             
+            /// groupStackView
+            groupStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            groupStackView.leadingAnchor.constraint(equalTo: color.trailingAnchor, constant: 6),
             groupStackView.heightAnchor.constraint(equalToConstant: 40),
             
             /// groupPolygon
             groupPolygon.widthAnchor.constraint(equalToConstant: 22),
-            groupPolygon.heightAnchor.constraint(equalToConstant: 22),
+            groupPolygon.heightAnchor.constraint(equalTo: groupPolygon.widthAnchor),
         ])
     }
     

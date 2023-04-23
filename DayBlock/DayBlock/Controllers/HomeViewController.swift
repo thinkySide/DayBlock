@@ -48,6 +48,7 @@ final class HomeViewController: UIViewController {
         setupNavigation()
         setupDelegate()
         setupContentInset()
+        setupGroupSelectButton()
         setupTimer()
         setupContentsBlock()
         
@@ -65,7 +66,7 @@ final class HomeViewController: UIViewController {
     func setupNavigation() {
         
         /// 그룹 선택 버튼
-        navigationItem.leftBarButtonItem = viewManager.groupSelectButton
+        navigationItem.titleView = viewManager.groupSelectButton
         
         /// TrackingStopButton
         let trackingStopBarButtomItem = viewManager.trackingStopBarButtonItem
@@ -99,6 +100,10 @@ final class HomeViewController: UIViewController {
         
         /// CollectionView의 contentInset 설정
         viewManager.blockCollectionView.contentInset = contentInset
+    }
+    
+    func setupGroupSelectButton() {
+        viewManager.groupSelectButton.color.backgroundColor = blockManager.getCurrentGroupColor()
     }
     
     func setupTimer() {
@@ -304,7 +309,8 @@ extension HomeViewController: SelectGroupViewControllerDelegate {
         
         /// 그룹 업데이트
         blockManager.updateCurrentGroup(index: index)
-        viewManager.group.groupLabel.text = blockManager.getCurrentGroup().name
+        viewManager.groupSelectButton.color.backgroundColor = blockManager.getCurrentGroupColor()
+        viewManager.groupSelectButton.groupLabel.text = blockManager.getCurrentGroup().name
         viewManager.blockCollectionView.reloadData()
     }
 }
