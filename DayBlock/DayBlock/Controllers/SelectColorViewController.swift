@@ -12,7 +12,7 @@ final class SelectColorViewController: UIViewController {
     // MARK: - Variable
     
     private let viewManager = SelectColorView()
-    
+    private let colorManager = ColorManager()
     
     
     // MARK: - ViewController LifeCycle
@@ -48,14 +48,14 @@ final class SelectColorViewController: UIViewController {
 
 extension SelectColorViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 55
+        return 50
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         print(#function)
         let cell = viewManager.colorCollectionView.dequeueReusableCell(
             withReuseIdentifier: Cell.colorSelect, for: indexPath) as! ColorCollectionViewCell
-        
+        cell.color.backgroundColor = colorManager.getColorList()[indexPath.row]
         return cell
     }
 }

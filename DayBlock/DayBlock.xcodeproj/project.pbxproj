@@ -59,6 +59,7 @@
 		078C50F629D9BBB200F239BA /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F529D9BBB200F239BA /* ScheduleViewController.swift */; };
 		078C50F829D9BBFE00F239BA /* StorageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F729D9BBFE00F239BA /* StorageViewController.swift */; };
 		07EB771729F5335F000BD87E /* ColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB771629F5335F000BD87E /* ColorCollectionViewCell.swift */; };
+		07EB771929F53855000BD87E /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB771829F53855000BD87E /* ColorManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -116,6 +117,7 @@
 		078C50F529D9BBB200F239BA /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		078C50F729D9BBFE00F239BA /* StorageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageViewController.swift; sourceTree = "<group>"; };
 		07EB771629F5335F000BD87E /* ColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCollectionViewCell.swift; sourceTree = "<group>"; };
+		07EB771829F53855000BD87E /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,8 +205,9 @@
 			isa = PBXGroup;
 			children = (
 				0719648029DAF38A009CA1A4 /* Block.swift */,
-				0719648229DAF4B5009CA1A4 /* Group.swift */,
 				0719648929DC5CB4009CA1A4 /* BlockManager.swift */,
+				0719648229DAF4B5009CA1A4 /* Group.swift */,
+				07EB771829F53855000BD87E /* ColorManager.swift */,
 				0770802C29E55E7C00D66900 /* TimeTracker.swift */,
 			);
 			path = Models;
@@ -375,6 +378,7 @@
 				077A663429ED2AB000D99C68 /* CreateGroupViewController.swift in Sources */,
 				0719648C29DDB1C0009CA1A4 /* PaintBlock.swift in Sources */,
 				07454DE729EA94EB00B3458D /* CustomUITextField.swift in Sources */,
+				07EB771929F53855000BD87E /* ColorManager.swift in Sources */,
 				0719648E29DF044C009CA1A4 /* GroupSelectButton.swift in Sources */,
 				077A663629ED2ABA00D99C68 /* CreateGroupView.swift in Sources */,
 				07454E1529EC170600B3458D /* Seperator.swift in Sources */,

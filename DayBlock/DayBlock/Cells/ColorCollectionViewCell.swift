@@ -11,13 +11,34 @@ final class ColorCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Component
     
-
+    let color: UIView = {
+        let view = UIView()
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 10
+        view.backgroundColor = .systemRed
+        return view
+    }()
+    
     
     // MARK: - Method
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .systemRed
+        
+        [color]
+            .forEach {
+                addSubview($0)
+                $0.translatesAutoresizingMaskIntoConstraints = false
+            }
+        
+        NSLayoutConstraint.activate([
+            
+            /// color
+            color.centerXAnchor.constraint(equalTo: centerXAnchor),
+            color.centerYAnchor.constraint(equalTo: centerYAnchor),
+            color.widthAnchor.constraint(equalToConstant: 32),
+            color.heightAnchor.constraint(equalTo: color.widthAnchor),
+        ])
     }
     
     required init?(coder: NSCoder) {
