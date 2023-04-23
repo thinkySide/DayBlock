@@ -80,7 +80,7 @@ final class SelectColorView: UIView {
             colorCollectionView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 16),
             colorCollectionView.bottomAnchor.constraint(equalTo: actionStackView.topAnchor, constant: -24),
             colorCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
-            colorCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
+            colorCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
             /// actionStackView
             actionStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
@@ -115,13 +115,13 @@ extension SelectColorView: UICollectionViewDelegateFlowLayout {
                 
                 /// item 간격 설정
                 item.contentInsets = NSDirectionalEdgeInsets(
-                    top: 0, leading: 0, bottom: 2, trailing: 2
+                    top: 0, leading: 0, bottom: 16, trailing: 16
                 )
                 
                 /// item Group 사이즈
                 let groupSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .fractionalWidth(1/3)
+                    heightDimension: .fractionalWidth(1/5)
                 )
                 
                 /// Group 사이즈로 Group 만들기
