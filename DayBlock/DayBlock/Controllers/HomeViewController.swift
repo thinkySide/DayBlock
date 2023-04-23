@@ -52,9 +52,10 @@ final class HomeViewController: UIViewController {
         setupContentsBlock()
         
         // 테스트용 블럭 색칠
-        viewManager.blockPreview.block03.painting(.firstHalf)
-        viewManager.blockPreview.block17.painting(.secondHalf)
-        viewManager.blockPreview.block12.painting(.fullTime)
+        let color = blockManager.getCurrentGroupColor()
+        viewManager.blockPreview.block03.painting(.firstHalf, color: color)
+        viewManager.blockPreview.block17.painting(.secondHalf, color: color)
+        viewManager.blockPreview.block12.painting(.fullTime, color: color)
     }
     
     
@@ -160,9 +161,9 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         /// 일반 블럭 생성
         if index+1 <= blockDataList.count {
-            cell.plusLabel.textColor = blockDataList[index].color
+            cell.plusLabel.textColor = blockManager.getCurrentGroupColor()
             cell.totalProductivityLabel.text = "\(blockDataList[index].output)"
-            cell.blockColorTag.backgroundColor = blockDataList[index].color
+            cell.blockColorTag.backgroundColor = blockManager.getCurrentGroupColor()
             cell.blockIcon.image = blockDataList[index].icon
             cell.blockLabel.text = blockDataList[index].taskLabel
             cell.stroke.isHidden = true
@@ -239,7 +240,8 @@ extension HomeViewController: HomeViewDelegate {
         
         /// 블럭 업데이트
         let blockDataList = blockManager.getCurrentBlockList()
-        viewManager.trackingBlock.setupBlockContents(with: blockDataList[blockIndex])
+        viewManager.trackingBlock.setupBlockContents(group: blockManager.getCurrentGroup(),
+                                                     block: blockDataList[blockIndex])
         
         /// 화면 꺼짐 방지
         UIApplication.shared.isIdleTimerDisabled = true
@@ -289,8 +291,7 @@ extension HomeViewController: HomeViewDelegate {
     }
     
     func setupProgressViewColor() {
-        let blockDataList = blockManager.getCurrentBlockList()
-        viewManager.setupProgressViewColor(color: blockDataList[blockIndex].color)
+        viewManager.setupProgressViewColor(color: blockManager.getCurrentGroupColor())
     }
 }
 

@@ -32,7 +32,7 @@ final class PaintBlock: UIView {
     
     // MARK: - Method
     
-    func painting(_ area: Paint) {
+    func painting(_ area: Paint, color: UIColor) {
     
         /// 블럭 초기화
         backgroundColor = GrayScale.entireBlock
@@ -42,11 +42,11 @@ final class PaintBlock: UIView {
         /// 색상 변경
         switch area {
         case .firstHalf:
-            firstHalf.backgroundColor = .systemBlue
+            firstHalf.backgroundColor = color
         case .secondHalf:
-            secondHalf.backgroundColor = .systemBlue
+            secondHalf.backgroundColor = color
         case .fullTime:
-            backgroundColor = .systemBlue
+            backgroundColor = color
         case .none:
             backgroundColor = GrayScale.entireBlock
         }

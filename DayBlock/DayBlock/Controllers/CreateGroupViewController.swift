@@ -110,7 +110,7 @@ extension CreateGroupViewController: CreateGroupViewDelegate {
         guard let groupName = viewManager.groupLabel.textField.text else { return }
         
         /// 그룹 생성
-        blockManager.createGroup(name: groupName)
+        // blockManager.createGroup(name: groupName)
         
         /// selectView의 그룹 리스트 업데이트
         delegate?.updateGroupList()

@@ -55,7 +55,6 @@ final class CreateBlockViewController: UIViewController {
     func setupDelegate() {
         viewManager.taskLabelTextField.textField.delegate = self
         viewManager.groupSelect.delegate = self
-        viewManager.colorSelect.delegate = self
         viewManager.iconSelect.delegate = self
     }
     
@@ -170,8 +169,7 @@ extension CreateBlockViewController: SelectGroupViewControllerDelegate, SelectCo
     
     /// SelectColorViewControllerDelegate
     func updateColor() {
-        let color = blockManager.getRemoteBlockColor()
-        viewManager.colorSelect.selectColor.backgroundColor = color
-        viewManager.updateColorTag(color)
+//        let color = blockManager.getRemoteBlockColor()
+//        viewManager.updateColorTag(color)
     }
 }

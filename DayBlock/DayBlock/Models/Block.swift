@@ -9,7 +9,6 @@ import UIKit
 
 struct Block {
     var taskLabel: String
-    var icon: UIImage
     var output: Double
-    var color: UIColor
+    var icon: UIImage
 }

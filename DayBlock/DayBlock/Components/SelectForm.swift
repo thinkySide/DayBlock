@@ -114,7 +114,7 @@ final class SelectForm: UIView {
         switch type {
         case .group:
             selectType = .group
-            [selectLabel, polygon].forEach {
+            [selectColor, selectLabel, polygon].forEach {
                 selectStackView.addArrangedSubview($0)}
             
         case .icon:

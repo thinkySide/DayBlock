@@ -58,7 +58,7 @@ final class CreateBlockView: UIView {
     
     private lazy var selectFormStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [
-            groupSelect, colorSelect, iconSelect])
+            groupSelect, iconSelect])
         stack.axis = .vertical
         stack.distribution = .fill
         stack.alignment = .fill
@@ -69,12 +69,6 @@ final class CreateBlockView: UIView {
     let groupSelect: SelectForm = {
         let select = SelectForm()
         select.ofType("그룹", .group)
-        return select
-    }()
-    
-    let colorSelect: SelectForm = {
-        let select = SelectForm()
-        select.ofType("색상", .color)
         return select
     }()
     
@@ -98,7 +92,6 @@ final class CreateBlockView: UIView {
         let block = group.list[0]
         groupSelect.selectLabel.text = group.name
         blockTaskLabel.text = block.taskLabel
-        colorSelect.selectColor.backgroundColor = block.color
         iconSelect.selectIcon.image = block.icon
     }
     
@@ -144,7 +137,7 @@ final class CreateBlockView: UIView {
         [
             blockPreview, blockPreviewColorTag, blockPreviewIcon,
             blockTaskLabel, taskLabelTextField, selectFormStackView,
-            groupSelect, colorSelect, iconSelect,
+            groupSelect, iconSelect,
         ]
             .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }
