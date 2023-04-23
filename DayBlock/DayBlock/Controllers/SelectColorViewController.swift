@@ -52,11 +52,14 @@ extension SelectColorViewController: UICollectionViewDataSource, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print(#function)
         let cell = viewManager.colorCollectionView.dequeueReusableCell(
             withReuseIdentifier: Cell.colorSelect, for: indexPath) as! ColorCollectionViewCell
-        cell.color.backgroundColor = colorManager.getColorList()[indexPath.row]
+        cell.color.backgroundColor = colorManager.getColorList()[indexPath.item]
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
     }
 }
 
