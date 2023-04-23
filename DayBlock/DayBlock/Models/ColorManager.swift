@@ -9,6 +9,12 @@ import UIKit
 
 final class ColorManager {
     
+    /// 싱글톤
+    static let shared = ColorManager()
+    private init() {}
+    
+    private var index = 38 /// 기본값 BLUE
+    
     private let colorList: [UIColor] = [
         /// Pink
         UIColor(rgb: 0xEE719E),
@@ -87,5 +93,17 @@ final class ColorManager {
     
     func getColorList() -> [UIColor] {
         return colorList
+    }
+    
+    func getSelectColor() -> UIColor {
+        return colorList[index]
+    }
+    
+    func getIndex() -> Int {
+        return index
+    }
+    
+    func updateIndex(to index: Int) {
+        self.index = index
     }
 }

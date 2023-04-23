@@ -13,12 +13,13 @@ protocol SelectColorViewControllerDelegate: AnyObject {
 
 final class SelectColorViewController: UIViewController {
     
-    // MARK: - Variable
+    // MARK: - Manager
     
     private let viewManager = SelectColorView()
     private let blockManager = BlockManager.shared
-    private let colorManager = ColorManager()
+    private let colorManager = ColorManager.shared
     weak var delegate: SelectColorViewControllerDelegate?
+    
     
     
     // MARK: - ViewController LifeCycle
@@ -31,6 +32,7 @@ final class SelectColorViewController: UIViewController {
         super.viewDidLoad()
         setupDelegate()
         setupAddTarget()
+        setupSelectedCell()
     }
     
     
@@ -49,8 +51,18 @@ final class SelectColorViewController: UIViewController {
     }
     
     func setupAddTarget() {
-        viewManager.actionStackView.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
-        viewManager.actionStackView.cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+        let action = viewManager.actionStackView
+        action.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
+        action.cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+    }
+    
+    func setupSelectedCell() {
+        let indexPath = IndexPath(item: colorManager.getIndex(), section: 0)
+        let collectionView = viewManager.colorCollectionView
+        
+        // 현재 스크롤 기능 작동하지 않음 ⭐️
+        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
+        collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: true)
     }
     
     
@@ -60,7 +72,8 @@ final class SelectColorViewController: UIViewController {
     @objc func confirmButtonTapped() {
         guard let indexPath = viewManager.colorCollectionView.indexPathsForSelectedItems else { return }
         let itemIndex = indexPath[0].item
-        blockManager.updateRemoteBlock(color: colorManager.getColorList()[itemIndex])
+        colorManager.updateIndex(to: itemIndex)
+        blockManager.updateRemoteBlock(color: colorManager.getSelectColor())
         
         /// delegate
         delegate?.updateColor()
@@ -78,7 +91,7 @@ final class SelectColorViewController: UIViewController {
 
 extension SelectColorViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 50
+        return colorManager.getColorList().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
