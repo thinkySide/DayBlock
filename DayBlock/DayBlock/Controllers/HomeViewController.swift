@@ -56,7 +56,7 @@ final class HomeViewController: UIViewController {
         viewManager.blockPreview.block17.painting(.secondHalf)
         viewManager.blockPreview.block12.painting(.fullTime)
     }
-
+    
     
     
     // MARK: - Setup Method

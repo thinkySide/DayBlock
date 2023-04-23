@@ -32,7 +32,7 @@ final class CreateBlockViewController: UIViewController {
     }
 
     deinit {
-        blockManager.resetCreation()
+        blockManager.resetRemoteBlock()
     }
     
     
@@ -42,7 +42,8 @@ final class CreateBlockViewController: UIViewController {
     func setupInitial() {
         
         /// 기본 블럭 설정
-        viewManager.updateBlockInfo(blockManager.getCreation())
+        blockManager.updateRemoteBlock(group: blockManager.getCurrentGroup())
+        viewManager.updateBlockInfo(blockManager.getRemoteBlock())
     }
     
     func setupNavigion() {
@@ -91,14 +92,14 @@ extension CreateBlockViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let text = textField.text?.trimmingCharacters(in: .whitespaces) {
-            blockManager.updateCreation(label: text)
+            blockManager.updateRemoteBlock(label: text)
             viewManager.updateTaskLabel(text)
         }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let text = textField.text?.trimmingCharacters(in: .whitespaces) {
-            blockManager.updateCreation(label: text)
+            blockManager.updateRemoteBlock(label: text)
             viewManager.updateTaskLabel(text)
         }
         textField.resignFirstResponder()

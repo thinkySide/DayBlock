@@ -117,16 +117,16 @@ final class BlockManager {
     /// 현재 그룹 인덱스
     private var currentGroupIndex = 0
     
-    /// 블럭 생성용
-    private var creation = Group(name: "그룹 없음", list: [Block(taskLabel: "블럭 쌓기", icon: UIImage(systemName: "batteryblock.fill")!, output: 0.0, color: Color.testBlue)])
+    /// 생성, 스위칭용 블럭
+    private var remoteBlock = Group(name: "그룹 없음", list: [Block(taskLabel: "블럭 쌓기", icon: UIImage(systemName: "batteryblock.fill")!, output: 0.0, color: Color.testBlue)])
     
     
     
     // MARK: - Get
     
     /// 생성용 블럭 받아오기
-    func getCreation() -> Group {
-        return creation
+    func getRemoteBlock() -> Group {
+        return remoteBlock
     }
 
     /// 전체 그룹 리스트 받아오기
@@ -172,24 +172,24 @@ final class BlockManager {
         currentGroupIndex = index
     }
     
-    func updateCreation(group: String) {
-        creation.name = group
+    func updateRemoteBlock(group: Group) {
+        remoteBlock.name = group.name
     }
     
-    func updateCreation(label: String) {
-        creation.list[0].taskLabel = label
+    func updateRemoteBlock(label: String) {
+        remoteBlock.list[0].taskLabel = label
     }
     
-    func updateCreation(icon: UIImage) {
-        creation.list[0].icon = icon
+    func updateRemoteBlock(icon: UIImage) {
+        remoteBlock.list[0].icon = icon
     }
     
-    func updateCreation(output: Double) {
-        creation.list[0].output = output
+    func updateRemoteBlock(output: Double) {
+        remoteBlock.list[0].output = output
     }
     
-    func updateCreation(color: UIColor) {
-        creation.list[0].color = color
+    func updateRemoteBlock(color: UIColor) {
+        remoteBlock.list[0].color = color
     }
     
     
@@ -204,7 +204,8 @@ final class BlockManager {
     
     // MARK: - Reset
 
-    func resetCreation() {
-        creation = Group(name: "그룹 없음", list: [Block(taskLabel: "블럭 쌓기", icon: UIImage(systemName: "batteryblock.fill")!, output: 0.0, color: Color.testBlue)])
+    func resetRemoteBlock() {
+        let group = testGroupList[currentGroupIndex]
+        remoteBlock = Group(name: group.name, list: [Block(taskLabel: "블럭 쌓기", icon: UIImage(systemName: "batteryblock.fill")!, output: 0.0, color: Color.testBlue)])
     }
 }

@@ -32,7 +32,7 @@ final class SelectGroupViewController: UIViewController {
         super.viewDidLoad()
         setupDelegate()
         setupAddTarget()
-        setupTableViewCell()
+        setupSelectedCell()
     }
     
     
@@ -51,14 +51,13 @@ final class SelectGroupViewController: UIViewController {
         viewManager.actionStackView.cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
     }
     
-    func setupTableViewCell() {
+    func setupSelectedCell() {
         
         /// 기본 선택값
-        // let index = blockManager.getGroupList().firstIndex { $0.name == blockManager.getCreation().name }!
-        let index = blockManager.getCurrentGroupIndex()
+        let index = blockManager.getGroupList().firstIndex { $0.name == blockManager.getRemoteBlock().name }!
         let indexPath = IndexPath(row: index, section: 0)
         
-        /// 마지막 인덱스 일시 화면에서 가려지기 때문에 scrollPosition Bottom으로
+        /// 마지막 인덱스 선택 시, 화면에서 가려지기 때문에 scrollPosition Bottom으로
         let tableView = viewManager.tableView
         if index == blockManager.getGroupList().count - 1 {
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: .bottom)
@@ -86,6 +85,7 @@ final class SelectGroupViewController: UIViewController {
         /// 현재 선택된 indexPath 값으로 블럭 정보 업데이트
         guard let indexPath = viewManager.tableView.indexPathForSelectedRow else { return }
         let group = blockManager.getGroupList()[indexPath.row]
+        blockManager.updateRemoteBlock(group: group)
         
         /// delegate
         delegate?.switchHomeGroup?(index: indexPath.row)
