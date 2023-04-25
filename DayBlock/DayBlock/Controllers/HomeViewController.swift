@@ -65,9 +65,6 @@ final class HomeViewController: UIViewController {
     
     func setupNavigation() {
         
-        /// 그룹 선택 버튼
-        navigationItem.titleView = viewManager.groupSelectButton
-        
         /// TrackingStopButton
         let trackingStopBarButtomItem = viewManager.trackingStopBarButtonItem
         navigationItem.rightBarButtonItem = trackingStopBarButtomItem
@@ -310,7 +307,7 @@ extension HomeViewController: SelectGroupViewControllerDelegate {
         /// 그룹 업데이트
         blockManager.updateCurrentGroup(index: index)
         viewManager.groupSelectButton.color.backgroundColor = blockManager.getCurrentGroupColor()
-        viewManager.groupSelectButton.groupLabel.text = blockManager.getCurrentGroup().name
+        viewManager.groupSelectButton.label.text = blockManager.getCurrentGroup().name
         viewManager.blockCollectionView.reloadData()
     }
 }

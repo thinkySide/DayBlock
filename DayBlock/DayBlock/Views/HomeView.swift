@@ -261,13 +261,6 @@ final class HomeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-
-        /// CornerRadius
-        
-    }
-    
     func setupInitial() {
         backgroundColor = .white
         tabBarStackView.switchTabBarActive(.home)
@@ -275,6 +268,7 @@ final class HomeView: UIView {
     
     func setupAddSubView() {
         [
+            groupSelectButton,
             dateLabel, timeLabel, productivityLabel,
             blockPreview,
             blockCollectionView,
@@ -314,6 +308,10 @@ final class HomeView: UIView {
             productivityLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin+2), /// 시각 보정
             productivityLabel.heightAnchor.constraint(equalToConstant: 24),
             
+            /// groupSelectButton
+            groupSelectButton.topAnchor.constraint(equalTo: productivityLabel.bottomAnchor, constant: 24),
+            groupSelectButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
             /// blockPreview
             blockPreview.centerYAnchor.constraint(equalTo: timeLabel.centerYAnchor),
             blockPreview.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
@@ -321,7 +319,7 @@ final class HomeView: UIView {
             blockPreview.heightAnchor.constraint(equalToConstant: 84),
             
             /// blockCollectionView
-            blockCollectionView.topAnchor.constraint(equalTo: productivityLabel.bottomAnchor, constant: 32),
+            blockCollectionView.topAnchor.constraint(equalTo: groupSelectButton.bottomAnchor, constant: 12),
             blockCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             blockCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             blockCollectionView.heightAnchor.constraint(equalToConstant: Size.blockSize.height),

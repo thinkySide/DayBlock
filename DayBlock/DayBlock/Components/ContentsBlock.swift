@@ -132,7 +132,7 @@ final class ContentsBlock: UIView {
             colorTag.widthAnchor.constraint(equalToConstant: 20).isActive = true
             colorTag.heightAnchor.constraint(equalToConstant: 30).isActive = true
             
-            icon.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 54).isActive = true
+            icon.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 48).isActive = true
             icon.widthAnchor.constraint(equalToConstant: 56).isActive = true
             icon.heightAnchor.constraint(equalToConstant: 56).isActive = true
             
