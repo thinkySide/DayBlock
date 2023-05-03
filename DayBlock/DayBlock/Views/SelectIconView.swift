@@ -70,7 +70,7 @@ final class SelectIconView: UIView {
         NSLayoutConstraint.activate([
             
             /// title
-            title.topAnchor.constraint(equalTo: topAnchor, constant: 12),
+            title.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             title.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             /// actionStackView

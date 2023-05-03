@@ -73,12 +73,12 @@ final class SelectColorView: UIView {
         NSLayoutConstraint.activate([
             
             /// title
-            title.topAnchor.constraint(equalTo: topAnchor, constant: 12),
+            title.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             title.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             /// colorCollectionView
             colorCollectionView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 16),
-            colorCollectionView.bottomAnchor.constraint(equalTo: actionStackView.topAnchor, constant: -24),
+            colorCollectionView.bottomAnchor.constraint(equalTo: actionStackView.topAnchor, constant: -8),
             colorCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             colorCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
