@@ -270,8 +270,7 @@ extension HomeViewController: HomeViewDelegate {
         timeTracker.currentTime += 1
         
         /// 30분 단위 블럭 추가 및 현재 시간 초기화 (0.5블럭)
-        // 현재 30분 이후에 업데이트 안되는 버그 있음 ✏️
-        if timeTracker.totalTime == 1800 {
+        if timeTracker.totalTime % 1800 == 0 {
             timeTracker.totalBlock += 0.5
             viewManager.updateCurrentProductivityLabel(timeTracker.totalBlock)
             timeTracker.currentTime = 0
