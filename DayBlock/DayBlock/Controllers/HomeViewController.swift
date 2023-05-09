@@ -238,6 +238,7 @@ extension HomeViewController: HomeViewDelegate {
     }
     
     func startTracking() {
+        
         trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTrackingTime), userInfo: nil, repeats: true)
         
         /// 블럭 업데이트
@@ -301,12 +302,23 @@ extension HomeViewController: HomeViewDelegate {
 // MARK: - SelectGroupViewControllerDelegate
 
 extension HomeViewController: SelectGroupViewControllerDelegate {
+    
+    /// 그룹 업데이트
     func switchHomeGroup(index: Int) {
-        
-        /// 그룹 업데이트
         blockManager.updateCurrentGroup(index: index)
         viewManager.groupSelectButton.color.backgroundColor = blockManager.getCurrentGroupColor()
         viewManager.groupSelectButton.label.text = blockManager.getCurrentGroup().name
         viewManager.blockCollectionView.reloadData()
+        
+        /// 스크롤 위치 초기화
+        blockIndex = 0
+        viewManager.blockCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: true)
+        
+        /// 그룹 리스트가 비어있을 시, 트래킹 버튼 비활성화
+        if blockManager.getCurrentGroup().list.isEmpty {
+            viewManager.toggleTrackingButton(false)
+        } else {
+            viewManager.toggleTrackingButton(true)
+        }
     }
 }
