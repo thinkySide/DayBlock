@@ -23,21 +23,27 @@ final class SelectIconViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigion()
         setupDelegate()
     }
     
     
     
-    // MARK: - Method
-    
-    func setupNavigion() {
-        title = "아이콘 선택"
-        navigationController?.navigationBar
-            .titleTextAttributes = [.font: UIFont(name: Pretendard.semiBold, size: 16)!]
-    }
+    // MARK: - Initial Method
     
     func setupDelegate() {
-        
+        viewManager.actionStackView.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
+        viewManager.actionStackView.cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+    }
+    
+    
+    
+    // MARK: - Custom Method
+    
+    @objc func confirmButtonTapped() {
+        dismiss(animated: true)
+    }
+    
+    @objc func cancelButtonTapped() {
+        dismiss(animated: true)
     }
 }

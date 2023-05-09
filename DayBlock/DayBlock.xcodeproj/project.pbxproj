@@ -37,6 +37,7 @@
 		077A663429ED2AB000D99C68 /* CreateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077A663329ED2AB000D99C68 /* CreateGroupViewController.swift */; };
 		077A663629ED2ABA00D99C68 /* CreateGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077A663529ED2ABA00D99C68 /* CreateGroupView.swift */; };
 		07817F092A09D81700D024F6 /* CustomDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07817F082A09D81700D024F6 /* CustomDelegate.swift */; };
+		07817F0B2A0A05DE00D024F6 /* SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07817F0A2A0A05DE00D024F6 /* SFSymbols.swift */; };
 		078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B529D7152F00F239BA /* AppDelegate.swift */; };
 		078C50B829D7152F00F239BA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B729D7152F00F239BA /* SceneDelegate.swift */; };
 		078C50BA29D7152F00F239BA /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B929D7152F00F239BA /* HomeViewController.swift */; };
@@ -94,6 +95,7 @@
 		077A663329ED2AB000D99C68 /* CreateGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupViewController.swift; sourceTree = "<group>"; };
 		077A663529ED2ABA00D99C68 /* CreateGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupView.swift; sourceTree = "<group>"; };
 		07817F082A09D81700D024F6 /* CustomDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDelegate.swift; sourceTree = "<group>"; };
+		07817F0A2A0A05DE00D024F6 /* SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbols.swift; sourceTree = "<group>"; };
 		078C50B229D7152F00F239BA /* DayBlock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayBlock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		078C50B529D7152F00F239BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		078C50B729D7152F00F239BA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 				078C50B529D7152F00F239BA /* AppDelegate.swift */,
 				078C50B729D7152F00F239BA /* SceneDelegate.swift */,
 				078C50E729D72D2900F239BA /* Constants.swift */,
+				07817F0A2A0A05DE00D024F6 /* SFSymbols.swift */,
 			);
 			path = Essentials;
 			sourceTree = "<group>";
@@ -384,6 +387,7 @@
 				07EB771929F53855000BD87E /* ColorManager.swift in Sources */,
 				0719648E29DF044C009CA1A4 /* GroupSelectButton.swift in Sources */,
 				077A663629ED2ABA00D99C68 /* CreateGroupView.swift in Sources */,
+				07817F0B2A0A05DE00D024F6 /* SFSymbols.swift in Sources */,
 				07454E1529EC170600B3458D /* Seperator.swift in Sources */,
 				0719649829E148CA009CA1A4 /* ContentsBlock.swift in Sources */,
 				0719648A29DC5CB4009CA1A4 /* BlockManager.swift in Sources */,
