@@ -46,7 +46,7 @@ final class CreateGroupView: UIView {
     
     lazy var createBarButtonItem: UIBarButtonItem = {
         let item = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(createBarButtonItemTapped))
-        let font = UIFont(name: Pretendard.semiBold, size: 18)
+        let font = UIFont(name: Pretendard.semiBold, size: 17)
         let attributes = [NSAttributedString.Key.font: font]
         item.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .normal)
         item.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .disabled)

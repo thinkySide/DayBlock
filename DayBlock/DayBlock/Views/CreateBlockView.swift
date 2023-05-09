@@ -77,13 +77,36 @@ final class CreateBlockView: UIView {
         select.ofType("아이콘", .icon)
         return select
     }()
+    
+    lazy var createBarButtonItem: UIBarButtonItem = {
+        let item = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(createBarButtonItemTapped))
+        let font = UIFont(name: Pretendard.semiBold, size: 17)
+        let attributes = [NSAttributedString.Key.font: font]
+        item.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .normal)
+        item.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .disabled)
+        item.tintColor = GrayScale.mainText
+        item.isEnabled = false
+        return item
+    }()
 
     
     
     // MARK: - Method
     
+    @objc func createBarButtonItemTapped() {
+        print(#function)
+    }
+    
     @objc func taskLabelTextFieldChanged() {
         guard let text = taskLabelTextField.textField.text else { return }
+        
+        /// text 있을 때만 완료 버튼 활성화
+        createBarButtonItem.isEnabled = text.isEmpty ? false : true
+        
+        /// 라벨 실시간 업데이트
+        updateTaskLabel(text)
+        
+        /// 글자수 현황 업데이트
         taskLabelTextField.countLabel.text = "\(text.count)/18"
     }
     

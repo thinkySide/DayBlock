@@ -11,14 +11,6 @@ final class ColorCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Component
     
-    let color: UIView = {
-        let view = UIView()
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 10
-        view.backgroundColor = .systemRed
-        return view
-    }()
-    
     let selectCircle: UIView = {
         let circle = UIView()
         circle.backgroundColor = .none
@@ -29,6 +21,15 @@ final class ColorCollectionViewCell: UICollectionViewCell {
         circle.alpha = 0
         return circle
     }()
+
+    let color: UIView = {
+        let view = UIView()
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 10
+        view.backgroundColor = .systemRed
+        return view
+    }()
+    
     
     
     // MARK: - Method
@@ -46,7 +47,7 @@ final class ColorCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        [color, selectCircle]
+        [selectCircle, color]
             .forEach {
                 addSubview($0)
                 $0.translatesAutoresizingMaskIntoConstraints = false
@@ -54,17 +55,17 @@ final class ColorCollectionViewCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             
-            /// color
-            color.centerXAnchor.constraint(equalTo: centerXAnchor),
-            color.centerYAnchor.constraint(equalTo: centerYAnchor),
-            color.widthAnchor.constraint(equalToConstant: 32),
-            color.heightAnchor.constraint(equalTo: color.widthAnchor),
-            
             /// selectCircle
             selectCircle.centerXAnchor.constraint(equalTo: centerXAnchor),
             selectCircle.centerYAnchor.constraint(equalTo: centerYAnchor),
             selectCircle.widthAnchor.constraint(equalToConstant: 56),
             selectCircle.heightAnchor.constraint(equalTo: selectCircle.widthAnchor),
+            
+            /// color
+            color.centerXAnchor.constraint(equalTo: centerXAnchor),
+            color.centerYAnchor.constraint(equalTo: centerYAnchor),
+            color.widthAnchor.constraint(equalToConstant: 32),
+            color.heightAnchor.constraint(equalTo: color.widthAnchor),
         ])
     }
     

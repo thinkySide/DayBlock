@@ -47,9 +47,14 @@ final class CreateBlockViewController: UIViewController {
     }
     
     func setupNavigion() {
+        
+        /// Custom
         title = "블럭 생성"
         navigationController?.navigationBar
             .titleTextAttributes = [.font: UIFont(name: Pretendard.semiBold, size: 16)!]
+        
+        /// 생성 버튼
+        navigationItem.rightBarButtonItem = viewManager.createBarButtonItem
     }
     
     func setupDelegate() {
@@ -92,14 +97,12 @@ extension CreateBlockViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let text = textField.text?.trimmingCharacters(in: .whitespaces) {
             blockManager.updateRemoteBlock(label: text)
-            viewManager.updateTaskLabel(text)
         }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let text = textField.text?.trimmingCharacters(in: .whitespaces) {
             blockManager.updateRemoteBlock(label: text)
-            viewManager.updateTaskLabel(text)
         }
         textField.resignFirstResponder()
         return true
