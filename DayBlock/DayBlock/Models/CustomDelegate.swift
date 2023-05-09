@@ -51,9 +51,9 @@ protocol SelectColorViewControllerDelegate: AnyObject {
 
 // MARK: - Component
 
-protocol SelectFormDelegate: AnyObject {
-    func groupFormTapped()
-    func iconFormTapped()
-    func colorFormTapped()
+@objc protocol SelectFormDelegate: AnyObject {
+    @objc optional func groupFormTapped()
+    @objc optional func iconFormTapped()
+    @objc optional func colorFormTapped()
 }
 

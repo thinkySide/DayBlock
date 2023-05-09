@@ -13,6 +13,7 @@ final class CreateGroupViewController: UIViewController {
     
     private let viewManager = CreateGroupView()
     private let blockManager = BlockManager.shared
+    private let customBottomModalDelegate = CustomBottomModalDelegate()
     weak var delegate: CreateGroupViewControllerDelegate?
     
     
@@ -53,6 +54,7 @@ final class CreateGroupViewController: UIViewController {
     func setupDelegate() {
         viewManager.delegate = self
         viewManager.groupLabelTextField.textField.delegate = self
+        viewManager.colorSelect.delegate = self
     }
     
     
@@ -102,13 +104,47 @@ extension CreateGroupViewController: CreateGroupViewDelegate {
     }
     
     func createGroup() {
+        
+        /// 리모트 그룹 업데이트
         guard let groupName = viewManager.groupLabelTextField.textField.text else { return }
+        blockManager.updateRemoteGroup(name: groupName)
         
         /// 그룹 생성
-        // blockManager.createGroup(name: groupName)
+        blockManager.createGroup()
         
         /// selectView의 그룹 리스트 업데이트
         delegate?.updateGroupList()
         dismiss(animated: true)
+    }
+}
+
+
+
+// MARK: - SelectFormDelegate
+
+extension CreateGroupViewController: SelectFormDelegate {
+    
+    func colorFormTapped() {
+        
+        /// 키보드 해제
+        viewManager.groupLabelTextField.endEditing(true)
+        
+        /// present
+        let selectColorVC = SelectColorViewController()
+        selectColorVC.delegate = self
+        selectColorVC.modalPresentationStyle = .custom
+        selectColorVC.transitioningDelegate = customBottomModalDelegate
+        present(selectColorVC, animated: true)
+    }
+}
+
+
+
+// MARK: - SelectColorViewControllerDelegate
+
+extension CreateGroupViewController: SelectColorViewControllerDelegate {
+    func updateColor() {
+        let selectedColor = blockManager.getRemoteGroup().color
+        viewManager.colorSelect.selectColor.backgroundColor = selectedColor
     }
 }

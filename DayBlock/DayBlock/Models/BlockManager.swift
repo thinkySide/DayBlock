@@ -76,8 +76,11 @@ final class BlockManager {
     /// 현재 그룹 인덱스
     private var currentGroupIndex = 0
     
-    /// 생성, 스위칭용 블럭
+    /// 리모트 블럭(생성, 스위칭용)
     private var remoteBlock = Group(name: "그룹 없음", color: UIColor(rgb: 0x323232), list: [Block(taskLabel: "블럭 쌓기", output: 0.0, icon: UIImage(systemName: "batteryblock.fill")!)])
+    
+    /// 리모드 그룹(생성, 스위칭용)
+    private var remoteGroup = Group(name: "", color: UIColor(rgb: 0x0061FD), list: [])
     
     
     
@@ -132,6 +135,11 @@ final class BlockManager {
         return nil
     }
     
+    /// 리모드 그룹 받아오기
+    func getRemoteGroup() -> Group {
+        return remoteGroup
+    }
+    
     
     
     // MARK: - Update
@@ -162,14 +170,25 @@ final class BlockManager {
         remoteBlock.list[0].output = output
     }
     
+    /// 리모트 그룹 그룹명 업데이트
+    func updateRemoteGroup(name: String) {
+        remoteGroup.name = name
+    }
+    
+    /// 리모트 그룹 컬러 업데이트
+    func updateRemoteGroup(color: UIColor) {
+        remoteGroup.color = color
+    }
+    
     
     
     // MARK: - Create
 
     /// 그룹 생성
-    func createGroup(name: String, color: UIColor) {
-        let newGroup = Group(name: name, color: color, list: [])
+    func createGroup() {
+        let newGroup = remoteGroup
         testGroupList.append(newGroup)
+        resetRemoteGroup()
     }
     
     
@@ -180,5 +199,10 @@ final class BlockManager {
         let group = testGroupList[currentGroupIndex]
         
         remoteBlock = Group(name: group.name, color: group.color, list: [Block(taskLabel: "블럭 쌓기", output: 0.0, icon: UIImage(systemName: "batteryblock.fill")!)])
+    }
+    
+    /// 리모드 그룹 초기화
+    func resetRemoteGroup() {
+        remoteGroup = Group(name: "", color: UIColor(rgb: 0x0061FD), list: [])
     }
 }

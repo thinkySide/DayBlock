@@ -130,19 +130,6 @@ extension CreateBlockViewController: SelectFormDelegate {
         present(selectGroupVC, animated: true)
     }
     
-    func colorFormTapped() {
-        
-        /// 키보드 해제
-        viewManager.taskLabelTextField.endEditing(true)
-        
-        /// present
-        let selectColorVC = SelectColorViewController()
-        selectColorVC.delegate = self
-        selectColorVC.modalPresentationStyle = .custom
-        selectColorVC.transitioningDelegate = customBottomModalDelegate
-        present(selectColorVC, animated: true)
-    }
-    
     func iconFormTapped() {
         
         /// 키보드 해제

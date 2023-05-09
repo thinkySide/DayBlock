@@ -69,7 +69,7 @@ final class SelectColorViewController: UIViewController {
         guard let indexPath = viewManager.colorCollectionView.indexPathsForSelectedItems else { return }
         let itemIndex = indexPath[0].item
         colorManager.updateIndex(to: itemIndex)
-        // blockManager.updateRemoteBlock(color: colorManager.getSelectColor())
+        blockManager.updateRemoteGroup(color: colorManager.getSelectColor())
         
         /// delegate
         delegate?.updateColor()

@@ -126,11 +126,11 @@ final class SelectForm: UIView {
     @objc func selectFormTapped() {
         switch selectType! {
         case .group:
-            delegate?.groupFormTapped()
+            delegate?.groupFormTapped?()
         case .icon:
-            delegate?.iconFormTapped()
+            delegate?.iconFormTapped?()
         case .color:
-            delegate?.colorFormTapped()
+            delegate?.colorFormTapped?()
         }
     }
     
