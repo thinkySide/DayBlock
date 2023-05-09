@@ -9,6 +9,8 @@ import UIKit
 
 final class CreateBlockView: UIView {
     
+    weak var delegate: CreateBlockViewDelegate?
+    
     // MARK: - Component
     
     private lazy var blockPreview: UIView = {
@@ -52,7 +54,6 @@ final class CreateBlockView: UIView {
     
     lazy var taskLabelTextField: FieldForm = {
         let form = FieldForm()
-        form.textField.addTarget(self, action: #selector(taskLabelTextFieldChanged), for: .editingChanged)
         return form
     }()
     
@@ -94,20 +95,7 @@ final class CreateBlockView: UIView {
     // MARK: - Method
     
     @objc func createBarButtonItemTapped() {
-        print(#function)
-    }
-    
-    @objc func taskLabelTextFieldChanged() {
-        guard let text = taskLabelTextField.textField.text else { return }
-        
-        /// text 있을 때만 완료 버튼 활성화
-        createBarButtonItem.isEnabled = text.isEmpty ? false : true
-        
-        /// 라벨 실시간 업데이트
-        updateTaskLabel(text)
-        
-        /// 글자수 현황 업데이트
-        taskLabelTextField.countLabel.text = "\(text.count)/18"
+        delegate?.createNewBlock()
     }
     
     /// Block 정보 업데이트

@@ -58,14 +58,20 @@ final class CreateBlockViewController: UIViewController {
     }
     
     func setupDelegate() {
+        viewManager.delegate = self
         viewManager.taskLabelTextField.textField.delegate = self
         viewManager.groupSelect.delegate = self
         viewManager.iconSelect.delegate = self
     }
     
     func setupAddTarget() {
+        
+        /// taskLabelTextField - Tap Event
         let taskLabelTap = UITapGestureRecognizer(target: self, action: #selector(taskLabelTapped))
         viewManager.taskLabelTextField.addGestureRecognizer(taskLabelTap)
+        
+        /// taskLabelTextField - EditingChanged Event
+        viewManager.taskLabelTextField.textField.addTarget(self, action: #selector(taskLabelTextFieldChanged), for: .editingChanged)
     }
 }
 
@@ -94,16 +100,23 @@ extension CreateBlockViewController: UITextFieldDelegate {
         else { return true }
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if let text = textField.text?.trimmingCharacters(in: .whitespaces) {
-            blockManager.updateRemoteBlock(label: text)
-        }
+    @objc func taskLabelTextFieldChanged() {
+        guard let text = viewManager.taskLabelTextField.textField.text else { return }
+        
+        /// text 있을 때만 완료 버튼 활성화
+        viewManager.createBarButtonItem.isEnabled = text.isEmpty ? false : true
+        
+        /// 리모트 블럭 업데이트
+        blockManager.updateRemoteBlock(label: text)
+        
+        /// 라벨 실시간 업데이트
+        viewManager.updateTaskLabel(text)
+        
+        /// 글자수 현황 업데이트
+        viewManager.taskLabelTextField.countLabel.text = "\(text.count)/18"
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if let text = textField.text?.trimmingCharacters(in: .whitespaces) {
-            blockManager.updateRemoteBlock(label: text)
-        }
         textField.resignFirstResponder()
         return true
     }
@@ -144,6 +157,16 @@ extension CreateBlockViewController: SelectFormDelegate {
         selectIconVC.modalPresentationStyle = .custom
         selectIconVC.transitioningDelegate = customBottomModalDelegate
         present(selectIconVC, animated: true)
+    }
+}
+
+
+
+// MARK: - CreateBlockViewDelegate
+
+extension CreateBlockViewController: CreateBlockViewDelegate {
+    func createNewBlock() {
+        blockManager.createNewBlock()
     }
 }
 

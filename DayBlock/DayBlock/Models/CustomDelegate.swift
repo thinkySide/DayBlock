@@ -25,6 +25,10 @@ protocol HomeViewDelegate: AnyObject {
     func setupProgressViewColor()
 }
 
+protocol CreateBlockViewDelegate: AnyObject {
+    func createNewBlock()
+}
+
 protocol CreateGroupViewDelegate: AnyObject {
     func dismissVC()
     func createGroup()

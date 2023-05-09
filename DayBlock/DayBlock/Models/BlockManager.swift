@@ -128,6 +128,19 @@ final class BlockManager {
     /// 리모트 블럭
     private var remoteBlock = Group(name: "그룹 없음", color: UIColor(rgb: 0x323232), list: [Block(taskLabel: "블럭 쌓기", output: 0.0, icon: UIImage(systemName: "batteryblock.fill")!)])
     
+    /// CREATE - 현재 리모트 블럭 정보로 새 블럭 생성
+    func createNewBlock() {
+        let newBlock = remoteBlock
+        
+        /// 리모트 블럭이 포함된 그룹 검색
+        for (index, group) in testGroupList.enumerated() {
+            if newBlock.name == group.name {
+                testGroupList[index].list.append(newBlock.list[0])
+                break
+            }
+        }
+    }
+    
     /// READ - 리모트 블럭 받아오기
     func getRemoteBlock() -> Group {
         return remoteBlock
