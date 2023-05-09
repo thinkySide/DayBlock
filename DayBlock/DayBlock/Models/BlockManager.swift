@@ -96,6 +96,10 @@ final class BlockManager {
         return currentGroupIndex
     }
     
+    func getLastBlockIndex() -> Int {
+        return testGroupList[currentGroupIndex].list.count - 1
+    }
+    
     /// READ - 현재 그룹 받아오기
     func getCurrentGroup() -> Group {
         return testGroupList[currentGroupIndex]
@@ -135,6 +139,7 @@ final class BlockManager {
         /// 리모트 블럭이 포함된 그룹 검색
         for (index, group) in testGroupList.enumerated() {
             if newBlock.name == group.name {
+                currentGroupIndex = index
                 testGroupList[index].list.append(newBlock.list[0])
                 break
             }

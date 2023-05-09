@@ -9,8 +9,6 @@ import UIKit
 
 final class CreateBlockView: UIView {
     
-    weak var delegate: CreateBlockViewDelegate?
-    
     // MARK: - Component
     
     private lazy var blockPreview: UIView = {
@@ -80,7 +78,9 @@ final class CreateBlockView: UIView {
     }()
     
     lazy var createBarButtonItem: UIBarButtonItem = {
-        let item = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(createBarButtonItemTapped))
+        let item = UIBarButtonItem()
+        item.title = "확인"
+        item.style = .plain
         let font = UIFont(name: Pretendard.semiBold, size: 17)
         let attributes = [NSAttributedString.Key.font: font]
         item.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .normal)
@@ -93,10 +93,6 @@ final class CreateBlockView: UIView {
     
     
     // MARK: - Method
-    
-    @objc func createBarButtonItemTapped() {
-        delegate?.createNewBlock()
-    }
     
     /// Block 정보 업데이트
     func updateBlockInfo(_ group: Group) {

@@ -191,9 +191,10 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         if count == indexPath.row {
             
             /// Push to AddBlockViewController
-            let addBlockVC = CreateBlockViewController()
-            addBlockVC.hidesBottomBarWhenPushed = true
-            navigationController?.pushViewController(addBlockVC, animated: true)
+            let createBlockVC = CreateBlockViewController()
+            createBlockVC.delegate = self
+            createBlockVC.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(createBlockVC, animated: true)
         }
     }
 }
@@ -294,6 +295,24 @@ extension HomeViewController: HomeViewDelegate {
     
     func setupProgressViewColor() {
         viewManager.setupProgressViewColor(color: blockManager.getCurrentGroupColor())
+    }
+}
+
+
+
+// MARK: - CreateBlockViewControllerDelegate
+
+extension HomeViewController: CreateBlockViewControllerDelegate {
+    
+    /// CollectionView 업데이트
+    func updateCollectionView() {
+        switchHomeGroup(index: blockManager.getCurrentGroupIndex())
+        
+        let lastIndex = blockManager.getLastBlockIndex()
+        let indexPath = IndexPath(item: lastIndex, section: 0)
+        blockIndex = lastIndex
+        viewManager.blockCollectionView.scrollToItem(at: indexPath, at: .left, animated: true)
+        viewManager.toggleTrackingButton(true)
     }
 }
 

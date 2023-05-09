@@ -14,6 +14,7 @@ final class CreateBlockViewController: UIViewController {
     private let viewManager = CreateBlockView()
     private let blockManager = BlockManager.shared
     private let customBottomModalDelegate = CustomBottomModalDelegate()
+    weak var delegate: CreateBlockViewControllerDelegate?
     
     
     // MARK: - ViewController LifeCycle
@@ -37,7 +38,7 @@ final class CreateBlockViewController: UIViewController {
     
     
     
-    // MARK: - Method
+    // MARK: - Initial Method
     
     func setupInitial() {
         
@@ -58,7 +59,6 @@ final class CreateBlockViewController: UIViewController {
     }
     
     func setupDelegate() {
-        viewManager.delegate = self
         viewManager.taskLabelTextField.textField.delegate = self
         viewManager.groupSelect.delegate = self
         viewManager.iconSelect.delegate = self
@@ -72,6 +72,22 @@ final class CreateBlockViewController: UIViewController {
         
         /// taskLabelTextField - EditingChanged Event
         viewManager.taskLabelTextField.textField.addTarget(self, action: #selector(taskLabelTextFieldChanged), for: .editingChanged)
+        
+        /// createBarButtonItem
+        viewManager.createBarButtonItem.target = self
+        viewManager.createBarButtonItem.action = #selector(createBarButtonItemTapped)
+    }
+    
+    
+    
+    // MARK: - Custom Method
+    
+    @objc func createBarButtonItemTapped() {
+        
+        /// 새 블럭 생성
+        blockManager.createNewBlock()
+        navigationController?.popViewController(animated: true)
+        delegate?.updateCollectionView()
     }
 }
 
@@ -157,16 +173,6 @@ extension CreateBlockViewController: SelectFormDelegate {
         selectIconVC.modalPresentationStyle = .custom
         selectIconVC.transitioningDelegate = customBottomModalDelegate
         present(selectIconVC, animated: true)
-    }
-}
-
-
-
-// MARK: - CreateBlockViewDelegate
-
-extension CreateBlockViewController: CreateBlockViewDelegate {
-    func createNewBlock() {
-        blockManager.createNewBlock()
     }
 }
 
