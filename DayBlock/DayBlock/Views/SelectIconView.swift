@@ -20,6 +20,13 @@ final class SelectIconView: UIView {
         return label
     }()
     
+    let iconCollectionView: UICollectionView = {
+        let layout = UICollectionViewLayout()
+        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        return collection
+    }()
+
+    
     let actionStackView: ActionStackView = {
         let stack = ActionStackView()
         return stack
@@ -54,7 +61,7 @@ final class SelectIconView: UIView {
     }
     
     func setupAddSubView() {
-        [title, actionStackView]
+        [title, iconCollectionView, actionStackView]
             .forEach {
                 /// 1. addSubView(component)
                 addSubview($0)
@@ -73,10 +80,69 @@ final class SelectIconView: UIView {
             title.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             title.centerXAnchor.constraint(equalTo: centerXAnchor),
             
+            /// iconCollectionView
+            iconCollectionView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 16),
+            iconCollectionView.bottomAnchor.constraint(equalTo: actionStackView.topAnchor, constant: -8),
+            iconCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
+            iconCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            
             /// actionStackView
             actionStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
             actionStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             actionStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
         ])
     }
+}
+
+
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension SelectIconView: UICollectionViewDelegateFlowLayout {
+    
+    func createCompositionalLayout() -> UICollectionViewLayout {
+            
+            /// 인스턴스 생성
+            let layout = UICollectionViewCompositionalLayout {
+                (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+                
+                /// item 사이즈
+                let itemSize = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1/5),
+                    heightDimension: .fractionalWidth(1/5)
+                )
+                
+                /// item 만들기
+                let item = NSCollectionLayoutItem(
+                    layoutSize: itemSize
+                )
+                
+                /// item 간격 설정
+                item.contentInsets = NSDirectionalEdgeInsets(
+                    top: 0, leading: 0, bottom: 16, trailing: 16
+                )
+                
+                /// item Group 사이즈
+                let groupSize = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .fractionalWidth(1/5)
+                )
+                
+                /// Group 사이즈로 Group 만들기
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: groupSize,
+                    subitems: [item, item, item]
+                )
+                
+                /// 만든 Group으로 Section 만들기
+                let section = NSCollectionLayoutSection(group: group)
+                
+                /// Section에 대한 간격 설정
+                section.contentInsets = NSDirectionalEdgeInsets(
+                    top: 0, leading: 0, bottom: 0, trailing: 0
+                )
+                return section
+            }
+            return layout
+        }
 }

@@ -87,6 +87,7 @@ enum Size {
 
 enum Cell {
     static let block = "BlockCell"
-    static let groupSelect = "GroupSelect"
-    static let colorSelect = "ColorSelect"
+    static let groupSelect = "GroupSelectTableViewCell"
+    static let colorSelect = "ColorCollectionViewSelectCell"
+    static let iconSelect = "IconCollectionViewCell"
 }

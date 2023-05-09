@@ -26,7 +26,7 @@ final class SelectColorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupDelegate()
+        setupCollectionView()
         setupAddTarget()
         setupSelectedCell()
     }
@@ -35,7 +35,7 @@ final class SelectColorViewController: UIViewController {
     
     // MARK: - Initial Method
     
-    func setupDelegate() {
+    func setupCollectionView() {
         
         /// CollectionView
         let collectionView = viewManager.colorCollectionView
