@@ -371,4 +371,36 @@ createBlockViewController의 시점을 조정하여 그룹 전환 기능 수정 
 목표로 두고 있던 애플 디벨로퍼 아카데미 지원서 작성 및 회사 프로젝트를 위해 전체 일정을 미루기로 했습니다.   
 데드라인 일정을 번복하는 것은 좋지 않습니다. 이번 일을 계기로 이후 계획을 세울 때는 더욱 신중히 세우고자 합니다.
 
+---
+
+<br>
+
+### **Day 70 - 23.05.09**
+
+- **타이머 카운트 버그 수정**   
+1800초(30분) 이상 부터 트래킹이 정상적으로 진행되지 않는 오류를 수정했습니다.
+
+- **CustomDelegate 파일 생성**   
+기존 클래스 위에 protocol 생성 후 관리하는 방식에서, CustomDelegate 파일을 생성해 하나로 관리하는 방식으로 변경했습니다.
+
+- SelectColor 구현
+
+- **TrackingButton 상태값 버그 수정**   
+TrackingButton 활성화 문제로 그룹 전환 시 0번째 인덱스로 전환되도록 수정했습니다.
+
+- **SFSymbol Manger 생성**   
+현재 거의 모든 symbol을 가지고와 SymbolManager를 생성했습니다.
+.fill 상태의 아이콘만 가지고 왔으며, 추후 카테고리별로 그룹핑 해 아이콘 제공 예정입니다.
+
+- SelectIcon 구현
+
+- CreateBlock BarButtonItem 추가
+
+- **Create New Block 기능 추가**   
+새 블럭 생성 기능을 추가했습니다. 또한 자잘한 trackingButton 활성화 오류를 수정했습니다.
+
+<img width="300" src="https://github.com/thinkySide/Connecting-the-Stars/assets/113565086/d9d38fd2-a365-4f72-9c60-406a14365758">
+
+---
+
 <br>
