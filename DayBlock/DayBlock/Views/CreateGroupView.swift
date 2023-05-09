@@ -7,11 +7,6 @@
 
 import UIKit
 
-protocol CreateGroupViewDelegate: AnyObject {
-    func dismissVC()
-    func createGroup()
-}
-
 final class CreateGroupView: UIView {
     
     weak var delegate: CreateGroupViewDelegate?

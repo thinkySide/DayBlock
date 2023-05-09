@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol CreateGroupViewControllerDelegate: AnyObject {
-    func updateGroupList()
-}
-
 final class CreateGroupViewController: UIViewController {
     
     // MARK: - Variable

@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol SelectColorViewControllerDelegate: AnyObject {
-    func updateColor()
-}
-
 final class SelectColorViewController: UIViewController {
     
     // MARK: - Manager

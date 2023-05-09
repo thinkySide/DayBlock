@@ -7,11 +7,6 @@
 
 import UIKit
 
-@objc protocol SelectGroupViewControllerDelegate: AnyObject {
-    @objc optional func updateGroup()
-    @objc optional func switchHomeGroup(index: Int)
-}
-
 final class SelectGroupViewController: UIViewController {
     
     // MARK: - Variable

@@ -7,12 +7,6 @@
 
 import UIKit
 
-protocol SelectFormDelegate: AnyObject {
-    func groupFormTapped()
-    func iconFormTapped()
-    func colorFormTapped()
-}
-
 final class SelectForm: UIView {
     
     enum SelectType {

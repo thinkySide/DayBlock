@@ -36,6 +36,7 @@
 		0771983F29E2F4D10021088A /* ButtonBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0771983E29E2F4D10021088A /* ButtonBackgroundColor.swift */; };
 		077A663429ED2AB000D99C68 /* CreateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077A663329ED2AB000D99C68 /* CreateGroupViewController.swift */; };
 		077A663629ED2ABA00D99C68 /* CreateGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077A663529ED2ABA00D99C68 /* CreateGroupView.swift */; };
+		07817F092A09D81700D024F6 /* CustomDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07817F082A09D81700D024F6 /* CustomDelegate.swift */; };
 		078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B529D7152F00F239BA /* AppDelegate.swift */; };
 		078C50B829D7152F00F239BA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B729D7152F00F239BA /* SceneDelegate.swift */; };
 		078C50BA29D7152F00F239BA /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B929D7152F00F239BA /* HomeViewController.swift */; };
@@ -92,6 +93,7 @@
 		0771983E29E2F4D10021088A /* ButtonBackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonBackgroundColor.swift; sourceTree = "<group>"; };
 		077A663329ED2AB000D99C68 /* CreateGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupViewController.swift; sourceTree = "<group>"; };
 		077A663529ED2ABA00D99C68 /* CreateGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupView.swift; sourceTree = "<group>"; };
+		07817F082A09D81700D024F6 /* CustomDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDelegate.swift; sourceTree = "<group>"; };
 		078C50B229D7152F00F239BA /* DayBlock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayBlock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		078C50B529D7152F00F239BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		078C50B729D7152F00F239BA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 				0719648229DAF4B5009CA1A4 /* Group.swift */,
 				07EB771829F53855000BD87E /* ColorManager.swift */,
 				0770802C29E55E7C00D66900 /* TimeTracker.swift */,
+				07817F082A09D81700D024F6 /* CustomDelegate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 				078C50C029D7152F00F239BA /* DayBlock.xcdatamodeld in Sources */,
 				0770802F29E78C9200D66900 /* SelectGroupViewController.swift in Sources */,
 				078C50D129D726FE00F239BA /* HomeView.swift in Sources */,
+				07817F092A09D81700D024F6 /* CustomDelegate.swift in Sources */,
 				07454E1329EC138E00B3458D /* GroupSelectTableViewCell.swift in Sources */,
 				07454E1129EBFDF200B3458D /* ActionButton.swift in Sources */,
 				0770803629E7981300D66900 /* SelectIconView.swift in Sources */,

@@ -7,21 +7,6 @@
 
 import UIKit
 
-protocol HomeViewDelegate: AnyObject {
-    /// TabBar
-    func hideTabBar()
-    func showTabBar()
-    
-    /// Tracking
-    func startTracking()
-    func pausedTracking()
-    func stopTracking()
-    
-    /// Custom
-    func selectGroupButtonTapped()
-    func setupProgressViewColor()
-}
-
 final class HomeView: UIView {
     
     // MARK: - Variable
