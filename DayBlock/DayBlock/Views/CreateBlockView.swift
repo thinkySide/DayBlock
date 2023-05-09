@@ -172,7 +172,7 @@ final class CreateBlockView: UIView {
             blockTaskLabel.leadingAnchor.constraint(equalTo: blockPreview.leadingAnchor, constant: 20),
             blockTaskLabel.trailingAnchor.constraint(equalTo: blockPreview.trailingAnchor, constant: -20),
             
-            /// nameTextField
+            /// taskLabelTextField
             taskLabelTextField.topAnchor.constraint(equalTo: blockPreview.bottomAnchor, constant: 32),
             taskLabelTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             taskLabelTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),

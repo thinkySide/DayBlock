@@ -31,7 +31,6 @@ final class CreateGroupViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewManager.groupLabel.textField.becomeFirstResponder()
     }
     
     
@@ -53,7 +52,7 @@ final class CreateGroupViewController: UIViewController {
     
     func setupDelegate() {
         viewManager.delegate = self
-        viewManager.groupLabel.textField.delegate = self
+        viewManager.groupLabelTextField.textField.delegate = self
     }
     
     
@@ -103,7 +102,7 @@ extension CreateGroupViewController: CreateGroupViewDelegate {
     }
     
     func createGroup() {
-        guard let groupName = viewManager.groupLabel.textField.text else { return }
+        guard let groupName = viewManager.groupLabelTextField.textField.text else { return }
         
         /// 그룹 생성
         // blockManager.createGroup(name: groupName)

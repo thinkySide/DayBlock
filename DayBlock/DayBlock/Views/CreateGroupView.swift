@@ -20,13 +20,28 @@ final class CreateGroupView: UIView {
         return item
     }()
     
-    lazy var groupLabel: FieldForm = {
+    lazy var groupLabelTextField: FieldForm = {
         let form = FieldForm()
         form.textFieldLabel.text = "그룹명"
         form.textField.placeholder = "자기계발"
         form.countLabel.text = "0/8"
         form.textField.addTarget(self, action: #selector(groupLabelTextFieldChanged), for: .editingChanged)
         return form
+    }()
+    
+    private lazy var selectFormStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [colorSelect])
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
+        stack.spacing = Size.selectFormSpacing
+        return stack
+    }()
+    
+    let colorSelect: SelectForm = {
+        let select = SelectForm()
+        select.ofType("색상", .color)
+        return select
     }()
     
     lazy var createBarButtonItem: UIBarButtonItem = {
@@ -68,8 +83,8 @@ final class CreateGroupView: UIView {
     }
     
     @objc func groupLabelTextFieldChanged() {
-        guard let text = groupLabel.textField.text else { return }
-        groupLabel.countLabel.text = "\(text.count)/8"
+        guard let text = groupLabelTextField.textField.text else { return }
+        groupLabelTextField.countLabel.text = "\(text.count)/8"
         
         /// 텍스트가 비어있을 경우 그룹 생성 비활성화
         if text.isEmpty { createBarButtonItem.isEnabled = false }
@@ -81,7 +96,7 @@ final class CreateGroupView: UIView {
     }
     
     func setupAddSubView() {
-        [groupLabel]
+        [groupLabelTextField, selectFormStackView]
             .forEach {
 
                 /// 1. addSubView(component)
@@ -98,9 +113,14 @@ final class CreateGroupView: UIView {
         NSLayoutConstraint.activate([
             
             /// groupLabel
-            groupLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
-            groupLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
-            groupLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
+            groupLabelTextField.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
+            groupLabelTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
+            groupLabelTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
+            
+            /// selectFormStackView
+            selectFormStackView.topAnchor.constraint(equalTo: groupLabelTextField.bottomAnchor, constant: 24),
+            selectFormStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
+            selectFormStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }
 }

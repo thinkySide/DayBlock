@@ -136,23 +136,28 @@ final class BlockManager {
     
     // MARK: - Update
     
+    /// 현재 그룹 업데이트
     func updateCurrentGroup(index: Int) {
         currentGroupIndex = index
     }
     
+    /// 리모트 블럭 그룹 업데이트
     func updateRemoteBlock(group: Group) {
         remoteBlock.name = group.name
         remoteBlock.color = group.color
     }
     
+    /// 리모트 블럭 라벨 업데이트
     func updateRemoteBlock(label: String) {
         remoteBlock.list[0].taskLabel = label
     }
     
+    /// 리모트 블럭 아이콘 업데이트
     func updateRemoteBlock(icon: UIImage) {
         remoteBlock.list[0].icon = icon
     }
     
+    /// 리모트 블럭 생산량 업데이트
     func updateRemoteBlock(output: Double) {
         remoteBlock.list[0].output = output
     }
@@ -161,6 +166,7 @@ final class BlockManager {
     
     // MARK: - Create
 
+    /// 그룹 생성
     func createGroup(name: String, color: UIColor) {
         let newGroup = Group(name: name, color: color, list: [])
         testGroupList.append(newGroup)
@@ -169,9 +175,9 @@ final class BlockManager {
     
     // MARK: - Reset
 
+    /// 리모트 블럭 초기화
     func resetRemoteBlock() {
         let group = testGroupList[currentGroupIndex]
-        
         
         remoteBlock = Group(name: group.name, color: group.color, list: [Block(taskLabel: "블럭 쌓기", output: 0.0, icon: UIImage(systemName: "batteryblock.fill")!)])
     }
