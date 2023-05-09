@@ -13,9 +13,10 @@ final class ColorManager {
     static let shared = ColorManager()
     private init() {}
     
-    private var index = 38 /// 기본값 BLUE
+    private var currentIndex = 38 /// 기본값 BLUE
     
     private let colorList: [UIColor] = [
+        
         /// Pink
         UIColor(rgb: 0xEE719E),
         UIColor(rgb: 0xE63B7A),
@@ -91,19 +92,23 @@ final class ColorManager {
     
     // MARK: - Method
     
+    /// 컬러리스트 받아오기
     func getColorList() -> [UIColor] {
         return colorList
     }
     
+    /// 선택된 컬러 받아오기
     func getSelectColor() -> UIColor {
-        return colorList[index]
+        return colorList[currentIndex]
     }
     
-    func getIndex() -> Int {
-        return index
+    /// 현재 선택된 컬러의 인덱스 받아오기
+    func getCurrentIndex() -> Int {
+        return currentIndex
     }
     
-    func updateIndex(to index: Int) {
-        self.index = index
+    /// 인덱스 업데이트
+    func updateCurrentIndex(to index: Int) {
+        currentIndex = index
     }
 }

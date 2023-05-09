@@ -1,5 +1,5 @@
 //
-//  SFSymbols.swift
+//  symbolManager.swift
 //  DayBlock
 //
 //  Created by 김민준 on 2023/05/09.
@@ -7,9 +7,15 @@
 
 import UIKit
 
-struct SFSymbols {
+final class SymbolManager {
     
-    let symbolList = [
+    /// 싱글톤
+    static let shared = SymbolManager()
+    private init() {}
+    
+    private var currentIndex = 0
+    private let symbolList = [
+    "batteryblock.fill",
     "eraser.fill",
     "trash.fill",
     "folder.fill",
@@ -66,22 +72,6 @@ struct SFSymbols {
     "megaphone.fill",
     "speaker.fill",
     "mic.fill",
-    "circle.fill",
-    "circlebadge.fill",
-    "placeholdertext.fill",
-    "square.fill",
-    "squareshape.fill",
-    "app.fill",
-    "rectangle.fill",
-    "tablecells.fill",
-    "capsule.fill",
-    "oval.fill",
-    "triangle.fill",
-    "diamond.fill",
-    "octagon.fill",
-    "hexagon.fill",
-    "pentagon.fill",
-    "seal.fill",
     "heart.fill",
     "fleuron.fill",
     "star.fill",
@@ -189,7 +179,6 @@ struct SFSymbols {
     "oilcan.fill",
     "hazardsign.fill",
     "wrongwaysign.fill",
-    "batteryblock.fill",
     "lungs.fill",
     "allergens.fill",
     "microbe.fill",
@@ -1839,4 +1828,29 @@ struct SFSymbols {
     "slider.horizontal.below.square.and.square.filled",
     "point.3.filled.connected.trianglepath.dotted",
     ]
+    
+    
+    
+    // MARK: - Method
+    
+    /// Symbol 리스트 받아오기
+    func getSymbolList() -> [String] {
+        return symbolList
+    }
+    
+    /// 현재 선택된 인덱스값 받아오기
+    func getCurrentIndex() -> Int {
+        return currentIndex
+    }
+    
+    /// 현재 선택된 아이콘 받아오기
+    func getSelectIcon() -> UIImage {
+        guard let image = UIImage(systemName: symbolList[currentIndex]) else { return UIImage() }
+        return image
+    }
+    
+    /// 인덱스값 업데이트
+    func updateCurrentIndex(to index: Int) {
+        currentIndex = index
+    }
 }

@@ -198,7 +198,7 @@ final class SelectForm: UIView {
             selectIcon.heightAnchor.constraint(equalTo: selectIcon.widthAnchor),
             
             /// selectColor
-            selectColor.widthAnchor.constraint(equalToConstant: 24),
+            selectColor.widthAnchor.constraint(equalToConstant: 20),
             selectColor.heightAnchor.constraint(equalTo: selectColor.widthAnchor),
             
             /// seperator

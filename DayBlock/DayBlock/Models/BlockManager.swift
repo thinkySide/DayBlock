@@ -73,135 +73,131 @@ final class BlockManager {
         ]),
     ]
     
+    
+    // MARK: - GroupList (그룹 리스트)
+
     /// 현재 그룹 인덱스
     private var currentGroupIndex = 0
     
-    /// 리모트 블럭(생성, 스위칭용)
-    private var remoteBlock = Group(name: "그룹 없음", color: UIColor(rgb: 0x323232), list: [Block(taskLabel: "블럭 쌓기", output: 0.0, icon: UIImage(systemName: "batteryblock.fill")!)])
-    
-    /// 리모드 그룹(생성, 스위칭용)
-    private var remoteGroup = Group(name: "", color: UIColor(rgb: 0x0061FD), list: [])
-    
-    
-    
-    // MARK: - Remote Block
-    
-    /// 리모트 블럭(그룹) 받아오기
-    func getRemoteBlock() -> Group {
-        return remoteBlock
-    }
-    
-    
-    
-    // MARK: - Get
-
-    /// 전체 그룹 리스트 받아오기
-    func getGroupList() -> [Group] {
-        return testGroupList
-    }
-    
-    /// 지정한 그룹에 속한 블럭 리스트 받아오기
-    func getBlockList(_ index: Int) -> [Block] {
-        return testGroupList[index].list
-    }
-    
-    /// 현재 그룹 받아오기
-    func getCurrentGroup() -> Group {
-        return testGroupList[currentGroupIndex]
-    }
-    
-    /// 현재 그룹 인덱스 받아오기
-    func getCurrentGroupIndex() -> Int {
-        return currentGroupIndex
-    }
-    
-    /// 현재 그룹 컬러 받아오기
-    func getCurrentGroupColor() -> UIColor {
-        return testGroupList[currentGroupIndex].color
-    }
-    
-    /// 현재 그룹에 속한 블럭 리스트 받아오기
-    func getCurrentBlockList() -> [Block] {
-        return testGroupList[currentGroupIndex].list
-    }
-    
-    /// taskLabel로 블럭 가져오기
-    func getBlock(_ taskLabel: String) -> Block? {
-        for group in testGroupList {
-            let block = group.list.filter { $0.taskLabel == taskLabel }
-            return block[0]
-        }
-        print("블럭을 찾을 수 없습니다.")
-        return nil
-    }
-    
-    /// 리모드 그룹 받아오기
-    func getRemoteGroup() -> Group {
-        return remoteGroup
-    }
-    
-    
-    
-    // MARK: - Update
-    
-    /// 현재 그룹 업데이트
-    func updateCurrentGroup(index: Int) {
-        currentGroupIndex = index
-    }
-    
-    /// 리모트 블럭 그룹 업데이트
-    func updateRemoteBlock(group: Group) {
-        remoteBlock.name = group.name
-        remoteBlock.color = group.color
-    }
-    
-    /// 리모트 블럭 라벨 업데이트
-    func updateRemoteBlock(label: String) {
-        remoteBlock.list[0].taskLabel = label
-    }
-    
-    /// 리모트 블럭 아이콘 업데이트
-    func updateRemoteBlock(icon: UIImage) {
-        remoteBlock.list[0].icon = icon
-    }
-    
-    /// 리모트 블럭 생산량 업데이트
-    func updateRemoteBlock(output: Double) {
-        remoteBlock.list[0].output = output
-    }
-    
-    /// 리모트 그룹 그룹명 업데이트
-    func updateRemoteGroup(name: String) {
-        remoteGroup.name = name
-    }
-    
-    /// 리모트 그룹 컬러 업데이트
-    func updateRemoteGroup(color: UIColor) {
-        remoteGroup.color = color
-    }
-    
-    
-    
-    // MARK: - Create
-
-    /// 그룹 생성
-    func createGroup() {
+    /// CREAT - 현재 리모트 블럭으로 새 그룹 생성
+    func createNewGroup() {
         let newGroup = remoteGroup
         testGroupList.append(newGroup)
         resetRemoteGroup()
     }
     
+    /// READ - 전체 그룹 리스트 받아오기
+    func getGroupList() -> [Group] {
+        return testGroupList
+    }
     
-    // MARK: - Reset
-
-    /// 리모트 블럭 초기화
+    /// READ - 현재 그룹 인덱스 받아오기
+    func getCurrentGroupIndex() -> Int {
+        return currentGroupIndex
+    }
+    
+    /// READ - 현재 그룹 받아오기
+    func getCurrentGroup() -> Group {
+        return testGroupList[currentGroupIndex]
+    }
+    
+    /// READ - 현재 그룹 컬러 받아오기
+    func getCurrentGroupColor() -> UIColor {
+        return testGroupList[currentGroupIndex].color
+    }
+    
+    /// READ - 현재 그룹에 속한 블럭 리스트 받아오기
+    func getCurrentBlockList() -> [Block] {
+        return testGroupList[currentGroupIndex].list
+    }
+    
+    /// READ - 지정한 그룹에 속한 블럭 리스트 받아오기
+    func getBlockList(_ index: Int) -> [Block] {
+        return testGroupList[index].list
+    }
+    
+    /// UPDATE - 현재 그룹 업데이트
+    func updateCurrentGroup(index: Int) {
+        currentGroupIndex = index
+    }
+    
+    
+    
+    // MARK: - Remote Block (블럭 생성, 스위치용)
+    
+    /// 리모트 블럭
+    private var remoteBlock = Group(name: "그룹 없음", color: UIColor(rgb: 0x323232), list: [Block(taskLabel: "블럭 쌓기", output: 0.0, icon: UIImage(systemName: "batteryblock.fill")!)])
+    
+    /// READ - 리모트 블럭 받아오기
+    func getRemoteBlock() -> Group {
+        return remoteBlock
+    }
+    
+    /// READ - 리모트 블럭 그룹명 받아오기
+    func getRemoteBlockGroupName() -> String {
+        return remoteBlock.name
+    }
+    
+    /// READ - 리모트 블럭 그룹 컬러 받아오기
+    func getRemoteBlockGroupColor() -> UIColor {
+        return remoteBlock.color
+    }
+    
+    /// READ - 리모트 블럭 아이콘 받아오기
+    func getRemoteBlockIcon() -> UIImage {
+        return remoteBlock.list[0].icon
+    }
+    
+    /// READ - 리모트 그룹 받아오기
+    func getRemoteGroup() -> Group {
+        return remoteGroup
+    }
+    
+    /// UPDATE - 리모트 블럭 그룹 업데이트
+    func updateRemoteBlock(group: Group) {
+        remoteBlock.name = group.name
+        remoteBlock.color = group.color
+    }
+    
+    /// UPDATE - 리모트 블럭 라벨 업데이트
+    func updateRemoteBlock(label: String) {
+        remoteBlock.list[0].taskLabel = label
+    }
+    
+    /// UPDATE - 리모트 블럭 아이콘 업데이트
+    func updateRemoteBlock(icon: UIImage) {
+        remoteBlock.list[0].icon = icon
+    }
+    
+    /// UPDATE - 리모트 블럭 생산량 업데이트
+    func updateRemoteBlock(output: Double) {
+        remoteBlock.list[0].output = output
+    }
+    
+    /// RESET - 리모트 블럭 초기화
     func resetRemoteBlock() {
         let group = testGroupList[currentGroupIndex]
-        
         remoteBlock = Group(name: group.name, color: group.color, list: [Block(taskLabel: "블럭 쌓기", output: 0.0, icon: UIImage(systemName: "batteryblock.fill")!)])
     }
     
-    /// 리모드 그룹 초기화
+    
+    
+    // MARK: - Remote Group (그룹 생성, 스위칭용)
+
+    /// 리모트 그룹
+    private var remoteGroup = Group(name: "", color: UIColor(rgb: 0x0061FD), list: [])
+    
+    /// UPDATE - 리모트 그룹 그룹명 업데이트
+    func updateRemoteGroup(name: String) {
+        remoteGroup.name = name
+    }
+    
+    /// UPDATE - 리모트 그룹 컬러 업데이트
+    func updateRemoteGroup(color: UIColor) {
+        remoteGroup.color = color
+    }
+    
+    /// RESET - 리모트 그룹 초기화
     func resetRemoteGroup() {
         remoteGroup = Group(name: "", color: UIColor(rgb: 0x0061FD), list: [])
     }

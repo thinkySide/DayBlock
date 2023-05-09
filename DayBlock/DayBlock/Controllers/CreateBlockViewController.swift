@@ -137,6 +137,7 @@ extension CreateBlockViewController: SelectFormDelegate {
         
         /// present
         let selectIconVC = SelectIconViewController()
+        selectIconVC.delegate = self
         selectIconVC.modalPresentationStyle = .custom
         selectIconVC.transitioningDelegate = customBottomModalDelegate
         present(selectIconVC, animated: true)
@@ -147,12 +148,26 @@ extension CreateBlockViewController: SelectFormDelegate {
 
 // MARK: - Update Block Info
 
-extension CreateBlockViewController: SelectGroupViewControllerDelegate {
+extension CreateBlockViewController: SelectGroupViewControllerDelegate, SelectIconViewControllerDelegate {
     
     /// SelectGroupViewControllerDelegate
     func updateGroup() {
-        viewManager.groupSelect.selectLabel.text = blockManager.getRemoteBlock().name
-        viewManager.groupSelect.selectColor.backgroundColor = blockManager.getRemoteBlock().color
-        viewManager.updateColorTag(blockManager.getRemoteBlock().color)
+        
+        /// 그룹명 업데이트
+        viewManager.groupSelect.selectLabel.text = blockManager.getRemoteBlockGroupName()
+        
+        /// 그룹 컬러 업데이트
+        let color = blockManager.getRemoteBlockGroupColor()
+        viewManager.groupSelect.selectColor.backgroundColor = color
+        viewManager.updateColorTag(color)
+    }
+    
+    /// SelectIconViewControllerDelegate
+    func updateIcon() {
+        
+        /// 아이콘 업데이트
+        let icon = blockManager.getRemoteBlockIcon()
+        viewManager.iconSelect.selectIcon.image = icon
+        viewManager.updateIcon(icon)
     }
 }

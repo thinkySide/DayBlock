@@ -104,6 +104,10 @@ final class CreateBlockView: UIView {
     func updateColorTag(_ color: UIColor) {
         blockPreviewColorTag.backgroundColor = color
     }
+    
+    func updateIcon(_ image: UIImage) {
+        blockPreviewIcon.image = image
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)

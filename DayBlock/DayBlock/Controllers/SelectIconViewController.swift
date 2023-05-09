@@ -12,7 +12,9 @@ final class SelectIconViewController: UIViewController {
     // MARK: - Variable
     
     private let viewManager = SelectIconView()
-    private let symbols = SFSymbols()
+    private let blockManager = BlockManager.shared
+    private let symbolManager = SymbolManager.shared
+    weak var delegate: SelectIconViewControllerDelegate?
     
     
     // MARK: - ViewController LifeCycle
@@ -50,6 +52,13 @@ final class SelectIconViewController: UIViewController {
     // MARK: - Custom Method
     
     @objc func confirmButtonTapped() {
+        guard let indexPath = viewManager.iconCollectionView.indexPathsForSelectedItems else { return }
+        let itemIndex = indexPath[0].item
+        symbolManager.updateCurrentIndex(to: itemIndex)
+        blockManager.updateRemoteBlock(icon: symbolManager.getSelectIcon())
+        
+        /// delegate
+        delegate?.updateIcon()
         dismiss(animated: true)
     }
     
@@ -64,13 +73,13 @@ final class SelectIconViewController: UIViewController {
 
 extension SelectIconViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return symbols.symbolList.count
+        return symbolManager.getSymbolList().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cell.iconSelect, for: indexPath) as! IconCollectionViewCell
         
-        let icon = symbols.symbolList[indexPath.item]
+        let icon = symbolManager.getSymbolList()[indexPath.item]
         cell.icon.image = UIImage(systemName: icon)
         
         return cell

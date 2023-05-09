@@ -53,7 +53,7 @@ final class SelectColorViewController: UIViewController {
     }
     
     func setupSelectedCell() {
-        let indexPath = IndexPath(item: colorManager.getIndex(), section: 0)
+        let indexPath = IndexPath(item: colorManager.getCurrentIndex(), section: 0)
         let collectionView = viewManager.colorCollectionView
         
         // 현재 스크롤 기능 작동하지 않음 ⭐️
@@ -68,7 +68,7 @@ final class SelectColorViewController: UIViewController {
     @objc func confirmButtonTapped() {
         guard let indexPath = viewManager.colorCollectionView.indexPathsForSelectedItems else { return }
         let itemIndex = indexPath[0].item
-        colorManager.updateIndex(to: itemIndex)
+        colorManager.updateCurrentIndex(to: itemIndex)
         blockManager.updateRemoteGroup(color: colorManager.getSelectColor())
         
         /// delegate
@@ -95,10 +95,6 @@ extension SelectColorViewController: UICollectionViewDataSource, UICollectionVie
             withReuseIdentifier: Cell.colorSelect, for: indexPath) as! ColorCollectionViewCell
         cell.color.backgroundColor = colorManager.getColorList()[indexPath.item]
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
     }
 }
 

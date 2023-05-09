@@ -47,6 +47,9 @@ protocol SelectColorViewControllerDelegate: AnyObject {
     func updateColor()
 }
 
+protocol SelectIconViewControllerDelegate: AnyObject {
+    func updateIcon()
+}
 
 
 // MARK: - Component

@@ -110,7 +110,7 @@ extension CreateGroupViewController: CreateGroupViewDelegate {
         blockManager.updateRemoteGroup(name: groupName)
         
         /// 그룹 생성
-        blockManager.createGroup()
+        blockManager.createNewGroup()
         
         /// selectView의 그룹 리스트 업데이트
         delegate?.updateGroupList()
