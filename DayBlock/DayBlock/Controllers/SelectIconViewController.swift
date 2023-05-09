@@ -27,6 +27,7 @@ final class SelectIconViewController: UIViewController {
         super.viewDidLoad()
         setupDelegate()
         setupCollectionView()
+        setupSelectedCell()
     }
     
     
@@ -45,6 +46,15 @@ final class SelectIconViewController: UIViewController {
         collectionView.register(IconCollectionViewCell.self, forCellWithReuseIdentifier: Cell.iconSelect)
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.collectionViewLayout = viewManager.createCompositionalLayout()
+    }
+    
+    func setupSelectedCell() {
+        let indexPath = IndexPath(item: symbolManager.getCurrentIndex(), section: 0)
+        let collectionView = viewManager.iconCollectionView
+        
+        // 현재 스크롤 기능 작동하지 않음 ⭐️
+        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
+        collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: true)
     }
     
     
