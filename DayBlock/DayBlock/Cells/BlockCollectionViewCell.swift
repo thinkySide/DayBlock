@@ -9,6 +9,12 @@ import UIKit
 
 final class BlockCollectionViewCell: UICollectionViewCell {
     
+    // MARK: - Object
+    
+    private let homeVC = HomeViewController()
+    
+
+    
     // MARK: - Component
     
     let plusLabel: UILabel = {
@@ -106,6 +112,17 @@ final class BlockCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupAutoLayout()
+        setupUI()
+        setupClosure()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupUI() {
+        
+        /// Custom
         backgroundColor = GrayScale.contentsBlock
         self.layer.addSublayer(stroke)
         
@@ -114,8 +131,12 @@ final class BlockCollectionViewCell: UICollectionViewCell {
         layer.cornerRadius = frame.height / 7
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func setupClosure() {
+        
+        /// HomeViewController
+        homeVC.selectBlockEvent = { _ in
+            print("셀 터치 이벤트 발생")
+        }
     }
     
     func setupAutoLayout() {
@@ -159,5 +180,4 @@ final class BlockCollectionViewCell: UICollectionViewCell {
             blockLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
         ])
     }
-    
 }

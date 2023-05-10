@@ -36,6 +36,14 @@ final class HomeViewController: UIViewController {
     }
     
     
+    
+    // MARK: - Closure
+    
+    typealias Closure = (HomeViewController) -> ()
+    var selectBlockEvent: Closure = { sender in }
+
+    
+    
     // MARK: - ViewController LifeCycle
     
     override func loadView() {
@@ -194,6 +202,9 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         /// 블럭 클릭 이벤트
         if blockIndex == currentIndex {
             
+            // 셀 정보 바뀌어야 함 (reloadData?)
+            selectBlockEvent(self)
+            
             /// 마지막 블럭이라면 AddBlockViewController 화면 이동
             if count == currentIndex {
                 viewManager.toggleTrackingButton(false)
@@ -205,7 +216,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         
         /// 이전, 다음 블럭 스크롤 이벤트
-        else {
+        if blockIndex != currentIndex {
             viewManager.blockCollectionView.isUserInteractionEnabled = false /// 중복 터치 방지
             viewManager.blockCollectionView.scrollToItem(at: indexPath, at: .left, animated: true)
             blockIndex = currentIndex
@@ -213,7 +224,10 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             /// 마지막 블럭이라면 Tracking 버튼 비활성화
             if count == currentIndex {
                 viewManager.toggleTrackingButton(false)
-            } else {
+            }
+            
+            /// 일반 블럭이라면 Tracking 버튼 활성화
+            if count != currentIndex {
                 viewManager.toggleTrackingButton(true)
             }
         }
