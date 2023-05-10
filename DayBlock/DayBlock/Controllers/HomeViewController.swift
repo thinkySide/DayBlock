@@ -52,11 +52,11 @@ final class HomeViewController: UIViewController {
         setupTimer()
         setupContentsBlock()
         
-        // 테스트용 블럭 색칠
-        let color = blockManager.getCurrentGroupColor()
-        viewManager.blockPreview.block03.painting(.firstHalf, color: color)
-        viewManager.blockPreview.block17.painting(.secondHalf, color: color)
-        viewManager.blockPreview.block12.painting(.fullTime, color: color)
+//        // 테스트용 블럭 색칠
+//        let color = blockManager.getCurrentGroupColor()
+//        viewManager.blockPreview.block03.painting(.firstHalf, color: color)
+//        viewManager.blockPreview.block17.painting(.secondHalf, color: color)
+//        viewManager.blockPreview.block12.painting(.fullTime, color: color)
     }
     
     
@@ -187,14 +187,35 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let currentIndex = indexPath.item
         let count = blockManager.getCurrentBlockList().count
-        if count == indexPath.row {
+        
+        /// 블럭 클릭 이벤트
+        if blockIndex == currentIndex {
             
-            /// Push to AddBlockViewController
-            let createBlockVC = CreateBlockViewController()
-            createBlockVC.delegate = self
-            createBlockVC.hidesBottomBarWhenPushed = true
-            navigationController?.pushViewController(createBlockVC, animated: true)
+            /// 마지막 블럭이라면 AddBlockViewController 화면 이동
+            if count == currentIndex {
+                viewManager.toggleTrackingButton(false)
+                let createBlockVC = CreateBlockViewController()
+                createBlockVC.delegate = self
+                createBlockVC.hidesBottomBarWhenPushed = true
+                navigationController?.pushViewController(createBlockVC, animated: true)
+            }
+        }
+        
+        /// 이전, 다음 블럭 스크롤 이벤트
+        else {
+            viewManager.blockCollectionView.isUserInteractionEnabled = false /// 중복 터치 방지
+            viewManager.blockCollectionView.scrollToItem(at: indexPath, at: .left, animated: true)
+            blockIndex = currentIndex
+            
+            /// 마지막 블럭이라면 Tracking 버튼 비활성화
+            if count == currentIndex {
+                viewManager.toggleTrackingButton(false)
+            } else {
+                viewManager.toggleTrackingButton(true)
+            }
         }
     }
 }
@@ -222,6 +243,10 @@ extension HomeViewController: UIScrollViewDelegate {
                                               y: scrollView.contentInset.top)
     }
     
+    /// 스크롤 애니메이션 이후 다시 CollectionView 활성화
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        viewManager.blockCollectionView.isUserInteractionEnabled = true
+    }
 }
 
 

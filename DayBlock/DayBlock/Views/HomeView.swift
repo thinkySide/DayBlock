@@ -63,7 +63,7 @@ final class HomeView: UIView {
     
     private let productivityLabel: UILabel = {
         let label = UILabel()
-        label.text = "TODAY +2.0" // ⛳️
+        label.text = "TODAY +0.0" // ⛳️
         label.font = UIFont(name: Poppins.bold, size: 23)
         label.textColor = GrayScale.mainText
         label.textAlignment = .left

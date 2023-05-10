@@ -85,6 +85,24 @@ final class BlockCollectionViewCell: UICollectionViewCell {
         self.backgroundColor = GrayScale.contentsBlock
     }
     
+//    override var isSelected: Bool {
+//        didSet {
+//            if isSelected {
+//                plusLabel.isHidden = true
+//                totalProductivityLabel.isHidden = true
+//                blockColorTag.isHidden = true
+//                blockIcon.isHidden = true
+//                blockLabel.isHidden = true
+//            } else {
+//                plusLabel.isHidden = false
+//                totalProductivityLabel.isHidden = false
+//                blockColorTag.isHidden = false
+//                blockIcon.isHidden = false
+//                blockLabel.isHidden = false
+//            }
+//        }
+//    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupAutoLayout()
