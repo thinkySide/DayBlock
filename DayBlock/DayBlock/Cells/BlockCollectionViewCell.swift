@@ -134,7 +134,7 @@ final class BlockCollectionViewCell: UICollectionViewCell {
     func setupClosure() {
         
         /// HomeViewController
-        homeVC.selectBlockEvent = { _ in
+        homeVC.selectBlockEvent = { homeVC in
             print("셀 터치 이벤트 발생")
         }
     }
