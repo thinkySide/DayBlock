@@ -9,6 +9,6 @@ import UIKit
 
 struct Group {
     var name: String
-    var color: UIColor
+    var color: Int
     var list: [Block]
 }

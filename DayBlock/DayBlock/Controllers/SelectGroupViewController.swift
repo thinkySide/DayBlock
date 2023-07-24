@@ -107,7 +107,7 @@ extension SelectGroupViewController: UITableViewDataSource, UITableViewDelegate 
         
         /// 셀 업데이트
         let groupList = blockManager.getGroupList()
-        cell.color.backgroundColor = groupList[indexPath.row].color
+        cell.color.backgroundColor = UIColor(rgb: groupList[indexPath.row].color)
         cell.groupLabel.text = groupList[indexPath.row].name
         cell.countLabel.text = "+\(blockManager.getBlockList(indexPath.row).count)"
         

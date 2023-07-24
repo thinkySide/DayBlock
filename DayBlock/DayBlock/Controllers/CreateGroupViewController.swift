@@ -145,6 +145,6 @@ extension CreateGroupViewController: SelectFormDelegate {
 extension CreateGroupViewController: SelectColorViewControllerDelegate {
     func updateColor() {
         let selectedColor = blockManager.getRemoteGroup().color
-        viewManager.colorSelect.selectColor.backgroundColor = selectedColor
+        viewManager.colorSelect.selectColor.backgroundColor = UIColor(rgb: selectedColor)
     }
 }
