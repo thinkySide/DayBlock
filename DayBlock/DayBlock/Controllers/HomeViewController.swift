@@ -53,6 +53,7 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupCoreData()
         setupNavigation()
         setupDelegate()
         setupContentInset()
@@ -70,6 +71,10 @@ final class HomeViewController: UIViewController {
     
     
     // MARK: - Setup Method
+    
+    func setupCoreData() {
+        
+    }
     
     func setupNavigation() {
         
@@ -174,7 +179,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             cell.plusLabel.textColor = blockManager.getCurrentGroupColor()
             cell.totalProductivityLabel.text = "\(blockDataList[index].output)"
             cell.blockColorTag.backgroundColor = blockManager.getCurrentGroupColor()
-            cell.blockIcon.image = blockDataList[index].icon
+            cell.blockIcon.image = UIImage(systemName: blockDataList[index].icon)!
             cell.blockLabel.text = blockDataList[index].taskLabel
             cell.stroke.isHidden = true
             return cell

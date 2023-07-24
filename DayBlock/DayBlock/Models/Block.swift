@@ -10,5 +10,5 @@ import UIKit
 struct Block {
     var taskLabel: String
     var output: Double
-    var icon: UIImage
+    var icon: String
 }

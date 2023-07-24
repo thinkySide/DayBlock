@@ -101,7 +101,7 @@ final class CreateBlockView: UIView {
         groupSelect.selectColor.backgroundColor = group.color
         blockTaskLabel.text = block.taskLabel
         blockPreviewColorTag.backgroundColor = group.color
-        iconSelect.selectIcon.image = block.icon
+        iconSelect.selectIcon.image = UIImage(systemName: block.icon)!
     }
     
     func updateTaskLabel(_ text: String) {

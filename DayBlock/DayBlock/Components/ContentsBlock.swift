@@ -88,7 +88,7 @@ final class ContentsBlock: UIView {
     func setupBlockContents(group: Group, block: Block) {
         plus.textColor = group.color
         colorTag.backgroundColor = group.color
-        icon.image = block.icon
+        icon.image = UIImage(systemName: block.icon)!
         taskLabel.text = block.taskLabel
     }
     

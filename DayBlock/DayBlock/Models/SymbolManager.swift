@@ -1844,9 +1844,8 @@ final class SymbolManager {
     }
     
     /// 현재 선택된 아이콘 받아오기
-    func getSelectIcon() -> UIImage {
-        guard let image = UIImage(systemName: symbolList[currentIndex]) else { return UIImage() }
-        return image
+    func getSelectIcon() -> String {
+        return symbolList[currentIndex]
     }
     
     /// 인덱스값 업데이트
