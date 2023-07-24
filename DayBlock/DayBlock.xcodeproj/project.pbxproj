@@ -61,8 +61,11 @@
 		078C50F429D73D0200F239BA /* BlockPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F329D73D0200F239BA /* BlockPreview.swift */; };
 		078C50F629D9BBB200F239BA /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F529D9BBB200F239BA /* ScheduleViewController.swift */; };
 		078C50F829D9BBFE00F239BA /* StorageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F729D9BBFE00F239BA /* StorageViewController.swift */; };
+		07C1EB262A6EAF0C00FD8AA4 /* GroupEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C1EB242A6EAF0C00FD8AA4 /* GroupEntity+CoreDataClass.swift */; };
+		07C1EB272A6EAF0C00FD8AA4 /* GroupEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C1EB252A6EAF0C00FD8AA4 /* GroupEntity+CoreDataProperties.swift */; };
 		07EB771729F5335F000BD87E /* ColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB771629F5335F000BD87E /* ColorCollectionViewCell.swift */; };
 		07EB771929F53855000BD87E /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB771829F53855000BD87E /* ColorManager.swift */; };
+		07EF31AC2A6EA5D70024167F /* BlockClassTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EF31AB2A6EA5D70024167F /* BlockClassTransformer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -122,8 +125,11 @@
 		078C50F329D73D0200F239BA /* BlockPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPreview.swift; sourceTree = "<group>"; };
 		078C50F529D9BBB200F239BA /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		078C50F729D9BBFE00F239BA /* StorageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageViewController.swift; sourceTree = "<group>"; };
+		07C1EB242A6EAF0C00FD8AA4 /* GroupEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		07C1EB252A6EAF0C00FD8AA4 /* GroupEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		07EB771629F5335F000BD87E /* ColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		07EB771829F53855000BD87E /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
+		07EF31AB2A6EA5D70024167F /* BlockClassTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockClassTransformer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +157,8 @@
 		078C50A929D7152F00F239BA = {
 			isa = PBXGroup;
 			children = (
+				07C1EB242A6EAF0C00FD8AA4 /* GroupEntity+CoreDataClass.swift */,
+				07C1EB252A6EAF0C00FD8AA4 /* GroupEntity+CoreDataProperties.swift */,
 				078C50B429D7152F00F239BA /* DayBlock */,
 				078C50B329D7152F00F239BA /* Products */,
 			);
@@ -218,6 +226,7 @@
 				07817F0A2A0A05DE00D024F6 /* SymbolManager.swift */,
 				0770802C29E55E7C00D66900 /* TimeTracker.swift */,
 				07817F082A09D81700D024F6 /* CustomDelegate.swift */,
+				07EF31AB2A6EA5D70024167F /* BlockClassTransformer.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -385,6 +394,7 @@
 				0770803A29E7989B00D66900 /* SelectColorViewController.swift in Sources */,
 				0770803829E7988100D66900 /* SelectColorView.swift in Sources */,
 				077A663429ED2AB000D99C68 /* CreateGroupViewController.swift in Sources */,
+				07C1EB272A6EAF0C00FD8AA4 /* GroupEntity+CoreDataProperties.swift in Sources */,
 				0719648C29DDB1C0009CA1A4 /* PaintBlock.swift in Sources */,
 				07454DE729EA94EB00B3458D /* CustomUITextField.swift in Sources */,
 				07EB771929F53855000BD87E /* ColorManager.swift in Sources */,
@@ -417,6 +427,8 @@
 				0719648629DAF9A5009CA1A4 /* BlockCollectionViewCell.swift in Sources */,
 				078C50F829D9BBFE00F239BA /* StorageViewController.swift in Sources */,
 				0719649629E0763C009CA1A4 /* SelectForm.swift in Sources */,
+				07C1EB262A6EAF0C00FD8AA4 /* GroupEntity+CoreDataClass.swift in Sources */,
+				07EF31AC2A6EA5D70024167F /* BlockClassTransformer.swift in Sources */,
 				078C50E829D72D2900F239BA /* Constants.swift in Sources */,
 				0770802D29E55E7C00D66900 /* TimeTracker.swift in Sources */,
 				07454E1929EFD8A400B3458D /* ActionStackView.swift in Sources */,
