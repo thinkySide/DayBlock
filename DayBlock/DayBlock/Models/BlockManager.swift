@@ -6,73 +6,15 @@
 //
 
 import UIKit
+import CoreData
 
 final class BlockManager {
     
     static let shared = BlockManager()
     private init() {}
-
-    // 테스트용 그룹 리스트
-    private var testGroupList: [Group] = [
-        Group(name: "그룹 없음", color: 0x323232, list: [
-            Block(taskLabel: "코딩테스트 문제 풀이", output: 32.0,
-                  icon: "testtube.2"),
-//            Block(taskLabel: "프로젝트 진행", output: 27.5,
-//                  icon: UIImage(systemName: "videoprojector.fill")!),
-//            Block(taskLabel: "iOS 개발팀 스탠드업", output: 8.0,
-//                  icon: UIImage(systemName: "iphone.gen2")!),
-//            Block(taskLabel: "Github 브랜치 관리", output: 124.5,
-//                  icon: UIImage(systemName: "folder.fill")!),
-//            Block(taskLabel: "Swift 문법 공부", output: 85.0,
-//                  icon: UIImage(systemName: "pencil")!),
-        ]),
-//
-        Group(name: "청소", color: 0xEE719E, list: [
-            Block(taskLabel: "빗자루질", output: 32.0,
-                  icon: "sailboat.fill"),
-//            Block(taskLabel: "물걸레질", output: 27.5,
-//                  icon: UIImage(systemName: "key.horizontal.fill")!),
-//            Block(taskLabel: "환기시키기", output: 8.0,
-//                  icon: UIImage(systemName: "signpost.right.fill")!),
-//            Block(taskLabel: "청소기 돌리기", output: 8.0,
-//                  icon: UIImage(systemName: "tent.fill")!),
-        ]),
-//
-//        Group(name: "자기계발", color: UIColor(rgb: 0x0061FD), list: [
-//            Block(taskLabel: "웨이트 트레이닝", output: 32.0,
-//                  icon: UIImage(systemName: "figure.strengthtraining.traditional")!),
-//            Block(taskLabel: "독서하기", output: 27.5,
-//                  icon: UIImage(systemName: "text.book.closed.fill")!),
-//            Block(taskLabel: "조깅하기", output: 8.0,
-//                  icon: UIImage(systemName: "figure.highintensity.intervaltraining")!),
-//            Block(taskLabel: "물 많이 마시기", output: 8.0,
-//                  icon: UIImage(systemName: "tent.fill")!),
-//            Block(taskLabel: "영어 공부하기", output: 8.0,
-//                  icon: UIImage(systemName: "lifepreserver.fill")!),
-//        ]),
-//
-//        Group(name: "민톨이 키우기", color: UIColor(rgb: 0x96D35F), list: [
-//            Block(taskLabel: "쓰다듬어 주기", output: 32.0,
-//                  icon: UIImage(systemName: "camera.macro")!),
-//            Block(taskLabel: "사료 채우기", output: 27.5,
-//                  icon: UIImage(systemName: "fish.fill")!),
-//            Block(taskLabel: "산책 시키기", output: 8.0,
-//                  icon: UIImage(systemName: "pawprint.fill")!),
-//        ]),
-//
-//        Group(name: "코딩", color: UIColor(rgb: 0xFEB43F), list: [
-//            Block(taskLabel: "1일 1커밋", output: 32.0,
-//                  icon: UIImage(systemName: "hourglass.circle.fill")!),
-//            Block(taskLabel: "오토 레이아웃 점검", output: 27.5,
-//                  icon: UIImage(systemName: "box.truck.fill")!),
-//        ]),
-//
-//        Group(name: "인간관계", color: UIColor(rgb: 0xFF4015), list: [
-//            Block(taskLabel: "생일 챙기기", output: 32.0,
-//                  icon: UIImage(systemName: "tree.fill")!),
-//        ]),
-    ]
     
+    private var groupList = [Group(name: "그룹 없음", color: 0x323232, list: [])]
+
     
     // MARK: - GroupList (그룹 리스트)
 
@@ -82,13 +24,13 @@ final class BlockManager {
     /// CREAT - 현재 리모트 블럭으로 새 그룹 생성
     func createNewGroup() {
         let newGroup = remoteGroup
-        testGroupList.append(newGroup)
+        groupList.append(newGroup)
         resetRemoteGroup()
     }
     
     /// READ - 전체 그룹 리스트 받아오기
     func getGroupList() -> [Group] {
-        return testGroupList
+        return groupList
     }
     
     /// READ - 현재 그룹 인덱스 받아오기
@@ -97,27 +39,28 @@ final class BlockManager {
     }
     
     func getLastBlockIndex() -> Int {
-        return testGroupList[currentGroupIndex].list.count - 1
+        return groupList[currentGroupIndex].list.count - 1
     }
     
     /// READ - 현재 그룹 받아오기
     func getCurrentGroup() -> Group {
-        return testGroupList[currentGroupIndex]
+        return groupList[currentGroupIndex]
     }
     
     /// READ - 현재 그룹 컬러 받아오기
     func getCurrentGroupColor() -> UIColor {
-        return UIColor(rgb: testGroupList[currentGroupIndex].color)
+        return UIColor(rgb: groupList[currentGroupIndex].color)
     }
     
     /// READ - 현재 그룹에 속한 블럭 리스트 받아오기
     func getCurrentBlockList() -> [Block] {
-        return testGroupList[currentGroupIndex].list
+        if groupList.count == 0 { return [] }
+        return groupList[currentGroupIndex].list
     }
     
     /// READ - 지정한 그룹에 속한 블럭 리스트 받아오기
     func getBlockList(_ index: Int) -> [Block] {
-        return testGroupList[index].list
+        return groupList[index].list
     }
     
     /// UPDATE - 현재 그룹 업데이트
@@ -137,10 +80,10 @@ final class BlockManager {
         let newBlock = remoteBlock
         
         /// 리모트 블럭이 포함된 그룹 검색
-        for (index, group) in testGroupList.enumerated() {
+        for (index, group) in groupList.enumerated() {
             if newBlock.name == group.name {
                 currentGroupIndex = index
-                testGroupList[index].list.append(newBlock.list[0])
+                groupList[index].list.append(newBlock.list[0])
                 break
             }
         }
@@ -194,7 +137,7 @@ final class BlockManager {
     
     /// RESET - 리모트 블럭 초기화
     func resetRemoteBlock() {
-        let group = testGroupList[currentGroupIndex]
+        let group = groupList[currentGroupIndex]
         remoteBlock = Group(name: group.name, color: group.color, list: [Block(taskLabel: "블럭 쌓기", output: 0.0, icon: "batteryblock.fill")])
     }
     

@@ -61,6 +61,8 @@
 		078C50F429D73D0200F239BA /* BlockPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F329D73D0200F239BA /* BlockPreview.swift */; };
 		078C50F629D9BBB200F239BA /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F529D9BBB200F239BA /* ScheduleViewController.swift */; };
 		078C50F829D9BBFE00F239BA /* StorageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F729D9BBFE00F239BA /* StorageViewController.swift */; };
+		079818912A78DBC1006A38AB /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079818902A78DBC1006A38AB /* CoreDataManager.swift */; };
+		079818BB2A78F77F006A38AB /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079818BA2A78F77F006A38AB /* TestData.swift */; };
 		07C1EB262A6EAF0C00FD8AA4 /* GroupEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C1EB242A6EAF0C00FD8AA4 /* GroupEntity+CoreDataClass.swift */; };
 		07C1EB272A6EAF0C00FD8AA4 /* GroupEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C1EB252A6EAF0C00FD8AA4 /* GroupEntity+CoreDataProperties.swift */; };
 		07EB771729F5335F000BD87E /* ColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB771629F5335F000BD87E /* ColorCollectionViewCell.swift */; };
@@ -125,6 +127,8 @@
 		078C50F329D73D0200F239BA /* BlockPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPreview.swift; sourceTree = "<group>"; };
 		078C50F529D9BBB200F239BA /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		078C50F729D9BBFE00F239BA /* StorageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageViewController.swift; sourceTree = "<group>"; };
+		079818902A78DBC1006A38AB /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		079818BA2A78F77F006A38AB /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		07C1EB242A6EAF0C00FD8AA4 /* GroupEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		07C1EB252A6EAF0C00FD8AA4 /* GroupEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		07EB771629F5335F000BD87E /* ColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -157,8 +161,6 @@
 		078C50A929D7152F00F239BA = {
 			isa = PBXGroup;
 			children = (
-				07C1EB242A6EAF0C00FD8AA4 /* GroupEntity+CoreDataClass.swift */,
-				07C1EB252A6EAF0C00FD8AA4 /* GroupEntity+CoreDataProperties.swift */,
 				078C50B429D7152F00F239BA /* DayBlock */,
 				078C50B329D7152F00F239BA /* Products */,
 			);
@@ -227,6 +229,10 @@
 				0770802C29E55E7C00D66900 /* TimeTracker.swift */,
 				07817F082A09D81700D024F6 /* CustomDelegate.swift */,
 				07EF31AB2A6EA5D70024167F /* BlockClassTransformer.swift */,
+				079818902A78DBC1006A38AB /* CoreDataManager.swift */,
+				07C1EB242A6EAF0C00FD8AA4 /* GroupEntity+CoreDataClass.swift */,
+				07C1EB252A6EAF0C00FD8AA4 /* GroupEntity+CoreDataProperties.swift */,
+				079818BA2A78F77F006A38AB /* TestData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -416,6 +422,7 @@
 				07454E1129EBFDF200B3458D /* ActionButton.swift in Sources */,
 				0770803629E7981300D66900 /* SelectIconView.swift in Sources */,
 				078C50EE29D72F9D00F239BA /* RGB.swift in Sources */,
+				079818912A78DBC1006A38AB /* CoreDataManager.swift in Sources */,
 				0719648129DAF38A009CA1A4 /* Block.swift in Sources */,
 				0770803429E797E100D66900 /* SelectIconViewController.swift in Sources */,
 				07454DE329EA6CEE00B3458D /* HideKeyboard.swift in Sources */,
@@ -425,6 +432,7 @@
 				0719649029E04F7E009CA1A4 /* CreateBlockViewController.swift in Sources */,
 				0719649429E0692E009CA1A4 /* FieldForm.swift in Sources */,
 				0719648629DAF9A5009CA1A4 /* BlockCollectionViewCell.swift in Sources */,
+				079818BB2A78F77F006A38AB /* TestData.swift in Sources */,
 				078C50F829D9BBFE00F239BA /* StorageViewController.swift in Sources */,
 				0719649629E0763C009CA1A4 /* SelectForm.swift in Sources */,
 				07C1EB262A6EAF0C00FD8AA4 /* GroupEntity+CoreDataClass.swift in Sources */,

@@ -6,18 +6,16 @@
 //
 
 import UIKit
-import CoreData
 
 final class HomeViewController: UIViewController {
     
     // MARK: - Manager
     
-    var container: NSPersistentContainer!
-    
     private let viewManager = HomeView()
     private let blockManager = BlockManager.shared
     private var timeTracker = TimeTracker()
     private let customBottomModalDelegate = CustomBottomModalDelegate()
+    private let coreDataManager = CoreDataManager.shared
     
     
     // MARK: - Component
@@ -56,13 +54,14 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupCoreData()
+        // setupCoreData()
         setupNavigation()
         setupDelegate()
         setupContentInset()
         setupGroupSelectButton()
         setupTimer()
         setupContentsBlock()
+        setupTrackingButton()
         
 //        // 테스트용 블럭 색칠
 //        let color = blockManager.getCurrentGroupColor()
@@ -76,39 +75,7 @@ final class HomeViewController: UIViewController {
     // MARK: - Setup Method
     
     func setupCoreData() {
-        
-        // 2. ViewController에 생성한 Persistent Container 전달
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        container = appDelegate.persistentContainer
-        
-        // 3. Entity 가지고 오기
-        let entity = NSEntityDescription.entity(forEntityName: "GroupEntity", in: container.viewContext)!
-
-        // 4. NSManagedObject 만들기
-        let group = NSManagedObject(entity: entity, insertInto: container.viewContext)
-        group.setValue(19980825, forKey: "color")
-        group.setValue("테스트 그룹", forKey: "name")
-        group.setValue([Block(taskLabel: "테스트 블럭", output: 17, icon: "circle.fill")], forKey: "list")
-
-        // 5. NSManagedObjectContext에 저장
-        do {
-            try container.viewContext.save()
-        } catch {
-            print(error.localizedDescription)
-        }
-
-        // 6. 데이터 저장 테스트
-        do {
-            let group = try container.viewContext.fetch(GroupEntity.fetchRequest())
-            group.forEach {
-                print($0.name!)
-                print($0.color)
-                let block = $0.list![0] as! Block
-                print(block.taskLabel)
-            }
-        } catch {
-            print(error.localizedDescription)
-        }
+        coreDataManager.fetchData()
     }
     
     func setupNavigation() {
@@ -148,6 +115,7 @@ final class HomeViewController: UIViewController {
     }
     
     func setupGroupSelectButton() {
+        if blockManager.getGroupList().count == 0 { return }
         viewManager.groupSelectButton.color.backgroundColor = blockManager.getCurrentGroupColor()
     }
     
@@ -162,6 +130,12 @@ final class HomeViewController: UIViewController {
     func setupContentsBlock() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(trackingBlockTapped))
         viewManager.trackingBlock.addGestureRecognizer(gesture)
+    }
+    
+    func setupTrackingButton() {
+        if blockManager.getCurrentBlockList().count == 0 {
+            viewManager.toggleTrackingButton(false)
+        }
     }
 
     
@@ -208,6 +182,19 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         let index = indexPath.row
         let blockDataList = blockManager.getCurrentBlockList()
+        
+        // 초기 상태
+        if blockDataList.count == 0 {
+            cell.plusLabel.isHidden = true
+            cell.totalProductivityLabel.isHidden = true
+            cell.blockColorTag.isHidden = true
+            cell.blockLabel.isHidden = true
+            cell.blockIcon.image = UIImage(systemName: "plus.circle.fill")
+            cell.blockIcon.tintColor = GrayScale.addBlockButton
+            cell.backgroundColor = .white
+            cell.stroke.isHidden = false
+            return cell
+        }
         
         /// 일반 블럭 생성
         if index+1 <= blockDataList.count {
