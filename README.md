@@ -416,3 +416,19 @@ TrackingButton 활성화 문제로 그룹 전환 시 0번째 인덱스로 전환
 ---
 
 <br>
+
+### **Day 72 - 23.08.05**
+
+- 다시 프로젝트 시작
+회사 프로젝트를 마무리하고, 다시 개인 프로젝트로 복귀했습니다. 시간이 많이 지나 코드를 다시 천천히 뜯어보며 파악할 시간을 가졌습니다.
+
+- CoreData 구현
+핵심 비즈니스 로직인 `Group`, `Block` 데이터를 저장하기 위한 CoreData를 구현하였습니다. 처음 구현해보는 기능이었기에 시행착오가 꽤나 길어졌지만, 관계형 설정을 통해 해결했습니다. 우선 기본적인 데이터를 읽고(READ) 생성하는(CREATE) 기능만을 구현해두었고, 추후 수정과 삭제 기능을 추가할 예정입니다.
+
+[문제 해결 기록 : CoreData 저장이 안되는 문제](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/46.md)
+
+<img width="300" src="https://github.com/thinkySide/DayBlock/assets/113565086/3bf10332-7d94-4034-8348-d8ccd58ce9fd">
+
+---
+
+<br>
