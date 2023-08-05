@@ -15,7 +15,6 @@ final class HomeViewController: UIViewController {
     private let blockManager = BlockManager.shared
     private var timeTracker = TimeTracker()
     private let customBottomModalDelegate = CustomBottomModalDelegate()
-    private let coreDataManager = CoreDataManager.shared
     
     
     // MARK: - Component
@@ -54,7 +53,7 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // setupCoreData()
+        setupCoreData()
         setupNavigation()
         setupDelegate()
         setupContentInset()
@@ -75,7 +74,7 @@ final class HomeViewController: UIViewController {
     // MARK: - Setup Method
     
     func setupCoreData() {
-        coreDataManager.fetchData()
+        blockManager.getAllItems()
     }
     
     func setupNavigation() {

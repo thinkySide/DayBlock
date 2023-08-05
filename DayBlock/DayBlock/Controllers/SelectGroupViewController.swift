@@ -48,18 +48,18 @@ final class SelectGroupViewController: UIViewController {
     
     func setupSelectedCell() {
         
-        /// 기본 선택값
-        let index = blockManager.getGroupList().firstIndex { $0.name == blockManager.getRemoteBlock().name }!
-        let indexPath = IndexPath(row: index, section: 0)
-        
-        /// 마지막 인덱스 선택 시, 화면에서 가려지기 때문에 scrollPosition Bottom으로
-        let tableView = viewManager.groupTableView
-        if index == blockManager.getGroupList().count - 1 {
-            tableView.selectRow(at: indexPath, animated: false, scrollPosition: .bottom)
-            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 56, right: 0)
-        } else {
-            tableView.selectRow(at: indexPath, animated: false, scrollPosition: .top)
-        }
+//        /// 기본 선택값
+//        let index = blockManager.getGroupList().firstIndex { $0.name == blockManager.getRemoteBlock().name }!
+//        let indexPath = IndexPath(row: index, section: 0)
+//        
+//        /// 마지막 인덱스 선택 시, 화면에서 가려지기 때문에 scrollPosition Bottom으로
+//        let tableView = viewManager.groupTableView
+//        if index == blockManager.getGroupList().count - 1 {
+//            tableView.selectRow(at: indexPath, animated: false, scrollPosition: .bottom)
+//            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 56, right: 0)
+//        } else {
+//            tableView.selectRow(at: indexPath, animated: false, scrollPosition: .top)
+//        }
     }
     
     
@@ -99,14 +99,15 @@ final class SelectGroupViewController: UIViewController {
 
 extension SelectGroupViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return blockManager.getGroupList().count
+        // return blockManager.getGroupList().count
+        return blockManager.groupEntity.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = viewManager.groupTableView.dequeueReusableCell(withIdentifier: Cell.groupSelect, for: indexPath) as! GroupSelectTableViewCell
         
         /// 셀 업데이트
-        let groupList = blockManager.getGroupList()
+        let groupList = blockManager.groupEntity
         cell.color.backgroundColor = UIColor(rgb: groupList[indexPath.row].color)
         cell.groupLabel.text = groupList[indexPath.row].name
         cell.countLabel.text = "+\(blockManager.getBlockList(indexPath.row).count)"

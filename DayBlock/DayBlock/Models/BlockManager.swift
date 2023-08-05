@@ -13,7 +13,23 @@ final class BlockManager {
     static let shared = BlockManager()
     private init() {}
     
+    /// CoreData Context
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+   var groupEntity: [GroupEntity] = []
+    
     private var groupList = [Group(name: "그룹 없음", color: 0x323232, list: [])]
+    
+    
+    // MARK: - CoreData
+    
+    func getAllItems() {
+        do {
+            groupEntity = try context.fetch(GroupEntity.fetchRequest())
+        } catch {
+            // print(error.localizedDescription)
+        }
+    }
 
     
     // MARK: - GroupList (그룹 리스트)
@@ -23,8 +39,18 @@ final class BlockManager {
     
     /// CREAT - 현재 리모트 블럭으로 새 그룹 생성
     func createNewGroup() {
-        let newGroup = remoteGroup
-        groupList.append(newGroup)
+        let newGroup = GroupEntity(context: context)
+        newGroup.name = remoteGroup.name
+        newGroup.color = remoteGroup.color
+        
+        do {
+            try context.save()
+            getAllItems()
+        } catch {
+            // print(error.localizedDescription)
+        }
+        
+        
         resetRemoteGroup()
     }
     
@@ -59,8 +85,12 @@ final class BlockManager {
     }
     
     /// READ - 지정한 그룹에 속한 블럭 리스트 받아오기
-    func getBlockList(_ index: Int) -> [Block] {
-        return groupList[index].list
+    func getBlockList(_ index: Int) -> [BlockEntity] {
+        let group = groupEntity[index]
+        if let blockList = group.blockList?.array as? [BlockEntity] {
+            return blockList
+        }
+        return []
     }
     
     /// UPDATE - 현재 그룹 업데이트
