@@ -75,6 +75,7 @@ final class HomeViewController: UIViewController {
     
     func setupCoreData() {
         blockManager.getAllItems()
+        blockManager.initialSetupForCoreData()
     }
     
     func setupNavigation() {
@@ -300,6 +301,9 @@ extension HomeViewController: HomeViewDelegate {
         selectGroupVC.delegate = self
         selectGroupVC.modalPresentationStyle = .custom
         selectGroupVC.transitioningDelegate = customBottomModalDelegate
+        
+        print(blockManager.blockEntity.count)
+        
         present(selectGroupVC, animated: true)
     }
     
@@ -399,7 +403,8 @@ extension HomeViewController: SelectGroupViewControllerDelegate {
         viewManager.blockCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: true)
         
         /// 그룹 리스트가 비어있을 시, 트래킹 버튼 비활성화
-        if blockManager.getCurrentGroup().list.isEmpty {
+        let blockList = blockManager.getCurrentGroup().blockList?.array as! [BlockEntity]
+        if blockList.isEmpty {
             viewManager.toggleTrackingButton(false)
         } else {
             viewManager.toggleTrackingButton(true)

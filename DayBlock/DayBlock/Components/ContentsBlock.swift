@@ -85,7 +85,7 @@ final class ContentsBlock: UIView {
     
     // MARK: - Method
     
-    func setupBlockContents(group: Group, block: Block) {
+    func setupBlockContents(group: GroupEntity, block: BlockEntity) {
         plus.textColor = UIColor(rgb: group.color)
         colorTag.backgroundColor = UIColor(rgb: group.color)
         icon.image = UIImage(systemName: block.icon)!
