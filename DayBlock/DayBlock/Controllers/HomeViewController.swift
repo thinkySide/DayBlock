@@ -173,7 +173,17 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             withReuseIdentifier: Cell.block, for: indexPath) as! BlockCollectionViewCell
         let index = indexPath.row
         let blockDataList = blockManager.getCurrentBlockList()
-        cell.reverseDirection(.front)
+        cell.reverseDirectionWithNoAnimation()
+        
+        // 삭제 제스처
+        cell.trashButtonTapped = { [weak self] sender in
+            print("블럭 삭제")
+        }
+        
+        // 편집 제스처
+        cell.editButtonTapped = { [weak self] sender in
+            print("블럭 편집")
+        }
         
         // 초기 상태
         if blockDataList.count == 0 {
@@ -220,7 +230,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         let count = blockManager.getCurrentBlockList().count
         
         // 블럭 토글 이벤트
-        if cell.blockIcon.isHidden {
+        if cell.blockIcon.alpha == 0 {
             cell.reverseDirection(.front)
         } else {
             cell.reverseDirection(.back)
@@ -242,7 +252,6 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         // 이전, 다음 블럭 스크롤 이벤트
         if blockIndex != currentIndex {
-            collectionView.reloadData()
             viewManager.blockCollectionView.isUserInteractionEnabled = false /// 중복 터치 방지
             viewManager.blockCollectionView.scrollToItem(at: indexPath, at: .left, animated: true)
             blockIndex = currentIndex
@@ -256,6 +265,8 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             if count != currentIndex {
                 viewManager.toggleTrackingButton(true)
             }
+            
+            collectionView.reloadData()
         }
     }
 }
@@ -280,6 +291,8 @@ extension HomeViewController: UIScrollViewDelegate {
         /// 최종 스크롤 위치 지정
         targetContentOffset.pointee = CGPoint(x: currentBlockIndex * blockWidth - scrollView.contentInset.left,
                                               y: scrollView.contentInset.top)
+        
+        viewManager.blockCollectionView.reloadData()
     }
     
     /// 스크롤 애니메이션 이후 다시 CollectionView 활성화

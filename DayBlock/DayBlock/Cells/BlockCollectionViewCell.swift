@@ -9,11 +9,16 @@ import UIKit
 
 final class BlockCollectionViewCell: UICollectionViewCell {
     
+    /// 블럭 방향 열거형
     enum Direction {
         case front
         case back
         case last
     }
+    
+    typealias Closure = (BlockCollectionViewCell) -> Void
+    var trashButtonTapped: Closure = { sender in }
+    var editButtonTapped: Closure = { sender in }
     
     // MARK: - Front Component
     
@@ -73,7 +78,7 @@ final class BlockCollectionViewCell: UICollectionViewCell {
         label.font = UIFont(name: Poppins.bold, size: 20)
         label.textColor = GrayScale.mainText
         label.textAlignment = .center
-        label.isHidden = true
+        label.alpha = 0
         return label
     }()
     
@@ -83,14 +88,14 @@ final class BlockCollectionViewCell: UICollectionViewCell {
         label.font = UIFont(name: Poppins.bold, size: 14)
         label.textColor = GrayScale.subText2
         label.textAlignment = .center
-        label.isHidden = true
+        label.alpha = 0
         return label
     }()
     
     let seperator: UIView = {
         let line = UIView()
         line.backgroundColor = GrayScale.seperator2
-        line.isHidden = true
+        line.alpha = 0
         return line
     }()
     
@@ -100,7 +105,7 @@ final class BlockCollectionViewCell: UICollectionViewCell {
         label.font = UIFont(name: Poppins.bold, size: 20)
         label.textColor = GrayScale.mainText
         label.textAlignment = .center
-        label.isHidden = true
+        label.alpha = 0
         return label
     }()
     
@@ -110,25 +115,35 @@ final class BlockCollectionViewCell: UICollectionViewCell {
         label.font = UIFont(name: Poppins.bold, size: 14)
         label.textColor = GrayScale.subText2
         label.textAlignment = .center
-        label.isHidden = true
+        label.alpha = 0
         return label
     }()
     
-    let backTrashIcon: UIImageView = {
+    lazy var backTrashIcon: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(systemName: "trash.circle.fill") // ⛳️
         image.contentMode = .scaleAspectFit
-        image.tintColor = .systemRed
-        image.isHidden = true
+        image.tintColor = UIColor(rgb: 0x525252)
+        image.alpha = 0
+        
+        // Gesture
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(backTrashIconTapped))
+        image.addGestureRecognizer(gesture)
+        image.isUserInteractionEnabled = true
         return image
     }()
     
-    let backEditIcon: UIImageView = {
+    lazy var backEditIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(systemName: "square.and.pencil.circle.fill") // ⛳️
+        image.image = UIImage(systemName: "pencil.circle.fill") // ⛳️
         image.contentMode = .scaleAspectFit
-        image.tintColor = GrayScale.mainText
-        image.isHidden = true
+        image.tintColor = UIColor(rgb: 0x525252)
+        image.alpha = 0
+        
+        // Gesture
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(backEditIconTapped))
+        image.addGestureRecognizer(gesture)
+        image.isUserInteractionEnabled = true
         return image
     }()
     
@@ -145,59 +160,91 @@ final class BlockCollectionViewCell: UICollectionViewCell {
         stroke.path = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.bounds.height / 7).cgPath
         return stroke
     }()
-
+    
     
     // MARK: - Method
+    
+    @objc func backTrashIconTapped() {
+        trashButtonTapped(self)
+    }
+    
+    @objc func backEditIconTapped() {
+        editButtonTapped(self)
+    }
+    
+    func reverseDirectionWithNoAnimation() {
+        backTotalValue.alpha = 0
+        backTotalLabel.alpha = 0
+        seperator.alpha = 0
+        backTodayValue.alpha = 0
+        backTodayLabel.alpha = 0
+        backTrashIcon.alpha = 0
+        backEditIcon.alpha = 0
+        plusLabel.alpha = 1
+        totalProductivityLabel.alpha = 1
+        blockColorTag.alpha = 1
+        blockIcon.alpha = 1
+        blockLabel.alpha = 1
+    }
     
     /// 블럭의 앞면, 뒷면, 마지막 UI 전환 메서드
     func reverseDirection(_ direction: Direction) {
         
         // 앞면
         if direction == .front {
-            plusLabel.isHidden = false
-            totalProductivityLabel.isHidden = false
-            blockColorTag.isHidden = false
-            blockIcon.isHidden = false
-            blockLabel.isHidden = false
             
-            backTotalValue.isHidden = true
-            backTotalLabel.isHidden = true
-            seperator.isHidden = true
-            backTodayValue.isHidden = true
-            backTodayLabel.isHidden = true
-            backTrashIcon.isHidden = true
-            backEditIcon.isHidden = true
-            return
+            self.backTotalValue.alpha = 0
+            self.backTotalLabel.alpha = 0
+            self.seperator.alpha = 0
+            self.backTodayValue.alpha = 0
+            self.backTodayLabel.alpha = 0
+            self.backTrashIcon.alpha = 0
+            self.backEditIcon.alpha = 0
+            
+            UIView.animate(withDuration: 0.3) {
+                self.plusLabel.alpha = 1
+                self.totalProductivityLabel.alpha = 1
+                self.blockColorTag.alpha = 1
+                self.blockIcon.alpha = 1
+                self.blockLabel.alpha = 1
+                return
+            }
         }
         
         // 뒷면
         if direction == .back {
-            plusLabel.isHidden = true
-            totalProductivityLabel.isHidden = true
-            blockColorTag.isHidden = true
-            blockIcon.isHidden = true
-            blockLabel.isHidden = true
+            self.plusLabel.alpha = 0
+            self.totalProductivityLabel.alpha = 0
+            self.blockColorTag.alpha = 0
+            self.blockIcon.alpha = 0
+            self.blockLabel.alpha = 0
             
-            backTotalValue.isHidden = false
-            backTotalLabel.isHidden = false
-            seperator.isHidden = false
-            backTodayValue.isHidden = false
-            backTodayLabel.isHidden = false
-            backTrashIcon.isHidden = false
-            backEditIcon.isHidden = false
-            return
+            UIView.animate(withDuration: 0.3) {
+                self.backTotalValue.alpha = 1
+                self.backTotalLabel.alpha = 1
+                self.seperator.alpha = 1
+                self.backTodayValue.alpha = 1
+                self.backTodayLabel.alpha = 1
+                self.backTrashIcon.alpha = 1
+                self.backEditIcon.alpha = 1
+                return
+            }
         }
         
         // 마지막
         if direction == .last {
-            backTotalValue.isHidden = true
-            backTotalLabel.isHidden = true
-            seperator.isHidden = true
-            backTodayValue.isHidden = true
-            backTodayLabel.isHidden = true
-            blockIcon.isHidden = false
-            backTrashIcon.isHidden = true
-            backEditIcon.isHidden = true
+            self.backTotalValue.alpha = 0
+            self.backTotalLabel.alpha = 0
+            self.seperator.alpha = 0
+            self.backTodayValue.alpha = 0
+            self.backTodayLabel.alpha = 0
+            self.backTrashIcon.alpha = 0
+            self.backEditIcon.alpha = 0
+            
+            UIView.animate(withDuration: 0.3) {
+                self.blockIcon.alpha = 1
+                return
+            }
         }
     }
     
@@ -216,7 +263,6 @@ final class BlockCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         setupAutoLayout()
         setupUI()
-        setupClosure()
     }
     
     required init?(coder: NSCoder) {
@@ -232,10 +278,6 @@ final class BlockCollectionViewCell: UICollectionViewCell {
         /// CornerRadius
         clipsToBounds = true
         layer.cornerRadius = frame.height / 7
-    }
-    
-    func setupClosure() {
-        
     }
     
     func setupAutoLayout() {
