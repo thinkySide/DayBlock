@@ -9,11 +9,11 @@ import UIKit
 
 final class BlockCollectionViewCell: UICollectionViewCell {
     
-    // MARK: - Object
-    
-    private let homeVC = HomeViewController()
-    
-
+    enum Direction {
+        case front
+        case back
+        case last
+    }
     
     // MARK: - Component
     
@@ -75,10 +75,37 @@ final class BlockCollectionViewCell: UICollectionViewCell {
         stroke.path = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.bounds.height / 7).cgPath
         return stroke
     }()
-    
 
     
     // MARK: - Method
+    
+    func reverseDirection(_ direction: Direction) {
+        
+        // 앞면
+        if direction == .front {
+            plusLabel.isHidden = false
+            totalProductivityLabel.isHidden = false
+            blockColorTag.isHidden = false
+            blockIcon.isHidden = false
+            blockLabel.isHidden = false
+            return
+        }
+        
+        // 뒷면
+        if direction == .back {
+            plusLabel.isHidden = true
+            totalProductivityLabel.isHidden = true
+            blockColorTag.isHidden = true
+            blockIcon.isHidden = true
+            blockLabel.isHidden = true
+            return
+        }
+        
+        // 마지막
+        if direction == .last {
+            blockIcon.isHidden = false
+        }
+    }
     
     override func prepareForReuse() {
         /// 블럭 재사용 문제 해결
@@ -90,24 +117,6 @@ final class BlockCollectionViewCell: UICollectionViewCell {
         stroke.isHidden = true
         self.backgroundColor = GrayScale.contentsBlock
     }
-    
-//    override var isSelected: Bool {
-//        didSet {
-//            if isSelected {
-//                plusLabel.isHidden = true
-//                totalProductivityLabel.isHidden = true
-//                blockColorTag.isHidden = true
-//                blockIcon.isHidden = true
-//                blockLabel.isHidden = true
-//            } else {
-//                plusLabel.isHidden = false
-//                totalProductivityLabel.isHidden = false
-//                blockColorTag.isHidden = false
-//                blockIcon.isHidden = false
-//                blockLabel.isHidden = false
-//            }
-//        }
-//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -133,15 +142,11 @@ final class BlockCollectionViewCell: UICollectionViewCell {
     
     func setupClosure() {
         
-        /// HomeViewController
-        homeVC.selectBlockEvent = { homeVC in
-            print("셀 터치 이벤트 발생")
-        }
     }
     
     func setupAutoLayout() {
         
-        /// addSubView & translatesAutoresizingMaskIntoConstraints
+        // addSubView & translatesAutoresizingMaskIntoConstraints
         [
             plusLabel, totalProductivityLabel, blockColorTag,
             blockIcon, blockLabel,

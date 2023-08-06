@@ -11,13 +11,13 @@ final class ContentsBlock: UIView {
     
     // MARK: - Size
     
-    enum BlockSize {
+    /// 블럭 사이즈
+    enum Size {
         case middle
         case large
     }
     
-    var blockSize: BlockSize
-    
+    var size: Size
     
     
     // MARK: - Component
@@ -85,15 +85,8 @@ final class ContentsBlock: UIView {
     
     // MARK: - Method
     
-    func setupBlockContents(group: GroupEntity, block: BlockEntity) {
-        plus.textColor = UIColor(rgb: group.color)
-        colorTag.backgroundColor = UIColor(rgb: group.color)
-        icon.image = UIImage(systemName: block.icon)!
-        taskLabel.text = block.taskLabel
-    }
-    
-    init(frame: CGRect, blockSize: BlockSize) {
-        self.blockSize = blockSize
+    init(frame: CGRect, blockSize: Size) {
+        self.size = blockSize
         super.init(frame: frame)
         setupBlockSize()
         setupAddSubView()
@@ -111,10 +104,17 @@ final class ContentsBlock: UIView {
         self.clipsToBounds = true
         self.layer.cornerRadius = self.frame.height / 7
     }
+    
+    func setupBlockContents(group: GroupEntity, block: BlockEntity) {
+        plus.textColor = UIColor(rgb: group.color)
+        colorTag.backgroundColor = UIColor(rgb: group.color)
+        icon.image = UIImage(systemName: block.icon)!
+        taskLabel.text = block.taskLabel
+    }
 
     func setupBlockSize() {
         /// BlockSize
-        switch blockSize {
+        switch size {
         case .middle:
             self.widthAnchor.constraint(equalToConstant: middleSize.width).isActive = true
             self.heightAnchor.constraint(equalToConstant: middleSize.height).isActive = true

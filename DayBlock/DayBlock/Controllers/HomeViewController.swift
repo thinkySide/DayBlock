@@ -36,14 +36,6 @@ final class HomeViewController: UIViewController {
     }
     
     
-    
-    // MARK: - Closure
-    
-    typealias Closure = (HomeViewController) -> ()
-    var selectBlockEvent: Closure = { sender in }
-
-    
-    
     // MARK: - ViewController LifeCycle
     
     override func loadView() {
@@ -179,7 +171,6 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = viewManager.blockCollectionView.dequeueReusableCell(
             withReuseIdentifier: Cell.block, for: indexPath) as! BlockCollectionViewCell
-        
         let index = indexPath.row
         let blockDataList = blockManager.getCurrentBlockList()
         
@@ -222,18 +213,24 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+ 
+        guard let cell = collectionView.cellForItem(at: indexPath) as? BlockCollectionViewCell else { return }
         let currentIndex = indexPath.item
         let count = blockManager.getCurrentBlockList().count
         
-        /// 블럭 클릭 이벤트
+        // 블럭 토글 이벤트
+        if cell.blockIcon.isHidden {
+            cell.reverseDirection(.front)
+        } else {
+            cell.reverseDirection(.back)
+        }
+        
+        // 블럭 클릭 이벤트
         if blockIndex == currentIndex {
             
-            // 셀 정보 바뀌어야 함 (reloadData?)
-            selectBlockEvent(self)
-            
-            /// 마지막 블럭이라면 AddBlockViewController 화면 이동
+            // 마지막 블럭이라면 AddBlockViewController 화면 이동
             if count == currentIndex {
+                cell.reverseDirection(.last)
                 viewManager.toggleTrackingButton(false)
                 let createBlockVC = CreateBlockViewController()
                 createBlockVC.delegate = self
@@ -242,7 +239,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             }
         }
         
-        /// 이전, 다음 블럭 스크롤 이벤트
+        // 이전, 다음 블럭 스크롤 이벤트
         if blockIndex != currentIndex {
             viewManager.blockCollectionView.isUserInteractionEnabled = false /// 중복 터치 방지
             viewManager.blockCollectionView.scrollToItem(at: indexPath, at: .left, animated: true)
@@ -260,7 +257,6 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
     }
 }
-
 
 
 // MARK: - UIScrollViewDelegate
@@ -301,9 +297,6 @@ extension HomeViewController: HomeViewDelegate {
         selectGroupVC.delegate = self
         selectGroupVC.modalPresentationStyle = .custom
         selectGroupVC.transitioningDelegate = customBottomModalDelegate
-        
-        print(blockManager.blockEntity.count)
-        
         present(selectGroupVC, animated: true)
     }
     

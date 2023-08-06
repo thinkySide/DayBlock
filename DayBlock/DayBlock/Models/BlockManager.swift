@@ -121,8 +121,6 @@ final class BlockManager {
         currentGroupIndex = index
     }
     
-    
-    
     // MARK: - Remote Block (블럭 생성, 스위치용)
     
     /// 리모트 블럭
