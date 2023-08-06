@@ -432,3 +432,14 @@ TrackingButton 활성화 문제로 그룹 전환 시 0번째 인덱스로 전환
 ---
 
 <br>
+
+### **Day 73 - 23.08.06**
+
+- BlockCollectionViewCell 뒤집기 모드 구현
+블럭을 삭제, 편집하기 위한 뒤집기 모드를 구현했습니다. 현재 클릭 시 셀의 UI를 업데이트 후 Closure를 이용한 버튼 연결까지 완료했습니다. 부드러운 전환을 위한 Alpha값을 이용한 애니메이션을 추가했습니다. 추후 CoreData와 연결해 삭제 및 편집 기능 추가 예정입니다.
+
+<img width="300" src="https://github.com/thinkySide/BppleForImageData/assets/113565086/9ec2e980-4383-4614-8451-85e18f81827e">
+
+---
+
+<br>
