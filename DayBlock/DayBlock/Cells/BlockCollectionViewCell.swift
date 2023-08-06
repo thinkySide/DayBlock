@@ -15,7 +15,7 @@ final class BlockCollectionViewCell: UICollectionViewCell {
         case last
     }
     
-    // MARK: - Component
+    // MARK: - Front Component
     
     let plusLabel: UILabel = {
         let label = UILabel()
@@ -65,6 +65,76 @@ final class BlockCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    // MARK: - Back Component
+    
+    let backTotalValue: UILabel = {
+        let label = UILabel()
+        label.text = "0.0" // ⛳️
+        label.font = UIFont(name: Poppins.bold, size: 20)
+        label.textColor = GrayScale.mainText
+        label.textAlignment = .center
+        label.isHidden = true
+        return label
+    }()
+    
+    let backTotalLabel: UILabel = {
+        let label = UILabel()
+        label.text = "total"
+        label.font = UIFont(name: Poppins.bold, size: 14)
+        label.textColor = GrayScale.subText2
+        label.textAlignment = .center
+        label.isHidden = true
+        return label
+    }()
+    
+    let seperator: UIView = {
+        let line = UIView()
+        line.backgroundColor = GrayScale.seperator2
+        line.isHidden = true
+        return line
+    }()
+    
+    let backTodayValue: UILabel = {
+        let label = UILabel()
+        label.text = "0.0" // ⛳️
+        label.font = UIFont(name: Poppins.bold, size: 20)
+        label.textColor = GrayScale.mainText
+        label.textAlignment = .center
+        label.isHidden = true
+        return label
+    }()
+    
+    let backTodayLabel: UILabel = {
+        let label = UILabel()
+        label.text = "today"
+        label.font = UIFont(name: Poppins.bold, size: 14)
+        label.textColor = GrayScale.subText2
+        label.textAlignment = .center
+        label.isHidden = true
+        return label
+    }()
+    
+    let backTrashIcon: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(systemName: "trash.circle.fill") // ⛳️
+        image.contentMode = .scaleAspectFit
+        image.tintColor = .systemRed
+        image.isHidden = true
+        return image
+    }()
+    
+    let backEditIcon: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(systemName: "square.and.pencil.circle.fill") // ⛳️
+        image.contentMode = .scaleAspectFit
+        image.tintColor = GrayScale.mainText
+        image.isHidden = true
+        return image
+    }()
+    
+    
+    // MARK: - Last Component
+    
     lazy var stroke: CAShapeLayer = {
         let stroke = CAShapeLayer()
         stroke.strokeColor = GrayScale.entireBlock.cgColor
@@ -79,6 +149,7 @@ final class BlockCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Method
     
+    /// 블럭의 앞면, 뒷면, 마지막 UI 전환 메서드
     func reverseDirection(_ direction: Direction) {
         
         // 앞면
@@ -88,6 +159,14 @@ final class BlockCollectionViewCell: UICollectionViewCell {
             blockColorTag.isHidden = false
             blockIcon.isHidden = false
             blockLabel.isHidden = false
+            
+            backTotalValue.isHidden = true
+            backTotalLabel.isHidden = true
+            seperator.isHidden = true
+            backTodayValue.isHidden = true
+            backTodayLabel.isHidden = true
+            backTrashIcon.isHidden = true
+            backEditIcon.isHidden = true
             return
         }
         
@@ -98,12 +177,27 @@ final class BlockCollectionViewCell: UICollectionViewCell {
             blockColorTag.isHidden = true
             blockIcon.isHidden = true
             blockLabel.isHidden = true
+            
+            backTotalValue.isHidden = false
+            backTotalLabel.isHidden = false
+            seperator.isHidden = false
+            backTodayValue.isHidden = false
+            backTodayLabel.isHidden = false
+            backTrashIcon.isHidden = false
+            backEditIcon.isHidden = false
             return
         }
         
         // 마지막
         if direction == .last {
+            backTotalValue.isHidden = true
+            backTotalLabel.isHidden = true
+            seperator.isHidden = true
+            backTodayValue.isHidden = true
+            backTodayLabel.isHidden = true
             blockIcon.isHidden = false
+            backTrashIcon.isHidden = true
+            backEditIcon.isHidden = true
         }
     }
     
@@ -150,6 +244,10 @@ final class BlockCollectionViewCell: UICollectionViewCell {
         [
             plusLabel, totalProductivityLabel, blockColorTag,
             blockIcon, blockLabel,
+            backTotalValue, backTotalLabel,
+            seperator,
+            backTodayValue, backTodayLabel,
+            backTrashIcon, backEditIcon,
         ]
             .forEach {
                 addSubview($0)
@@ -183,6 +281,40 @@ final class BlockCollectionViewCell: UICollectionViewCell {
             blockLabel.topAnchor.constraint(equalTo: blockIcon.bottomAnchor, constant: 12),
             blockLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             blockLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            
+            // backTotalValue
+            backTotalValue.topAnchor.constraint(equalTo: topAnchor, constant: 32),
+            backTotalValue.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
+            
+            // backTotalLabel
+            backTotalLabel.topAnchor.constraint(equalTo: backTotalValue.bottomAnchor, constant: 0),
+            backTotalLabel.centerXAnchor.constraint(equalTo: backTotalValue.centerXAnchor),
+            
+            // seperator
+            seperator.topAnchor.constraint(equalTo: topAnchor, constant: 40),
+            seperator.centerXAnchor.constraint(equalTo: centerXAnchor),
+            seperator.widthAnchor.constraint(equalToConstant: 2),
+            seperator.heightAnchor.constraint(equalToConstant: 20),
+            
+            // backTotalValue
+            backTodayValue.topAnchor.constraint(equalTo: topAnchor, constant: 32),
+            backTodayValue.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
+            
+            // backTodayLabel
+            backTodayLabel.topAnchor.constraint(equalTo: backTodayValue.bottomAnchor, constant: 0),
+            backTodayLabel.centerXAnchor.constraint(equalTo: backTodayValue.centerXAnchor),
+            
+            // backTrashIcon
+            backTrashIcon.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -24),
+            backTrashIcon.centerXAnchor.constraint(equalTo: backTotalLabel.centerXAnchor),
+            backTrashIcon.widthAnchor.constraint(equalToConstant: 56),
+            backTrashIcon.heightAnchor.constraint(equalToConstant: 56),
+            
+            // backEditIcon
+            backEditIcon.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -24),
+            backEditIcon.centerXAnchor.constraint(equalTo: backTodayLabel.centerXAnchor),
+            backEditIcon.widthAnchor.constraint(equalToConstant: 56),
+            backEditIcon.heightAnchor.constraint(equalToConstant: 56),
         ])
     }
 }

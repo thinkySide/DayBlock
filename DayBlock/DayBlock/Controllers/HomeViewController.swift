@@ -173,6 +173,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             withReuseIdentifier: Cell.block, for: indexPath) as! BlockCollectionViewCell
         let index = indexPath.row
         let blockDataList = blockManager.getCurrentBlockList()
+        cell.reverseDirection(.front)
         
         // 초기 상태
         if blockDataList.count == 0 {
@@ -241,6 +242,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         // 이전, 다음 블럭 스크롤 이벤트
         if blockIndex != currentIndex {
+            collectionView.reloadData()
             viewManager.blockCollectionView.isUserInteractionEnabled = false /// 중복 터치 방지
             viewManager.blockCollectionView.scrollToItem(at: indexPath, at: .left, animated: true)
             blockIndex = currentIndex
