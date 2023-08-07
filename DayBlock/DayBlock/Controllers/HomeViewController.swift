@@ -187,8 +187,21 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         
         // 편집 제스처
-        cell.editButtonTapped = { sender in
-            print("블럭 편집")
+        cell.editButtonTapped = { [weak self] sender in
+            guard let self else { return }
+            let editBlockVC = CreateBlockViewController()
+            editBlockVC.delegate = self
+            editBlockVC.hidesBottomBarWhenPushed = true
+            
+            let editBlock = blockDataList[index]
+            blockManager.updateRemoteBlock(group: blockManager.getCurrentGroup())
+            blockManager.updateRemoteBlock(label: editBlock.taskLabel)
+            blockManager.updateRemoteBlock(output: editBlock.output)
+            blockManager.updateRemoteBlock(icon: editBlock.icon)
+            blockManager.updateCurrentBlockIndex(index)
+            editBlockVC.setupEditMode(editBlock.taskLabel)
+            
+            navigationController?.pushViewController(editBlockVC, animated: true)
         }
         
         // 초기 상태
@@ -284,18 +297,18 @@ extension HomeViewController: UIScrollViewDelegate {
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
-        /// 스크롤된 크기 = 스크롤이 멈춘 x좌표 + 스크롤뷰 inset
+        // 스크롤된 크기 = 스크롤이 멈춘 x좌표 + 스크롤뷰 inset
         let scrollSize = targetContentOffset.pointee.x + scrollView.contentInset.left
         
-        /// 블럭 크기 = 블럭 가로 사이즈 + 블럭 여백 (보이는 영역 보다 크게 사이즈를 잡아야 캐러셀 구현 가능)
+        // 블럭 크기 = 블럭 가로 사이즈 + 블럭 여백 (보이는 영역 보다 크게 사이즈를 잡아야 캐러셀 구현 가능)
         let blockWidth = Size.blockSize.width + Size.blockSpacing
         
-        /// 블럭 인덱스 = 스크롤된 크기 / 블럭 크기
+        // 블럭 인덱스 = 스크롤된 크기 / 블럭 크기
         let currentBlockIndex = round(scrollSize / blockWidth)
         let rememberBlockIndex = blockIndex
         blockIndex = Int(currentBlockIndex)
         
-        /// 최종 스크롤 위치 지정
+        // 최종 스크롤 위치 지정
         targetContentOffset.pointee = CGPoint(x: currentBlockIndex * blockWidth - scrollView.contentInset.left,
                                               y: scrollView.contentInset.top)
         
@@ -391,13 +404,22 @@ extension HomeViewController: HomeViewDelegate {
 extension HomeViewController: CreateBlockViewControllerDelegate {
     
     /// CollectionView 업데이트
-    func updateCollectionView() {
+    func updateCollectionView(_ isEditMode: Bool) {
         switchHomeGroup(index: blockManager.getCurrentGroupIndex())
         
-        let lastIndex = blockManager.getLastBlockIndex()
-        let indexPath = IndexPath(item: lastIndex, section: 0)
-        blockIndex = lastIndex
-        viewManager.blockCollectionView.scrollToItem(at: indexPath, at: .left, animated: true)
+        // 편집 모드
+        if isEditMode {
+            let index = blockManager.getCurrentBlockIndex()
+            viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .left, animated: true)
+        }
+        
+        // 생성 모드
+        else {
+            let lastIndex = blockManager.getLastBlockIndex()
+            blockIndex = lastIndex
+            viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: lastIndex, section: 0), at: .left, animated: true)
+        }
+        
         viewManager.toggleTrackingButton(true)
     }
 }

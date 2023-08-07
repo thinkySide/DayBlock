@@ -9,12 +9,19 @@ import UIKit
 
 final class CreateBlockViewController: UIViewController {
     
+    /// 블럭 편집 모드
+    enum BlockEditMode {
+        case create
+        case update
+    }
+    
     // MARK: - Variable
     
     private let viewManager = CreateBlockView()
     private let blockManager = BlockManager.shared
     private let customBottomModalDelegate = CustomBottomModalDelegate()
     weak var delegate: CreateBlockViewControllerDelegate?
+    private var blockEditMode: BlockEditMode = .create
     
     
     // MARK: - ViewController LifeCycle
@@ -39,6 +46,13 @@ final class CreateBlockViewController: UIViewController {
     
     
     // MARK: - Initial Method
+    
+    func setupEditMode(_ taskLabel: String) {
+        blockEditMode = .update
+        viewManager.taskLabelTextField.textField.text = taskLabel
+        viewManager.taskLabelTextField.countLabel.text = "\(taskLabel.count)/18"
+        viewManager.createBarButtonItem.isEnabled = true
+    }
     
     func setupInitial() {
         
@@ -84,10 +98,19 @@ final class CreateBlockViewController: UIViewController {
     
     @objc func createBarButtonItemTapped() {
         
-        /// 새 블럭 생성
-        blockManager.createNewBlock()
-        navigationController?.popViewController(animated: true)
-        delegate?.updateCollectionView()
+        // 블럭 생성 모드
+        if blockEditMode == .create {
+            blockManager.createNewBlock()
+            navigationController?.popViewController(animated: true)
+            delegate?.updateCollectionView(false)
+        }
+        
+        // 블럭 편집 모드
+        if blockEditMode == .update {
+            blockManager.updateBlock()
+            navigationController?.popViewController(animated: true)
+            delegate?.updateCollectionView(true)
+        }
     }
 }
 

@@ -71,6 +71,23 @@ final class BlockManager {
         }
     }
     
+    /// 선택한 블럭의 정보를 업데이트 합니다.
+    func updateBlock() {
+        
+        let updateBlock = BlockEntity(context: context)
+        updateBlock.taskLabel = remoteBlock.list[0].taskLabel
+        updateBlock.icon = remoteBlock.list[0].icon
+        groupEntity[currentGroupIndex].insertIntoBlockList(updateBlock, at: currentBlockIndex)
+        deleteBlock(blockEntity[currentBlockIndex+1])
+
+        do {
+            try context.save()
+            fetchCoreData()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
     
     // MARK: - GroupList (그룹 리스트)
     
@@ -137,6 +154,16 @@ final class BlockManager {
         currentGroupIndex = index
     }
     
+    private var currentBlockIndex = 0
+    
+    func getCurrentBlockIndex() -> Int {
+        return currentBlockIndex
+    }
+    
+    func updateCurrentBlockIndex(_ index: Int) {
+        currentBlockIndex = index
+    }
+    
     // MARK: - Remote Block (블럭 생성, 스위치용)
     
     /// 리모트 블럭
@@ -166,6 +193,8 @@ final class BlockManager {
             }
         }
     }
+    
+    
     
     /// READ - 리모트 블럭 받아오기
     func getRemoteBlock() -> Group {

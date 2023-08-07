@@ -35,7 +35,7 @@ protocol CreateGroupViewDelegate: AnyObject {
 // MARK: - UIViewController
 
 protocol CreateBlockViewControllerDelegate: AnyObject {
-    func updateCollectionView()
+    func updateCollectionView(_ isEditMode: Bool)
 }
 
 protocol CreateGroupViewControllerDelegate: AnyObject {

@@ -101,6 +101,7 @@ final class CreateBlockView: UIView {
         groupSelect.selectColor.backgroundColor = UIColor(rgb: group.color)
         blockTaskLabel.text = block.taskLabel
         blockPreviewColorTag.backgroundColor = UIColor(rgb: group.color)
+        blockPreviewIcon.image = UIImage(systemName: block.icon)!
         iconSelect.selectIcon.image = UIImage(systemName: block.icon)!
     }
     
