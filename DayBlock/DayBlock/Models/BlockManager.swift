@@ -32,6 +32,7 @@ final class BlockManager {
     
     // MARK: - CoreData
     
+    /// 코어데이터 기본 설정 메서드
     func initialSetupForCoreData() {
         if groupEntity.count == 0 {
             let newGroup = GroupEntity(context: context)
@@ -40,16 +41,31 @@ final class BlockManager {
             
             do {
                 try context.save()
-                getAllItems()
+                fetchCoreData()
             } catch {
                 print(error.localizedDescription)
             }
         }
     }
     
-    func getAllItems() {
+    /// 코어데이터를 패치합니다.
+    func fetchCoreData() {
         do {
             groupEntity = try context.fetch(GroupEntity.fetchRequest())
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    /// 선택한 블럭을 삭제합니다.
+    func deleteBlock(_ block: BlockEntity) {
+        
+        groupEntity[currentGroupIndex].removeFromBlockList(block)
+        context.delete(block)
+        
+        do {
+            try context.save()
+            fetchCoreData()
         } catch {
             print(error.localizedDescription)
         }
@@ -69,7 +85,7 @@ final class BlockManager {
         
         do {
             try context.save()
-            getAllItems()
+            fetchCoreData()
         } catch {
             print(error.localizedDescription)
         }
@@ -142,7 +158,7 @@ final class BlockManager {
                 
                 do {
                     try context.save()
-                    getAllItems()
+                    fetchCoreData()
                     break
                 } catch {
                     print(error.localizedDescription)

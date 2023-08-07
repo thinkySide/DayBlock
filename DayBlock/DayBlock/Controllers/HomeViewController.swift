@@ -54,11 +54,11 @@ final class HomeViewController: UIViewController {
         setupContentsBlock()
         setupTrackingButton()
         
-//        // 테스트용 블럭 색칠
-//        let color = blockManager.getCurrentGroupColor()
-//        viewManager.blockPreview.block03.painting(.firstHalf, color: color)
-//        viewManager.blockPreview.block17.painting(.secondHalf, color: color)
-//        viewManager.blockPreview.block12.painting(.fullTime, color: color)
+        //        // 테스트용 블럭 색칠
+        //        let color = blockManager.getCurrentGroupColor()
+        //        viewManager.blockPreview.block03.painting(.firstHalf, color: color)
+        //        viewManager.blockPreview.block17.painting(.secondHalf, color: color)
+        //        viewManager.blockPreview.block12.painting(.fullTime, color: color)
     }
     
     
@@ -66,7 +66,7 @@ final class HomeViewController: UIViewController {
     // MARK: - Setup Method
     
     func setupCoreData() {
-        blockManager.getAllItems()
+        blockManager.fetchCoreData()
         blockManager.initialSetupForCoreData()
     }
     
@@ -129,11 +129,11 @@ final class HomeViewController: UIViewController {
             viewManager.toggleTrackingButton(false)
         }
     }
-
+    
     
     
     // MARK: - Custom Method
-
+    
     /// 현재 시간 업데이트
     @objc func updateTime() {
         let timeFormatter = DateFormatter()
@@ -175,13 +175,19 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         let blockDataList = blockManager.getCurrentBlockList()
         cell.reverseDirectionWithNoAnimation()
         
+        // TODO: 삭제 및 편집 기능 추가(코어데이터)
+        
         // 삭제 제스처
-        cell.trashButtonTapped = { [weak self] sender in
-            print("블럭 삭제")
+        cell.trashButtonTapped = { [weak self] _ in
+            let deleteBlock = blockDataList[index]
+            DispatchQueue.main.async {
+                self?.blockManager.deleteBlock(deleteBlock)
+                collectionView.reloadData()
+            }
         }
         
         // 편집 제스처
-        cell.editButtonTapped = { [weak self] sender in
+        cell.editButtonTapped = { sender in
             print("블럭 편집")
         }
         
@@ -203,7 +209,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             cell.plusLabel.textColor = blockManager.getCurrentGroupColor()
             cell.totalProductivityLabel.text = "\(blockDataList[index].output)"
             cell.blockColorTag.backgroundColor = blockManager.getCurrentGroupColor()
-            cell.blockIcon.image = UIImage(systemName: blockDataList[index].icon)!
+            cell.blockIcon.image = UIImage(systemName: blockDataList[index].icon)
             cell.blockLabel.text = blockDataList[index].taskLabel
             cell.stroke.isHidden = true
             return cell
@@ -224,7 +230,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
- 
+        
         guard let cell = collectionView.cellForItem(at: indexPath) as? BlockCollectionViewCell else { return }
         let currentIndex = indexPath.item
         let count = blockManager.getCurrentBlockList().count
@@ -286,13 +292,16 @@ extension HomeViewController: UIScrollViewDelegate {
         
         /// 블럭 인덱스 = 스크롤된 크기 / 블럭 크기
         let currentBlockIndex = round(scrollSize / blockWidth)
+        let rememberBlockIndex = blockIndex
         blockIndex = Int(currentBlockIndex)
         
         /// 최종 스크롤 위치 지정
         targetContentOffset.pointee = CGPoint(x: currentBlockIndex * blockWidth - scrollView.contentInset.left,
                                               y: scrollView.contentInset.top)
         
-        viewManager.blockCollectionView.reloadData()
+        if blockIndex != rememberBlockIndex {
+            viewManager.blockCollectionView.reloadData()
+        }
     }
     
     /// 스크롤 애니메이션 이후 다시 CollectionView 활성화
