@@ -30,6 +30,8 @@
 		075A5AE32A7E19ED0004F847 /* BlockEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5ADF2A7E19ED0004F847 /* BlockEntity+CoreDataProperties.swift */; };
 		075A5AE42A7E19ED0004F847 /* GroupEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5AE02A7E19ED0004F847 /* GroupEntity+CoreDataClass.swift */; };
 		075A5AE52A7E19ED0004F847 /* GroupEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5AE12A7E19ED0004F847 /* GroupEntity+CoreDataProperties.swift */; };
+		075A5AE92A81D04B0004F847 /* DeletePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5AE82A81D04B0004F847 /* DeletePopupView.swift */; };
+		075A5AEB2A81DCDD0004F847 /* DeletePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5AEA2A81DCDD0004F847 /* DeletePopupViewController.swift */; };
 		0770802D29E55E7C00D66900 /* TimeTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770802C29E55E7C00D66900 /* TimeTracker.swift */; };
 		0770802F29E78C9200D66900 /* SelectGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770802E29E78C9200D66900 /* SelectGroupViewController.swift */; };
 		0770803129E78D0500D66900 /* SelectGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770803029E78D0500D66900 /* SelectGroupView.swift */; };
@@ -94,6 +96,8 @@
 		075A5ADF2A7E19ED0004F847 /* BlockEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		075A5AE02A7E19ED0004F847 /* GroupEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		075A5AE12A7E19ED0004F847 /* GroupEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		075A5AE82A81D04B0004F847 /* DeletePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePopupView.swift; sourceTree = "<group>"; };
+		075A5AEA2A81DCDD0004F847 /* DeletePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePopupViewController.swift; sourceTree = "<group>"; };
 		0770802C29E55E7C00D66900 /* TimeTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTracker.swift; sourceTree = "<group>"; };
 		0770802E29E78C9200D66900 /* SelectGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGroupViewController.swift; sourceTree = "<group>"; };
 		0770803029E78D0500D66900 /* SelectGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGroupView.swift; sourceTree = "<group>"; };
@@ -220,6 +224,7 @@
 			children = (
 				078C50B929D7152F00F239BA /* HomeViewController.swift */,
 				0719648F29E04F7E009CA1A4 /* CreateBlockViewController.swift */,
+				075A5AEA2A81DCDD0004F847 /* DeletePopupViewController.swift */,
 				077A663329ED2AB000D99C68 /* CreateGroupViewController.swift */,
 				078C50F529D9BBB200F239BA /* ScheduleViewController.swift */,
 				078C50F729D9BBFE00F239BA /* StorageViewController.swift */,
@@ -264,6 +269,7 @@
 				0719649729E148CA009CA1A4 /* ContentsBlock.swift */,
 				078C50F329D73D0200F239BA /* BlockPreview.swift */,
 				0719648B29DDB1C0009CA1A4 /* PaintBlock.swift */,
+				075A5AE82A81D04B0004F847 /* DeletePopupView.swift */,
 				07454E1429EC170600B3458D /* Seperator.swift */,
 				0719648D29DF044C009CA1A4 /* GroupSelectButton.swift */,
 				0719648729DC5066009CA1A4 /* TabBarActiveStackView.swift */,
@@ -433,6 +439,7 @@
 				07454E1129EBFDF200B3458D /* ActionButton.swift in Sources */,
 				0770803629E7981300D66900 /* SelectIconView.swift in Sources */,
 				078C50EE29D72F9D00F239BA /* RGB.swift in Sources */,
+				075A5AE92A81D04B0004F847 /* DeletePopupView.swift in Sources */,
 				0719648129DAF38A009CA1A4 /* Block.swift in Sources */,
 				0770803429E797E100D66900 /* SelectIconViewController.swift in Sources */,
 				07454DE329EA6CEE00B3458D /* HideKeyboard.swift in Sources */,
@@ -440,6 +447,7 @@
 				07EB771729F5335F000BD87E /* ColorCollectionViewCell.swift in Sources */,
 				078C50B829D7152F00F239BA /* SceneDelegate.swift in Sources */,
 				0719649029E04F7E009CA1A4 /* CreateBlockViewController.swift in Sources */,
+				075A5AEB2A81DCDD0004F847 /* DeletePopupViewController.swift in Sources */,
 				0719649429E0692E009CA1A4 /* FieldForm.swift in Sources */,
 				0719648629DAF9A5009CA1A4 /* BlockCollectionViewCell.swift in Sources */,
 				079818BB2A78F77F006A38AB /* TestData.swift in Sources */,

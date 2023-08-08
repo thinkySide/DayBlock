@@ -123,7 +123,7 @@ final class BlockCollectionViewCell: UICollectionViewCell {
         let image = UIImageView()
         image.image = UIImage(systemName: "trash.circle.fill") // ⛳️
         image.contentMode = .scaleAspectFit
-        image.tintColor = UIColor(rgb: 0x525252)
+        image.tintColor = UIColor(rgb: 0xD23939)
         image.alpha = 0
         
         // Gesture
@@ -192,7 +192,6 @@ final class BlockCollectionViewCell: UICollectionViewCell {
         
         // 앞면
         if direction == .front {
-            
             self.backTotalValue.alpha = 0
             self.backTotalLabel.alpha = 0
             self.seperator.alpha = 0
@@ -201,7 +200,7 @@ final class BlockCollectionViewCell: UICollectionViewCell {
             self.backTrashIcon.alpha = 0
             self.backEditIcon.alpha = 0
             
-            UIView.animate(withDuration: 0.3) {
+            UIView.animate(withDuration: 0.2) {
                 self.plusLabel.alpha = 1
                 self.totalProductivityLabel.alpha = 1
                 self.blockColorTag.alpha = 1
@@ -219,7 +218,7 @@ final class BlockCollectionViewCell: UICollectionViewCell {
             self.blockIcon.alpha = 0
             self.blockLabel.alpha = 0
             
-            UIView.animate(withDuration: 0.3) {
+            UIView.animate(withDuration: 0.2) {
                 self.backTotalValue.alpha = 1
                 self.backTotalLabel.alpha = 1
                 self.seperator.alpha = 1
@@ -241,7 +240,7 @@ final class BlockCollectionViewCell: UICollectionViewCell {
             self.backTrashIcon.alpha = 0
             self.backEditIcon.alpha = 0
             
-            UIView.animate(withDuration: 0.3) {
+            UIView.animate(withDuration: 0.2) {
                 self.blockIcon.alpha = 1
                 return
             }

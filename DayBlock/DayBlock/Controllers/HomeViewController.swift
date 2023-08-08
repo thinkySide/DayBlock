@@ -179,11 +179,17 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         // 삭제 제스처
         cell.trashButtonTapped = { [weak self] _ in
-            let deleteBlock = blockDataList[index]
-            DispatchQueue.main.async {
-                self?.blockManager.deleteBlock(deleteBlock)
-                collectionView.reloadData()
-            }
+            
+            let deletePopup = DeletePopupViewController()
+            deletePopup.modalPresentationStyle = .overCurrentContext
+            deletePopup.modalTransitionStyle = .crossDissolve
+            self?.present(deletePopup, animated: true)
+            
+//            let deleteBlock = blockDataList[index]
+//            DispatchQueue.main.async {
+//                self?.blockManager.deleteBlock(deleteBlock)
+//                collectionView.reloadData()
+//            }
         }
         
         // 편집 제스처
@@ -193,6 +199,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             editBlockVC.delegate = self
             editBlockVC.hidesBottomBarWhenPushed = true
             
+            // RemoteBlock 업데이트
             let editBlock = blockDataList[index]
             blockManager.updateRemoteBlock(group: blockManager.getCurrentGroup())
             blockManager.updateRemoteBlock(label: editBlock.taskLabel)
