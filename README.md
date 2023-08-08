@@ -443,3 +443,14 @@ TrackingButton 활성화 문제로 그룹 전환 시 0번째 인덱스로 전환
 ---
 
 <br>
+
+### **Day 74 - 23.08.07**
+
+- BlockEntity 삭제, 수정 기능 추가   
+CoreData와 연동되어 BlockEntity를 삭제할 수 있는 기능을 추가했습니다.
+
+<img width="300" src="https://github.com/thinkySide/DayBlock/assets/113565086/41412dd4-2670-41a4-9452-6c44cc0abf5a">
+
+---
+
+<br>
