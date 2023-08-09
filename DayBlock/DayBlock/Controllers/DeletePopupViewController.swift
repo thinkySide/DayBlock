@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol DeletePopupViewControllerDelegate: AnyObject {
+    func deleteBlock()
+}
+
 final class DeletePopupViewController: UIViewController {
+    
+    weak var delegate: DeletePopupViewControllerDelegate?
     
     let bgView: UIView = {
         let view = UIView()
@@ -26,6 +32,9 @@ final class DeletePopupViewController: UIViewController {
         setupAddView()
         setupAddTarget()
     }
+    
+    
+    // MARK: - Setup Method
     
     func setupAddView() {
         view.addSubview(bgView)
@@ -48,16 +57,30 @@ final class DeletePopupViewController: UIViewController {
     
     func setupAddTarget() {
         let bgGesture = UITapGestureRecognizer(target: self, action: #selector(backgroundTapped))
+        
+        // 배경 화면
         bgView.addGestureRecognizer(bgGesture)
         
+        // 취소 버튼
         deletePopupView.actionStackView.cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+        
+        // 삭제 버튼
+        deletePopupView.actionStackView.confirmButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
     }
+    
+    
+    // MARK: - Event Method
     
     @objc func backgroundTapped() {
         dismiss(animated: true)
     }
     
     @objc func cancelButtonTapped() {
+        dismiss(animated: true)
+    }
+    
+    @objc func deleteButtonTapped() {
+        delegate?.deleteBlock()
         dismiss(animated: true)
     }
 }

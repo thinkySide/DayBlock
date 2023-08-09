@@ -35,6 +35,9 @@ final class HomeViewController: UIViewController {
         }
     }
     
+    /// 스크롤 위치 저장
+    private var currentScrollSize: CGFloat = 0
+    
     
     // MARK: - ViewController LifeCycle
     
@@ -181,6 +184,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.trashButtonTapped = { [weak self] _ in
             
             let deletePopup = DeletePopupViewController()
+            deletePopup.delegate = self
             deletePopup.modalPresentationStyle = .overCurrentContext
             deletePopup.modalTransitionStyle = .crossDissolve
             self?.present(deletePopup, animated: true)
@@ -255,6 +259,9 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         let currentIndex = indexPath.item
         let count = blockManager.getCurrentBlockList().count
         
+        // 현재 보고있는 블럭만 활성화
+        if currentIndex != blockManager.getCurrentBlockIndex() { return }
+        
         // 블럭 토글 이벤트
         if cell.blockIcon.alpha == 0 {
             cell.reverseDirection(.front)
@@ -277,23 +284,24 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         
         // 이전, 다음 블럭 스크롤 이벤트
-        if blockIndex != currentIndex {
-            viewManager.blockCollectionView.isUserInteractionEnabled = false /// 중복 터치 방지
-            viewManager.blockCollectionView.scrollToItem(at: indexPath, at: .left, animated: true)
-            blockIndex = currentIndex
-            
-            /// 마지막 블럭이라면 Tracking 버튼 비활성화
-            if count == currentIndex {
-                viewManager.toggleTrackingButton(false)
-            }
-            
-            /// 일반 블럭이라면 Tracking 버튼 활성화
-            if count != currentIndex {
-                viewManager.toggleTrackingButton(true)
-            }
-            
-            collectionView.reloadData()
-        }
+//        if blockIndex != currentIndex {
+//            viewManager.blockCollectionView.isUserInteractionEnabled = false /// 중복 터치 방지
+//            viewManager.blockCollectionView.scrollToItem(at: indexPath, at: .left, animated: true)
+//            blockIndex = currentIndex
+//            print(blockIndex)
+//
+//            /// 마지막 블럭이라면 Tracking 버튼 비활성화
+//            if count == currentIndex {
+//                viewManager.toggleTrackingButton(false)
+//            }
+//
+//            /// 일반 블럭이라면 Tracking 버튼 활성화
+//            if count != currentIndex {
+//                viewManager.toggleTrackingButton(true)
+//            }
+//
+//            collectionView.reloadData()
+//        }
     }
 }
 
@@ -304,29 +312,43 @@ extension HomeViewController: UIScrollViewDelegate {
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
+//        print("속도값 \(velocity)")
+//        print("감속도 \(scrollView.decelerationRate)")
+//        print("감속 여부 \(scrollView.isDecelerating)")
+        
         // 스크롤된 크기 = 스크롤이 멈춘 x좌표 + 스크롤뷰 inset
         let scrollSize = targetContentOffset.pointee.x + scrollView.contentInset.left
         
         // 블럭 크기 = 블럭 가로 사이즈 + 블럭 여백 (보이는 영역 보다 크게 사이즈를 잡아야 캐러셀 구현 가능)
-        let blockWidth = Size.blockSize.width + Size.blockSpacing
+        let blockWidth = Size.blockSize.width + Size.blockSpacing // 180 + 32 = 212
+        
+//        print("이전 스크롤 사이즈: \(currentScrollSize)")
+//        print("스크롤 사이즈: \(scrollSize)")
+//        print("블럭 인덱스: \(blockIndex)")
         
         // 블럭 인덱스 = 스크롤된 크기 / 블럭 크기
         let currentBlockIndex = round(scrollSize / blockWidth)
         let rememberBlockIndex = blockIndex
         blockIndex = Int(currentBlockIndex)
         
+        print(blockIndex)
+        
         // 최종 스크롤 위치 지정
         targetContentOffset.pointee = CGPoint(x: currentBlockIndex * blockWidth - scrollView.contentInset.left,
                                               y: scrollView.contentInset.top)
         
+        
         if blockIndex != rememberBlockIndex {
             viewManager.blockCollectionView.reloadData()
         }
+        
+        blockManager.updateCurrentBlockIndex(blockIndex)
+        // print(blockManager.getCurrentBlockIndex())
     }
     
     /// 스크롤 애니메이션 이후 다시 CollectionView 활성화
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        viewManager.blockCollectionView.isUserInteractionEnabled = true
+        // viewManager.blockCollectionView.isUserInteractionEnabled = true
     }
 }
 
@@ -417,6 +439,7 @@ extension HomeViewController: CreateBlockViewControllerDelegate {
         // 편집 모드
         if isEditMode {
             let index = blockManager.getCurrentBlockIndex()
+            print(index)
             viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .left, animated: true)
         }
         
@@ -451,6 +474,25 @@ extension HomeViewController: SelectGroupViewControllerDelegate {
         /// 그룹 리스트가 비어있을 시, 트래킹 버튼 비활성화
         let blockList = blockManager.getCurrentGroup().blockList?.array as! [BlockEntity]
         if blockList.isEmpty {
+            viewManager.toggleTrackingButton(false)
+        } else {
+            viewManager.toggleTrackingButton(true)
+        }
+    }
+}
+
+
+// MARK: - DeletePopupViewControllerDelegate
+
+extension HomeViewController: DeletePopupViewControllerDelegate {
+    func deleteBlock() {
+        let deleteBlock = blockManager.getCurrentBlockList()[blockManager.getCurrentBlockIndex()]
+        blockManager.deleteBlock(deleteBlock)
+        viewManager.blockCollectionView.reloadData()
+        
+        /// 그룹 리스트가 비어있을 시, 트래킹 버튼 비활성화
+        let blockList = blockManager.getCurrentGroup().blockList?.array as! [BlockEntity]
+        if blockList.isEmpty || (blockManager.getCurrentBlockIndex() == blockList.count) {
             viewManager.toggleTrackingButton(false)
         } else {
             viewManager.toggleTrackingButton(true)

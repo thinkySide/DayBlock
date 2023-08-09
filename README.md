@@ -454,3 +454,15 @@ CoreData와 연동되어 BlockEntity를 삭제할 수 있는 기능을 추가했
 ---
 
 <br>
+
+### **Day 75 - 23.08.08**
+
+- BlockEntity 삭제 확인 팝업 추가   
+UX 향상을 위한 Block 삭제 전 확인 팝업을 추가했습니다.
+
+
+<img width="300" src="https://github.com/thinkySide/DayBlock/assets/113565086/41a1d123-11b4-4c3b-947f-e9461cf4b590">
+
+---
+
+<br>

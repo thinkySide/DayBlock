@@ -22,7 +22,7 @@ final class DeletePopupView: UIView {
     
     let subLabel: UILabel = {
         let label = UILabel()
-        label.text = "그동안 기록된 블럭 정보를 모두 삭제해요"
+        label.text = "그동안 기록된 블럭 정보가 모두 삭제돼요"
         label.font = UIFont(name: Pretendard.medium, size: 15)
         label.textColor = GrayScale.subText
         label.textAlignment = .center

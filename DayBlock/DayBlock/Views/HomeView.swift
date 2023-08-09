@@ -91,6 +91,7 @@ final class HomeView: UIView {
         collectionView.clipsToBounds = true
         collectionView.contentInsetAdjustmentBehavior = .never
         collectionView.decelerationRate = .fast
+        collectionView.isPagingEnabled = false
         return collectionView
     }()
     
