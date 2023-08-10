@@ -35,8 +35,7 @@ final class HomeViewController: UIViewController {
         }
     }
     
-    /// 스크롤 위치 저장
-    private var currentScrollSize: CGFloat = 0
+    private lazy var startScrollX: CGFloat = 0
     
     
     // MARK: - ViewController LifeCycle
@@ -310,48 +309,58 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
 
 extension HomeViewController: UIScrollViewDelegate {
     
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        
+        // 스크롤 시작 지점
+        startScrollX = scrollView.contentOffset.x
+        
+        // 멀티 터치 비활성화
+        scrollView.isUserInteractionEnabled = false
+    }
+    
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        
-//        print("속도값 \(velocity)")
-//        print("감속도 \(scrollView.decelerationRate)")
-//        print("감속 여부 \(scrollView.isDecelerating)")
-        
-        // 스크롤된 크기 = 스크롤이 멈춘 x좌표 + 스크롤뷰 inset
-        let scrollSize = targetContentOffset.pointee.x + scrollView.contentInset.left
         
         // 블럭 크기 = 블럭 가로 사이즈 + 블럭 여백 (보이는 영역 보다 크게 사이즈를 잡아야 캐러셀 구현 가능)
         let blockWidth = Size.blockSize.width + Size.blockSpacing // 180 + 32 = 212
         
-//        print("이전 스크롤 사이즈: \(currentScrollSize)")
-//        print("스크롤 사이즈: \(scrollSize)")
-//        print("블럭 인덱스: \(blockIndex)")
+        // 스크롤된 크기 = 스크롤이 멈춘 x좌표 + 스크롤뷰 inset
+        let scrollSize = targetContentOffset.pointee.x + scrollView.contentInset.left
         
-        // 블럭 인덱스 = 스크롤된 크기 / 블럭 크기
-        let currentBlockIndex = round(scrollSize / blockWidth)
+        // 이전 블럭 인덱스 저장
         let rememberBlockIndex = blockIndex
-        blockIndex = Int(currentBlockIndex)
         
-        print(blockIndex)
+        // 블럭 한칸 이상을 갔느냐 못갔느냐 체크
+        let scrollSizeCheck = abs(startScrollX - targetContentOffset.pointee.x)
         
-        // 최종 스크롤 위치 지정
-        targetContentOffset.pointee = CGPoint(x: currentBlockIndex * blockWidth - scrollView.contentInset.left,
-                                              y: scrollView.contentInset.top)
-        
-        
-        if blockIndex != rememberBlockIndex {
-            viewManager.blockCollectionView.reloadData()
+        // 1. 한칸만 이동하는 제스처
+        if scrollSizeCheck <= blockWidth {
+            
+            // 왼쪽으로 한칸 이동하는 경우 (제스처 보정용 -30)
+            if startScrollX-30 > targetContentOffset.pointee.x && blockIndex > 0 {
+                blockIndex -= 1
+            }
+            
+            // 오른쪽으로 한칸 이동하는 경우 (제스처 보정용 +30)
+            if startScrollX+30 < targetContentOffset.pointee.x && blockIndex < blockManager.getCurrentBlockList().count {
+                blockIndex += 1
+            }
         }
         
+        // 2. 한칸 이상 이동하는 제스처
+        else { blockIndex = Int(round(scrollSize / blockWidth)) }
+        
+        // 최종 스크롤 위치 지정
+        targetContentOffset.pointee = CGPoint(x: CGFloat(blockIndex) * blockWidth - scrollView.contentInset.left,
+                                              y: scrollView.contentInset.top)
+        
+        // 사용자 터치 재활성화
+        scrollView.isUserInteractionEnabled = true
+        
+        // 블럭 인덱스 업데이트
+        if blockIndex != rememberBlockIndex { viewManager.blockCollectionView.reloadData() }
         blockManager.updateCurrentBlockIndex(blockIndex)
-        // print(blockManager.getCurrentBlockIndex())
-    }
-    
-    /// 스크롤 애니메이션 이후 다시 CollectionView 활성화
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        // viewManager.blockCollectionView.isUserInteractionEnabled = true
     }
 }
-
 
 
 // MARK: - HomeViewDelegate
