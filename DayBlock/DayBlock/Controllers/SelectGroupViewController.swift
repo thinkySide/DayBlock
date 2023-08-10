@@ -48,6 +48,9 @@ final class SelectGroupViewController: UIViewController {
     
     func setupSelectedCell() {
         
+        // 리모트 블럭을 현재 선택된 그룹으로 업데이트
+        blockManager.remoteBlockGroupIndex = blockManager.getCurrentGroupIndex()
+        
         /// 기본 선택값
         let index = blockManager.getGroupList().firstIndex { $0.name == blockManager.getRemoteBlock().name }!
         let indexPath = IndexPath(row: index, section: 0)
@@ -77,12 +80,13 @@ final class SelectGroupViewController: UIViewController {
     
     @objc func confirmButtonTapped() {
         
-        /// 현재 선택된 indexPath 값으로 블럭 정보 업데이트
+        // 현재 선택된 indexPath 값으로 블럭 정보 업데이트
         guard let indexPath = viewManager.groupTableView.indexPathForSelectedRow else { return }
         let group = blockManager.getGroupList()[indexPath.row]
         blockManager.updateRemoteBlock(group: group)
+        blockManager.remoteBlockGroupIndex = indexPath.row
         
-        /// delegate
+        // delegate
         delegate?.switchHomeGroup?(index: indexPath.row)
         delegate?.updateGroup?()
         dismiss(animated: true)

@@ -187,12 +187,6 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             deletePopup.modalPresentationStyle = .overCurrentContext
             deletePopup.modalTransitionStyle = .crossDissolve
             self?.present(deletePopup, animated: true)
-            
-//            let deleteBlock = blockDataList[index]
-//            DispatchQueue.main.async {
-//                self?.blockManager.deleteBlock(deleteBlock)
-//                collectionView.reloadData()
-//            }
         }
         
         // 편집 제스처
@@ -254,12 +248,20 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        guard let cell = collectionView.cellForItem(at: indexPath) as? BlockCollectionViewCell else { return }
+        guard let cell = collectionView.cellForItem(at: indexPath) as? BlockCollectionViewCell else {
+            print("셀 생성 실패")
+            return
+        }
         let currentIndex = indexPath.item
         let count = blockManager.getCurrentBlockList().count
         
         // 현재 보고있는 블럭만 활성화
-        if currentIndex != blockManager.getCurrentBlockIndex() { return }
+        print("currentIndex: \(currentIndex)")
+        print("blockManager.getCurrentBlockIndex(): \(blockManager.getCurrentBlockIndex())")
+        if currentIndex != blockManager.getCurrentBlockIndex() {
+            print("현재 보고 있는 블럭 X")
+            return
+        }
         
         // 블럭 토글 이벤트
         if cell.blockIcon.alpha == 0 {
@@ -281,26 +283,6 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
                 navigationController?.pushViewController(createBlockVC, animated: true)
             }
         }
-        
-        // 이전, 다음 블럭 스크롤 이벤트
-//        if blockIndex != currentIndex {
-//            viewManager.blockCollectionView.isUserInteractionEnabled = false /// 중복 터치 방지
-//            viewManager.blockCollectionView.scrollToItem(at: indexPath, at: .left, animated: true)
-//            blockIndex = currentIndex
-//            print(blockIndex)
-//
-//            /// 마지막 블럭이라면 Tracking 버튼 비활성화
-//            if count == currentIndex {
-//                viewManager.toggleTrackingButton(false)
-//            }
-//
-//            /// 일반 블럭이라면 Tracking 버튼 활성화
-//            if count != currentIndex {
-//                viewManager.toggleTrackingButton(true)
-//            }
-//
-//            collectionView.reloadData()
-//        }
     }
 }
 
@@ -357,7 +339,9 @@ extension HomeViewController: UIScrollViewDelegate {
         scrollView.isUserInteractionEnabled = true
         
         // 블럭 인덱스 업데이트
-        if blockIndex != rememberBlockIndex { viewManager.blockCollectionView.reloadData() }
+        if blockIndex != rememberBlockIndex {
+            viewManager.blockCollectionView.reloadData()
+        }
         blockManager.updateCurrentBlockIndex(blockIndex)
     }
 }
@@ -443,17 +427,20 @@ extension HomeViewController: CreateBlockViewControllerDelegate {
     
     /// CollectionView 업데이트
     func updateCollectionView(_ isEditMode: Bool) {
-        switchHomeGroup(index: blockManager.getCurrentGroupIndex())
         
         // 편집 모드
         if isEditMode {
+            viewManager.groupSelectButton.color.backgroundColor = blockManager.getCurrentGroupColor()
+            viewManager.groupSelectButton.label.text = blockManager.getCurrentGroup().name
+            viewManager.blockCollectionView.reloadData()
             let index = blockManager.getCurrentBlockIndex()
-            print(index)
+            blockIndex = index
             viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .left, animated: true)
         }
         
         // 생성 모드
         else {
+            switchHomeGroup(index: blockManager.getCurrentGroupIndex())
             let lastIndex = blockManager.getLastBlockIndex()
             blockIndex = lastIndex
             viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: lastIndex, section: 0), at: .left, animated: true)
@@ -462,8 +449,6 @@ extension HomeViewController: CreateBlockViewControllerDelegate {
         viewManager.toggleTrackingButton(true)
     }
 }
-
-
 
 // MARK: - SelectGroupViewControllerDelegate
 
@@ -478,6 +463,7 @@ extension HomeViewController: SelectGroupViewControllerDelegate {
         
         /// 스크롤 위치 초기화
         blockIndex = 0
+        blockManager.updateCurrentBlockIndex(0)
         viewManager.blockCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: true)
         
         /// 그룹 리스트가 비어있을 시, 트래킹 버튼 비활성화

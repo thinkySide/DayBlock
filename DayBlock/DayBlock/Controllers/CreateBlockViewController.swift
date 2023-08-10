@@ -215,6 +215,8 @@ extension CreateBlockViewController: SelectGroupViewControllerDelegate, SelectIc
         let color = blockManager.getRemoteBlockGroupColor()
         viewManager.groupSelect.selectColor.backgroundColor = color
         viewManager.updateColorTag(color)
+        
+        print(blockManager.getRemoteBlock())
     }
     
     /// SelectIconViewControllerDelegate

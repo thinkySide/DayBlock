@@ -77,8 +77,24 @@ final class BlockManager {
         let updateBlock = BlockEntity(context: context)
         updateBlock.taskLabel = remoteBlock.list[0].taskLabel
         updateBlock.icon = remoteBlock.list[0].icon
-        groupEntity[currentGroupIndex].insertIntoBlockList(updateBlock, at: currentBlockIndex)
-        deleteBlock(blockEntity[currentBlockIndex+1])
+
+        // 만약 그룹이 동일하다면
+        if currentGroupIndex == remoteBlockGroupIndex {
+            groupEntity[currentGroupIndex].insertIntoBlockList(updateBlock, at: currentBlockIndex)
+            deleteBlock(blockEntity[currentBlockIndex+1])
+        }
+        
+        // 만약 그룹이 이동되었다면
+        if currentGroupIndex != remoteBlockGroupIndex {
+            deleteBlock(blockEntity[currentBlockIndex])
+            
+            if let entity = groupEntity[remoteBlockGroupIndex].blockList?.array as? [BlockEntity] {
+                groupEntity[remoteBlockGroupIndex].insertIntoBlockList(updateBlock, at: entity.count)
+                currentBlockIndex = entity.count
+            }
+            
+            currentGroupIndex = remoteBlockGroupIndex
+        }
 
         do {
             try context.save()
@@ -169,6 +185,8 @@ final class BlockManager {
     /// 리모트 블럭
     private var remoteBlock = Group(name: "그룹 없음", color: 0x323232, list: [Block(taskLabel: "블럭 쌓기", output: 0.0, icon: "batteryblock.fill")])
     
+    var remoteBlockGroupIndex = 0
+    
     /// CREATE - 현재 리모트 블럭 정보로 새 블럭 생성
     func createNewBlock() {
         
@@ -193,8 +211,6 @@ final class BlockManager {
             }
         }
     }
-    
-    
     
     /// READ - 리모트 블럭 받아오기
     func getRemoteBlock() -> Group {
