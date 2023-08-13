@@ -446,7 +446,7 @@ TrackingButton 활성화 문제로 그룹 전환 시 0번째 인덱스로 전환
 
 ### **Day 74 - 23.08.07**
 
-- BlockEntity 삭제, 수정 기능 추가   
+- **BlockEntity 삭제, 수정 기능 추가**   
 CoreData와 연동되어 BlockEntity를 삭제할 수 있는 기능을 추가했습니다.
 
 <img width="300" src="https://github.com/thinkySide/DayBlock/assets/113565086/41412dd4-2670-41a4-9452-6c44cc0abf5a">
@@ -457,11 +457,25 @@ CoreData와 연동되어 BlockEntity를 삭제할 수 있는 기능을 추가했
 
 ### **Day 75 - 23.08.08**
 
-- BlockEntity 삭제 확인 팝업 추가   
+- **BlockEntity 삭제 확인 팝업 추가**   
 UX 향상을 위한 Block 삭제 전 확인 팝업을 추가했습니다.
 
 
 <img width="300" src="https://github.com/thinkySide/DayBlock/assets/113565086/41a1d123-11b4-4c3b-947f-e9461cf4b590">
+
+---
+
+<br>
+
+### **Day 76 - 23.08.13**
+
+- **블럭 그룹 간 이동 기능 개발**   
+A그룹에서 B그룹으로 이동할 수 있도록 코어데이터를 조작해 기능을 구현했습니다.
+
+- **Group 컨트롤을 위한 CustomUIMenu 추가**
+Group 생성, 편집, 삭제 기능 화면으로의 이동을 위한 CustomUIMenu 컴포넌트를 추가했습니다. 애플이 지원하는 기존의 UIMenu를 사용할 수도 있었지만, 서비스의 전체적인 톤앤매너와 맞지 않다고 판단해 Custom으로 제작했습니다.
+
+<img width="300" src="https://github.com/thinkySide/Cheat-Sheet/assets/113565086/dae1d58b-00ea-455a-bb74-580114d8eba6">
 
 ---
 
