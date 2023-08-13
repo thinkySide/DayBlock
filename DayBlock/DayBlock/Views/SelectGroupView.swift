@@ -19,15 +19,7 @@ final class SelectGroupView: UIView {
         label.textAlignment = .center
         return label
     }()
-    
-    let addButton: UIButton = {
-        let button = UIButton()
-        let icon = UIImage.SymbolConfiguration(pointSize: 24, weight: .regular)
-        button.setImage(UIImage(systemName: "plus", withConfiguration: icon), for: .normal)
-        button.tintColor = GrayScale.mainText
-        return button
-    }()
-    
+        
     let groupTableView: UITableView = {
         let table = UITableView()
         table.separatorStyle = .none
@@ -38,6 +30,32 @@ final class SelectGroupView: UIView {
     let actionStackView: ActionStackView = {
         let stack = ActionStackView()
         return stack
+    }()
+    
+    lazy var menuButton: UIButton = {
+        let button = UIButton()
+        let icon = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)
+        button.setImage(UIImage(systemName: "ellipsis", withConfiguration: icon), for: .normal)
+        button.tintColor = GrayScale.mainText
+        return button
+    }()
+    
+    let customUIMenu: CustomUIMenu = {
+        let menu = CustomUIMenu(frame: .zero, number: .three)
+        menu.firstItem.title.text = "그룹 생성"
+        let firstIcon = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
+        menu.firstItem.icon.image = UIImage(systemName: "plus")
+        
+        menu.secondItem.title.text = "그룹 편집"
+        let secondIcon = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
+        menu.secondItem.icon.image = UIImage(systemName: "pencil")
+        
+        menu.thirdItem.title.text = "그룹 삭제"
+        let thirdIcon = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
+        menu.thirdItem.icon.image = UIImage(systemName: "trash.fill")
+        
+        menu.alpha = 0
+        return menu
     }()
     
     
@@ -70,7 +88,7 @@ final class SelectGroupView: UIView {
     }
     
     func setupAddSubView() {
-        [title, addButton, groupTableView, actionStackView]
+        [title, menuButton, groupTableView, actionStackView, customUIMenu]
             .forEach {
                 /// 1. addSubView(component)
                 addSubview($0)
@@ -90,10 +108,10 @@ final class SelectGroupView: UIView {
             title.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             /// addButton
-            addButton.centerYAnchor.constraint(equalTo: title.centerYAnchor),
-            addButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
-            addButton.widthAnchor.constraint(equalToConstant: 40),
-            addButton.heightAnchor.constraint(equalTo: addButton.widthAnchor),
+            menuButton.centerYAnchor.constraint(equalTo: title.centerYAnchor),
+            menuButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+            menuButton.widthAnchor.constraint(equalToConstant: 40),
+            menuButton.heightAnchor.constraint(equalTo: menuButton.widthAnchor),
             
             /// groupTableView
             groupTableView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 8),
@@ -105,6 +123,10 @@ final class SelectGroupView: UIView {
             actionStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
             actionStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             actionStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
+            
+            // customUIMenu
+            customUIMenu.topAnchor.constraint(equalTo: menuButton.bottomAnchor, constant: 0),
+            customUIMenu.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
         ])
     }
 }

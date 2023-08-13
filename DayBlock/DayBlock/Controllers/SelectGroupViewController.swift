@@ -26,7 +26,7 @@ final class SelectGroupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupDelegate()
-        setupAddTarget()
+        setupGesture()
         setupSelectedCell()
     }
     
@@ -40,10 +40,20 @@ final class SelectGroupViewController: UIViewController {
         viewManager.groupTableView.register(GroupSelectTableViewCell.self, forCellReuseIdentifier: Cell.groupSelect)
     }
     
-    func setupAddTarget() {
-        viewManager.addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
+    func setupGesture() {
+        viewManager.menuButton.addTarget(self, action: #selector(menuButtonTapped), for: .touchUpInside)
         viewManager.actionStackView.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
         viewManager.actionStackView.cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+        
+        // Menu Gesture
+        let createGroupGesture = UITapGestureRecognizer(target: self, action: #selector(createGroupMenuTapped))
+        viewManager.customUIMenu.firstItem.addGestureRecognizer(createGroupGesture)
+        
+        let editGroupGesture = UITapGestureRecognizer(target: self, action: #selector(editGroupMenuTapped))
+        viewManager.customUIMenu.secondItem.addGestureRecognizer(editGroupGesture)
+        
+        let deleteGroupGesture = UITapGestureRecognizer(target: self, action: #selector(deleteGroupMenuTapped))
+        viewManager.customUIMenu.thirdItem.addGestureRecognizer(deleteGroupGesture)
     }
     
     func setupSelectedCell() {
@@ -54,7 +64,7 @@ final class SelectGroupViewController: UIViewController {
         /// 기본 선택값
         let index = blockManager.getGroupList().firstIndex { $0.name == blockManager.getRemoteBlock().name }!
         let indexPath = IndexPath(row: index, section: 0)
-
+        
         /// 마지막 인덱스 선택 시, 화면에서 가려지기 때문에 scrollPosition Bottom으로
         let tableView = viewManager.groupTableView
         if index == blockManager.getGroupList().count - 1 {
@@ -68,15 +78,6 @@ final class SelectGroupViewController: UIViewController {
     
     
     // MARK: - Method
-    
-    @objc func addButtonTapped() {
-        let createGroupVC = CreateGroupViewController()
-        createGroupVC.delegate = self
-        
-        let navController = UINavigationController(rootViewController: createGroupVC)
-        navController.modalPresentationStyle = .overFullScreen
-        present(navController, animated: true)
-    }
     
     @objc func confirmButtonTapped() {
         
@@ -95,6 +96,34 @@ final class SelectGroupViewController: UIViewController {
     @objc func cancelButtonTapped() {
         dismiss(animated: true)
     }
+    
+    /// CustomUIMenu를 애니메이션과 함께 출력합니다.
+    @objc func menuButtonTapped() {
+        UIView.animate(withDuration: 0.2) {
+            let menu = self.viewManager.customUIMenu
+            menu.alpha = menu.alpha == 1 ? 0 : 1
+        }
+    }
+    
+    
+    @objc func createGroupMenuTapped() {
+        let createGroupVC = CreateGroupViewController()
+        createGroupVC.delegate = self
+        let navController = UINavigationController(rootViewController: createGroupVC)
+        navController.modalPresentationStyle = .overFullScreen
+        present(navController, animated: true)
+        
+        // 다시 메뉴 가리기
+        menuButtonTapped()
+    }
+    
+    @objc func editGroupMenuTapped() {
+        print(#function)
+    }
+    
+    @objc func deleteGroupMenuTapped() {
+        print(#function)
+    }
 }
 
 
@@ -103,7 +132,6 @@ final class SelectGroupViewController: UIViewController {
 
 extension SelectGroupViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // return blockManager.getGroupList().count
         return blockManager.getGroupList().count
     }
     

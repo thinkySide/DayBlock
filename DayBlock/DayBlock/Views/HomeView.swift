@@ -280,7 +280,7 @@ final class HomeView: UIView {
         NSLayoutConstraint.activate([
             
             /// dateLabel
-            dateLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 12),
+            dateLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0),
             dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin+2), /// 시각 보정
             dateLabel.heightAnchor.constraint(equalToConstant: 18),
             
