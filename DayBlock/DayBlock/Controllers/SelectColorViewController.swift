@@ -58,7 +58,7 @@ final class SelectColorViewController: UIViewController {
         
         // 현재 스크롤 기능 작동하지 않음 ⭐️
         collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
-        collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: true)
+        collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: false)
     }
     
     

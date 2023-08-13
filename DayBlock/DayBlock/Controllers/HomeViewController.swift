@@ -280,6 +280,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
                 let createBlockVC = CreateBlockViewController()
                 createBlockVC.delegate = self
                 createBlockVC.hidesBottomBarWhenPushed = true
+                createBlockVC.setupCreateMode()
                 navigationController?.pushViewController(createBlockVC, animated: true)
             }
         }
@@ -354,8 +355,21 @@ extension HomeViewController: HomeViewDelegate {
     func selectGroupButtonTapped() {
         let selectGroupVC = SelectGroupViewController()
         selectGroupVC.delegate = self
-        selectGroupVC.modalPresentationStyle = .custom
-        selectGroupVC.transitioningDelegate = customBottomModalDelegate
+        
+        // Half-Modal 설정
+        if #available(iOS 15.0, *) {
+            selectGroupVC.modalPresentationStyle = .pageSheet
+            if let sheet = selectGroupVC.sheetPresentationController {
+                sheet.detents = [.medium()]
+                sheet.prefersGrabberVisible = true
+                sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+                sheet.prefersEdgeAttachedInCompactHeight = true
+            }
+        } else {
+            selectGroupVC.modalPresentationStyle = .custom
+            selectGroupVC.transitioningDelegate = customBottomModalDelegate
+        }
+        
         present(selectGroupVC, animated: true)
     }
     
@@ -363,12 +377,12 @@ extension HomeViewController: HomeViewDelegate {
         
         trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTrackingTime), userInfo: nil, repeats: true)
         
-        /// 블럭 업데이트
+        // 블럭 업데이트
         let blockDataList = blockManager.getCurrentBlockList()
         viewManager.trackingBlock.setupBlockContents(group: blockManager.getCurrentGroup(),
                                                      block: blockDataList[blockIndex])
         
-        /// 화면 꺼짐 방지
+        // 화면 꺼짐 방지
         UIApplication.shared.isIdleTimerDisabled = true
     }
     
@@ -383,7 +397,11 @@ extension HomeViewController: HomeViewDelegate {
         timeTracker.currentTime = 0
         timeTracker.totalBlock = 0
         
-        /// 화면 꺼짐 해제
+        // 컬렉션뷰 초기화
+        viewManager.blockCollectionView.reloadData()
+        viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: blockIndex, section: 0), at: .left, animated: true)
+        
+        // 화면 꺼짐 해제
         UIApplication.shared.isIdleTimerDisabled = false
     }
     
@@ -425,6 +443,11 @@ extension HomeViewController: HomeViewDelegate {
 
 extension HomeViewController: CreateBlockViewControllerDelegate {
     
+    func reloadCollectionView() {
+        viewManager.blockCollectionView.reloadData()
+        viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: blockIndex, section: 0), at: .left, animated: true)
+    }
+    
     /// CollectionView 업데이트
     func updateCollectionView(_ isEditMode: Bool) {
         
@@ -443,6 +466,7 @@ extension HomeViewController: CreateBlockViewControllerDelegate {
             switchHomeGroup(index: blockManager.getCurrentGroupIndex())
             let lastIndex = blockManager.getLastBlockIndex()
             blockIndex = lastIndex
+            blockManager.updateCurrentBlockIndex(blockIndex)
             viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: lastIndex, section: 0), at: .left, animated: true)
         }
         
@@ -454,19 +478,19 @@ extension HomeViewController: CreateBlockViewControllerDelegate {
 
 extension HomeViewController: SelectGroupViewControllerDelegate {
     
-    /// 그룹 업데이트
+    // 그룹 업데이트
     func switchHomeGroup(index: Int) {
         blockManager.updateCurrentGroup(index: index)
         viewManager.groupSelectButton.color.backgroundColor = blockManager.getCurrentGroupColor()
         viewManager.groupSelectButton.label.text = blockManager.getCurrentGroup().name
         viewManager.blockCollectionView.reloadData()
         
-        /// 스크롤 위치 초기화
+        // 스크롤 위치 초기화
         blockIndex = 0
         blockManager.updateCurrentBlockIndex(0)
         viewManager.blockCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: true)
         
-        /// 그룹 리스트가 비어있을 시, 트래킹 버튼 비활성화
+        // 그룹 리스트가 비어있을 시, 트래킹 버튼 비활성화
         let blockList = blockManager.getCurrentGroup().blockList?.array as! [BlockEntity]
         if blockList.isEmpty {
             viewManager.toggleTrackingButton(false)

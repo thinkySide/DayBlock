@@ -21,7 +21,13 @@ final class CreateBlockViewController: UIViewController {
     private let blockManager = BlockManager.shared
     private let customBottomModalDelegate = CustomBottomModalDelegate()
     weak var delegate: CreateBlockViewControllerDelegate?
-    private var blockEditMode: BlockEditMode = .create
+    
+    private var blockEditMode: BlockEditMode = .create {
+        didSet {
+            if blockEditMode == .create { title = "블럭 생성" }
+            if blockEditMode == .update { title = "블럭 편집" }
+        }
+    }
     
     
     // MARK: - ViewController LifeCycle
@@ -38,6 +44,11 @@ final class CreateBlockViewController: UIViewController {
         setupAddTarget()
         hideKeyboard()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        delegate?.reloadCollectionView()
+    }
 
     deinit {
         blockManager.resetRemoteBlock()
@@ -46,6 +57,10 @@ final class CreateBlockViewController: UIViewController {
     
     
     // MARK: - Initial Method
+    
+    func setupCreateMode() {
+        blockEditMode = .create
+    }
     
     func setupEditMode(_ taskLabel: String) {
         blockEditMode = .update
@@ -56,19 +71,18 @@ final class CreateBlockViewController: UIViewController {
     
     func setupInitial() {
         
-        /// 기본 블럭 설정
+        // 기본 블럭 설정
         blockManager.updateRemoteBlock(group: blockManager.getCurrentGroup())
         viewManager.updateBlockInfo(blockManager.getRemoteBlock())
     }
     
     func setupNavigion() {
         
-        /// Custom
-        title = "블럭 생성"
+        // Custom
         navigationController?.navigationBar
             .titleTextAttributes = [.font: UIFont(name: Pretendard.semiBold, size: 16)!]
         
-        /// 생성 버튼
+        // 생성 버튼
         navigationItem.rightBarButtonItem = viewManager.createBarButtonItem
     }
     
@@ -180,8 +194,19 @@ extension CreateBlockViewController: SelectFormDelegate {
         /// present
         let selectGroupVC = SelectGroupViewController()
         selectGroupVC.delegate = self
-        selectGroupVC.modalPresentationStyle = .custom
-        selectGroupVC.transitioningDelegate = customBottomModalDelegate
+        
+        if #available(iOS 15.0, *) {
+            selectGroupVC.modalPresentationStyle = .pageSheet
+            if let sheet = selectGroupVC.sheetPresentationController {
+                sheet.detents = [.medium()]
+                sheet.prefersGrabberVisible = true
+                sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            }
+        } else {
+            selectGroupVC.modalPresentationStyle = .custom
+            selectGroupVC.transitioningDelegate = customBottomModalDelegate
+        }
+        
         present(selectGroupVC, animated: true)
     }
     
@@ -193,8 +218,20 @@ extension CreateBlockViewController: SelectFormDelegate {
         /// present
         let selectIconVC = SelectIconViewController()
         selectIconVC.delegate = self
-        selectIconVC.modalPresentationStyle = .custom
-        selectIconVC.transitioningDelegate = customBottomModalDelegate
+        
+        // Half-Modal 설정
+        if #available(iOS 15.0, *) {
+            selectIconVC.modalPresentationStyle = .pageSheet
+            if let sheet = selectIconVC.sheetPresentationController {
+                sheet.detents = [.medium()]
+                sheet.prefersGrabberVisible = true
+                sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            }
+        } else {
+            selectIconVC.modalPresentationStyle = .custom
+            selectIconVC.transitioningDelegate = customBottomModalDelegate
+        }
+
         present(selectIconVC, animated: true)
     }
 }

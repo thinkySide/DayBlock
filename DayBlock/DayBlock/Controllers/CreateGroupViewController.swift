@@ -126,14 +126,26 @@ extension CreateGroupViewController: SelectFormDelegate {
     
     func colorFormTapped() {
         
-        /// 키보드 해제
+        // 키보드 해제
         viewManager.groupLabelTextField.endEditing(true)
         
-        /// present
+        // present
         let selectColorVC = SelectColorViewController()
         selectColorVC.delegate = self
-        selectColorVC.modalPresentationStyle = .custom
-        selectColorVC.transitioningDelegate = customBottomModalDelegate
+        
+        // Half-Modal 설정
+        if #available(iOS 15.0, *) {
+            selectColorVC.modalPresentationStyle = .pageSheet
+            if let sheet = selectColorVC.sheetPresentationController {
+                sheet.detents = [.medium()]
+                sheet.prefersGrabberVisible = true
+                sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            }
+        } else {
+            selectColorVC.modalPresentationStyle = .custom
+            selectColorVC.transitioningDelegate = customBottomModalDelegate
+        }
+        
         present(selectColorVC, animated: true)
     }
 }

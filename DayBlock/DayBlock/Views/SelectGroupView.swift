@@ -86,7 +86,7 @@ final class SelectGroupView: UIView {
         NSLayoutConstraint.activate([
             
             /// title
-            title.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            title.topAnchor.constraint(equalTo: topAnchor, constant: 20),
             title.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             /// addButton
@@ -96,8 +96,8 @@ final class SelectGroupView: UIView {
             addButton.heightAnchor.constraint(equalTo: addButton.widthAnchor),
             
             /// groupTableView
-            groupTableView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 16),
-            groupTableView.bottomAnchor.constraint(equalTo: actionStackView.topAnchor, constant: -8),
+            groupTableView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 8),
+            groupTableView.bottomAnchor.constraint(equalTo: actionStackView.topAnchor, constant: -16),
             groupTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             groupTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
