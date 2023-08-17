@@ -35,7 +35,7 @@ final class CustomUIMenu: UIView {
         
         // CornerRadius
         clipsToBounds = true
-        layer.cornerRadius = 24
+        layer.cornerRadius = 20
         layer.borderWidth = 1
         layer.borderColor = UIColor(rgb: 0xF3F3F3).cgColor
         

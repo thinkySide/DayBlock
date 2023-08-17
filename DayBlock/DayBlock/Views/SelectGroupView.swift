@@ -19,7 +19,7 @@ final class SelectGroupView: UIView {
         label.textAlignment = .center
         return label
     }()
-        
+    
     let groupTableView: UITableView = {
         let table = UITableView()
         table.separatorStyle = .none
@@ -40,8 +40,16 @@ final class SelectGroupView: UIView {
         return button
     }()
     
+    /// Background 터치 활성화를 위한 뷰
+    let backgroundView: UIView = {
+        let view = UIView()
+        view.alpha = 0
+        view.backgroundColor = .none
+        return view
+    }()
+    
     let customUIMenu: CustomUIMenu = {
-        let menu = CustomUIMenu(frame: .zero, number: .three)
+        let menu = CustomUIMenu(frame: .zero, number: .two)
         menu.firstItem.title.text = "그룹 생성"
         let firstIcon = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
         menu.firstItem.icon.image = UIImage(systemName: "plus")
@@ -49,10 +57,6 @@ final class SelectGroupView: UIView {
         menu.secondItem.title.text = "그룹 편집"
         let secondIcon = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
         menu.secondItem.icon.image = UIImage(systemName: "pencil")
-        
-        menu.thirdItem.title.text = "그룹 삭제"
-        let thirdIcon = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
-        menu.thirdItem.icon.image = UIImage(systemName: "trash.fill")
         
         menu.alpha = 0
         return menu
@@ -88,7 +92,7 @@ final class SelectGroupView: UIView {
     }
     
     func setupAddSubView() {
-        [title, menuButton, groupTableView, actionStackView, customUIMenu]
+        [title, menuButton, groupTableView, actionStackView, backgroundView, customUIMenu]
             .forEach {
                 /// 1. addSubView(component)
                 addSubview($0)
@@ -123,6 +127,12 @@ final class SelectGroupView: UIView {
             actionStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
             actionStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             actionStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
+            
+            // backgroundView
+            backgroundView.topAnchor.constraint(equalTo: groupTableView.topAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: actionStackView.topAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
             // customUIMenu
             customUIMenu.topAnchor.constraint(equalTo: menuButton.bottomAnchor, constant: 0),

@@ -52,8 +52,9 @@ final class SelectGroupViewController: UIViewController {
         let editGroupGesture = UITapGestureRecognizer(target: self, action: #selector(editGroupMenuTapped))
         viewManager.customUIMenu.secondItem.addGestureRecognizer(editGroupGesture)
         
-        let deleteGroupGesture = UITapGestureRecognizer(target: self, action: #selector(deleteGroupMenuTapped))
-        viewManager.customUIMenu.thirdItem.addGestureRecognizer(deleteGroupGesture)
+        // Menu Background Gesture
+        let backgroundGesture = UITapGestureRecognizer(target: self, action: #selector(backgroundTapped))
+        viewManager.backgroundView.addGestureRecognizer(backgroundGesture)
     }
     
     func setupSelectedCell() {
@@ -101,10 +102,16 @@ final class SelectGroupViewController: UIViewController {
     @objc func menuButtonTapped() {
         UIView.animate(withDuration: 0.2) {
             let menu = self.viewManager.customUIMenu
+            let background = self.viewManager.backgroundView
             menu.alpha = menu.alpha == 1 ? 0 : 1
+            background.alpha = background.alpha == 1 ? 0 : 1
         }
     }
     
+    /// CustomUIMenu 활성화시 같이 표시되는 투명한 View Tap Event 메서드입니다.
+    @objc func backgroundTapped() {
+        menuButtonTapped()
+    }
     
     @objc func createGroupMenuTapped() {
         let createGroupVC = CreateGroupViewController()
@@ -119,10 +126,7 @@ final class SelectGroupViewController: UIViewController {
     
     @objc func editGroupMenuTapped() {
         print(#function)
-    }
-    
-    @objc func deleteGroupMenuTapped() {
-        print(#function)
+        
     }
 }
 
