@@ -27,6 +27,13 @@ final class EditGroupView: UIView {
         return table
     }()
     
+    let toastView: ToastView = {
+        let view = ToastView()
+        view.messageLabel.text = "기본 그룹은 수정할 수 없어요"
+        view.alpha = 0
+        return view
+    }()
+    
     
     // MARK: - Event Method
     
@@ -38,7 +45,7 @@ final class EditGroupView: UIView {
         super.init(frame: frame)
         backgroundColor = .white
         
-        [groupTableView].forEach {
+        [groupTableView, toastView].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -50,6 +57,10 @@ final class EditGroupView: UIView {
             groupTableView.bottomAnchor.constraint(equalTo: bottomAnchor),
             groupTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             groupTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            
+            // toastView
+            toastView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            toastView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -48),
         ])
     }
     

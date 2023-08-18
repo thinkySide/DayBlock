@@ -74,7 +74,6 @@
 		07B49BCA2A8DD878006D1011 /* EditGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC92A8DD878006D1011 /* EditGroupView.swift */; };
 		07B49BCD2A8DE204006D1011 /* EditGroupDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BCC2A8DE204006D1011 /* EditGroupDetailViewController.swift */; };
 		07B49BCF2A8DE22C006D1011 /* EditGroupDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BCE2A8DE22C006D1011 /* EditGroupDetailView.swift */; };
-		07B49BD22A8F22B8006D1011 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 07B49BD12A8F22B8006D1011 /* Toast */; };
 		07B49BD42A8F23FF006D1011 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BD32A8F23FF006D1011 /* ToastView.swift */; };
 		07EB771729F5335F000BD87E /* ColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB771629F5335F000BD87E /* ColorCollectionViewCell.swift */; };
 		07EB771929F53855000BD87E /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB771829F53855000BD87E /* ColorManager.swift */; };
@@ -160,7 +159,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07B49BD22A8F22B8006D1011 /* Toast in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,7 +372,6 @@
 			);
 			name = DayBlock;
 			packageProductDependencies = (
-				07B49BD12A8F22B8006D1011 /* Toast */,
 			);
 			productName = DayBlock;
 			productReference = 078C50B229D7152F00F239BA /* DayBlock.app */;
@@ -405,7 +402,6 @@
 			);
 			mainGroup = 078C50A929D7152F00F239BA;
 			packageReferences = (
-				07B49BD02A8F22B8006D1011 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 			);
 			productRefGroup = 078C50B329D7152F00F239BA /* Products */;
 			projectDirPath = "";
@@ -714,25 +710,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		07B49BD02A8F22B8006D1011 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/scalessec/Toast-Swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		07B49BD12A8F22B8006D1011 /* Toast */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 07B49BD02A8F22B8006D1011 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
-			productName = Toast;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		078C50BE29D7152F00F239BA /* DayBlock.xcdatamodeld */ = {

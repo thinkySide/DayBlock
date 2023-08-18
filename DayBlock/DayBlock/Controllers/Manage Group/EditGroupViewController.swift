@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Toast
 
 protocol EditGroupViewControllerDelegate: AnyObject {
     func reloadData()
@@ -14,7 +13,11 @@ protocol EditGroupViewControllerDelegate: AnyObject {
 
 final class EditGroupViewController: UIViewController {
     
+    // Delegate
     weak var delegate: EditGroupViewControllerDelegate?
+    
+    // 딜레이를 위한 Dispath아이템
+    var workItem: DispatchWorkItem?
     
     private let viewManager = EditGroupView()
     private let blockManager = BlockManager.shared
@@ -55,6 +58,35 @@ final class EditGroupViewController: UIViewController {
         viewManager.groupTableView.delegate = self
         viewManager.groupTableView.register(GroupSelectTableViewCell.self, forCellReuseIdentifier: Cell.groupSelect)
     }
+    
+    
+    // MARK: - Custom Method
+    
+    /// 토스트 메시지를 출력하는 메서드
+    private func showToast(is active: Bool) {
+    
+        // 중복 클릭에 의한 불필요한 Dispatch 대기열 삭제
+        workItem?.cancel()
+        
+        // 토스트 활성화
+        if active {
+            UIView.animate(withDuration: 0.2) { self.viewManager.toastView.alpha = 1 }
+            
+            // 2초 뒤 비활성화
+            workItem = DispatchWorkItem {
+                UIView.animate(withDuration: 0.2) { self.viewManager.toastView.alpha = 0 }
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now()+2, execute: workItem!)
+            
+            return
+        }
+        
+        // 토스트 비활성화
+        if !active {
+            UIView.animate(withDuration: 0.2) { self.viewManager.toastView.alpha = 0 }
+        }
+    }
 }
 
 
@@ -88,12 +120,15 @@ extension EditGroupViewController: UITableViewDataSource, UITableViewDelegate {
         
         // 첫번째 그룹(그룹없음) 클릭 시, 수정 불가 안내
         if indexPath.row == 0 {
-            view.makeToast("기본 그룹은 삭제할 수 없어요")
+            showToast(is: true)
             return
         }
         
         // 현재 편집중인 그룹 인덱스 업데이트
         blockManager.updateCurrentEditGroupIndex(indexPath.row)
+        
+        // 토스트 비활성화
+        showToast(is: false)
         
         // EditGroupDetailViewController로 Push
         let editGroupDetailVC = EditGroupDetailViewController()
