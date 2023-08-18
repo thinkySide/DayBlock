@@ -17,6 +17,7 @@ final class Seperator: UIView {
         self.heightAnchor.constraint(equalToConstant: 1).isActive = true
         self.clipsToBounds = true
         self.layer.cornerRadius = 1
+        self.translatesAutoresizingMaskIntoConstraints = false
     }
     
     required init?(coder: NSCoder) {

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Toast
 
 protocol EditGroupViewControllerDelegate: AnyObject {
     func reloadData()
@@ -82,11 +83,19 @@ extension EditGroupViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        // 셀 클릭 시, 바로 비활성화되는 애니메이션 추가
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        // 첫번째 그룹(그룹없음) 클릭 시, 수정 불가 안내
+        if indexPath.row == 0 {
+            view.makeToast("기본 그룹은 삭제할 수 없어요")
+            return
+        }
         
         // 현재 편집중인 그룹 인덱스 업데이트
         blockManager.updateCurrentEditGroupIndex(indexPath.row)
         
+        // EditGroupDetailViewController로 Push
         let editGroupDetailVC = EditGroupDetailViewController()
         editGroupDetailVC.delegate = self
         navigationController?.pushViewController(editGroupDetailVC, animated: true)

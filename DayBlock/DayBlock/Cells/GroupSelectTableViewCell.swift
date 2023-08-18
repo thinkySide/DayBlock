@@ -36,11 +36,11 @@ final class GroupSelectTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let seperator: Seperator = {
-        let line = Seperator()
-        line.alpha = 0
-        return line
-    }()
+//    private let seperator: Seperator = {
+//        let line = Seperator()
+//        line.alpha = 0
+//        return line
+//    }()
     
     let checkMark: UIImageView = {
         let image = UIImageView()
@@ -91,31 +91,31 @@ final class GroupSelectTableViewCell: UITableViewCell {
         
         /// addSubView & translatesAutoresizingMaskIntoConstraints
         [
-            color, groupLabel, countLabel, checkMark, chevron, seperator,
+            color, groupLabel, countLabel, checkMark, chevron
         ]
             .forEach {
                 addSubview($0)
                 $0.translatesAutoresizingMaskIntoConstraints = false
             }
         
-        /// Constraint
+        // Constraint
         NSLayoutConstraint.activate([
             
-            /// color
+            // color
             color.centerYAnchor.constraint(equalTo: centerYAnchor),
             color.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             color.widthAnchor.constraint(equalToConstant: 22),
             color.heightAnchor.constraint(equalTo: color.widthAnchor),
             
-            /// groupLabel
+            // groupLabel
             groupLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             groupLabel.leadingAnchor.constraint(equalTo: color.trailingAnchor, constant: 8),
             
-            /// countLabel
+            // countLabel
             countLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             countLabel.leadingAnchor.constraint(equalTo: groupLabel.trailingAnchor, constant: 8),
             
-            /// checkMark
+            // checkMark
             checkMark.centerYAnchor.constraint(equalTo: centerYAnchor),
             checkMark.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
             checkMark.widthAnchor.constraint(equalToConstant: 24),
@@ -127,10 +127,10 @@ final class GroupSelectTableViewCell: UITableViewCell {
             chevron.widthAnchor.constraint(equalToConstant: 24),
             chevron.heightAnchor.constraint(equalTo: chevron.widthAnchor),
             
-            /// seperator
-            seperator.bottomAnchor.constraint(equalTo: bottomAnchor),
-            seperator.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            seperator.trailingAnchor.constraint(equalTo: trailingAnchor),
+            // seperator
+            // seperator.bottomAnchor.constraint(equalTo: bottomAnchor),
+            // seperator.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            // seperator.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }
     
