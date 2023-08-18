@@ -120,7 +120,7 @@ final class SelectGroupView: UIView {
             /// groupTableView
             groupTableView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 8),
             groupTableView.bottomAnchor.constraint(equalTo: actionStackView.topAnchor, constant: -16),
-            groupTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
+            groupTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             groupTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
             /// actionStackView

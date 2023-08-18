@@ -30,6 +30,10 @@ protocol CreateGroupViewDelegate: AnyObject {
     func createGroup()
 }
 
+protocol EditGroupViewDelegate: AnyObject {
+    func dismissVC()
+}
+
 
 
 // MARK: - UIViewController

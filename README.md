@@ -480,3 +480,14 @@ Group 생성, 편집, 삭제 기능 화면으로의 이동을 위한 CustomUIMen
 ---
 
 <br>
+
+### **Day 77 - 23.08.17**
+
+- **그룹 편집 기능 추가**   
+그룹 삭제 및 편집이 가능한 페이지를 추가했습니다. 고민해볼 사항은 현재 그룹 삭제를 하기 위해서는 Depth가 불필요하게 깊어진다고 판단되어 추후 수정해볼 예정입니다.      
+
+<img width="300" src="https://github.com/thinkySide/DayBlock/assets/113565086/0b85afb4-bb0e-438f-b9ad-8a4d56a55956">
+
+---
+
+<br>

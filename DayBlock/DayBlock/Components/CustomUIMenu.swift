@@ -31,7 +31,8 @@ final class CustomUIMenu: UIView {
     init(frame: CGRect, number: Number) {
         super.init(frame: frame)
         
-        backgroundColor = UIColor(rgb: 0xF4F5F7)
+        // backgroundColor = UIColor(rgb: 0xF4F5F7)
+        backgroundColor = .white
         
         // CornerRadius
         clipsToBounds = true
@@ -40,13 +41,13 @@ final class CustomUIMenu: UIView {
         layer.borderColor = UIColor(rgb: 0xF3F3F3).cgColor
         
         // Shadow Effect
-//        layer.borderWidth = 1
-//        layer.borderColor = UIColor(rgb: 0xF3F3F3).cgColor
-//        layer.masksToBounds = false
-//        layer.shadowColor = UIColor(rgb: 0x18274B).cgColor
-//        layer.shadowOffset = CGSize(width: 0, height: 10)
-//        layer.shadowOpacity = 0.18
-//        layer.shadowRadius = 32
+        layer.borderWidth = 1
+        layer.borderColor = UIColor(rgb: 0xF3F3F3).cgColor
+        layer.masksToBounds = false
+        layer.shadowColor = UIColor(rgb: 0x18274B).cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 10)
+        layer.shadowOpacity = 0.15
+        layer.shadowRadius = 32
         
         [firstItem, secondItem, thirdItem, fourthItem, fifthItem].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         

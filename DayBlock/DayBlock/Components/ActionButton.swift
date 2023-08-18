@@ -12,6 +12,7 @@ final class ActionButton: UIButton {
     enum Mode {
         case confirm
         case cancel
+        case delete
     }
     
     // MARK: - Initial
@@ -32,6 +33,13 @@ final class ActionButton: UIButton {
             self.titleLabel?.font = UIFont(name: Pretendard.semiBold, size: 17)
             self.setTitleColor(GrayScale.subText, for: .normal)
             self.setTitle("취소", for: .normal)
+        
+        case .delete:
+            self.setBackgroundColor(GrayScale.cancelButton, for: .normal)
+            self.setBackgroundColor(GrayScale.entireBlock, for: .highlighted)
+            self.titleLabel?.font = UIFont(name: Pretendard.semiBold, size: 17)
+            self.setTitleColor(UIColor(rgb: 0xD23939), for: .normal)
+            self.setTitle("삭제하기", for: .normal)
         }
 
         /// Corener Raduis

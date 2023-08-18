@@ -182,6 +182,33 @@ final class BlockManager {
         currentBlockIndex = index
     }
     
+    
+    // MARK: - 편집 중인 그룹
+    
+    /// 현재 편집중인 그룹 인덱스
+    private var currentEditGroupIndex = 0
+    
+    func getCurrentEditGroupIndex() -> Int {
+        return currentEditGroupIndex
+    }
+    
+    func updateCurrentEditGroupIndex(_ index: Int) {
+        currentEditGroupIndex = index
+    }
+    
+    func deleteGroup() {
+        
+        context.delete(groupEntity[currentEditGroupIndex])
+        
+        do {
+            try context.save()
+            fetchCoreData()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    
     // MARK: - Remote Block (블럭 생성, 스위치용)
     
     /// 리모트 블럭

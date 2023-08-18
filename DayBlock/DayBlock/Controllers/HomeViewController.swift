@@ -504,7 +504,7 @@ extension HomeViewController: SelectGroupViewControllerDelegate {
 // MARK: - DeletePopupViewControllerDelegate
 
 extension HomeViewController: DeletePopupViewControllerDelegate {
-    func deleteBlock() {
+    func deleteObject() {
         let deleteBlock = blockManager.getCurrentBlockList()[blockManager.getCurrentBlockIndex()]
         blockManager.deleteBlock(deleteBlock)
         viewManager.blockCollectionView.reloadData()

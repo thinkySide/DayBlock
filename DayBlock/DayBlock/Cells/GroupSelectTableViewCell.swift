@@ -38,6 +38,7 @@ final class GroupSelectTableViewCell: UITableViewCell {
     
     private let seperator: Seperator = {
         let line = Seperator()
+        line.alpha = 0
         return line
     }()
     
@@ -46,6 +47,15 @@ final class GroupSelectTableViewCell: UITableViewCell {
         image.image = UIImage(systemName: "checkmark.circle.fill")
         image.contentMode = .scaleAspectFit
         image.tintColor = GrayScale.mainText
+        image.isHidden = true
+        return image
+    }()
+    
+    let chevron: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(systemName: "chevron.right")
+        image.contentMode = .scaleAspectFit
+        image.tintColor = GrayScale.subText2
         image.isHidden = true
         return image
     }()
@@ -70,14 +80,18 @@ final class GroupSelectTableViewCell: UITableViewCell {
     
     func setupInitial() {
         self.heightAnchor.constraint(equalToConstant: 56).isActive = true
-        self.selectionStyle = .none
+        
+        // 선택된 Cell 색상
+        let selected = UIView()
+        selected.backgroundColor = GrayScale.contentsBlock
+        self.selectedBackgroundView = selected
     }
     
     func setupAutoLayout() {
         
         /// addSubView & translatesAutoresizingMaskIntoConstraints
         [
-            color, groupLabel, countLabel, checkMark, seperator,
+            color, groupLabel, countLabel, checkMark, chevron, seperator,
         ]
             .forEach {
                 addSubview($0)
@@ -89,7 +103,7 @@ final class GroupSelectTableViewCell: UITableViewCell {
             
             /// color
             color.centerYAnchor.constraint(equalTo: centerYAnchor),
-            color.leadingAnchor.constraint(equalTo: leadingAnchor),
+            color.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             color.widthAnchor.constraint(equalToConstant: 22),
             color.heightAnchor.constraint(equalTo: color.widthAnchor),
             
@@ -101,15 +115,21 @@ final class GroupSelectTableViewCell: UITableViewCell {
             countLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             countLabel.leadingAnchor.constraint(equalTo: groupLabel.trailingAnchor, constant: 8),
             
-            /// blockPreviewIcon
+            /// checkMark
             checkMark.centerYAnchor.constraint(equalTo: centerYAnchor),
             checkMark.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
             checkMark.widthAnchor.constraint(equalToConstant: 24),
             checkMark.heightAnchor.constraint(equalTo: checkMark.widthAnchor),
             
+            // chevron
+            chevron.centerYAnchor.constraint(equalTo: centerYAnchor),
+            chevron.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
+            chevron.widthAnchor.constraint(equalToConstant: 24),
+            chevron.heightAnchor.constraint(equalTo: chevron.widthAnchor),
+            
             /// seperator
             seperator.bottomAnchor.constraint(equalTo: bottomAnchor),
-            seperator.leadingAnchor.constraint(equalTo: leadingAnchor),
+            seperator.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             seperator.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }

@@ -70,6 +70,10 @@
 		079818BB2A78F77F006A38AB /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079818BA2A78F77F006A38AB /* TestData.swift */; };
 		07B49BC42A88EBA3006D1011 /* CustomUIMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC32A88EBA3006D1011 /* CustomUIMenu.swift */; };
 		07B49BC62A88EC14006D1011 /* CustomUIMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC52A88EC14006D1011 /* CustomUIMenuItem.swift */; };
+		07B49BC82A8DD84D006D1011 /* EditGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC72A8DD84D006D1011 /* EditGroupViewController.swift */; };
+		07B49BCA2A8DD878006D1011 /* EditGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC92A8DD878006D1011 /* EditGroupView.swift */; };
+		07B49BCD2A8DE204006D1011 /* EditGroupDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BCC2A8DE204006D1011 /* EditGroupDetailViewController.swift */; };
+		07B49BCF2A8DE22C006D1011 /* EditGroupDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BCE2A8DE22C006D1011 /* EditGroupDetailView.swift */; };
 		07EB771729F5335F000BD87E /* ColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB771629F5335F000BD87E /* ColorCollectionViewCell.swift */; };
 		07EB771929F53855000BD87E /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB771829F53855000BD87E /* ColorManager.swift */; };
 /* End PBXBuildFile section */
@@ -140,6 +144,10 @@
 		079818BA2A78F77F006A38AB /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		07B49BC32A88EBA3006D1011 /* CustomUIMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIMenu.swift; sourceTree = "<group>"; };
 		07B49BC52A88EC14006D1011 /* CustomUIMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIMenuItem.swift; sourceTree = "<group>"; };
+		07B49BC72A8DD84D006D1011 /* EditGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGroupViewController.swift; sourceTree = "<group>"; };
+		07B49BC92A8DD878006D1011 /* EditGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGroupView.swift; sourceTree = "<group>"; };
+		07B49BCC2A8DE204006D1011 /* EditGroupDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGroupDetailViewController.swift; sourceTree = "<group>"; };
+		07B49BCE2A8DE22C006D1011 /* EditGroupDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGroupDetailView.swift; sourceTree = "<group>"; };
 		07EB771629F5335F000BD87E /* ColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		07EB771829F53855000BD87E /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -226,13 +234,12 @@
 		078C50CD29D7266400F239BA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				07B49BCB2A8DE1D3006D1011 /* Manage Group */,
 				078C50B929D7152F00F239BA /* HomeViewController.swift */,
 				0719648F29E04F7E009CA1A4 /* CreateBlockViewController.swift */,
 				075A5AEA2A81DCDD0004F847 /* DeletePopupViewController.swift */,
-				077A663329ED2AB000D99C68 /* CreateGroupViewController.swift */,
 				078C50F529D9BBB200F239BA /* ScheduleViewController.swift */,
 				078C50F729D9BBFE00F239BA /* StorageViewController.swift */,
-				0770802E29E78C9200D66900 /* SelectGroupViewController.swift */,
 				0770803929E7989A00D66900 /* SelectColorViewController.swift */,
 				0770803329E797E100D66900 /* SelectIconViewController.swift */,
 			);
@@ -261,6 +268,8 @@
 				0719649129E04FD8009CA1A4 /* CreateBlockView.swift */,
 				077A663529ED2ABA00D99C68 /* CreateGroupView.swift */,
 				0770803029E78D0500D66900 /* SelectGroupView.swift */,
+				07B49BC92A8DD878006D1011 /* EditGroupView.swift */,
+				07B49BCE2A8DE22C006D1011 /* EditGroupDetailView.swift */,
 				0770803729E7988100D66900 /* SelectColorView.swift */,
 				0770803529E7981300D66900 /* SelectIconView.swift */,
 			);
@@ -330,6 +339,17 @@
 				07454DE229EA6CEE00B3458D /* HideKeyboard.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		07B49BCB2A8DE1D3006D1011 /* Manage Group */ = {
+			isa = PBXGroup;
+			children = (
+				0770802E29E78C9200D66900 /* SelectGroupViewController.swift */,
+				077A663329ED2AB000D99C68 /* CreateGroupViewController.swift */,
+				07B49BC72A8DD84D006D1011 /* EditGroupViewController.swift */,
+				07B49BCC2A8DE204006D1011 /* EditGroupDetailViewController.swift */,
+			);
+			path = "Manage Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -434,10 +454,13 @@
 				0719649829E148CA009CA1A4 /* ContentsBlock.swift in Sources */,
 				07B49BC42A88EBA3006D1011 /* CustomUIMenu.swift in Sources */,
 				0719648A29DC5CB4009CA1A4 /* BlockManager.swift in Sources */,
+				07B49BC82A8DD84D006D1011 /* EditGroupViewController.swift in Sources */,
 				078C50F429D73D0200F239BA /* BlockPreview.swift in Sources */,
 				0719648329DAF4B5009CA1A4 /* Group.swift in Sources */,
+				07B49BCF2A8DE22C006D1011 /* EditGroupDetailView.swift in Sources */,
 				078C50F629D9BBB200F239BA /* ScheduleViewController.swift in Sources */,
 				0771983F29E2F4D10021088A /* ButtonBackgroundColor.swift in Sources */,
+				07B49BCD2A8DE204006D1011 /* EditGroupDetailViewController.swift in Sources */,
 				078C50C029D7152F00F239BA /* DayBlock.xcdatamodeld in Sources */,
 				0770802F29E78C9200D66900 /* SelectGroupViewController.swift in Sources */,
 				078C50D129D726FE00F239BA /* HomeView.swift in Sources */,
@@ -448,6 +471,7 @@
 				0770803629E7981300D66900 /* SelectIconView.swift in Sources */,
 				078C50EE29D72F9D00F239BA /* RGB.swift in Sources */,
 				075A5AE92A81D04B0004F847 /* DeletePopupView.swift in Sources */,
+				07B49BCA2A8DD878006D1011 /* EditGroupView.swift in Sources */,
 				0719648129DAF38A009CA1A4 /* Block.swift in Sources */,
 				0770803429E797E100D66900 /* SelectIconViewController.swift in Sources */,
 				07454DE329EA6CEE00B3458D /* HideKeyboard.swift in Sources */,

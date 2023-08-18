@@ -71,7 +71,7 @@ final class SelectColorViewController: UIViewController {
         colorManager.updateCurrentIndex(to: itemIndex)
         blockManager.updateRemoteGroup(color: colorManager.getSelectColor())
         
-        /// delegate
+        // delegate
         delegate?.updateColor()
         dismiss(animated: true)
     }

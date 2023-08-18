@@ -8,7 +8,7 @@
 import UIKit
 
 protocol DeletePopupViewControllerDelegate: AnyObject {
-    func deleteBlock()
+    func deleteObject()
 }
 
 final class DeletePopupViewController: UIViewController {
@@ -80,7 +80,7 @@ final class DeletePopupViewController: UIViewController {
     }
     
     @objc func deleteButtonTapped() {
-        delegate?.deleteBlock()
         dismiss(animated: true)
+        delegate?.deleteObject()
     }
 }

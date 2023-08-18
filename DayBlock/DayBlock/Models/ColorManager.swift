@@ -111,4 +111,14 @@ final class ColorManager {
     func updateCurrentIndex(to index: Int) {
         currentIndex = index
     }
+    
+    /// 파라미터로 받은 Color에 매칭될 수 있게 currentIndex 업데이트
+    func updateCurrentColor(_ color: Int) {
+        for (index, num) in colorList.enumerated() {
+            if color == num {
+                currentIndex = index
+                return
+            }
+        }
+    }
 }

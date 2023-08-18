@@ -1,24 +1,15 @@
 //
-//  CreateGroupView.swift
+//  EditGroupDetailView.swift
 //  DayBlock
 //
-//  Created by 김민준 on 2023/04/17.
+//  Created by 김민준 on 2023/08/17.
 //
 
 import UIKit
 
-final class CreateGroupView: UIView {
-    
-    weak var delegate: CreateGroupViewDelegate?
+final class EditGroupDetailView: UIView {
     
     // MARK: - Component
-    
-    lazy var backBarButtonItem: UIBarButtonItem = {
-        let configuration = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
-        let item = UIBarButtonItem(image: UIImage(systemName: "xmark")?.withConfiguration(configuration), style: .plain, target: self, action: #selector(backBarButtonItemTapped))
-        item.tintColor = GrayScale.mainText
-        return item
-    }()
     
     lazy var groupLabelTextField: FieldForm = {
         let form = FieldForm()
@@ -51,36 +42,17 @@ final class CreateGroupView: UIView {
         item.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .normal)
         item.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .disabled)
         item.tintColor = GrayScale.mainText
-        item.isEnabled = false
+        item.isEnabled = true
         return item
     }()
     
+    let deleteButton: ActionButton = {
+        let button = ActionButton(frame: .zero, mode: .delete)
+        return button
+    }()
     
     
-    // MARK: - Initial
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupInitial()
-        setupAddSubView()
-        setupConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
-    
-    // MARK: - Method
-    
-    @objc func backBarButtonItemTapped() {
-        delegate?.dismissVC()
-    }
-    
-    @objc func createBarButtonItemTapped() {
-        delegate?.createGroup()
-    }
+    // MARK: - Event Method
     
     @objc func groupLabelTextFieldChanged() {
         guard let text = groupLabelTextField.textField.text else { return }
@@ -91,12 +63,27 @@ final class CreateGroupView: UIView {
         else { createBarButtonItem.isEnabled = true }
     }
     
-    func setupInitial() {
+    @objc func createBarButtonItemTapped() {
+        print(#function)
+        // delegate?.createGroup()
+    }
+    
+    
+    // MARK: - Initial Method
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         backgroundColor = .white
+        setupAddSubView()
+        setupConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func setupAddSubView() {
-        [groupLabelTextField, selectFormStackView]
+        [groupLabelTextField, selectFormStackView, deleteButton]
             .forEach {
                 
                 /// 1. addSubView(component)
@@ -112,15 +99,20 @@ final class CreateGroupView: UIView {
         /// 3. NSLayoutConstraint.activate
         NSLayoutConstraint.activate([
             
-            /// groupLabel
+            // groupLabel
             groupLabelTextField.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
             groupLabelTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             groupLabelTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
             
-            /// selectFormStackView
+            // selectFormStackView
             selectFormStackView.topAnchor.constraint(equalTo: groupLabelTextField.bottomAnchor, constant: 24),
             selectFormStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             selectFormStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            
+            // deleteButton
+            deleteButton.topAnchor.constraint(equalTo: selectFormStackView.bottomAnchor, constant: 32),
+            deleteButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
+            deleteButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
         ])
     }
 }

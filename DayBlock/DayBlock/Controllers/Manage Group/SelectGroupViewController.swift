@@ -125,8 +125,14 @@ final class SelectGroupViewController: UIViewController {
     }
     
     @objc func editGroupMenuTapped() {
-        print(#function)
+        let editGroupVC = EditGroupViewController()
+        editGroupVC.delegate = self
+        let navController = UINavigationController(rootViewController: editGroupVC)
+        navController.modalPresentationStyle = .overFullScreen
+        present(navController, animated: true)
         
+        // 다시 메뉴 가리기
+        menuButtonTapped()
     }
 }
 
@@ -153,7 +159,6 @@ extension SelectGroupViewController: UITableViewDataSource, UITableViewDelegate 
 }
 
 
-
 // MARK: - CreateGroupViewControllerDelegate
 
 extension SelectGroupViewController: CreateGroupViewControllerDelegate {
@@ -164,3 +169,15 @@ extension SelectGroupViewController: CreateGroupViewControllerDelegate {
     }
 }
 
+
+// MARK: - 내용입력
+
+extension SelectGroupViewController: EditGroupViewControllerDelegate {
+    func reloadData() {
+        viewManager.groupTableView.reloadData()
+        
+        // TableView 선택
+        let lastIndex = blockManager.getGroupList().count - 1
+        viewManager.groupTableView.selectRow(at: IndexPath(row: lastIndex, section: 0), animated: false, scrollPosition: .bottom)
+    }
+}

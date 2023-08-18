@@ -39,15 +39,15 @@ final class CreateGroupViewController: UIViewController {
     
     func setupNavigation() {
         
-        /// Custom
+        // Custom
         title = "새 그룹 생성"
         navigationController?.navigationBar
             .titleTextAttributes = [.font: UIFont(name: Pretendard.semiBold, size: 16)!]
         
-        /// 뒤로가기 버튼
+        // 뒤로가기 버튼
         navigationItem.leftBarButtonItem = viewManager.backBarButtonItem
         
-        /// 생성 버튼
+        // 생성 버튼
         navigationItem.rightBarButtonItem = viewManager.createBarButtonItem
     }
     
@@ -56,12 +56,6 @@ final class CreateGroupViewController: UIViewController {
         viewManager.groupLabelTextField.textField.delegate = self
         viewManager.colorSelect.delegate = self
     }
-    
-    
-    
-    // MARK: - Custom Method
-
-    
 }
 
 
