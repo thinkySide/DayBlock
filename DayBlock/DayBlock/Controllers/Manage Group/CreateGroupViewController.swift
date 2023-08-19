@@ -161,6 +161,9 @@ extension CreateGroupViewController: SelectFormDelegate {
             selectColorVC.transitioningDelegate = customBottomModalDelegate
         }
         
+        // 컬러 인덱스 초기화(38번 블루)
+        ColorManager.shared.updateCurrentIndex(to: 38)
+        
         present(selectColorVC, animated: true)
     }
 }
