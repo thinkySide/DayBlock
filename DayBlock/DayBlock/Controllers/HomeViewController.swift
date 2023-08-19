@@ -47,6 +47,7 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNotification()
         setupCoreData()
         setupNavigation()
         setupDelegate()
@@ -66,6 +67,20 @@ final class HomeViewController: UIViewController {
     
     
     // MARK: - Setup Method
+    
+    /// Notification 등록
+    func setupNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadForDeleteBlock), name: NSNotification.Name("reloadData"), object: nil)
+    }
+    
+    /// Noti를 받았을 때 실행할 메서드
+    @objc func reloadForDeleteBlock(_ notification: Notification) {
+        switchHomeGroup(index: 0)
+        
+        // TODO: 그룹 초기화 기능 ⛳️
+        // 만약 첫 화면의 그룹이 삭제가 되었다면 0번째 인덱스로 전환하고
+        // 삭제가 안되었다면 현재 인덱스 그대로 유지(요건 코드 굳이 작성안해줘도 될듯)
+    }
     
     func setupCoreData() {
         blockManager.fetchCoreData()

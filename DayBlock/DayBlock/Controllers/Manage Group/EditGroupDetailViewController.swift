@@ -63,6 +63,7 @@ final class EditGroupDetailViewController: UIViewController {
     }
     
     private func setupDelegate() {
+        viewManager.delegate = self
         viewManager.colorSelect.delegate = self
         viewManager.groupLabelTextField.textField.delegate = self
     }
@@ -92,6 +93,29 @@ final class EditGroupDetailViewController: UIViewController {
     }
 }
 
+// MARK: - EditGroupDetailViewDelegate
+
+extension EditGroupDetailViewController: EditGroupDetailViewDelegate {
+    func editGroup() {
+        
+        // 텍스트필드 변경사항 확인
+        if let name = viewManager.groupLabelTextField.textField.text {
+            
+            // 코어데이터에서 그룹 업데이트
+            blockManager.updateGroup(name: name)
+        }
+        
+        // Delegate를 이용한 EditGroupViewController의 TableView Reload
+        delegate?.reloadData()
+        
+        // Pop
+        navigationController?.popViewController(animated: true)
+    }
+}
+
+
+// MARK: - DeletePopupViewControllerDelegate
+
 extension EditGroupDetailViewController: DeletePopupViewControllerDelegate {
     func deleteObject() {
         
@@ -102,7 +126,7 @@ extension EditGroupDetailViewController: DeletePopupViewControllerDelegate {
         delegate?.reloadData()
         
         // 어떤 방식을 통해서 HomeViewController의 BlockCollectionView를 0번(그룹없음) 으로 Switch 해줘야함.
-        
+        NotificationCenter.default.post(name: NSNotification.Name("reloadData"), object: self, userInfo: nil)
         
         navigationController?.popViewController(animated: true)
     }
@@ -144,6 +168,8 @@ extension EditGroupDetailViewController: SelectFormDelegate {
 }
 
 
+// MARK: - SelectColorViewControllerDelegate
+
 extension EditGroupDetailViewController: SelectColorViewControllerDelegate {
     func updateColor() {
         let selectedColor = blockManager.getRemoteGroup().color
@@ -168,7 +194,7 @@ extension EditGroupDetailViewController: UITextFieldDelegate {
             let isBackSpace = strcmp(char, "\\b")
             if isBackSpace == -92 { return true }
         }
-                
+        
         /// 최대 글자수 제한
         if (text.count+1) > maxString { return false }
         else { return true }

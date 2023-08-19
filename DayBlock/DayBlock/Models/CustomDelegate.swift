@@ -32,6 +32,7 @@ protocol CreateGroupViewDelegate: AnyObject {
 
 protocol EditGroupViewDelegate: AnyObject {
     func dismissVC()
+    func addGroup()
 }
 
 

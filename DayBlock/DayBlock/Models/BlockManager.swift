@@ -196,9 +196,24 @@ final class BlockManager {
         currentEditGroupIndex = index
     }
     
+    /// 코어데이터 내 그룹 삭제 메서드
     func deleteGroup() {
         
         context.delete(groupEntity[currentEditGroupIndex])
+        
+        do {
+            try context.save()
+            fetchCoreData()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    /// 코어데이터 내 그룹 편집 메서드
+    func updateGroup(name: String) {
+        let group = groupEntity[currentEditGroupIndex]
+        group.name = name
+        group.color = remoteGroup.color
         
         do {
             try context.save()

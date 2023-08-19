@@ -47,6 +47,9 @@ final class EditGroupViewController: UIViewController {
         // Dismiss 버튼
         navigationItem.leftBarButtonItem = viewManager.backBarButtonItem
         
+        // 그룹 추가 버튼
+        navigationItem.rightBarButtonItem = viewManager.addBarButtonItem
+        
         // 뒤로가기 버튼(다음 화면)
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         backBarButtonItem.tintColor = GrayScale.mainText
@@ -145,13 +148,28 @@ extension EditGroupViewController: EditGroupViewDelegate {
         dismiss(animated: true)
         delegate?.reloadData()
     }
+    
+    func addGroup() {
+        let createGroupVC = CreateGroupViewController()
+        createGroupVC.delegate = self
+        navigationController?.pushViewController(createGroupVC, animated: true)
+    }
 }
 
 
-// MARK: - 내용입력
+// MARK: - EditGroupDetailViewControllerDelegate
 
 extension EditGroupViewController: EditGroupDetailViewControllerDelegate {
     func reloadData() {
+        viewManager.groupTableView.reloadData()
+    }
+}
+
+
+// MARK: - CreateGroupViewControllerDelegate
+
+extension EditGroupViewController: CreateGroupViewControllerDelegate {
+    func updateGroupList() {
         viewManager.groupTableView.reloadData()
     }
 }

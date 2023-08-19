@@ -16,6 +16,15 @@ final class CreateGroupViewController: UIViewController {
     private let customBottomModalDelegate = CustomBottomModalDelegate()
     weak var delegate: CreateGroupViewControllerDelegate?
     
+    /// Present화면인지, Navigation인지 확인
+    
+    enum ScreenMode {
+        case present
+        case navigation
+    }
+    
+    var screenMode: ScreenMode = .navigation
+    
     
     // MARK: - ViewController LifeCycle
     
@@ -37,15 +46,17 @@ final class CreateGroupViewController: UIViewController {
     
     // MARK: - Initial Method
     
+    /// 뒤로가기 버튼 설정 메서드
+    func setupBackButton() {
+        navigationItem.leftBarButtonItem = viewManager.backBarButtonItem
+    }
+    
     func setupNavigation() {
         
         // Custom
         title = "새 그룹 생성"
         navigationController?.navigationBar
             .titleTextAttributes = [.font: UIFont(name: Pretendard.semiBold, size: 16)!]
-        
-        // 뒤로가기 버튼
-        navigationItem.leftBarButtonItem = viewManager.backBarButtonItem
         
         // 생성 버튼
         navigationItem.rightBarButtonItem = viewManager.createBarButtonItem
@@ -108,7 +119,17 @@ extension CreateGroupViewController: CreateGroupViewDelegate {
         
         /// selectView의 그룹 리스트 업데이트
         delegate?.updateGroupList()
-        dismiss(animated: true)
+        
+        // 스크린 모드가 Present라면
+        if screenMode == .present {
+            dismiss(animated: true)
+            return
+        }
+        
+        // 스크린 모드가 Navigation이라면
+        if screenMode == .navigation {
+            navigationController?.popViewController(animated: true)
+        }
     }
 }
 

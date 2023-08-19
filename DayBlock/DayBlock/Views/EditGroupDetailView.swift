@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol EditGroupDetailViewDelegate: AnyObject {
+    func editGroup()
+}
+
 final class EditGroupDetailView: UIView {
+    
+    weak var delegate: EditGroupDetailViewDelegate?
     
     // MARK: - Component
     
@@ -65,7 +71,7 @@ final class EditGroupDetailView: UIView {
     
     @objc func createBarButtonItemTapped() {
         print(#function)
-        // delegate?.createGroup()
+        delegate?.editGroup()
     }
     
     

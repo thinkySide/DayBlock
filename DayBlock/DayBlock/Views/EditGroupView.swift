@@ -20,6 +20,13 @@ final class EditGroupView: UIView {
         return item
     }()
     
+    lazy var addBarButtonItem: UIBarButtonItem = {
+        let configuration = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
+        let item = UIBarButtonItem(image: UIImage(systemName: "plus")?.withConfiguration(configuration), style: .plain, target: self, action: #selector(addBarButtonItemTapped))
+        item.tintColor = GrayScale.mainText
+        return item
+    }()
+    
     let groupTableView: UITableView = {
         let table = UITableView()
         table.separatorStyle = .none
@@ -39,6 +46,10 @@ final class EditGroupView: UIView {
     
     @objc func backBarButtonItemTapped() {
         delegate?.dismissVC()
+    }
+    
+    @objc func addBarButtonItemTapped() {
+        delegate?.addGroup()
     }
     
     override init(frame: CGRect) {
