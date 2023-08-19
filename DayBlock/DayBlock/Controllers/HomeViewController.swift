@@ -56,6 +56,7 @@ final class HomeViewController: UIViewController {
         setupTimer()
         setupContentsBlock()
         setupTrackingButton()
+        setupDefaultFocus()
         
         //        // 테스트용 블럭 색칠
         //        let color = blockManager.getCurrentGroupColor()
@@ -68,8 +69,15 @@ final class HomeViewController: UIViewController {
     
     // MARK: - Setup Method
     
+    /// UserDefault를 사용한 초기 화면의 그룹 선택값을 설정합니다.
+    private func setupDefaultFocus() {
+        let groupIndex = UserDefaults.standard.object(forKey: UD.groupIndex) as? Int ?? 0
+        switchHomeGroup(index: groupIndex)
+        blockManager.updateCurrentGroup(index: groupIndex)
+    }
+    
     /// Notification 등록
-    func setupNotification() {
+    private func setupNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(reloadForDeleteBlock), name: NSNotification.Name("reloadData"), object: nil)
     }
     
@@ -271,8 +279,6 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         let count = blockManager.getCurrentBlockList().count
         
         // 현재 보고있는 블럭만 활성화
-        print("currentIndex: \(currentIndex)")
-        print("blockManager.getCurrentBlockIndex(): \(blockManager.getCurrentBlockIndex())")
         if currentIndex != blockManager.getCurrentBlockIndex() {
             print("현재 보고 있는 블럭 X")
             return
@@ -504,6 +510,9 @@ extension HomeViewController: SelectGroupViewControllerDelegate {
         blockIndex = 0
         blockManager.updateCurrentBlockIndex(0)
         viewManager.blockCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: true)
+        
+        // UserDefaults에 현재 그룹 인덱스 저장
+        UserDefaults.standard.set(index, forKey: UD.groupIndex)
         
         // 그룹 리스트가 비어있을 시, 트래킹 버튼 비활성화
         let blockList = blockManager.getCurrentGroup().blockList?.array as! [BlockEntity]

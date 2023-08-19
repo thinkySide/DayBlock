@@ -7,6 +7,14 @@
 
 import UIKit
 
+// MARK: - UserDefaults
+
+enum UD {
+    static let groupIndex = "groupIndex"
+    static let blockIndex = "blockIndex"
+}
+
+
 // MARK: - Colors
 
 enum Color {

@@ -59,11 +59,13 @@ final class SelectGroupViewController: UIViewController {
     
     func setupSelectedCell() {
         
+        print(blockManager.getCurrentGroupIndex())
+        
         // 리모트 블럭을 현재 선택된 그룹으로 업데이트
         blockManager.remoteBlockGroupIndex = blockManager.getCurrentGroupIndex()
         
         // 기본 선택값
-        let index = blockManager.getGroupList().firstIndex { $0.name == blockManager.getRemoteBlock().name } ?? 0 // 매칭되는 이름 없으면 기본값 0 반환
+        let index = blockManager.getCurrentGroupIndex()
         let indexPath = IndexPath(row: index, section: 0)
         
         /// 마지막 인덱스 선택 시, 화면에서 가려지기 때문에 scrollPosition Bottom으로
