@@ -108,6 +108,9 @@ extension EditGroupDetailViewController: EditGroupDetailViewDelegate {
         // Delegate를 이용한 EditGroupViewController의 TableView Reload
         delegate?.reloadData()
         
+        // HomeViewController의 BlockCollectionView의 UI 업데이트
+        NotificationCenter.default.post(name: NSNotification.Name(Noti.reloadForUpdateBlock), object: self, userInfo: nil)
+        
         // Pop
         navigationController?.popViewController(animated: true)
     }
@@ -125,8 +128,8 @@ extension EditGroupDetailViewController: DeletePopupViewControllerDelegate {
         // Delegate를 이용한 EditGroupViewController의 TableView Reload
         delegate?.reloadData()
         
-        // 어떤 방식을 통해서 HomeViewController의 BlockCollectionView를 0번(그룹없음) 으로 Switch 해줘야함.
-        NotificationCenter.default.post(name: NSNotification.Name("reloadData"), object: self, userInfo: nil)
+        // HomeViewController의 BlockCollectionView를 0번(그룹없음) 으로 Switch
+        NotificationCenter.default.post(name: NSNotification.Name(Noti.reloadForDeleteBlock), object: self, userInfo: nil)
         
         navigationController?.popViewController(animated: true)
     }

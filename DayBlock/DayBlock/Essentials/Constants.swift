@@ -7,6 +7,13 @@
 
 import UIKit
 
+// MARK: - Noti
+
+enum Noti {
+    static let reloadForDeleteBlock = "reloadForDeleteBlock"
+    static let reloadForUpdateBlock = "reloadForUpdateBlock"
+}
+
 // MARK: - UserDefaults
 
 enum UD {

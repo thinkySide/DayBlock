@@ -67,7 +67,7 @@ final class HomeViewController: UIViewController {
     
     
     
-    // MARK: - Setup Method
+    // MARK: - UserDefaults & NotificationCenter
     
     /// UserDefault를 사용한 초기 화면의 그룹 선택값을 설정합니다.
     private func setupDefaultFocus() {
@@ -78,10 +78,15 @@ final class HomeViewController: UIViewController {
     
     /// Notification 등록
     private func setupNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadForDeleteBlock), name: NSNotification.Name("reloadData"), object: nil)
+        
+        // 블럭 삭제 observer
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadForDeleteBlock), name: NSNotification.Name(Noti.reloadForDeleteBlock), object: nil)
+        
+        // 블럭 편집 observer
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadForUpdateBlock), name: NSNotification.Name(Noti.reloadForUpdateBlock), object: nil)
     }
     
-    /// Noti를 받았을 때 실행할 메서드
+    /// 블럭 삭제 Noti를 받았을 때 실행할 메서드
     @objc func reloadForDeleteBlock(_ notification: Notification) {
         switchHomeGroup(index: 0)
         
@@ -89,6 +94,16 @@ final class HomeViewController: UIViewController {
         // 만약 첫 화면의 그룹이 삭제가 되었다면 0번째 인덱스로 전환하고
         // 삭제가 안되었다면 현재 인덱스 그대로 유지(요건 코드 굳이 작성안해줘도 될듯)
     }
+    
+    // 블럭 편집 Noti를 받았을 때 실행할 메서드
+    @objc func reloadForUpdateBlock(_ notification: Notification) {
+        let currentGroup = blockManager.getCurrentGroup()
+        viewManager.groupSelectButton.label.text = currentGroup.name
+        viewManager.groupSelectButton.color.backgroundColor = UIColor(rgb: currentGroup.color)
+        viewManager.blockCollectionView.reloadData()
+    }
+    
+    // MARK: - Setup Method
     
     func setupCoreData() {
         blockManager.fetchCoreData()

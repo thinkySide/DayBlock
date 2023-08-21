@@ -184,7 +184,7 @@ extension SelectGroupViewController: EditGroupViewControllerDelegate {
         viewManager.groupTableView.reloadData()
         
         // TableView 선택
-        let lastIndex = blockManager.getGroupList().count - 1
-        viewManager.groupTableView.selectRow(at: IndexPath(row: lastIndex, section: 0), animated: false, scrollPosition: .bottom)
+        let currentIndex = blockManager.getCurrentGroupIndex()
+        viewManager.groupTableView.selectRow(at: IndexPath(row: currentIndex, section: 0), animated: false, scrollPosition: .bottom)
     }
 }
