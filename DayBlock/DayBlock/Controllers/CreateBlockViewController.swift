@@ -43,6 +43,8 @@ final class CreateBlockViewController: UIViewController {
         setupDelegate()
         setupAddTarget()
         hideKeyboard()
+        
+        print(blockManager.getRemoteBlock())
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -62,8 +64,11 @@ final class CreateBlockViewController: UIViewController {
         blockEditMode = .create
     }
     
-    func setupEditMode(_ taskLabel: String) {
+    func setupEditMode() {
         blockEditMode = .update
+        
+        // UI 업데이트
+        let taskLabel = blockManager.getRemoteBlock().list[0].taskLabel
         viewManager.taskLabelTextField.textField.text = taskLabel
         viewManager.taskLabelTextField.countLabel.text = "\(taskLabel.count)/18"
         viewManager.createBarButtonItem.isEnabled = true
@@ -231,6 +236,8 @@ extension CreateBlockViewController: SelectFormDelegate {
             selectIconVC.modalPresentationStyle = .custom
             selectIconVC.transitioningDelegate = customBottomModalDelegate
         }
+        
+        SymbolManager.shared.updateCurrentIndex(currentIcon: blockManager.getRemoteBlock().list[0].icon)
 
         present(selectIconVC, animated: true)
     }

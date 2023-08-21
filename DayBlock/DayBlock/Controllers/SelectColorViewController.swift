@@ -16,6 +16,8 @@ final class SelectColorViewController: UIViewController {
     private let colorManager = ColorManager.shared
     weak var delegate: SelectColorViewControllerDelegate?
     
+    /// 스크롤 제어를 위한 초깃값
+    private var isScrolled: Bool = false
     
     
     // MARK: - ViewController LifeCycle
@@ -28,14 +30,17 @@ final class SelectColorViewController: UIViewController {
         super.viewDidLoad()
         setupCollectionView()
         setupAddTarget()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         setupSelectedCell()
     }
     
     
-    
     // MARK: - Initial Method
     
-    func setupCollectionView() {
+    private func setupCollectionView() {
         
         /// CollectionView
         let collectionView = viewManager.colorCollectionView
@@ -46,21 +51,22 @@ final class SelectColorViewController: UIViewController {
         collectionView.collectionViewLayout = viewManager.createCompositionalLayout()
     }
     
-    func setupAddTarget() {
+    private func setupAddTarget() {
         let action = viewManager.actionStackView
         action.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
         action.cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
     }
     
-    func setupSelectedCell() {
-        let indexPath = IndexPath(item: colorManager.getCurrentIndex(), section: 0)
-        let collectionView = viewManager.colorCollectionView
+    private func setupSelectedCell() {
         
-        // 현재 스크롤 기능 작동하지 않음 ⭐️
-        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
-        collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: false)
+        // 스크롤이 아직 되지 않았다면, 초깃값 설정
+        if !isScrolled {
+            isScrolled = true
+            let indexPath = IndexPath(item: self.colorManager.getCurrentIndex(), section: 0)
+            let collectionView = self.viewManager.colorCollectionView
+            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
+        }
     }
-    
     
     
     // MARK: - Custom Method
@@ -82,7 +88,6 @@ final class SelectColorViewController: UIViewController {
 }
 
 
-
 // MARK: - UICollectionView
 
 extension SelectColorViewController: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -97,4 +102,3 @@ extension SelectColorViewController: UICollectionViewDataSource, UICollectionVie
         return cell
     }
 }
-

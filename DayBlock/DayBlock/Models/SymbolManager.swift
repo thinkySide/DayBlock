@@ -1852,4 +1852,13 @@ final class SymbolManager {
     func updateCurrentIndex(to index: Int) {
         currentIndex = index
     }
+    
+    /// 현재 선택된 아이콘으로 인덱스 업데이트
+    func updateCurrentIndex(currentIcon: String) {
+        for (index, icon) in symbolList.enumerated() {
+            if currentIcon == icon {
+                currentIndex = index
+            }
+        }
+    }
 }

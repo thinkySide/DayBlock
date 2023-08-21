@@ -16,6 +16,9 @@ final class SelectIconViewController: UIViewController {
     private let symbolManager = SymbolManager.shared
     weak var delegate: SelectIconViewControllerDelegate?
     
+    /// 스크롤 제어를 위한 초깃값
+    private var isScrolled: Bool = false
+    
     
     // MARK: - ViewController LifeCycle
     
@@ -27,19 +30,22 @@ final class SelectIconViewController: UIViewController {
         super.viewDidLoad()
         setupDelegate()
         setupCollectionView()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         setupSelectedCell()
     }
     
     
-    
     // MARK: - Initial Method
     
-    func setupDelegate() {
+    private func setupDelegate() {
         viewManager.actionStackView.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
         viewManager.actionStackView.cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
     }
     
-    func setupCollectionView() {
+    private func setupCollectionView() {
         let collectionView = viewManager.iconCollectionView
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -48,15 +54,14 @@ final class SelectIconViewController: UIViewController {
         collectionView.collectionViewLayout = viewManager.createCompositionalLayout()
     }
     
-    func setupSelectedCell() {
-        let indexPath = IndexPath(item: symbolManager.getCurrentIndex(), section: 0)
-        let collectionView = viewManager.iconCollectionView
-        
-        // 현재 스크롤 기능 작동하지 않음 ⭐️
-        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
-        collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: true)
+    private func setupSelectedCell() {
+        if !isScrolled {
+            isScrolled = true
+            let indexPath = IndexPath(item: symbolManager.getCurrentIndex(), section: 0)
+            let collectionView = viewManager.iconCollectionView
+            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
+        }
     }
-    
     
     
     // MARK: - Custom Method

@@ -226,7 +226,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             blockManager.updateRemoteBlock(output: editBlock.output)
             blockManager.updateRemoteBlock(icon: editBlock.icon)
             blockManager.updateCurrentBlockIndex(index)
-            editBlockVC.setupEditMode(editBlock.taskLabel)
+            editBlockVC.setupEditMode()
             
             navigationController?.pushViewController(editBlockVC, animated: true)
         }
