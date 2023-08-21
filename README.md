@@ -491,3 +491,19 @@ Group 생성, 편집, 삭제 기능 화면으로의 이동을 위한 CustomUIMen
 ---
 
 <br>
+
+### **Day 78 - 23.08.21**
+
+- **CollectionView 스크롤 문제 해결**   
+Select는 되지만, Scroll이 되지 않았던 문제를 해결했습니다. View 업데이트와 관련된 이슈로 `viewDidLayoutSubviews` 메서드를 이용해 해결했습니다.
+
+[문제 해결 기록 : UICollectionView 선택된 item으로 스크롤이 안되는 문제](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/35.md)
+
+- 그룹 편집 시, UI 업데이트 되지 않던 문제 수정   
+NotificationCenter를 활용해 그룹이 업데이트 되는 시점에 맞춰 HomeViewController의 UI를 업데이트 해주었습니다.
+
+<img width="300" src="https://github.com/thinkySide/DayBlock/assets/113565086/6c784f0b-70c4-46d9-b2bb-1f6e39d0ea22">
+
+---
+
+<br>
