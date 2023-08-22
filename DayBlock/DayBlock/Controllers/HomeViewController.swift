@@ -160,8 +160,12 @@ final class HomeViewController: UIViewController {
     }
     
     func setupContentsBlock() {
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(trackingBlockTapped))
-        viewManager.trackingBlock.addGestureRecognizer(gesture)
+//        let gesture = UITapGestureRecognizer(target: self, action: #selector(trackingBlockTapped))
+//        viewManager.trackingBlock.addGestureRecognizer(gesture)
+        
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(trackingBlockLongPressed))
+        longPressGesture.minimumPressDuration = 0.1 // 제스처 시작까지 걸리는 최소 수
+        viewManager.trackingBlock.addGestureRecognizer(longPressGesture)
     }
     
     func setupTrackingButton() {
@@ -196,8 +200,24 @@ final class HomeViewController: UIViewController {
     @objc func trackingBlockTapped() {
         print(#function)
     }
+    
+    /// 트래킹 블럭 Long Press Gestrue
+    @objc func trackingBlockLongPressed(_ gesture: UILongPressGestureRecognizer) {
+        let state = gesture.state
+        
+        // Gesture 시작
+        if state == .began {
+            print("Long Press 시작")
+            viewManager.trackingBlock.animation(isFill: true)
+        }
+        
+        // Gestrue 종료
+        if state == .ended {
+            print("Long Press 끝")
+            viewManager.trackingBlock.animation(isFill: false)
+        }
+    }
 }
-
 
 
 // MARK: - UICollectionViewDelegate

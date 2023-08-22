@@ -24,10 +24,17 @@ final class ContentsBlock: UIView {
 
     private lazy var contentsView: UIView = {
         let view = UIView()
-        view.backgroundColor = GrayScale.contentsBlock
+        // view.backgroundColor = GrayScale.contentsBlock
         view.clipsToBounds = true
-        [plus, currentProductivityLabel, colorTag, icon, taskLabel]
+        [fillLayerBlock, plus, currentProductivityLabel, colorTag, icon, taskLabel]
             .forEach { view.addSubview($0) }
+        return view
+    }()
+    
+    /// 블럭 애니메이션 용 레이어
+    private let fillLayerBlock: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(rgb: 0xF4F5F7)
         return view
     }()
     
@@ -83,7 +90,7 @@ final class ContentsBlock: UIView {
     
     
     
-    // MARK: - Method
+    // MARK: - View Method
     
     init(frame: CGRect, blockSize: Size) {
         self.size = blockSize
@@ -105,11 +112,32 @@ final class ContentsBlock: UIView {
         self.layer.cornerRadius = self.frame.height / 7
     }
     
+    
+    // MARK: - Custom Method
+    
     func setupBlockContents(group: GroupEntity, block: BlockEntity) {
         plus.textColor = UIColor(rgb: group.color)
         colorTag.backgroundColor = UIColor(rgb: group.color)
         icon.image = UIImage(systemName: block.icon)!
         taskLabel.text = block.taskLabel
+        contentsView.backgroundColor = UIColor(rgb: group.color).withAlphaComponent(0.2)
+    }
+    
+    /// 블럭 Long Press Gesture Animation
+    func animation(isFill: Bool) {
+        
+        // 칠하는 애니메이션
+        if isFill {
+            UIView.animate(withDuration: 1.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5) {
+                self.fillLayerBlock.frame.origin.x = self.frame.width
+            }
+        }
+        
+        if !isFill {
+            UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5) {
+                self.fillLayerBlock.frame.origin.x = 0
+            }
+        }
     }
 
     func setupBlockSize() {
@@ -163,37 +191,46 @@ final class ContentsBlock: UIView {
         }
     }
     
+    
+    // MARK: - AutoLayout Method
+    
     func setupAddSubView() {
-        /// 1. addSubView(component)
+        // 1. addSubView(component)
         [contentsView]
             .forEach { addSubview($0) }
         
-        /// 2. translatesAutoresizingMaskIntoConstraints = false
-        [contentsView, plus, currentProductivityLabel,
-         colorTag, icon, taskLabel]
+        // 2. translatesAutoresizingMaskIntoConstraints = false
+        [contentsView, fillLayerBlock,
+         plus, currentProductivityLabel, colorTag, icon, taskLabel]
             .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }
 
     func setupConstraints() {
-        /// 3. NSLayoutConstraint.activate
+        // 3. NSLayoutConstraint.activate
         NSLayoutConstraint.activate([
             
-            /// contentsView
+            // contentsView
             contentsView.topAnchor.constraint(equalTo: topAnchor),
             contentsView.bottomAnchor.constraint(equalTo: bottomAnchor),
             contentsView.leadingAnchor.constraint(equalTo: leadingAnchor),
             contentsView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
-            /// totalProductivityLabel
+            // fillLayerBlock
+            fillLayerBlock.topAnchor.constraint(equalTo: topAnchor),
+            fillLayerBlock.bottomAnchor.constraint(equalTo: bottomAnchor),
+            fillLayerBlock.leadingAnchor.constraint(equalTo: leadingAnchor),
+            fillLayerBlock.trailingAnchor.constraint(equalTo: trailingAnchor),
+            
+            // totalProductivityLabel
             currentProductivityLabel.leadingAnchor.constraint(equalTo: plus.trailingAnchor),
             
-            /// colorTag
+            // colorTag
             colorTag.topAnchor.constraint(equalTo: contentsView.topAnchor),
             
-            /// icon
+            // icon
             icon.centerXAnchor.constraint(equalTo: contentsView.centerXAnchor),
             
-            /// taskLabel
+            // taskLabel
             taskLabel.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 12),
             taskLabel.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 24),
             taskLabel.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -24),
