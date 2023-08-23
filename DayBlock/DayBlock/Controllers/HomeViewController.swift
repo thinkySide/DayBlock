@@ -9,6 +9,8 @@ import UIKit
 
 final class HomeViewController: UIViewController {
     
+    var observation: NSKeyValueObservation?
+    
     // MARK: - Manager
     
     private let viewManager = HomeView()
@@ -160,9 +162,6 @@ final class HomeViewController: UIViewController {
     }
     
     func setupContentsBlock() {
-//        let gesture = UITapGestureRecognizer(target: self, action: #selector(trackingBlockTapped))
-//        viewManager.trackingBlock.addGestureRecognizer(gesture)
-        
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(trackingBlockLongPressed))
         longPressGesture.minimumPressDuration = 0.1 // 제스처 시작까지 걸리는 최소 수
         viewManager.trackingBlock.addGestureRecognizer(longPressGesture)
@@ -172,8 +171,14 @@ final class HomeViewController: UIViewController {
         if blockManager.getCurrentBlockList().count == 0 {
             viewManager.toggleTrackingButton(false)
         }
+        
+//        // key-Value Observing
+//        observation = viewManager.trackingBlock.observe(\.fillLayerBlock.transform, options: [.old, .new]) { view, change in
+//            if let newFrame = change.newValue {
+//                print("KVO: \(newFrame.tx)")
+//            }
+//        }
     }
-    
     
     
     // MARK: - Custom Method
@@ -197,23 +202,17 @@ final class HomeViewController: UIViewController {
         viewManager.dateLabel.text = dateFormatter.string(from: Date())
     }
     
-    @objc func trackingBlockTapped() {
-        print(#function)
-    }
-    
     /// 트래킹 블럭 Long Press Gestrue
     @objc func trackingBlockLongPressed(_ gesture: UILongPressGestureRecognizer) {
         let state = gesture.state
         
         // Gesture 시작
         if state == .began {
-            print("Long Press 시작")
             viewManager.trackingBlock.animation(isFill: true)
         }
         
         // Gestrue 종료
         if state == .ended {
-            print("Long Press 끝")
             viewManager.trackingBlock.animation(isFill: false)
         }
     }

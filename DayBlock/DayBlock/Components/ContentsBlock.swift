@@ -19,6 +19,9 @@ final class ContentsBlock: UIView {
     
     var size: Size
     
+    /// 애니메이션용 전역 변수
+    var animator: UIViewPropertyAnimator?
+    
     
     // MARK: - Component
 
@@ -32,7 +35,7 @@ final class ContentsBlock: UIView {
     }()
     
     /// 블럭 애니메이션 용 레이어
-    private let fillLayerBlock: UIView = {
+    @objc dynamic var fillLayerBlock: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(rgb: 0xF4F5F7)
         return view
@@ -128,15 +131,30 @@ final class ContentsBlock: UIView {
         
         // 칠하는 애니메이션
         if isFill {
-            UIView.animate(withDuration: 1.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5) {
-                self.fillLayerBlock.frame.origin.x = self.frame.width
-            }
+            
+            // 애니메이션 할당
+            animator = UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 1.3, delay: 0, options: .curveEaseInOut, animations: {
+                self.fillLayerBlock.transform = CGAffineTransform(translationX: self.frame.width, y: 0)
+            }, completion: { position in
+                print("블럭 생산하기")
+            })
+            
+            // 애니메이션 시작
+            animator?.startAnimation()
         }
-        
+
         if !isFill {
-            UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5) {
-                self.fillLayerBlock.frame.origin.x = 0
-            }
+            
+            // 이전 애니메이션 종료
+            animator?.stopAnimation(true)
+            
+            // 애니메이션 재할당
+            animator = UIViewPropertyAnimator(duration: 0.7, curve: .easeOut, animations: {
+                self.fillLayerBlock.transform = CGAffineTransform(translationX: 0, y: 0)
+            })
+            
+            // 애니메이션 시작
+            animator?.startAnimation()
         }
     }
 
@@ -216,10 +234,10 @@ final class ContentsBlock: UIView {
             contentsView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
             // fillLayerBlock
-            fillLayerBlock.topAnchor.constraint(equalTo: topAnchor),
-            fillLayerBlock.bottomAnchor.constraint(equalTo: bottomAnchor),
-            fillLayerBlock.leadingAnchor.constraint(equalTo: leadingAnchor),
-            fillLayerBlock.trailingAnchor.constraint(equalTo: trailingAnchor),
+            fillLayerBlock.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor),
+            fillLayerBlock.centerYAnchor.constraint(equalTo: contentsView.centerYAnchor),
+            fillLayerBlock.widthAnchor.constraint(equalTo: contentsView.widthAnchor, constant: 120),
+            fillLayerBlock.heightAnchor.constraint(equalTo: contentsView.heightAnchor),
             
             // totalProductivityLabel
             currentProductivityLabel.leadingAnchor.constraint(equalTo: plus.trailingAnchor),
