@@ -425,7 +425,7 @@ TrackingButton 활성화 문제로 그룹 전환 시 0번째 인덱스로 전환
 - **CoreData 구현**   
 핵심 비즈니스 로직인 `Group`, `Block` 데이터를 저장하기 위한 CoreData를 구현하였습니다. 처음 구현해보는 기능이었기에 시행착오가 꽤나 길어졌지만, 관계형 설정을 통해 해결했습니다. 우선 기본적인 데이터를 읽고(READ) 생성하는(CREATE) 기능만을 구현해두었고, 추후 수정과 삭제 기능을 추가할 예정입니다.
 
-[문제 해결 기록 : CoreData 저장이 안되는 문제](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/46.md)
+    [문제 해결 기록 : CoreData 저장이 안되는 문제](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/46.md)
 
 <img width="300" src="https://github.com/thinkySide/DayBlock/assets/113565086/3bf10332-7d94-4034-8348-d8ccd58ce9fd">
 
@@ -497,12 +497,29 @@ Group 생성, 편집, 삭제 기능 화면으로의 이동을 위한 CustomUIMen
 - **CollectionView 스크롤 문제 해결**   
 Select는 되지만, Scroll이 되지 않았던 문제를 해결했습니다. View 업데이트와 관련된 이슈로 `viewDidLayoutSubviews` 메서드를 이용해 해결했습니다.
 
-[문제 해결 기록 : UICollectionView 선택된 item으로 스크롤이 안되는 문제](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/35.md)
+    [문제 해결 기록 : UICollectionView 선택된 item으로 스크롤이 안되는 문제](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/35.md)
 
 - 그룹 편집 시, UI 업데이트 되지 않던 문제 수정   
 NotificationCenter를 활용해 그룹이 업데이트 되는 시점에 맞춰 HomeViewController의 UI를 업데이트 해주었습니다.
 
 <img width="300" src="https://github.com/thinkySide/DayBlock/assets/113565086/6c784f0b-70c4-46d9-b2bb-1f6e39d0ea22">
+
+---
+
+<br>
+
+### **Day 79 - 23.08.23**
+
+- **TrackingBlock LongPressGesture 애니메이션 추가**   
+트래킹이 끝나고 지금까지 생산한 블럭을 저장하는 이벤트인 `LongPressGesture Animation`을 추가했습니다. 하지만 처음 사용하는 사용자에게 해당 이벤트는 직관적이지 않다고 판단해 초기 온보딩 진행 및 안내 버튼을 추가할 예정입니다.
+
+    [문제 해결 기록 : LongPress Animation 만들기](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/50.md)
+
+- 그룹 수정 시 블럭 생성 UI 화면 업데이트가 되지 않는 버그 수정   
+`NotificationCenter`를 활용해 블럭 생성 화면에서 UI 업데이트가 되지 않는 버그를 수정했습니다.
+
+
+<img width="300" src="https://github.com/thinkySide/Cheat-Sheet/assets/113565086/92639e36-cbc8-4e16-992e-09e1ba747d7e">
 
 ---
 
