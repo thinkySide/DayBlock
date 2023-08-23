@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ContentsBlockDelegate: AnyObject {
+    func storeTrackingBlock()
+}
+
 final class ContentsBlock: UIView {
     
     // MARK: - Size
@@ -17,12 +21,14 @@ final class ContentsBlock: UIView {
         case large
     }
     
+    /// 사이즈 지정용 변수
     var size: Size
     
-    /// 애니메이션용 전역 변수
-    var animator: UIViewPropertyAnimator?
+    /// 애니메이션 Completion 관리용 클로저
+    var storeTrackingBlockClosure: (() -> Void)?
     
-    var storeTrackingBlock: (() -> Void)?
+    /// ContentsBlockDelegate
+    weak var delegate: ContentsBlockDelegate?
     
     
     // MARK: - Component
@@ -37,7 +43,7 @@ final class ContentsBlock: UIView {
     }()
     
     /// 블럭 애니메이션 용 레이어
-    @objc dynamic var fillLayerBlock: UIView = {
+    let fillLayerBlock: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(rgb: 0xF4F5F7)
         return view
@@ -128,9 +134,10 @@ final class ContentsBlock: UIView {
         contentsView.backgroundColor = UIColor(rgb: group.color).withAlphaComponent(0.2)
     }
     
+    /// 트래킹 블럭 저장 클로저 할당 및 델리게이트 실행
     func setupStoreTrackingBlock() {
-        storeTrackingBlock = {
-            print("블럭 저장!")
+        storeTrackingBlockClosure = {
+            self.delegate?.storeTrackingBlock()
         }
     }
     
@@ -143,35 +150,25 @@ final class ContentsBlock: UIView {
             // 트래킹 블럭 저장 클로저 할당
             setupStoreTrackingBlock()
             
-            UIView.animate(withDuration: 1.1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1) {
+            UIView.animate(withDuration: 0.9, delay: 0.15, usingSpringWithDamping: 1, initialSpringVelocity: 0.1) {
                 self.fillLayerBlock.transform = CGAffineTransform(translationX: self.frame.width, y: 0)
             } completion: { _ in
-                if let storeClosure = self.storeTrackingBlock {
+                if let storeClosure = self.storeTrackingBlockClosure {
                     storeClosure()
                     return
                 }
             }
-            
-            // 애니메이션 시작
-            animator?.startAnimation()
         }
 
         if !isFill {
-            
-            // 이전 애니메이션 종료
-            animator?.stopAnimation(true)
-            
             // CompletionHandler가 실행되면 안되기 때문에 nil 할당
-            storeTrackingBlock = nil
+            storeTrackingBlockClosure = nil
             
-            UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1) {
+            UIView.animate(withDuration: 0.9, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.1) {
                 self.fillLayerBlock.transform = CGAffineTransform(translationX: 0, y: 0)
             } completion: { _ in
-                print("애니메이션 지우기 끝")
+                // 애니메이션 지우기 끝
             }
-            
-            // 애니메이션 시작
-            animator?.startAnimation()
         }
     }
 
@@ -253,7 +250,8 @@ final class ContentsBlock: UIView {
             // fillLayerBlock
             fillLayerBlock.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor),
             fillLayerBlock.centerYAnchor.constraint(equalTo: contentsView.centerYAnchor),
-            fillLayerBlock.widthAnchor.constraint(equalTo: contentsView.widthAnchor, constant: 120),
+            // 스프링 애니메이션으로 인한 오른쪽 튀어나옴 방지
+            fillLayerBlock.widthAnchor.constraint(equalTo: contentsView.widthAnchor, constant: 240),
             fillLayerBlock.heightAnchor.constraint(equalTo: contentsView.heightAnchor),
             
             // totalProductivityLabel

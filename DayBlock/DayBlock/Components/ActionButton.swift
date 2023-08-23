@@ -47,7 +47,7 @@ final class ActionButton: UIButton {
         self.layer.cornerRadius = 13
         
         /// Size
-        self.heightAnchor.constraint(equalToConstant: 48).isActive = true
+        self.heightAnchor.constraint(equalToConstant: 56).isActive = true
     }
     
     required init?(coder: NSCoder) {

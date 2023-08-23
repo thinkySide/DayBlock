@@ -126,14 +126,17 @@ final class HomeViewController: UIViewController {
     
     func setupDelegate() {
         
-        /// HomeView
+        // HomeView
         viewManager.delegate = self
         
-        /// blockCollectionView
+        // blockCollectionView
         viewManager.blockCollectionView.dataSource = self
         viewManager.blockCollectionView.delegate = self
         viewManager.blockCollectionView.register(BlockCollectionViewCell.self,
                                                  forCellWithReuseIdentifier: Cell.block)
+        
+        // trackingBlock
+        viewManager.trackingBlock.delegate = self
     }
     
     func setupContentInset() {
@@ -171,13 +174,6 @@ final class HomeViewController: UIViewController {
         if blockManager.getCurrentBlockList().count == 0 {
             viewManager.toggleTrackingButton(false)
         }
-        
-//        // key-Value Observing
-//        observation = viewManager.trackingBlock.observe(\.fillLayerBlock.transform, options: [.old, .new]) { view, change in
-//            if let newFrame = change.newValue {
-//                print("KVO: \(newFrame.tx)")
-//            }
-//        }
     }
     
     
@@ -208,11 +204,19 @@ final class HomeViewController: UIViewController {
         
         // Gesture 시작
         if state == .began {
+            print("제스처 시작")
             viewManager.trackingBlock.animation(isFill: true)
         }
         
         // Gestrue 종료
         if state == .ended {
+            print("제스처 종료")
+            viewManager.trackingBlock.animation(isFill: false)
+        }
+        
+        // 가끔 화면이 Present되면서 정상적으로 종료되지 않고 취소 되는 경우 있음. (예외처리)
+        if state == .cancelled {
+            print("제스처 취소")
             viewManager.trackingBlock.animation(isFill: false)
         }
     }
@@ -492,6 +496,27 @@ extension HomeViewController: HomeViewDelegate {
     }
 }
 
+
+// MARK: - ContentsBlockDelegate
+
+extension HomeViewController: ContentsBlockDelegate {
+    func storeTrackingBlock() {
+        let trackingCompleteVC = TrackingCompleteViewController()
+        trackingCompleteVC.delegate = self
+        trackingCompleteVC.modalTransitionStyle = .coverVertical
+        trackingCompleteVC.modalPresentationStyle = .overFullScreen
+        present(trackingCompleteVC, animated: true)
+    }
+}
+
+
+extension HomeViewController: TrackingCompleteViewControllerDelegate {
+    func endTrackingMode() {
+        
+        // 트래킹 모드 종료
+        viewManager.trackingStopBarButtonItemTapped()
+    }
+}
 
 
 // MARK: - CreateBlockViewControllerDelegate

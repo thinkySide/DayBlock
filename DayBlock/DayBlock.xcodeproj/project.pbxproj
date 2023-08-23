@@ -75,6 +75,8 @@
 		07B49BCD2A8DE204006D1011 /* EditGroupDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BCC2A8DE204006D1011 /* EditGroupDetailViewController.swift */; };
 		07B49BCF2A8DE22C006D1011 /* EditGroupDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BCE2A8DE22C006D1011 /* EditGroupDetailView.swift */; };
 		07B49BD42A8F23FF006D1011 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BD32A8F23FF006D1011 /* ToastView.swift */; };
+		07B49C452A95E5BD006D1011 /* TrackingCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49C442A95E5BD006D1011 /* TrackingCompleteViewController.swift */; };
+		07B49C472A95E66D006D1011 /* TrackingCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49C462A95E66D006D1011 /* TrackingCompleteView.swift */; };
 		07EB771729F5335F000BD87E /* ColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB771629F5335F000BD87E /* ColorCollectionViewCell.swift */; };
 		07EB771929F53855000BD87E /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB771829F53855000BD87E /* ColorManager.swift */; };
 /* End PBXBuildFile section */
@@ -150,6 +152,8 @@
 		07B49BCC2A8DE204006D1011 /* EditGroupDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGroupDetailViewController.swift; sourceTree = "<group>"; };
 		07B49BCE2A8DE22C006D1011 /* EditGroupDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGroupDetailView.swift; sourceTree = "<group>"; };
 		07B49BD32A8F23FF006D1011 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		07B49C442A95E5BD006D1011 /* TrackingCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingCompleteViewController.swift; sourceTree = "<group>"; };
+		07B49C462A95E66D006D1011 /* TrackingCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingCompleteView.swift; sourceTree = "<group>"; };
 		07EB771629F5335F000BD87E /* ColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		07EB771829F53855000BD87E /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -238,6 +242,7 @@
 			children = (
 				07B49BCB2A8DE1D3006D1011 /* Manage Group */,
 				078C50B929D7152F00F239BA /* HomeViewController.swift */,
+				07B49C442A95E5BD006D1011 /* TrackingCompleteViewController.swift */,
 				0719648F29E04F7E009CA1A4 /* CreateBlockViewController.swift */,
 				075A5AEA2A81DCDD0004F847 /* DeletePopupViewController.swift */,
 				078C50F529D9BBB200F239BA /* ScheduleViewController.swift */,
@@ -267,6 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				078C50D029D726FE00F239BA /* HomeView.swift */,
+				07B49C462A95E66D006D1011 /* TrackingCompleteView.swift */,
 				0719649129E04FD8009CA1A4 /* CreateBlockView.swift */,
 				077A663529ED2ABA00D99C68 /* CreateGroupView.swift */,
 				0770803029E78D0500D66900 /* SelectGroupView.swift */,
@@ -471,9 +477,11 @@
 				07B49BCD2A8DE204006D1011 /* EditGroupDetailViewController.swift in Sources */,
 				078C50C029D7152F00F239BA /* DayBlock.xcdatamodeld in Sources */,
 				0770802F29E78C9200D66900 /* SelectGroupViewController.swift in Sources */,
+				07B49C472A95E66D006D1011 /* TrackingCompleteView.swift in Sources */,
 				078C50D129D726FE00F239BA /* HomeView.swift in Sources */,
 				075A5AE22A7E19ED0004F847 /* BlockEntity+CoreDataClass.swift in Sources */,
 				07817F092A09D81700D024F6 /* CustomDelegate.swift in Sources */,
+				07B49C452A95E5BD006D1011 /* TrackingCompleteViewController.swift in Sources */,
 				07454E1329EC138E00B3458D /* GroupSelectTableViewCell.swift in Sources */,
 				07454E1129EBFDF200B3458D /* ActionButton.swift in Sources */,
 				0770803629E7981300D66900 /* SelectIconView.swift in Sources */,
