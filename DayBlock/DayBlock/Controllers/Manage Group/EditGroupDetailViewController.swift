@@ -111,6 +111,9 @@ extension EditGroupDetailViewController: EditGroupDetailViewDelegate {
         // HomeViewController의 BlockCollectionView의 UI 업데이트
         NotificationCenter.default.post(name: NSNotification.Name(Noti.reloadForUpdateBlock), object: self, userInfo: nil)
         
+        // CreateBlockViewController의 UI 업데이트
+        NotificationCenter.default.post(name: NSNotification.Name(Noti.updateCreateBlockUI), object: self, userInfo: nil)
+        
         // Pop
         navigationController?.popViewController(animated: true)
     }

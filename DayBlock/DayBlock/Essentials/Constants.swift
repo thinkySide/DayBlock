@@ -12,6 +12,7 @@ import UIKit
 enum Noti {
     static let reloadForDeleteBlock = "reloadForDeleteBlock"
     static let reloadForUpdateBlock = "reloadForUpdateBlock"
+    static let updateCreateBlockUI = "updateCreateBlockUI"
 }
 
 // MARK: - UserDefaults

@@ -42,6 +42,7 @@ final class CreateBlockViewController: UIViewController {
         setupNavigion()
         setupDelegate()
         setupAddTarget()
+        setupNotification()
         hideKeyboard()
         
         print(blockManager.getRemoteBlock())
@@ -76,8 +77,10 @@ final class CreateBlockViewController: UIViewController {
     
     func setupInitial() {
         
-        // 기본 블럭 설정
+        // 1. 현재 그룹을 기준으로 리모트 블럭 업데이트
         blockManager.updateRemoteBlock(group: blockManager.getCurrentGroup())
+        
+        // 2. 리모트 블럭을 기준으로 블럭 UI 업데이트
         viewManager.updateBlockInfo(blockManager.getRemoteBlock())
     }
     
@@ -111,6 +114,13 @@ final class CreateBlockViewController: UIViewController {
         viewManager.createBarButtonItem.action = #selector(createBarButtonItemTapped)
     }
     
+    /// Notification 등록
+    private func setupNotification() {
+        
+        // 블럭 삭제 observer
+        NotificationCenter.default.addObserver(self, selector: #selector(updateForGroupChanged), name: NSNotification.Name(Noti.updateCreateBlockUI), object: nil)
+    }
+    
     
     
     // MARK: - Custom Method
@@ -131,8 +141,16 @@ final class CreateBlockViewController: UIViewController {
             delegate?.updateCollectionView(true)
         }
     }
+    
+    /// 그룹 업데이트 시 실행되는 Notification
+    @objc func updateForGroupChanged(_ notification: Notification) {
+        
+        // 편집된 그룹이 현재 선택되어있는 그룹일 경우에만 UI 업데이트 할 것.
+        let editGroup = blockManager.getCurrentEditGroupIndex()
+        let selectGroup = blockManager.getCurrentGroupIndex()
+        if editGroup == selectGroup { setupInitial() }
+    }
 }
-
 
 
 // MARK: - UITextFieldDelegate
@@ -252,10 +270,10 @@ extension CreateBlockViewController: SelectGroupViewControllerDelegate, SelectIc
     /// SelectGroupViewControllerDelegate
     func updateGroup() {
         
-        /// 그룹명 업데이트
+        // 그룹명 업데이트
         viewManager.groupSelect.selectLabel.text = blockManager.getRemoteBlockGroupName()
         
-        /// 그룹 컬러 업데이트
+        // 그룹 컬러 업데이트
         let color = blockManager.getRemoteBlockGroupColor()
         viewManager.groupSelect.selectColor.backgroundColor = color
         viewManager.updateColorTag(color)
@@ -266,7 +284,7 @@ extension CreateBlockViewController: SelectGroupViewControllerDelegate, SelectIc
     /// SelectIconViewControllerDelegate
     func updateIcon() {
         
-        /// 아이콘 업데이트
+        // 아이콘 업데이트
         let icon = blockManager.getRemoteBlockIcon()
         viewManager.iconSelect.selectIcon.image = icon
         viewManager.updateIcon(icon)
