@@ -161,36 +161,36 @@ final class CreateBlockView: UIView {
         /// 3. NSLayoutConstraint.activate
         NSLayoutConstraint.activate([
             
-            /// blockPreview
+            // blockPreview
             blockPreview.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
             blockPreview.centerXAnchor.constraint(equalTo: centerXAnchor),
             blockPreview.widthAnchor.constraint(equalToConstant: Size.blockSize.width),
             blockPreview.heightAnchor.constraint(equalTo: blockPreview.widthAnchor),
             
-            /// blockColorTag
+            // blockColorTag
             blockPreviewColorTag.topAnchor.constraint(equalTo: blockPreview.topAnchor),
             blockPreviewColorTag.trailingAnchor.constraint(equalTo: blockPreview.trailingAnchor, constant: -32),
             blockPreviewColorTag.widthAnchor.constraint(equalToConstant: 20),
             blockPreviewColorTag.heightAnchor.constraint(equalToConstant: 30),
             
-            /// blockIcon
+            // blockIcon
             blockPreviewIcon.topAnchor.constraint(equalTo: blockPreview.topAnchor, constant: 54),
             blockPreviewIcon.centerXAnchor.constraint(equalTo: blockPreview.centerXAnchor),
             blockPreviewIcon.widthAnchor.constraint(equalToConstant: 56),
             blockPreviewIcon.heightAnchor.constraint(equalToConstant: 56),
 
-            /// blockLabel
+            // blockLabel
             blockTaskLabel.topAnchor.constraint(equalTo: blockPreviewIcon.bottomAnchor, constant: 12),
             blockTaskLabel.leadingAnchor.constraint(equalTo: blockPreview.leadingAnchor, constant: 20),
             blockTaskLabel.trailingAnchor.constraint(equalTo: blockPreview.trailingAnchor, constant: -20),
             
-            /// taskLabelTextField
+            // taskLabelTextField
             taskLabelTextField.topAnchor.constraint(equalTo: blockPreview.bottomAnchor, constant: 32),
             taskLabelTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             taskLabelTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
             
-            /// selectFormStackView
-            selectFormStackView.topAnchor.constraint(equalTo: taskLabelTextField.bottomAnchor, constant: 24),
+            // selectFormStackView
+            selectFormStackView.topAnchor.constraint(equalTo: taskLabelTextField.bottomAnchor, constant: 8),
             selectFormStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             selectFormStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])

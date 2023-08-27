@@ -24,6 +24,7 @@ final class FieldForm: UIView {
         let view = UIView()
         view.backgroundColor = GrayScale.contentsBlock
         view.clipsToBounds = true
+        view.layer.borderColor = UIColor(rgb: 0xD23939).cgColor
         view.addSubview(textFieldStackView)
         return view
     }()
@@ -57,9 +58,18 @@ final class FieldForm: UIView {
         return label
     }()
     
+    let warningLabel: UILabel = {
+        let label = UILabel()
+        label.text = "그룹 내 동일한 작업명의 블럭은 사용할 수 없어요"
+        label.font = UIFont(name: Pretendard.medium, size: 13)
+        label.textColor = UIColor(rgb: 0xD23939)
+        label.textAlignment = .left
+        label.alpha = 0
+        return label
+    }()
 
     
-    // MARK: - Method
+    // MARK: - Initial Method
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -78,18 +88,29 @@ final class FieldForm: UIView {
         textFieldBackgroundView.layer.cornerRadius = textFieldBackgroundView.frame.height / 5
     }
     
+    /// 경고 라벨 상태 설정 메서드
+    func isWarningLabelEnabled(_ bool: Bool) {
+        if bool {
+            warningLabel.alpha = 1
+            // textFieldBackgroundView.layer.borderWidth = 2
+        }
+        else {
+            warningLabel.alpha = 0
+            // textFieldBackgroundView.layer.borderWidth = 0
+        }
+    }
     
     
-    // MARK: - Method
+    // MARK: - AutoLayout Method
     
     func setupAddSubView() {
         /// 1. addSubView(component)
-        [textFieldLabel, textFieldBackgroundView]
+        [textFieldLabel, textFieldBackgroundView, warningLabel]
             .forEach { addSubview($0) }
         
         /// 2. translatesAutoresizingMaskIntoConstraints = false
         [textFieldLabel, textFieldBackgroundView,
-         textFieldStackView, textField, countLabel]
+         textFieldStackView, textField, countLabel, warningLabel]
             .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }
 
@@ -98,7 +119,7 @@ final class FieldForm: UIView {
         NSLayoutConstraint.activate([
             
             /// MainTextFieldView(self)
-            self.bottomAnchor.constraint(equalTo: textFieldBackgroundView.bottomAnchor),
+            self.bottomAnchor.constraint(equalTo: warningLabel.bottomAnchor),
             
             /// textFieldLabel
             textFieldLabel.topAnchor.constraint(equalTo: topAnchor),
@@ -117,6 +138,10 @@ final class FieldForm: UIView {
                 
             /// countLabel
             countLabel.widthAnchor.constraint(equalToConstant: 40),
+            
+            // warningLabel
+            warningLabel.topAnchor.constraint(equalTo: textFieldBackgroundView.bottomAnchor,constant: 4),
+            warningLabel.leadingAnchor.constraint(equalTo: textFieldLabel.leadingAnchor),
         ])
     }
 }

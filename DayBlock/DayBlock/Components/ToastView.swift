@@ -12,7 +12,7 @@ final class ToastView: UIView {
     let icon: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
-        image.tintColor = UIColor(rgb: 0xF7B946)
+        image.tintColor = UIColor(rgb: 0xF6C05A)
         image.image = UIImage(systemName: "exclamationmark.circle.fill")
         return image
     }()
@@ -21,7 +21,7 @@ final class ToastView: UIView {
         let label = UILabel()
         label.text = "토스트 메시지를 작성하세요."
         label.font = UIFont(name: Pretendard.semiBold, size: 17)
-        label.textColor = GrayScale.subText
+        label.textColor = .white
         label.textAlignment = .left
         return label
     }()
@@ -30,9 +30,7 @@ final class ToastView: UIView {
         super.init(frame: frame)
         
         // 커스텀
-        backgroundColor = GrayScale.contentsBlock
-        layer.borderColor = UIColor(rgb: 0xEFEFEF).cgColor
-        layer.borderWidth = 1
+        backgroundColor = UIColor(rgb: 0x67696A)
         clipsToBounds = true
         layer.cornerRadius = 13
         

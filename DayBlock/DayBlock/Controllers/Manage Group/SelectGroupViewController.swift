@@ -9,12 +9,19 @@ import UIKit
 
 final class SelectGroupViewController: UIViewController {
     
+    /// 그룹 선택 모드
+    enum Mode {
+        case home
+        case create
+    }
+    
     // MARK: - Variable
     
     private let viewManager = SelectGroupView()
     private let blockManager = BlockManager.shared
     private let customBottomModalDelegate = CustomBottomModalDelegate()
     weak var delegate: SelectGroupViewControllerDelegate?
+    var mode: Mode = .home
     
     
     // MARK: - ViewController LifeCycle
@@ -61,14 +68,23 @@ final class SelectGroupViewController: UIViewController {
         
         print(blockManager.getCurrentGroupIndex())
         
+        var index = 0
+        
+        // 모드 스위칭
+        switch mode {
+        case .home:
+            index = blockManager.getCurrentGroupIndex()
+        case .create:
+            index = blockManager.remoteBlockGroupIndex
+        }
+        
         // 리모트 블럭을 현재 선택된 그룹으로 업데이트
         blockManager.remoteBlockGroupIndex = blockManager.getCurrentGroupIndex()
         
         // 기본 선택값
-        let index = blockManager.getCurrentGroupIndex()
         let indexPath = IndexPath(row: index, section: 0)
         
-        /// 마지막 인덱스 선택 시, 화면에서 가려지기 때문에 scrollPosition Bottom으로
+        // 마지막 인덱스 선택 시, 화면에서 가려지기 때문에 scrollPosition Bottom으로
         let tableView = viewManager.groupTableView
         if index == blockManager.getGroupList().count - 1 {
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: .bottom)

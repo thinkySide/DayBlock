@@ -167,6 +167,18 @@ final class BlockManager {
         return []
     }
     
+    /// READ - 지정한 그룹명에 속한 블럭 리스트 받아오기
+    func getBlockList(_ groupName: String) -> [BlockEntity] {
+        for group in groupEntity {
+            if group.name == groupName {
+                if let blockList = group.blockList?.array as? [BlockEntity] {
+                    return blockList
+                }
+            }
+        }
+        return [BlockEntity]()
+    }
+    
     /// UPDATE - 현재 그룹 업데이트
     func updateCurrentGroup(index: Int) {
         currentGroupIndex = index
@@ -306,6 +318,7 @@ final class BlockManager {
     func resetRemoteBlock() {
         let group = groupEntity[currentGroupIndex]
         remoteBlock = Group(name: group.name, color: group.color, list: [Block(taskLabel: "블럭 쌓기", output: 0.0, icon: "batteryblock.fill")])
+        remoteBlockGroupIndex = currentGroupIndex
     }
     
     

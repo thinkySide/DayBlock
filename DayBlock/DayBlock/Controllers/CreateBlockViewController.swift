@@ -82,6 +82,9 @@ final class CreateBlockViewController: UIViewController {
         
         // 2. 리모트 블럭을 기준으로 블럭 UI 업데이트
         viewManager.updateBlockInfo(blockManager.getRemoteBlock())
+        
+        // 리모트 그룹 인덱스 업데이트
+        blockManager.remoteBlockGroupIndex = blockManager.getCurrentGroupIndex()
     }
     
     func setupNavigion() {
@@ -179,17 +182,17 @@ extension CreateBlockViewController: UITextFieldDelegate {
     @objc func taskLabelTextFieldChanged() {
         guard let text = viewManager.taskLabelTextField.textField.text else { return }
         
-        /// text 있을 때만 완료 버튼 활성화
-        viewManager.createBarButtonItem.isEnabled = text.isEmpty ? false : true
-        
-        /// 리모트 블럭 업데이트
+        // 리모트 블럭 업데이트
         blockManager.updateRemoteBlock(label: text)
         
-        /// 라벨 실시간 업데이트
+        // 라벨 실시간 업데이트
         viewManager.updateTaskLabel(text)
         
-        /// 글자수 현황 업데이트
+        // 글자수 현황 업데이트
         viewManager.taskLabelTextField.countLabel.text = "\(text.count)/18"
+        
+        // 동일한 작업명의 블럭 생성 막기
+        checkSameBlock()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -201,8 +204,30 @@ extension CreateBlockViewController: UITextFieldDelegate {
     @objc func taskLabelTapped() {
         viewManager.taskLabelTextField.textField.becomeFirstResponder()
     }
+    
+    /// 그룹 내 동일한 작업명의 블럭 확인
+    func checkSameBlock() {
+        
+        // 그룹 내 동일 작업명 블럭 확인
+        if let groupName = viewManager.groupSelect.selectLabel.text {
+            for block in blockManager.getBlockList(groupName) {
+                
+                // 동일한 블럭 있을 시 경고 메시지 출력 및 비활성화
+                if block.taskLabel == blockManager.getRemoteBlock().list[0].taskLabel {
+                    viewManager.createBarButtonItem.isEnabled = false
+                    viewManager.taskLabelTextField.isWarningLabelEnabled(true)
+                    return
+                }
+            }
+            
+            // 동일 블럭 없을 시 정상 진행
+            if let text = viewManager.taskLabelTextField.textField.text {
+                viewManager.createBarButtonItem.isEnabled = text.isEmpty ? false : true
+                viewManager.taskLabelTextField.isWarningLabelEnabled(false)
+            }
+        }
+    }
 }
-
 
 
 // MARK: - SelectFormDelegate
@@ -217,6 +242,9 @@ extension CreateBlockViewController: SelectFormDelegate {
         /// present
         let selectGroupVC = SelectGroupViewController()
         selectGroupVC.delegate = self
+        
+        // 그룹 선택 모드 변경
+        selectGroupVC.mode = .create
         
         if #available(iOS 15.0, *) {
             selectGroupVC.modalPresentationStyle = .pageSheet
@@ -278,7 +306,8 @@ extension CreateBlockViewController: SelectGroupViewControllerDelegate, SelectIc
         viewManager.groupSelect.selectColor.backgroundColor = color
         viewManager.updateColorTag(color)
         
-        print(blockManager.getRemoteBlock())
+        // 그룹 내 동일 작업명 블럭 확인
+        checkSameBlock()
     }
     
     /// SelectIconViewControllerDelegate
