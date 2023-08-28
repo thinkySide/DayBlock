@@ -48,15 +48,13 @@ final class CreateBlockViewController: UIViewController {
         setupAddTarget()
         setupNotification()
         hideKeyboard()
-        
-        print(blockManager.getRemoteBlock())
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         delegate?.reloadCollectionView()
     }
-
+    
     deinit {
         blockManager.resetRemoteBlock()
     }
@@ -182,7 +180,7 @@ extension CreateBlockViewController: UITextFieldDelegate {
             let isBackSpace = strcmp(char, "\\b")
             if isBackSpace == -92 { return true }
         }
-                
+        
         /// 최대 글자수 제한
         if (text.count+1) > maxString { return false }
         else { return true }
@@ -221,12 +219,39 @@ extension CreateBlockViewController: UITextFieldDelegate {
         if let groupName = viewManager.groupSelect.selectLabel.text {
             for block in blockManager.getBlockList(groupName) {
                 
-                // 동일한 블럭 있을 시 + 편집 중인 경고 메시지 출력 및 비활성화
-                if block.taskLabel == blockManager.getRemoteBlock().list[0].taskLabel
-                    && block.taskLabel != originalBlockName {
-                    viewManager.createBarButtonItem.isEnabled = false
-                    viewManager.taskLabelTextField.isWarningLabelEnabled(true)
-                    return
+                let currentGroupIndex = blockManager.getCurrentGroupIndex()
+                let remoteBlockGroupIndex = blockManager.remoteBlockGroupIndex
+                let remoteBlockLabel = blockManager.getRemoteBlock().list[0].taskLabel
+                
+                // 1. 최상위 그룹과 현재 그룹이 다를 때
+                if currentGroupIndex != remoteBlockGroupIndex {
+                    //print("최상위 그룹과 현재 그룹이 다르군")
+                    
+                    // 2. 현재 그룹 블럭 작업명과 동일한 작업명 있는지 확인
+                    if block.taskLabel == remoteBlockLabel {
+                        //print("동일한 블럭 찾았음!")
+                        viewManager.createBarButtonItem.isEnabled = false
+                        viewManager.taskLabelTextField.isWarningLabelEnabled(true)
+                        return
+                    }
+                }
+                
+                // 1. 최상위 그룹과 현재 그룹이 같을 때
+                else {
+                    //print("최상위 그룹과 현재 그룹이 같군")
+                    
+                    // 2. 현재 그룹 블럭 작업명이 오리지날 작업명과 다른지 확인
+                    if remoteBlockLabel != originalBlockName {
+                        //print("원래 작업명과 달라졌네? 다른 블럭 중에 같은 블럭이 있나?")
+                        
+                        // 3. 현재 그룹 블럭 작업명과 동일한 작업명 있는지 확인
+                        if block.taskLabel == remoteBlockLabel {
+                            //print("다른 블럭 중에도 같은 녀석이 있군")
+                            viewManager.createBarButtonItem.isEnabled = false
+                            viewManager.taskLabelTextField.isWarningLabelEnabled(true)
+                            return
+                        }
+                    }
                 }
             }
             
@@ -294,7 +319,7 @@ extension CreateBlockViewController: SelectFormDelegate {
         }
         
         SymbolManager.shared.updateCurrentIndex(currentIcon: blockManager.getRemoteBlock().list[0].icon)
-
+        
         present(selectIconVC, animated: true)
     }
 }
