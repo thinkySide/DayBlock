@@ -22,12 +22,16 @@ final class CreateBlockViewController: UIViewController {
     private let customBottomModalDelegate = CustomBottomModalDelegate()
     weak var delegate: CreateBlockViewControllerDelegate?
     
+    /// 블럭 편집 모드
     private var blockEditMode: BlockEditMode = .create {
         didSet {
             if blockEditMode == .create { title = "블럭 생성" }
             if blockEditMode == .update { title = "블럭 편집" }
         }
     }
+    
+    /// 편집하기 전 처음 블럭명
+    private var originalBlockName = ""
     
     
     // MARK: - ViewController LifeCycle
@@ -61,10 +65,12 @@ final class CreateBlockViewController: UIViewController {
     
     // MARK: - Initial Method
     
+    /// 블럭 생성 모드로 기본 설정 진행
     func setupCreateMode() {
         blockEditMode = .create
     }
     
+    /// 블럭 편집 모드로 기본 설정 진행
     func setupEditMode() {
         blockEditMode = .update
         
@@ -73,6 +79,9 @@ final class CreateBlockViewController: UIViewController {
         viewManager.taskLabelTextField.textField.text = taskLabel
         viewManager.taskLabelTextField.countLabel.text = "\(taskLabel.count)/18"
         viewManager.createBarButtonItem.isEnabled = true
+        
+        // 편집 중인 블럭명 저장
+        originalBlockName = taskLabel
     }
     
     func setupInitial() {
@@ -206,14 +215,15 @@ extension CreateBlockViewController: UITextFieldDelegate {
     }
     
     /// 그룹 내 동일한 작업명의 블럭 확인
-    func checkSameBlock() {
+    private func checkSameBlock() {
         
         // 그룹 내 동일 작업명 블럭 확인
         if let groupName = viewManager.groupSelect.selectLabel.text {
             for block in blockManager.getBlockList(groupName) {
                 
-                // 동일한 블럭 있을 시 경고 메시지 출력 및 비활성화
-                if block.taskLabel == blockManager.getRemoteBlock().list[0].taskLabel {
+                // 동일한 블럭 있을 시 + 편집 중인 경고 메시지 출력 및 비활성화
+                if block.taskLabel == blockManager.getRemoteBlock().list[0].taskLabel
+                    && block.taskLabel != originalBlockName {
                     viewManager.createBarButtonItem.isEnabled = false
                     viewManager.taskLabelTextField.isWarningLabelEnabled(true)
                     return
