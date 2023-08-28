@@ -27,8 +27,6 @@ final class BlockManager {
         return []
     }
     
-    // private var groupList = [Group(name: "그룹 없음", color: 0x323232, list: [])]
-    
     
     // MARK: - CoreData
     
@@ -36,7 +34,7 @@ final class BlockManager {
     func initialSetupForCoreData() {
         if groupEntity.count == 0 {
             let newGroup = GroupEntity(context: context)
-            newGroup.name = "그룹 없음"
+            newGroup.name = "기본 그룹"
             newGroup.color = 0x323232
             
             do {
@@ -239,7 +237,7 @@ final class BlockManager {
     // MARK: - Remote Block (블럭 생성, 스위치용)
     
     /// 리모트 블럭
-    private var remoteBlock = Group(name: "그룹 없음", color: 0x323232, list: [Block(taskLabel: "블럭 쌓기", output: 0.0, icon: "batteryblock.fill")])
+    private var remoteBlock = Group(name: "기본 그룹", color: 0x323232, list: [Block(taskLabel: "블럭 쌓기", output: 0.0, icon: "batteryblock.fill")])
     
     var remoteBlockGroupIndex = 0
     
