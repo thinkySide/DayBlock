@@ -36,6 +36,7 @@ final class CreateGroupViewController: UIViewController {
         super.viewDidLoad()
         setupNavigation()
         setupDelegate()
+        setupAddTarget()
         hideKeyboard()
     }
     
@@ -67,6 +68,10 @@ final class CreateGroupViewController: UIViewController {
         viewManager.groupLabelTextField.textField.delegate = self
         viewManager.colorSelect.delegate = self
     }
+    
+    private func setupAddTarget() {
+        viewManager.groupLabelTextField.textField.addTarget(self, action: #selector(groupLabelTextFieldChanged), for: .editingChanged)
+    }
 }
 
 
@@ -97,8 +102,29 @@ extension CreateGroupViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+    
+    /// 그룹명 텍스트필드 텍스트 변화 감지 메서드
+    @objc func groupLabelTextFieldChanged() {
+        guard let text = viewManager.groupLabelTextField.textField.text else { return }
+        viewManager.groupLabelTextField.countLabel.text = "\(text.count)/8"
+        
+        // 텍스트가 비어있을 경우 그룹 생성 비활성화
+        if text.isEmpty { viewManager.createBarButtonItem.isEnabled = false }
+        else { viewManager.createBarButtonItem.isEnabled = true }
+        
+        guard let groupName = viewManager.groupLabelTextField.textField.text else { return }
+        
+        // 만약 그룹명이 존재하면 경고 메시지 출력 및 확인 버튼 비활성화
+        for group in blockManager.getGroupList() {
+            if group.name == groupName {
+                viewManager.createBarButtonItem.isEnabled = false
+                viewManager.groupLabelTextField.warningLabel.alpha = 1
+                return
+            }
+            viewManager.groupLabelTextField.warningLabel.alpha = 0
+        }
+    }
 }
-
 
 
 // MARK: - CreateGroupViewDelegate
@@ -110,14 +136,15 @@ extension CreateGroupViewController: CreateGroupViewDelegate {
     
     func createGroup() {
         
-        /// 리모트 그룹 업데이트
         guard let groupName = viewManager.groupLabelTextField.textField.text else { return }
+        
+        // 리모트 그룹 업데이트
         blockManager.updateRemoteGroup(name: groupName)
         
-        /// 그룹 생성
+        // 그룹 생성
         blockManager.createNewGroup()
         
-        /// selectView의 그룹 리스트 업데이트
+        // selectView의 그룹 리스트 업데이트
         delegate?.updateGroupList()
         
         // 스크린 모드가 Present라면

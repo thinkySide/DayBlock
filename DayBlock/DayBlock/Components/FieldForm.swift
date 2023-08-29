@@ -60,7 +60,7 @@ final class FieldForm: UIView {
     
     let warningLabel: UILabel = {
         let label = UILabel()
-        label.text = "그룹 내 동일한 작업명의 블럭은 사용할 수 없어요"
+        label.text = "그룹 내 중복되는 작업명의 블럭은 사용할 수 없어요"
         label.font = UIFont(name: Pretendard.medium, size: 13)
         label.textColor = UIColor(rgb: 0xD23939)
         label.textAlignment = .left

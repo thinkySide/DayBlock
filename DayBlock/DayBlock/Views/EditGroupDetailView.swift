@@ -17,12 +17,12 @@ final class EditGroupDetailView: UIView {
     
     // MARK: - Component
     
-    lazy var groupLabelTextField: FieldForm = {
+    let groupLabelTextField: FieldForm = {
         let form = FieldForm()
         form.textFieldLabel.text = "그룹명"
         form.textField.placeholder = "자기계발"
         form.countLabel.text = "0/8"
-        form.textField.addTarget(self, action: #selector(groupLabelTextFieldChanged), for: .editingChanged)
+        form.warningLabel.text = "중복되는 그룹명은 사용할 수 없어요"
         return form
     }()
     
@@ -59,15 +59,6 @@ final class EditGroupDetailView: UIView {
     
     
     // MARK: - Event Method
-    
-    @objc func groupLabelTextFieldChanged() {
-        guard let text = groupLabelTextField.textField.text else { return }
-        groupLabelTextField.countLabel.text = "\(text.count)/8"
-        
-        /// 텍스트가 비어있을 경우 그룹 생성 비활성화
-        if text.isEmpty { createBarButtonItem.isEnabled = false }
-        else { createBarButtonItem.isEnabled = true }
-    }
     
     @objc func createBarButtonItemTapped() {
         print(#function)

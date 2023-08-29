@@ -20,6 +20,9 @@ final class EditGroupDetailViewController: UIViewController {
     private let colorManager = ColorManager.shared
     private let customBottomModalDelegate = CustomBottomModalDelegate()
     
+    /// 기존 그룹명 저장용
+    private var initialGroupName = ""
+    
     override func loadView() {
         view = viewManager
     }
@@ -50,6 +53,8 @@ final class EditGroupDetailViewController: UIViewController {
         viewManager.groupLabelTextField.textField.text = "\(group[currentIndex].name)"
         viewManager.groupLabelTextField.countLabel.text = "\(group[currentIndex].name.count)/8"
         viewManager.colorSelect.selectColor.backgroundColor = UIColor(rgb: group[currentIndex].color)
+        
+        initialGroupName = "\(group[currentIndex].name)"
     }
     
     private func setupNavigation() {
@@ -69,6 +74,7 @@ final class EditGroupDetailViewController: UIViewController {
     }
     
     private func setupEvent() {
+        viewManager.groupLabelTextField.textField.addTarget(self, action: #selector(groupLabelTextFieldChanged), for: .editingChanged)
         viewManager.deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
     }
     
@@ -81,6 +87,27 @@ final class EditGroupDetailViewController: UIViewController {
     
     
     // MARK: - Event Method
+    
+    @objc func groupLabelTextFieldChanged() {
+        guard let text = viewManager.groupLabelTextField.textField.text else { return }
+        viewManager.groupLabelTextField.countLabel.text = "\(text.count)/8"
+        
+        // 텍스트가 비어있을 경우 그룹 생성 비활성화
+        if text.isEmpty { viewManager.createBarButtonItem.isEnabled = false }
+        else { viewManager.createBarButtonItem.isEnabled = true }
+        
+        guard let groupName = viewManager.groupLabelTextField.textField.text else { return }
+        
+        // 만약 그룹명이 존재하면 경고 메시지 출력 및 확인 버튼 비활성화
+        for group in blockManager.getGroupList() {
+            if group.name == groupName && groupName != initialGroupName {
+                viewManager.createBarButtonItem.isEnabled = false
+                viewManager.groupLabelTextField.warningLabel.alpha = 1
+                return
+            }
+            viewManager.groupLabelTextField.warningLabel.alpha = 0
+        }
+    }
     
     @objc func deleteButtonTapped() {
         let deletePopup = DeletePopupViewController()
