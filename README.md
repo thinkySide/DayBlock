@@ -538,3 +538,14 @@ NotificationCenter를 활용해 그룹이 업데이트 되는 시점에 맞춰 H
 ---
 
 <br>
+
+### **Day 81 - 23.08.31**
+
+- **아이콘, 컬러 선택 CollectionView Inset 조정**   
+작은 화면을 가진 디바이스에서 모서리쪽 테두리가 잘리는 현상을 수정했습니다.
+
+<img width="300" src="https://github.com/thinkySide/DayBlock/assets/113565086/506552dc-ae3d-4f2a-bea8-dbc8588b4420">
+
+---
+
+<br>

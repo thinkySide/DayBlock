@@ -23,6 +23,7 @@ final class SelectIconView: UIView {
     let iconCollectionView: UICollectionView = {
         let layout = UICollectionViewLayout()
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        // collection.backgroundColor = .red
         return collection
     }()
 
@@ -83,8 +84,8 @@ final class SelectIconView: UIView {
             /// iconCollectionView
             iconCollectionView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 16),
             iconCollectionView.bottomAnchor.constraint(equalTo: actionStackView.topAnchor, constant: -8),
-            iconCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
-            iconCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            iconCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
+            iconCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4),
             
             /// actionStackView
             actionStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
@@ -112,6 +113,11 @@ extension SelectIconView: UICollectionViewDelegateFlowLayout {
                     heightDimension: .fractionalWidth(1/5)
                 )
                 
+//                let itemSize = NSCollectionLayoutSize(
+//                    widthDimension: .absolute(64),
+//                    heightDimension: .absolute(64)
+//                )
+                
                 /// item 만들기
                 let item = NSCollectionLayoutItem(
                     layoutSize: itemSize
@@ -119,7 +125,7 @@ extension SelectIconView: UICollectionViewDelegateFlowLayout {
                 
                 /// item 간격 설정
                 item.contentInsets = NSDirectionalEdgeInsets(
-                    top: 0, leading: 0, bottom: 16, trailing: 16
+                    top: 0, leading: 0, bottom: 1, trailing: 1
                 )
                 
                 /// item Group 사이즈

@@ -13,11 +13,11 @@ final class ColorCollectionViewCell: UICollectionViewCell {
     
     let selectCircle: UIView = {
         let circle = UIView()
-        circle.backgroundColor = .none
-        circle.layer.borderColor = GrayScale.mainText.cgColor
+        circle.backgroundColor = GrayScale.entireBlock
+        circle.layer.borderColor = UIColor(rgb: 0xAFAFAF).cgColor
         circle.layer.borderWidth = 3
         circle.clipsToBounds = true
-        circle.layer.cornerRadius = 28
+        circle.layer.cornerRadius = 30
         circle.alpha = 0
         return circle
     }()
@@ -58,7 +58,7 @@ final class ColorCollectionViewCell: UICollectionViewCell {
             /// selectCircle
             selectCircle.centerXAnchor.constraint(equalTo: centerXAnchor),
             selectCircle.centerYAnchor.constraint(equalTo: centerYAnchor),
-            selectCircle.widthAnchor.constraint(equalToConstant: 56),
+            selectCircle.widthAnchor.constraint(equalToConstant: 60),
             selectCircle.heightAnchor.constraint(equalTo: selectCircle.widthAnchor),
             
             /// color

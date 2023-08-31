@@ -20,11 +20,11 @@ final class IconCollectionViewCell: UICollectionViewCell {
     
     let selectCircle: UIView = {
         let circle = UIView()
-        circle.backgroundColor = .none
-        circle.layer.borderColor = GrayScale.mainText.cgColor
+        circle.backgroundColor = GrayScale.entireBlock
+        circle.layer.borderColor = UIColor(rgb: 0xAFAFAF).cgColor
         circle.layer.borderWidth = 3
         circle.clipsToBounds = true
-        circle.layer.cornerRadius = 28
+        circle.layer.cornerRadius = 30
         circle.alpha = 0
         return circle
     }()
@@ -45,7 +45,7 @@ final class IconCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        [icon, selectCircle]
+        [selectCircle, icon]
             .forEach {
                 addSubview($0)
                 $0.translatesAutoresizingMaskIntoConstraints = false
@@ -53,16 +53,16 @@ final class IconCollectionViewCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             
-            /// color
+            // color
             icon.centerXAnchor.constraint(equalTo: centerXAnchor),
             icon.centerYAnchor.constraint(equalTo: centerYAnchor),
             icon.widthAnchor.constraint(equalToConstant: 32),
             icon.heightAnchor.constraint(equalTo: icon.widthAnchor),
             
-            /// selectCircle
+            // selectCircle
             selectCircle.centerXAnchor.constraint(equalTo: centerXAnchor),
             selectCircle.centerYAnchor.constraint(equalTo: centerYAnchor),
-            selectCircle.widthAnchor.constraint(equalToConstant: 56),
+            selectCircle.widthAnchor.constraint(equalToConstant: 60),
             selectCircle.heightAnchor.constraint(equalTo: selectCircle.widthAnchor),
         ])
     }

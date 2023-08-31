@@ -79,8 +79,8 @@ final class SelectColorView: UIView {
             /// colorCollectionView
             colorCollectionView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 8),
             colorCollectionView.bottomAnchor.constraint(equalTo: actionStackView.topAnchor, constant: -16),
-            colorCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
-            colorCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            colorCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
+            colorCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4),
             
             /// actionStackView
             actionStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
@@ -115,7 +115,7 @@ extension SelectColorView: UICollectionViewDelegateFlowLayout {
                 
                 /// item 간격 설정
                 item.contentInsets = NSDirectionalEdgeInsets(
-                    top: 0, leading: 0, bottom: 16, trailing: 16
+                    top: 0, leading: 0, bottom: 1, trailing: 1
                 )
                 
                 /// item Group 사이즈
