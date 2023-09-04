@@ -37,13 +37,118 @@ final class BlockPreview: UIView {
     let block23 = PaintBlock()
     
     
-    
     // MARK: - Constatns
+    
     private let spacing: CGFloat = 4
     
     
     
     // MARK: - Method
+    
+    enum Time {
+        case onTime
+        case halfTime
+    }
+    
+    func animationCondition(_ time: Time, painBlock: PaintBlock, color: UIColor) {
+        switch time {
+        case .onTime:
+            painBlock.animation(.firstHalf, color: color)
+        case .halfTime:
+            
+            // 첫번째 반쪽 차있을 때, 두번째 반쪽만 차있을 때
+            if painBlock.state == .firstHalf {
+                painBlock.animation(.fullTime, color: color)
+                return
+            }
+            
+            if painBlock.state == .fullTime { return }
+            
+            else { painBlock.animation(.secondHalf, color: color) }
+        }
+    }
+    
+    func trackingAnimation(_ indexs: [String], color: UIColor) {
+        for index in indexs {
+            switch index {
+                
+            case "0000": animationCondition(.onTime ,painBlock: block00, color: color)
+            case "0030": animationCondition(.halfTime ,painBlock: block00, color: color)
+                 
+            case "0100": animationCondition(.onTime ,painBlock: block01, color: color)
+            case "0130": animationCondition(.halfTime ,painBlock: block01, color: color)
+                
+            case "0200": animationCondition(.onTime ,painBlock: block02, color: color)
+            case "0230": animationCondition(.halfTime ,painBlock: block02, color: color)
+                
+            case "0300": animationCondition(.onTime ,painBlock: block03, color: color)
+            case "0330": animationCondition(.halfTime ,painBlock: block03, color: color)
+                
+            case "0400": animationCondition(.onTime ,painBlock: block04, color: color)
+            case "0430": animationCondition(.halfTime ,painBlock: block04, color: color)
+                
+            case "0500": animationCondition(.onTime ,painBlock: block05, color: color)
+            case "0530": animationCondition(.halfTime ,painBlock: block05, color: color)
+                
+            case "0600": animationCondition(.onTime ,painBlock: block06, color: color)
+            case "0630": animationCondition(.halfTime ,painBlock: block06, color: color)
+                
+            case "0700": animationCondition(.onTime ,painBlock: block07, color: color)
+            case "0730": animationCondition(.halfTime ,painBlock: block07, color: color)
+                
+            case "0800": animationCondition(.onTime ,painBlock: block08, color: color)
+            case "0830": animationCondition(.halfTime ,painBlock: block08, color: color)
+                
+            case "0900": animationCondition(.onTime ,painBlock: block09, color: color)
+            case "0930": animationCondition(.halfTime ,painBlock: block09, color: color)
+                
+            case "1000": animationCondition(.onTime ,painBlock: block10, color: color)
+            case "1030": animationCondition(.halfTime ,painBlock: block10, color: color)
+                 
+            case "1100": animationCondition(.onTime ,painBlock: block11, color: color)
+            case "1130": animationCondition(.halfTime ,painBlock: block11, color: color)
+                
+            case "1200": animationCondition(.onTime ,painBlock: block12, color: color)
+            case "1230": animationCondition(.halfTime ,painBlock: block12, color: color)
+                
+            case "1300": animationCondition(.onTime ,painBlock: block13, color: color)
+            case "1330": animationCondition(.halfTime ,painBlock: block13, color: color)
+                
+            case "1400": animationCondition(.onTime ,painBlock: block14, color: color)
+            case "1430": animationCondition(.halfTime ,painBlock: block14, color: color)
+                
+            case "1500": animationCondition(.onTime ,painBlock: block15, color: color)
+            case "1530": animationCondition(.halfTime ,painBlock: block15, color: color)
+                
+            case "1600": animationCondition(.onTime ,painBlock: block16, color: color)
+            case "1630": animationCondition(.halfTime ,painBlock: block16, color: color)
+                
+            case "1700": animationCondition(.onTime ,painBlock: block17, color: color)
+            case "1730": animationCondition(.halfTime ,painBlock: block17, color: color)
+                
+            case "1800": animationCondition(.onTime ,painBlock: block18, color: color)
+            case "1830": animationCondition(.halfTime ,painBlock: block18, color: color)
+                
+            case "1900": animationCondition(.onTime ,painBlock: block19, color: color)
+            case "1930": animationCondition(.halfTime ,painBlock: block19, color: color)
+                
+            case "2000": animationCondition(.onTime ,painBlock: block20, color: color)
+            case "2030": animationCondition(.halfTime ,painBlock: block20, color: color)
+                
+            case "2100": animationCondition(.onTime ,painBlock: block21, color: color)
+            case "2130": animationCondition(.halfTime ,painBlock: block21, color: color)
+                
+            case "2200": animationCondition(.onTime ,painBlock: block22, color: color)
+            case "2230": animationCondition(.halfTime ,painBlock: block22, color: color)
+                
+            case "2300": animationCondition(.onTime ,painBlock: block23, color: color)
+            case "2330": animationCondition(.halfTime ,painBlock: block23, color: color)
+                
+            default:
+                break
+            }
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

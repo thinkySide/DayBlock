@@ -15,6 +15,7 @@ final class HomeViewController: UIViewController {
     
     private let viewManager = HomeView()
     private let blockManager = BlockManager.shared
+    private let trackingManager = TrackingManager.shared
     private var timeTracker = TimeTracker()
     private let customBottomModalDelegate = CustomBottomModalDelegate()
     
@@ -59,14 +60,7 @@ final class HomeViewController: UIViewController {
         setupContentsBlock()
         setupTrackingButton()
         setupDefaultFocus()
-        
-        //        // 테스트용 블럭 색칠
-        //        let color = blockManager.getCurrentGroupColor()
-        //        viewManager.blockPreview.block03.painting(.firstHalf, color: color)
-        //        viewManager.blockPreview.block17.painting(.secondHalf, color: color)
-        //        viewManager.blockPreview.block12.painting(.fullTime, color: color)
     }
-    
     
     
     // MARK: - UserDefaults & NotificationCenter
@@ -105,6 +99,7 @@ final class HomeViewController: UIViewController {
         viewManager.blockCollectionView.reloadData()
     }
     
+    
     // MARK: - Setup Method
     
     func setupCoreData() {
@@ -114,11 +109,11 @@ final class HomeViewController: UIViewController {
     
     func setupNavigation() {
         
-        /// TrackingStopButton
+        // TrackingStopButton
         let trackingStopBarButtomItem = viewManager.trackingStopBarButtonItem
         navigationItem.rightBarButtonItem = trackingStopBarButtomItem
         
-        /// 뒤로가기 버튼
+        // 뒤로가기 버튼
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         backBarButtonItem.tintColor = GrayScale.mainText
         navigationItem.backBarButtonItem = backBarButtonItem
@@ -186,7 +181,14 @@ final class HomeViewController: UIViewController {
         timeFormatter.dateFormat = "HH:mm"
         viewManager.timeLabel.text = timeFormatter.string(from: Date())
         
-        /// 00:00에 날짜 업데이트
+        let trackingFormatter = DateFormatter()
+        trackingFormatter.locale = Locale(identifier: "ko_KR")
+        trackingFormatter.dateFormat = "HH/mm/ss"
+        
+        // 트래킹 타임 업데이트
+        trackingManager.updateTrackingStartTime(trackingFormatter.string(from: Date()))
+        
+        // 00:00에 날짜 업데이트
         if viewManager.timeLabel.text == "00:00" { updateDate() }
     }
     
@@ -434,6 +436,12 @@ extension HomeViewController: HomeViewDelegate {
     
     func startTracking() {
         
+        // 트래킹 블럭 인덱스 현재 시간에 맞춰 업데이트
+        trackingManager.updateTrackingBlockIndex()
+        
+        // BlockPreview 애니메이션 활성화
+        updateBlockPreview()
+        
         trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTrackingTime), userInfo: nil, repeats: true)
         
         // 블럭 업데이트
@@ -460,6 +468,8 @@ extension HomeViewController: HomeViewDelegate {
         viewManager.blockCollectionView.reloadData()
         viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: blockIndex, section: 0), at: .left, animated: true)
         
+        // ⛳️ 블럭 프리뷰 애니메이션 종료
+        
         // 화면 꺼짐 해제
         UIApplication.shared.isIdleTimerDisabled = false
     }
@@ -469,16 +479,26 @@ extension HomeViewController: HomeViewDelegate {
         timeTracker.totalTime += 1
         timeTracker.currentTime += 1
         
-        /// 30분 단위 블럭 추가 및 현재 시간 초기화 (0.5블럭)
+        // 30분 단위 블럭 추가 및 현재 시간 초기화 (0.5블럭)
         if timeTracker.totalTime % 1800 == 0 {
             timeTracker.totalBlock += 0.5
             viewManager.updateCurrentProductivityLabel(timeTracker.totalBlock)
             timeTracker.currentTime = 0
+            
+            // 블럭 프리뷰 업데이트
+            updateBlockPreview()
         }
         
-        /// TimeLabel & ProgressView 업데이트
+        // TimeLabel & ProgressView 업데이트
         viewManager.updateTracking(time: timeTracker.timeFormatter,
                                    progress: timeTracker.currentTime / 1800)
+    }
+    
+    /// 블럭 프리뷰 상태를 업데이트하고 애니메이션을 실행합니다.
+    func updateBlockPreview() {
+        let trackingIndexs = trackingManager.getTrackingBlockIndexs()
+        let color = blockManager.getCurrentGroupColor()
+        viewManager.blockPreview.trackingAnimation(trackingIndexs, color: color)
     }
     
     func showTabBar() {

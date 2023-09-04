@@ -68,6 +68,7 @@
 		078C50F629D9BBB200F239BA /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F529D9BBB200F239BA /* ScheduleViewController.swift */; };
 		078C50F829D9BBFE00F239BA /* StorageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F729D9BBFE00F239BA /* StorageViewController.swift */; };
 		079818BB2A78F77F006A38AB /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079818BA2A78F77F006A38AB /* TestData.swift */; };
+		07A45CE42AA0952000C09342 /* TrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A45CE32AA0952000C09342 /* TrackingManager.swift */; };
 		07B49BC42A88EBA3006D1011 /* CustomUIMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC32A88EBA3006D1011 /* CustomUIMenu.swift */; };
 		07B49BC62A88EC14006D1011 /* CustomUIMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC52A88EC14006D1011 /* CustomUIMenuItem.swift */; };
 		07B49BC82A8DD84D006D1011 /* EditGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC72A8DD84D006D1011 /* EditGroupViewController.swift */; };
@@ -145,6 +146,7 @@
 		078C50F529D9BBB200F239BA /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		078C50F729D9BBFE00F239BA /* StorageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageViewController.swift; sourceTree = "<group>"; };
 		079818BA2A78F77F006A38AB /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
+		07A45CE32AA0952000C09342 /* TrackingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingManager.swift; sourceTree = "<group>"; };
 		07B49BC32A88EBA3006D1011 /* CustomUIMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIMenu.swift; sourceTree = "<group>"; };
 		07B49BC52A88EC14006D1011 /* CustomUIMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIMenuItem.swift; sourceTree = "<group>"; };
 		07B49BC72A8DD84D006D1011 /* EditGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGroupViewController.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 				0719648029DAF38A009CA1A4 /* Block.swift */,
 				0719648229DAF4B5009CA1A4 /* Group.swift */,
 				0719648929DC5CB4009CA1A4 /* BlockManager.swift */,
+				07A45CE32AA0952000C09342 /* TrackingManager.swift */,
 				07EB771829F53855000BD87E /* ColorManager.swift */,
 				07817F0A2A0A05DE00D024F6 /* SymbolManager.swift */,
 				0770802C29E55E7C00D66900 /* TimeTracker.swift */,
@@ -482,6 +485,7 @@
 				075A5AE22A7E19ED0004F847 /* BlockEntity+CoreDataClass.swift in Sources */,
 				07817F092A09D81700D024F6 /* CustomDelegate.swift in Sources */,
 				07B49C452A95E5BD006D1011 /* TrackingCompleteViewController.swift in Sources */,
+				07A45CE42AA0952000C09342 /* TrackingManager.swift in Sources */,
 				07454E1329EC138E00B3458D /* GroupSelectTableViewCell.swift in Sources */,
 				07454E1129EBFDF200B3458D /* ActionButton.swift in Sources */,
 				0770803629E7981300D66900 /* SelectIconView.swift in Sources */,

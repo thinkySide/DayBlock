@@ -28,18 +28,45 @@ final class PaintBlock: UIView {
         return view
     }()
     
+    var state: Paint = .none
     
     
     // MARK: - Method
     
     func painting(_ area: Paint, color: UIColor) {
+        
+        // 상태 변경
+        state = area
     
-        /// 블럭 초기화
+        // 블럭 초기화
         backgroundColor = GrayScale.entireBlock
         firstHalf.backgroundColor = .clear
         secondHalf.backgroundColor = .clear
         
-        /// 색상 변경
+        // 색상 변경
+        switch area {
+        case .firstHalf:
+            firstHalf.backgroundColor = color
+        case .secondHalf:
+            secondHalf.backgroundColor = color
+        case .fullTime:
+            backgroundColor = color
+        case .none:
+            backgroundColor = GrayScale.entireBlock
+        }
+    }
+    
+    func animation(_ area: Paint, color: UIColor) {
+        
+        // 상태 변경
+        state = area
+    
+        // 블럭 초기화
+        backgroundColor = GrayScale.entireBlock
+        firstHalf.backgroundColor = .clear
+        secondHalf.backgroundColor = .clear
+        
+        // 색상 변경
         switch area {
         case .firstHalf:
             firstHalf.backgroundColor = color
