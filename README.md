@@ -549,3 +549,17 @@ NotificationCenter를 활용해 그룹이 업데이트 되는 시점에 맞춰 H
 ---
 
 <br>
+
+### **Day 82 - 23.09.05**
+
+- **Tracking 타임 특정**   
+0초부터 86,400초를 기준으로 현재 어떤 블럭을 트래킹할지 설정하고 관리하는 TrackingManager 싱글톤 클래스를 구현했습니다.
+
+- **Tracking Animation 추가**   
+현재 트래킹 되고 있다는 것을 시각적으로 알리기 위해, 1초 간격으로 무한히 반복하는 애니메이션을 추가했습니다.
+
+<img width="300" src="https://github.com/thinkySide/DayBlock/assets/113565086/bb7f290c-1b3f-4b1b-94bc-222a742257f0">
+
+---
+
+<br>
