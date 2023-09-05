@@ -9,6 +9,7 @@ import UIKit
 
 final class PaintBlock: UIView {
     
+    /// 블럭 색칠 상태
     enum Paint {
         case firstHalf
         case secondHalf
@@ -16,29 +17,37 @@ final class PaintBlock: UIView {
         case none
     }
     
+    /// 전체 색칠 상태
     private let full: UIView = {
         let view = UIView()
         view.clipsToBounds = true
         return view
     }()
     
+    /// 00~29 까지의 첫번째 반쪽 색칠 상태
     private let firstHalf: UIView = {
         let view = UIView()
         view.clipsToBounds = true
         return view
     }()
     
+    /// 30~59 까지의 두번째 반쪽 색칠 상태
     private let secondHalf: UIView = {
         let view = UIView()
         view.clipsToBounds = true
         return view
     }()
     
-    var state: Paint = .none
+    /// 현재 블럭 색칠 상태
+    var state: Paint
+    
+    /// 애니메이션 동작 컨트롤용 WorkItem
+    var workItem: DispatchWorkItem?
     
     
     // MARK: - Method
     
+    /// 블럭 색칠 메서드
     func painting(_ area: Paint, color: UIColor) {
         
         // 상태 변경
@@ -62,11 +71,12 @@ final class PaintBlock: UIView {
         }
     }
     
-    func animation(_ area: Paint, color: UIColor = GrayScale.entireBlock) {
+    /// 블럭 애니메이션 설정 메서드
+    func configureAnimation(_ area: Paint, color: UIColor = GrayScale.entireBlock, isPaused: Bool) {
         
         // 상태 변경
         state = area
-    
+        
         // 블럭 초기화
         backgroundColor = GrayScale.entireBlock
         full.backgroundColor = .clear
@@ -74,31 +84,46 @@ final class PaintBlock: UIView {
         secondHalf.backgroundColor = .clear
         
         // 깜빡이 애니메이션
-        switch area {
-        case .firstHalf:
-            firstHalf.backgroundColor = color
-            UIView.animate(withDuration: 1.0, delay: 0, options: [.repeat, .autoreverse, .curveEaseInOut]) {
-                self.firstHalf.alpha = 0
-            }
-            
-        case .secondHalf:
-            secondHalf.backgroundColor = color
-            UIView.animate(withDuration: 1.0, delay: 0, options: [.repeat, .autoreverse, .curveEaseInOut]) {
-                self.secondHalf.alpha = 0
-            }
-            
-        case .fullTime:
-            full.backgroundColor = color
-            UIView.animate(withDuration: 1.0, delay: 0, options: [.repeat, .autoreverse, .curveEaseInOut]) {
-                self.full.alpha = 0
-            }
-            
-        case .none:
-            backgroundColor = GrayScale.entireBlock
+        switch state {
+        case .firstHalf: animate(firstHalf, color: color, isPaused: isPaused)
+        case .secondHalf: animate(firstHalf, color: color, isPaused: isPaused)
+        case .fullTime: animate(firstHalf, color: color, isPaused: isPaused)
+        case .none: backgroundColor = GrayScale.entireBlock
         }
     }
     
-    override init(frame: CGRect) {
+    /// 실제 블럭 애니메이션 동작 메서드
+    private func animate(_ area: UIView, color: UIColor, isPaused: Bool) {
+        
+        // 작업 초기화
+        workItem?.cancel()
+        
+        // 애니메이션 활성화 상태
+        if !isPaused {
+            area.backgroundColor = color
+            
+            // WorkItem 할당
+            workItem = DispatchWorkItem {
+                UIView.animate(withDuration: 1.0, delay: 0, options: [.repeat, .autoreverse, .curveEaseInOut]) {
+                    area.alpha = 0
+                }
+            }
+            
+            // 애니메이션 실행
+            DispatchQueue.main.async(execute: workItem!)
+        }
+        
+        // 애니메이션 중지 상태
+        if isPaused {
+            area.backgroundColor = UIColor(rgb: 0xB0B3BB)
+        }
+    }
+    
+    
+    // MARK: - Initial Method
+    
+    init(frame: CGRect, paint: Paint) {
+        self.state = paint
         super.init(frame: frame)
         
         /// Blcok Color

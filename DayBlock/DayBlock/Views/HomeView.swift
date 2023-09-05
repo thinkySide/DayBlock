@@ -143,6 +143,7 @@ final class HomeView: UIView {
     
     // MARK: - Method
     
+    /// 그룹 선택 버튼 Tap 이벤트 메서드
     @objc func groupSelectButtonTapped() {
         delegate?.selectGroupButtonTapped()
     }
@@ -180,38 +181,41 @@ final class HomeView: UIView {
         /// Tracking 모드 변경
         trackingMode = trackingMode == .inactive ? .active : .inactive
         
-        /// Tracking 모드 설정
+        // Tracking 모드 설정
         switch trackingMode {
         case .active:
             
-            /// Tracking 시작
+            // Tracking 시작
             delegate?.startTracking()
             trackingTimeLabel.textColor = GrayScale.mainText
             
-            /// Tracking 버튼 설정
+            // Tracking 버튼 설정
             trackingButton.setImage(
                 UIImage(named: Icon.trackingPause),
                 for: .normal)
             
-            /// ProgressView 컬러 설정
+            // ProgressView 컬러 설정
             delegate?.setupProgressViewColor()
             
         case .inactive:
             
-            /// Tracking 일시정지
+            // Tracking 일시정지
             delegate?.pausedTracking()
             trackingTimeLabel.textColor = GrayScale.disabledText
             
-            /// Tracking 버튼 설정
+            // Tracking 버튼 설정
             trackingButton.setImage(
                 UIImage(named: Icon.trackingStart),
                 for: .normal)
             
-            /// ProgressView 컬러
+            // ProgressView 컬러
             trackingProgressView.progressTintColor = GrayScale.disabledText
+            
+            // BlockPreview 애니메이션 일시정지
+            blockPreview.inActivateTrackingAnimation()
         }
         
-        /// 공통 설정
+        // 공통 설정
         delegate?.hideTabBar()
         groupSelectButton.isHidden = true
         blockCollectionView.isHidden = true

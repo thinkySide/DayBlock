@@ -417,7 +417,7 @@ extension HomeViewController: HomeViewDelegate {
         viewManager.trackingButtonTapped()
         
         // 블럭 프리뷰 애니메이션 일시 중지
-        
+        viewManager.blockPreview.inActivateTrackingAnimation()
         
         // 팝업 출력
         let deletePopup = DeletePopupViewController()
@@ -550,10 +550,15 @@ extension HomeViewController: ContentsBlockDelegate {
 
 
 extension HomeViewController: TrackingCompleteViewControllerDelegate {
+    
+    /// 트래킹 모드 종료 델리게이트
     func endTrackingMode() {
         
         // 블럭 프리뷰 애니메이션 종료
         viewManager.blockPreview.inActivateTrackingAnimation()
+        
+        // 블럭 프리뷰 배열 초기화
+        viewManager.blockPreview.resetCurrentBlocks()
         
         // 트래킹 Dictionary 초기화
         trackingManager.resetTrackingBlocks()

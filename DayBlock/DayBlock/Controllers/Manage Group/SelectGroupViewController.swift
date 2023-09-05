@@ -102,16 +102,6 @@ final class SelectGroupViewController: UIViewController {
         
         guard let indexPath = viewManager.groupTableView.indexPathForSelectedRow else { return }
         let group = blockManager.getGroupList()[indexPath.row]
-        let blockList = blockManager.getBlockList(indexPath.row)
-        
-        // 만약 편집모드에서 이동하려는 그룹에 현재 블럭이름과 일치하는 블럭이 있다면 경고 팝업 출력
-//        for block in blockList {
-//            if block.taskLabel == blockManager.getRemoteBlock().list[0].taskLabel {
-//
-//
-//                return
-//            }
-//        }
         
         // 현재 선택된 indexPath 값으로 블럭 정보 업데이트
         blockManager.updateRemoteBlock(group: group)
