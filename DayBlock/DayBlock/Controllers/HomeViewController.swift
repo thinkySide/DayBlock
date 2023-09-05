@@ -103,7 +103,7 @@ final class HomeViewController: UIViewController {
     // MARK: - Setup Method
     
     func setupCoreData() {
-        blockManager.fetchCoreData()
+        blockManager.fetchRequestGroupEntitiy()
         blockManager.initialSetupForCoreData()
     }
     
@@ -194,10 +194,7 @@ final class HomeViewController: UIViewController {
     
     /// 현재 날짜 및 요일 업데이트
     func updateDate() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "ko_KR")
-        dateFormatter.dateFormat = "M월 d일 E요일"
-        viewManager.dateLabel.text = dateFormatter.string(from: Date())
+        viewManager.dateLabel.text = trackingManager.dateFormat
     }
     
     /// 트래킹 블럭 Long Press Gestrue
@@ -413,6 +410,30 @@ extension HomeViewController: UIScrollViewDelegate {
 
 extension HomeViewController: HomeViewDelegate {
     
+    /// 트래킹 중단 BarButtonItem Tap 이벤트 메서드
+    func trackingStopBarButtonItemTapped() {
+        
+        // 트래킹 일시 중지
+        viewManager.trackingButtonTapped()
+        
+        // 블럭 프리뷰 애니메이션 일시 중지
+        
+        
+        // 팝업 출력
+        let deletePopup = DeletePopupViewController()
+        deletePopup.deletePopupView.mainLabel.text = "블럭 생산을 중단할까요?"
+        deletePopup.deletePopupView.subLabel.text = "지금까지 생산한 블럭이 모두 사라져요."
+        deletePopup.deletePopupView.actionStackView.confirmButton.setTitle("중단할래요", for: .normal)
+        deletePopup.modalPresentationStyle = .overCurrentContext
+        deletePopup.modalTransitionStyle = .crossDissolve
+        
+        // 이벤트 메서드 연결
+        deletePopup.deletePopupView.actionStackView.confirmButton.addTarget(self, action: #selector(trackingModeDeletePopupConfirmButtonTapped), for: .touchUpInside)
+        deletePopup.deletePopupView.actionStackView.cancelButton.addTarget(self, action: #selector(trackingModeDeletePopupCancelButtonTapped), for: .touchUpInside)
+        
+        self.present(deletePopup, animated: true)
+    }
+    
     func selectGroupButtonTapped() {
         let selectGroupVC = SelectGroupViewController()
         selectGroupVC.delegate = self
@@ -436,11 +457,8 @@ extension HomeViewController: HomeViewDelegate {
     
     func startTracking() {
         
-        // 트래킹 블럭 인덱스 현재 시간에 맞춰 업데이트
-        trackingManager.updateTrackingBlockIndex()
-        
         // BlockPreview 애니메이션 활성화
-        updateBlockPreview()
+        activateBlockPreview()
         
         trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTrackingTime), userInfo: nil, repeats: true)
         
@@ -463,13 +481,14 @@ extension HomeViewController: HomeViewDelegate {
         timeTracker.totalTime = 0
         timeTracker.currentTime = 0
         timeTracker.totalBlock = 0
-        
+
         // 컬렉션뷰 초기화
         viewManager.blockCollectionView.reloadData()
         viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: blockIndex, section: 0), at: .left, animated: true)
-        
+
         // ⛳️ 블럭 프리뷰 애니메이션 종료
         
+
         // 화면 꺼짐 해제
         UIApplication.shared.isIdleTimerDisabled = false
     }
@@ -486,7 +505,7 @@ extension HomeViewController: HomeViewDelegate {
             timeTracker.currentTime = 0
             
             // 블럭 프리뷰 업데이트
-            updateBlockPreview()
+            activateBlockPreview()
         }
         
         // TimeLabel & ProgressView 업데이트
@@ -494,11 +513,11 @@ extension HomeViewController: HomeViewDelegate {
                                    progress: timeTracker.currentTime / 1800)
     }
     
-    /// 블럭 프리뷰 상태를 업데이트하고 애니메이션을 실행합니다.
-    func updateBlockPreview() {
-        let trackingIndexs = trackingManager.getTrackingBlockIndexs()
+    /// 블럭 프리뷰 상태를 활성화하고 애니메이션을 실행합니다.
+    func activateBlockPreview() {
+        guard let trackingIndexs = trackingManager.fetchTrackingBlocks()[trackingManager.trackingFormat] else { return }
         let color = blockManager.getCurrentGroupColor()
-        viewManager.blockPreview.trackingAnimation(trackingIndexs, color: color)
+        viewManager.blockPreview.activateTrackingAnimation(trackingIndexs, color: color)
     }
     
     func showTabBar() {
@@ -533,8 +552,14 @@ extension HomeViewController: ContentsBlockDelegate {
 extension HomeViewController: TrackingCompleteViewControllerDelegate {
     func endTrackingMode() {
         
+        // 블럭 프리뷰 애니메이션 종료
+        viewManager.blockPreview.inActivateTrackingAnimation()
+        
+        // 트래킹 Dictionary 초기화
+        trackingManager.resetTrackingBlocks()
+        
         // 트래킹 모드 종료
-        viewManager.trackingStopBarButtonItemTapped()
+        viewManager.switchToHomeMode()
     }
 }
 
@@ -607,9 +632,9 @@ extension HomeViewController: SelectGroupViewControllerDelegate {
 // MARK: - DeletePopupViewControllerDelegate
 
 extension HomeViewController: DeletePopupViewControllerDelegate {
-    func deleteObject() {
+    func confirmButtonTapped() {
         let deleteBlock = blockManager.getCurrentBlockList()[blockManager.getCurrentBlockIndex()]
-        blockManager.deleteBlock(deleteBlock)
+        blockManager.deleteBlockEntitiy(deleteBlock)
         viewManager.blockCollectionView.reloadData()
         
         /// 그룹 리스트가 비어있을 시, 트래킹 버튼 비활성화
@@ -619,5 +644,15 @@ extension HomeViewController: DeletePopupViewControllerDelegate {
         } else {
             viewManager.toggleTrackingButton(true)
         }
+    }
+    
+    /// 트래킹 모드 블럭 생산 중단 팝업 - 중단할래요 버튼 탭 메서드
+    @objc func trackingModeDeletePopupConfirmButtonTapped() {
+        endTrackingMode()
+    }
+    
+    /// 트래킹 모드 블럭 생산 중단 팝업 - 아니오 버튼 탭 메서드
+    @objc func trackingModeDeletePopupCancelButtonTapped() {
+        viewManager.trackingButtonTapped()
     }
 }

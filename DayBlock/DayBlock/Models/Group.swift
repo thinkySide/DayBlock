@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// 코어데이터를 위한 커스텀 그룹 정의
 struct Group {
     var name: String
     var color: Int

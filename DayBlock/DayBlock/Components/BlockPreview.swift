@@ -68,7 +68,8 @@ final class BlockPreview: UIView {
         }
     }
     
-    func trackingAnimation(_ indexs: [String], color: UIColor) {
+    /// 트래킹 애니메이션을 활성화합니다.
+    func activateTrackingAnimation(_ indexs: [String], color: UIColor) {
         for index in indexs {
             switch index {
                 
@@ -147,6 +148,16 @@ final class BlockPreview: UIView {
             default:
                 break
             }
+        }
+    }
+    
+    /// 트래킹 애니메이션을 비활성화 합니다.
+    func inActivateTrackingAnimation() {
+        [block00, block01, block02, block03, block04, block05,
+         block06, block07, block08, block09, block10, block11,
+         block12, block13, block14, block15, block16, block17,
+         block18, block19, block20, block21, block22, block23,].forEach {
+            $0.animation(.none)
         }
     }
     

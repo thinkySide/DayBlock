@@ -15,6 +15,7 @@ enum Noti {
     static let updateCreateBlockUI = "updateCreateBlockUI"
 }
 
+
 // MARK: - UserDefaults
 
 enum UD {
@@ -53,7 +54,6 @@ enum GrayScale {
 }
 
 
-
 // MARK: - Fonts
 
 enum Pretendard {
@@ -73,7 +73,6 @@ enum Poppins {
 }
 
 
-
 // MARK: - Icon
 
 enum Icon {
@@ -88,7 +87,6 @@ enum Icon {
 }
 
 
-
 // MARK: - Size
 
 enum Size {
@@ -98,7 +96,6 @@ enum Size {
     static let seperator: CGFloat = 1
     static let selectFormSpacing: CGFloat = 24
 }
-
 
 
 // MARK: - Cell

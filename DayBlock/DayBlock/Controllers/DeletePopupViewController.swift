@@ -7,8 +7,9 @@
 
 import UIKit
 
-protocol DeletePopupViewControllerDelegate: AnyObject {
-    func deleteObject()
+@objc protocol DeletePopupViewControllerDelegate: AnyObject {
+    func confirmButtonTapped()
+    @objc optional func cancelButtonTapped()
 }
 
 final class DeletePopupViewController: UIViewController {
@@ -72,15 +73,16 @@ final class DeletePopupViewController: UIViewController {
     // MARK: - Event Method
     
     @objc func backgroundTapped() {
-        dismiss(animated: true)
+        // dismiss(animated: true)
     }
     
     @objc func cancelButtonTapped() {
         dismiss(animated: true)
+        delegate?.cancelButtonTapped?()
     }
     
     @objc func deleteButtonTapped() {
         dismiss(animated: true)
-        delegate?.deleteObject()
+        delegate?.confirmButtonTapped()
     }
 }

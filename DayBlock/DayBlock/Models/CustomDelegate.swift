@@ -11,16 +11,17 @@ import Foundation
 
 protocol HomeViewDelegate: AnyObject {
     
-    /// TabBar
+    // TabBar
     func hideTabBar()
     func showTabBar()
     
-    /// Tracking
+    // Tracking
     func startTracking()
     func pausedTracking()
     func stopTracking()
     
-    /// Custom
+    // Custom
+    func trackingStopBarButtonItemTapped()
     func selectGroupButtonTapped()
     func setupProgressViewColor()
 }

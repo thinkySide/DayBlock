@@ -150,7 +150,7 @@ extension EditGroupDetailViewController: EditGroupDetailViewDelegate {
 // MARK: - DeletePopupViewControllerDelegate
 
 extension EditGroupDetailViewController: DeletePopupViewControllerDelegate {
-    func deleteObject() {
+    func confirmButtonTapped() {
         
         // 코어데이터에서 그룹 삭제
         blockManager.deleteGroup()

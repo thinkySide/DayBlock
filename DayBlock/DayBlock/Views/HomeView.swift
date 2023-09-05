@@ -147,16 +147,23 @@ final class HomeView: UIView {
         delegate?.selectGroupButtonTapped()
     }
     
+    /// 트래킹 중단 BarButtonItem Tap 이벤트 메서드
     @objc func trackingStopBarButtonItemTapped() {
-        /// Tracking 종료
+        delegate?.trackingStopBarButtonItemTapped()
+    }
+    
+    /// 트래킹 모드 → 홈 모드로 전환합니다.
+    func switchToHomeMode() {
+        
+        // Tracking 종료
         delegate?.stopTracking()
         
-        /// Tracking 버튼 설정
+        // Tracking 버튼 설정
         trackingButton.setImage(
             UIImage(named: Icon.trackingStart),
             for: .normal)
         
-        /// 공통 설정
+        // 공통 설정
         delegate?.showTabBar()
         trackingMode = .inactive
         groupSelectButton.isHidden = false

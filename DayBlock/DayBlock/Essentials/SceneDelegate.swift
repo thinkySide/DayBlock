@@ -13,18 +13,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
-        /// Code Base 설정
+        // Code Base 설정
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
-        /// UINavigation 추가
+        // UINavigation 추가
         let homeNavigationController = UINavigationController(rootViewController: HomeViewController())
-        
         let scheduleNavigationController = UINavigationController(rootViewController: ScheduleViewController())
-        
         let storageNavigationController = UINavigationController(rootViewController: StorageViewController())
         
-        /// UITabBarController 추가
+        // UITabBarController 추가
         let tabBarController = UITabBarController()
         tabBarController.tabBar.tintColor = GrayScale.mainText
         tabBarController.setViewControllers([
@@ -33,18 +31,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             storageNavigationController
         ], animated: true)
         
-        /// UITabBarItem 추가
+        // UITabBarItem 추가
         if let items = tabBarController.tabBar.items {
             
-            /// homeNavigationController
+            // homeNavigationController
             items[0].image = UIImage(named: Icon.home)
             items[0].title = "홈"
             
-            /// scheduleNavigationController
+            // scheduleNavigationController
             items[1].image = UIImage(named: Icon.schedule)
             items[1].title = "계획표"
             
-            /// storageNavigationController
+            // storageNavigationController
             items[2].image = UIImage(named: Icon.storage)
             items[2].title = "저장소"
         }
@@ -83,7 +81,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Save changes in the application's managed object context when the application transitions to the background.
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
-
-
 }
 

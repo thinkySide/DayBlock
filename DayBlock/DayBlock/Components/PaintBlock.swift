@@ -16,6 +16,12 @@ final class PaintBlock: UIView {
         case none
     }
     
+    private let full: UIView = {
+        let view = UIView()
+        view.clipsToBounds = true
+        return view
+    }()
+    
     private let firstHalf: UIView = {
         let view = UIView()
         view.clipsToBounds = true
@@ -56,24 +62,37 @@ final class PaintBlock: UIView {
         }
     }
     
-    func animation(_ area: Paint, color: UIColor) {
+    func animation(_ area: Paint, color: UIColor = GrayScale.entireBlock) {
         
         // 상태 변경
         state = area
     
         // 블럭 초기화
         backgroundColor = GrayScale.entireBlock
+        full.backgroundColor = .clear
         firstHalf.backgroundColor = .clear
         secondHalf.backgroundColor = .clear
         
-        // 색상 변경
+        // 깜빡이 애니메이션
         switch area {
         case .firstHalf:
             firstHalf.backgroundColor = color
+            UIView.animate(withDuration: 1.0, delay: 0, options: [.repeat, .autoreverse, .curveEaseInOut]) {
+                self.firstHalf.alpha = 0
+            }
+            
         case .secondHalf:
             secondHalf.backgroundColor = color
+            UIView.animate(withDuration: 1.0, delay: 0, options: [.repeat, .autoreverse, .curveEaseInOut]) {
+                self.secondHalf.alpha = 0
+            }
+            
         case .fullTime:
-            backgroundColor = color
+            full.backgroundColor = color
+            UIView.animate(withDuration: 1.0, delay: 0, options: [.repeat, .autoreverse, .curveEaseInOut]) {
+                self.full.alpha = 0
+            }
+            
         case .none:
             backgroundColor = GrayScale.entireBlock
         }
@@ -86,7 +105,7 @@ final class PaintBlock: UIView {
         self.backgroundColor = GrayScale.entireBlock
         
         /// AddSubView & resizingMask
-        [firstHalf, secondHalf]
+        [full, firstHalf, secondHalf]
             .forEach {
                 addSubview($0)
                 $0.translatesAutoresizingMaskIntoConstraints = false
@@ -94,17 +113,24 @@ final class PaintBlock: UIView {
         
         /// Constraints
         NSLayoutConstraint.activate([
-            /// self(paintBlock)
+            
+            // self(paintBlock)
             self.widthAnchor.constraint(equalToConstant: 18),
             self.heightAnchor.constraint(equalToConstant: 18),
             
-            /// firstHalf
+            // full
+            full.topAnchor.constraint(equalTo: topAnchor),
+            full.bottomAnchor.constraint(equalTo: bottomAnchor),
+            full.leadingAnchor.constraint(equalTo: leadingAnchor),
+            full.trailingAnchor.constraint(equalTo: trailingAnchor),
+            
+            // firstHalf
             firstHalf.topAnchor.constraint(equalTo: topAnchor),
             firstHalf.bottomAnchor.constraint(equalTo: bottomAnchor),
             firstHalf.leadingAnchor.constraint(equalTo: leadingAnchor),
             firstHalf.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
             
-            /// secondHalf
+            // secondHalf
             secondHalf.topAnchor.constraint(equalTo: topAnchor),
             secondHalf.bottomAnchor.constraint(equalTo: bottomAnchor),
             secondHalf.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -123,6 +149,7 @@ final class PaintBlock: UIView {
         let cornerRadius = self.frame.height / 4
         self.clipsToBounds = true
         self.layer.cornerRadius = cornerRadius
+        full.layer.cornerRadius = cornerRadius
         firstHalf.layer.cornerRadius = cornerRadius
         secondHalf.layer.cornerRadius = cornerRadius
     }
