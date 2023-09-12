@@ -41,14 +41,11 @@ final class PaintBlock: UIView {
     /// 현재 블럭 색칠 상태
     var state: Paint
     
-    /// 애니메이션 동작 컨트롤용 WorkItem
-    var workItem: DispatchWorkItem?
-    
     
     // MARK: - Method
     
     /// 블럭 색칠 메서드
-    func painting(_ area: Paint, color: UIColor) {
+    func painting(_ area: Paint, color: UIColor = GrayScale.entireBlock) {
         
         // 상태 변경
         state = area
@@ -86,8 +83,8 @@ final class PaintBlock: UIView {
         // 깜빡이 애니메이션
         switch state {
         case .firstHalf: animate(firstHalf, color: color, isPaused: isPaused)
-        case .secondHalf: animate(firstHalf, color: color, isPaused: isPaused)
-        case .fullTime: animate(firstHalf, color: color, isPaused: isPaused)
+        case .secondHalf: animate(secondHalf, color: color, isPaused: isPaused)
+        case .fullTime: animate(full, color: color, isPaused: isPaused)
         case .none: backgroundColor = GrayScale.entireBlock
         }
     }
@@ -95,27 +92,20 @@ final class PaintBlock: UIView {
     /// 실제 블럭 애니메이션 동작 메서드
     private func animate(_ area: UIView, color: UIColor, isPaused: Bool) {
         
-        // 작업 초기화
-        workItem?.cancel()
-        
         // 애니메이션 활성화 상태
         if !isPaused {
             area.backgroundColor = color
-            
-            // WorkItem 할당
-            workItem = DispatchWorkItem {
-                UIView.animate(withDuration: 1.0, delay: 0, options: [.repeat, .autoreverse, .curveEaseInOut]) {
-                    area.alpha = 0
-                }
+            UIView.animate(withDuration: 1.0, delay: 0, options: [.repeat, .autoreverse, .curveEaseInOut]) {
+                area.alpha = 0
             }
-            
-            // 애니메이션 실행
-            DispatchQueue.main.async(execute: workItem!)
         }
         
         // 애니메이션 중지 상태
         if isPaused {
             area.backgroundColor = UIColor(rgb: 0xB0B3BB)
+            UIView.animate(withDuration: 0) {
+                area.alpha = 1
+            }
         }
     }
     

@@ -55,8 +55,10 @@ final class BlockPreview: UIView {
     
     func animationCondition(_ time: Time, paintBlock: PaintBlock, color: UIColor) {
         
-        /// 현재 애니메이션 블럭에 추가
-        currentBlocks.append(paintBlock)
+        /// 현재 애니메이션 블럭에 추가(중복 추가 방지)
+        if !currentBlocks.contains(paintBlock) {
+            currentBlocks.append(paintBlock)
+        }
         
         switch time {
         case .onTime: paintBlock.configureAnimation(.firstHalf, color: color, isPaused: false)
@@ -158,10 +160,17 @@ final class BlockPreview: UIView {
         }
     }
     
-    /// 트래킹 애니메이션을 비활성화 합니다.
-    func inActivateTrackingAnimation() {
+    /// 트래킹 애니메이션을 일시정지 합니다.
+    func pausedTrackingAnimation() {
         for block in currentBlocks {
             block.configureAnimation(block.state, isPaused: true)
+        }
+    }
+    
+    /// 트래킹 애니메이션을 종료합니다.
+    func stopTrackingAnimation() {
+        for block in currentBlocks {
+            block.painting(.none)
         }
     }
     

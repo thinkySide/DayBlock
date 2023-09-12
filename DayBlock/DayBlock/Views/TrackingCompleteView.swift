@@ -13,7 +13,33 @@ final class TrackingCompleteView: UIView {
     
     let backToHomeButton: ActionButton = {
         let button = ActionButton(frame: .zero, mode: .confirm)
+        button.setTitle("홈 화면으로 돌아가기", for: .normal)
         return button
+    }()
+    
+    private lazy var titleStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [
+            iconBlock, taskLabel])
+        stack.axis = .horizontal
+        stack.distribution = .fill
+        stack.alignment = .fill
+        stack.spacing = 16
+        return stack
+    }()
+    
+    let iconBlock: IconBlock = {
+        let icon = IconBlock()
+        return icon
+    }()
+    
+    let taskLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Swift 공부" // ⛳️
+        label.font = UIFont(name: Pretendard.bold, size: 20)
+        label.textColor = GrayScale.mainText
+        label.textAlignment = .left
+        label.numberOfLines = 2
+        return label
     }()
     
     
@@ -34,7 +60,8 @@ final class TrackingCompleteView: UIView {
     // MARK: - Auto Layout Method
     
     private func setupAddView() {
-        [backToHomeButton].forEach {
+        [titleStackView,
+         backToHomeButton].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -43,6 +70,10 @@ final class TrackingCompleteView: UIView {
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             
+            // titleStackView
+            titleStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 32),
+            titleStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+
             // backToHomeButton
             backToHomeButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             backToHomeButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),

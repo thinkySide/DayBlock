@@ -212,7 +212,7 @@ final class HomeView: UIView {
             trackingProgressView.progressTintColor = GrayScale.disabledText
             
             // BlockPreview 애니메이션 일시정지
-            blockPreview.inActivateTrackingAnimation()
+            blockPreview.pausedTrackingAnimation()
         }
         
         // 공통 설정
