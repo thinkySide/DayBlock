@@ -34,7 +34,7 @@ final class TrackingCompleteView: UIView {
     
     let taskLabel: UILabel = {
         let label = UILabel()
-        label.text = "Swift 공부" // ⛳️
+        label.text = "Swift 공부"
         label.font = UIFont(name: Pretendard.bold, size: 20)
         label.textColor = GrayScale.mainText
         label.textAlignment = .left
@@ -43,6 +43,24 @@ final class TrackingCompleteView: UIView {
     }()
     
     private let dashedSeparator = DashedSeparator(frame: .zero)
+    
+    let dateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "2023년 09월 12일 화요일"
+        label.font = UIFont(name: Pretendard.semiBold, size: 16)
+        label.textColor = UIColor(rgb: 0x8E8E8E)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    let timeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "14:05-15:35"
+        label.font = UIFont(name: Poppins.bold, size: 30)
+        label.textColor = GrayScale.mainText
+        label.textAlignment = .center
+        return label
+    }()
     
     // MARK: - Initial Method
     
@@ -63,6 +81,7 @@ final class TrackingCompleteView: UIView {
     private func setupAddView() {
         [titleStackView,
          dashedSeparator,
+         dateLabel, timeLabel,
          backToHomeButton].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -80,6 +99,14 @@ final class TrackingCompleteView: UIView {
             dashedSeparator.topAnchor.constraint(equalTo: titleStackView.bottomAnchor, constant: 32),
             dashedSeparator.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 86),
             dashedSeparator.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -86),
+            
+            // dateLabel
+            dateLabel.topAnchor.constraint(equalTo: dashedSeparator.bottomAnchor, constant: 32),
+            dateLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            // timeLabel
+            timeLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 0),
+            timeLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
 
             // backToHomeButton
             backToHomeButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),

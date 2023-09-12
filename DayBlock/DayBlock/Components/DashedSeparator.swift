@@ -17,7 +17,7 @@ final class DashedSeparator: UIView {
     
     /// DashPattern의 기본값 = [4, 4]
     /// height의 기본값 = 2
-    init(frame: CGRect, dashPattern: [NSNumber] = [4, 4], height: CGFloat = 2) {
+    init(frame: CGRect, dashPattern: [NSNumber] = [6, 6], height: CGFloat = 2) {
         
         // 변수 세팅 & 상위 생성 메서드 호출
         self.dashPattern = dashPattern
@@ -35,12 +35,17 @@ final class DashedSeparator: UIView {
         super.draw(rect)
         
         // Stroke Setting
-        stroke.lineWidth = height
+        stroke.lineWidth = 6
         stroke.strokeColor = GrayScale.seperator.cgColor
         stroke.lineDashPattern = dashPattern
         stroke.frame = self.bounds
         stroke.fillColor = nil
-        stroke.path = UIBezierPath(rect: self.bounds).cgPath
+        
+        let path = CGMutablePath()
+        path.addLines(between: [CGPoint(x: 0, y: 0),
+                                CGPoint(x: self.frame.width, y: 0)])
+        
+        stroke.path = path
         
         // AddSubLayer
         self.layer.addSublayer(stroke)
