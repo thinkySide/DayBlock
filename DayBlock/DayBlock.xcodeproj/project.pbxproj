@@ -24,7 +24,7 @@
 		07454E0F29EBE50500B3458D /* CustomBottomModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E0E29EBE50500B3458D /* CustomBottomModal.swift */; };
 		07454E1129EBFDF200B3458D /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1029EBFDF200B3458D /* ActionButton.swift */; };
 		07454E1329EC138E00B3458D /* GroupSelectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1229EC138E00B3458D /* GroupSelectTableViewCell.swift */; };
-		07454E1529EC170600B3458D /* Seperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1429EC170600B3458D /* Seperator.swift */; };
+		07454E1529EC170600B3458D /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1429EC170600B3458D /* Separator.swift */; };
 		07454E1929EFD8A400B3458D /* ActionStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1829EFD8A400B3458D /* ActionStackView.swift */; };
 		075A5AE22A7E19ED0004F847 /* BlockEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5ADE2A7E19ED0004F847 /* BlockEntity+CoreDataClass.swift */; };
 		075A5AE32A7E19ED0004F847 /* BlockEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5ADF2A7E19ED0004F847 /* BlockEntity+CoreDataProperties.swift */; };
@@ -80,6 +80,7 @@
 		07B49C452A95E5BD006D1011 /* TrackingCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49C442A95E5BD006D1011 /* TrackingCompleteViewController.swift */; };
 		07B49C472A95E66D006D1011 /* TrackingCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49C462A95E66D006D1011 /* TrackingCompleteView.swift */; };
 		07DD3E932AB022ED002D128F /* IconBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DD3E922AB022ED002D128F /* IconBlock.swift */; };
+		07DD3E952AB02BE3002D128F /* DashedSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DD3E942AB02BE3002D128F /* DashedSeparator.swift */; };
 		07EB771729F5335F000BD87E /* ColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB771629F5335F000BD87E /* ColorCollectionViewCell.swift */; };
 		07EB771929F53855000BD87E /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB771829F53855000BD87E /* ColorManager.swift */; };
 /* End PBXBuildFile section */
@@ -102,7 +103,7 @@
 		07454E0E29EBE50500B3458D /* CustomBottomModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBottomModal.swift; sourceTree = "<group>"; };
 		07454E1029EBFDF200B3458D /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		07454E1229EC138E00B3458D /* GroupSelectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSelectTableViewCell.swift; sourceTree = "<group>"; };
-		07454E1429EC170600B3458D /* Seperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seperator.swift; sourceTree = "<group>"; };
+		07454E1429EC170600B3458D /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
 		07454E1829EFD8A400B3458D /* ActionStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionStackView.swift; sourceTree = "<group>"; };
 		075A5ADE2A7E19ED0004F847 /* BlockEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		075A5ADF2A7E19ED0004F847 /* BlockEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -160,6 +161,7 @@
 		07B49C442A95E5BD006D1011 /* TrackingCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingCompleteViewController.swift; sourceTree = "<group>"; };
 		07B49C462A95E66D006D1011 /* TrackingCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingCompleteView.swift; sourceTree = "<group>"; };
 		07DD3E922AB022ED002D128F /* IconBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconBlock.swift; sourceTree = "<group>"; };
+		07DD3E942AB02BE3002D128F /* DashedSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashedSeparator.swift; sourceTree = "<group>"; };
 		07EB771629F5335F000BD87E /* ColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		07EB771829F53855000BD87E /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -300,7 +302,8 @@
 				0719648B29DDB1C0009CA1A4 /* PaintBlock.swift */,
 				07DD3E922AB022ED002D128F /* IconBlock.swift */,
 				075A5AE82A81D04B0004F847 /* DeletePopupView.swift */,
-				07454E1429EC170600B3458D /* Seperator.swift */,
+				07454E1429EC170600B3458D /* Separator.swift */,
+				07DD3E942AB02BE3002D128F /* DashedSeparator.swift */,
 				0719648D29DF044C009CA1A4 /* GroupSelectButton.swift */,
 				0719648729DC5066009CA1A4 /* TabBarActiveStackView.swift */,
 				0719649329E0692E009CA1A4 /* FieldForm.swift */,
@@ -481,7 +484,7 @@
 				0719648E29DF044C009CA1A4 /* GroupSelectButton.swift in Sources */,
 				077A663629ED2ABA00D99C68 /* CreateGroupView.swift in Sources */,
 				07817F0B2A0A05DE00D024F6 /* SymbolManager.swift in Sources */,
-				07454E1529EC170600B3458D /* Seperator.swift in Sources */,
+				07454E1529EC170600B3458D /* Separator.swift in Sources */,
 				0719649829E148CA009CA1A4 /* ContentsBlock.swift in Sources */,
 				07B49BD42A8F23FF006D1011 /* ToastView.swift in Sources */,
 				07B49BC42A88EBA3006D1011 /* CustomUIMenu.swift in Sources */,
@@ -508,6 +511,7 @@
 				078C50EE29D72F9D00F239BA /* RGB.swift in Sources */,
 				075A5AE92A81D04B0004F847 /* DeletePopupView.swift in Sources */,
 				07B49BCA2A8DD878006D1011 /* EditGroupView.swift in Sources */,
+				07DD3E952AB02BE3002D128F /* DashedSeparator.swift in Sources */,
 				0719648129DAF38A009CA1A4 /* Block.swift in Sources */,
 				0770803429E797E100D66900 /* SelectIconViewController.swift in Sources */,
 				07454DE329EA6CEE00B3458D /* UIViewController+Extension.swift in Sources */,

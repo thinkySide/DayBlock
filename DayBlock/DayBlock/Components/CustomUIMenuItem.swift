@@ -28,7 +28,7 @@ final class CustomUIMenuItem: UIView {
         return image
     }()
     
-    let seperator = Seperator()
+    let seperator = Separator()
     
     
     // MARK: - Initializer

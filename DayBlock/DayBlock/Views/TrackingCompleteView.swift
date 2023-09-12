@@ -42,6 +42,7 @@ final class TrackingCompleteView: UIView {
         return label
     }()
     
+    private let dashedSeparator = DashedSeparator(frame: .zero)
     
     // MARK: - Initial Method
     
@@ -61,6 +62,7 @@ final class TrackingCompleteView: UIView {
     
     private func setupAddView() {
         [titleStackView,
+         dashedSeparator,
          backToHomeButton].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -73,6 +75,11 @@ final class TrackingCompleteView: UIView {
             // titleStackView
             titleStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 32),
             titleStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            // dashedSeparator
+            dashedSeparator.topAnchor.constraint(equalTo: titleStackView.bottomAnchor, constant: 32),
+            dashedSeparator.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 86),
+            dashedSeparator.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -86),
 
             // backToHomeButton
             backToHomeButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
