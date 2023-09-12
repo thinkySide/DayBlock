@@ -39,7 +39,7 @@ final class PaintBlock: UIView {
     }()
     
     /// 현재 블럭 색칠 상태
-    var state: Paint
+    var state: Paint?
     
     
     // MARK: - Method
@@ -85,7 +85,9 @@ final class PaintBlock: UIView {
         case .firstHalf: animate(firstHalf, color: color, isPaused: isPaused)
         case .secondHalf: animate(secondHalf, color: color, isPaused: isPaused)
         case .fullTime: animate(full, color: color, isPaused: isPaused)
-        case .none: backgroundColor = GrayScale.entireBlock
+        case .none?: backgroundColor = GrayScale.entireBlock
+        case nil:
+            break
         }
     }
     
@@ -112,8 +114,8 @@ final class PaintBlock: UIView {
     
     // MARK: - Initial Method
     
-    init(frame: CGRect, paint: Paint) {
-        self.state = paint
+    init(frame: CGRect, size: CGFloat) {
+        // self.state = paint
         super.init(frame: frame)
         
         /// Blcok Color
@@ -130,8 +132,8 @@ final class PaintBlock: UIView {
         NSLayoutConstraint.activate([
             
             // self(paintBlock)
-            self.widthAnchor.constraint(equalToConstant: 18),
-            self.heightAnchor.constraint(equalToConstant: 18),
+            self.widthAnchor.constraint(equalToConstant: size),
+            self.heightAnchor.constraint(equalToConstant: size),
             
             // full
             full.topAnchor.constraint(equalTo: topAnchor),

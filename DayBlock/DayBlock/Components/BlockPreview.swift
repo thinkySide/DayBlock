@@ -9,41 +9,41 @@ import UIKit
 
 final class BlockPreview: UIView {
     
-    // MARK: - Blocks
-    
-    let block00 = PaintBlock(frame: .zero, paint: .none)
-    let block01 = PaintBlock(frame: .zero, paint: .none)
-    let block02 = PaintBlock(frame: .zero, paint: .none)
-    let block03 = PaintBlock(frame: .zero, paint: .none)
-    let block04 = PaintBlock(frame: .zero, paint: .none)
-    let block05 = PaintBlock(frame: .zero, paint: .none)
-    let block06 = PaintBlock(frame: .zero, paint: .none)
-    let block07 = PaintBlock(frame: .zero, paint: .none)
-    let block08 = PaintBlock(frame: .zero, paint: .none)
-    let block09 = PaintBlock(frame: .zero, paint: .none)
-    let block10 = PaintBlock(frame: .zero, paint: .none)
-    let block11 = PaintBlock(frame: .zero, paint: .none)
-    let block12 = PaintBlock(frame: .zero, paint: .none)
-    let block13 = PaintBlock(frame: .zero, paint: .none)
-    let block14 = PaintBlock(frame: .zero, paint: .none)
-    let block15 = PaintBlock(frame: .zero, paint: .none)
-    let block16 = PaintBlock(frame: .zero, paint: .none)
-    let block17 = PaintBlock(frame: .zero, paint: .none)
-    let block18 = PaintBlock(frame: .zero, paint: .none)
-    let block19 = PaintBlock(frame: .zero, paint: .none)
-    let block20 = PaintBlock(frame: .zero, paint: .none)
-    let block21 = PaintBlock(frame: .zero, paint: .none)
-    let block22 = PaintBlock(frame: .zero, paint: .none)
-    let block23 = PaintBlock(frame: .zero, paint: .none)
+    /// 블럭 사이즈
+    var blockSize: CGFloat
     
     /// 현재 활성화 중인 블럭
     var currentBlocks: [PaintBlock] = []
     
+    /// 블럭 간 간격
+    private let spacing: CGFloat
     
-    // MARK: - Constatns
+    // MARK: - Blocks
     
-    private let spacing: CGFloat = 4
-    
+    lazy var block00 = PaintBlock(frame: .zero, size: blockSize)
+    lazy var block01 = PaintBlock(frame: .zero, size: blockSize)
+    lazy var block02 = PaintBlock(frame: .zero, size: blockSize)
+    lazy var block03 = PaintBlock(frame: .zero, size: blockSize)
+    lazy var block04 = PaintBlock(frame: .zero, size: blockSize)
+    lazy var block05 = PaintBlock(frame: .zero, size: blockSize)
+    lazy var block06 = PaintBlock(frame: .zero, size: blockSize)
+    lazy var block07 = PaintBlock(frame: .zero, size: blockSize)
+    lazy var block08 = PaintBlock(frame: .zero, size: blockSize)
+    lazy var block09 = PaintBlock(frame: .zero, size: blockSize)
+    lazy var block10 = PaintBlock(frame: .zero, size: blockSize)
+    lazy var block11 = PaintBlock(frame: .zero, size: blockSize)
+    lazy var block12 = PaintBlock(frame: .zero, size: blockSize)
+    lazy var block13 = PaintBlock(frame: .zero, size: blockSize)
+    lazy var block14 = PaintBlock(frame: .zero, size: blockSize)
+    lazy var block15 = PaintBlock(frame: .zero, size: blockSize)
+    lazy var block16 = PaintBlock(frame: .zero, size: blockSize)
+    lazy var block17 = PaintBlock(frame: .zero, size: blockSize)
+    lazy var block18 = PaintBlock(frame: .zero, size: blockSize)
+    lazy var block19 = PaintBlock(frame: .zero, size: blockSize)
+    lazy var block20 = PaintBlock(frame: .zero, size: blockSize)
+    lazy var block21 = PaintBlock(frame: .zero, size: blockSize)
+    lazy var block22 = PaintBlock(frame: .zero, size: blockSize)
+    lazy var block23 = PaintBlock(frame: .zero, size: blockSize)
     
     
     // MARK: - Method
@@ -163,7 +163,7 @@ final class BlockPreview: UIView {
     /// 트래킹 애니메이션을 일시정지 합니다.
     func pausedTrackingAnimation() {
         for block in currentBlocks {
-            block.configureAnimation(block.state, isPaused: true)
+            block.configureAnimation(block.state ?? .none, isPaused: true)
         }
     }
     
@@ -182,7 +182,10 @@ final class BlockPreview: UIView {
     
     // MARK: - Initial Method
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, blockSize: CGFloat, spacing: CGFloat) {
+        self.blockSize = blockSize
+        self.spacing = spacing
+        
         super.init(frame: frame)
         setupAddSubView()
         setupConstraints()
@@ -214,6 +217,12 @@ final class BlockPreview: UIView {
         
         /// 3. isActive = true
         NSLayoutConstraint.activate([
+            
+            // self
+            self.topAnchor.constraint(equalTo: block00.topAnchor),
+            self.bottomAnchor.constraint(equalTo: block18.bottomAnchor),
+            self.leadingAnchor.constraint(equalTo: block00.leadingAnchor),
+            self.trailingAnchor.constraint(equalTo: block23.trailingAnchor),
 
             /// block00
             block00.topAnchor.constraint(equalTo: topAnchor),

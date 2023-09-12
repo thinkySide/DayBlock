@@ -71,7 +71,7 @@ final class HomeView: UIView {
     }()
     
     let blockPreview: BlockPreview = {
-        let preview = BlockPreview()
+        let preview = BlockPreview(frame: .zero, blockSize: 18, spacing: 4)
         return preview
     }()
     

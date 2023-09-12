@@ -62,6 +62,112 @@ final class TrackingCompleteView: UIView {
         return label
     }()
     
+    // MARK: - Summary Label
+    
+    lazy var summaryLabel: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [
+            leftSummaryLabel, plusSummaryLabel, mainSummaryLabel, rightSummaryLabel])
+        stack.axis = .horizontal
+        stack.distribution = .fill
+        stack.alignment = .fill
+        stack.spacing = 0
+        return stack
+    }()
+    
+    let leftSummaryLabel: UILabel = {
+        let label = UILabel()
+        label.text = "블럭"
+        label.font = UIFont(name: Pretendard.bold, size: 18)
+        label.textColor = GrayScale.mainText
+        label.textAlignment = .left
+        return label
+    }()
+    
+    let plusSummaryLabel: UILabel = {
+        let label = UILabel()
+        label.text = "+"
+        label.font = UIFont(name: Poppins.bold, size: 24)
+        label.textColor = Color.testBlue
+        label.textAlignment = .left
+        return label
+    }()
+    
+    let mainSummaryLabel: UILabel = {
+        let label = UILabel()
+        label.text = "2.5"
+        label.font = UIFont(name: Poppins.bold, size: 24)
+        label.textColor = GrayScale.mainText
+        label.textAlignment = .left
+        return label
+    }()
+    
+    let rightSummaryLabel: UILabel = {
+        let label = UILabel()
+        label.text = "개를 생산했어요!"
+        label.font = UIFont(name: Pretendard.bold, size: 18)
+        label.textColor = GrayScale.mainText
+        label.textAlignment = .left
+        return label
+    }()
+    
+    let blockPreview: BlockPreview = {
+        let preview = BlockPreview(frame: .zero, blockSize: 32, spacing: 8)
+        preview.block00.configureAnimation(.fullTime, isPaused: false)
+        preview.block01.configureAnimation(.firstHalf, isPaused: false)
+        preview.block02.configureAnimation(.secondHalf, isPaused: false)
+        preview.block04.configureAnimation(.fullTime, isPaused: true)
+        preview.block05.configureAnimation(.firstHalf, isPaused: true)
+        preview.block06.configureAnimation(.secondHalf, isPaused: true)
+        preview.block07.painting(.firstHalf)
+        preview.block08.painting(.secondHalf)
+        preview.block09.painting(.fullTime)
+        return preview
+    }()
+    
+    // MARK: - bottom Component
+    
+    let totalValue: UILabel = {
+        let label = UILabel()
+        label.text = "0.0" // ⛳️
+        label.font = UIFont(name: Poppins.bold, size: 20)
+        label.textColor = GrayScale.mainText
+        label.textAlignment = .center
+        return label
+    }()
+    
+    let totalLabel: UILabel = {
+        let label = UILabel()
+        label.text = "total"
+        label.font = UIFont(name: Poppins.bold, size: 14)
+        label.textColor = GrayScale.subText2
+        label.textAlignment = .center
+        return label
+    }()
+    
+    let bottomSeparator: UIView = {
+        let line = UIView()
+        line.backgroundColor = GrayScale.seperator2
+        return line
+    }()
+    
+    let todayValue: UILabel = {
+        let label = UILabel()
+        label.text = "0.0" // ⛳️
+        label.font = UIFont(name: Poppins.bold, size: 20)
+        label.textColor = GrayScale.mainText
+        label.textAlignment = .center
+        return label
+    }()
+    
+    let todayLabel: UILabel = {
+        let label = UILabel()
+        label.text = "today"
+        label.font = UIFont(name: Poppins.bold, size: 14)
+        label.textColor = GrayScale.subText2
+        label.textAlignment = .center
+        return label
+    }()
+    
     // MARK: - Initial Method
     
     override init(frame: CGRect) {
@@ -82,6 +188,9 @@ final class TrackingCompleteView: UIView {
         [titleStackView,
          dashedSeparator,
          dateLabel, timeLabel,
+         summaryLabel,
+         blockPreview,
+         totalValue, totalLabel, bottomSeparator, todayValue, todayLabel,
          backToHomeButton].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -92,7 +201,7 @@ final class TrackingCompleteView: UIView {
         NSLayoutConstraint.activate([
             
             // titleStackView
-            titleStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 32),
+            titleStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 56),
             titleStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             // dashedSeparator
@@ -107,6 +216,36 @@ final class TrackingCompleteView: UIView {
             // timeLabel
             timeLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 0),
             timeLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            // summaryLabel
+            summaryLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 44),
+            summaryLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            // blockPreview
+            blockPreview.topAnchor.constraint(equalTo: summaryLabel.bottomAnchor, constant: 8),
+            blockPreview.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            // totalValue
+            totalValue.topAnchor.constraint(equalTo: blockPreview.bottomAnchor, constant: 44),
+            totalValue.trailingAnchor.constraint(equalTo: bottomSeparator.leadingAnchor, constant: -18),
+            
+            // totalLabel
+            totalLabel.topAnchor.constraint(equalTo: totalValue.bottomAnchor),
+            totalLabel.centerXAnchor.constraint(equalTo: totalValue.centerXAnchor),
+            
+            // bottomSeparator
+            bottomSeparator.topAnchor.constraint(equalTo: blockPreview.bottomAnchor, constant: 60),
+            bottomSeparator.centerXAnchor.constraint(equalTo: centerXAnchor),
+            bottomSeparator.widthAnchor.constraint(equalToConstant: 2),
+            bottomSeparator.heightAnchor.constraint(equalToConstant: 20),
+            
+            // todayValue
+            todayValue.topAnchor.constraint(equalTo: blockPreview.bottomAnchor, constant: 44),
+            todayValue.leadingAnchor.constraint(equalTo: bottomSeparator.leadingAnchor, constant: 18),
+            
+            // todayLabel
+            todayLabel.topAnchor.constraint(equalTo: todayValue.bottomAnchor),
+            todayLabel.centerXAnchor.constraint(equalTo: todayValue.centerXAnchor),
 
             // backToHomeButton
             backToHomeButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
