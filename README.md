@@ -563,3 +563,15 @@ NotificationCenter를 활용해 그룹이 업데이트 되는 시점에 맞춰 H
 ---
 
 <br>
+
+### **Day 83 - 23.09.12**
+
+- **TrackingCompleteView 퍼블리싱**   
+트래킹 완료 화면 UI 디자인 및 퍼블리싱을 완료했습니다.
+
+
+<img width="300" src="https://github.com/thinkySide/Cheat-Sheet/assets/113565086/cdac6ee1-5e9b-4063-82fd-a0166413092b">
+
+---
+
+<br>
