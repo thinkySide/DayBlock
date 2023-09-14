@@ -112,15 +112,9 @@ final class TrackingCompleteView: UIView {
     
     let blockPreview: BlockPreview = {
         let preview = BlockPreview(frame: .zero, blockSize: 32, spacing: 8)
-        preview.block00.configureAnimation(.fullTime, isPaused: false)
-        preview.block01.configureAnimation(.firstHalf, isPaused: false)
-        preview.block02.configureAnimation(.secondHalf, isPaused: false)
-        preview.block04.configureAnimation(.fullTime, isPaused: true)
-        preview.block05.configureAnimation(.firstHalf, isPaused: true)
-        preview.block06.configureAnimation(.secondHalf, isPaused: true)
-        preview.block07.painting(.firstHalf)
-        preview.block08.painting(.secondHalf)
-        preview.block09.painting(.fullTime)
+        preview.block07.painting(.firstHalf, color: Color.testBlue)
+        preview.block08.painting(.secondHalf, color: Color.testBlue)
+        preview.block09.painting(.fullTime, color: Color.testBlue)
         return preview
     }()
     
