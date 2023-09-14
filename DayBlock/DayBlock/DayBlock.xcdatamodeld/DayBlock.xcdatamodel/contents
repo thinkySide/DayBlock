@@ -4,10 +4,11 @@
         <attribute name="icon" optional="YES" attributeType="String"/>
         <attribute name="output" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="taskLabel" optional="YES" attributeType="String"/>
+        <relationship name="superGroup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GroupEntity" inverseName="blockList" inverseEntity="GroupEntity"/>
     </entity>
     <entity name="GroupEntity" representedClassName="GroupEntity" syncable="YES">
         <attribute name="color" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="blockList" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="BlockEntity"/>
+        <relationship name="blockList" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="BlockEntity" inverseName="superGroup" inverseEntity="BlockEntity"/>
     </entity>
 </model>
