@@ -164,7 +164,7 @@ extension CreateGroupViewController: CreateGroupViewDelegate {
 
 // MARK: - SelectFormDelegate
 
-extension CreateGroupViewController: SelectFormDelegate {
+extension CreateGroupViewController: FormSelectButtonDelegate {
     
     func colorFormTapped() {
         

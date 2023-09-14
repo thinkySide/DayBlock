@@ -36,7 +36,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             // homeNavigationController
             items[0].image = UIImage(named: Icon.home)
-            items[0].title = "홈"
+            items[0].title = "트래킹"
             
             // scheduleNavigationController
             items[1].image = UIImage(named: Icon.schedule)

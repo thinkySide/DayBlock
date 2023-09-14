@@ -10,7 +10,7 @@ import UIKit
 final class HomeView: UIView {
     
     // MARK: - Variable
-    weak var delegate: HomeViewDelegate?
+    weak var delegate: HomeDelegate?
     
     
     

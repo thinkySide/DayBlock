@@ -267,7 +267,7 @@ extension CreateBlockViewController: UITextFieldDelegate {
 
 // MARK: - SelectFormDelegate
 
-extension CreateBlockViewController: SelectFormDelegate {
+extension CreateBlockViewController: FormSelectButtonDelegate {
     
     func groupFormTapped() {
         

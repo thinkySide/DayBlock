@@ -408,7 +408,7 @@ extension HomeViewController: UIScrollViewDelegate {
 
 // MARK: - HomeViewDelegate
 
-extension HomeViewController: HomeViewDelegate {
+extension HomeViewController: HomeDelegate {
     
     /// 트래킹 중단 BarButtonItem Tap 이벤트 메서드
     func trackingStopBarButtonItemTapped() {

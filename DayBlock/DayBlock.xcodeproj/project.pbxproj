@@ -32,6 +32,11 @@
 		075A5AE52A7E19ED0004F847 /* GroupEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5AE12A7E19ED0004F847 /* GroupEntity+CoreDataProperties.swift */; };
 		075A5AE92A81D04B0004F847 /* DeletePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5AE82A81D04B0004F847 /* DeletePopupView.swift */; };
 		075A5AEB2A81DCDD0004F847 /* DeletePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5AEA2A81DCDD0004F847 /* DeletePopupViewController.swift */; };
+		076248C62AB3013D000A8664 /* HomeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076248C52AB3013D000A8664 /* HomeDelegate.swift */; };
+		076248C92AB301C9000A8664 /* BlockDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076248C82AB301C9000A8664 /* BlockDelegate.swift */; };
+		076248CB2AB3023A000A8664 /* GroupDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076248CA2AB3023A000A8664 /* GroupDelegate.swift */; };
+		076248CD2AB302FD000A8664 /* ColorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076248CC2AB302FD000A8664 /* ColorDelegate.swift */; };
+		076248CF2AB30319000A8664 /* IconDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076248CE2AB30319000A8664 /* IconDelegate.swift */; };
 		0770802D29E55E7C00D66900 /* TimeTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770802C29E55E7C00D66900 /* TimeTracker.swift */; };
 		0770802F29E78C9200D66900 /* SelectGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770802E29E78C9200D66900 /* SelectGroupViewController.swift */; };
 		0770803129E78D0500D66900 /* SelectGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770803029E78D0500D66900 /* SelectGroupView.swift */; };
@@ -42,7 +47,6 @@
 		0771983F29E2F4D10021088A /* UIButton++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0771983E29E2F4D10021088A /* UIButton++.swift */; };
 		077A663429ED2AB000D99C68 /* CreateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077A663329ED2AB000D99C68 /* CreateGroupViewController.swift */; };
 		077A663629ED2ABA00D99C68 /* CreateGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077A663529ED2ABA00D99C68 /* CreateGroupView.swift */; };
-		07817F092A09D81700D024F6 /* CustomDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07817F082A09D81700D024F6 /* CustomDelegate.swift */; };
 		07817F0B2A0A05DE00D024F6 /* IconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07817F0A2A0A05DE00D024F6 /* IconManager.swift */; };
 		07817F0D2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07817F0C2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift */; };
 		078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B529D7152F00F239BA /* AppDelegate.swift */; };
@@ -109,6 +113,11 @@
 		075A5AE12A7E19ED0004F847 /* GroupEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		075A5AE82A81D04B0004F847 /* DeletePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePopupView.swift; sourceTree = "<group>"; };
 		075A5AEA2A81DCDD0004F847 /* DeletePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePopupViewController.swift; sourceTree = "<group>"; };
+		076248C52AB3013D000A8664 /* HomeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDelegate.swift; sourceTree = "<group>"; };
+		076248C82AB301C9000A8664 /* BlockDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockDelegate.swift; sourceTree = "<group>"; };
+		076248CA2AB3023A000A8664 /* GroupDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDelegate.swift; sourceTree = "<group>"; };
+		076248CC2AB302FD000A8664 /* ColorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorDelegate.swift; sourceTree = "<group>"; };
+		076248CE2AB30319000A8664 /* IconDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconDelegate.swift; sourceTree = "<group>"; };
 		0770802C29E55E7C00D66900 /* TimeTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTracker.swift; sourceTree = "<group>"; };
 		0770802E29E78C9200D66900 /* SelectGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGroupViewController.swift; sourceTree = "<group>"; };
 		0770803029E78D0500D66900 /* SelectGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGroupView.swift; sourceTree = "<group>"; };
@@ -119,7 +128,6 @@
 		0771983E29E2F4D10021088A /* UIButton++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton++.swift"; sourceTree = "<group>"; };
 		077A663329ED2AB000D99C68 /* CreateGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupViewController.swift; sourceTree = "<group>"; };
 		077A663529ED2ABA00D99C68 /* CreateGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupView.swift; sourceTree = "<group>"; };
-		07817F082A09D81700D024F6 /* CustomDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDelegate.swift; sourceTree = "<group>"; };
 		07817F0A2A0A05DE00D024F6 /* IconManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconManager.swift; sourceTree = "<group>"; };
 		07817F0C2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIconCollectionViewCell.swift; sourceTree = "<group>"; };
 		078C50B229D7152F00F239BA /* DayBlock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayBlock.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -198,9 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				075A5ADD2A7E18C90004F847 /* CoreData */,
-				076248A82AB2DAF8000A8664 /* Delegate */,
 				078C50EC29D72F7900F239BA /* Extension */,
-				078C50D329D72A8C00F239BA /* Font */,
 				076248A12AB2D684000A8664 /* Resource */,
 			);
 			path = Common;
@@ -209,7 +215,8 @@
 		076248A12AB2D684000A8664 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				078C50E729D72D2900F239BA /* NameSpace.swift */,
+				076248C42AB300F2000A8664 /* File */,
+				078C50D329D72A8C00F239BA /* Font */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -217,6 +224,7 @@
 		076248A22AB2D798000A8664 /* HomeModule */ = {
 			isa = PBXGroup;
 			children = (
+				076248C72AB3014B000A8664 /* Models */,
 				076248BC2AB2F727000A8664 /* MainHome */,
 			);
 			path = HomeModule;
@@ -268,14 +276,6 @@
 				076248BB2AB2F672000A8664 /* SelectIcon */,
 			);
 			path = IconlModule;
-			sourceTree = "<group>";
-		};
-		076248A82AB2DAF8000A8664 /* Delegate */ = {
-			isa = PBXGroup;
-			children = (
-				07817F082A09D81700D024F6 /* CustomDelegate.swift */,
-			);
-			path = Delegate;
 			sourceTree = "<group>";
 		};
 		076248A92AB2DB0F000A8664 /* ScheduleModule */ = {
@@ -365,6 +365,7 @@
 			children = (
 				0719648029DAF38A009CA1A4 /* Block.swift */,
 				0719648929DC5CB4009CA1A4 /* BlockManager.swift */,
+				076248C82AB301C9000A8664 /* BlockDelegate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -373,6 +374,7 @@
 			isa = PBXGroup;
 			children = (
 				0719648229DAF4B5009CA1A4 /* Group.swift */,
+				076248CA2AB3023A000A8664 /* GroupDelegate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -399,6 +401,7 @@
 			isa = PBXGroup;
 			children = (
 				07EB771829F53855000BD87E /* ColorManager.swift */,
+				076248CC2AB302FD000A8664 /* ColorDelegate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -417,6 +420,7 @@
 			isa = PBXGroup;
 			children = (
 				07817F0A2A0A05DE00D024F6 /* IconManager.swift */,
+				076248CE2AB30319000A8664 /* IconDelegate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -445,9 +449,9 @@
 			isa = PBXGroup;
 			children = (
 				076248A22AB2D798000A8664 /* HomeModule */,
+				076248A52AB2D956000A8664 /* TrackingModule */,
 				076248A32AB2D857000A8664 /* BlockModule */,
 				076248A42AB2D8BC000A8664 /* GroupModule */,
-				076248A52AB2D956000A8664 /* TrackingModule */,
 				076248A62AB2DA3D000A8664 /* ColorModule */,
 				076248A72AB2DA63000A8664 /* IconlModule */,
 				076248A92AB2DB0F000A8664 /* ScheduleModule */,
@@ -502,6 +506,22 @@
 				07454E0E29EBE50500B3458D /* BottomModal.swift */,
 			);
 			path = Foundation;
+			sourceTree = "<group>";
+		};
+		076248C42AB300F2000A8664 /* File */ = {
+			isa = PBXGroup;
+			children = (
+				078C50E729D72D2900F239BA /* NameSpace.swift */,
+			);
+			path = File;
+			sourceTree = "<group>";
+		};
+		076248C72AB3014B000A8664 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				076248C52AB3013D000A8664 /* HomeDelegate.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		078C50A929D7152F00F239BA = {
@@ -684,6 +704,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0770803129E78D0500D66900 /* SelectGroupView.swift in Sources */,
+				076248CF2AB30319000A8664 /* IconDelegate.swift in Sources */,
 				078C50BA29D7152F00F239BA /* HomeViewController.swift in Sources */,
 				0719649229E04FD8009CA1A4 /* CreateBlockView.swift in Sources */,
 				07454E0F29EBE50500B3458D /* BottomModal.swift in Sources */,
@@ -719,13 +740,15 @@
 				07B49C472A95E66D006D1011 /* TrackingCompleteView.swift in Sources */,
 				078C50D129D726FE00F239BA /* HomeView.swift in Sources */,
 				075A5AE22A7E19ED0004F847 /* BlockEntity+CoreDataClass.swift in Sources */,
-				07817F092A09D81700D024F6 /* CustomDelegate.swift in Sources */,
 				07B49C452A95E5BD006D1011 /* TrackingCompleteViewController.swift in Sources */,
 				07A45CE42AA0952000C09342 /* TrackingManager.swift in Sources */,
 				07454E1329EC138E00B3458D /* SelectGroupTableViewCell.swift in Sources */,
 				07454E1129EBFDF200B3458D /* ActionButton.swift in Sources */,
+				076248C62AB3013D000A8664 /* HomeDelegate.swift in Sources */,
 				0770803629E7981300D66900 /* SelectIconView.swift in Sources */,
 				078C50EE29D72F9D00F239BA /* UIColor++.swift in Sources */,
+				076248CD2AB302FD000A8664 /* ColorDelegate.swift in Sources */,
+				076248CB2AB3023A000A8664 /* GroupDelegate.swift in Sources */,
 				075A5AE92A81D04B0004F847 /* DeletePopupView.swift in Sources */,
 				07B49BCA2A8DD878006D1011 /* ListGroupView.swift in Sources */,
 				07DD3E952AB02BE3002D128F /* DashedSeparator.swift in Sources */,
@@ -736,6 +759,7 @@
 				07EB771729F5335F000BD87E /* SelectColorCollectionViewCell.swift in Sources */,
 				078C50B829D7152F00F239BA /* SceneDelegate.swift in Sources */,
 				0719649029E04F7E009CA1A4 /* CreateBlockViewController.swift in Sources */,
+				076248C92AB301C9000A8664 /* BlockDelegate.swift in Sources */,
 				075A5AEB2A81DCDD0004F847 /* DeletePopupViewController.swift in Sources */,
 				0719649429E0692E009CA1A4 /* FormTextField.swift in Sources */,
 				0719648629DAF9A5009CA1A4 /* HomeBlockCollectionViewCell.swift in Sources */,

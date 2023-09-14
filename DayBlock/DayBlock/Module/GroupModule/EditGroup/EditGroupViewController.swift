@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol EditGroupViewControllerDelegate: AnyObject {
-    func reloadData()
-}
-
 final class EditGroupViewController: UIViewController {
     
     weak var delegate: EditGroupViewControllerDelegate?
@@ -122,7 +118,7 @@ final class EditGroupViewController: UIViewController {
 
 // MARK: - EditGroupDetailViewDelegate
 
-extension EditGroupViewController: EditGroupDetailViewDelegate {
+extension EditGroupViewController: EditGroupViewDelegate {
     func editGroup() {
         
         // 텍스트필드 변경사항 확인
@@ -168,7 +164,7 @@ extension EditGroupViewController: DeletePopupViewControllerDelegate {
 
 // MARK: - SelectFormDelegate
 
-extension EditGroupViewController: SelectFormDelegate {
+extension EditGroupViewController: FormSelectButtonDelegate {
     
     func colorFormTapped() {
         

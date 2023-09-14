@@ -7,13 +7,9 @@
 
 import UIKit
 
-protocol EditGroupDetailViewDelegate: AnyObject {
-    func editGroup()
-}
-
 final class EditGroupDetailView: UIView {
     
-    weak var delegate: EditGroupDetailViewDelegate?
+    weak var delegate: EditGroupViewDelegate?
     
     // MARK: - Component
     

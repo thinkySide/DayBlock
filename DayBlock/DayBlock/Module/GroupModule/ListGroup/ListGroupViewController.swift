@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol ListGroupViewControllerDelegate: AnyObject {
-    func reloadData()
-}
-
 final class ListGroupViewController: UIViewController {
     
     // Delegate

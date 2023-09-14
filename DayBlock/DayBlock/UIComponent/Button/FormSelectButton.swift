@@ -7,6 +7,12 @@
 
 import UIKit
 
+@objc protocol FormSelectButtonDelegate: AnyObject {
+    @objc optional func groupFormTapped()
+    @objc optional func iconFormTapped()
+    @objc optional func colorFormTapped()
+}
+
 final class FormSelectButton: UIView {
     
     enum SelectType {
@@ -16,9 +22,7 @@ final class FormSelectButton: UIView {
     }
     
     var selectType: SelectType?
-    weak var delegate: SelectFormDelegate?
-    
-    
+    weak var delegate: FormSelectButtonDelegate?
     
     // MARK: - Component
     
