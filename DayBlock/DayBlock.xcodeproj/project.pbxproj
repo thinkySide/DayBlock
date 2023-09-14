@@ -186,6 +186,13 @@
 			path = CoreData;
 			sourceTree = "<group>";
 		};
+		0762489D2AB2D4BC000A8664 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		0770803229E7958000D66900 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -216,6 +223,7 @@
 		078C50B429D7152F00F239BA /* DayBlock */ = {
 			isa = PBXGroup;
 			children = (
+				0762489D2AB2D4BC000A8664 /* New Group */,
 				078C50C629D7153000F239BA /* Info.plist */,
 				078C50BE29D7152F00F239BA /* DayBlock.xcdatamodeld */,
 				078C50C129D7153000F239BA /* Assets.xcassets */,
