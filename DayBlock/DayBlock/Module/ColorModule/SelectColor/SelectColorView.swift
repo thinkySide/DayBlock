@@ -15,7 +15,7 @@ final class SelectColorView: UIView {
         let label = UILabel()
         label.text = "색상 선택"
         label.font = UIFont(name: Pretendard.semiBold, size: 16)
-        label.textColor = GrayScale.mainText
+        label.textColor = Color.mainText
         label.textAlignment = .center
         return label
     }()

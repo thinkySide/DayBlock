@@ -45,13 +45,13 @@ final class TrackingBoardBlock: UIView {
     // MARK: - Method
     
     /// 블럭 색칠 메서드
-    func painting(_ area: Paint, color: UIColor = GrayScale.entireBlock) {
+    func painting(_ area: Paint, color: UIColor = Color.entireBlock) {
         
         // 상태 변경
         state = area
     
         // 블럭 초기화
-        backgroundColor = GrayScale.entireBlock
+        backgroundColor = Color.entireBlock
         firstHalf.backgroundColor = .clear
         secondHalf.backgroundColor = .clear
         
@@ -60,18 +60,18 @@ final class TrackingBoardBlock: UIView {
         case .firstHalf: firstHalf.backgroundColor = color
         case .secondHalf: secondHalf.backgroundColor = color
         case .fullTime: backgroundColor = color
-        case .none: backgroundColor = GrayScale.entireBlock
+        case .none: backgroundColor = Color.entireBlock
         }
     }
     
     /// 블럭 애니메이션 설정 메서드
-    func configureAnimation(_ area: Paint, color: UIColor = GrayScale.entireBlock, isPaused: Bool) {
+    func configureAnimation(_ area: Paint, color: UIColor = Color.entireBlock, isPaused: Bool) {
         
         // 상태 변경
         state = area
         
         // 블럭 초기화
-        backgroundColor = GrayScale.entireBlock
+        backgroundColor = Color.entireBlock
         full.backgroundColor = .clear
         firstHalf.backgroundColor = .clear
         secondHalf.backgroundColor = .clear
@@ -81,7 +81,7 @@ final class TrackingBoardBlock: UIView {
         case .firstHalf: animate(firstHalf, color: color, isPaused: isPaused)
         case .secondHalf: animate(secondHalf, color: color, isPaused: isPaused)
         case .fullTime: animate(full, color: color, isPaused: isPaused)
-        case .none?: backgroundColor = GrayScale.entireBlock
+        case .none?: backgroundColor = Color.entireBlock
         case nil:
             break
         }
@@ -115,7 +115,7 @@ final class TrackingBoardBlock: UIView {
         super.init(frame: frame)
         
         /// Blcok Color
-        self.backgroundColor = GrayScale.entireBlock
+        self.backgroundColor = Color.entireBlock
         
         /// AddSubView & resizingMask
         [full, firstHalf, secondHalf]

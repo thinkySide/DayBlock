@@ -33,7 +33,6 @@ final class CreateBlockViewController: UIViewController {
     /// 편집하기 전 처음 블럭명
     private var originalBlockName = ""
     
-    
     // MARK: - ViewController LifeCycle
     
     override func loadView() {
@@ -58,8 +57,6 @@ final class CreateBlockViewController: UIViewController {
     deinit {
         blockManager.resetRemoteBlock()
     }
-    
-    
     
     // MARK: - Initial Method
     

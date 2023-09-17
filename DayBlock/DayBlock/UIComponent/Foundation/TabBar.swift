@@ -7,74 +7,81 @@
 
 import UIKit
 
+/// 커스텀 탭바 컴포넌트
 final class TabBar: UIStackView {
-    
-    enum SwitchTabBar {
-        case home
+
+    /// 현재 탭바의 위치
+    enum Location {
+        case tracking
         case schedule
-        case storage
+        case repository
     }
-    
+
     // MARK: - Component
-    private let homeActive: UIView = {
+
+    /// 트래킹 탭(Main)
+    private let tracking: UIView = {
         let view = UIView()
-        view.backgroundColor = GrayScale.mainText
+        view.backgroundColor = Color.mainText
         view.alpha = 1
         return view
     }()
-    
-    private let scheduleActive: UIView = {
+
+    /// 계획표 탭
+    private let schedule: UIView = {
         let view = UIView()
-        view.backgroundColor = GrayScale.mainText
+        view.backgroundColor = Color.mainText
         view.alpha = 0
         return view
     }()
-    
-    private let storageActive: UIView = {
+
+    /// 저장소 탭
+    private let repository: UIView = {
         let view = UIView()
-        view.backgroundColor = GrayScale.mainText
+        view.backgroundColor = Color.mainText
         view.alpha = 0
         return view
     }()
-    
-    func switchTabBarActive(_ currentView: SwitchTabBar) {
-        switch currentView {
-        case .home:
-            homeActive.alpha = 1
-            scheduleActive.alpha = 0
-            storageActive.alpha = 0
+
+    // MARK: - Event Method
+
+    /// 탭바 전환 이펙트를 실행합니다.
+    ///
+    /// - Parameter tab: 전환할 탭
+    func switchEffect(to tab: Location) {
+        switch tab {
+        case .tracking:
+            tracking.alpha = 1
+            schedule.alpha = 0
+            repository.alpha = 0
         case .schedule:
-            homeActive.alpha = 0
-            scheduleActive.alpha = 1
-            storageActive.alpha = 0
-        case .storage:
-            homeActive.alpha = 0
-            scheduleActive.alpha = 0
-            storageActive.alpha = 1
+            tracking.alpha = 0
+            schedule.alpha = 1
+            repository.alpha = 0
+        case .repository:
+            tracking.alpha = 0
+            schedule.alpha = 0
+            repository.alpha = 1
         }
     }
-    
-    
-    // MARK: - Method
-    
+
+    // MARK: - Initial Method
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor(rgb: 0xF7F7F7)
-        
-        /// StackView 설정
+
         axis = .horizontal
         distribution = .fillEqually
         alignment = .fill
         spacing = 0
-        
-        /// StackView에 추가
-        addArrangedSubview(homeActive)
-        addArrangedSubview(scheduleActive)
-        addArrangedSubview(storageActive)
+
+        addArrangedSubview(tracking)
+        addArrangedSubview(schedule)
+        addArrangedSubview(repository)
     }
-    
+
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

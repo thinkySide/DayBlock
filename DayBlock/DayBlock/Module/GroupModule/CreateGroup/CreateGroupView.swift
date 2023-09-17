@@ -16,7 +16,7 @@ final class CreateGroupView: UIView {
     lazy var backBarButtonItem: UIBarButtonItem = {
         let configuration = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
         let item = UIBarButtonItem(image: UIImage(systemName: "xmark")?.withConfiguration(configuration), style: .plain, target: self, action: #selector(backBarButtonItemTapped))
-        item.tintColor = GrayScale.mainText
+        item.tintColor = Color.mainText
         return item
     }()
     
@@ -50,7 +50,7 @@ final class CreateGroupView: UIView {
         let attributes = [NSAttributedString.Key.font: font]
         item.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .normal)
         item.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .disabled)
-        item.tintColor = GrayScale.mainText
+        item.tintColor = Color.mainText
         item.isEnabled = false
         return item
     }()

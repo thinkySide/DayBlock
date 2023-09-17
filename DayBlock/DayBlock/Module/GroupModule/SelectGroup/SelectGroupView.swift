@@ -15,7 +15,7 @@ final class SelectGroupView: UIView {
         let label = UILabel()
         label.text = "그룹 선택"
         label.font = UIFont(name: Pretendard.semiBold, size: 16)
-        label.textColor = GrayScale.mainText
+        label.textColor = Color.mainText
         label.textAlignment = .center
         return label
     }()
@@ -36,7 +36,7 @@ final class SelectGroupView: UIView {
         let button = UIButton()
         let icon = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)
         button.setImage(UIImage(systemName: "ellipsis", withConfiguration: icon), for: .normal)
-        button.tintColor = GrayScale.mainText
+        button.tintColor = Color.mainText
         return button
     }()
     

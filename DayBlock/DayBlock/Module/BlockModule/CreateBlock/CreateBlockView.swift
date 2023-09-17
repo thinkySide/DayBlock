@@ -13,7 +13,7 @@ final class CreateBlockView: UIView {
     
     private lazy var blockPreview: UIView = {
         let view = UIView()
-        view.backgroundColor = GrayScale.contentsBlock
+        view.backgroundColor = Color.contentsBlock
         view.clipsToBounds = true
         [blockPreviewColorTag, blockPreviewIcon, blockTaskLabel]
             .forEach { view.addSubview($0) }
@@ -36,7 +36,7 @@ final class CreateBlockView: UIView {
         let image = UIImageView()
         image.image = UIImage(systemName: "batteryblock.fill") // ⛳️
         image.contentMode = .scaleAspectFit
-        image.tintColor = GrayScale.mainText
+        image.tintColor = Color.mainText
         return image
     }()
     
@@ -44,7 +44,7 @@ final class CreateBlockView: UIView {
         let label = UILabel()
         label.text = "블럭 쌓기" // ⛳️
         label.font = UIFont(name: Pretendard.bold, size: 17)
-        label.textColor = GrayScale.mainText
+        label.textColor = Color.mainText
         label.textAlignment = .center
         label.numberOfLines = 2
         return label
@@ -83,15 +83,13 @@ final class CreateBlockView: UIView {
         item.style = .plain
         let font = UIFont(name: Pretendard.semiBold, size: 17)
         let attributes = [NSAttributedString.Key.font: font]
-        item.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .normal)
-        item.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .disabled)
-        item.tintColor = GrayScale.mainText
+        item.setTitleTextAttributes(attributes as [NSAttributedString.Key: Any], for: .normal)
+        item.setTitleTextAttributes(attributes as [NSAttributedString.Key: Any], for: .disabled)
+        item.tintColor = Color.mainText
         item.isEnabled = false
         return item
     }()
 
-    
-    
     // MARK: - Method
     
     /// Block 정보 업데이트
@@ -142,16 +140,14 @@ final class CreateBlockView: UIView {
     func setupAddSubView() {
         
         /// 1. addSubView(component)
-        [
-            blockPreview, taskLabelTextField, selectFormStackView,
-        ]
+        [blockPreview, taskLabelTextField, selectFormStackView]
             .forEach { addSubview($0) }
         
         /// 2. translatesAutoresizingMaskIntoConstraints = false
         [
             blockPreview, blockPreviewColorTag, blockPreviewIcon,
             blockTaskLabel, taskLabelTextField, selectFormStackView,
-            groupSelect, iconSelect,
+            groupSelect, iconSelect
         ]
             .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }
@@ -192,7 +188,7 @@ final class CreateBlockView: UIView {
             // selectFormStackView
             selectFormStackView.topAnchor.constraint(equalTo: taskLabelTextField.bottomAnchor, constant: 8),
             selectFormStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
-            selectFormStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            selectFormStackView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
 }

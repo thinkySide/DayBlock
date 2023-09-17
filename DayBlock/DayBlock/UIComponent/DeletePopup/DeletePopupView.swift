@@ -15,7 +15,7 @@ final class DeletePopupView: UIView {
         let label = UILabel()
         label.text = "블럭을 삭제할까요?"
         label.font = UIFont(name: Pretendard.bold, size: 18)
-        label.textColor = GrayScale.mainText
+        label.textColor = Color.mainText
         label.textAlignment = .center
         return label
     }()
@@ -24,7 +24,7 @@ final class DeletePopupView: UIView {
         let label = UILabel()
         label.text = "그동안 기록된 블럭 정보가 모두 삭제돼요"
         label.font = UIFont(name: Pretendard.medium, size: 15)
-        label.textColor = GrayScale.subText
+        label.textColor = Color.subText
         label.textAlignment = .center
         return label
     }()

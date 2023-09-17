@@ -35,7 +35,7 @@ final class HomeBlockCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "72.5" // ⛳️
         label.font = UIFont(name: Poppins.bold, size: 18)
-        label.textColor = GrayScale.mainText
+        label.textColor = Color.mainText
         label.textAlignment = .left
         return label
     }()
@@ -56,7 +56,7 @@ final class HomeBlockCollectionViewCell: UICollectionViewCell {
         let image = UIImageView()
         image.image = UIImage(systemName: "book.closed.fill") // ⛳️
         image.contentMode = .scaleAspectFit
-        image.tintColor = GrayScale.mainText
+        image.tintColor = Color.mainText
         return image
     }()
     
@@ -64,7 +64,7 @@ final class HomeBlockCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "SwiftUI 강의" // ⛳️
         label.font = UIFont(name: Pretendard.bold, size: 17)
-        label.textColor = GrayScale.mainText
+        label.textColor = Color.mainText
         label.textAlignment = .center
         label.numberOfLines = 2
         return label
@@ -76,7 +76,7 @@ final class HomeBlockCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "0.0" // ⛳️
         label.font = UIFont(name: Poppins.bold, size: 20)
-        label.textColor = GrayScale.mainText
+        label.textColor = Color.mainText
         label.textAlignment = .center
         label.alpha = 0
         return label
@@ -86,7 +86,7 @@ final class HomeBlockCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "total"
         label.font = UIFont(name: Poppins.bold, size: 14)
-        label.textColor = GrayScale.subText2
+        label.textColor = Color.subText2
         label.textAlignment = .center
         label.alpha = 0
         return label
@@ -94,7 +94,7 @@ final class HomeBlockCollectionViewCell: UICollectionViewCell {
     
     let seperator: UIView = {
         let line = UIView()
-        line.backgroundColor = GrayScale.seperator2
+        line.backgroundColor = Color.seperator2
         line.alpha = 0
         return line
     }()
@@ -103,7 +103,7 @@ final class HomeBlockCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "0.0" // ⛳️
         label.font = UIFont(name: Poppins.bold, size: 20)
-        label.textColor = GrayScale.mainText
+        label.textColor = Color.mainText
         label.textAlignment = .center
         label.alpha = 0
         return label
@@ -113,7 +113,7 @@ final class HomeBlockCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "today"
         label.font = UIFont(name: Poppins.bold, size: 14)
-        label.textColor = GrayScale.subText2
+        label.textColor = Color.subText2
         label.textAlignment = .center
         label.alpha = 0
         return label
@@ -152,7 +152,7 @@ final class HomeBlockCollectionViewCell: UICollectionViewCell {
     
     lazy var stroke: CAShapeLayer = {
         let stroke = CAShapeLayer()
-        stroke.strokeColor = GrayScale.entireBlock.cgColor
+        stroke.strokeColor = Color.entireBlock.cgColor
         stroke.lineWidth = 6
         stroke.lineDashPattern = [6, 6]
         stroke.frame = self.bounds
@@ -252,10 +252,10 @@ final class HomeBlockCollectionViewCell: UICollectionViewCell {
         plusLabel.isHidden = false
         totalProductivityLabel.isHidden = false
         blockColorTag.isHidden = false
-        blockIcon.tintColor = GrayScale.mainText
+        blockIcon.tintColor = Color.mainText
         blockLabel.isHidden = false
         stroke.isHidden = true
-        self.backgroundColor = GrayScale.contentsBlock
+        self.backgroundColor = Color.contentsBlock
     }
     
     override init(frame: CGRect) {
@@ -271,7 +271,7 @@ final class HomeBlockCollectionViewCell: UICollectionViewCell {
     func setupUI() {
         
         /// Custom
-        backgroundColor = GrayScale.contentsBlock
+        backgroundColor = Color.contentsBlock
         self.layer.addSublayer(stroke)
         
         /// CornerRadius

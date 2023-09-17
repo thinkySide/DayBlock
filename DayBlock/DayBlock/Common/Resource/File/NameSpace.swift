@@ -25,13 +25,6 @@ enum UserDefaultsKey {
 // MARK: - Colors
 
 enum Color {
-    static let testBlue = UIColor(rgb: 0x1673FF)
-    static let testPink = UIColor(rgb: 0xFF16A2)
-    static let testGreen = UIColor(rgb: 0x43D662)
-    static let testYellow = UIColor(rgb: 0xFFA216)
-}
-
-enum GrayScale {
 
     /// Text Color
     static let mainText = UIColor(rgb: 0x323232)
@@ -49,6 +42,11 @@ enum GrayScale {
     static let seperator2 = UIColor(rgb: 0xDADADA)
     static let addBlockButton = UIColor(rgb: 0xC5C5C5)
     static let cancelButton = UIColor(rgb: 0xF3F3F3)
+    
+    static let testBlue = UIColor(rgb: 0x1673FF)
+    static let testPink = UIColor(rgb: 0xFF16A2)
+    static let testGreen = UIColor(rgb: 0x43D662)
+    static let testYellow = UIColor(rgb: 0xFFA216)
 }
 
 // MARK: - Fonts

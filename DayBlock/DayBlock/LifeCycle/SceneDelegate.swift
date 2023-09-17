@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // UITabBarController 추가
         let tabBarController = UITabBarController()
-        tabBarController.tabBar.tintColor = GrayScale.mainText
+        tabBarController.tabBar.tintColor = Color.mainText
         tabBarController.setViewControllers([
             homeNavigationController,
             scheduleNavigationController,

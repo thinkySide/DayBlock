@@ -46,7 +46,7 @@ final class FormSelectButton: UIView {
         let label = UILabel()
         label.text = "그룹"
         label.font = UIFont(name: Pretendard.semiBold, size: 16)
-        label.textColor = GrayScale.subText
+        label.textColor = Color.subText
         label.textAlignment = .left
         return label
     }()
@@ -64,7 +64,7 @@ final class FormSelectButton: UIView {
         let label = UILabel()
         label.text = "자기계발" // ⛳️
         label.font = UIFont(name: Pretendard.semiBold, size: 17)
-        label.textColor = GrayScale.mainText
+        label.textColor = Color.mainText
         label.textAlignment = .right
         return label
     }()
@@ -72,7 +72,7 @@ final class FormSelectButton: UIView {
     let selectIcon: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
-        image.tintColor = GrayScale.mainText
+        image.tintColor = Color.mainText
         image.image = UIImage(systemName: "batteryblock.fill")
         return image
     }()
@@ -94,7 +94,7 @@ final class FormSelectButton: UIView {
     
     private let seperator: UIView = {
         let line = UIView()
-        line.backgroundColor = GrayScale.seperator
+        line.backgroundColor = Color.seperator
         return line
     }()
     

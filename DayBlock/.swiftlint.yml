@@ -7,8 +7,11 @@ excluded:
     - DayBlock/LifeCycle/AppDelegate.swift
     - DayBlock/LifeCycle/SceneDelegate.swift
     - DayBlock/Common/Resource/File/SFSymbols.swift
+    - DayBlock/UIComponent/Foundation/BottomModal.swift
 
 # 기본 규칙 중 비활성화 할 규칙
 disabled_rules:
-    - force_cast # 강제 언래핑
-    - cyclomatic_complexity # 함수 복잡도
+    - force_cast # 강제 언래핑 제한
+    - cyclomatic_complexity # 함수 복잡도 제한
+    - trailing_whitespace # 코드 뒤 여백 제한
+    - statement_position # else, return 위치 제한

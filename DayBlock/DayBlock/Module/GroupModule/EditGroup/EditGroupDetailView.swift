@@ -43,7 +43,7 @@ final class EditGroupDetailView: UIView {
         let attributes = [NSAttributedString.Key.font: font]
         item.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .normal)
         item.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .disabled)
-        item.tintColor = GrayScale.mainText
+        item.tintColor = Color.mainText
         item.isEnabled = true
         return item
     }()

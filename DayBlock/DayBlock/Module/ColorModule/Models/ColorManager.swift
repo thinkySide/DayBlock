@@ -85,10 +85,8 @@ final class ColorManager {
         0xBE38F3,
         0x982ABC,
         0x7A219E,
-        0x61187C,
+        0x61187C
     ]
-    
-    
     
     // MARK: - Method
     
@@ -114,11 +112,9 @@ final class ColorManager {
     
     /// 파라미터로 받은 Color에 매칭될 수 있게 currentIndex 업데이트
     func updateCurrentColor(_ color: Int) {
-        for (index, num) in colorList.enumerated() {
-            if color == num {
-                currentIndex = index
-                return
-            }
+        for (index, num) in colorList.enumerated() where color == num {
+            currentIndex = index
+            return
         }
     }
 }

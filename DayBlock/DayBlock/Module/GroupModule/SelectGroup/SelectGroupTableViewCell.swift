@@ -22,7 +22,7 @@ final class SelectGroupTableViewCell: UITableViewCell {
         let label = UILabel()
         label.text = "그룹 없음" // ⛳️
         label.font = UIFont(name: Pretendard.semiBold, size: 16)
-        label.textColor = GrayScale.mainText
+        label.textColor = Color.mainText
         label.textAlignment = .left
         return label
     }()
@@ -31,7 +31,7 @@ final class SelectGroupTableViewCell: UITableViewCell {
         let label = UILabel()
         label.text = "+7" // ⛳️
         label.font = UIFont(name: Pretendard.medium, size: 15)
-        label.textColor = GrayScale.countText
+        label.textColor = Color.countText
         label.textAlignment = .left
         return label
     }()
@@ -46,7 +46,7 @@ final class SelectGroupTableViewCell: UITableViewCell {
         let image = UIImageView()
         image.image = UIImage(systemName: "checkmark.circle.fill")
         image.contentMode = .scaleAspectFit
-        image.tintColor = GrayScale.mainText
+        image.tintColor = Color.mainText
         image.isHidden = true
         return image
     }()
@@ -55,7 +55,7 @@ final class SelectGroupTableViewCell: UITableViewCell {
         let image = UIImageView()
         image.image = UIImage(systemName: "chevron.right")
         image.contentMode = .scaleAspectFit
-        image.tintColor = GrayScale.subText2
+        image.tintColor = Color.subText2
         image.isHidden = true
         return image
     }()
@@ -83,7 +83,7 @@ final class SelectGroupTableViewCell: UITableViewCell {
         
         // 선택된 Cell 색상
         let selected = UIView()
-        selected.backgroundColor = GrayScale.contentsBlock
+        selected.backgroundColor = Color.contentsBlock
         self.selectedBackgroundView = selected
     }
     

@@ -21,7 +21,6 @@ final class ActionButtonSet: UIStackView {
         return button
     }()
     
-    
     // MARK: - Method
     
     override init(frame: CGRect) {

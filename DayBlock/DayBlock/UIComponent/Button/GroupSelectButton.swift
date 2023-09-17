@@ -20,7 +20,7 @@ final class GroupSelectButton: UIView {
         let label = UILabel()
         label.text = "그룹 없음"
         label.font = UIFont(name: Pretendard.bold, size: 18)
-        label.textColor = GrayScale.mainText
+        label.textColor = Color.mainText
         label.textAlignment = .center
         return label
     }()

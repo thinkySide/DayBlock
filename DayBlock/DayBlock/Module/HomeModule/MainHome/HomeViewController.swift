@@ -115,7 +115,7 @@ final class HomeViewController: UIViewController {
         
         // 뒤로가기 버튼
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = GrayScale.mainText
+        backBarButtonItem.tintColor = Color.mainText
         navigationItem.backBarButtonItem = backBarButtonItem
     }
     
@@ -204,19 +204,19 @@ final class HomeViewController: UIViewController {
         // Gesture 시작
         if state == .began {
             print("제스처 시작")
-            viewManager.trackingBlock.animation(isFill: true)
+            viewManager.trackingBlock.longPressAnimation(isFill: true)
         }
         
         // Gestrue 종료
         if state == .ended {
             print("제스처 종료")
-            viewManager.trackingBlock.animation(isFill: false)
+            viewManager.trackingBlock.longPressAnimation(isFill: false)
         }
         
         // 가끔 화면이 Present되면서 정상적으로 종료되지 않고 취소 되는 경우 있음. (예외처리)
         if state == .cancelled {
             print("제스처 취소")
-            viewManager.trackingBlock.animation(isFill: false)
+            viewManager.trackingBlock.longPressAnimation(isFill: false)
         }
     }
 }
@@ -275,7 +275,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             cell.blockColorTag.isHidden = true
             cell.blockLabel.isHidden = true
             cell.blockIcon.image = UIImage(systemName: "plus.circle.fill")
-            cell.blockIcon.tintColor = GrayScale.addBlockButton
+            cell.blockIcon.tintColor = Color.addBlockButton
             cell.backgroundColor = .white
             cell.stroke.isHidden = false
             return cell
@@ -299,7 +299,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             cell.blockColorTag.isHidden = true
             cell.blockLabel.isHidden = true
             cell.blockIcon.image = UIImage(systemName: "plus.circle.fill")
-            cell.blockIcon.tintColor = GrayScale.addBlockButton
+            cell.blockIcon.tintColor = Color.addBlockButton
             cell.backgroundColor = .white
             cell.stroke.isHidden = false
             return cell
@@ -464,7 +464,7 @@ extension HomeViewController: HomeDelegate {
         
         // 블럭 업데이트
         let blockDataList = blockManager.getCurrentBlockList()
-        viewManager.trackingBlock.setupBlockContents(group: blockManager.getCurrentGroup(),
+        viewManager.trackingBlock.update(group: blockManager.getCurrentGroup(),
                                                      block: blockDataList[blockIndex])
         
         // 화면 꺼짐 방지

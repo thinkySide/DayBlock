@@ -16,14 +16,14 @@ final class ListGroupView: UIView {
     lazy var backBarButtonItem: UIBarButtonItem = {
         let configuration = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
         let item = UIBarButtonItem(image: UIImage(systemName: "xmark")?.withConfiguration(configuration), style: .plain, target: self, action: #selector(backBarButtonItemTapped))
-        item.tintColor = GrayScale.mainText
+        item.tintColor = Color.mainText
         return item
     }()
     
     lazy var addBarButtonItem: UIBarButtonItem = {
         let configuration = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
         let item = UIBarButtonItem(image: UIImage(systemName: "plus")?.withConfiguration(configuration), style: .plain, target: self, action: #selector(addBarButtonItemTapped))
-        item.tintColor = GrayScale.mainText
+        item.tintColor = Color.mainText
         return item
     }()
     

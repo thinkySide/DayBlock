@@ -22,21 +22,21 @@ final class ActionButton: UIButton {
         
         switch mode {
         case .confirm:
-            self.setBackgroundColor(GrayScale.mainText, for: .normal)
+            self.setBackgroundColor(Color.mainText, for: .normal)
             self.titleLabel?.font = UIFont(name: Pretendard.semiBold, size: 17)
             self.setTitleColor(.white, for: .normal)
             self.setTitle("확인", for: .normal)
             
         case .cancel:
-            self.setBackgroundColor(GrayScale.cancelButton, for: .normal)
-            self.setBackgroundColor(GrayScale.entireBlock, for: .highlighted)
+            self.setBackgroundColor(Color.cancelButton, for: .normal)
+            self.setBackgroundColor(Color.entireBlock, for: .highlighted)
             self.titleLabel?.font = UIFont(name: Pretendard.semiBold, size: 17)
-            self.setTitleColor(GrayScale.subText, for: .normal)
+            self.setTitleColor(Color.subText, for: .normal)
             self.setTitle("취소", for: .normal)
         
         case .delete:
-            self.setBackgroundColor(GrayScale.cancelButton, for: .normal)
-            self.setBackgroundColor(GrayScale.entireBlock, for: .highlighted)
+            self.setBackgroundColor(Color.cancelButton, for: .normal)
+            self.setBackgroundColor(Color.entireBlock, for: .highlighted)
             self.titleLabel?.font = UIFont(name: Pretendard.semiBold, size: 17)
             self.setTitleColor(UIColor(rgb: 0xD23939), for: .normal)
             self.setTitle("삭제하기", for: .normal)

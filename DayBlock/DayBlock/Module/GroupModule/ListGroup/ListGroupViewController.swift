@@ -48,7 +48,7 @@ final class ListGroupViewController: UIViewController {
         
         // 뒤로가기 버튼(다음 화면)
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = GrayScale.mainText
+        backBarButtonItem.tintColor = Color.mainText
         navigationItem.backBarButtonItem = backBarButtonItem
     }
     

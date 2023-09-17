@@ -15,7 +15,7 @@ final class MenuPopupItem: UIView {
         let label = UILabel()
         label.text = "액션"
         label.font = UIFont(name: Pretendard.semiBold, size: 16)
-        label.textColor = GrayScale.mainText
+        label.textColor = Color.mainText
         label.textAlignment = .left
         return label
     }()
@@ -23,7 +23,7 @@ final class MenuPopupItem: UIView {
     let icon: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
-        image.tintColor = GrayScale.subText2
+        image.tintColor = Color.subText2
         image.image = UIImage(systemName: "bag.fill")
         return image
     }()

@@ -13,7 +13,7 @@ final class SelectColorCollectionViewCell: UICollectionViewCell {
     
     let selectCircle: UIView = {
         let circle = UIView()
-        circle.backgroundColor = GrayScale.entireBlock
+        circle.backgroundColor = Color.entireBlock
         circle.layer.borderColor = UIColor(rgb: 0xAFAFAF).cgColor
         circle.layer.borderWidth = 3
         circle.clipsToBounds = true

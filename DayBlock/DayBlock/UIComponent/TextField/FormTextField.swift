@@ -15,14 +15,14 @@ final class FormTextField: UIView {
         let label = UILabel()
         label.text = "작업명"
         label.font = UIFont(name: Pretendard.semiBold, size: 16)
-        label.textColor = GrayScale.subText
+        label.textColor = Color.subText
         label.textAlignment = .left
         return label
     }()
     
     private lazy var textFieldBackgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = GrayScale.contentsBlock
+        view.backgroundColor = Color.contentsBlock
         view.clipsToBounds = true
         view.layer.borderColor = UIColor(rgb: 0xD23939).cgColor
         view.addSubview(textFieldStackView)
@@ -42,7 +42,7 @@ final class FormTextField: UIView {
         let field = DisablePasteTextField()
         field.placeholder = "블럭 쌓기"
         field.font = .systemFont(ofSize: 18, weight: .bold)
-        field.textColor = GrayScale.mainText
+        field.textColor = Color.mainText
         field.autocorrectionType = .no
         field.autocapitalizationType = .none
         field.isSecureTextEntry = false

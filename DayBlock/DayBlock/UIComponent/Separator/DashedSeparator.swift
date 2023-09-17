@@ -37,7 +37,7 @@ final class DashedSeparator: UIView {
         
         // Stroke Setting
         stroke.lineWidth = 6
-        stroke.strokeColor = GrayScale.seperator.cgColor
+        stroke.strokeColor = Color.seperator.cgColor
         stroke.lineDashPattern = dashPattern
         stroke.frame = self.bounds
         stroke.fillColor = nil

@@ -38,7 +38,7 @@ final class HomeView: UIView {
         let button = UIButton()
         button.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         button.setImage(UIImage(named: Icon.trackingStop), for: .normal)
-        button.tintColor = GrayScale.contentsBlock
+        button.tintColor = Color.contentsBlock
         button.addTarget(self, action: #selector(trackingStopBarButtonItemTapped), for: .touchUpInside)
         let item = UIBarButtonItem(customView: button)
         item.customView?.isHidden = true
@@ -48,7 +48,7 @@ final class HomeView: UIView {
     let dateLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: Pretendard.semiBold, size: 16)
-        label.textColor = GrayScale.subText
+        label.textColor = Color.subText
         label.textAlignment = .left
         return label
     }()
@@ -56,7 +56,7 @@ final class HomeView: UIView {
     let timeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: Poppins.bold, size: 56)
-        label.textColor = GrayScale.mainText
+        label.textColor = Color.mainText
         label.textAlignment = .left
         return label
     }()
@@ -65,7 +65,7 @@ final class HomeView: UIView {
         let label = UILabel()
         label.text = "TODAY +0.0" // ⛳️
         label.font = UIFont(name: Poppins.bold, size: 23)
-        label.textColor = GrayScale.mainText
+        label.textColor = Color.mainText
         label.textAlignment = .left
         return label
     }()
@@ -105,7 +105,7 @@ final class HomeView: UIView {
         let label = UILabel()
         label.text = "오늘 하루는 어떤 블럭으로\n채우고 계신가요?" // ⛳️
         label.font = UIFont(name: Pretendard.semiBold, size: 18)
-        label.textColor = GrayScale.mainText
+        label.textColor = Color.mainText
         label.alpha = 0.4
         label.textAlignment = .center
         label.numberOfLines = 2
@@ -116,7 +116,7 @@ final class HomeView: UIView {
         let label = UILabel()
         label.text = "00:00:00"
         label.font = UIFont(name: Poppins.bold, size: 36)
-        label.textColor = GrayScale.mainText
+        label.textColor = Color.mainText
         label.textAlignment = .center
         label.isHidden = true
         return label
@@ -124,7 +124,7 @@ final class HomeView: UIView {
     
     let trackingProgressView: UIProgressView = {
         let progress = UIProgressView()
-        progress.trackTintColor = GrayScale.contentsBlock
+        progress.trackTintColor = Color.contentsBlock
         progress.progress = 0
         progress.isHidden = true
         return progress
@@ -186,7 +186,7 @@ final class HomeView: UIView {
             
             // Tracking 시작
             delegate?.startTracking()
-            trackingTimeLabel.textColor = GrayScale.mainText
+            trackingTimeLabel.textColor = Color.mainText
             
             // Tracking 버튼 설정
             trackingButton.setImage(
@@ -200,7 +200,7 @@ final class HomeView: UIView {
             
             // Tracking 일시정지
             delegate?.pausedTracking()
-            trackingTimeLabel.textColor = GrayScale.disabledText
+            trackingTimeLabel.textColor = Color.disabledText
             
             // Tracking 버튼 설정
             trackingButton.setImage(
@@ -208,7 +208,7 @@ final class HomeView: UIView {
                 for: .normal)
             
             // ProgressView 컬러
-            trackingProgressView.progressTintColor = GrayScale.disabledText
+            trackingProgressView.progressTintColor = Color.disabledText
             
             // BlockPreview 애니메이션 일시정지
             blockPreview.pausedTrackingAnimation()
@@ -243,7 +243,7 @@ final class HomeView: UIView {
     }
     
     func updateCurrentProductivityLabel(_ amount: Float) {
-        trackingBlock.currentProductivityLabel.text = String(amount)
+        trackingBlock.updateProductivityLabel(to: amount)
     }
     
     override init(frame: CGRect) {
@@ -259,7 +259,7 @@ final class HomeView: UIView {
     
     func setupInitial() {
         backgroundColor = .white
-        tabBarStackView.switchTabBarActive(.home)
+        tabBarStackView.switchEffect(to: .tracking)
     }
     
     func setupAddSubView() {

@@ -7,49 +7,51 @@
 
 import UIKit
 
+/// DayBlock Custom Delegate
 protocol DayBlockDelegate: AnyObject {
+    
+    /// 트래킹블럭을 저장합니다.
     func storeTrackingBlock()
 }
 
+/// 트래킹 화면의 메인 블럭 컴포넌트
 final class DayBlock: UIView {
-    
-    // MARK: - Size
-    
-    /// 블럭 사이즈
-    enum Size {
-        case middle
-        case large
-    }
-    
-    /// 사이즈 지정용 변수
-    var size: Size
-    
-    /// 애니메이션 Completion 관리용 클로저
-    var storeTrackingBlockClosure: (() -> Void)?
     
     /// ContentsBlockDelegate
     weak var delegate: DayBlockDelegate?
     
+    /// 블럭 사이즈
+    enum Size: Double {
+        case middle = 180
+        case large = 250
+    }
+    
+    /// 사이즈 지정용 변수
+    private var size: Size
+    
+    /// 애니메이션 Completion 관리용 클로저
+    private var storeTrackingBlockClosure: (() -> Void)?
     
     // MARK: - Component
-
+    
+    /// 컴포넌트가 올라갈 View
     private lazy var contentsView: UIView = {
         let view = UIView()
-        // view.backgroundColor = GrayScale.contentsBlock
         view.clipsToBounds = true
-        [fillLayerBlock, plus, currentProductivityLabel, colorTag, icon, taskLabel]
+        [animationView, plus, productivityLabel, colorTag, icon, taskLabel]
             .forEach { view.addSubview($0) }
         return view
     }()
     
-    /// 블럭 애니메이션 용 레이어
-    let fillLayerBlock: UIView = {
+    /// 애니메이션용 View
+    private let animationView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(rgb: 0xF4F5F7)
         return view
     }()
     
-    let plus: UILabel = {
+    /// 플러스 기호
+    private let plus: UILabel = {
         let label = UILabel()
         label.text = "+"
         label.textColor = .systemBlue
@@ -57,76 +59,50 @@ final class DayBlock: UIView {
         return label
     }()
     
-    var currentProductivityLabel: UILabel = {
+    /// 생산성 합계 라벨
+    private let productivityLabel: UILabel = {
         let label = UILabel()
         label.text = "0.0"
-        label.textColor = GrayScale.mainText
+        label.textColor = Color.mainText
         label.textAlignment = .left
         return label
     }()
     
+    /// 컬러 태그
     private let colorTag: UIView = {
         let view = UIView()
         view.backgroundColor = .systemBlue
         view.clipsToBounds = true
-        
-        /// 하단 왼쪽, 하단 오른쪽만 cornerRadius 값 주기
-        view.layer.maskedCorners = CACornerMask(
-            arrayLiteral: .layerMinXMaxYCorner, .layerMaxXMaxYCorner)
+        view.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMaxYCorner, .layerMaxXMaxYCorner)
         return view
     }()
     
+    /// 아이콘
     private let icon: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(systemName: "batteryblock.fill")
         image.contentMode = .scaleAspectFit
-        image.tintColor = GrayScale.mainText
+        image.tintColor = Color.mainText
         return image
     }()
     
+    /// 작업명 라벨
     private let taskLabel: UILabel = {
         let label = UILabel()
         label.text = "Github 브랜치 관리하기"
-        label.textColor = GrayScale.mainText
+        label.textColor = Color.mainText
         label.textAlignment = .center
         label.numberOfLines = 2
         return label
     }()
     
+    // MARK: - Event Method
     
-    
-    // MARK: - Variable
-    private let middleSize = CGSize(width: 180, height: 180)
-    private let largeSize = CGSize(width: 250, height: 250)
-    
-    
-    
-    // MARK: - View Method
-    
-    init(frame: CGRect, blockSize: Size) {
-        self.size = blockSize
-        super.init(frame: frame)
-        setupBlockSize()
-        setupAddSubView()
-        setupConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-
-        /// CornerRaius
-        self.clipsToBounds = true
-        self.layer.cornerRadius = self.frame.height / 7
-    }
-    
-    
-    // MARK: - Custom Method
-    
-    func setupBlockContents(group: GroupEntity, block: BlockEntity) {
+    /// 블럭 UI를 업데이트합니다.
+    ///
+    /// - Parameter group: 업데이트 할 그룹 정보
+    /// - Parameter block: 업데이트 할 블럭 정보
+    func update(group: GroupEntity, block: BlockEntity) {
         plus.textColor = UIColor(rgb: group.color)
         colorTag.backgroundColor = UIColor(rgb: group.color)
         icon.image = UIImage(systemName: block.icon)!
@@ -134,24 +110,26 @@ final class DayBlock: UIView {
         contentsView.backgroundColor = UIColor(rgb: group.color).withAlphaComponent(0.2)
     }
     
-    /// 트래킹 블럭 저장 클로저 할당 및 델리게이트 실행
-    func setupStoreTrackingBlock() {
-        storeTrackingBlockClosure = {
-            self.delegate?.storeTrackingBlock()
-        }
+    /// 생산성 라벨값을 업데이트합니다.
+    ///
+    /// - Parameter value: 업데이트할 생산성 합계값
+    func updateProductivityLabel(to value: Float) {
+        productivityLabel.text = String(value)
     }
     
-    /// 블럭 Long Press Gesture Animation
-    func animation(isFill: Bool) {
+    /// LongPressGesture 애니메이션 실행 메서드입니다.
+    ///
+    /// - Parameter isFill: 애니메이션이 칠해져있는 상태인지 여부
+    func longPressAnimation(isFill: Bool) {
         
         // 칠하는 애니메이션
         if isFill {
             
             // 트래킹 블럭 저장 클로저 할당
-            setupStoreTrackingBlock()
+            storeTrackingBlockClosure = { self.delegate?.storeTrackingBlock() }
             
             UIView.animate(withDuration: 0.9, delay: 0.15, usingSpringWithDamping: 1, initialSpringVelocity: 0.1) {
-                self.fillLayerBlock.transform = CGAffineTransform(translationX: self.frame.width, y: 0)
+                self.animationView.transform = CGAffineTransform(translationX: self.frame.width, y: 0)
             } completion: { _ in
                 if let storeClosure = self.storeTrackingBlockClosure {
                     storeClosure()
@@ -159,116 +137,114 @@ final class DayBlock: UIView {
                 }
             }
         }
-
+        
         if !isFill {
             // CompletionHandler가 실행되면 안되기 때문에 nil 할당
             storeTrackingBlockClosure = nil
             
             UIView.animate(withDuration: 0.9, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.1) {
-                self.fillLayerBlock.transform = CGAffineTransform(translationX: 0, y: 0)
+                self.animationView.transform = CGAffineTransform(translationX: 0, y: 0)
             } completion: { _ in
                 // 애니메이션 지우기 끝
             }
         }
     }
 
+    /// 초기에 설정된 크기에 맞게 블럭 사이즈를 설정합니다.
     func setupBlockSize() {
-        /// BlockSize
-        switch size {
-        case .middle:
-            self.widthAnchor.constraint(equalToConstant: middleSize.width).isActive = true
-            self.heightAnchor.constraint(equalToConstant: middleSize.height).isActive = true
-            
-            /// 디자인 설정
+        if size == .middle {
             plus.font = UIFont(name: Poppins.bold, size: 18)
-            plus.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 16).isActive = true
-            plus.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 16).isActive = true
-            
-            currentProductivityLabel.font = UIFont(name: Poppins.bold, size: 18)
-            currentProductivityLabel.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 16).isActive = true
-            
+            productivityLabel.font = UIFont(name: Poppins.bold, size: 18)
             colorTag.layer.cornerRadius = 9
-            colorTag.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -32).isActive = true
-            colorTag.widthAnchor.constraint(equalToConstant: 20).isActive = true
-            colorTag.heightAnchor.constraint(equalToConstant: 30).isActive = true
-            
-            icon.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 48).isActive = true
-            icon.widthAnchor.constraint(equalToConstant: 56).isActive = true
-            icon.heightAnchor.constraint(equalToConstant: 56).isActive = true
-            
             taskLabel.font = UIFont(name: Pretendard.bold, size: 17)
-            
-        case .large:
-            self.widthAnchor.constraint(equalToConstant: largeSize.width).isActive = true
-            self.heightAnchor.constraint(equalToConstant: largeSize.height).isActive = true
-            
-            /// 디자인 설정
+
+            NSLayoutConstraint.activate([
+                self.widthAnchor.constraint(equalToConstant: Size.middle.rawValue),
+                self.heightAnchor.constraint(equalToConstant: Size.middle.rawValue),
+                plus.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 16),
+                plus.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 16),
+                productivityLabel.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 16),
+                colorTag.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -32),
+                colorTag.widthAnchor.constraint(equalToConstant: 20),
+                colorTag.heightAnchor.constraint(equalToConstant: 30),
+                icon.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 48),
+                icon.widthAnchor.constraint(equalToConstant: 56),
+                icon.heightAnchor.constraint(equalToConstant: 56)
+            ])
+        }
+
+        if size == .large {
             plus.font = UIFont(name: Poppins.bold, size: 24)
-            plus.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 24).isActive = true
-            plus.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 24).isActive = true
-            
-            currentProductivityLabel.font = UIFont(name: Poppins.bold, size: 24)
-            currentProductivityLabel.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 24).isActive = true
-            
+            productivityLabel.font = UIFont(name: Poppins.bold, size: 24)
             colorTag.layer.cornerRadius = 11
-            colorTag.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -48).isActive = true
-            colorTag.widthAnchor.constraint(equalToConstant: 26).isActive = true
-            colorTag.heightAnchor.constraint(equalToConstant: 38).isActive = true
-            
-            icon.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 68).isActive = true
-            icon.widthAnchor.constraint(equalToConstant: 88).isActive = true
-            icon.heightAnchor.constraint(equalToConstant: 88).isActive = true
-            
             taskLabel.font = UIFont(name: Pretendard.bold, size: 24)
+
+            NSLayoutConstraint.activate([
+                self.widthAnchor.constraint(equalToConstant: Size.large.rawValue),
+                self.heightAnchor.constraint(equalToConstant: Size.large.rawValue),
+                plus.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 24),
+                plus.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 24),
+                productivityLabel.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 24),
+                colorTag.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -48),
+                colorTag.widthAnchor.constraint(equalToConstant: 26),
+                colorTag.heightAnchor.constraint(equalToConstant: 38),
+                icon.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 68),
+                icon.widthAnchor.constraint(equalToConstant: 88),
+                icon.heightAnchor.constraint(equalToConstant: 88)
+            ])
         }
     }
     
+    // MARK: - Initial Method
     
-    // MARK: - AutoLayout Method
+    init(frame: CGRect, blockSize: Size) {
+        self.size = blockSize
+        super.init(frame: frame)
+        setupBlockSize()
+        setupAutoLayout()
+    }
     
-    func setupAddSubView() {
-        // 1. addSubView(component)
-        [contentsView]
-            .forEach { addSubview($0) }
-        
-        // 2. translatesAutoresizingMaskIntoConstraints = false
-        [contentsView, fillLayerBlock,
-         plus, currentProductivityLabel, colorTag, icon, taskLabel]
-            .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        clipsToBounds = true
+        layer.cornerRadius = frame.height / 7
     }
 
-    func setupConstraints() {
-        // 3. NSLayoutConstraint.activate
+    /// AutoLayout 설정 메서드입니다.
+    private func setupAutoLayout() {
+        [contentsView]
+            .forEach { addSubview($0) }
+    
+        [contentsView, animationView,
+         plus, productivityLabel, colorTag, icon, taskLabel]
+            .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+
         NSLayoutConstraint.activate([
-            
-            // contentsView
+        
             contentsView.topAnchor.constraint(equalTo: topAnchor),
             contentsView.bottomAnchor.constraint(equalTo: bottomAnchor),
             contentsView.leadingAnchor.constraint(equalTo: leadingAnchor),
             contentsView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            
-            // fillLayerBlock
-            fillLayerBlock.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor),
-            fillLayerBlock.centerYAnchor.constraint(equalTo: contentsView.centerYAnchor),
+        
             // 스프링 애니메이션으로 인한 오른쪽 튀어나옴 방지
-            fillLayerBlock.widthAnchor.constraint(equalTo: contentsView.widthAnchor, constant: 240),
-            fillLayerBlock.heightAnchor.constraint(equalTo: contentsView.heightAnchor),
+            animationView.widthAnchor.constraint(equalTo: contentsView.widthAnchor, constant: 240),
+            animationView.heightAnchor.constraint(equalTo: contentsView.heightAnchor),
+            animationView.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor),
+            animationView.centerYAnchor.constraint(equalTo: contentsView.centerYAnchor),
             
-            // totalProductivityLabel
-            currentProductivityLabel.leadingAnchor.constraint(equalTo: plus.trailingAnchor),
+            productivityLabel.leadingAnchor.constraint(equalTo: plus.trailingAnchor),
             
-            // colorTag
             colorTag.topAnchor.constraint(equalTo: contentsView.topAnchor),
             
-            // icon
             icon.centerXAnchor.constraint(equalTo: contentsView.centerXAnchor),
             
-            // taskLabel
             taskLabel.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 12),
             taskLabel.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 24),
-            taskLabel.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -24),
+            taskLabel.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -24)
         ])
     }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
-
-

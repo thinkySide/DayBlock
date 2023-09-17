@@ -19,7 +19,6 @@ final class SimpleIconBlock: UIView {
         return image
     }()
     
-    
     // MARK: - Initial Method
     
     override init(frame: CGRect) {
@@ -38,16 +37,13 @@ final class SimpleIconBlock: UIView {
         
         // AutoLayout Setting
         NSLayoutConstraint.activate([
-            
-            // self(IconBlock)
             self.widthAnchor.constraint(equalToConstant: 44),
             self.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1),
             
-            // symbol
             symbol.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             symbol.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
             symbol.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            symbol.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            symbol.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
         ])
     }
     

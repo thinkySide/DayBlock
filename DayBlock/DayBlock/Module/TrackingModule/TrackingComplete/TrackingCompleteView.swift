@@ -36,7 +36,7 @@ final class TrackingCompleteView: UIView {
         let label = UILabel()
         label.text = "Swift 공부"
         label.font = UIFont(name: Pretendard.bold, size: 20)
-        label.textColor = GrayScale.mainText
+        label.textColor = Color.mainText
         label.textAlignment = .left
         label.numberOfLines = 2
         return label
@@ -57,7 +57,7 @@ final class TrackingCompleteView: UIView {
         let label = UILabel()
         label.text = "14:05-15:35"
         label.font = UIFont(name: Poppins.bold, size: 30)
-        label.textColor = GrayScale.mainText
+        label.textColor = Color.mainText
         label.textAlignment = .center
         return label
     }()
@@ -78,7 +78,7 @@ final class TrackingCompleteView: UIView {
         let label = UILabel()
         label.text = "블럭"
         label.font = UIFont(name: Pretendard.bold, size: 18)
-        label.textColor = GrayScale.mainText
+        label.textColor = Color.mainText
         label.textAlignment = .left
         return label
     }()
@@ -96,7 +96,7 @@ final class TrackingCompleteView: UIView {
         let label = UILabel()
         label.text = "2.5"
         label.font = UIFont(name: Poppins.bold, size: 24)
-        label.textColor = GrayScale.mainText
+        label.textColor = Color.mainText
         label.textAlignment = .left
         return label
     }()
@@ -105,7 +105,7 @@ final class TrackingCompleteView: UIView {
         let label = UILabel()
         label.text = "개를 생산했어요!"
         label.font = UIFont(name: Pretendard.bold, size: 18)
-        label.textColor = GrayScale.mainText
+        label.textColor = Color.mainText
         label.textAlignment = .left
         return label
     }()
@@ -124,7 +124,7 @@ final class TrackingCompleteView: UIView {
         let label = UILabel()
         label.text = "0.0" // ⛳️
         label.font = UIFont(name: Poppins.bold, size: 20)
-        label.textColor = GrayScale.mainText
+        label.textColor = Color.mainText
         label.textAlignment = .center
         return label
     }()
@@ -133,14 +133,14 @@ final class TrackingCompleteView: UIView {
         let label = UILabel()
         label.text = "total"
         label.font = UIFont(name: Poppins.bold, size: 14)
-        label.textColor = GrayScale.subText2
+        label.textColor = Color.subText2
         label.textAlignment = .center
         return label
     }()
     
     let bottomSeparator: UIView = {
         let line = UIView()
-        line.backgroundColor = GrayScale.seperator2
+        line.backgroundColor = Color.seperator2
         return line
     }()
     
@@ -148,7 +148,7 @@ final class TrackingCompleteView: UIView {
         let label = UILabel()
         label.text = "0.0" // ⛳️
         label.font = UIFont(name: Poppins.bold, size: 20)
-        label.textColor = GrayScale.mainText
+        label.textColor = Color.mainText
         label.textAlignment = .center
         return label
     }()
@@ -157,7 +157,7 @@ final class TrackingCompleteView: UIView {
         let label = UILabel()
         label.text = "today"
         label.font = UIFont(name: Poppins.bold, size: 14)
-        label.textColor = GrayScale.subText2
+        label.textColor = Color.subText2
         label.textAlignment = .center
         return label
     }()
