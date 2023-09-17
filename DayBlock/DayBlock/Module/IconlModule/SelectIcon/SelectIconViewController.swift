@@ -57,7 +57,7 @@ final class SelectIconViewController: UIViewController {
     private func setupSelectedCell() {
         if !isScrolled {
             isScrolled = true
-            let indexPath = IndexPath(item: symbolManager.getCurrentIndex(), section: 0)
+            let indexPath = IndexPath(item: symbolManager.selectedIndex(), section: 0)
             let collectionView = viewManager.iconCollectionView
             collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
         }
@@ -69,8 +69,8 @@ final class SelectIconViewController: UIViewController {
     @objc func confirmButtonTapped() {
         guard let indexPath = viewManager.iconCollectionView.indexPathsForSelectedItems else { return }
         let itemIndex = indexPath[0].item
-        symbolManager.updateCurrentIndex(to: itemIndex)
-        blockManager.updateRemoteBlock(icon: symbolManager.getSelectIcon())
+        symbolManager.updateSelectedIndex(to: itemIndex)
+        blockManager.updateRemoteBlock(icon: symbolManager.selected())
         
         /// delegate
         delegate?.updateIcon()
@@ -87,13 +87,13 @@ final class SelectIconViewController: UIViewController {
 
 extension SelectIconViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return symbolManager.getSymbolList().count
+        return symbolManager.list().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cell.iconSelect, for: indexPath) as! SelectIconCollectionViewCell
         
-        let icon = symbolManager.getSymbolList()[indexPath.item]
+        let icon = symbolManager.list()[indexPath.item]
         cell.icon.image = UIImage(systemName: icon)
         
         return cell

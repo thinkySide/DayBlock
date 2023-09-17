@@ -68,8 +68,8 @@ final class TrackingManager {
         let timeArray = timeFormat.components(separatedBy: "/")
         var numArray: [Int] = []
         
-        for i in timeArray {
-            if let time = Int(i) {
+        for index in timeArray {
+            if let time = Int(index) {
                 numArray.append(time)
                 continue
             }

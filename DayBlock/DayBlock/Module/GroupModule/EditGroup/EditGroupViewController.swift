@@ -30,7 +30,7 @@ final class EditGroupViewController: UIViewController {
         setupDelegate()
         setupEvent()
         setupRemoteGroup()
-        hideKeyboard()
+        addHideKeyboardGesture()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

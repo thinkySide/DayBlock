@@ -1,8 +1,14 @@
 # Git URL : https://github.com/realm/SwiftLint
 # Reference : https://realm.github.io/SwiftLint/index.html
 
-# SwiftLint 적용을 제외할 파일
+# 규칙 적용을 제외할 파일
 excluded:
     - Pods
     - DayBlock/LifeCycle/AppDelegate.swift
     - DayBlock/LifeCycle/SceneDelegate.swift
+    - DayBlock/Common/Resource/File/SFSymbols.swift
+
+# 기본 규칙 중 비활성화 할 규칙
+disabled_rules:
+    - force_cast # 강제 언래핑
+    - cyclomatic_complexity # 함수 복잡도

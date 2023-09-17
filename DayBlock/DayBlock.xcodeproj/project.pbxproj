@@ -20,6 +20,7 @@
 		0719649629E0763C009CA1A4 /* FormSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719649529E0763C009CA1A4 /* FormSelectButton.swift */; };
 		0719649829E148CA009CA1A4 /* DayBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719649729E148CA009CA1A4 /* DayBlock.swift */; };
 		073EBFEE2AB6C7B80031F6AB /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 073EBFED2AB6C7B80031F6AB /* .swiftlint.yml */; };
+		073EBFF02AB6D4D40031F6AB /* SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EBFEF2AB6D4D40031F6AB /* SFSymbols.swift */; };
 		07454DE329EA6CEE00B3458D /* UIViewController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454DE229EA6CEE00B3458D /* UIViewController++.swift */; };
 		07454DE729EA94EB00B3458D /* DisablePasteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454DE629EA94EB00B3458D /* DisablePasteTextField.swift */; };
 		07454E0F29EBE50500B3458D /* BottomModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E0E29EBE50500B3458D /* BottomModal.swift */; };
@@ -102,6 +103,7 @@
 		0719649529E0763C009CA1A4 /* FormSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSelectButton.swift; sourceTree = "<group>"; };
 		0719649729E148CA009CA1A4 /* DayBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayBlock.swift; sourceTree = "<group>"; };
 		073EBFED2AB6C7B80031F6AB /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		073EBFEF2AB6D4D40031F6AB /* SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbols.swift; sourceTree = "<group>"; };
 		07454DE229EA6CEE00B3458D /* UIViewController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController++.swift"; sourceTree = "<group>"; };
 		07454DE629EA94EB00B3458D /* DisablePasteTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisablePasteTextField.swift; sourceTree = "<group>"; };
 		07454E0E29EBE50500B3458D /* BottomModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomModal.swift; sourceTree = "<group>"; };
@@ -514,6 +516,7 @@
 			isa = PBXGroup;
 			children = (
 				078C50E729D72D2900F239BA /* NameSpace.swift */,
+				073EBFEF2AB6D4D40031F6AB /* SFSymbols.swift */,
 			);
 			path = File;
 			sourceTree = "<group>";
@@ -770,6 +773,7 @@
 				07A45CE42AA0952000C09342 /* TrackingManager.swift in Sources */,
 				07454E1329EC138E00B3458D /* SelectGroupTableViewCell.swift in Sources */,
 				07454E1129EBFDF200B3458D /* ActionButton.swift in Sources */,
+				073EBFF02AB6D4D40031F6AB /* SFSymbols.swift in Sources */,
 				076248C62AB3013D000A8664 /* HomeDelegate.swift in Sources */,
 				0770803629E7981300D66900 /* SelectIconView.swift in Sources */,
 				078C50EE29D72F9D00F239BA /* UIColor++.swift in Sources */,

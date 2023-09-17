@@ -47,7 +47,7 @@ final class CreateBlockViewController: UIViewController {
         setupDelegate()
         setupAddTarget()
         setupNotification()
-        hideKeyboard()
+        addHideKeyboardGesture()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -318,7 +318,7 @@ extension CreateBlockViewController: FormSelectButtonDelegate {
             selectIconVC.transitioningDelegate = customBottomModalDelegate
         }
         
-        IconManager.shared.updateCurrentIndex(currentIcon: blockManager.getRemoteBlock().list[0].icon)
+        IconManager.shared.updateSelectedIndex(as: blockManager.getRemoteBlock().list[0].icon)
         
         present(selectIconVC, animated: true)
     }

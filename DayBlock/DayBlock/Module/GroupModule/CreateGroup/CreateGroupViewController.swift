@@ -37,7 +37,7 @@ final class CreateGroupViewController: UIViewController {
         setupNavigation()
         setupDelegate()
         setupAddTarget()
-        hideKeyboard()
+        addHideKeyboardGesture()
     }
     
     override func viewDidAppear(_ animated: Bool) {

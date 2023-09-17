@@ -67,7 +67,7 @@ final class HomeViewController: UIViewController {
     
     /// UserDefault를 사용한 초기 화면의 그룹 선택값을 설정합니다.
     private func setupDefaultFocus() {
-        let groupIndex = UserDefaults.standard.object(forKey: UD.groupIndex) as? Int ?? 0
+        let groupIndex = UserDefaults.standard.object(forKey: UserDefaultsKey.groupIndex) as? Int ?? 0
         switchHomeGroup(index: groupIndex)
         blockManager.updateCurrentGroup(index: groupIndex)
     }
@@ -621,7 +621,7 @@ extension HomeViewController: SelectGroupViewControllerDelegate {
         viewManager.blockCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: true)
         
         // UserDefaults에 현재 그룹 인덱스 저장
-        UserDefaults.standard.set(index, forKey: UD.groupIndex)
+        UserDefaults.standard.set(index, forKey: UserDefaultsKey.groupIndex)
         
         // 그룹 리스트가 비어있을 시, 트래킹 버튼 비활성화
         let blockList = blockManager.getCurrentGroup().blockList?.array as! [BlockEntity]

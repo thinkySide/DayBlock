@@ -15,14 +15,12 @@ enum Noti {
     static let updateCreateBlockUI = "updateCreateBlockUI"
 }
 
+// MARK: - UserDefaults Key
 
-// MARK: - UserDefaults
-
-enum UD {
+enum UserDefaultsKey {
     static let groupIndex = "groupIndex"
     static let blockIndex = "blockIndex"
 }
-
 
 // MARK: - Colors
 
@@ -34,25 +32,24 @@ enum Color {
 }
 
 enum GrayScale {
-    
+
     /// Text Color
     static let mainText = UIColor(rgb: 0x323232)
     static let subText = UIColor(rgb: 0x5B5B5B)
     static let subText2 = UIColor(rgb: 0x828282)
     static let countText = UIColor(rgb: 0x676767)
     static let disabledText = UIColor(rgb: 0xB2B5BD)
-    
+
     /// Block Background Color
     static let entireBlock = UIColor(rgb: 0xE8E8E8)
     static let contentsBlock = UIColor(rgb: 0xF4F5F7)
-    
+
     /// Component Color
     static let seperator = UIColor(rgb: 0xE8E8E8)
     static let seperator2 = UIColor(rgb: 0xDADADA)
     static let addBlockButton = UIColor(rgb: 0xC5C5C5)
     static let cancelButton = UIColor(rgb: 0xF3F3F3)
 }
-
 
 // MARK: - Fonts
 
@@ -72,7 +69,6 @@ enum Poppins {
     static let bold = "Poppins-Bold"
 }
 
-
 // MARK: - Icon
 
 enum Icon {
@@ -86,7 +82,6 @@ enum Icon {
     static let selectIcon = "selectIcon"
 }
 
-
 // MARK: - Size
 
 enum Size {
@@ -96,7 +91,6 @@ enum Size {
     static let seperator: CGFloat = 1
     static let selectFormSpacing: CGFloat = 24
 }
-
 
 // MARK: - Cell
 
