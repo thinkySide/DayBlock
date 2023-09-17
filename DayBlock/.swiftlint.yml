@@ -1,0 +1,8 @@
+# Git URL : https://github.com/realm/SwiftLint
+# Reference : https://realm.github.io/SwiftLint/index.html
+
+# SwiftLint 적용을 제외할 파일
+excluded:
+    - Pods
+    - DayBlock/LifeCycle/AppDelegate.swift
+    - DayBlock/LifeCycle/SceneDelegate.swift

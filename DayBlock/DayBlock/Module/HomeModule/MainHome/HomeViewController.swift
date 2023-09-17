@@ -16,7 +16,7 @@ final class HomeViewController: UIViewController {
     private let viewManager = HomeView()
     private let blockManager = BlockManager.shared
     private let trackingManager = TrackingManager.shared
-    private var timeTracker = TimeTracker()
+    private var timeTracker = Tracker()
     private let customBottomModalDelegate = BottomModalDelegate()
     
     

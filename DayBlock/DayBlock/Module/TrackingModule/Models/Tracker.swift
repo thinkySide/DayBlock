@@ -1,5 +1,5 @@
 //
-//  TimeTracker.swift
+//  Tracker.swift
 //  DayBlock
 //
 //  Created by 김민준 on 2023/04/11.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TimeTracker {
+struct Tracker {
     var totalTime = 0
     var currentTime: Float = 0
     var totalBlock: Float = 0
