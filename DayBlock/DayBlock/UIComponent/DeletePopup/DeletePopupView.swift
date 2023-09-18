@@ -73,7 +73,7 @@ final class DeletePopupView: UIView {
             // actionStackView
             actionStackView.topAnchor.constraint(equalTo: subLabel.bottomAnchor, constant: 24),
             actionStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
-            actionStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
+            actionStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24)
         ])
     }
     

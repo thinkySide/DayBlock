@@ -19,8 +19,6 @@ final class TrackingCompleteViewController: UIViewController {
     
     private let viewManager = TrackingCompleteView()
     
-    
-    
     // MARK: - Life Cycle Method
     
     override func loadView() {
@@ -33,13 +31,11 @@ final class TrackingCompleteViewController: UIViewController {
         setupEvent()
     }
     
-    
     // MARK: - Setup Method
     
     private func setupEvent() {
         viewManager.backToHomeButton.addTarget(self, action: #selector(backToHomeButtonTapped), for: .touchUpInside)
     }
-    
     
     // MARK: - Event Method
     

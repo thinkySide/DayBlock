@@ -19,7 +19,6 @@ final class SelectIconViewController: UIViewController {
     /// 스크롤 제어를 위한 초깃값
     private var isScrolled: Bool = false
     
-    
     // MARK: - ViewController LifeCycle
     
     override func loadView() {
@@ -36,7 +35,6 @@ final class SelectIconViewController: UIViewController {
         super.viewDidLayoutSubviews()
         setupSelectedCell()
     }
-    
     
     // MARK: - Initial Method
     
@@ -63,7 +61,6 @@ final class SelectIconViewController: UIViewController {
         }
     }
     
-    
     // MARK: - Custom Method
     
     @objc func confirmButtonTapped() {
@@ -81,7 +78,6 @@ final class SelectIconViewController: UIViewController {
         dismiss(animated: true)
     }
 }
-
 
 // MARK: - UICollectionView
 

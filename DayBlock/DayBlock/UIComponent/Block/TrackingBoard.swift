@@ -182,7 +182,6 @@ final class TrackingBoard: UIView {
     init(frame: CGRect, blockSize: CGFloat, spacing: CGFloat) {
         self.blockSize = blockSize
         self.spacing = spacing
-        
         super.init(frame: frame)
         setupAddSubView()
         setupConstraints()
@@ -192,7 +191,7 @@ final class TrackingBoard: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupAddSubView() {
+    private func setupAddSubView() {
         
         [
             block00, block01, block02, block03, block04, block05,
@@ -201,18 +200,12 @@ final class TrackingBoard: UIView {
             block18, block19, block20, block21, block22, block23
         ]
             .forEach {
-                
-                /// 1. addSubView(component)
                 addSubview($0)
-                
-                /// 2. translatesAutoresizingMaskIntoConstraints = false
                 $0.translatesAutoresizingMaskIntoConstraints = false
             }
     }
     
-    func setupConstraints() {
-        
-        /// 3. isActive = true
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
             self.topAnchor.constraint(equalTo: block00.topAnchor),
             self.bottomAnchor.constraint(equalTo: block18.bottomAnchor),

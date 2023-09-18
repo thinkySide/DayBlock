@@ -17,8 +17,8 @@ final class HomeBlockCollectionViewCell: UICollectionViewCell {
     }
     
     typealias Closure = (HomeBlockCollectionViewCell) -> Void
-    var trashButtonTapped: Closure = { sender in }
-    var editButtonTapped: Closure = { sender in }
+    var trashButtonTapped: Closure = { _ in }
+    var editButtonTapped: Closure = { _ in }
     
     // MARK: - Front Component
     
@@ -147,7 +147,6 @@ final class HomeBlockCollectionViewCell: UICollectionViewCell {
         return image
     }()
     
-    
     // MARK: - Last Component
     
     lazy var stroke: CAShapeLayer = {
@@ -160,7 +159,6 @@ final class HomeBlockCollectionViewCell: UICollectionViewCell {
         stroke.path = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.bounds.height / 7).cgPath
         return stroke
     }()
-    
     
     // MARK: - Method
     
@@ -288,7 +286,7 @@ final class HomeBlockCollectionViewCell: UICollectionViewCell {
             backTotalValue, backTotalLabel,
             seperator,
             backTodayValue, backTodayLabel,
-            backTrashIcon, backEditIcon,
+            backTrashIcon, backEditIcon
         ]
             .forEach {
                 addSubview($0)
@@ -355,7 +353,7 @@ final class HomeBlockCollectionViewCell: UICollectionViewCell {
             backEditIcon.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -24),
             backEditIcon.centerXAnchor.constraint(equalTo: backTodayLabel.centerXAnchor),
             backEditIcon.widthAnchor.constraint(equalToConstant: 56),
-            backEditIcon.heightAnchor.constraint(equalToConstant: 56),
+            backEditIcon.heightAnchor.constraint(equalToConstant: 56)
         ])
     }
 }

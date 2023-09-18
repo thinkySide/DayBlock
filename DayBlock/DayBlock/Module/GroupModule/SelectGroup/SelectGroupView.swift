@@ -62,11 +62,6 @@ final class SelectGroupView: UIView {
         return menu
     }()
     
-    
-    // MARK: - Variable
-    
-    
-    
     // MARK: - Initial
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -78,8 +73,6 @@ final class SelectGroupView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
     
     // MARK: - Method
     
@@ -136,7 +129,7 @@ final class SelectGroupView: UIView {
             
             // customUIMenu
             customUIMenu.topAnchor.constraint(equalTo: menuButton.bottomAnchor, constant: 0),
-            customUIMenu.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+            customUIMenu.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12)
         ])
     }
 }

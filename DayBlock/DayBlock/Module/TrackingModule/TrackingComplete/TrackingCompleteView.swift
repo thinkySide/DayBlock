@@ -175,7 +175,6 @@ final class TrackingCompleteView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     // MARK: - Auto Layout Method
     
     private func setupAddView() {
@@ -244,7 +243,7 @@ final class TrackingCompleteView: UIView {
             // backToHomeButton
             backToHomeButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             backToHomeButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
-            backToHomeButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -56),
+            backToHomeButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -56)
         ])
     }
 }

@@ -31,9 +31,7 @@ final class GroupSelectButton: UIView {
         image.image = UIImage(named: Icon.menuIcon)
         return image
     }()
-    
-    
-    
+
     // MARK: - Method
     
     override init(frame: CGRect) {
@@ -67,7 +65,7 @@ final class GroupSelectButton: UIView {
             arrow.centerYAnchor.constraint(equalTo: centerYAnchor),
             arrow.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: 0),
             arrow.widthAnchor.constraint(equalToConstant: 22),
-            arrow.heightAnchor.constraint(equalTo: arrow.widthAnchor),
+            arrow.heightAnchor.constraint(equalTo: arrow.widthAnchor)
         ])
     }
     

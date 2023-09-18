@@ -22,7 +22,7 @@ final class CreateGroupView: UIView {
     
     lazy var groupLabelTextField: FormTextField = {
         let form = FormTextField()
-        form.textFieldLabel.text = "그룹명"
+        form.formLabel.text = "그룹명"
         form.textField.placeholder = "자기계발"
         form.countLabel.text = "0/8"
         form.warningLabel.text = "중복되는 그룹명은 사용할 수 없어요"
@@ -48,14 +48,12 @@ final class CreateGroupView: UIView {
         let item = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(createBarButtonItemTapped))
         let font = UIFont(name: Pretendard.semiBold, size: 17)
         let attributes = [NSAttributedString.Key.font: font]
-        item.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .normal)
-        item.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .disabled)
+        item.setTitleTextAttributes(attributes as [NSAttributedString.Key: Any], for: .normal)
+        item.setTitleTextAttributes(attributes as [NSAttributedString.Key: Any], for: .disabled)
         item.tintColor = Color.mainText
         item.isEnabled = false
         return item
     }()
-    
-    
     
     // MARK: - Initial
     
@@ -69,8 +67,6 @@ final class CreateGroupView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
     
     // MARK: - Method
     
@@ -111,7 +107,7 @@ final class CreateGroupView: UIView {
             /// selectFormStackView
             selectFormStackView.topAnchor.constraint(equalTo: groupLabelTextField.bottomAnchor, constant: 8),
             selectFormStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
-            selectFormStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            selectFormStackView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
 }

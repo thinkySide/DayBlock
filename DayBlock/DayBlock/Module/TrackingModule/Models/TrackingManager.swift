@@ -30,7 +30,6 @@ final class TrackingManager {
     /// 현재 트래킹 중인 블럭의 정보를 담는 Dictionary
     private var trackingBlocks: TrackingType = [:]
     
-    
     // MARK: - Format
     
     /// 날짜 기본 포맷
@@ -48,7 +47,6 @@ final class TrackingManager {
         dateFormatter.dateFormat = "YYYY년 M월 d일 E요일"
         return dateFormatter.string(from: Date())
     }
-    
     
     // MARK: - Method
     

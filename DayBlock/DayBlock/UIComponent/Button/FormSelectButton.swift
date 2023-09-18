@@ -98,9 +98,6 @@ final class FormSelectButton: UIView {
         return line
     }()
     
-    
-    
-    
     // MARK: - Custom Method
     
     func ofType(_ label: String, _ type: SelectType) {
@@ -171,8 +168,7 @@ final class FormSelectButton: UIView {
         /// 2. translatesAutoresizingMaskIntoConstraints = false
         [
             contentView, contentStackView, selectTitle, selectStackView,
-            selectLabel ,polygon,
-            seperator
+            selectLabel, polygon, seperator
         ]
             .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }
@@ -196,7 +192,6 @@ final class FormSelectButton: UIView {
             contentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             contentStackView.heightAnchor.constraint(equalToConstant: 40),
             
-            
             /// selectIcon
             selectIcon.widthAnchor.constraint(equalToConstant: 24),
             selectIcon.heightAnchor.constraint(equalTo: selectIcon.widthAnchor),
@@ -209,7 +204,7 @@ final class FormSelectButton: UIView {
             seperator.topAnchor.constraint(equalTo: contentStackView.bottomAnchor, constant: 8),
             seperator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             seperator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            seperator.heightAnchor.constraint(equalToConstant: Size.seperator),
+            seperator.heightAnchor.constraint(equalToConstant: Size.seperator)
         ])
     }
 }

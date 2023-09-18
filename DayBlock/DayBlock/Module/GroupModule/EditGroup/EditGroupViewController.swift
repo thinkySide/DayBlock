@@ -81,7 +81,6 @@ final class EditGroupViewController: UIViewController {
         blockManager.updateRemoteGroup(color: group[currentIndex].color)
     }
     
-    
     // MARK: - Event Method
     
     @objc func groupLabelTextFieldChanged() {
@@ -142,7 +141,6 @@ extension EditGroupViewController: EditGroupViewDelegate {
     }
 }
 
-
 // MARK: - DeletePopupViewControllerDelegate
 
 extension EditGroupViewController: DeletePopupViewControllerDelegate {
@@ -160,7 +158,6 @@ extension EditGroupViewController: DeletePopupViewControllerDelegate {
         navigationController?.popViewController(animated: true)
     }
 }
-
 
 // MARK: - SelectFormDelegate
 
@@ -196,7 +193,6 @@ extension EditGroupViewController: FormSelectButtonDelegate {
     }
 }
 
-
 // MARK: - SelectColorViewControllerDelegate
 
 extension EditGroupViewController: SelectColorViewControllerDelegate {
@@ -205,7 +201,6 @@ extension EditGroupViewController: SelectColorViewControllerDelegate {
         viewManager.colorSelect.selectColor.backgroundColor = UIColor(rgb: selectedColor)
     }
 }
-
 
 // MARK: - UITextFieldDelegate
 

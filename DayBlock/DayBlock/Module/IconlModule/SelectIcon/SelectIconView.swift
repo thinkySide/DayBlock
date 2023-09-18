@@ -26,17 +26,11 @@ final class SelectIconView: UIView {
         // collection.backgroundColor = .red
         return collection
     }()
-
     
     let actionStackView: ActionButtonSet = {
         let stack = ActionButtonSet()
         return stack
     }()
-    
-    
-    // MARK: - Variable
-    
-    
     
     // MARK: - Initial
     override init(frame: CGRect) {
@@ -49,8 +43,6 @@ final class SelectIconView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
     
     // MARK: - Method
     func setupInitial() {
@@ -90,12 +82,10 @@ final class SelectIconView: UIView {
             /// actionStackView
             actionStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
             actionStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
-            actionStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
+            actionStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin)
         ])
     }
 }
-
-
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
@@ -105,18 +95,13 @@ extension SelectIconView: UICollectionViewDelegateFlowLayout {
             
             /// 인스턴스 생성
             let layout = UICollectionViewCompositionalLayout {
-                (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+                (_: Int, _: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
                 
                 /// item 사이즈
                 let itemSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1/5),
                     heightDimension: .fractionalWidth(1/5)
                 )
-                
-//                let itemSize = NSCollectionLayoutSize(
-//                    widthDimension: .absolute(64),
-//                    heightDimension: .absolute(64)
-//                )
                 
                 /// item 만들기
                 let item = NSCollectionLayoutItem(

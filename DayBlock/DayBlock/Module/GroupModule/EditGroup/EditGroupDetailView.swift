@@ -15,7 +15,7 @@ final class EditGroupDetailView: UIView {
     
     let groupLabelTextField: FormTextField = {
         let form = FormTextField()
-        form.textFieldLabel.text = "그룹명"
+        form.formLabel.text = "그룹명"
         form.textField.placeholder = "자기계발"
         form.countLabel.text = "0/8"
         form.warningLabel.text = "중복되는 그룹명은 사용할 수 없어요"
@@ -41,8 +41,8 @@ final class EditGroupDetailView: UIView {
         let item = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(createBarButtonItemTapped))
         let font = UIFont(name: Pretendard.semiBold, size: 17)
         let attributes = [NSAttributedString.Key.font: font]
-        item.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .normal)
-        item.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .disabled)
+        item.setTitleTextAttributes(attributes as [NSAttributedString.Key: Any], for: .normal)
+        item.setTitleTextAttributes(attributes as [NSAttributedString.Key: Any], for: .disabled)
         item.tintColor = Color.mainText
         item.isEnabled = true
         return item
@@ -53,14 +53,12 @@ final class EditGroupDetailView: UIView {
         return button
     }()
     
-    
     // MARK: - Event Method
     
     @objc func createBarButtonItemTapped() {
         print(#function)
         delegate?.editGroup()
     }
-    
     
     // MARK: - Initial Method
     
@@ -105,7 +103,7 @@ final class EditGroupDetailView: UIView {
             // deleteButton
             deleteButton.topAnchor.constraint(equalTo: selectFormStackView.bottomAnchor, constant: 32),
             deleteButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
-            deleteButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
+            deleteButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin)
         ])
     }
 }

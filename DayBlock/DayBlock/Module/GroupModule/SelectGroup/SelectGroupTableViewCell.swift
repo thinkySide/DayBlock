@@ -60,7 +60,6 @@ final class SelectGroupTableViewCell: UITableViewCell {
         return image
     }()
     
-
     // MARK: - Initial
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -125,12 +124,7 @@ final class SelectGroupTableViewCell: UITableViewCell {
             chevron.centerYAnchor.constraint(equalTo: centerYAnchor),
             chevron.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
             chevron.widthAnchor.constraint(equalToConstant: 24),
-            chevron.heightAnchor.constraint(equalTo: chevron.widthAnchor),
-            
-            // seperator
-            // seperator.bottomAnchor.constraint(equalTo: bottomAnchor),
-            // seperator.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            // seperator.trailingAnchor.constraint(equalTo: trailingAnchor),
+            chevron.heightAnchor.constraint(equalTo: chevron.widthAnchor)
         ])
     }
     

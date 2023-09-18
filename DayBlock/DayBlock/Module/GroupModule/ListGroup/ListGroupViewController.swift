@@ -58,7 +58,6 @@ final class ListGroupViewController: UIViewController {
         viewManager.groupTableView.register(SelectGroupTableViewCell.self, forCellReuseIdentifier: Cell.groupSelect)
     }
     
-    
     // MARK: - Custom Method
     
     /// 토스트 메시지를 출력하는 메서드
@@ -87,7 +86,6 @@ final class ListGroupViewController: UIViewController {
         }
     }
 }
-
 
 // MARK: - UITableViewDataSource & UITableViewDelegate
 
@@ -136,7 +134,6 @@ extension ListGroupViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-
 // MARK: - EditGroupViewDelegate
 
 extension ListGroupViewController: ListGroupViewDelegate {
@@ -152,7 +149,6 @@ extension ListGroupViewController: ListGroupViewDelegate {
     }
 }
 
-
 // MARK: - EditGroupDetailViewControllerDelegate
 
 extension ListGroupViewController: EditGroupViewControllerDelegate {
@@ -160,7 +156,6 @@ extension ListGroupViewController: EditGroupViewControllerDelegate {
         viewManager.groupTableView.reloadData()
     }
 }
-
 
 // MARK: - CreateGroupViewControllerDelegate
 

@@ -25,7 +25,6 @@ final class SelectGroupViewController: UIViewController {
     // 그룹 선택 모드
     var mode: Mode = .home
     
-    
     // MARK: - ViewController LifeCycle
     
     override func loadView() {
@@ -38,8 +37,6 @@ final class SelectGroupViewController: UIViewController {
         setupGesture()
         setupSelectedCell()
     }
-    
-    
     
     // MARK: - Initial
     
@@ -93,8 +90,6 @@ final class SelectGroupViewController: UIViewController {
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: .top)
         }
     }
-    
-    
     
     // MARK: - Method
     
@@ -160,8 +155,6 @@ final class SelectGroupViewController: UIViewController {
     }
 }
 
-
-
 // MARK: - UITableView
 
 extension SelectGroupViewController: UITableViewDataSource, UITableViewDelegate {
@@ -182,7 +175,6 @@ extension SelectGroupViewController: UITableViewDataSource, UITableViewDelegate 
     }
 }
 
-
 // MARK: - CreateGroupViewControllerDelegate
 
 extension SelectGroupViewController: CreateGroupViewControllerDelegate {
@@ -193,8 +185,7 @@ extension SelectGroupViewController: CreateGroupViewControllerDelegate {
     }
 }
 
-
-// MARK: - 내용입력
+// MARK: - ListGroupViewControllerDelegate
 
 extension SelectGroupViewController: ListGroupViewControllerDelegate {
     func reloadData() {

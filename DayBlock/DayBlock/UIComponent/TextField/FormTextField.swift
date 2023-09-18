@@ -11,7 +11,7 @@ final class FormTextField: UIView {
     
     // MARK: - Component
     
-    let textFieldLabel: UILabel = {
+    let formLabel: UILabel = {
         let label = UILabel()
         label.text = "작업명"
         label.font = UIFont(name: Pretendard.semiBold, size: 16)
@@ -20,16 +20,16 @@ final class FormTextField: UIView {
         return label
     }()
     
-    private lazy var textFieldBackgroundView: UIView = {
+    private lazy var backgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = Color.contentsBlock
         view.clipsToBounds = true
         view.layer.borderColor = UIColor(rgb: 0xD23939).cgColor
-        view.addSubview(textFieldStackView)
+        view.addSubview(contentsStackView)
         return view
     }()
     
-    private lazy var textFieldStackView: UIStackView = {
+    private lazy var contentsStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [textField, countLabel])
         stack.axis = .horizontal
         stack.distribution = .fill
@@ -68,7 +68,6 @@ final class FormTextField: UIView {
         return label
     }()
 
-    
     // MARK: - Initial Method
     
     override init(frame: CGRect) {
@@ -85,7 +84,7 @@ final class FormTextField: UIView {
         super.draw(rect)
         
         /// CornerRadius
-        textFieldBackgroundView.layer.cornerRadius = textFieldBackgroundView.frame.height / 5
+        backgroundView.layer.cornerRadius = backgroundView.frame.height / 5
     }
     
     /// 경고 라벨 상태 설정 메서드
@@ -99,50 +98,41 @@ final class FormTextField: UIView {
             // textFieldBackgroundView.layer.borderWidth = 0
         }
     }
-    
-    
+     
     // MARK: - AutoLayout Method
     
     func setupAddSubView() {
         /// 1. addSubView(component)
-        [textFieldLabel, textFieldBackgroundView, warningLabel]
+        [formLabel, backgroundView, warningLabel]
             .forEach { addSubview($0) }
         
         /// 2. translatesAutoresizingMaskIntoConstraints = false
-        [textFieldLabel, textFieldBackgroundView,
-         textFieldStackView, textField, countLabel, warningLabel]
+        [formLabel, backgroundView,
+         contentsStackView, textField, countLabel, warningLabel]
             .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }
 
     func setupConstraints() {
         /// 3. NSLayoutConstraint.activate
         NSLayoutConstraint.activate([
-            
-            /// MainTextFieldView(self)
             self.bottomAnchor.constraint(equalTo: warningLabel.bottomAnchor),
             
-            /// textFieldLabel
-            textFieldLabel.topAnchor.constraint(equalTo: topAnchor),
-            textFieldLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
+            formLabel.topAnchor.constraint(equalTo: topAnchor),
+            formLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
             
-            /// textFieldBackgroundView
-            textFieldBackgroundView.topAnchor.constraint(equalTo: textFieldLabel.bottomAnchor, constant: 10),
-            textFieldBackgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            textFieldBackgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            textFieldBackgroundView.heightAnchor.constraint(equalToConstant: 56),
+            backgroundView.topAnchor.constraint(equalTo: formLabel.bottomAnchor, constant: 10),
+            backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            backgroundView.heightAnchor.constraint(equalToConstant: 56),
             
-            /// textFieldStackView
-            textFieldStackView.centerYAnchor.constraint(equalTo: textFieldBackgroundView.centerYAnchor),
-            textFieldStackView.leadingAnchor.constraint(equalTo: textFieldBackgroundView.leadingAnchor, constant: 16),
-            textFieldStackView.trailingAnchor.constraint(equalTo: textFieldBackgroundView.trailingAnchor, constant: -16),
+            contentsStackView.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor),
+            contentsStackView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
+            contentsStackView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16),
                 
-            /// countLabel
             countLabel.widthAnchor.constraint(equalToConstant: 40),
             
-            // warningLabel
-            warningLabel.topAnchor.constraint(equalTo: textFieldBackgroundView.bottomAnchor,constant: 4),
-            warningLabel.leadingAnchor.constraint(equalTo: textFieldLabel.leadingAnchor),
+            warningLabel.topAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: 4),
+            warningLabel.leadingAnchor.constraint(equalTo: formLabel.leadingAnchor)
         ])
     }
 }
-

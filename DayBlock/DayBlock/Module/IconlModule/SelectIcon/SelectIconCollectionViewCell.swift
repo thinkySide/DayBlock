@@ -29,7 +29,6 @@ final class SelectIconCollectionViewCell: UICollectionViewCell {
         return circle
     }()
     
-    
     // MARK: - Method
     
     override var isSelected: Bool {
@@ -63,7 +62,7 @@ final class SelectIconCollectionViewCell: UICollectionViewCell {
             selectCircle.centerXAnchor.constraint(equalTo: centerXAnchor),
             selectCircle.centerYAnchor.constraint(equalTo: centerYAnchor),
             selectCircle.widthAnchor.constraint(equalToConstant: 60),
-            selectCircle.heightAnchor.constraint(equalTo: selectCircle.widthAnchor),
+            selectCircle.heightAnchor.constraint(equalTo: selectCircle.widthAnchor)
         ])
     }
     

@@ -9,8 +9,6 @@ import UIKit
 
 final class SelectColorViewController: UIViewController {
     
-    // MARK: - Manager
-    
     private let viewManager = SelectColorView()
     private let blockManager = BlockManager.shared
     private let colorManager = ColorManager.shared
@@ -18,7 +16,6 @@ final class SelectColorViewController: UIViewController {
     
     /// 스크롤 제어를 위한 초깃값
     private var isScrolled: Bool = false
-    
     
     // MARK: - ViewController LifeCycle
     
@@ -36,7 +33,6 @@ final class SelectColorViewController: UIViewController {
         super.viewDidLayoutSubviews()
         setupSelectedCell()
     }
-    
     
     // MARK: - Initial Method
     
@@ -68,7 +64,6 @@ final class SelectColorViewController: UIViewController {
         }
     }
     
-    
     // MARK: - Custom Method
     
     @objc func confirmButtonTapped() {
@@ -86,7 +81,6 @@ final class SelectColorViewController: UIViewController {
         dismiss(animated: true)
     }
 }
-
 
 // MARK: - UICollectionView
 

@@ -9,21 +9,13 @@ import UIKit
 
 final class HomeView: UIView {
     
-    // MARK: - Variable
-    weak var delegate: HomeDelegate?
-    
-    
-    
-    // MARK: - TrackingMode
-    
     enum TrakingMode {
         case active
         case inactive
     }
     
+    weak var delegate: HomeDelegate?
     var trackingMode: TrakingMode = .inactive
-    
-    
     
     // MARK: - Component
     
@@ -138,7 +130,6 @@ final class HomeView: UIView {
     }()
 
     let tabBarStackView = TabBar()
-    
     
     // MARK: - Method
     
@@ -273,7 +264,7 @@ final class HomeView: UIView {
             trackingTimeLabel,
             trackingProgressView,
             trackingButton,
-            tabBarStackView,
+            tabBarStackView
         ]
             .forEach {
                 /// 1. addSubView(component)
@@ -350,7 +341,7 @@ final class HomeView: UIView {
             tabBarStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             tabBarStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tabBarStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            tabBarStackView.heightAnchor.constraint(equalToConstant: 2),
+            tabBarStackView.heightAnchor.constraint(equalToConstant: 2)
         ])
     }
 }

@@ -12,11 +12,12 @@ import UIKit
 final class BottomModalDelegate: NSObject, UIViewControllerTransitioningDelegate {
 
     /// View의 사이즈 지정
-    func presentationController(forPresented presented: UIViewController,presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+    func presentationController(forPresented presented: UIViewController,
+                                presenting: UIViewController?,
+                                source: UIViewController) -> UIPresentationController? {
         return BottomModal( presentedViewController: presented, presenting: presenting)
     }
 }
-
 
 // MARK: - BottomModal
 

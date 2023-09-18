@@ -34,7 +34,6 @@ final class DeletePopupViewController: UIViewController {
         setupAddTarget()
     }
     
-    
     // MARK: - Setup Method
     
     func setupAddView() {
@@ -52,7 +51,7 @@ final class DeletePopupViewController: UIViewController {
             
             deletePopupView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             deletePopupView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
-            deletePopupView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
+            deletePopupView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32)
         ])
     }
     
@@ -63,12 +62,13 @@ final class DeletePopupViewController: UIViewController {
         bgView.addGestureRecognizer(bgGesture)
         
         // 취소 버튼
-        deletePopupView.actionStackView.cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+        deletePopupView.actionStackView.cancelButton
+            .addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         
         // 삭제 버튼
-        deletePopupView.actionStackView.confirmButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+        deletePopupView.actionStackView.confirmButton
+            .addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
     }
-    
     
     // MARK: - Event Method
     

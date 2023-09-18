@@ -9,21 +9,18 @@ import UIKit
 
 final class HomeViewController: UIViewController {
     
-    var observation: NSKeyValueObservation?
-    
-    // MARK: - Manager
-    
     private let viewManager = HomeView()
     private let blockManager = BlockManager.shared
     private let trackingManager = TrackingManager.shared
     private var timeTracker = Tracker()
     private let customBottomModalDelegate = BottomModalDelegate()
     
-    
-    // MARK: - Component
-    
+    // 타이머 관련 변수(옮기기)
     private var dateTimer: Timer!
     private var trackingTimer: Timer!
+    
+    // 스크롤 시작 지점 저장 변수
+    private lazy var startScrollX: CGFloat = 0
     
     /// 현재 블럭 인덱스
     private var blockIndex = 0 {
@@ -38,13 +35,9 @@ final class HomeViewController: UIViewController {
         }
     }
     
-    private lazy var startScrollX: CGFloat = 0
-    
-    
     // MARK: - ViewController LifeCycle
     
     override func loadView() {
-        super.loadView()
         view = viewManager
     }
     
@@ -61,7 +54,6 @@ final class HomeViewController: UIViewController {
         setupTrackingButton()
         setupDefaultFocus()
     }
-    
     
     // MARK: - UserDefaults & NotificationCenter
     
@@ -85,10 +77,6 @@ final class HomeViewController: UIViewController {
     /// 블럭 삭제 Noti를 받았을 때 실행할 메서드
     @objc func reloadForDeleteBlock(_ notification: Notification) {
         switchHomeGroup(index: 0)
-        
-        // TODO: 그룹 초기화 기능 ⛳️
-        // 만약 첫 화면의 그룹이 삭제가 되었다면 0번째 인덱스로 전환하고
-        // 삭제가 안되었다면 현재 인덱스 그대로 유지(요건 코드 굳이 작성안해줘도 될듯)
     }
     
     // 블럭 편집 Noti를 받았을 때 실행할 메서드
@@ -98,7 +86,6 @@ final class HomeViewController: UIViewController {
         viewManager.groupSelectButton.color.backgroundColor = UIColor(rgb: currentGroup.color)
         viewManager.blockCollectionView.reloadData()
     }
-    
     
     // MARK: - Setup Method
     
@@ -171,7 +158,6 @@ final class HomeViewController: UIViewController {
         }
     }
     
-    
     // MARK: - Custom Method
     
     /// 현재 시간 업데이트
@@ -221,7 +207,6 @@ final class HomeViewController: UIViewController {
     }
 }
 
-
 // MARK: - UICollectionViewDelegate
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -237,8 +222,6 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         let blockDataList = blockManager.getCurrentBlockList()
         cell.reverseDirectionWithNoAnimation()
         
-        // TODO: 삭제 및 편집 기능 추가(코어데이터)
-        
         // 삭제 제스처
         cell.trashButtonTapped = { [weak self] _ in
             
@@ -250,7 +233,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         
         // 편집 제스처
-        cell.editButtonTapped = { [weak self] sender in
+        cell.editButtonTapped = { [weak self] _ in
             guard let self else { return }
             let editBlockVC = CreateBlockViewController()
             editBlockVC.delegate = self
@@ -345,7 +328,6 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
 }
 
-
 // MARK: - UIScrollViewDelegate
 
 extension HomeViewController: UIScrollViewDelegate {
@@ -404,7 +386,6 @@ extension HomeViewController: UIScrollViewDelegate {
         blockManager.updateCurrentBlockIndex(blockIndex)
     }
 }
-
 
 // MARK: - HomeViewDelegate
 
@@ -485,10 +466,7 @@ extension HomeViewController: HomeDelegate {
         // 컬렉션뷰 초기화
         viewManager.blockCollectionView.reloadData()
         viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: blockIndex, section: 0), at: .left, animated: true)
-
-        // ⛳️ 블럭 프리뷰 애니메이션 종료
         
-
         // 화면 꺼짐 해제
         UIApplication.shared.isIdleTimerDisabled = false
     }
@@ -535,7 +513,6 @@ extension HomeViewController: HomeDelegate {
     }
 }
 
-
 // MARK: - ContentsBlockDelegate
 
 extension HomeViewController: DayBlockDelegate {
@@ -547,7 +524,6 @@ extension HomeViewController: DayBlockDelegate {
         present(trackingCompleteVC, animated: true)
     }
 }
-
 
 extension HomeViewController: TrackingCompleteViewControllerDelegate {
     
@@ -567,7 +543,6 @@ extension HomeViewController: TrackingCompleteViewControllerDelegate {
         viewManager.switchToHomeMode()
     }
 }
-
 
 // MARK: - CreateBlockViewControllerDelegate
 
@@ -632,7 +607,6 @@ extension HomeViewController: SelectGroupViewControllerDelegate {
         }
     }
 }
-
 
 // MARK: - DeletePopupViewControllerDelegate
 

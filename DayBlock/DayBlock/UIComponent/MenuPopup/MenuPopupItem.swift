@@ -30,7 +30,6 @@ final class MenuPopupItem: UIView {
     
     let seperator = Separator()
     
-    
     // MARK: - Initializer
     
     override init(frame: CGRect) {
@@ -61,7 +60,7 @@ final class MenuPopupItem: UIView {
             // seperator
             seperator.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 12),
             seperator.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            seperator.trailingAnchor.constraint(equalTo: trailingAnchor),
+            seperator.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
     

@@ -7,7 +7,7 @@ excluded:
     - DayBlock/LifeCycle/AppDelegate.swift
     - DayBlock/LifeCycle/SceneDelegate.swift
     - DayBlock/Common/Resource/File/SFSymbols.swift
-    - DayBlock/UIComponent/Foundation/BottomModal.swift
+    #- DayBlock/UIComponent/Foundation/BottomModal.swift
 
 # 기본 규칙 중 비활성화 할 규칙
 disabled_rules:
@@ -15,3 +15,7 @@ disabled_rules:
     - cyclomatic_complexity # 함수 복잡도 제한
     - trailing_whitespace # 코드 뒤 여백 제한
     - statement_position # else, return 위치 제한
+    - function_body_length # 함수 길이 제한
+    - line_length # 줄 길이 제한
+    - type_body_length # 클래스 바디 길이 제한
+    - closure_parameter_position # 클로저 파라미터 위치 제한

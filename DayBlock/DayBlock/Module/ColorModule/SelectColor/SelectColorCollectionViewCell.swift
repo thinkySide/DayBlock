@@ -30,10 +30,6 @@ final class SelectColorCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
-    
-    
-    // MARK: - Method
-    
     override var isSelected: Bool {
         didSet {
             if isSelected {
@@ -54,18 +50,15 @@ final class SelectColorCollectionViewCell: UICollectionViewCell {
             }
         
         NSLayoutConstraint.activate([
-            
-            /// selectCircle
             selectCircle.centerXAnchor.constraint(equalTo: centerXAnchor),
             selectCircle.centerYAnchor.constraint(equalTo: centerYAnchor),
             selectCircle.widthAnchor.constraint(equalToConstant: 60),
             selectCircle.heightAnchor.constraint(equalTo: selectCircle.widthAnchor),
-            
-            /// color
+
             color.centerXAnchor.constraint(equalTo: centerXAnchor),
             color.centerYAnchor.constraint(equalTo: centerYAnchor),
             color.widthAnchor.constraint(equalToConstant: 32),
-            color.heightAnchor.constraint(equalTo: color.widthAnchor),
+            color.heightAnchor.constraint(equalTo: color.widthAnchor)
         ])
     }
     
@@ -73,4 +66,3 @@ final class SelectColorCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
-

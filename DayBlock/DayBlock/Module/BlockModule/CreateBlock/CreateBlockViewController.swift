@@ -114,7 +114,8 @@ final class CreateBlockViewController: UIViewController {
         viewManager.taskLabelTextField.addGestureRecognizer(taskLabelTap)
         
         /// taskLabelTextField - EditingChanged Event
-        viewManager.taskLabelTextField.textField.addTarget(self, action: #selector(taskLabelTextFieldChanged), for: .editingChanged)
+        viewManager.taskLabelTextField.textField
+            .addTarget(self, action: #selector(taskLabelTextFieldChanged), for: .editingChanged)
         
         /// createBarButtonItem
         viewManager.createBarButtonItem.target = self
@@ -127,8 +128,6 @@ final class CreateBlockViewController: UIViewController {
         // 블럭 삭제 observer
         NotificationCenter.default.addObserver(self, selector: #selector(updateForGroupChanged), name: NSNotification.Name(Noti.updateCreateBlockUI), object: nil)
     }
-    
-    
     
     // MARK: - Custom Method
     
@@ -158,7 +157,6 @@ final class CreateBlockViewController: UIViewController {
         if editGroup == selectGroup { setupInitial() }
     }
 }
-
 
 // MARK: - UITextFieldDelegate
 
@@ -222,11 +220,9 @@ extension CreateBlockViewController: UITextFieldDelegate {
                 
                 // 1. 최상위 그룹과 현재 그룹이 다를 때
                 if currentGroupIndex != remoteBlockGroupIndex {
-                    //print("최상위 그룹과 현재 그룹이 다르군")
                     
                     // 2. 현재 그룹 블럭 작업명과 동일한 작업명 있는지 확인
                     if block.taskLabel == remoteBlockLabel {
-                        //print("동일한 블럭 찾았음!")
                         viewManager.createBarButtonItem.isEnabled = false
                         viewManager.taskLabelTextField.isWarningLabelEnabled(true)
                         return
@@ -235,15 +231,12 @@ extension CreateBlockViewController: UITextFieldDelegate {
                 
                 // 1. 최상위 그룹과 현재 그룹이 같을 때
                 else {
-                    //print("최상위 그룹과 현재 그룹이 같군")
                     
                     // 2. 현재 그룹 블럭 작업명이 오리지날 작업명과 다른지 확인
                     if remoteBlockLabel != originalBlockName {
-                        //print("원래 작업명과 달라졌네? 다른 블럭 중에 같은 블럭이 있나?")
                         
                         // 3. 현재 그룹 블럭 작업명과 동일한 작업명 있는지 확인
                         if block.taskLabel == remoteBlockLabel {
-                            //print("다른 블럭 중에도 같은 녀석이 있군")
                             viewManager.createBarButtonItem.isEnabled = false
                             viewManager.taskLabelTextField.isWarningLabelEnabled(true)
                             return
@@ -260,7 +253,6 @@ extension CreateBlockViewController: UITextFieldDelegate {
         }
     }
 }
-
 
 // MARK: - SelectFormDelegate
 
@@ -320,8 +312,6 @@ extension CreateBlockViewController: FormSelectButtonDelegate {
         present(selectIconVC, animated: true)
     }
 }
-
-
 
 // MARK: - Update Block Info
 

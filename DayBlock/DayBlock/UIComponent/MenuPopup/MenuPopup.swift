@@ -25,7 +25,6 @@ final class MenuPopup: UIView {
     let fourthItem = MenuPopupItem()
     let fifthItem = MenuPopupItem()
     
-    
     // MARK: - Initializer
     
     init(frame: CGRect, number: Number) {
@@ -49,7 +48,8 @@ final class MenuPopup: UIView {
         layer.shadowOpacity = 0.15
         layer.shadowRadius = 32
         
-        [firstItem, secondItem, thirdItem, fourthItem, fifthItem].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        [firstItem, secondItem, thirdItem, fourthItem, fifthItem]
+            .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         switch number {
         case .two:
@@ -62,7 +62,7 @@ final class MenuPopup: UIView {
                 secondItem.topAnchor.constraint(equalTo: firstItem.bottomAnchor),
                 secondItem.bottomAnchor.constraint(equalTo: bottomAnchor),
                 secondItem.leadingAnchor.constraint(equalTo: leadingAnchor),
-                secondItem.trailingAnchor.constraint(equalTo: trailingAnchor),
+                secondItem.trailingAnchor.constraint(equalTo: trailingAnchor)
             ])
             
             secondItem.seperator.isHidden = true
@@ -81,7 +81,7 @@ final class MenuPopup: UIView {
                 thirdItem.topAnchor.constraint(equalTo: secondItem.bottomAnchor),
                 thirdItem.bottomAnchor.constraint(equalTo: bottomAnchor),
                 thirdItem.leadingAnchor.constraint(equalTo: leadingAnchor),
-                thirdItem.trailingAnchor.constraint(equalTo: trailingAnchor),
+                thirdItem.trailingAnchor.constraint(equalTo: trailingAnchor)
             ])
             
             thirdItem.seperator.isHidden = true
@@ -104,7 +104,7 @@ final class MenuPopup: UIView {
                 fourthItem.topAnchor.constraint(equalTo: thirdItem.bottomAnchor),
                 fourthItem.bottomAnchor.constraint(equalTo: bottomAnchor),
                 fourthItem.leadingAnchor.constraint(equalTo: leadingAnchor),
-                fourthItem.trailingAnchor.constraint(equalTo: trailingAnchor),
+                fourthItem.trailingAnchor.constraint(equalTo: trailingAnchor)
             ])
             
             fourthItem.seperator.isHidden = true
@@ -132,7 +132,7 @@ final class MenuPopup: UIView {
                 fifthItem.topAnchor.constraint(equalTo: fourthItem.bottomAnchor),
                 fifthItem.bottomAnchor.constraint(equalTo: bottomAnchor),
                 fifthItem.leadingAnchor.constraint(equalTo: leadingAnchor),
-                fifthItem.trailingAnchor.constraint(equalTo: trailingAnchor),
+                fifthItem.trailingAnchor.constraint(equalTo: trailingAnchor)
             ])
             
             fifthItem.seperator.isHidden = true

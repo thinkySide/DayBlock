@@ -25,7 +25,6 @@ final class CreateGroupViewController: UIViewController {
     
     var screenMode: ScreenMode = .navigation
     
-    
     // MARK: - ViewController LifeCycle
     
     override func loadView() {
@@ -43,7 +42,6 @@ final class CreateGroupViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
-    
     
     // MARK: - Initial Method
     
@@ -73,8 +71,6 @@ final class CreateGroupViewController: UIViewController {
         viewManager.groupLabelTextField.textField.addTarget(self, action: #selector(groupLabelTextFieldChanged), for: .editingChanged)
     }
 }
-
-
 
 // MARK: - UITextFieldDelegate
 
@@ -126,7 +122,6 @@ extension CreateGroupViewController: UITextFieldDelegate {
     }
 }
 
-
 // MARK: - CreateGroupViewDelegate
 
 extension CreateGroupViewController: CreateGroupViewDelegate {
@@ -160,8 +155,6 @@ extension CreateGroupViewController: CreateGroupViewDelegate {
     }
 }
 
-
-
 // MARK: - SelectFormDelegate
 
 extension CreateGroupViewController: FormSelectButtonDelegate {
@@ -194,8 +187,6 @@ extension CreateGroupViewController: FormSelectButtonDelegate {
         present(selectColorVC, animated: true)
     }
 }
-
-
 
 // MARK: - SelectColorViewControllerDelegate
 

@@ -41,7 +41,6 @@ final class TrackingBoardBlock: UIView {
     /// 현재 블럭 색칠 상태
     var state: Paint?
     
-    
     // MARK: - Method
     
     /// 블럭 색칠 메서드
@@ -107,7 +106,6 @@ final class TrackingBoardBlock: UIView {
         }
     }
     
-    
     // MARK: - Initial Method
     
     init(frame: CGRect, size: CGFloat) {
@@ -147,7 +145,7 @@ final class TrackingBoardBlock: UIView {
             secondHalf.topAnchor.constraint(equalTo: topAnchor),
             secondHalf.bottomAnchor.constraint(equalTo: bottomAnchor),
             secondHalf.trailingAnchor.constraint(equalTo: trailingAnchor),
-            secondHalf.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
+            secondHalf.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5)
         ])
     }
     
