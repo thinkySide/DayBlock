@@ -19,7 +19,6 @@ protocol HomeDelegate: AnyObject {
     func stopTracking()
     
     // Custom
-    func trackingStopBarButtonItemTapped()
-    func selectGroupButtonTapped()
+    // func trackingStopBarButtonItemTapped()
     func setupProgressViewColor()
 }

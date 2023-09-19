@@ -19,10 +19,8 @@ final class HomeView: UIView {
     
     // MARK: - Component
     
-    lazy var groupSelectButton: GroupSelectButton = {
+    let groupSelectButton: GroupSelectButton = {
         let group = GroupSelectButton()
-        let gestrue = UITapGestureRecognizer(target: self, action: #selector(groupSelectButtonTapped))
-        group.addGestureRecognizer(gestrue)
         return group
     }()
     
@@ -31,7 +29,6 @@ final class HomeView: UIView {
         button.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         button.setImage(UIImage(named: Icon.trackingStop), for: .normal)
         button.tintColor = Color.contentsBlock
-        button.addTarget(self, action: #selector(trackingStopBarButtonItemTapped), for: .touchUpInside)
         let item = UIBarButtonItem(customView: button)
         item.customView?.isHidden = true
         return item
@@ -132,16 +129,6 @@ final class HomeView: UIView {
     let tabBarStackView = TabBar()
     
     // MARK: - Method
-    
-    /// 그룹 선택 버튼 Tap 이벤트 메서드
-    @objc func groupSelectButtonTapped() {
-        delegate?.selectGroupButtonTapped()
-    }
-    
-    /// 트래킹 중단 BarButtonItem Tap 이벤트 메서드
-    @objc func trackingStopBarButtonItemTapped() {
-        delegate?.trackingStopBarButtonItemTapped()
-    }
     
     /// 트래킹 모드 → 홈 모드로 전환합니다.
     func switchToHomeMode() {

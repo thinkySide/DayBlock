@@ -27,4 +27,19 @@ extension UIViewController {
     func isScreenCanSleep(_ bool: Bool) {
         UIApplication.shared.isIdleTimerDisabled = !bool
     }
+    
+    func addTapGesture<T: UIView>(_ component: T, target: Any?, action: Selector) {
+        let gesture = UITapGestureRecognizer(target: self, action: action)
+        component.addGestureRecognizer(gesture)
+    }
+    
+    func addTapGesture<T: UIButton>(_ component: T, target: Any?, action: Selector?) {
+        let gesture = UITapGestureRecognizer(target: target, action: action)
+        component.addGestureRecognizer(gesture)
+    }
+    
+    func addTapGesture<T: UIBarButtonItem>(_ component: T, target: Any?, action: Selector?) {
+        let gesture = UITapGestureRecognizer(target: target, action: action)
+        component.customView?.addGestureRecognizer(gesture)
+    }
 }

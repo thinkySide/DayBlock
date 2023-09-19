@@ -89,10 +89,12 @@ final class HomeViewController: UIViewController {
         configureBlockLongPressGesture()
     }
     
-    // MARK: - Gestrue Method
+    // MARK: - Gesture Method
     
+    /// 각 컴포넌트에 Gesture를 추가합니다.
     private func addTargetGestrue() {
-        
+        addTapGesture(viewManager.groupSelectButton, target: self, action: #selector(groupSelectButtonTapped))
+        addTapGesture(viewManager.trackingStopBarButtonItem, target: self, action: #selector(trackingStopBarButtonItemTapped))
     }
 }
 
@@ -142,17 +144,6 @@ extension HomeViewController: HomeDelegate {
         
         // 화면 꺼짐 해제
         isScreenCanSleep(true)
-    }
-    
-    /// 트래킹 중단 BarButtonItem Tap 이벤트 메서드입니다.
-    func trackingStopBarButtonItemTapped() {
-        viewManager.trackingButtonTapped()
-        viewManager.blockPreview.pausedTrackingAnimation()
-        presentStopTrackingPopup()
-    }
-    
-    func selectGroupButtonTapped() {
-        presentSelectGroupHalfModal()
     }
     
     func setupProgressViewColor() {

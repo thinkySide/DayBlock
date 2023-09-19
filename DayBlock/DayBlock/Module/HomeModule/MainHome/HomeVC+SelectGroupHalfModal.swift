@@ -63,3 +63,12 @@ extension HomeViewController: SelectGroupViewControllerDelegate {
         else { viewManager.toggleTrackingButton(true) }
     }
 }
+
+// MARK: - Select Group Gesture
+extension HomeViewController {
+    
+    /// 그룹 선택 버튼 탭 시 호출 되는 메서드입니다.
+    @objc func groupSelectButtonTapped(_ sender: UIGestureRecognizer) {
+        presentSelectGroupHalfModal()
+    }
+}
