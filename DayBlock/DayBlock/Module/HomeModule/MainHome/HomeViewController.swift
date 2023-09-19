@@ -13,7 +13,6 @@ final class HomeViewController: UIViewController {
     let blockManager = BlockManager.shared
     let trackingManager = TrackingManager.shared
     var timeTracker = Tracker()
-    let customBottomModalDelegate = BottomModalDelegate()
     
     // 타이머 관련 변수(옮기기)
     var dateTimer: Timer!
@@ -85,31 +84,25 @@ final class HomeViewController: UIViewController {
     
     /// 제스처를 연결하고 설정합니다.
     private func setupGestrue() {
-        addTargetGestrue()
-        configureBlockLongPressGesture()
-    }
-    
-    // MARK: - Gesture Method
-    
-    /// 각 컴포넌트에 Gesture를 추가합니다.
-    private func addTargetGestrue() {
         addTapGesture(viewManager.groupSelectButton, target: self, action: #selector(groupSelectButtonTapped))
         addTapGesture(viewManager.trackingStopBarButtonItem, target: self, action: #selector(trackingStopBarButtonItemTapped))
+        configureBlockLongPressGesture()
     }
 }
 
 // MARK: - HomeDelegate
-extension HomeViewController: HomeDelegate {
+extension HomeViewController: HomeViewDelegate {
     
-    func showTabBar() {
-        viewManager.tabBarStackView.alpha = 1
-        tabBarController?.tabBar.alpha = 1
+    /// 트래킹 모드와 홈 모드가 전환 될 때, TabBar 표시 여부를 결정하는 Delegate 메서드입니다.
+    ///
+    /// - Parameter isDisplay: TabBar 표시 여부
+    func homeView(_ homeView: HomeView, displayTabBarForTrackingMode isDisplay: Bool) {
+        let value: CGFloat = isDisplay ? 1 : 0
+        viewManager.tabBarStackView.alpha = value
+        tabBarController?.tabBar.alpha = value
     }
     
-    func hideTabBar() {
-        viewManager.tabBarStackView.alpha = 0
-        tabBarController?.tabBar.alpha = 0
-    }
+    // TODO: 위에 방식으로 커스텀 델리게이트 가독성 좋게 바꾸기
     
     func startTracking() {
         
@@ -120,8 +113,7 @@ extension HomeViewController: HomeDelegate {
         
         // 블럭 업데이트
         let blockDataList = blockManager.getCurrentBlockList()
-        viewManager.trackingBlock.update(group: blockManager.getCurrentGroup(),
-                                                     block: blockDataList[blockIndex])
+        viewManager.trackingBlock.update(group: blockManager.getCurrentGroup(), block: blockDataList[blockIndex])
         
         // 화면 꺼짐 방지
         isScreenCanSleep(false)

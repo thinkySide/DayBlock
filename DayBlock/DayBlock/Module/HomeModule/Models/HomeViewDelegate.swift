@@ -1,5 +1,5 @@
 //
-//  HomeDelegate.swift
+//  HomeViewDelegate.swift
 //  DayBlock
 //
 //  Created by 김민준 on 2023/09/14.
@@ -7,11 +7,10 @@
 
 import Foundation
 
-protocol HomeDelegate: AnyObject {
+protocol HomeViewDelegate: AnyObject {
     
     // TabBar
-    func hideTabBar()
-    func showTabBar()
+    func homeView(_ homeView: HomeView, displayTabBarForTrackingMode isDisplay: Bool)
     
     // Tracking
     func startTracking()

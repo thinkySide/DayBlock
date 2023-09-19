@@ -28,16 +28,31 @@ extension UIViewController {
         UIApplication.shared.isIdleTimerDisabled = !bool
     }
     
+    /// UIView에 UITapGesture를 추가합니다.
+    ///
+    /// - Parameter component: 제스처를 추가할 UIView
+    /// - Parameter target: 제스처가 동작할 타겟
+    /// - Parameter action: 제스처 동작 메서드
     func addTapGesture<T: UIView>(_ component: T, target: Any?, action: Selector) {
         let gesture = UITapGestureRecognizer(target: self, action: action)
         component.addGestureRecognizer(gesture)
     }
     
+    /// UIButton에 UITapGesture를 추가합니다.
+    ///
+    /// - Parameter component: 제스처를 추가할 UIButton
+    /// - Parameter target: 제스처가 동작할 타겟
+    /// - Parameter action: 제스처 동작 메서드
     func addTapGesture<T: UIButton>(_ component: T, target: Any?, action: Selector?) {
         let gesture = UITapGestureRecognizer(target: target, action: action)
         component.addGestureRecognizer(gesture)
     }
     
+    /// UIBarButtonItem에 UITapGesture를 추가합니다.
+    ///
+    /// - Parameter component: 제스처를 추가할 UIBarButtonItem
+    /// - Parameter target: 제스처가 동작할 타겟
+    /// - Parameter action: 제스처 동작 메서드
     func addTapGesture<T: UIBarButtonItem>(_ component: T, target: Any?, action: Selector?) {
         let gesture = UITapGestureRecognizer(target: target, action: action)
         component.customView?.addGestureRecognizer(gesture)

@@ -14,7 +14,7 @@ final class HomeView: UIView {
         case inactive
     }
     
-    weak var delegate: HomeDelegate?
+    weak var delegate: HomeViewDelegate?
     var trackingMode: TrakingMode = .inactive
     
     // MARK: - Component
@@ -142,7 +142,7 @@ final class HomeView: UIView {
             for: .normal)
         
         // 공통 설정
-        delegate?.showTabBar()
+        delegate?.homeView(self, displayTabBarForTrackingMode: true)
         trackingMode = .inactive
         groupSelectButton.isHidden = false
         blockCollectionView.isHidden = false
@@ -193,7 +193,7 @@ final class HomeView: UIView {
         }
         
         // 공통 설정
-        delegate?.hideTabBar()
+        delegate?.homeView(self, displayTabBarForTrackingMode: false)
         groupSelectButton.isHidden = true
         blockCollectionView.isHidden = true
         trackingBlock.isHidden = false

@@ -31,6 +31,7 @@ extension HomeViewController: SelectGroupViewControllerDelegate {
         }
         
         else {
+            let customBottomModalDelegate = BottomModalDelegate()
             selectGroupVC.modalPresentationStyle = .custom
             selectGroupVC.transitioningDelegate = customBottomModalDelegate
         }
