@@ -1,5 +1,5 @@
 //
-//  HomeViewController+UIScrollView.swift
+//  HomeVC+BlockCollectionView.swift
 //  DayBlock
 //
 //  Created by 김민준 on 2023/09/18.
@@ -7,16 +7,25 @@
 
 import UIKit
 
-// MARK: - Setup CollectionView
+// MARK: - Setup Block CollectionView
 extension HomeViewController {
     
     /// UICollectionView 기본 설정 메서드입니다.
     func setupBlockCollectionView() {
+        let collectionView = viewManager.blockCollectionView
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(HomeBlockCollectionViewCell.self, forCellWithReuseIdentifier: Cell.block)
+        
         configureCarouselLayout()
-        viewManager.blockCollectionView.dataSource = self
-        viewManager.blockCollectionView.delegate = self
-        viewManager.blockCollectionView.register(HomeBlockCollectionViewCell.self,
-                                                 forCellWithReuseIdentifier: Cell.block)
+        configureStartGroupFocus()
+    }
+    
+    /// UserDefault를 사용한 초기 CollectionView의 그룹 선택값을 설정합니다.
+    private func configureStartGroupFocus() {
+        let groupIndex = UserDefaults.standard.object(forKey: UserDefaultsKey.groupIndex) as? Int ?? 0
+        switchHomeGroup(index: groupIndex)
+        blockManager.updateCurrentGroup(index: groupIndex)
     }
     
     /// CollectionView 캐러셀 레이아웃 구성을 위한 메서드입니다.
@@ -137,7 +146,7 @@ extension HomeViewController: UICollectionViewDelegate {
     /// - Parameter cell: 등록할 CollectionViewCell
     private func configureDeleteButton(_ cell: HomeBlockCollectionViewCell) {
         cell.trashButtonTapped = { [weak self] _ in
-            let deletePopup = DeletePopupViewController()
+            let deletePopup = PopupViewController()
             deletePopup.delegate = self
             deletePopup.modalPresentationStyle = .overCurrentContext
             deletePopup.modalTransitionStyle = .crossDissolve
@@ -183,5 +192,24 @@ extension HomeViewController {
         editBlockVC.hidesBottomBarWhenPushed = true
         editBlockVC.setupEditMode()
         navigationController?.pushViewController(editBlockVC, animated: true)
+    }
+}
+
+// MARK: - PopupViewControllerDelegate
+extension HomeViewController: PopupViewControllerDelegate {
+    
+    /// Popup의 블럭 "삭제할래요" 버튼 클릭 시 호출되는 메서드입니다.
+    func confirmButtonTapped() {
+        let deleteBlock = blockManager.getCurrentBlockList()[blockManager.getCurrentBlockIndex()]
+        blockManager.deleteBlockEntitiy(deleteBlock)
+        viewManager.blockCollectionView.reloadData()
+        
+        // 그룹 리스트가 비어있을 시, 트래킹 버튼 비활성화
+        let blockList = blockManager.getCurrentGroup().blockList?.array as! [BlockEntity]
+        if blockList.isEmpty || (blockManager.getCurrentBlockIndex() == blockList.count) {
+            viewManager.toggleTrackingButton(false)
+        } else {
+            viewManager.toggleTrackingButton(true)
+        }
     }
 }

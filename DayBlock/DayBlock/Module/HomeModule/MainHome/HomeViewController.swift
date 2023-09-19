@@ -11,21 +11,21 @@ final class HomeViewController: UIViewController {
     
     let viewManager = HomeView()
     let blockManager = BlockManager.shared
-    private let trackingManager = TrackingManager.shared
-    private var timeTracker = Tracker()
-    private let customBottomModalDelegate = BottomModalDelegate()
+    let trackingManager = TrackingManager.shared
+    var timeTracker = Tracker()
+    let customBottomModalDelegate = BottomModalDelegate()
     
     // 타이머 관련 변수(옮기기)
-    private var dateTimer: Timer!
-    private var trackingTimer: Timer!
+    var dateTimer: Timer!
+    var trackingTimer: Timer!
     
     // 스크롤 시작 지점 저장 변수
-    private lazy var startScrollX: CGFloat = 0
+    lazy var startScrollX: CGFloat = 0
     
-    /// 현재 블럭 인덱스
+    // 현재 블럭 인덱스
     var blockIndex = 0 {
         
-        /// 마지막 블럭 분기
+        // 마지막 블럭 분기
         didSet {
             if blockManager.getCurrentBlockList().count == blockIndex {
                 viewManager.toggleTrackingButton(false)
@@ -43,262 +43,78 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNotification()
         setupCoreData()
-        setupNavigation()
+        setupNotification()
         setupDelegate()
+        setupNavigationItem()
         setupBlockCollectionView()
-        setupGroupSelectButton()
         setupTimer()
-        setupContentsBlock()
-        setupTrackingButton()
-        setupDefaultFocus()
-    }
-    
-    // MARK: - UserDefaults & NotificationCenter
-    
-    /// UserDefault를 사용한 초기 화면의 그룹 선택값을 설정합니다.
-    private func setupDefaultFocus() {
-        let groupIndex = UserDefaults.standard.object(forKey: UserDefaultsKey.groupIndex) as? Int ?? 0
-        switchHomeGroup(index: groupIndex)
-        blockManager.updateCurrentGroup(index: groupIndex)
-    }
-    
-    /// Notification 등록
-    private func setupNotification() {
-        
-        // 블럭 삭제 observer
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadForDeleteBlock), name: NSNotification.Name(Noti.reloadForDeleteBlock), object: nil)
-        
-        // 블럭 편집 observer
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadForUpdateBlock), name: NSNotification.Name(Noti.reloadForUpdateBlock), object: nil)
-    }
-    
-    /// 블럭 삭제 Noti를 받았을 때 실행할 메서드
-    @objc func reloadForDeleteBlock(_ notification: Notification) {
-        switchHomeGroup(index: 0)
-    }
-    
-    /// 블럭 편집 Noti를 받았을 때 실행할 메서드
-    @objc func reloadForUpdateBlock(_ notification: Notification) {
-        let currentGroup = blockManager.getCurrentGroup()
-        viewManager.groupSelectButton.label.text = currentGroup.name
-        viewManager.groupSelectButton.color.backgroundColor = UIColor(rgb: currentGroup.color)
-        viewManager.blockCollectionView.reloadData()
+        setupUI()
+        setupGestrue()
     }
     
     // MARK: - Setup Method
     
-    func setupCoreData() {
+    /// 데이터 설정을 위한 CoreData를 불러와 Fetch합니다.
+    private func setupCoreData() {
         blockManager.fetchRequestGroupEntitiy()
         blockManager.initialSetupForCoreData()
     }
     
-    func setupNavigation() {
-        
-        // TrackingStopButton
+    /// NavigationBar Item을 설정합니다.
+    private func setupNavigationItem() {
         let trackingStopBarButtomItem = viewManager.trackingStopBarButtonItem
         navigationItem.rightBarButtonItem = trackingStopBarButtomItem
         
-        // 뒤로가기 버튼
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         backBarButtonItem.tintColor = Color.mainText
         navigationItem.backBarButtonItem = backBarButtonItem
     }
     
-    func setupDelegate() {
+    /// Custom Delegate를 위임받습니다.
+    private func setupDelegate() {
         viewManager.delegate = self
         viewManager.trackingBlock.delegate = self
     }
     
-    func setupGroupSelectButton() {
-        if blockManager.getGroupList().count == 0 { return }
-        viewManager.groupSelectButton.color.backgroundColor = blockManager.getCurrentGroupColor()
+    /// 기본 UI 설정을 설정합니다.
+    private func setupUI() {
+        initialGroupSelectButton()
+        initialTrackingStartButton()
     }
     
-    func setupTimer() {
-        updateDate()
-        updateTime()
-        
-        /// 날짜 및 시간 업데이트용 타이머 설정
-        dateTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+    /// 제스처를 연결하고 설정합니다.
+    private func setupGestrue() {
+        addTargetGestrue()
+        configureBlockLongPressGesture()
     }
     
-    func setupContentsBlock() {
-        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(trackingBlockLongPressed))
-        longPressGesture.minimumPressDuration = 0.1 // 제스처 시작까지 걸리는 최소 수
-        viewManager.trackingBlock.addGestureRecognizer(longPressGesture)
-    }
+    // MARK: - Gestrue Method
     
-    func setupTrackingButton() {
-        if blockManager.getCurrentBlockList().count == 0 {
-            viewManager.toggleTrackingButton(false)
-        }
-    }
-    
-    // MARK: - Custom Method
-    
-    /// 현재 시간 업데이트
-    @objc func updateTime() {
-        let timeFormatter = DateFormatter()
-        timeFormatter.locale = Locale(identifier: "ko_KR")
-        timeFormatter.dateFormat = "HH:mm"
-        viewManager.timeLabel.text = timeFormatter.string(from: Date())
+    private func addTargetGestrue() {
         
-        let trackingFormatter = DateFormatter()
-        trackingFormatter.locale = Locale(identifier: "ko_KR")
-        trackingFormatter.dateFormat = "HH/mm/ss"
-        
-        // 트래킹 타임 업데이트
-        trackingManager.updateTrackingStartTime(trackingFormatter.string(from: Date()))
-        
-        // 00:00에 날짜 업데이트
-        if viewManager.timeLabel.text == "00:00" { updateDate() }
-    }
-    
-    /// 현재 날짜 및 요일 업데이트
-    func updateDate() {
-        viewManager.dateLabel.text = trackingManager.dateFormat
-    }
-    
-    /// 트래킹 블럭 Long Press Gestrue
-    @objc func trackingBlockLongPressed(_ gesture: UILongPressGestureRecognizer) {
-        let state = gesture.state
-        
-        // Gesture 시작
-        if state == .began {
-            print("제스처 시작")
-            viewManager.trackingBlock.longPressAnimation(isFill: true)
-        }
-        
-        // Gestrue 종료
-        if state == .ended {
-            print("제스처 종료")
-            viewManager.trackingBlock.longPressAnimation(isFill: false)
-        }
-        
-        // 가끔 화면이 Present되면서 정상적으로 종료되지 않고 취소 되는 경우 있음. (예외처리)
-        if state == .cancelled {
-            print("제스처 취소")
-            viewManager.trackingBlock.longPressAnimation(isFill: false)
-        }
     }
 }
 
-// MARK: - UIScrollViewDelegate
-
-extension HomeViewController: UIScrollViewDelegate {
-    
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        
-        // 스크롤 시작 지점
-        startScrollX = scrollView.contentOffset.x
-        
-        // 멀티 터치 비활성화
-        scrollView.isUserInteractionEnabled = false
-    }
-    
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        
-        // 블럭 크기 = 블럭 가로 사이즈 + 블럭 여백 (보이는 영역 보다 크게 사이즈를 잡아야 캐러셀 구현 가능)
-        let blockWidth = Size.blockSize.width + Size.blockSpacing // 180 + 32 = 212
-        
-        // 스크롤된 크기 = 스크롤이 멈춘 x좌표 + 스크롤뷰 inset
-        let scrollSize = targetContentOffset.pointee.x + scrollView.contentInset.left
-        
-        // 이전 블럭 인덱스 저장
-        let rememberBlockIndex = blockIndex
-        
-        // 블럭 한칸 이상을 갔느냐 못갔느냐 체크
-        let scrollSizeCheck = abs(startScrollX - targetContentOffset.pointee.x)
-        
-        // 1. 한칸만 이동하는 제스처
-        if scrollSizeCheck <= blockWidth {
-            
-            // 왼쪽으로 한칸 이동하는 경우 (제스처 보정용 -30)
-            if startScrollX-30 > targetContentOffset.pointee.x && blockIndex > 0 {
-                blockIndex -= 1
-            }
-            
-            // 오른쪽으로 한칸 이동하는 경우 (제스처 보정용 +30)
-            if startScrollX+30 < targetContentOffset.pointee.x && blockIndex < blockManager.getCurrentBlockList().count {
-                blockIndex += 1
-            }
-        }
-        
-        // 2. 한칸 이상 이동하는 제스처
-        else { blockIndex = Int(round(scrollSize / blockWidth)) }
-        
-        // 최종 스크롤 위치 지정
-        targetContentOffset.pointee = CGPoint(x: CGFloat(blockIndex) * blockWidth - scrollView.contentInset.left,
-                                              y: scrollView.contentInset.top)
-        
-        // 사용자 터치 재활성화
-        scrollView.isUserInteractionEnabled = true
-        
-        // 블럭 인덱스 업데이트
-        if blockIndex != rememberBlockIndex {
-            viewManager.blockCollectionView.reloadData()
-        }
-        blockManager.updateCurrentBlockIndex(blockIndex)
-    }
-}
-
-// MARK: - HomeViewDelegate
-
+// MARK: - HomeDelegate
 extension HomeViewController: HomeDelegate {
     
-    /// 트래킹 중단 BarButtonItem Tap 이벤트 메서드
-    func trackingStopBarButtonItemTapped() {
-        
-        // 트래킹 일시 중지
-        viewManager.trackingButtonTapped()
-        
-        // 블럭 프리뷰 애니메이션 일시 중지
-        viewManager.blockPreview.pausedTrackingAnimation()
-        
-        // 팝업 출력
-        let deletePopup = DeletePopupViewController()
-        deletePopup.deletePopupView.mainLabel.text = "블럭 생산을 중단할까요?"
-        deletePopup.deletePopupView.subLabel.text = "지금까지 생산한 블럭이 모두 사라져요."
-        deletePopup.deletePopupView.actionStackView.confirmButton.setTitle("중단할래요", for: .normal)
-        deletePopup.modalPresentationStyle = .overCurrentContext
-        deletePopup.modalTransitionStyle = .crossDissolve
-        
-        // 이벤트 메서드 연결
-        deletePopup.deletePopupView.actionStackView.confirmButton.addTarget(self, action: #selector(trackingModeDeletePopupConfirmButtonTapped), for: .touchUpInside)
-        deletePopup.deletePopupView.actionStackView.cancelButton.addTarget(self, action: #selector(trackingModeDeletePopupCancelButtonTapped), for: .touchUpInside)
-        
-        self.present(deletePopup, animated: true)
+    func showTabBar() {
+        viewManager.tabBarStackView.alpha = 1
+        tabBarController?.tabBar.alpha = 1
     }
     
-    func selectGroupButtonTapped() {
-        let selectGroupVC = SelectGroupViewController()
-        selectGroupVC.delegate = self
-        
-        // Half-Modal 설정
-        if #available(iOS 15.0, *) {
-            selectGroupVC.modalPresentationStyle = .pageSheet
-            if let sheet = selectGroupVC.sheetPresentationController {
-                sheet.detents = [.medium()]
-                sheet.prefersGrabberVisible = true
-                sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-                sheet.prefersEdgeAttachedInCompactHeight = true
-            }
-        } else {
-            selectGroupVC.modalPresentationStyle = .custom
-            selectGroupVC.transitioningDelegate = customBottomModalDelegate
-        }
-        
-        present(selectGroupVC, animated: true)
+    func hideTabBar() {
+        viewManager.tabBarStackView.alpha = 0
+        tabBarController?.tabBar.alpha = 0
     }
     
     func startTracking() {
         
         // BlockPreview 애니메이션 활성화
-        activateBlockPreview()
+        activateTrackingBoard()
         
-        trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTrackingTime), userInfo: nil, repeats: true)
+        trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingEverySecond), userInfo: nil, repeats: true)
         
         // 블럭 업데이트
         let blockDataList = blockManager.getCurrentBlockList()
@@ -306,7 +122,7 @@ extension HomeViewController: HomeDelegate {
                                                      block: blockDataList[blockIndex])
         
         // 화면 꺼짐 방지
-        UIApplication.shared.isIdleTimerDisabled = true
+        isScreenCanSleep(false)
     }
     
     func pausedTracking() {
@@ -325,44 +141,18 @@ extension HomeViewController: HomeDelegate {
         viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: blockIndex, section: 0), at: .left, animated: true)
         
         // 화면 꺼짐 해제
-        UIApplication.shared.isIdleTimerDisabled = false
+        isScreenCanSleep(true)
     }
     
-    /// 1초마다 실행되는 메서드
-    @objc func updateTrackingTime() {
-        timeTracker.totalTime += 1
-        timeTracker.currentTime += 1
-        
-        // 30분 단위 블럭 추가 및 현재 시간 초기화 (0.5블럭)
-        if timeTracker.totalTime % 1800 == 0 {
-            timeTracker.totalBlock += 0.5
-            viewManager.updateCurrentProductivityLabel(timeTracker.totalBlock)
-            timeTracker.currentTime = 0
-            
-            // 블럭 프리뷰 업데이트
-            activateBlockPreview()
-        }
-        
-        // TimeLabel & ProgressView 업데이트
-        viewManager.updateTracking(time: timeTracker.timeFormatter,
-                                   progress: timeTracker.currentTime / 1800)
+    /// 트래킹 중단 BarButtonItem Tap 이벤트 메서드입니다.
+    func trackingStopBarButtonItemTapped() {
+        viewManager.trackingButtonTapped()
+        viewManager.blockPreview.pausedTrackingAnimation()
+        presentStopTrackingPopup()
     }
     
-    /// 블럭 프리뷰 상태를 활성화하고 애니메이션을 실행합니다.
-    func activateBlockPreview() {
-        guard let trackingIndexs = trackingManager.fetchTrackingBlocks()[trackingManager.trackingFormat] else { return }
-        let color = blockManager.getCurrentGroupColor()
-        viewManager.blockPreview.activateTrackingAnimation(trackingIndexs, color: color)
-    }
-    
-    func showTabBar() {
-        viewManager.tabBarStackView.alpha = 1
-        tabBarController?.tabBar.alpha = 1
-    }
-    
-    func hideTabBar() {
-        viewManager.tabBarStackView.alpha = 0
-        tabBarController?.tabBar.alpha = 0
+    func selectGroupButtonTapped() {
+        presentSelectGroupHalfModal()
     }
     
     func setupProgressViewColor() {
@@ -370,39 +160,14 @@ extension HomeViewController: HomeDelegate {
     }
 }
 
-// MARK: - ContentsBlockDelegate
-
+// MARK: - Day Block Delegate
 extension HomeViewController: DayBlockDelegate {
     func storeTrackingBlock() {
-        let trackingCompleteVC = TrackingCompleteViewController()
-        trackingCompleteVC.delegate = self
-        trackingCompleteVC.modalTransitionStyle = .coverVertical
-        trackingCompleteVC.modalPresentationStyle = .overFullScreen
-        present(trackingCompleteVC, animated: true)
+        presentTrackingCompleteVC()
     }
 }
 
-extension HomeViewController: TrackingCompleteViewControllerDelegate {
-    
-    /// 트래킹 모드 종료 델리게이트
-    func endTrackingMode() {
-        
-        // 블럭 프리뷰 애니메이션 종료
-        viewManager.blockPreview.stopTrackingAnimation()
-        
-        // 블럭 프리뷰 배열 초기화
-        viewManager.blockPreview.resetCurrentBlocks()
-        
-        // 트래킹 Dictionary 초기화
-        trackingManager.resetTrackingBlocks()
-        
-        // 트래킹 모드 종료
-        viewManager.switchToHomeMode()
-    }
-}
-
-// MARK: - CreateBlockViewControllerDelegate
-
+// MARK: - Create Block ViewController Delegate
 extension HomeViewController: CreateBlockViewControllerDelegate {
     
     func reloadCollectionView() {
@@ -433,62 +198,5 @@ extension HomeViewController: CreateBlockViewControllerDelegate {
         }
         
         viewManager.toggleTrackingButton(true)
-    }
-}
-
-// MARK: - SelectGroupViewControllerDelegate
-
-extension HomeViewController: SelectGroupViewControllerDelegate {
-    
-    // 그룹 업데이트
-    func switchHomeGroup(index: Int) {
-        blockManager.updateCurrentGroup(index: index)
-        viewManager.groupSelectButton.color.backgroundColor = blockManager.getCurrentGroupColor()
-        viewManager.groupSelectButton.label.text = blockManager.getCurrentGroup().name
-        viewManager.blockCollectionView.reloadData()
-        
-        // 스크롤 위치 초기화
-        blockIndex = 0
-        blockManager.updateCurrentBlockIndex(0)
-        viewManager.blockCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: true)
-        
-        // UserDefaults에 현재 그룹 인덱스 저장
-        UserDefaults.standard.set(index, forKey: UserDefaultsKey.groupIndex)
-        
-        // 그룹 리스트가 비어있을 시, 트래킹 버튼 비활성화
-        let blockList = blockManager.getCurrentGroup().blockList?.array as! [BlockEntity]
-        if blockList.isEmpty {
-            viewManager.toggleTrackingButton(false)
-        } else {
-            viewManager.toggleTrackingButton(true)
-        }
-    }
-}
-
-// MARK: - DeletePopupViewControllerDelegate
-
-extension HomeViewController: DeletePopupViewControllerDelegate {
-    func confirmButtonTapped() {
-        let deleteBlock = blockManager.getCurrentBlockList()[blockManager.getCurrentBlockIndex()]
-        blockManager.deleteBlockEntitiy(deleteBlock)
-        viewManager.blockCollectionView.reloadData()
-        
-        /// 그룹 리스트가 비어있을 시, 트래킹 버튼 비활성화
-        let blockList = blockManager.getCurrentGroup().blockList?.array as! [BlockEntity]
-        if blockList.isEmpty || (blockManager.getCurrentBlockIndex() == blockList.count) {
-            viewManager.toggleTrackingButton(false)
-        } else {
-            viewManager.toggleTrackingButton(true)
-        }
-    }
-    
-    /// 트래킹 모드 블럭 생산 중단 팝업 - 중단할래요 버튼 탭 메서드
-    @objc func trackingModeDeletePopupConfirmButtonTapped() {
-        endTrackingMode()
-    }
-    
-    /// 트래킹 모드 블럭 생산 중단 팝업 - 아니오 버튼 탭 메서드
-    @objc func trackingModeDeletePopupCancelButtonTapped() {
-        viewManager.trackingButtonTapped()
     }
 }

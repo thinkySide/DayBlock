@@ -1,5 +1,5 @@
 //
-//  DeletePopupViewController.swift
+//  PopupViewController.swift
 //  DayBlock
 //
 //  Created by 김민준 on 2023/08/08.
@@ -7,14 +7,14 @@
 
 import UIKit
 
-@objc protocol DeletePopupViewControllerDelegate: AnyObject {
+@objc protocol PopupViewControllerDelegate: AnyObject {
     func confirmButtonTapped()
     @objc optional func cancelButtonTapped()
 }
 
-final class DeletePopupViewController: UIViewController {
+final class PopupViewController: UIViewController {
     
-    weak var delegate: DeletePopupViewControllerDelegate?
+    weak var delegate: PopupViewControllerDelegate?
     
     let bgView: UIView = {
         let view = UIView()
@@ -23,8 +23,8 @@ final class DeletePopupViewController: UIViewController {
         return view
     }()
     
-    let deletePopupView: DeletePopupView = {
-        let popup = DeletePopupView()
+    let deletePopupView: PopupView = {
+        let popup = PopupView()
         return popup
     }()
     

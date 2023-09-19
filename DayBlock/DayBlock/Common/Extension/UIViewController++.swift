@@ -20,4 +20,11 @@ extension UIViewController {
     @objc private func dismissKeyboard() {
         view.endEditing(true)
     }
+    
+    /// 화면 자동 꺼짐을 활성 / 비활성화 합니다.
+    ///
+    /// - Parameter bool: 화면 꺼짐 여부
+    func isScreenCanSleep(_ bool: Bool) {
+        UIApplication.shared.isIdleTimerDisabled = !bool
+    }
 }

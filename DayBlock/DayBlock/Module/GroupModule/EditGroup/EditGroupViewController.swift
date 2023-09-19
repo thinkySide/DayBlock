@@ -105,7 +105,7 @@ final class EditGroupViewController: UIViewController {
     }
     
     @objc func deleteButtonTapped() {
-        let deletePopup = DeletePopupViewController()
+        let deletePopup = PopupViewController()
         deletePopup.delegate = self
         deletePopup.deletePopupView.mainLabel.text = "그룹을 삭제할까요?"
         deletePopup.deletePopupView.subLabel.text = "그룹과 관련된 블럭과 정보가 모두 삭제돼요"
@@ -141,9 +141,9 @@ extension EditGroupViewController: EditGroupViewDelegate {
     }
 }
 
-// MARK: - DeletePopupViewControllerDelegate
+// MARK: - PopupViewControllerDelegate
 
-extension EditGroupViewController: DeletePopupViewControllerDelegate {
+extension EditGroupViewController: PopupViewControllerDelegate {
     func confirmButtonTapped() {
         
         // 코어데이터에서 그룹 삭제

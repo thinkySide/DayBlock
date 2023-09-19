@@ -28,13 +28,18 @@
 		07454E1329EC138E00B3458D /* SelectGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1229EC138E00B3458D /* SelectGroupTableViewCell.swift */; };
 		07454E1529EC170600B3458D /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1429EC170600B3458D /* Separator.swift */; };
 		07454E1929EFD8A400B3458D /* ActionButtonSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1829EFD8A400B3458D /* ActionButtonSet.swift */; };
-		0749D71C2AB84198004DF368 /* HomeViewController+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749D71B2AB84198004DF368 /* HomeViewController+CollectionView.swift */; };
+		0749D71C2AB84198004DF368 /* HomeVC+BlockCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749D71B2AB84198004DF368 /* HomeVC+BlockCollectionView.swift */; };
+		0749D71E2AB97862004DF368 /* HomeVC+ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749D71D2AB97862004DF368 /* HomeVC+ScrollView.swift */; };
+		0749D7202AB988F2004DF368 /* HomeVC+Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749D71F2AB988F2004DF368 /* HomeVC+Tracking.swift */; };
+		0749D7222AB9E3D7004DF368 /* HomeVC+LongPressGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749D7212AB9E3D7004DF368 /* HomeVC+LongPressGesture.swift */; };
+		0749D7262AB9E456004DF368 /* HomeVC+SelectGroupHalfModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749D7252AB9E456004DF368 /* HomeVC+SelectGroupHalfModal.swift */; };
+		0749D7282AB9E832004DF368 /* HomeVC+Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749D7272AB9E832004DF368 /* HomeVC+Notification.swift */; };
 		075A5AE22A7E19ED0004F847 /* BlockEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5ADE2A7E19ED0004F847 /* BlockEntity+CoreDataClass.swift */; };
 		075A5AE32A7E19ED0004F847 /* BlockEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5ADF2A7E19ED0004F847 /* BlockEntity+CoreDataProperties.swift */; };
 		075A5AE42A7E19ED0004F847 /* GroupEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5AE02A7E19ED0004F847 /* GroupEntity+CoreDataClass.swift */; };
 		075A5AE52A7E19ED0004F847 /* GroupEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5AE12A7E19ED0004F847 /* GroupEntity+CoreDataProperties.swift */; };
-		075A5AE92A81D04B0004F847 /* DeletePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5AE82A81D04B0004F847 /* DeletePopupView.swift */; };
-		075A5AEB2A81DCDD0004F847 /* DeletePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5AEA2A81DCDD0004F847 /* DeletePopupViewController.swift */; };
+		075A5AE92A81D04B0004F847 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5AE82A81D04B0004F847 /* PopupView.swift */; };
+		075A5AEB2A81DCDD0004F847 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5AEA2A81DCDD0004F847 /* PopupViewController.swift */; };
 		076248C62AB3013D000A8664 /* HomeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076248C52AB3013D000A8664 /* HomeDelegate.swift */; };
 		076248C92AB301C9000A8664 /* BlockDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076248C82AB301C9000A8664 /* BlockDelegate.swift */; };
 		076248CB2AB3023A000A8664 /* GroupDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076248CA2AB3023A000A8664 /* GroupDelegate.swift */; };
@@ -112,13 +117,18 @@
 		07454E1229EC138E00B3458D /* SelectGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGroupTableViewCell.swift; sourceTree = "<group>"; };
 		07454E1429EC170600B3458D /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
 		07454E1829EFD8A400B3458D /* ActionButtonSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonSet.swift; sourceTree = "<group>"; };
-		0749D71B2AB84198004DF368 /* HomeViewController+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+CollectionView.swift"; sourceTree = "<group>"; };
+		0749D71B2AB84198004DF368 /* HomeVC+BlockCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+BlockCollectionView.swift"; sourceTree = "<group>"; };
+		0749D71D2AB97862004DF368 /* HomeVC+ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+ScrollView.swift"; sourceTree = "<group>"; };
+		0749D71F2AB988F2004DF368 /* HomeVC+Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+Tracking.swift"; sourceTree = "<group>"; };
+		0749D7212AB9E3D7004DF368 /* HomeVC+LongPressGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+LongPressGesture.swift"; sourceTree = "<group>"; };
+		0749D7252AB9E456004DF368 /* HomeVC+SelectGroupHalfModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+SelectGroupHalfModal.swift"; sourceTree = "<group>"; };
+		0749D7272AB9E832004DF368 /* HomeVC+Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+Notification.swift"; sourceTree = "<group>"; };
 		075A5ADE2A7E19ED0004F847 /* BlockEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		075A5ADF2A7E19ED0004F847 /* BlockEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		075A5AE02A7E19ED0004F847 /* GroupEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		075A5AE12A7E19ED0004F847 /* GroupEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		075A5AE82A81D04B0004F847 /* DeletePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePopupView.swift; sourceTree = "<group>"; };
-		075A5AEA2A81DCDD0004F847 /* DeletePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePopupViewController.swift; sourceTree = "<group>"; };
+		075A5AE82A81D04B0004F847 /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
+		075A5AEA2A81DCDD0004F847 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		076248C52AB3013D000A8664 /* HomeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDelegate.swift; sourceTree = "<group>"; };
 		076248C82AB301C9000A8664 /* BlockDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockDelegate.swift; sourceTree = "<group>"; };
 		076248CA2AB3023A000A8664 /* GroupDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDelegate.swift; sourceTree = "<group>"; };
@@ -446,7 +456,12 @@
 			children = (
 				078C50D029D726FE00F239BA /* HomeView.swift */,
 				078C50B929D7152F00F239BA /* HomeViewController.swift */,
-				0749D71B2AB84198004DF368 /* HomeViewController+CollectionView.swift */,
+				0749D7272AB9E832004DF368 /* HomeVC+Notification.swift */,
+				0749D71B2AB84198004DF368 /* HomeVC+BlockCollectionView.swift */,
+				0749D71D2AB97862004DF368 /* HomeVC+ScrollView.swift */,
+				0749D71F2AB988F2004DF368 /* HomeVC+Tracking.swift */,
+				0749D7212AB9E3D7004DF368 /* HomeVC+LongPressGesture.swift */,
+				0749D7252AB9E456004DF368 /* HomeVC+SelectGroupHalfModal.swift */,
 				0719648529DAF9A5009CA1A4 /* HomeBlockCollectionViewCell.swift */,
 			);
 			path = MainHome;
@@ -487,13 +502,13 @@
 			path = Block;
 			sourceTree = "<group>";
 		};
-		076248C12AB2FC51000A8664 /* DeletePopup */ = {
+		076248C12AB2FC51000A8664 /* Popup */ = {
 			isa = PBXGroup;
 			children = (
-				075A5AE82A81D04B0004F847 /* DeletePopupView.swift */,
-				075A5AEA2A81DCDD0004F847 /* DeletePopupViewController.swift */,
+				075A5AE82A81D04B0004F847 /* PopupView.swift */,
+				075A5AEA2A81DCDD0004F847 /* PopupViewController.swift */,
 			);
-			path = DeletePopup;
+			path = Popup;
 			sourceTree = "<group>";
 		};
 		076248C22AB2FD42000A8664 /* MenuPopup */ = {
@@ -579,7 +594,7 @@
 				076248AC2AB2DC1E000A8664 /* Button */,
 				076248AD2AB2DC2A000A8664 /* TextField */,
 				076248C22AB2FD42000A8664 /* MenuPopup */,
-				076248C12AB2FC51000A8664 /* DeletePopup */,
+				076248C12AB2FC51000A8664 /* Popup */,
 				076248BE2AB2F9F2000A8664 /* Separator */,
 			);
 			path = UIComponent;
@@ -752,6 +767,7 @@
 				07B49BC62A88EC14006D1011 /* MenuPopupItem.swift in Sources */,
 				07454DE729EA94EB00B3458D /* DisablePasteTextField.swift in Sources */,
 				07EB771929F53855000BD87E /* ColorManager.swift in Sources */,
+				0749D7262AB9E456004DF368 /* HomeVC+SelectGroupHalfModal.swift in Sources */,
 				0719648E29DF044C009CA1A4 /* GroupSelectButton.swift in Sources */,
 				077A663629ED2ABA00D99C68 /* CreateGroupView.swift in Sources */,
 				07817F0B2A0A05DE00D024F6 /* IconManager.swift in Sources */,
@@ -772,10 +788,11 @@
 				0770802F29E78C9200D66900 /* SelectGroupViewController.swift in Sources */,
 				07B49C472A95E66D006D1011 /* TrackingCompleteView.swift in Sources */,
 				078C50D129D726FE00F239BA /* HomeView.swift in Sources */,
+				0749D7202AB988F2004DF368 /* HomeVC+Tracking.swift in Sources */,
 				075A5AE22A7E19ED0004F847 /* BlockEntity+CoreDataClass.swift in Sources */,
 				07B49C452A95E5BD006D1011 /* TrackingCompleteViewController.swift in Sources */,
 				07A45CE42AA0952000C09342 /* TrackingManager.swift in Sources */,
-				0749D71C2AB84198004DF368 /* HomeViewController+CollectionView.swift in Sources */,
+				0749D71C2AB84198004DF368 /* HomeVC+BlockCollectionView.swift in Sources */,
 				07454E1329EC138E00B3458D /* SelectGroupTableViewCell.swift in Sources */,
 				07454E1129EBFDF200B3458D /* ActionButton.swift in Sources */,
 				073EBFF02AB6D4D40031F6AB /* SFSymbols.swift in Sources */,
@@ -784,7 +801,7 @@
 				078C50EE29D72F9D00F239BA /* UIColor++.swift in Sources */,
 				076248CD2AB302FD000A8664 /* ColorDelegate.swift in Sources */,
 				076248CB2AB3023A000A8664 /* GroupDelegate.swift in Sources */,
-				075A5AE92A81D04B0004F847 /* DeletePopupView.swift in Sources */,
+				075A5AE92A81D04B0004F847 /* PopupView.swift in Sources */,
 				07B49BCA2A8DD878006D1011 /* ListGroupView.swift in Sources */,
 				07DD3E952AB02BE3002D128F /* DashedSeparator.swift in Sources */,
 				0719648129DAF38A009CA1A4 /* Block.swift in Sources */,
@@ -795,12 +812,15 @@
 				078C50B829D7152F00F239BA /* SceneDelegate.swift in Sources */,
 				0719649029E04F7E009CA1A4 /* CreateBlockViewController.swift in Sources */,
 				076248C92AB301C9000A8664 /* BlockDelegate.swift in Sources */,
-				075A5AEB2A81DCDD0004F847 /* DeletePopupViewController.swift in Sources */,
+				075A5AEB2A81DCDD0004F847 /* PopupViewController.swift in Sources */,
 				0719649429E0692E009CA1A4 /* FormTextField.swift in Sources */,
+				0749D71E2AB97862004DF368 /* HomeVC+ScrollView.swift in Sources */,
+				0749D7222AB9E3D7004DF368 /* HomeVC+LongPressGesture.swift in Sources */,
 				0719648629DAF9A5009CA1A4 /* HomeBlockCollectionViewCell.swift in Sources */,
 				078C50F829D9BBFE00F239BA /* RepositoryViewController.swift in Sources */,
 				0719649629E0763C009CA1A4 /* FormSelectButton.swift in Sources */,
 				078C50E829D72D2900F239BA /* NameSpace.swift in Sources */,
+				0749D7282AB9E832004DF368 /* HomeVC+Notification.swift in Sources */,
 				0770802D29E55E7C00D66900 /* Tracker.swift in Sources */,
 				07454E1929EFD8A400B3458D /* ActionButtonSet.swift in Sources */,
 				07817F0D2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift in Sources */,

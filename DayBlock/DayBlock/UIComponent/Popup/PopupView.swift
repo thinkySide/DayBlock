@@ -1,5 +1,5 @@
 //
-//  DeletePopupView.swift
+//  PopupView.swift
 //  DayBlock
 //
 //  Created by 김민준 on 2023/08/08.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class DeletePopupView: UIView {
+final class PopupView: UIView {
     
     // MARK: - Component
     
