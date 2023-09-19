@@ -9,8 +9,8 @@ import UIKit
 
 final class HomeViewController: UIViewController {
     
-    private let viewManager = HomeView()
-    private let blockManager = BlockManager.shared
+    let viewManager = HomeView()
+    let blockManager = BlockManager.shared
     private let trackingManager = TrackingManager.shared
     private var timeTracker = Tracker()
     private let customBottomModalDelegate = BottomModalDelegate()
@@ -23,7 +23,7 @@ final class HomeViewController: UIViewController {
     private lazy var startScrollX: CGFloat = 0
     
     /// 현재 블럭 인덱스
-    private var blockIndex = 0 {
+    var blockIndex = 0 {
         
         /// 마지막 블럭 분기
         didSet {
@@ -47,7 +47,7 @@ final class HomeViewController: UIViewController {
         setupCoreData()
         setupNavigation()
         setupDelegate()
-        setupContentInset()
+        setupBlockCollectionView()
         setupGroupSelectButton()
         setupTimer()
         setupContentsBlock()
@@ -79,7 +79,7 @@ final class HomeViewController: UIViewController {
         switchHomeGroup(index: 0)
     }
     
-    // 블럭 편집 Noti를 받았을 때 실행할 메서드
+    /// 블럭 편집 Noti를 받았을 때 실행할 메서드
     @objc func reloadForUpdateBlock(_ notification: Notification) {
         let currentGroup = blockManager.getCurrentGroup()
         viewManager.groupSelectButton.label.text = currentGroup.name
@@ -107,30 +107,8 @@ final class HomeViewController: UIViewController {
     }
     
     func setupDelegate() {
-        
-        // HomeView
         viewManager.delegate = self
-        
-        // blockCollectionView
-        viewManager.blockCollectionView.dataSource = self
-        viewManager.blockCollectionView.delegate = self
-        viewManager.blockCollectionView.register(HomeBlockCollectionViewCell.self,
-                                                 forCellWithReuseIdentifier: Cell.block)
-        
-        // trackingBlock
         viewManager.trackingBlock.delegate = self
-    }
-    
-    func setupContentInset() {
-        
-        /// (전체 화면 가로 사이즈 - 블럭 가로 사이즈) / 2
-        let inset: CGFloat = (UIScreen.main.bounds.width - Size.blockSize.width) / 2.0
-        
-        /// 왼쪽과 오른쪽에 inset만큼 떨어트리기
-        let contentInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
-        
-        /// CollectionView의 contentInset 설정
-        viewManager.blockCollectionView.contentInset = contentInset
     }
     
     func setupGroupSelectButton() {
@@ -203,127 +181,6 @@ final class HomeViewController: UIViewController {
         if state == .cancelled {
             print("제스처 취소")
             viewManager.trackingBlock.longPressAnimation(isFill: false)
-        }
-    }
-}
-
-// MARK: - UICollectionViewDelegate
-
-extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return blockManager.getCurrentBlockList().count + 1 /// 블럭 추가 버튼 + 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = viewManager.blockCollectionView.dequeueReusableCell(
-            withReuseIdentifier: Cell.block, for: indexPath) as! HomeBlockCollectionViewCell
-        let index = indexPath.row
-        let blockDataList = blockManager.getCurrentBlockList()
-        cell.reverseDirectionWithNoAnimation()
-        
-        // 삭제 제스처
-        cell.trashButtonTapped = { [weak self] _ in
-            
-            let deletePopup = DeletePopupViewController()
-            deletePopup.delegate = self
-            deletePopup.modalPresentationStyle = .overCurrentContext
-            deletePopup.modalTransitionStyle = .crossDissolve
-            self?.present(deletePopup, animated: true)
-        }
-        
-        // 편집 제스처
-        cell.editButtonTapped = { [weak self] _ in
-            guard let self else { return }
-            let editBlockVC = CreateBlockViewController()
-            editBlockVC.delegate = self
-            editBlockVC.hidesBottomBarWhenPushed = true
-            
-            // RemoteBlock 업데이트
-            let editBlock = blockDataList[index]
-            blockManager.updateRemoteBlock(group: blockManager.getCurrentGroup())
-            blockManager.updateRemoteBlock(label: editBlock.taskLabel)
-            blockManager.updateRemoteBlock(output: editBlock.output)
-            blockManager.updateRemoteBlock(icon: editBlock.icon)
-            blockManager.updateCurrentBlockIndex(index)
-            editBlockVC.setupEditMode()
-            
-            navigationController?.pushViewController(editBlockVC, animated: true)
-        }
-        
-        // 초기 상태
-        if blockDataList.count == 0 {
-            cell.plusLabel.isHidden = true
-            cell.totalProductivityLabel.isHidden = true
-            cell.blockColorTag.isHidden = true
-            cell.blockLabel.isHidden = true
-            cell.blockIcon.image = UIImage(systemName: "plus.circle.fill")
-            cell.blockIcon.tintColor = Color.addBlockButton
-            cell.backgroundColor = .white
-            cell.stroke.isHidden = false
-            return cell
-        }
-        
-        /// 일반 블럭 생성
-        if index+1 <= blockDataList.count {
-            cell.plusLabel.textColor = blockManager.getCurrentGroupColor()
-            cell.totalProductivityLabel.text = "\(blockDataList[index].output)"
-            cell.blockColorTag.backgroundColor = blockManager.getCurrentGroupColor()
-            cell.blockIcon.image = UIImage(systemName: blockDataList[index].icon)
-            cell.blockLabel.text = blockDataList[index].taskLabel
-            cell.stroke.isHidden = true
-            return cell
-        }
-        
-        /// 블럭 추가 버튼
-        else {
-            cell.plusLabel.isHidden = true
-            cell.totalProductivityLabel.isHidden = true
-            cell.blockColorTag.isHidden = true
-            cell.blockLabel.isHidden = true
-            cell.blockIcon.image = UIImage(systemName: "plus.circle.fill")
-            cell.blockIcon.tintColor = Color.addBlockButton
-            cell.backgroundColor = .white
-            cell.stroke.isHidden = false
-            return cell
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        guard let cell = collectionView.cellForItem(at: indexPath) as? HomeBlockCollectionViewCell else {
-            print("셀 생성 실패")
-            return
-        }
-        let currentIndex = indexPath.item
-        let count = blockManager.getCurrentBlockList().count
-        
-        // 현재 보고있는 블럭만 활성화
-        if currentIndex != blockManager.getCurrentBlockIndex() {
-            print("현재 보고 있는 블럭 X")
-            return
-        }
-        
-        // 블럭 토글 이벤트
-        if cell.blockIcon.alpha == 0 {
-            cell.reverseDirection(.front)
-        } else {
-            cell.reverseDirection(.back)
-        }
-        
-        // 블럭 클릭 이벤트
-        if blockIndex == currentIndex {
-            
-            // 마지막 블럭이라면 AddBlockViewController 화면 이동
-            if count == currentIndex {
-                cell.reverseDirection(.last)
-                viewManager.toggleTrackingButton(false)
-                let createBlockVC = CreateBlockViewController()
-                createBlockVC.delegate = self
-                createBlockVC.hidesBottomBarWhenPushed = true
-                createBlockVC.setupCreateMode()
-                navigationController?.pushViewController(createBlockVC, animated: true)
-            }
         }
     }
 }

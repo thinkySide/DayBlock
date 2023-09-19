@@ -28,6 +28,7 @@
 		07454E1329EC138E00B3458D /* SelectGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1229EC138E00B3458D /* SelectGroupTableViewCell.swift */; };
 		07454E1529EC170600B3458D /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1429EC170600B3458D /* Separator.swift */; };
 		07454E1929EFD8A400B3458D /* ActionButtonSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1829EFD8A400B3458D /* ActionButtonSet.swift */; };
+		0749D71C2AB84198004DF368 /* HomeViewController+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749D71B2AB84198004DF368 /* HomeViewController+CollectionView.swift */; };
 		075A5AE22A7E19ED0004F847 /* BlockEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5ADE2A7E19ED0004F847 /* BlockEntity+CoreDataClass.swift */; };
 		075A5AE32A7E19ED0004F847 /* BlockEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5ADF2A7E19ED0004F847 /* BlockEntity+CoreDataProperties.swift */; };
 		075A5AE42A7E19ED0004F847 /* GroupEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5AE02A7E19ED0004F847 /* GroupEntity+CoreDataClass.swift */; };
@@ -111,6 +112,7 @@
 		07454E1229EC138E00B3458D /* SelectGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGroupTableViewCell.swift; sourceTree = "<group>"; };
 		07454E1429EC170600B3458D /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
 		07454E1829EFD8A400B3458D /* ActionButtonSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonSet.swift; sourceTree = "<group>"; };
+		0749D71B2AB84198004DF368 /* HomeViewController+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+CollectionView.swift"; sourceTree = "<group>"; };
 		075A5ADE2A7E19ED0004F847 /* BlockEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		075A5ADF2A7E19ED0004F847 /* BlockEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		075A5AE02A7E19ED0004F847 /* GroupEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -444,6 +446,7 @@
 			children = (
 				078C50D029D726FE00F239BA /* HomeView.swift */,
 				078C50B929D7152F00F239BA /* HomeViewController.swift */,
+				0749D71B2AB84198004DF368 /* HomeViewController+CollectionView.swift */,
 				0719648529DAF9A5009CA1A4 /* HomeBlockCollectionViewCell.swift */,
 			);
 			path = MainHome;
@@ -772,6 +775,7 @@
 				075A5AE22A7E19ED0004F847 /* BlockEntity+CoreDataClass.swift in Sources */,
 				07B49C452A95E5BD006D1011 /* TrackingCompleteViewController.swift in Sources */,
 				07A45CE42AA0952000C09342 /* TrackingManager.swift in Sources */,
+				0749D71C2AB84198004DF368 /* HomeViewController+CollectionView.swift in Sources */,
 				07454E1329EC138E00B3458D /* SelectGroupTableViewCell.swift in Sources */,
 				07454E1129EBFDF200B3458D /* ActionButton.swift in Sources */,
 				073EBFF02AB6D4D40031F6AB /* SFSymbols.swift in Sources */,
