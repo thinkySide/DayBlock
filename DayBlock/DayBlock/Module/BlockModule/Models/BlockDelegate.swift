@@ -8,6 +8,6 @@
 import Foundation
 
 protocol CreateBlockViewControllerDelegate: AnyObject {
-    func reloadCollectionView()
-    func updateCollectionView(_ isEditMode: Bool)
+    func createBlockViewController(_ createBlockViewController: CreateBlockViewController, blockDidEdit mode: CreateBlockViewController.Mode)
+    func createBlockViewController(_ createBlockViewController: CreateBlockViewController, blockDidCreate mode: CreateBlockViewController.Mode)
 }

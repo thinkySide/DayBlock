@@ -10,9 +10,9 @@ import UIKit
 final class CreateBlockViewController: UIViewController {
     
     /// 블럭 편집 모드
-    enum BlockEditMode {
+    enum Mode {
         case create
-        case update
+        case edit
     }
     
     // MARK: - Variable
@@ -23,10 +23,10 @@ final class CreateBlockViewController: UIViewController {
     weak var delegate: CreateBlockViewControllerDelegate?
     
     /// 블럭 편집 모드
-    private var blockEditMode: BlockEditMode = .create {
+    private var mode: Mode = .create {
         didSet {
-            if blockEditMode == .create { title = "블럭 생성" }
-            if blockEditMode == .update { title = "블럭 편집" }
+            if mode == .create { title = "블럭 생성" }
+            if mode == .edit { title = "블럭 편집" }
         }
     }
     
@@ -49,11 +49,6 @@ final class CreateBlockViewController: UIViewController {
         addHideKeyboardGesture()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        delegate?.reloadCollectionView()
-    }
-    
     deinit {
         blockManager.resetRemoteBlock()
     }
@@ -62,12 +57,12 @@ final class CreateBlockViewController: UIViewController {
     
     /// 블럭 생성 모드로 기본 설정 진행
     func setupCreateMode() {
-        blockEditMode = .create
+        mode = .create
     }
     
     /// 블럭 편집 모드로 기본 설정 진행
     func setupEditMode() {
-        blockEditMode = .update
+        mode = .edit
         
         // UI 업데이트
         let taskLabel = blockManager.getRemoteBlock().list[0].taskLabel
@@ -134,17 +129,17 @@ final class CreateBlockViewController: UIViewController {
     @objc func createBarButtonItemTapped() {
         
         // 블럭 생성 모드
-        if blockEditMode == .create {
+        if mode == .create {
             blockManager.createNewBlock()
             navigationController?.popViewController(animated: true)
-            delegate?.updateCollectionView(false)
+            delegate?.createBlockViewController(self, blockDidCreate: .create)
         }
         
         // 블럭 편집 모드
-        if blockEditMode == .update {
+        if mode == .edit {
             blockManager.updateBlockEntity()
             navigationController?.popViewController(animated: true)
-            delegate?.updateCollectionView(true)
+            delegate?.createBlockViewController(self, blockDidEdit: .edit)
         }
     }
     

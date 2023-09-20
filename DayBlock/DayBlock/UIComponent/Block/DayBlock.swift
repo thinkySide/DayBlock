@@ -7,13 +7,6 @@
 
 import UIKit
 
-/// DayBlock Custom Delegate
-protocol DayBlockDelegate: AnyObject {
-    
-    /// 트래킹블럭을 저장합니다.
-    func storeTrackingBlock()
-}
-
 /// 트래킹 화면의 메인 블럭 컴포넌트
 final class DayBlock: UIView {
     
@@ -126,7 +119,10 @@ final class DayBlock: UIView {
         if isFill {
             
             // 트래킹 블럭 저장 클로저 할당
-            storeTrackingBlockClosure = { self.delegate?.storeTrackingBlock() }
+            storeTrackingBlockClosure = { [weak self] in
+                guard let self else { return }
+                delegate?.dayBlock(self, trackingComplete: taskLabel.text)
+            }
             
             UIView.animate(withDuration: 0.9, delay: 0.15, usingSpringWithDamping: 1, initialSpringVelocity: 0.1) {
                 self.animationView.transform = CGAffineTransform(translationX: self.frame.width, y: 0)
