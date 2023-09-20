@@ -50,19 +50,19 @@ extension HomeViewController {
     
     /// 1초마다 실행되는 트래킹 메서드입니다.
     @objc func trackingEverySecond() {
-        timeTracker.totalTime += 1
-        timeTracker.currentTime += 1
+        trackingManager.totalTime += 1
+        trackingManager.currentTime += 1
         
         // 30분 단위 블럭 추가 및 현재 시간 초기화 (0.5블럭)
-        if timeTracker.totalTime % 1800 == 0 {
-            timeTracker.totalBlock += 0.5
-            viewManager.updateCurrentProductivityLabel(timeTracker.totalBlock)
-            timeTracker.currentTime = 0
+        if trackingManager.totalTime % 1800 == 0 {
+            trackingManager.totalBlock += 0.5
+            viewManager.updateCurrentProductivityLabel(trackingManager.totalBlock)
+            trackingManager.currentTime = 0
         }
         
         // TimeLabel & ProgressView 업데이트
-        viewManager.updateTracking(time: timeTracker.timeFormatter,
-                                   progress: timeTracker.currentTime / 1800)
+        viewManager.updateTracking(time: trackingManager.timeFormatter,
+                                   progress: trackingManager.currentTime / 1800)
     }
 }
 

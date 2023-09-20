@@ -12,9 +12,8 @@ final class HomeViewController: UIViewController {
     let viewManager = HomeView()
     let blockManager = BlockManager.shared
     let trackingManager = TrackingManager.shared
-    var timeTracker = Tracker()
     
-    // 타이머 관련 변수(옮기기)
+    // 타이머 관련 변수
     var dateTimer: Timer!
     var trackingTimer: Timer!
     

@@ -46,7 +46,6 @@
 		076248CB2AB3023A000A8664 /* GroupDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076248CA2AB3023A000A8664 /* GroupDelegate.swift */; };
 		076248CD2AB302FD000A8664 /* ColorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076248CC2AB302FD000A8664 /* ColorDelegate.swift */; };
 		076248CF2AB30319000A8664 /* IconDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076248CE2AB30319000A8664 /* IconDelegate.swift */; };
-		0770802D29E55E7C00D66900 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770802C29E55E7C00D66900 /* Tracker.swift */; };
 		0770802F29E78C9200D66900 /* SelectGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770802E29E78C9200D66900 /* SelectGroupViewController.swift */; };
 		0770803129E78D0500D66900 /* SelectGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770803029E78D0500D66900 /* SelectGroupView.swift */; };
 		0770803429E797E100D66900 /* SelectIconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770803329E797E100D66900 /* SelectIconViewController.swift */; };
@@ -136,7 +135,6 @@
 		076248CA2AB3023A000A8664 /* GroupDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDelegate.swift; sourceTree = "<group>"; };
 		076248CC2AB302FD000A8664 /* ColorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorDelegate.swift; sourceTree = "<group>"; };
 		076248CE2AB30319000A8664 /* IconDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconDelegate.swift; sourceTree = "<group>"; };
-		0770802C29E55E7C00D66900 /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
 		0770802E29E78C9200D66900 /* SelectGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGroupViewController.swift; sourceTree = "<group>"; };
 		0770803029E78D0500D66900 /* SelectGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGroupView.swift; sourceTree = "<group>"; };
 		0770803329E797E100D66900 /* SelectIconViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIconViewController.swift; sourceTree = "<group>"; };
@@ -408,7 +406,6 @@
 		076248B62AB2F621000A8664 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0770802C29E55E7C00D66900 /* Tracker.swift */,
 				07A45CE32AA0952000C09342 /* TrackingManager.swift */,
 			);
 			path = Models;
@@ -825,7 +822,6 @@
 				0719649629E0763C009CA1A4 /* FormSelectButton.swift in Sources */,
 				078C50E829D72D2900F239BA /* NameSpace.swift in Sources */,
 				0749D7282AB9E832004DF368 /* HomeVC+Notification.swift in Sources */,
-				0770802D29E55E7C00D66900 /* Tracker.swift in Sources */,
 				07454E1929EFD8A400B3458D /* ActionButtonSet.swift in Sources */,
 				07817F0D2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift in Sources */,
 			);

@@ -57,9 +57,9 @@ extension HomeViewController: HomeViewDelegate {
         
         // 2. UI 및 트래커 초기화
         viewManager.updateTracking(time: "00:00:00", progress: 0)
-        timeTracker.totalTime = 0
-        timeTracker.currentTime = 0
-        timeTracker.totalBlock = 0
+        trackingManager.totalTime = 0
+        trackingManager.currentTime = 0
+        trackingManager.totalBlock = 0
 
         // 3. 컬렉션뷰 초기화
         viewManager.blockCollectionView.reloadData()
