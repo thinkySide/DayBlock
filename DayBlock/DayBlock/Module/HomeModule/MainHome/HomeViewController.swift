@@ -90,59 +90,6 @@ final class HomeViewController: UIViewController {
     }
 }
 
-// MARK: - HomeDelegate
-extension HomeViewController: HomeViewDelegate {
-    
-    /// 트래킹 모드와 홈 모드가 전환 될 때, TabBar 표시 여부를 결정하는 Delegate 메서드입니다.
-    ///
-    /// - Parameter isDisplay: TabBar 표시 여부
-    func homeView(_ homeView: HomeView, displayTabBarForTrackingMode isDisplay: Bool) {
-        let value: CGFloat = isDisplay ? 1 : 0
-        viewManager.tabBarStackView.alpha = value
-        tabBarController?.tabBar.alpha = value
-    }
-    
-    // TODO: 위에 방식으로 커스텀 델리게이트 가독성 좋게 바꾸기
-    
-    func startTracking() {
-        
-        // BlockPreview 애니메이션 활성화
-        activateTrackingBoard()
-        
-        trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingEverySecond), userInfo: nil, repeats: true)
-        
-        // 블럭 업데이트
-        let blockDataList = blockManager.getCurrentBlockList()
-        viewManager.trackingBlock.update(group: blockManager.getCurrentGroup(), block: blockDataList[blockIndex])
-        
-        // 화면 꺼짐 방지
-        isScreenCanSleep(false)
-    }
-    
-    func pausedTracking() {
-        trackingTimer.invalidate()
-    }
-    
-    func stopTracking() {
-        trackingTimer.invalidate()
-        viewManager.updateTracking(time: "00:00:00", progress: 0)
-        timeTracker.totalTime = 0
-        timeTracker.currentTime = 0
-        timeTracker.totalBlock = 0
-
-        // 컬렉션뷰 초기화
-        viewManager.blockCollectionView.reloadData()
-        viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: blockIndex, section: 0), at: .left, animated: true)
-        
-        // 화면 꺼짐 해제
-        isScreenCanSleep(true)
-    }
-    
-    func setupProgressViewColor() {
-        viewManager.setupProgressViewColor(color: blockManager.getCurrentGroupColor())
-    }
-}
-
 // MARK: - Day Block Delegate
 extension HomeViewController: DayBlockDelegate {
     func storeTrackingBlock() {

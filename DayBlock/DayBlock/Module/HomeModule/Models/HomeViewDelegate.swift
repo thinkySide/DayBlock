@@ -8,16 +8,9 @@
 import Foundation
 
 protocol HomeViewDelegate: AnyObject {
-    
-    // TabBar
     func homeView(_ homeView: HomeView, displayTabBarForTrackingMode isDisplay: Bool)
-    
-    // Tracking
-    func startTracking()
-    func pausedTracking()
-    func stopTracking()
-    
-    // Custom
-    // func trackingStopBarButtonItemTapped()
-    func setupProgressViewColor()
+    func homeView(_ homeView: HomeView, trackingDidStart mode: HomeView.TrakingMode)
+    func homeView(_ homeView: HomeView, trackingDidPause mode: HomeView.TrakingMode)
+    func homeView(_ homeView: HomeView, trackingDidStop mode: HomeView.TrakingMode)
+    func homeView(_ homeView: HomeView, setupProgressViewColor mode: HomeView.TrakingMode)
 }

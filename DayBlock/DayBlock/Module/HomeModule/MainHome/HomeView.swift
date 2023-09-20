@@ -10,12 +10,13 @@ import UIKit
 final class HomeView: UIView {
     
     enum TrakingMode {
-        case active
-        case inactive
+        case start
+        case pause
+        case stop
     }
     
     weak var delegate: HomeViewDelegate?
-    var trackingMode: TrakingMode = .inactive
+    var trackingMode: TrakingMode = .pause
     
     // MARK: - Component
     
@@ -134,7 +135,7 @@ final class HomeView: UIView {
     func switchToHomeMode() {
         
         // Tracking 종료
-        delegate?.stopTracking()
+        delegate?.homeView(self, trackingDidStop: .stop)
         
         // Tracking 버튼 설정
         trackingButton.setImage(
@@ -143,7 +144,7 @@ final class HomeView: UIView {
         
         // 공통 설정
         delegate?.homeView(self, displayTabBarForTrackingMode: true)
-        trackingMode = .inactive
+        trackingMode = .pause
         groupSelectButton.isHidden = false
         blockCollectionView.isHidden = false
         trackingBlock.isHidden = true
@@ -156,14 +157,14 @@ final class HomeView: UIView {
     @objc func trackingButtonTapped() {
         
         /// Tracking 모드 변경
-        trackingMode = trackingMode == .inactive ? .active : .inactive
+        trackingMode = trackingMode == .pause ? .start : .pause
         
         // Tracking 모드 설정
         switch trackingMode {
-        case .active:
+        case .start:
             
             // Tracking 시작
-            delegate?.startTracking()
+            delegate?.homeView(self, trackingDidStart: .start)
             trackingTimeLabel.textColor = Color.mainText
             
             // Tracking 버튼 설정
@@ -172,12 +173,12 @@ final class HomeView: UIView {
                 for: .normal)
             
             // ProgressView 컬러 설정
-            delegate?.setupProgressViewColor()
+            delegate?.homeView(self, setupProgressViewColor: .start)
             
-        case .inactive:
+        case .pause:
             
             // Tracking 일시정지
-            delegate?.pausedTracking()
+            delegate?.homeView(self, trackingDidPause: .pause)
             trackingTimeLabel.textColor = Color.disabledText
             
             // Tracking 버튼 설정
@@ -190,6 +191,9 @@ final class HomeView: UIView {
             
             // BlockPreview 애니메이션 일시정지
             blockPreview.pausedTrackingAnimation()
+            
+        case .stop:
+            break
         }
         
         // 공통 설정
