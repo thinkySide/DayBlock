@@ -1,18 +1,18 @@
 //
-//  GroupEntity+CoreDataProperties.swift
+//  Group+CoreDataProperties.swift
 //  DayBlock
 //
-//  Created by 김민준 on 2023/08/05.
+//  Created by 김민준 on 2023/09/21.
 //
 //
 
 import Foundation
 import CoreData
 
-extension GroupEntity {
+extension Group {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<GroupEntity> {
-        return NSFetchRequest<GroupEntity>(entityName: "GroupEntity")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<Group> {
+        return NSFetchRequest<Group>(entityName: "Group")
     }
 
     @NSManaged public var color: Int
@@ -22,31 +22,31 @@ extension GroupEntity {
 }
 
 // MARK: Generated accessors for blockList
-extension GroupEntity {
+extension Group {
 
     @objc(insertObject:inBlockListAtIndex:)
-    @NSManaged public func insertIntoBlockList(_ value: BlockEntity, at idx: Int)
+    @NSManaged public func insertIntoBlockList(_ value: Block, at idx: Int)
 
     @objc(removeObjectFromBlockListAtIndex:)
     @NSManaged public func removeFromBlockList(at idx: Int)
 
     @objc(insertBlockList:atIndexes:)
-    @NSManaged public func insertIntoBlockList(_ values: [BlockEntity], at indexes: NSIndexSet)
+    @NSManaged public func insertIntoBlockList(_ values: [Block], at indexes: NSIndexSet)
 
     @objc(removeBlockListAtIndexes:)
     @NSManaged public func removeFromBlockList(at indexes: NSIndexSet)
 
     @objc(replaceObjectInBlockListAtIndex:withObject:)
-    @NSManaged public func replaceBlockList(at idx: Int, with value: BlockEntity)
+    @NSManaged public func replaceBlockList(at idx: Int, with value: Block)
 
     @objc(replaceBlockListAtIndexes:withBlockList:)
-    @NSManaged public func replaceBlockList(at indexes: NSIndexSet, with values: [BlockEntity])
+    @NSManaged public func replaceBlockList(at indexes: NSIndexSet, with values: [Block])
 
     @objc(addBlockListObject:)
-    @NSManaged public func addToBlockList(_ value: BlockEntity)
+    @NSManaged public func addToBlockList(_ value: Block)
 
     @objc(removeBlockListObject:)
-    @NSManaged public func removeFromBlockList(_ value: BlockEntity)
+    @NSManaged public func removeFromBlockList(_ value: Block)
 
     @objc(addBlockList:)
     @NSManaged public func addToBlockList(_ values: NSOrderedSet)
@@ -56,6 +56,6 @@ extension GroupEntity {
 
 }
 
-extension GroupEntity: Identifiable {
+extension Group: Identifiable {
 
 }

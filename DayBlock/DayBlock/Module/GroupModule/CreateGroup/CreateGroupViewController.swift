@@ -76,7 +76,6 @@ final class CreateGroupViewController: UIViewController {
 }
 
 // MARK: - UITextFieldDelegate
-
 extension CreateGroupViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         

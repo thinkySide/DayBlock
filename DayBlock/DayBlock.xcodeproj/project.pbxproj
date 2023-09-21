@@ -36,10 +36,6 @@
 		0749D7282AB9E832004DF368 /* HomeVC+Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749D7272AB9E832004DF368 /* HomeVC+Notification.swift */; };
 		0749D72A2ABACAD3004DF368 /* HomeVC+CustomDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749D7292ABACAD3004DF368 /* HomeVC+CustomDelegate.swift */; };
 		0749D72D2ABAD7E9004DF368 /* HomeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749D72C2ABAD7E9004DF368 /* HomeDelegate.swift */; };
-		075A5AE22A7E19ED0004F847 /* BlockEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5ADE2A7E19ED0004F847 /* BlockEntity+CoreDataClass.swift */; };
-		075A5AE32A7E19ED0004F847 /* BlockEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5ADF2A7E19ED0004F847 /* BlockEntity+CoreDataProperties.swift */; };
-		075A5AE42A7E19ED0004F847 /* GroupEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5AE02A7E19ED0004F847 /* GroupEntity+CoreDataClass.swift */; };
-		075A5AE52A7E19ED0004F847 /* GroupEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5AE12A7E19ED0004F847 /* GroupEntity+CoreDataProperties.swift */; };
 		075A5AE92A81D04B0004F847 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5AE82A81D04B0004F847 /* PopupView.swift */; };
 		075A5AEB2A81DCDD0004F847 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5AEA2A81DCDD0004F847 /* PopupViewController.swift */; };
 		076248C92AB301C9000A8664 /* BlockDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076248C82AB301C9000A8664 /* BlockDelegate.swift */; };
@@ -89,6 +85,15 @@
 		07B49BD42A8F23FF006D1011 /* ToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BD32A8F23FF006D1011 /* ToastMessage.swift */; };
 		07B49C452A95E5BD006D1011 /* TrackingCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49C442A95E5BD006D1011 /* TrackingCompleteViewController.swift */; };
 		07B49C472A95E66D006D1011 /* TrackingCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49C462A95E66D006D1011 /* TrackingCompleteView.swift */; };
+		07C0BDA62ABC137700D5E779 /* Group+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BD9E2ABC137700D5E779 /* Group+CoreDataClass.swift */; };
+		07C0BDA72ABC137700D5E779 /* Group+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BD9F2ABC137700D5E779 /* Group+CoreDataProperties.swift */; };
+		07C0BDA82ABC137700D5E779 /* TrackingTime+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDA02ABC137700D5E779 /* TrackingTime+CoreDataClass.swift */; };
+		07C0BDA92ABC137700D5E779 /* TrackingTime+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDA12ABC137700D5E779 /* TrackingTime+CoreDataProperties.swift */; };
+		07C0BDAA2ABC137700D5E779 /* Block+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDA22ABC137700D5E779 /* Block+CoreDataClass.swift */; };
+		07C0BDAB2ABC137700D5E779 /* Block+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDA32ABC137700D5E779 /* Block+CoreDataProperties.swift */; };
+		07C0BDAC2ABC137700D5E779 /* TrackingDate+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDA42ABC137700D5E779 /* TrackingDate+CoreDataClass.swift */; };
+		07C0BDAD2ABC137700D5E779 /* TrackingDate+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDA52ABC137700D5E779 /* TrackingDate+CoreDataProperties.swift */; };
+		07C0BDAF2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDAE2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift */; };
 		07DD3E932AB022ED002D128F /* SimpleIconBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DD3E922AB022ED002D128F /* SimpleIconBlock.swift */; };
 		07DD3E952AB02BE3002D128F /* DashedSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DD3E942AB02BE3002D128F /* DashedSeparator.swift */; };
 		07EB771729F5335F000BD87E /* SelectColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB771629F5335F000BD87E /* SelectColorCollectionViewCell.swift */; };
@@ -125,10 +130,6 @@
 		0749D7272AB9E832004DF368 /* HomeVC+Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+Notification.swift"; sourceTree = "<group>"; };
 		0749D7292ABACAD3004DF368 /* HomeVC+CustomDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+CustomDelegate.swift"; sourceTree = "<group>"; };
 		0749D72C2ABAD7E9004DF368 /* HomeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDelegate.swift; sourceTree = "<group>"; };
-		075A5ADE2A7E19ED0004F847 /* BlockEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		075A5ADF2A7E19ED0004F847 /* BlockEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		075A5AE02A7E19ED0004F847 /* GroupEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		075A5AE12A7E19ED0004F847 /* GroupEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		075A5AE82A81D04B0004F847 /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
 		075A5AEA2A81DCDD0004F847 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		076248C82AB301C9000A8664 /* BlockDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockDelegate.swift; sourceTree = "<group>"; };
@@ -180,6 +181,15 @@
 		07B49BD32A8F23FF006D1011 /* ToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessage.swift; sourceTree = "<group>"; };
 		07B49C442A95E5BD006D1011 /* TrackingCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingCompleteViewController.swift; sourceTree = "<group>"; };
 		07B49C462A95E66D006D1011 /* TrackingCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingCompleteView.swift; sourceTree = "<group>"; };
+		07C0BD9E2ABC137700D5E779 /* Group+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+CoreDataClass.swift"; sourceTree = "<group>"; };
+		07C0BD9F2ABC137700D5E779 /* Group+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		07C0BDA02ABC137700D5E779 /* TrackingTime+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingTime+CoreDataClass.swift"; sourceTree = "<group>"; };
+		07C0BDA12ABC137700D5E779 /* TrackingTime+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingTime+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		07C0BDA22ABC137700D5E779 /* Block+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Block+CoreDataClass.swift"; sourceTree = "<group>"; };
+		07C0BDA32ABC137700D5E779 /* Block+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Block+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		07C0BDA42ABC137700D5E779 /* TrackingDate+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingDate+CoreDataClass.swift"; sourceTree = "<group>"; };
+		07C0BDA52ABC137700D5E779 /* TrackingDate+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingDate+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		07C0BDAE2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+CoreDataTest.swift"; sourceTree = "<group>"; };
 		07DD3E922AB022ED002D128F /* SimpleIconBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleIconBlock.swift; sourceTree = "<group>"; };
 		07DD3E942AB02BE3002D128F /* DashedSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashedSeparator.swift; sourceTree = "<group>"; };
 		07EB771629F5335F000BD87E /* SelectColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectColorCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -209,10 +219,14 @@
 			isa = PBXGroup;
 			children = (
 				078C50BE29D7152F00F239BA /* DayBlock.xcdatamodeld */,
-				075A5AE02A7E19ED0004F847 /* GroupEntity+CoreDataClass.swift */,
-				075A5AE12A7E19ED0004F847 /* GroupEntity+CoreDataProperties.swift */,
-				075A5ADE2A7E19ED0004F847 /* BlockEntity+CoreDataClass.swift */,
-				075A5ADF2A7E19ED0004F847 /* BlockEntity+CoreDataProperties.swift */,
+				07C0BD9E2ABC137700D5E779 /* Group+CoreDataClass.swift */,
+				07C0BD9F2ABC137700D5E779 /* Group+CoreDataProperties.swift */,
+				07C0BDA22ABC137700D5E779 /* Block+CoreDataClass.swift */,
+				07C0BDA32ABC137700D5E779 /* Block+CoreDataProperties.swift */,
+				07C0BDA42ABC137700D5E779 /* TrackingDate+CoreDataClass.swift */,
+				07C0BDA52ABC137700D5E779 /* TrackingDate+CoreDataProperties.swift */,
+				07C0BDA02ABC137700D5E779 /* TrackingTime+CoreDataClass.swift */,
+				07C0BDA12ABC137700D5E779 /* TrackingTime+CoreDataProperties.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -463,6 +477,7 @@
 			children = (
 				078C50D029D726FE00F239BA /* HomeView.swift */,
 				078C50B929D7152F00F239BA /* HomeViewController.swift */,
+				07C0BDAE2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift */,
 				0749D7292ABACAD3004DF368 /* HomeVC+CustomDelegate.swift */,
 				0749D7272AB9E832004DF368 /* HomeVC+Notification.swift */,
 				0749D71B2AB84198004DF368 /* HomeVC+BlockCollectionView.swift */,
@@ -757,15 +772,14 @@
 				0719649229E04FD8009CA1A4 /* CreateBlockView.swift in Sources */,
 				07454E0F29EBE50500B3458D /* BottomModal.swift in Sources */,
 				078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */,
-				075A5AE32A7E19ED0004F847 /* BlockEntity+CoreDataProperties.swift in Sources */,
+				07C0BDAD2ABC137700D5E779 /* TrackingDate+CoreDataProperties.swift in Sources */,
 				0770803A29E7989B00D66900 /* SelectColorViewController.swift in Sources */,
 				0770803829E7988100D66900 /* SelectColorView.swift in Sources */,
-				075A5AE42A7E19ED0004F847 /* GroupEntity+CoreDataClass.swift in Sources */,
 				077A663429ED2AB000D99C68 /* CreateGroupViewController.swift in Sources */,
-				075A5AE52A7E19ED0004F847 /* GroupEntity+CoreDataProperties.swift in Sources */,
 				0749D72A2ABACAD3004DF368 /* HomeVC+CustomDelegate.swift in Sources */,
 				0719648C29DDB1C0009CA1A4 /* TrackingBoardBlock.swift in Sources */,
 				07B49BC62A88EC14006D1011 /* MenuPopupItem.swift in Sources */,
+				07C0BDA92ABC137700D5E779 /* TrackingTime+CoreDataProperties.swift in Sources */,
 				07454DE729EA94EB00B3458D /* DisablePasteTextField.swift in Sources */,
 				07EB771929F53855000BD87E /* ColorManager.swift in Sources */,
 				0749D7262AB9E456004DF368 /* HomeVC+SelectGroupHalfModal.swift in Sources */,
@@ -780,9 +794,13 @@
 				07B49BC82A8DD84D006D1011 /* ListGroupViewController.swift in Sources */,
 				07DD3E932AB022ED002D128F /* SimpleIconBlock.swift in Sources */,
 				078C50F429D73D0200F239BA /* TrackingBoard.swift in Sources */,
+				07C0BDAA2ABC137700D5E779 /* Block+CoreDataClass.swift in Sources */,
+				07C0BDA82ABC137700D5E779 /* TrackingTime+CoreDataClass.swift in Sources */,
 				0719648329DAF4B5009CA1A4 /* RemoteGroup.swift in Sources */,
 				07B49BCF2A8DE22C006D1011 /* EditGroupDetailView.swift in Sources */,
 				078C50F629D9BBB200F239BA /* ScheduleViewController.swift in Sources */,
+				07C0BDA72ABC137700D5E779 /* Group+CoreDataProperties.swift in Sources */,
+				07C0BDAF2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift in Sources */,
 				0771983F29E2F4D10021088A /* UIButton++.swift in Sources */,
 				07B49BCD2A8DE204006D1011 /* EditGroupViewController.swift in Sources */,
 				078C50C029D7152F00F239BA /* DayBlock.xcdatamodeld in Sources */,
@@ -791,21 +809,23 @@
 				0749D72D2ABAD7E9004DF368 /* HomeDelegate.swift in Sources */,
 				078C50D129D726FE00F239BA /* HomeView.swift in Sources */,
 				0749D7202AB988F2004DF368 /* HomeVC+Tracking.swift in Sources */,
-				075A5AE22A7E19ED0004F847 /* BlockEntity+CoreDataClass.swift in Sources */,
 				07B49C452A95E5BD006D1011 /* TrackingCompleteViewController.swift in Sources */,
 				07A45CE42AA0952000C09342 /* TrackingManager.swift in Sources */,
 				0749D71C2AB84198004DF368 /* HomeVC+BlockCollectionView.swift in Sources */,
+				07C0BDAC2ABC137700D5E779 /* TrackingDate+CoreDataClass.swift in Sources */,
 				07454E1329EC138E00B3458D /* SelectGroupTableViewCell.swift in Sources */,
 				07454E1129EBFDF200B3458D /* ActionButton.swift in Sources */,
 				073EBFF02AB6D4D40031F6AB /* SFSymbols.swift in Sources */,
 				0770803629E7981300D66900 /* SelectIconView.swift in Sources */,
 				078C50EE29D72F9D00F239BA /* UIColor++.swift in Sources */,
+				07C0BDA62ABC137700D5E779 /* Group+CoreDataClass.swift in Sources */,
 				076248CD2AB302FD000A8664 /* ColorDelegate.swift in Sources */,
 				076248CB2AB3023A000A8664 /* GroupDelegate.swift in Sources */,
 				075A5AE92A81D04B0004F847 /* PopupView.swift in Sources */,
 				07B49BCA2A8DD878006D1011 /* ListGroupView.swift in Sources */,
 				07DD3E952AB02BE3002D128F /* DashedSeparator.swift in Sources */,
 				0719648129DAF38A009CA1A4 /* RemoteBlock.swift in Sources */,
+				07C0BDAB2ABC137700D5E779 /* Block+CoreDataProperties.swift in Sources */,
 				0770803429E797E100D66900 /* SelectIconViewController.swift in Sources */,
 				07454DE329EA6CEE00B3458D /* UIViewController++.swift in Sources */,
 				0719648829DC5066009CA1A4 /* TabBar.swift in Sources */,

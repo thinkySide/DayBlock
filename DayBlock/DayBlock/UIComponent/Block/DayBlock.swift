@@ -95,7 +95,7 @@ final class DayBlock: UIView {
     ///
     /// - Parameter group: 업데이트 할 그룹 정보
     /// - Parameter block: 업데이트 할 블럭 정보
-    func update(group: GroupEntity, block: BlockEntity) {
+    func update(group: Group, block: Block) {
         plus.textColor = UIColor(rgb: group.color)
         colorTag.backgroundColor = UIColor(rgb: group.color)
         icon.image = UIImage(systemName: block.icon)!

@@ -21,13 +21,13 @@ final class BlockManager {
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     /// 그룹 엔티티
-    private var groupEntity: [GroupEntity] = []
+    private var groupEntity: [Group] = []
     
     /// 블럭 엔티티
-    private var blockEntity: [BlockEntity] {
+    private var blockEntity: [Block] {
         
         // 현재 그룹 인덱스값을 이용해 그룹 엔티티에서 블럭 엔티티값 반환
-        if let entity = groupEntity[currentGroupIndex].blockList?.array as? [BlockEntity] {
+        if let entity = groupEntity[currentGroupIndex].blockList?.array as? [Block] {
             return entity
         }
         
@@ -51,7 +51,7 @@ final class BlockManager {
     /// 그룹 엔티티 패치를 요청합니다.
     func fetchRequestGroupEntitiy() {
         do {
-            groupEntity = try context.fetch(GroupEntity.fetchRequest())
+            groupEntity = try context.fetch(Group.fetchRequest())
         } catch {
             print(error.localizedDescription)
         }
@@ -64,7 +64,7 @@ final class BlockManager {
         if groupEntity.isEmpty {
             
             // 기본 그룹 생성
-            let newGroup = GroupEntity(context: context)
+            let newGroup = Group(context: context)
             newGroup.name = "기본 그룹"
             newGroup.color = 0x323232
             
@@ -76,7 +76,7 @@ final class BlockManager {
     // MARK: - Manage GroupEntitiy
     
     /// READ - 전체 그룹 리스트 받아오기
-    func getGroupList() -> [GroupEntity] {
+    func getGroupList() -> [Group] {
         return groupEntity
     }
     
@@ -84,7 +84,7 @@ final class BlockManager {
     func createNewGroup() {
         
         // 리모트 그룹을 통한 그룹 엔티티 생성
-        let newGroup = GroupEntity(context: context)
+        let newGroup = Group(context: context)
         newGroup.name = remoteGroup.name
         newGroup.color = remoteGroup.color
         
@@ -93,10 +93,10 @@ final class BlockManager {
         resetRemoteGroup()
     }
     
-    // MARK: - Manage BlockEntity
+    // MARK: - Manage Block
 
     /// 지정한 블럭엔티티를 삭제합니다.
-    func deleteBlockEntitiy(_ blockEntity: BlockEntity) {
+    func deleteBlockEntitiy(_ blockEntity: Block) {
         
         // 현재 그룹 엔티티에서 지정한 블럭 에티티 삭제 및 콘텍스트에 반영
         groupEntity[currentGroupIndex].removeFromBlockList(blockEntity)
@@ -105,10 +105,10 @@ final class BlockManager {
     }
     
     /// 블럭 수정 완료 후 블럭 엔티티를 업데이트합니다.
-    func updateBlockEntity() {
+    func updateBlock() {
         
         // 리모트 블럭을 통한 블럭 엔티티 생성
-        let updateBlock = BlockEntity(context: context)
+        let updateBlock = Block(context: context)
         updateBlock.taskLabel = remoteBlock.list[0].taskLabel
         updateBlock.icon = remoteBlock.list[0].icon
 
@@ -128,7 +128,7 @@ final class BlockManager {
             // 현재 인덱스의 블럭 엔티티 삭제 후
             deleteBlockEntitiy(blockEntity[currentBlockIndex])
             
-            if let entity = groupEntity[remoteBlockGroupIndex].blockList?.array as? [BlockEntity] {
+            if let entity = groupEntity[remoteBlockGroupIndex].blockList?.array as? [Block] {
                 
                 // 리모트 그룹 인덱스의 가장 마지막 인덱스에 블럭 엔티티 삽입
                 groupEntity[remoteBlockGroupIndex].insertIntoBlockList(updateBlock, at: entity.count)
@@ -159,7 +159,7 @@ final class BlockManager {
     }
     
     /// READ - 현재 그룹 받아오기
-    func getCurrentGroup() -> GroupEntity {
+    func getCurrentGroup() -> Group {
         return groupEntity[currentGroupIndex]
     }
     
@@ -169,28 +169,28 @@ final class BlockManager {
     }
     
     /// READ - 현재 그룹에 속한 블럭 리스트 받아오기
-    func getCurrentBlockList() -> [BlockEntity] {
+    func getCurrentBlockList() -> [Block] {
         if groupEntity.count == 0 { return [] }
         return blockEntity
     }
     
     /// READ - 지정한 그룹에 속한 블럭 리스트 받아오기
-    func getBlockList(_ index: Int) -> [BlockEntity] {
+    func getBlockList(_ index: Int) -> [Block] {
         let group = groupEntity[index]
-        if let blockList = group.blockList?.array as? [BlockEntity] {
+        if let blockList = group.blockList?.array as? [Block] {
             return blockList
         }
         return []
     }
     
     /// READ - 지정한 그룹명에 속한 블럭 리스트 받아오기
-    func getBlockList(_ groupName: String) -> [BlockEntity] {
+    func getBlockList(_ groupName: String) -> [Block] {
         for group in groupEntity where group.name == groupName {
-            if let blockList = group.blockList?.array as? [BlockEntity] {
+            if let blockList = group.blockList?.array as? [Block] {
                 return blockList
             }
         }
-        return [BlockEntity]()
+        return [Block]()
     }
     
     /// UPDATE - 현재 그룹 업데이트
@@ -240,7 +240,7 @@ final class BlockManager {
     /// 리모트 블럭
     private var remoteBlock = RemoteGroup(name: "기본 그룹",
                                     color: 0x323232,
-                                    list: [RemoteBlock(taskLabel: "블럭 쌓기", output: 0.0, icon: "batteryblock.fill")])
+                                    list: [RemoteBlock(taskLabel: "블럭 쌓기", todayOutput: 0.0, icon: "batteryblock.fill")])
     
     var remoteBlockGroupIndex = 0
     
@@ -251,9 +251,9 @@ final class BlockManager {
         for (index, group) in groupEntity.enumerated() where remoteBlock.name == group.name {
             currentGroupIndex = index
             
-            let newBlock = BlockEntity(context: context)
+            let newBlock = Block(context: context)
             newBlock.taskLabel = remoteBlock.list[0].taskLabel
-            newBlock.output = remoteBlock.list[0].output
+            newBlock.todayOutput = remoteBlock.list[0].todayOutput
             newBlock.icon = remoteBlock.list[0].icon
             groupEntity[currentGroupIndex].addToBlockList(newBlock)
             
@@ -287,7 +287,7 @@ final class BlockManager {
     }
     
     /// UPDATE - 리모트 블럭 그룹 업데이트
-    func updateRemoteBlock(group: GroupEntity) {
+    func updateRemoteBlock(group: Group) {
         remoteBlock.name = group.name
         remoteBlock.color = group.color
     }
@@ -304,7 +304,7 @@ final class BlockManager {
     
     /// UPDATE - 리모트 블럭 생산량 업데이트
     func updateRemoteBlock(output: Double) {
-        remoteBlock.list[0].output = output
+        remoteBlock.list[0].todayOutput = output
     }
     
     /// RESET - 리모트 블럭 초기화
@@ -312,7 +312,7 @@ final class BlockManager {
         let group = groupEntity[currentGroupIndex]
         remoteBlock = RemoteGroup(name: group.name,
                             color: group.color,
-                            list: [RemoteBlock(taskLabel: "블럭 쌓기", output: 0.0, icon: "batteryblock.fill")])
+                            list: [RemoteBlock(taskLabel: "블럭 쌓기", todayOutput: 0.0, icon: "batteryblock.fill")])
         remoteBlockGroupIndex = currentGroupIndex
     }
     

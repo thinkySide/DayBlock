@@ -10,6 +10,6 @@ import UIKit
 /// CoreData를 위한 커스텀 클래스 정의
 struct RemoteBlock {
     var taskLabel: String
-    var output: Double
+    var todayOutput: Double
     var icon: String
 }

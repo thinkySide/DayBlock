@@ -84,9 +84,9 @@ extension HomeViewController {
     /// 트래킹 셀(일반 블럭)을 생성합니다.
     ///
     /// - Parameter cell: 등록할 CollectionViewCell
-    private func makeTrackingBlockCell(_ cell: HomeBlockCollectionViewCell, blockEntity: BlockEntity) -> HomeBlockCollectionViewCell {
+    private func makeTrackingBlockCell(_ cell: HomeBlockCollectionViewCell, blockEntity: Block) -> HomeBlockCollectionViewCell {
         cell.plusLabel.textColor = blockManager.getCurrentGroupColor()
-        cell.totalProductivityLabel.text = "\(blockEntity.output)"
+        cell.totalProductivityLabel.text = "\(blockEntity.todayOutput)"
         cell.blockColorTag.backgroundColor = blockManager.getCurrentGroupColor()
         cell.blockIcon.image = UIImage(systemName: blockEntity.icon)
         cell.blockLabel.text = blockEntity.taskLabel
@@ -159,13 +159,13 @@ extension HomeViewController: UICollectionViewDelegate {
     /// - Parameter cell: 등록할 CollectionViewCell
     /// - Parameter data: 편집 블럭 설정용 BlockEntity
     /// - Parameter indexPath: CollectionView IndexPath
-    private func configureEditButton(_ cell: HomeBlockCollectionViewCell, data: [BlockEntity], indexPath: IndexPath) {
+    private func configureEditButton(_ cell: HomeBlockCollectionViewCell, data: [Block], indexPath: IndexPath) {
         cell.editButtonTapped = { [weak self] _ in
             guard let self else { return }
             let editBlock = data[indexPath.row]
             blockManager.updateRemoteBlock(group: blockManager.getCurrentGroup())
             blockManager.updateRemoteBlock(label: editBlock.taskLabel)
-            blockManager.updateRemoteBlock(output: editBlock.output)
+            blockManager.updateRemoteBlock(output: editBlock.todayOutput)
             blockManager.updateRemoteBlock(icon: editBlock.icon)
             blockManager.updateCurrentBlockIndex(indexPath.row)
             pushEditBlockViewController()
@@ -205,7 +205,7 @@ extension HomeViewController: PopupViewControllerDelegate {
         viewManager.blockCollectionView.reloadData()
         
         // 그룹 리스트가 비어있을 시, 트래킹 버튼 비활성화
-        let blockList = blockManager.getCurrentGroup().blockList?.array as! [BlockEntity]
+        let blockList = blockManager.getCurrentGroup().blockList?.array as! [Block]
         if blockList.isEmpty || (blockManager.getCurrentBlockIndex() == blockList.count) {
             viewManager.toggleTrackingButton(false)
         } else {

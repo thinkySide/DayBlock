@@ -45,6 +45,8 @@ final class HomeViewController: UIViewController {
         setupTimer()
         setupUI()
         setupGestrue()
+        
+        testCoreData()
     }
     
     // MARK: - Setup Method

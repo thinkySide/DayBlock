@@ -59,7 +59,7 @@ extension HomeViewController: SelectGroupViewControllerDelegate {
         UserDefaults.standard.set(index, forKey: UserDefaultsKey.groupIndex)
         
         // 4. 그룹 리스트가 비어있을 시, 트래킹 버튼 비활성화
-        let blockList = blockManager.getCurrentGroup().blockList?.array as! [BlockEntity]
+        let blockList = blockManager.getCurrentGroup().blockList?.array as! [Block]
         if blockList.isEmpty { viewManager.toggleTrackingButton(false) }
         else { viewManager.toggleTrackingButton(true) }
     }

@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22F82" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="BlockEntity" representedClassName="BlockEntity" syncable="YES">
+    <entity name="Block" representedClassName="Block" syncable="YES">
         <attribute name="icon" optional="YES" attributeType="String"/>
-        <attribute name="output" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="taskLabel" optional="YES" attributeType="String"/>
-        <relationship name="superGroup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GroupEntity" inverseName="blockList" inverseEntity="GroupEntity"/>
+        <attribute name="todayOutput" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="superGroup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="blockList" inverseEntity="Group"/>
+        <relationship name="trackingDateList" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="TrackingDate" inverseName="superBlock" inverseEntity="TrackingDate"/>
     </entity>
-    <entity name="GroupEntity" representedClassName="GroupEntity" syncable="YES">
+    <entity name="Group" representedClassName="Group" syncable="YES">
         <attribute name="color" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="blockList" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="BlockEntity" inverseName="superGroup" inverseEntity="BlockEntity"/>
+        <relationship name="blockList" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Block" inverseName="superGroup" inverseEntity="Block"/>
+    </entity>
+    <entity name="TrackingDate" representedClassName="TrackingDate" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="String"/>
+        <relationship name="superBlock" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Block" inverseName="trackingDateList" inverseEntity="Block"/>
+        <relationship name="trackingTimeList" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="TrackingTime" inverseName="superDate" inverseEntity="TrackingTime"/>
+    </entity>
+    <entity name="TrackingTime" representedClassName="TrackingTime" syncable="YES">
+        <attribute name="time" optional="YES" attributeType="String"/>
+        <relationship name="superDate" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TrackingDate" inverseName="trackingTimeList" inverseEntity="TrackingDate"/>
     </entity>
 </model>
