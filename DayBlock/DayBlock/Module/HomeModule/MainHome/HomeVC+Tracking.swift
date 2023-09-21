@@ -22,7 +22,7 @@ extension HomeViewController {
         updateTimeLabel()
         
         // 1초마다 날짜 및 시간 업데이트 하는 타이머 실행
-        dateTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimeLabel), userInfo: nil, repeats: true)
+        trackingManager.dateTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimeLabel), userInfo: nil, repeats: true)
     }
     
     /// 현재 시간을 기준으로 timeLabel을 설정합니다.

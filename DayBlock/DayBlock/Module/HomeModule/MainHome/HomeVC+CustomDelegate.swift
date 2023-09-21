@@ -25,7 +25,7 @@ extension HomeViewController: HomeViewDelegate {
     func homeView(_ homeView: HomeView, trackingDidStart mode: HomeView.TrakingMode) {
         
         // 1. 타이머 시작
-        trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingEverySecond), userInfo: nil, repeats: true)
+        trackingManager.trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingEverySecond), userInfo: nil, repeats: true)
         
         // 2. 트래킹 보드 애니메이션 시작
         activateTrackingBoard()
@@ -44,7 +44,7 @@ extension HomeViewController: HomeViewDelegate {
     func homeView(_ homeView: HomeView, trackingDidPause mode: HomeView.TrakingMode) {
         
         // 1. 타이머 비활성화
-        trackingTimer.invalidate()
+        trackingManager.trackingTimer.invalidate()
     }
     
     /// 트래킹 모드가 종료된 후 호출되는 Delegate 메서드입니다.
@@ -53,7 +53,7 @@ extension HomeViewController: HomeViewDelegate {
     func homeView(_ homeView: HomeView, trackingDidStop mode: HomeView.TrakingMode) {
         
         // 1. 타이머 비활성화
-        trackingTimer.invalidate()
+        trackingManager.trackingTimer.invalidate()
         
         // 2. UI 및 트래커 초기화
         viewManager.updateTracking(time: "00:00:00", progress: 0)

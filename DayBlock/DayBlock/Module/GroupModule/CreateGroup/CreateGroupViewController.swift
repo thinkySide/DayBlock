@@ -25,6 +25,8 @@ final class CreateGroupViewController: UIViewController {
     
     var screenMode: ScreenMode = .navigation
     
+    var initialX: CGFloat = 0
+    
     // MARK: - ViewController LifeCycle
     
     override func loadView() {
@@ -33,6 +35,7 @@ final class CreateGroupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupBackPanGesture()
         setupNavigation()
         setupDelegate()
         setupAddTarget()
@@ -194,5 +197,57 @@ extension CreateGroupViewController: SelectColorViewControllerDelegate {
     func updateColor() {
         let selectedColor = blockManager.getRemoteGroup().color
         viewManager.colorSelect.selectColor.backgroundColor = UIColor(rgb: selectedColor)
+    }
+}
+
+// MARK: - Back Gesture(수정 필요!)
+extension CreateGroupViewController: UIGestureRecognizerDelegate {
+    
+    /// 스와이프 제스처를 이용한 Dismiss 기능 구현 메서드
+    private func setupBackPanGesture() {
+        
+        // 화면을 터치하자마자 반응하는 제스처 추가
+        let pressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handlePressGesture(_:)))
+        pressGesture.minimumPressDuration = 0
+        pressGesture.delegate = self
+        view.addGestureRecognizer(pressGesture)
+
+        // 팬 제스처 추가
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+        panGesture.delegate = self
+        view.addGestureRecognizer(panGesture)
+    }
+    
+    @objc func handlePressGesture(_ gesture: UILongPressGestureRecognizer) {
+        if gesture.state == .began {
+            initialX = gesture.location(in: view).x
+            print(initialX)
+        }
+    }
+    
+    /// 제스처가 동작할때 실행할 메서드
+    @objc func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+        
+        // 1. 제스처의 이동 거리
+        let translation = gesture.translation(in: nil).x
+        
+        // 2. 제스처가 종료되었다면
+        if gesture.state == .ended {
+            
+            if initialX > 24 {
+                print("종료")
+                return
+            }
+            
+            // 3. 제스처가 100보다 크게 스와이프 되었다면
+            if translation > 80 {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
+    
+    /// 제스처가 동시에 실행이 가능하도록 만드는 Delegate 메서드
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

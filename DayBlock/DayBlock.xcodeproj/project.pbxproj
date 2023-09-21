@@ -293,13 +293,13 @@
 			path = ColorModule;
 			sourceTree = "<group>";
 		};
-		076248A72AB2DA63000A8664 /* IconlModule */ = {
+		076248A72AB2DA63000A8664 /* IconModule */ = {
 			isa = PBXGroup;
 			children = (
 				076248BA2AB2F66C000A8664 /* Models */,
 				076248BB2AB2F672000A8664 /* SelectIcon */,
 			);
-			path = IconlModule;
+			path = IconModule;
 			sourceTree = "<group>";
 		};
 		076248A92AB2DB0F000A8664 /* ScheduleModule */ = {
@@ -483,7 +483,7 @@
 				076248A32AB2D857000A8664 /* BlockModule */,
 				076248A42AB2D8BC000A8664 /* GroupModule */,
 				076248A62AB2DA3D000A8664 /* ColorModule */,
-				076248A72AB2DA63000A8664 /* IconlModule */,
+				076248A72AB2DA63000A8664 /* IconModule */,
 				076248A92AB2DB0F000A8664 /* ScheduleModule */,
 				076248AA2AB2DB2A000A8664 /* RepositoryModule */,
 			);

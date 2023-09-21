@@ -13,10 +13,6 @@ final class HomeViewController: UIViewController {
     let blockManager = BlockManager.shared
     let trackingManager = TrackingManager.shared
     
-    // 타이머 관련 변수
-    var dateTimer: Timer!
-    var trackingTimer: Timer!
-    
     // 스크롤 시작 지점 저장 변수
     lazy var startScrollX: CGFloat = 0
     

@@ -15,6 +15,9 @@ final class TrackingManager {
     /// 싱글톤
     static let shared = TrackingManager()
     private init() {}
+    
+    var dateTimer: Timer!
+    var trackingTimer: Timer!
 
     var totalTime = 0
     var currentTime: Float = 0
