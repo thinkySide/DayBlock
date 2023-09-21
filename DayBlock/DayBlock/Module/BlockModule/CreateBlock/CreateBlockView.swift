@@ -93,7 +93,7 @@ final class CreateBlockView: UIView {
     // MARK: - Method
     
     /// Block 정보 업데이트
-    func updateBlockInfo(_ group: Group) {
+    func updateBlockInfo(_ group: RemoteGroup) {
         let block = group.list[0]
         groupSelect.selectLabel.text = group.name
         groupSelect.selectColor.backgroundColor = UIColor(rgb: group.color)

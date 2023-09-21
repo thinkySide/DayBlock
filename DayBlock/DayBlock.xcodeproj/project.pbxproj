@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0719648129DAF38A009CA1A4 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648029DAF38A009CA1A4 /* Block.swift */; };
-		0719648329DAF4B5009CA1A4 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648229DAF4B5009CA1A4 /* Group.swift */; };
+		0719648129DAF38A009CA1A4 /* RemoteBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648029DAF38A009CA1A4 /* RemoteBlock.swift */; };
+		0719648329DAF4B5009CA1A4 /* RemoteGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648229DAF4B5009CA1A4 /* RemoteGroup.swift */; };
 		0719648629DAF9A5009CA1A4 /* HomeBlockCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648529DAF9A5009CA1A4 /* HomeBlockCollectionViewCell.swift */; };
 		0719648829DC5066009CA1A4 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648729DC5066009CA1A4 /* TabBar.swift */; };
 		0719648A29DC5CB4009CA1A4 /* BlockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648929DC5CB4009CA1A4 /* BlockManager.swift */; };
@@ -96,8 +96,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0719648029DAF38A009CA1A4 /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
-		0719648229DAF4B5009CA1A4 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		0719648029DAF38A009CA1A4 /* RemoteBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteBlock.swift; sourceTree = "<group>"; };
+		0719648229DAF4B5009CA1A4 /* RemoteGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteGroup.swift; sourceTree = "<group>"; };
 		0719648529DAF9A5009CA1A4 /* HomeBlockCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBlockCollectionViewCell.swift; sourceTree = "<group>"; };
 		0719648729DC5066009CA1A4 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		0719648929DC5CB4009CA1A4 /* BlockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockManager.swift; sourceTree = "<group>"; };
@@ -387,7 +387,7 @@
 		076248B42AB2F605000A8664 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0719648029DAF38A009CA1A4 /* Block.swift */,
+				0719648029DAF38A009CA1A4 /* RemoteBlock.swift */,
 				0719648929DC5CB4009CA1A4 /* BlockManager.swift */,
 				076248C82AB301C9000A8664 /* BlockDelegate.swift */,
 			);
@@ -397,7 +397,7 @@
 		076248B52AB2F613000A8664 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0719648229DAF4B5009CA1A4 /* Group.swift */,
+				0719648229DAF4B5009CA1A4 /* RemoteGroup.swift */,
 				076248CA2AB3023A000A8664 /* GroupDelegate.swift */,
 			);
 			path = Models;
@@ -780,7 +780,7 @@
 				07B49BC82A8DD84D006D1011 /* ListGroupViewController.swift in Sources */,
 				07DD3E932AB022ED002D128F /* SimpleIconBlock.swift in Sources */,
 				078C50F429D73D0200F239BA /* TrackingBoard.swift in Sources */,
-				0719648329DAF4B5009CA1A4 /* Group.swift in Sources */,
+				0719648329DAF4B5009CA1A4 /* RemoteGroup.swift in Sources */,
 				07B49BCF2A8DE22C006D1011 /* EditGroupDetailView.swift in Sources */,
 				078C50F629D9BBB200F239BA /* ScheduleViewController.swift in Sources */,
 				0771983F29E2F4D10021088A /* UIButton++.swift in Sources */,
@@ -805,7 +805,7 @@
 				075A5AE92A81D04B0004F847 /* PopupView.swift in Sources */,
 				07B49BCA2A8DD878006D1011 /* ListGroupView.swift in Sources */,
 				07DD3E952AB02BE3002D128F /* DashedSeparator.swift in Sources */,
-				0719648129DAF38A009CA1A4 /* Block.swift in Sources */,
+				0719648129DAF38A009CA1A4 /* RemoteBlock.swift in Sources */,
 				0770803429E797E100D66900 /* SelectIconViewController.swift in Sources */,
 				07454DE329EA6CEE00B3458D /* UIViewController++.swift in Sources */,
 				0719648829DC5066009CA1A4 /* TabBar.swift in Sources */,

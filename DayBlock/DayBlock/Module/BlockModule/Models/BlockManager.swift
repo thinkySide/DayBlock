@@ -238,9 +238,9 @@ final class BlockManager {
     // MARK: - Remote Block (블럭 생성, 스위치용)
     
     /// 리모트 블럭
-    private var remoteBlock = Group(name: "기본 그룹",
+    private var remoteBlock = RemoteGroup(name: "기본 그룹",
                                     color: 0x323232,
-                                    list: [Block(taskLabel: "블럭 쌓기", output: 0.0, icon: "batteryblock.fill")])
+                                    list: [RemoteBlock(taskLabel: "블럭 쌓기", output: 0.0, icon: "batteryblock.fill")])
     
     var remoteBlockGroupIndex = 0
     
@@ -262,7 +262,7 @@ final class BlockManager {
     }
     
     /// READ - 리모트 블럭 받아오기
-    func getRemoteBlock() -> Group {
+    func getRemoteBlock() -> RemoteGroup {
         return remoteBlock
     }
     
@@ -282,7 +282,7 @@ final class BlockManager {
     }
     
     /// READ - 리모트 그룹 받아오기
-    func getRemoteGroup() -> Group {
+    func getRemoteGroup() -> RemoteGroup {
         return remoteGroup
     }
     
@@ -310,16 +310,16 @@ final class BlockManager {
     /// RESET - 리모트 블럭 초기화
     func resetRemoteBlock() {
         let group = groupEntity[currentGroupIndex]
-        remoteBlock = Group(name: group.name,
+        remoteBlock = RemoteGroup(name: group.name,
                             color: group.color,
-                            list: [Block(taskLabel: "블럭 쌓기", output: 0.0, icon: "batteryblock.fill")])
+                            list: [RemoteBlock(taskLabel: "블럭 쌓기", output: 0.0, icon: "batteryblock.fill")])
         remoteBlockGroupIndex = currentGroupIndex
     }
     
     // MARK: - Remote Group (그룹 생성, 스위칭용)
     
     /// 리모트 그룹
-    private var remoteGroup = Group(name: "", color: 0x0061FD, list: [])
+    private var remoteGroup = RemoteGroup(name: "", color: 0x0061FD, list: [])
     
     /// UPDATE - 리모트 그룹 그룹명 업데이트
     func updateRemoteGroup(name: String) {
@@ -333,6 +333,6 @@ final class BlockManager {
     
     /// RESET - 리모트 그룹 초기화
     func resetRemoteGroup() {
-        remoteGroup = Group(name: "", color: 0x0061FD, list: [])
+        remoteGroup = RemoteGroup(name: "", color: 0x0061FD, list: [])
     }
 }
