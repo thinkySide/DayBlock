@@ -15,7 +15,10 @@ extension TrackingDate {
         return NSFetchRequest<TrackingDate>(entityName: "TrackingDate")
     }
 
-    @NSManaged public var date: String
+    @NSManaged public var year: String
+    @NSManaged public var month: String
+    @NSManaged public var day: String
+    @NSManaged public var dayOfWeek: String
     @NSManaged public var superBlock: Block
     @NSManaged public var trackingTimeList: NSOrderedSet?
 

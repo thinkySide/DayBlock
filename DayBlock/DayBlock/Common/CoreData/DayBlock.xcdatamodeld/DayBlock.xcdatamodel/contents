@@ -13,12 +13,16 @@
         <relationship name="blockList" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Block" inverseName="superGroup" inverseEntity="Block"/>
     </entity>
     <entity name="TrackingDate" representedClassName="TrackingDate" syncable="YES">
-        <attribute name="date" optional="YES" attributeType="String"/>
+        <attribute name="day" optional="YES" attributeType="String"/>
+        <attribute name="dayOfWeek" optional="YES" attributeType="String"/>
+        <attribute name="month" optional="YES" attributeType="String"/>
+        <attribute name="year" optional="YES" attributeType="String"/>
         <relationship name="superBlock" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Block" inverseName="trackingDateList" inverseEntity="Block"/>
         <relationship name="trackingTimeList" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="TrackingTime" inverseName="superDate" inverseEntity="TrackingTime"/>
     </entity>
     <entity name="TrackingTime" representedClassName="TrackingTime" syncable="YES">
-        <attribute name="time" optional="YES" attributeType="String"/>
+        <attribute name="endTime" optional="YES" attributeType="String"/>
+        <attribute name="startTime" optional="YES" attributeType="String"/>
         <relationship name="superDate" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TrackingDate" inverseName="trackingTimeList" inverseEntity="TrackingDate"/>
     </entity>
 </model>

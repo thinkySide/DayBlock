@@ -18,7 +18,7 @@ final class BlockManager {
     // MARK: - CoreData Properties
     
     /// CoreData Context
-    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     /// 그룹 엔티티
     private var groupEntity: [Group] = []
@@ -32,14 +32,34 @@ final class BlockManager {
         }
         
         // 엔티티 반환 실패 케이스
-        print("Error: blockEntity 반환 실패")
+        print("Error: block Entity 반환 실패")
+        return []
+    }
+    
+    /// 트래킹 날짜 엔티티
+    var trackingDateList: [TrackingDate] {
+        if let entity = blockEntity[currentBlockIndex].trackingDateList?.array as? [TrackingDate] {
+            return entity
+        }
+        
+        print("Error: trackingDateList Entity 반환 실패")
+        return []
+    }
+    
+    /// 트래킹 시간 엔티티
+    var trackingtimeList: [TrackingTime] {
+        if let entity = trackingDateList[0].trackingTimeList?.array as? [TrackingTime] {
+            return entity
+        }
+        
+        print("Error: trackingtimeList Entity 반환 실패")
         return []
     }
     
     // MARK: - Initial Method
     
     /// 콘텍스트 저장 및 그룹 엔티티를 패치합니다.
-    private func saveContext() {
+    func saveContext() {
         do {
             try context.save()
             fetchRequestGroupEntitiy()
