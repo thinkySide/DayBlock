@@ -19,9 +19,11 @@ final class SelectGroupViewController: UIViewController {
     
     private let viewManager = SelectGroupView()
     private let blockManager = DayBlockManager.shared
-    private let groupData = DayBlockManager.shared.groupData
     private let customBottomModalDelegate = BottomModalDelegate()
     weak var delegate: SelectGroupViewControllerDelegate?
+    
+    private let groupData = DayBlockManager.shared.groupData
+    private let blockData = DayBlockManager.shared.blockData
     
     // 그룹 선택 모드
     var mode: Mode = .home
@@ -84,7 +86,7 @@ final class SelectGroupViewController: UIViewController {
         
         // 마지막 인덱스 선택 시, 화면에서 가려지기 때문에 scrollPosition Bottom으로
         let tableView = viewManager.groupTableView
-        if index == blockManager.getGroupList().count - 1 {
+        if index == groupData.list().count - 1 {
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: .bottom)
             tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 56, right: 0)
         } else {
@@ -97,7 +99,7 @@ final class SelectGroupViewController: UIViewController {
     @objc func confirmButtonTapped() {
         
         guard let indexPath = viewManager.groupTableView.indexPathForSelectedRow else { return }
-        let group = blockManager.getGroupList()[indexPath.row]
+        let group = groupData.list()[indexPath.row]
         
         // 현재 선택된 indexPath 값으로 블럭 정보 업데이트
         blockManager.updateRemoteBlock(group: group)
@@ -160,14 +162,14 @@ final class SelectGroupViewController: UIViewController {
 
 extension SelectGroupViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return blockManager.getGroupList().count
+        return groupData.list().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = viewManager.groupTableView.dequeueReusableCell(withIdentifier: Cell.groupSelect, for: indexPath) as! SelectGroupTableViewCell
         
         /// 셀 업데이트
-        let groupList = blockManager.getGroupList()
+        let groupList = groupData.list()
         cell.color.backgroundColor = UIColor(rgb: groupList[indexPath.row].color)
         cell.groupLabel.text = groupList[indexPath.row].name
         cell.countLabel.text = "+\(blockManager.getBlockList(indexPath.row).count)"
@@ -180,7 +182,7 @@ extension SelectGroupViewController: UITableViewDataSource, UITableViewDelegate 
 
 extension SelectGroupViewController: CreateGroupViewControllerDelegate {
     func updateGroupList() {
-        let lastIndex = blockManager.getGroupList().count - 1
+        let lastIndex = groupData.list().count - 1
         viewManager.groupTableView.reloadData()
         viewManager.groupTableView.selectRow(at: IndexPath(row: lastIndex, section: 0), animated: false, scrollPosition: .bottom)
     }

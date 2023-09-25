@@ -15,31 +15,13 @@ final class DayBlockManager {
     static let shared = DayBlockManager()
     private init() {}
     
-    let groupData = GroupDataStore()
+    let groupData = GroupDataStore.shared
+    let blockData = BlockDataStore.shared
     
     // MARK: - CoreData Properties
     
     /// CoreData Context
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
-    /// 블럭 엔티티
-    private var blockEntity: [Block] {
-        
-        // 현재 그룹 인덱스값을 이용해 그룹 엔티티에서 블럭 엔티티값 반환
-        if let entity = groupData.focusEntity().blockList?.array as? [Block] {
-            return entity
-        }
-        
-        // 엔티티 반환 실패 케이스
-        print("Error: block Entity 반환 실패")
-        return []
-    }
-    
-    /// 현재 블럭 인덱스
-    private var currentBlockIndex = 0
-    
-    /// 현재 편집중인 그룹 인덱스
-    private var currentEditGroupIndex = 0
     
     /// 리모트 블럭
     private var remoteBlock = RemoteGroup(name: "기본 그룹",
@@ -48,9 +30,6 @@ final class DayBlockManager {
     
     /// 리모트 블럭 그룹 인덱스
     var remoteBlockGroupIndex = 0
-    
-    /// 리모트 그룹
-    private var remoteGroup = RemoteGroup(name: "", color: 0x0061FD, list: [])
 }
 
 // MARK: - CoreData Method
@@ -83,70 +62,6 @@ extension DayBlockManager {
     }
 }
 
-// MARK: - Group Method
-extension DayBlockManager {
-    
-    /// READ - 전체 그룹 리스트 받아오기
-    func getGroupList() -> [Group] {
-        return groupData.list()
-    }
-    
-    /// 새 그룹 엔티티를 생성합니다.
-    func createNewGroup() {
-        
-        // 리모트 그룹을 통한 그룹 엔티티 생성
-        let newGroup = Group(context: context)
-        newGroup.name = remoteGroup.name
-        newGroup.color = remoteGroup.color
-        
-        // 콘텍스트 저장 및 리모트 그룹 초기화
-        saveContext()
-        resetRemoteGroup()
-    }
-    
-//    /// READ - 현재 그룹 인덱스 받아오기
-//    func getCurrentGroupIndex() -> Int {
-//        return currentGroupIndex
-//    }
-//
-//    /// READ - 현재 그룹 받아오기
-//    func getCurrentGroup() -> Group {
-//        return group.list()[currentGroupIndex]
-//    }
-    
-    /// READ - 현재 그룹 컬러 받아오기
-    func getCurrentGroupColor() -> UIColor {
-        return UIColor(rgb: groupData.focusEntity().color)
-    }
-    
-    /// UPDATE - 현재 그룹 업데이트
-    func updateCurrentGroup(index: Int) {
-        groupData.updateFocusIndex(to: index)
-    }
-    
-    func getCurrentEditGroupIndex() -> Int {
-        return currentEditGroupIndex
-    }
-    
-    func updateCurrentEditGroupIndex(_ index: Int) {
-        currentEditGroupIndex = index
-    }
-    
-    /// 코어데이터 내 그룹 삭제 메서드
-    func deleteGroup() {
-        context.delete(groupData.list()[currentEditGroupIndex])
-        saveContext()
-    }
-    
-    /// 코어데이터 내 그룹 편집 메서드
-    func updateGroup(name: String) {
-        let group = groupData.list()[currentEditGroupIndex]
-        group.name = name
-        group.color = remoteGroup.color
-        saveContext()
-    }
-}
-
 // MARK: - Block Method
 extension DayBlockManager {
     
@@ -162,17 +77,17 @@ extension DayBlockManager {
         if groupData.focusIndex() == remoteBlockGroupIndex {
             
             // 블럭 엔티티 현재 인덱스에 삽입 후
-            groupData.focusEntity().insertIntoBlockList(updateBlock, at: currentBlockIndex)
+            groupData.focusEntity().insertIntoBlockList(updateBlock, at: blockData.focusIndex())
             
             // 다음 인덱스(기존 블럭 엔티티) 삭제
-            deleteBlockEntitiy(blockEntity[currentBlockIndex+1])
+            deleteBlockEntitiy(blockData.list()[blockData.focusIndex() + 1])
         }
         
         // 만약 그룹이 이동되었다면
         if groupData.focusIndex() != remoteBlockGroupIndex {
             
             // 현재 인덱스의 블럭 엔티티 삭제 후
-            deleteBlockEntitiy(blockEntity[currentBlockIndex])
+            deleteBlockEntitiy(blockData.focusEntity())
             
             if let entity = groupData.list()[remoteBlockGroupIndex].blockList?.array as? [Block] {
                 
@@ -180,7 +95,7 @@ extension DayBlockManager {
                 groupData.list()[remoteBlockGroupIndex].insertIntoBlockList(updateBlock, at: entity.count)
                 
                 // 현재 블럭 인덱스 업데이트(화면 이동용)
-                currentBlockIndex = entity.count
+                blockData.updateFocusIndex(to: entity.count)
             }
             
             // 현재 그룹 인덱스 업데이트(화면 이동용)
@@ -200,13 +115,13 @@ extension DayBlockManager {
     }
     
     func getLastBlockIndex() -> Int {
-        return blockEntity.count - 1
+        return blockData.list().count - 1
     }
     
     /// READ - 현재 그룹에 속한 블럭 리스트 받아오기
     func getCurrentBlockList() -> [Block] {
         if groupData.list().count == 0 { return [] }
-        return blockEntity
+        return blockData.list()
     }
     
     /// READ - 지정한 그룹에 속한 블럭 리스트 받아오기
@@ -229,11 +144,11 @@ extension DayBlockManager {
     }
     
     func getCurrentBlockIndex() -> Int {
-        return currentBlockIndex
+        return blockData.focusIndex()
     }
     
     func updateCurrentBlockIndex(_ index: Int) {
-        currentBlockIndex = index
+        blockData.updateFocusIndex(to: index)
     }
     
     /// CREATE - 현재 리모트 블럭 정보로 새 블럭 생성
@@ -251,30 +166,6 @@ extension DayBlockManager {
             
             saveContext()
         }
-    }
-}
-
-// MARK: - Remote Group (그룹 생성, 스위칭용)
-extension DayBlockManager {
-    
-    /// READ - 리모트 그룹 받아오기
-    func getRemoteGroup() -> RemoteGroup {
-        return remoteGroup
-    }
-    
-    /// UPDATE - 리모트 그룹 그룹명 업데이트
-    func updateRemoteGroup(name: String) {
-        remoteGroup.name = name
-    }
-    
-    /// UPDATE - 리모트 그룹 컬러 업데이트
-    func updateRemoteGroup(color: Int) {
-        remoteGroup.color = color
-    }
-    
-    /// RESET - 리모트 그룹 초기화
-    func resetRemoteGroup() {
-        remoteGroup = RemoteGroup(name: "", color: 0x0061FD, list: [])
     }
 }
 

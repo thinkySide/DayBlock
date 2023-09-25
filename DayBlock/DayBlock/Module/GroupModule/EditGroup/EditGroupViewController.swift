@@ -16,6 +16,9 @@ final class EditGroupViewController: UIViewController {
     private let colorManager = ColorManager.shared
     private let customBottomModalDelegate = BottomModalDelegate()
     
+    private let groupData = DayBlockManager.shared.groupData
+    private let blockData = DayBlockManager.shared.blockData
+    
     /// 기존 그룹명 저장용
     private var initialGroupName = ""
     
@@ -37,14 +40,14 @@ final class EditGroupViewController: UIViewController {
         super.viewWillDisappear(animated)
         
         // Remote 그룹 초기화
-        blockManager.resetRemoteGroup()
+        groupData.resetRemote()
     }
     
     // MARK: - SETUP METHOD
     
     private func setupUI() {
-        let group = blockManager.getGroupList()
-        let currentIndex = blockManager.getCurrentEditGroupIndex()
+        let group = groupData.list()
+        let currentIndex = groupData.editIndex()
         
         viewManager.groupLabelTextField.textField.text = "\(group[currentIndex].name)"
         viewManager.groupLabelTextField.countLabel.text = "\(group[currentIndex].name.count)/8"
@@ -75,10 +78,11 @@ final class EditGroupViewController: UIViewController {
     }
     
     private func setupRemoteGroup() {
-        let group = blockManager.getGroupList()
-        let currentIndex = blockManager.getCurrentEditGroupIndex()
-        blockManager.updateRemoteGroup(name: "\(group[currentIndex].name)")
-        blockManager.updateRemoteGroup(color: group[currentIndex].color)
+        let group = groupData.list()
+        let currentIndex = groupData.editIndex()
+        
+        groupData.updateRemote(name: "\(group[currentIndex].name)")
+        groupData.updateRemote(color: group[currentIndex].color)
     }
     
     // MARK: - Event Method
@@ -94,7 +98,7 @@ final class EditGroupViewController: UIViewController {
         guard let groupName = viewManager.groupLabelTextField.textField.text else { return }
         
         // 만약 그룹명이 존재하면 경고 메시지 출력 및 확인 버튼 비활성화
-        for group in blockManager.getGroupList() {
+        for group in groupData.list() {
             if group.name == groupName && groupName != initialGroupName {
                 viewManager.createBarButtonItem.isEnabled = false
                 viewManager.groupLabelTextField.warningLabel.alpha = 1
@@ -124,7 +128,7 @@ extension EditGroupViewController: EditGroupViewDelegate {
         if let name = viewManager.groupLabelTextField.textField.text {
             
             // 코어데이터에서 그룹 업데이트
-            blockManager.updateGroup(name: name)
+            groupData.update(name: name)
         }
         
         // Delegate를 이용한 EditGroupViewController의 TableView Reload
@@ -147,7 +151,7 @@ extension EditGroupViewController: PopupViewControllerDelegate {
     func confirmButtonTapped() {
         
         // 코어데이터에서 그룹 삭제
-        blockManager.deleteGroup()
+        groupData.delete()
         
         // Delegate를 이용한 EditGroupViewController의 TableView Reload
         delegate?.reloadData()
@@ -186,7 +190,7 @@ extension EditGroupViewController: FormSelectButtonDelegate {
         }
         
         // 컬러 업데이트
-        let remoteGroup = blockManager.getRemoteGroup()
+        let remoteGroup = groupData.remote()
         colorManager.updateCurrentColor(remoteGroup.color)
         
         present(selectColorVC, animated: true)
@@ -197,7 +201,7 @@ extension EditGroupViewController: FormSelectButtonDelegate {
 
 extension EditGroupViewController: SelectColorViewControllerDelegate {
     func updateColor() {
-        let selectedColor = blockManager.getRemoteGroup().color
+        let selectedColor = groupData.remote().color
         viewManager.colorSelect.selectColor.backgroundColor = UIColor(rgb: selectedColor)
     }
 }

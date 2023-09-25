@@ -11,8 +11,8 @@ extension HomeViewController: SelectGroupViewControllerDelegate {
     
     /// 그룹 선택 버튼의 초기값을 설정합니다.
     func initialGroupSelectButton() {
-        if blockManager.getGroupList().count == 0 { return }
-        viewManager.groupSelectButton.color.backgroundColor = blockManager.getCurrentGroupColor()
+        if groupData.list().count == 0 { return }
+        viewManager.groupSelectButton.color.backgroundColor = groupData.focusColor()
     }
     
     /// 그룹 선택 Half-Modal을 Present합니다.
@@ -45,8 +45,8 @@ extension HomeViewController: SelectGroupViewControllerDelegate {
     func switchHomeGroup(index: Int) {
         
         // 1. 현재 그룹 정보 및 UI 업데이트
-        blockManager.updateCurrentGroup(index: index)
-        viewManager.groupSelectButton.color.backgroundColor = blockManager.getCurrentGroupColor()
+        groupData.updateFocusIndex(to: index)
+        viewManager.groupSelectButton.color.backgroundColor = groupData.focusColor()
         viewManager.groupSelectButton.label.text = groupData.focusEntity().name
         viewManager.blockCollectionView.reloadData()
         

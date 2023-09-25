@@ -17,6 +17,7 @@ final class ListGroupViewController: UIViewController {
     
     private let viewManager = ListGroupView()
     private let blockManager = DayBlockManager.shared
+    private let groupData = DayBlockManager.shared.groupData
     
     override func loadView() {
         view = viewManager
@@ -91,14 +92,14 @@ final class ListGroupViewController: UIViewController {
 
 extension ListGroupViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return blockManager.getGroupList().count
+        return groupData.list().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = viewManager.groupTableView.dequeueReusableCell(withIdentifier: Cell.groupSelect, for: indexPath) as! SelectGroupTableViewCell
         
         // 셀 업데이트
-        let groupList = blockManager.getGroupList()
+        let groupList = groupData.list()
         cell.color.backgroundColor = UIColor(rgb: groupList[indexPath.row].color)
         cell.groupLabel.text = groupList[indexPath.row].name
         cell.countLabel.text = "+\(blockManager.getBlockList(indexPath.row).count)"
@@ -122,7 +123,7 @@ extension ListGroupViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         // 현재 편집중인 그룹 인덱스 업데이트
-        blockManager.updateCurrentEditGroupIndex(indexPath.row)
+        groupData.updateEditIndex(to: indexPath.row)
         
         // 토스트 비활성화
         showToast(is: false)

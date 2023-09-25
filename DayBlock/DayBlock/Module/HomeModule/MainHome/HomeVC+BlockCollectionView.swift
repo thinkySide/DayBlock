@@ -25,7 +25,7 @@ extension HomeViewController {
     private func configureStartGroupFocus() {
         let groupIndex = UserDefaults.standard.object(forKey: UserDefaultsKey.groupIndex) as? Int ?? 0
         switchHomeGroup(index: groupIndex)
-        blockManager.updateCurrentGroup(index: groupIndex)
+        groupData.updateFocusIndex(to: groupIndex)
     }
     
     /// CollectionView 캐러셀 레이아웃 구성을 위한 메서드입니다.
@@ -85,9 +85,9 @@ extension HomeViewController {
     ///
     /// - Parameter cell: 등록할 CollectionViewCell
     private func makeTrackingBlockCell(_ cell: HomeBlockCollectionViewCell, blockEntity: Block) -> HomeBlockCollectionViewCell {
-        cell.plusLabel.textColor = blockManager.getCurrentGroupColor()
+        cell.plusLabel.textColor = groupData.focusColor()
         cell.totalProductivityLabel.text = "\(blockEntity.todayOutput)"
-        cell.blockColorTag.backgroundColor = blockManager.getCurrentGroupColor()
+        cell.blockColorTag.backgroundColor = groupData.focusColor()
         cell.blockIcon.image = UIImage(systemName: blockEntity.icon)
         cell.blockLabel.text = blockEntity.taskLabel
         cell.stroke.isHidden = true

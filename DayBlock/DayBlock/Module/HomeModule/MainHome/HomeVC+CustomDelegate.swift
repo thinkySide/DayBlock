@@ -75,7 +75,7 @@ extension HomeViewController: HomeViewDelegate {
     func homeView(_ homeView: HomeView, setupProgressViewColor mode: HomeView.TrakingMode) {
         
         // 1. 현재 그룹의 컬러를 기준으로 설정
-        viewManager.setupProgressViewColor(color: blockManager.getCurrentGroupColor())
+        viewManager.setupProgressViewColor(color: groupData.focusColor())
     }
 }
 
@@ -99,7 +99,7 @@ extension HomeViewController: CreateBlockViewControllerDelegate {
     func createBlockViewController(_ createBlockViewController: CreateBlockViewController, blockDidEdit mode: CreateBlockViewController.Mode) {
         
         // 1. 그룹 선택 버튼 UI 업데이트
-        viewManager.groupSelectButton.color.backgroundColor = blockManager.getCurrentGroupColor()
+        viewManager.groupSelectButton.color.backgroundColor = groupData.focusColor()
         viewManager.groupSelectButton.label.text = groupData.focusEntity().name
         
         // 2. 현재 인덱스 저장

@@ -72,7 +72,7 @@ extension HomeViewController {
     /// 트래킹 보드를 활성화하고 애니메이션을 실행합니다.
     func activateTrackingBoard() {
         guard let trackingIndexs = trackingManager.fetchTrackingBlocks()[trackingManager.trackingFormat] else { return }
-        let color = blockManager.getCurrentGroupColor()
+        let color = groupData.focusColor()
         viewManager.blockPreview.activateTrackingAnimation(trackingIndexs, color: color)
     }
 }

@@ -16,6 +16,9 @@ final class CreateGroupViewController: UIViewController {
     private let customBottomModalDelegate = BottomModalDelegate()
     weak var delegate: CreateGroupViewControllerDelegate?
     
+    private let groupData = DayBlockManager.shared.groupData
+    private let blockData = DayBlockManager.shared.blockData
+    
     /// Present화면인지, Navigation인지 확인
     
     enum ScreenMode {
@@ -113,7 +116,7 @@ extension CreateGroupViewController: UITextFieldDelegate {
         guard let groupName = viewManager.groupLabelTextField.textField.text else { return }
         
         // 만약 그룹명이 존재하면 경고 메시지 출력 및 확인 버튼 비활성화
-        for group in blockManager.getGroupList() {
+        for group in groupData.list() {
             if group.name == groupName {
                 viewManager.createBarButtonItem.isEnabled = false
                 viewManager.groupLabelTextField.warningLabel.alpha = 1
@@ -136,10 +139,10 @@ extension CreateGroupViewController: CreateGroupViewDelegate {
         guard let groupName = viewManager.groupLabelTextField.textField.text else { return }
         
         // 리모트 그룹 업데이트
-        blockManager.updateRemoteGroup(name: groupName)
+        groupData.updateRemote(name: groupName)
         
         // 그룹 생성
-        blockManager.createNewGroup()
+        groupData.create()
         
         // selectView의 그룹 리스트 업데이트
         delegate?.updateGroupList()
@@ -194,7 +197,7 @@ extension CreateGroupViewController: FormSelectButtonDelegate {
 
 extension CreateGroupViewController: SelectColorViewControllerDelegate {
     func updateColor() {
-        let selectedColor = blockManager.getRemoteGroup().color
+        let selectedColor = groupData.remote().color
         viewManager.colorSelect.selectColor.backgroundColor = UIColor(rgb: selectedColor)
     }
 }

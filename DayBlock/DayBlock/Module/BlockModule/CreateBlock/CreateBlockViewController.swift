@@ -136,7 +136,7 @@ final class CreateBlockViewController: UIViewController {
             delegate?.createBlockViewController(self, blockDidCreate: .create)
         }
         
-        // 블럭 편집 모드
+        // 블럭 편집 모드sr
         if mode == .edit {
             blockManager.updateBlock()
             navigationController?.popViewController(animated: true)
@@ -148,7 +148,7 @@ final class CreateBlockViewController: UIViewController {
     @objc func updateForGroupChanged(_ notification: Notification) {
         
         // 편집된 그룹이 현재 선택되어있는 그룹일 경우에만 UI 업데이트 할 것.
-        let editGroup = blockManager.getCurrentEditGroupIndex()
+        let editGroup = groupData.editIndex()
         let selectGroup = groupData.focusIndex()
         if editGroup == selectGroup { setupInitial() }
     }

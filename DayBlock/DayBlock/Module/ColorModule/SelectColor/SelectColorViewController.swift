@@ -14,6 +14,9 @@ final class SelectColorViewController: UIViewController {
     private let colorManager = ColorManager.shared
     weak var delegate: SelectColorViewControllerDelegate?
     
+    private let groupData = DayBlockManager.shared.groupData
+    private let blockData = DayBlockManager.shared.blockData
+    
     /// 스크롤 제어를 위한 초깃값
     private var isScrolled: Bool = false
     
@@ -70,7 +73,7 @@ final class SelectColorViewController: UIViewController {
         guard let indexPath = viewManager.colorCollectionView.indexPathsForSelectedItems else { return }
         let itemIndex = indexPath[0].item
         colorManager.updateCurrentIndex(to: itemIndex)
-        blockManager.updateRemoteGroup(color: colorManager.getSelectColor())
+        groupData.updateRemote(color: colorManager.getSelectColor())
         
         // delegate
         delegate?.updateColor()

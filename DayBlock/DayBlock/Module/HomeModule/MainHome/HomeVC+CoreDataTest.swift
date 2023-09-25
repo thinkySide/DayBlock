@@ -43,15 +43,15 @@ extension HomeViewController {
     
     /// CoreData를 프린트합니다.
     func printCoreData() {
-        let groupList = blockManager.getGroupList()
-        for groupData in groupList {
+        let groupList = groupData.list()
+        for group in groupList {
             
-            print("[\(groupData.name) Group]")
+            print("[\(group.name) Group]")
             // print("• id: \(group.id)")
-            print("• color: \(groupData.color)")
+            print("• color: \(group.color)")
             print("")
             
-            if let blockList = groupData.blockList?.array as? [Block] {
+            if let blockList = group.blockList?.array as? [Block] {
                 for block in blockList {
                     print("   [\(block.taskLabel) Block]")
                     print("   • superGroup: \(block.superGroup.name)")
