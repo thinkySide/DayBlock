@@ -47,7 +47,7 @@ extension HomeViewController: SelectGroupViewControllerDelegate {
         // 1. 현재 그룹 정보 및 UI 업데이트
         blockManager.updateCurrentGroup(index: index)
         viewManager.groupSelectButton.color.backgroundColor = blockManager.getCurrentGroupColor()
-        viewManager.groupSelectButton.label.text = blockManager.getCurrentGroup().name
+        viewManager.groupSelectButton.label.text = groupData.focusEntity().name
         viewManager.blockCollectionView.reloadData()
         
         // 2. 스크롤 위치 0번으로 초기화
@@ -59,7 +59,7 @@ extension HomeViewController: SelectGroupViewControllerDelegate {
         UserDefaults.standard.set(index, forKey: UserDefaultsKey.groupIndex)
         
         // 4. 그룹 리스트가 비어있을 시, 트래킹 버튼 비활성화
-        let blockList = blockManager.getCurrentGroup().blockList?.array as! [Block]
+        let blockList = groupData.focusEntity().blockList?.array as! [Block]
         if blockList.isEmpty { viewManager.toggleTrackingButton(false) }
         else { viewManager.toggleTrackingButton(true) }
     }

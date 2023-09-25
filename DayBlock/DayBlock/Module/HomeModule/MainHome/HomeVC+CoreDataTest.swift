@@ -44,14 +44,14 @@ extension HomeViewController {
     /// CoreData를 프린트합니다.
     func printCoreData() {
         let groupList = blockManager.getGroupList()
-        for group in groupList {
+        for groupData in groupList {
             
-            print("[\(group.name) Group]")
+            print("[\(groupData.name) Group]")
             // print("• id: \(group.id)")
-            print("• color: \(group.color)")
+            print("• color: \(groupData.color)")
             print("")
             
-            if let blockList = group.blockList?.array as? [Block] {
+            if let blockList = groupData.blockList?.array as? [Block] {
                 for block in blockList {
                     print("   [\(block.taskLabel) Block]")
                     print("   • superGroup: \(block.superGroup.name)")

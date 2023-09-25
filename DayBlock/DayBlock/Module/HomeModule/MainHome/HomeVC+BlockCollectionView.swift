@@ -163,7 +163,7 @@ extension HomeViewController: UICollectionViewDelegate {
         cell.editButtonTapped = { [weak self] _ in
             guard let self else { return }
             let editBlock = data[indexPath.row]
-            blockManager.updateRemoteBlock(group: blockManager.getCurrentGroup())
+            blockManager.updateRemoteBlock(group: groupData.focusEntity())
             blockManager.updateRemoteBlock(label: editBlock.taskLabel)
             blockManager.updateRemoteBlock(output: editBlock.todayOutput)
             blockManager.updateRemoteBlock(icon: editBlock.icon)
@@ -205,7 +205,7 @@ extension HomeViewController: PopupViewControllerDelegate {
         viewManager.blockCollectionView.reloadData()
         
         // 그룹 리스트가 비어있을 시, 트래킹 버튼 비활성화
-        let blockList = blockManager.getCurrentGroup().blockList?.array as! [Block]
+        let blockList = groupData.focusEntity().blockList?.array as! [Block]
         if blockList.isEmpty || (blockManager.getCurrentBlockIndex() == blockList.count) {
             viewManager.toggleTrackingButton(false)
         } else {

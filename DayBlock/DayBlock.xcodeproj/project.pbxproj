@@ -20,6 +20,8 @@
 		0719649629E0763C009CA1A4 /* FormSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719649529E0763C009CA1A4 /* FormSelectButton.swift */; };
 		0719649829E148CA009CA1A4 /* DayBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719649729E148CA009CA1A4 /* DayBlock.swift */; };
 		071E3AB92AC15B14000C346F /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071E3AB82AC15B14000C346F /* Text.swift */; };
+		071E3ABB2AC15EF1000C346F /* GroupDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071E3ABA2AC15EF1000C346F /* GroupDataStore.swift */; };
+		071E3ABD2AC166B2000C346F /* BlockDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071E3ABC2AC166B2000C346F /* BlockDataStore.swift */; };
 		073EBFEE2AB6C7B80031F6AB /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 073EBFED2AB6C7B80031F6AB /* .swiftlint.yml */; };
 		073EBFF02AB6D4D40031F6AB /* SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EBFEF2AB6D4D40031F6AB /* SFSymbols.swift */; };
 		07454DE329EA6CEE00B3458D /* UIViewController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454DE229EA6CEE00B3458D /* UIViewController++.swift */; };
@@ -115,6 +117,8 @@
 		0719649529E0763C009CA1A4 /* FormSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSelectButton.swift; sourceTree = "<group>"; };
 		0719649729E148CA009CA1A4 /* DayBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayBlock.swift; sourceTree = "<group>"; };
 		071E3AB82AC15B14000C346F /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
+		071E3ABA2AC15EF1000C346F /* GroupDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDataStore.swift; sourceTree = "<group>"; };
+		071E3ABC2AC166B2000C346F /* BlockDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockDataStore.swift; sourceTree = "<group>"; };
 		073EBFED2AB6C7B80031F6AB /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		073EBFEF2AB6D4D40031F6AB /* SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbols.swift; sourceTree = "<group>"; };
 		07454DE229EA6CEE00B3458D /* UIViewController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController++.swift"; sourceTree = "<group>"; };
@@ -503,6 +507,8 @@
 				076248A92AB2DB0F000A8664 /* ScheduleModule */,
 				076248AA2AB2DB2A000A8664 /* RepositoryModule */,
 				0719648929DC5CB4009CA1A4 /* DayBlockManager.swift */,
+				071E3ABA2AC15EF1000C346F /* GroupDataStore.swift */,
+				071E3ABC2AC166B2000C346F /* BlockDataStore.swift */,
 				071E3AB82AC15B14000C346F /* Text.swift */,
 			);
 			path = Module;
@@ -788,6 +794,7 @@
 				0749D7262AB9E456004DF368 /* HomeVC+SelectGroupHalfModal.swift in Sources */,
 				071E3AB92AC15B14000C346F /* Text.swift in Sources */,
 				0719648E29DF044C009CA1A4 /* GroupSelectButton.swift in Sources */,
+				071E3ABD2AC166B2000C346F /* BlockDataStore.swift in Sources */,
 				077A663629ED2ABA00D99C68 /* CreateGroupView.swift in Sources */,
 				07817F0B2A0A05DE00D024F6 /* IconManager.swift in Sources */,
 				07454E1529EC170600B3458D /* Separator.swift in Sources */,
@@ -804,6 +811,7 @@
 				078C50F629D9BBB200F239BA /* ScheduleViewController.swift in Sources */,
 				07C0BDA72ABC137700D5E779 /* Group+CoreDataProperties.swift in Sources */,
 				07C0BDAF2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift in Sources */,
+				071E3ABB2AC15EF1000C346F /* GroupDataStore.swift in Sources */,
 				0771983F29E2F4D10021088A /* UIButton++.swift in Sources */,
 				07B49BCD2A8DE204006D1011 /* EditGroupViewController.swift in Sources */,
 				078C50C029D7152F00F239BA /* DayBlock.xcdatamodeld in Sources */,

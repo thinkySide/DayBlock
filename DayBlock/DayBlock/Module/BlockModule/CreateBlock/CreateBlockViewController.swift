@@ -19,6 +19,7 @@ final class CreateBlockViewController: UIViewController {
     
     private let viewManager = CreateBlockView()
     private let blockManager = DayBlockManager.shared
+    private let groupData = DayBlockManager.shared.groupData
     private let customBottomModalDelegate = BottomModalDelegate()
     weak var delegate: CreateBlockViewControllerDelegate?
     
@@ -77,13 +78,13 @@ final class CreateBlockViewController: UIViewController {
     func setupInitial() {
         
         // 1. 현재 그룹을 기준으로 리모트 블럭 업데이트
-        blockManager.updateRemoteBlock(group: blockManager.getCurrentGroup())
+        blockManager.updateRemoteBlock(group: groupData.focusEntity())
         
         // 2. 리모트 블럭을 기준으로 블럭 UI 업데이트
         viewManager.updateBlockInfo(blockManager.getRemoteBlock())
         
         // 리모트 그룹 인덱스 업데이트
-        blockManager.remoteBlockGroupIndex = blockManager.getCurrentGroupIndex()
+        blockManager.remoteBlockGroupIndex = groupData.focusIndex()
     }
     
     func setupNavigion() {
@@ -148,7 +149,7 @@ final class CreateBlockViewController: UIViewController {
         
         // 편집된 그룹이 현재 선택되어있는 그룹일 경우에만 UI 업데이트 할 것.
         let editGroup = blockManager.getCurrentEditGroupIndex()
-        let selectGroup = blockManager.getCurrentGroupIndex()
+        let selectGroup = groupData.focusIndex()
         if editGroup == selectGroup { setupInitial() }
     }
 }
@@ -209,7 +210,7 @@ extension CreateBlockViewController: UITextFieldDelegate {
         if let groupName = viewManager.groupSelect.selectLabel.text {
             for block in blockManager.getBlockList(groupName) {
                 
-                let currentGroupIndex = blockManager.getCurrentGroupIndex()
+                let currentGroupIndex = groupData.focusIndex()
                 let remoteBlockGroupIndex = blockManager.remoteBlockGroupIndex
                 let remoteBlockLabel = blockManager.getRemoteBlock().list[0].taskLabel
                 

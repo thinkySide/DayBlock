@@ -11,6 +11,7 @@ final class HomeViewController: UIViewController {
     
     let viewManager = HomeView()
     let blockManager = DayBlockManager.shared
+    let groupData = DayBlockManager.shared.groupData
     let trackingManager = TrackingManager.shared
     
     // 스크롤 시작 지점 저장 변수
@@ -53,7 +54,7 @@ final class HomeViewController: UIViewController {
     
     /// 데이터 설정을 위한 CoreData를 불러와 Fetch합니다.
     private func setupCoreData() {
-        blockManager.fetchRequestGroupEntitiy()
+        groupData.fetchRequestEntity()
         blockManager.initialSetupForCoreData()
     }
     

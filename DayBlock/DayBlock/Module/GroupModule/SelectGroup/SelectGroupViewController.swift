@@ -19,6 +19,7 @@ final class SelectGroupViewController: UIViewController {
     
     private let viewManager = SelectGroupView()
     private let blockManager = DayBlockManager.shared
+    private let groupData = DayBlockManager.shared.groupData
     private let customBottomModalDelegate = BottomModalDelegate()
     weak var delegate: SelectGroupViewControllerDelegate?
     
@@ -70,13 +71,13 @@ final class SelectGroupViewController: UIViewController {
         // 모드 스위칭
         switch mode {
         case .home:
-            index = blockManager.getCurrentGroupIndex()
+            index = groupData.focusIndex()
         case .create:
             index = blockManager.remoteBlockGroupIndex
         }
         
         // 리모트 블럭을 현재 선택된 그룹으로 업데이트
-        blockManager.remoteBlockGroupIndex = blockManager.getCurrentGroupIndex()
+        blockManager.remoteBlockGroupIndex = groupData.focusIndex()
         
         // 기본 선택값
         let indexPath = IndexPath(row: index, section: 0)
@@ -192,7 +193,7 @@ extension SelectGroupViewController: ListGroupViewControllerDelegate {
         viewManager.groupTableView.reloadData()
         
         // TableView 선택
-        let currentIndex = blockManager.getCurrentGroupIndex()
+        let currentIndex = groupData.focusIndex()
         viewManager.groupTableView.selectRow(at: IndexPath(row: currentIndex, section: 0), animated: false, scrollPosition: .bottom)
     }
 }

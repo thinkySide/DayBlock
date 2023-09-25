@@ -24,7 +24,7 @@ extension HomeViewController {
     ///
     /// - Parameter notification: 블럭 편집 Notification
     @objc private func reloadForUpdateBlock(_ notification: Notification) {
-        let currentGroup = blockManager.getCurrentGroup()
+        let currentGroup = groupData.focusEntity()
         viewManager.groupSelectButton.label.text = currentGroup.name
         viewManager.groupSelectButton.color.backgroundColor = UIColor(rgb: currentGroup.color)
         viewManager.blockCollectionView.reloadData()

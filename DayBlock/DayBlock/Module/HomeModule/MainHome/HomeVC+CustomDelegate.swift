@@ -32,7 +32,7 @@ extension HomeViewController: HomeViewDelegate {
         
         // 3. 현재 트래킹 중인 블럭 정보 저장
         let blockDataList = blockManager.getCurrentBlockList()
-        viewManager.trackingBlock.update(group: blockManager.getCurrentGroup(), block: blockDataList[blockIndex])
+        viewManager.trackingBlock.update(group: groupData.focusEntity(), block: blockDataList[blockIndex])
         
         // 4. 화면 꺼짐 방지
         isScreenCanSleep(false)
@@ -100,7 +100,7 @@ extension HomeViewController: CreateBlockViewControllerDelegate {
         
         // 1. 그룹 선택 버튼 UI 업데이트
         viewManager.groupSelectButton.color.backgroundColor = blockManager.getCurrentGroupColor()
-        viewManager.groupSelectButton.label.text = blockManager.getCurrentGroup().name
+        viewManager.groupSelectButton.label.text = groupData.focusEntity().name
         
         // 2. 현재 인덱스 저장
         blockIndex = blockManager.getCurrentBlockIndex()
@@ -119,7 +119,7 @@ extension HomeViewController: CreateBlockViewControllerDelegate {
     func createBlockViewController(_ createBlockViewController: CreateBlockViewController, blockDidCreate mode: CreateBlockViewController.Mode) {
         
         // 1. 그룹 업데이트(그룹이 편집이 되었을 경우를 확인하기 위해)
-        switchHomeGroup(index: blockManager.getCurrentGroupIndex())
+        switchHomeGroup(index: groupData.focusIndex())
         
         // 2. 현재 블럭 인덱스를 가장 마지막 인덱스로 저장(생성 블럭 이전 인덱스)
         blockIndex = blockManager.getLastBlockIndex()
