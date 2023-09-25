@@ -52,7 +52,7 @@ extension HomeViewController: SelectGroupViewControllerDelegate {
         
         // 2. 스크롤 위치 0번으로 초기화
         blockIndex = 0
-        blockManager.updateCurrentBlockIndex(0)
+        blockData.updateFocusIndex(to: 0)
         viewManager.blockCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: true)
         
         // 3. UserDefaults에 현재 그룹 인덱스 저장

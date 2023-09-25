@@ -48,7 +48,7 @@ extension HomeViewController: UICollectionViewDataSource {
     /// 셀 개수를 리턴하는 Delegate 메서드입니다.
     /// - 블럭 추가 버튼을 위해 +1
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return blockManager.getCurrentBlockList().count + 1
+        return blockData.list().count + 1
     }
     
     /// 각 셀을 설정하는 Delegate 메서드입니다.
@@ -65,7 +65,7 @@ extension HomeViewController: UICollectionViewDataSource {
         cell.reverseDirectionWithNoAnimation()
         
         // 삭제 버튼 & 편집 버튼 설정
-        let blockData = blockManager.getCurrentBlockList()
+        let blockData = blockData.list()
         configureDeleteButton(cell)
         configureEditButton(cell, data: blockData, indexPath: indexPath)
         
@@ -123,7 +123,7 @@ extension HomeViewController: UICollectionViewDelegate {
         }
         
         // 현재 포커스 되어있는 블럭만 활성화
-        if indexPath.item != blockManager.getCurrentBlockIndex() {
+        if indexPath.item != blockData.focusIndex() {
             print("현재 포커스 되어 있지 않은 블럭은 선택할 수 없습니다.")
             return
         }
@@ -134,7 +134,7 @@ extension HomeViewController: UICollectionViewDelegate {
         
         // 마지막 블럭이라면 AddBlockViewController 화면 이동
         if blockIndex == indexPath.item &&
-            blockManager.getCurrentBlockList().count == indexPath.item {
+            blockData.list().count == indexPath.item {
             cell.reverseDirection(.last)
             viewManager.toggleTrackingButton(false)
             pushAddBlockViewController()
@@ -163,11 +163,11 @@ extension HomeViewController: UICollectionViewDelegate {
         cell.editButtonTapped = { [weak self] _ in
             guard let self else { return }
             let editBlock = data[indexPath.row]
-            blockManager.updateRemoteBlock(group: groupData.focusEntity())
-            blockManager.updateRemoteBlock(label: editBlock.taskLabel)
-            blockManager.updateRemoteBlock(output: editBlock.todayOutput)
-            blockManager.updateRemoteBlock(icon: editBlock.icon)
-            blockManager.updateCurrentBlockIndex(indexPath.row)
+            blockData.updateRemote(group: groupData.focusEntity())
+            blockData.updateRemote(label: editBlock.taskLabel)
+            blockData.updateRemote(output: editBlock.todayOutput)
+            blockData.updateRemote(icon: editBlock.icon)
+            blockData.updateFocusIndex(to: indexPath.row)
             pushEditBlockViewController()
         }
     }
@@ -200,13 +200,13 @@ extension HomeViewController: PopupViewControllerDelegate {
     
     /// Popup의 블럭 "삭제할래요" 버튼 클릭 시 호출되는 메서드입니다.
     func confirmButtonTapped() {
-        let deleteBlock = blockManager.getCurrentBlockList()[blockManager.getCurrentBlockIndex()]
-        blockManager.deleteBlockEntitiy(deleteBlock)
+        let deleteBlock = blockData.focusEntity()
+        blockData.delete(deleteBlock)
         viewManager.blockCollectionView.reloadData()
         
         // 그룹 리스트가 비어있을 시, 트래킹 버튼 비활성화
         let blockList = groupData.focusEntity().blockList?.array as! [Block]
-        if blockList.isEmpty || (blockManager.getCurrentBlockIndex() == blockList.count) {
+        if blockList.isEmpty || (blockData.focusIndex() == blockList.count) {
             viewManager.toggleTrackingButton(false)
         } else {
             viewManager.toggleTrackingButton(true)

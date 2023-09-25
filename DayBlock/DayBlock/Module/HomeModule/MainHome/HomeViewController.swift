@@ -11,8 +11,10 @@ final class HomeViewController: UIViewController {
     
     let viewManager = HomeView()
     let blockManager = DayBlockManager.shared
-    let groupData = DayBlockManager.shared.groupData
     let trackingManager = TrackingManager.shared
+    
+    let groupData = DayBlockManager.shared.groupData
+    let blockData = DayBlockManager.shared.blockData
     
     // 스크롤 시작 지점 저장 변수
     lazy var startScrollX: CGFloat = 0
@@ -22,7 +24,7 @@ final class HomeViewController: UIViewController {
         
         // 마지막 블럭 분기
         didSet {
-            if blockManager.getCurrentBlockList().count == blockIndex {
+            if blockData.list().count == blockIndex {
                 viewManager.toggleTrackingButton(false)
             } else {
                 viewManager.toggleTrackingButton(true)

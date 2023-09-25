@@ -31,7 +31,7 @@ extension HomeViewController: HomeViewDelegate {
         activateTrackingBoard()
         
         // 3. 현재 트래킹 중인 블럭 정보 저장
-        let blockDataList = blockManager.getCurrentBlockList()
+        let blockDataList = blockData.list()
         viewManager.trackingBlock.update(group: groupData.focusEntity(), block: blockDataList[blockIndex])
         
         // 4. 화면 꺼짐 방지
@@ -103,7 +103,7 @@ extension HomeViewController: CreateBlockViewControllerDelegate {
         viewManager.groupSelectButton.label.text = groupData.focusEntity().name
         
         // 2. 현재 인덱스 저장
-        blockIndex = blockManager.getCurrentBlockIndex()
+        blockIndex = blockData.focusIndex()
         
         // 3. BlockCollectionView 리로드(뒤집어져 있기 때문) 및 스크롤 위치 지정
         viewManager.blockCollectionView.reloadData()
@@ -122,8 +122,8 @@ extension HomeViewController: CreateBlockViewControllerDelegate {
         switchHomeGroup(index: groupData.focusIndex())
         
         // 2. 현재 블럭 인덱스를 가장 마지막 인덱스로 저장(생성 블럭 이전 인덱스)
-        blockIndex = blockManager.getLastBlockIndex()
-        blockManager.updateCurrentBlockIndex(blockIndex)
+        blockIndex = blockData.lastIndex()
+        blockData.updateFocusIndex(to: blockIndex)
         
         // 3. BlockCollectionView 스크롤 위치 지정
         viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: blockIndex, section: 0), at: .left, animated: true)

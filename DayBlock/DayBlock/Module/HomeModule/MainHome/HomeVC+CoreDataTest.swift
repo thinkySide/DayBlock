@@ -18,7 +18,7 @@ extension HomeViewController {
     
     /// 테스트 트래킹 데이터를 생성하고, CoreData를 업데이트합니다.
     func insertTrackingTestData() {
-        let block = blockManager.getBlockList(0)[0]
+        let block = blockData.list()[0]
         
         let trackingDate = TrackingDate(context: blockManager.context)
         trackingDate.year = "2023년"

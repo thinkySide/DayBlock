@@ -75,11 +75,11 @@ final class SelectGroupViewController: UIViewController {
         case .home:
             index = groupData.focusIndex()
         case .create:
-            index = blockManager.remoteBlockGroupIndex
+            index = blockData.remoteIndex
         }
         
         // 리모트 블럭을 현재 선택된 그룹으로 업데이트
-        blockManager.remoteBlockGroupIndex = groupData.focusIndex()
+        blockData.remoteIndex = groupData.focusIndex()
         
         // 기본 선택값
         let indexPath = IndexPath(row: index, section: 0)
@@ -102,8 +102,8 @@ final class SelectGroupViewController: UIViewController {
         let group = groupData.list()[indexPath.row]
         
         // 현재 선택된 indexPath 값으로 블럭 정보 업데이트
-        blockManager.updateRemoteBlock(group: group)
-        blockManager.remoteBlockGroupIndex = indexPath.row
+        blockData.updateRemote(group: group)
+        blockData.remoteIndex = indexPath.row
         
         // delegate
         delegate?.switchHomeGroup?(index: indexPath.row)
@@ -172,7 +172,7 @@ extension SelectGroupViewController: UITableViewDataSource, UITableViewDelegate 
         let groupList = groupData.list()
         cell.color.backgroundColor = UIColor(rgb: groupList[indexPath.row].color)
         cell.groupLabel.text = groupList[indexPath.row].name
-        cell.countLabel.text = "+\(blockManager.getBlockList(indexPath.row).count)"
+        cell.countLabel.text = "+\(blockData.listInSelectedGroup(at: indexPath.row).count)"
         
         return cell
     }

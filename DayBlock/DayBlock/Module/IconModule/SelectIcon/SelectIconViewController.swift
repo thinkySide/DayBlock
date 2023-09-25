@@ -16,6 +16,8 @@ final class SelectIconViewController: UIViewController {
     private let symbolManager = IconManager.shared
     weak var delegate: SelectIconViewControllerDelegate?
     
+    private let blockData = BlockDataStore.shared
+    
     /// 스크롤 제어를 위한 초깃값
     private var isScrolled: Bool = false
     
@@ -67,7 +69,8 @@ final class SelectIconViewController: UIViewController {
         guard let indexPath = viewManager.iconCollectionView.indexPathsForSelectedItems else { return }
         let itemIndex = indexPath[0].item
         symbolManager.updateSelectedIndex(to: itemIndex)
-        blockManager.updateRemoteBlock(icon: symbolManager.selected())
+        
+        blockData.updateRemote(icon: symbolManager.selected())
         
         /// delegate
         delegate?.updateIcon()

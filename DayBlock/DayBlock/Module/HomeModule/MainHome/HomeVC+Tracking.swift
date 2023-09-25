@@ -12,7 +12,7 @@ extension HomeViewController {
     
     /// 트래킹 시작 버튼의 초기값을 설정합니다.
     func initialTrackingStartButton() {
-        if blockManager.getCurrentBlockList().count == 0 {
+        if blockData.list().count == 0 {
             viewManager.toggleTrackingButton(false)
         }
     }

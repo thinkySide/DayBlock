@@ -17,7 +17,9 @@ final class ListGroupViewController: UIViewController {
     
     private let viewManager = ListGroupView()
     private let blockManager = DayBlockManager.shared
+    
     private let groupData = DayBlockManager.shared.groupData
+    private let blockData = DayBlockManager.shared.blockData
     
     override func loadView() {
         view = viewManager
@@ -102,7 +104,7 @@ extension ListGroupViewController: UITableViewDataSource, UITableViewDelegate {
         let groupList = groupData.list()
         cell.color.backgroundColor = UIColor(rgb: groupList[indexPath.row].color)
         cell.groupLabel.text = groupList[indexPath.row].name
-        cell.countLabel.text = "+\(blockManager.getBlockList(indexPath.row).count)"
+        cell.countLabel.text = "+\(blockData.listInSelectedGroup(at: indexPath.row).count)"
         
         // 셀 커스텀
         cell.checkMark.alpha = 0

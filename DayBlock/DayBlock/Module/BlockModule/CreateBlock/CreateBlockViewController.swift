@@ -19,9 +19,11 @@ final class CreateBlockViewController: UIViewController {
     
     private let viewManager = CreateBlockView()
     private let blockManager = DayBlockManager.shared
-    private let groupData = DayBlockManager.shared.groupData
     private let customBottomModalDelegate = BottomModalDelegate()
     weak var delegate: CreateBlockViewControllerDelegate?
+    
+    private let groupData = DayBlockManager.shared.groupData
+    private let blockData = DayBlockManager.shared.blockData
     
     /// 블럭 편집 모드
     private var mode: Mode = .create {
@@ -51,7 +53,7 @@ final class CreateBlockViewController: UIViewController {
     }
     
     deinit {
-        blockManager.resetRemoteBlock()
+        blockData.resetRemote()
     }
     
     // MARK: - Initial Method
@@ -66,7 +68,7 @@ final class CreateBlockViewController: UIViewController {
         mode = .edit
         
         // UI 업데이트
-        let taskLabel = blockManager.getRemoteBlock().list[0].taskLabel
+        let taskLabel = blockData.remote().list[0].taskLabel
         viewManager.taskLabelTextField.textField.text = taskLabel
         viewManager.taskLabelTextField.countLabel.text = "\(taskLabel.count)/18"
         viewManager.createBarButtonItem.isEnabled = true
@@ -78,13 +80,13 @@ final class CreateBlockViewController: UIViewController {
     func setupInitial() {
         
         // 1. 현재 그룹을 기준으로 리모트 블럭 업데이트
-        blockManager.updateRemoteBlock(group: groupData.focusEntity())
+        blockData.updateRemote(group: groupData.focusEntity())
         
         // 2. 리모트 블럭을 기준으로 블럭 UI 업데이트
-        viewManager.updateBlockInfo(blockManager.getRemoteBlock())
+        viewManager.updateBlockInfo(blockData.remote())
         
         // 리모트 그룹 인덱스 업데이트
-        blockManager.remoteBlockGroupIndex = groupData.focusIndex()
+        blockData.remoteIndex = groupData.focusIndex()
     }
     
     func setupNavigion() {
@@ -131,14 +133,14 @@ final class CreateBlockViewController: UIViewController {
         
         // 블럭 생성 모드
         if mode == .create {
-            blockManager.createNewBlock()
+            blockData.create()
             navigationController?.popViewController(animated: true)
             delegate?.createBlockViewController(self, blockDidCreate: .create)
         }
         
         // 블럭 편집 모드sr
         if mode == .edit {
-            blockManager.updateBlock()
+            blockData.update()
             navigationController?.popViewController(animated: true)
             delegate?.createBlockViewController(self, blockDidEdit: .edit)
         }
@@ -181,7 +183,7 @@ extension CreateBlockViewController: UITextFieldDelegate {
         guard let text = viewManager.taskLabelTextField.textField.text else { return }
         
         // 리모트 블럭 업데이트
-        blockManager.updateRemoteBlock(label: text)
+        blockData.updateRemote(label: text)
         
         // 라벨 실시간 업데이트
         viewManager.updateTaskLabel(text)
@@ -208,11 +210,11 @@ extension CreateBlockViewController: UITextFieldDelegate {
         
         // 그룹 내 동일 작업명 블럭 확인
         if let groupName = viewManager.groupSelect.selectLabel.text {
-            for block in blockManager.getBlockList(groupName) {
+            for block in blockData.listInSelectedGroup(with: groupName) {
                 
                 let currentGroupIndex = groupData.focusIndex()
-                let remoteBlockGroupIndex = blockManager.remoteBlockGroupIndex
-                let remoteBlockLabel = blockManager.getRemoteBlock().list[0].taskLabel
+                let remoteBlockGroupIndex = blockData.remoteIndex
+                let remoteBlockLabel = blockData.remote().list[0].taskLabel
                 
                 // 1. 최상위 그룹과 현재 그룹이 다를 때
                 if currentGroupIndex != remoteBlockGroupIndex {
@@ -303,7 +305,7 @@ extension CreateBlockViewController: FormSelectButtonDelegate {
             selectIconVC.transitioningDelegate = customBottomModalDelegate
         }
         
-        IconManager.shared.updateSelectedIndex(as: blockManager.getRemoteBlock().list[0].icon)
+        IconManager.shared.updateSelectedIndex(as: blockData.remote().list[0].icon)
         
         present(selectIconVC, animated: true)
     }
@@ -317,10 +319,10 @@ extension CreateBlockViewController: SelectGroupViewControllerDelegate, SelectIc
     func updateGroup() {
         
         // 그룹명 업데이트
-        viewManager.groupSelect.selectLabel.text = blockManager.getRemoteBlockGroupName()
+        viewManager.groupSelect.selectLabel.text = blockData.remote().name
         
         // 그룹 컬러 업데이트
-        let color = blockManager.getRemoteBlockGroupColor()
+        let color = blockData.remoteColor()
         viewManager.groupSelect.selectColor.backgroundColor = color
         viewManager.updateColorTag(color)
         
@@ -332,7 +334,7 @@ extension CreateBlockViewController: SelectGroupViewControllerDelegate, SelectIc
     func updateIcon() {
         
         // 아이콘 업데이트
-        let icon = blockManager.getRemoteBlockIcon()
+        let icon = blockData.remoteIcon()
         viewManager.iconSelect.selectIcon.image = icon
         viewManager.updateIcon(icon)
     }

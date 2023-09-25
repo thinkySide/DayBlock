@@ -44,7 +44,7 @@ extension HomeViewController: UIScrollViewDelegate {
             }
             
             // 오른쪽으로 한칸 이동하는 경우 (제스처 보정용 +30)
-            if startScrollX+30 < targetContentOffset.pointee.x && blockIndex < blockManager.getCurrentBlockList().count {
+            if startScrollX+30 < targetContentOffset.pointee.x && blockIndex < blockData.list().count {
                 blockIndex += 1
             }
         }
@@ -64,6 +64,6 @@ extension HomeViewController: UIScrollViewDelegate {
             viewManager.blockCollectionView.reloadData()
         }
         
-        blockManager.updateCurrentBlockIndex(blockIndex)
+        blockData.updateFocusIndex(to: blockIndex)
     }
 }
