@@ -12,7 +12,7 @@ final class SelectIconViewController: UIViewController {
     // MARK: - Variable
     
     private let viewManager = SelectIconView()
-    private let blockManager = BlockManager.shared
+    private let blockManager = DayBlockManager.shared
     private let symbolManager = IconManager.shared
     weak var delegate: SelectIconViewControllerDelegate?
     

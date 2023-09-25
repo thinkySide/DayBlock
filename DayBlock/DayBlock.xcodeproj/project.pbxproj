@@ -11,7 +11,7 @@
 		0719648329DAF4B5009CA1A4 /* RemoteGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648229DAF4B5009CA1A4 /* RemoteGroup.swift */; };
 		0719648629DAF9A5009CA1A4 /* HomeBlockCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648529DAF9A5009CA1A4 /* HomeBlockCollectionViewCell.swift */; };
 		0719648829DC5066009CA1A4 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648729DC5066009CA1A4 /* TabBar.swift */; };
-		0719648A29DC5CB4009CA1A4 /* BlockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648929DC5CB4009CA1A4 /* BlockManager.swift */; };
+		0719648A29DC5CB4009CA1A4 /* DayBlockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648929DC5CB4009CA1A4 /* DayBlockManager.swift */; };
 		0719648C29DDB1C0009CA1A4 /* TrackingBoardBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648B29DDB1C0009CA1A4 /* TrackingBoardBlock.swift */; };
 		0719648E29DF044C009CA1A4 /* GroupSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648D29DF044C009CA1A4 /* GroupSelectButton.swift */; };
 		0719649029E04F7E009CA1A4 /* CreateBlockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648F29E04F7E009CA1A4 /* CreateBlockViewController.swift */; };
@@ -19,6 +19,7 @@
 		0719649429E0692E009CA1A4 /* FormTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719649329E0692E009CA1A4 /* FormTextField.swift */; };
 		0719649629E0763C009CA1A4 /* FormSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719649529E0763C009CA1A4 /* FormSelectButton.swift */; };
 		0719649829E148CA009CA1A4 /* DayBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719649729E148CA009CA1A4 /* DayBlock.swift */; };
+		071E3AB92AC15B14000C346F /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071E3AB82AC15B14000C346F /* Text.swift */; };
 		073EBFEE2AB6C7B80031F6AB /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 073EBFED2AB6C7B80031F6AB /* .swiftlint.yml */; };
 		073EBFF02AB6D4D40031F6AB /* SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EBFEF2AB6D4D40031F6AB /* SFSymbols.swift */; };
 		07454DE329EA6CEE00B3458D /* UIViewController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454DE229EA6CEE00B3458D /* UIViewController++.swift */; };
@@ -105,7 +106,7 @@
 		0719648229DAF4B5009CA1A4 /* RemoteGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteGroup.swift; sourceTree = "<group>"; };
 		0719648529DAF9A5009CA1A4 /* HomeBlockCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBlockCollectionViewCell.swift; sourceTree = "<group>"; };
 		0719648729DC5066009CA1A4 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
-		0719648929DC5CB4009CA1A4 /* BlockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockManager.swift; sourceTree = "<group>"; };
+		0719648929DC5CB4009CA1A4 /* DayBlockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayBlockManager.swift; sourceTree = "<group>"; };
 		0719648B29DDB1C0009CA1A4 /* TrackingBoardBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingBoardBlock.swift; sourceTree = "<group>"; };
 		0719648D29DF044C009CA1A4 /* GroupSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSelectButton.swift; sourceTree = "<group>"; };
 		0719648F29E04F7E009CA1A4 /* CreateBlockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBlockViewController.swift; sourceTree = "<group>"; };
@@ -113,6 +114,7 @@
 		0719649329E0692E009CA1A4 /* FormTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTextField.swift; sourceTree = "<group>"; };
 		0719649529E0763C009CA1A4 /* FormSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSelectButton.swift; sourceTree = "<group>"; };
 		0719649729E148CA009CA1A4 /* DayBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayBlock.swift; sourceTree = "<group>"; };
+		071E3AB82AC15B14000C346F /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		073EBFED2AB6C7B80031F6AB /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		073EBFEF2AB6D4D40031F6AB /* SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbols.swift; sourceTree = "<group>"; };
 		07454DE229EA6CEE00B3458D /* UIViewController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController++.swift"; sourceTree = "<group>"; };
@@ -402,7 +404,6 @@
 			isa = PBXGroup;
 			children = (
 				0719648029DAF38A009CA1A4 /* RemoteBlock.swift */,
-				0719648929DC5CB4009CA1A4 /* BlockManager.swift */,
 				076248C82AB301C9000A8664 /* BlockDelegate.swift */,
 			);
 			path = Models;
@@ -501,6 +502,8 @@
 				076248A72AB2DA63000A8664 /* IconModule */,
 				076248A92AB2DB0F000A8664 /* ScheduleModule */,
 				076248AA2AB2DB2A000A8664 /* RepositoryModule */,
+				0719648929DC5CB4009CA1A4 /* DayBlockManager.swift */,
+				071E3AB82AC15B14000C346F /* Text.swift */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -783,6 +786,7 @@
 				07454DE729EA94EB00B3458D /* DisablePasteTextField.swift in Sources */,
 				07EB771929F53855000BD87E /* ColorManager.swift in Sources */,
 				0749D7262AB9E456004DF368 /* HomeVC+SelectGroupHalfModal.swift in Sources */,
+				071E3AB92AC15B14000C346F /* Text.swift in Sources */,
 				0719648E29DF044C009CA1A4 /* GroupSelectButton.swift in Sources */,
 				077A663629ED2ABA00D99C68 /* CreateGroupView.swift in Sources */,
 				07817F0B2A0A05DE00D024F6 /* IconManager.swift in Sources */,
@@ -790,7 +794,7 @@
 				0719649829E148CA009CA1A4 /* DayBlock.swift in Sources */,
 				07B49BD42A8F23FF006D1011 /* ToastMessage.swift in Sources */,
 				07B49BC42A88EBA3006D1011 /* MenuPopup.swift in Sources */,
-				0719648A29DC5CB4009CA1A4 /* BlockManager.swift in Sources */,
+				0719648A29DC5CB4009CA1A4 /* DayBlockManager.swift in Sources */,
 				07B49BC82A8DD84D006D1011 /* ListGroupViewController.swift in Sources */,
 				07DD3E932AB022ED002D128F /* SimpleIconBlock.swift in Sources */,
 				078C50F429D73D0200F239BA /* TrackingBoard.swift in Sources */,

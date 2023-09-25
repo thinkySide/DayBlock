@@ -12,7 +12,7 @@ final class EditGroupViewController: UIViewController {
     weak var delegate: EditGroupViewControllerDelegate?
     
     private let viewManager = EditGroupDetailView()
-    private let blockManager = BlockManager.shared
+    private let blockManager = DayBlockManager.shared
     private let colorManager = ColorManager.shared
     private let customBottomModalDelegate = BottomModalDelegate()
     

@@ -16,7 +16,7 @@ final class ListGroupViewController: UIViewController {
     var workItem: DispatchWorkItem?
     
     private let viewManager = ListGroupView()
-    private let blockManager = BlockManager.shared
+    private let blockManager = DayBlockManager.shared
     
     override func loadView() {
         view = viewManager

@@ -18,7 +18,7 @@ final class CreateBlockViewController: UIViewController {
     // MARK: - Variable
     
     private let viewManager = CreateBlockView()
-    private let blockManager = BlockManager.shared
+    private let blockManager = DayBlockManager.shared
     private let customBottomModalDelegate = BottomModalDelegate()
     weak var delegate: CreateBlockViewControllerDelegate?
     

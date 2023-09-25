@@ -10,7 +10,7 @@ import UIKit
 final class SelectColorViewController: UIViewController {
     
     private let viewManager = SelectColorView()
-    private let blockManager = BlockManager.shared
+    private let blockManager = DayBlockManager.shared
     private let colorManager = ColorManager.shared
     weak var delegate: SelectColorViewControllerDelegate?
     

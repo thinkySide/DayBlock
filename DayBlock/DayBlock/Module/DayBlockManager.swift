@@ -1,5 +1,5 @@
 //
-//  BlockManager.swift
+//  DayBlockManager.swift
 //  DayBlock
 //
 //  Created by 김민준 on 2023/04/04.
@@ -9,10 +9,10 @@ import UIKit
 import CoreData
 
 /// 블럭 매니저
-final class BlockManager {
+final class DayBlockManager {
     
     /// 싱글톤
-    static let shared = BlockManager()
+    static let shared = DayBlockManager()
     private init() {}
     
     // MARK: - CoreData Properties
@@ -36,27 +36,29 @@ final class BlockManager {
         return []
     }
     
-    /// 트래킹 날짜 엔티티
-    var trackingDateList: [TrackingDate] {
-        if let entity = blockEntity[currentBlockIndex].trackingDateList?.array as? [TrackingDate] {
-            return entity
-        }
-        
-        print("Error: trackingDateList Entity 반환 실패")
-        return []
-    }
+    /// 현재 그룹 인덱스
+    private var currentGroupIndex = 0
     
-    /// 트래킹 시간 엔티티
-    var trackingtimeList: [TrackingTime] {
-        if let entity = trackingDateList[0].trackingTimeList?.array as? [TrackingTime] {
-            return entity
-        }
-        
-        print("Error: trackingtimeList Entity 반환 실패")
-        return []
-    }
+    /// 현재 블럭 인덱스
+    private var currentBlockIndex = 0
     
-    // MARK: - Initial Method
+    /// 현재 편집중인 그룹 인덱스
+    private var currentEditGroupIndex = 0
+    
+    /// 리모트 블럭
+    private var remoteBlock = RemoteGroup(name: "기본 그룹",
+                                    color: 0x323232,
+                                    list: [RemoteBlock(taskLabel: "블럭 쌓기", todayOutput: 0.0, icon: "batteryblock.fill")])
+    
+    /// 리모트 블럭 그룹 인덱스
+    var remoteBlockGroupIndex = 0
+    
+    /// 리모트 그룹
+    private var remoteGroup = RemoteGroup(name: "", color: 0x0061FD, list: [])
+}
+
+// MARK: - CoreData Method
+extension DayBlockManager {
     
     /// 콘텍스트 저장 및 그룹 엔티티를 패치합니다.
     func saveContext() {
@@ -92,8 +94,10 @@ final class BlockManager {
             saveContext()
         }
     }
-    
-    // MARK: - Manage GroupEntitiy
+}
+
+// MARK: - Group Method
+extension DayBlockManager {
     
     /// READ - 전체 그룹 리스트 받아오기
     func getGroupList() -> [Group] {
@@ -113,16 +117,51 @@ final class BlockManager {
         resetRemoteGroup()
     }
     
-    // MARK: - Manage Block
-
-    /// 지정한 블럭엔티티를 삭제합니다.
-    func deleteBlockEntitiy(_ blockEntity: Block) {
-        
-        // 현재 그룹 엔티티에서 지정한 블럭 에티티 삭제 및 콘텍스트에 반영
-        groupEntity[currentGroupIndex].removeFromBlockList(blockEntity)
-        context.delete(blockEntity)
+    /// READ - 현재 그룹 인덱스 받아오기
+    func getCurrentGroupIndex() -> Int {
+        return currentGroupIndex
+    }
+    
+    /// READ - 현재 그룹 받아오기
+    func getCurrentGroup() -> Group {
+        return groupEntity[currentGroupIndex]
+    }
+    
+    /// READ - 현재 그룹 컬러 받아오기
+    func getCurrentGroupColor() -> UIColor {
+        return UIColor(rgb: groupEntity[currentGroupIndex].color)
+    }
+    
+    /// UPDATE - 현재 그룹 업데이트
+    func updateCurrentGroup(index: Int) {
+        currentGroupIndex = index
+    }
+    
+    func getCurrentEditGroupIndex() -> Int {
+        return currentEditGroupIndex
+    }
+    
+    func updateCurrentEditGroupIndex(_ index: Int) {
+        currentEditGroupIndex = index
+    }
+    
+    /// 코어데이터 내 그룹 삭제 메서드
+    func deleteGroup() {
+        context.delete(groupEntity[currentEditGroupIndex])
         saveContext()
     }
+    
+    /// 코어데이터 내 그룹 편집 메서드
+    func updateGroup(name: String) {
+        let group = groupEntity[currentEditGroupIndex]
+        group.name = name
+        group.color = remoteGroup.color
+        saveContext()
+    }
+}
+
+// MARK: - Block Method
+extension DayBlockManager {
     
     /// 블럭 수정 완료 후 블럭 엔티티를 업데이트합니다.
     func updateBlock() {
@@ -164,28 +203,17 @@ final class BlockManager {
         saveContext()
     }
     
-    // MARK: - GroupList (그룹 리스트)
-    
-    /// 현재 그룹 인덱스
-    private var currentGroupIndex = 0
-    
-    /// READ - 현재 그룹 인덱스 받아오기
-    func getCurrentGroupIndex() -> Int {
-        return currentGroupIndex
+    /// 지정한 블럭엔티티를 삭제합니다.
+    func deleteBlockEntitiy(_ blockEntity: Block) {
+        
+        // 현재 그룹 엔티티에서 지정한 블럭 에티티 삭제 및 콘텍스트에 반영
+        groupEntity[currentGroupIndex].removeFromBlockList(blockEntity)
+        context.delete(blockEntity)
+        saveContext()
     }
     
     func getLastBlockIndex() -> Int {
         return blockEntity.count - 1
-    }
-    
-    /// READ - 현재 그룹 받아오기
-    func getCurrentGroup() -> Group {
-        return groupEntity[currentGroupIndex]
-    }
-    
-    /// READ - 현재 그룹 컬러 받아오기
-    func getCurrentGroupColor() -> UIColor {
-        return UIColor(rgb: groupEntity[currentGroupIndex].color)
     }
     
     /// READ - 현재 그룹에 속한 블럭 리스트 받아오기
@@ -213,13 +241,6 @@ final class BlockManager {
         return [Block]()
     }
     
-    /// UPDATE - 현재 그룹 업데이트
-    func updateCurrentGroup(index: Int) {
-        currentGroupIndex = index
-    }
-    
-    private var currentBlockIndex = 0
-    
     func getCurrentBlockIndex() -> Int {
         return currentBlockIndex
     }
@@ -227,42 +248,6 @@ final class BlockManager {
     func updateCurrentBlockIndex(_ index: Int) {
         currentBlockIndex = index
     }
-    
-    // MARK: - 편집 중인 그룹
-    
-    /// 현재 편집중인 그룹 인덱스
-    private var currentEditGroupIndex = 0
-    
-    func getCurrentEditGroupIndex() -> Int {
-        return currentEditGroupIndex
-    }
-    
-    func updateCurrentEditGroupIndex(_ index: Int) {
-        currentEditGroupIndex = index
-    }
-    
-    /// 코어데이터 내 그룹 삭제 메서드
-    func deleteGroup() {
-        context.delete(groupEntity[currentEditGroupIndex])
-        saveContext()
-    }
-    
-    /// 코어데이터 내 그룹 편집 메서드
-    func updateGroup(name: String) {
-        let group = groupEntity[currentEditGroupIndex]
-        group.name = name
-        group.color = remoteGroup.color
-        saveContext()
-    }
-    
-    // MARK: - Remote Block (블럭 생성, 스위치용)
-    
-    /// 리모트 블럭
-    private var remoteBlock = RemoteGroup(name: "기본 그룹",
-                                    color: 0x323232,
-                                    list: [RemoteBlock(taskLabel: "블럭 쌓기", todayOutput: 0.0, icon: "batteryblock.fill")])
-    
-    var remoteBlockGroupIndex = 0
     
     /// CREATE - 현재 리모트 블럭 정보로 새 블럭 생성
     func createNewBlock() {
@@ -280,6 +265,34 @@ final class BlockManager {
             saveContext()
         }
     }
+}
+
+// MARK: - Remote Group (그룹 생성, 스위칭용)
+extension DayBlockManager {
+    
+    /// READ - 리모트 그룹 받아오기
+    func getRemoteGroup() -> RemoteGroup {
+        return remoteGroup
+    }
+    
+    /// UPDATE - 리모트 그룹 그룹명 업데이트
+    func updateRemoteGroup(name: String) {
+        remoteGroup.name = name
+    }
+    
+    /// UPDATE - 리모트 그룹 컬러 업데이트
+    func updateRemoteGroup(color: Int) {
+        remoteGroup.color = color
+    }
+    
+    /// RESET - 리모트 그룹 초기화
+    func resetRemoteGroup() {
+        remoteGroup = RemoteGroup(name: "", color: 0x0061FD, list: [])
+    }
+}
+
+// MARK: - Remote Block (블럭 생성, 스위치용)
+extension DayBlockManager {
     
     /// READ - 리모트 블럭 받아오기
     func getRemoteBlock() -> RemoteGroup {
@@ -299,11 +312,6 @@ final class BlockManager {
     /// READ - 리모트 블럭 아이콘 받아오기
     func getRemoteBlockIcon() -> UIImage {
         return UIImage(systemName: remoteBlock.list[0].icon)!
-    }
-    
-    /// READ - 리모트 그룹 받아오기
-    func getRemoteGroup() -> RemoteGroup {
-        return remoteGroup
     }
     
     /// UPDATE - 리모트 블럭 그룹 업데이트
@@ -334,25 +342,5 @@ final class BlockManager {
                             color: group.color,
                             list: [RemoteBlock(taskLabel: "블럭 쌓기", todayOutput: 0.0, icon: "batteryblock.fill")])
         remoteBlockGroupIndex = currentGroupIndex
-    }
-    
-    // MARK: - Remote Group (그룹 생성, 스위칭용)
-    
-    /// 리모트 그룹
-    private var remoteGroup = RemoteGroup(name: "", color: 0x0061FD, list: [])
-    
-    /// UPDATE - 리모트 그룹 그룹명 업데이트
-    func updateRemoteGroup(name: String) {
-        remoteGroup.name = name
-    }
-    
-    /// UPDATE - 리모트 그룹 컬러 업데이트
-    func updateRemoteGroup(color: Int) {
-        remoteGroup.color = color
-    }
-    
-    /// RESET - 리모트 그룹 초기화
-    func resetRemoteGroup() {
-        remoteGroup = RemoteGroup(name: "", color: 0x0061FD, list: [])
     }
 }

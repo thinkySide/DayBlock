@@ -10,7 +10,7 @@ import UIKit
 final class HomeViewController: UIViewController {
     
     let viewManager = HomeView()
-    let blockManager = BlockManager.shared
+    let blockManager = DayBlockManager.shared
     let trackingManager = TrackingManager.shared
     
     // 스크롤 시작 지점 저장 변수

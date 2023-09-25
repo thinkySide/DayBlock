@@ -18,7 +18,7 @@ final class SelectGroupViewController: UIViewController {
     // MARK: - Variable
     
     private let viewManager = SelectGroupView()
-    private let blockManager = BlockManager.shared
+    private let blockManager = DayBlockManager.shared
     private let customBottomModalDelegate = BottomModalDelegate()
     weak var delegate: SelectGroupViewControllerDelegate?
     
