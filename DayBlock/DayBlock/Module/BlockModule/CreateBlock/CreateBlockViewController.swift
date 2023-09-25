@@ -18,12 +18,11 @@ final class CreateBlockViewController: UIViewController {
     // MARK: - Variable
     
     private let viewManager = CreateBlockView()
-    private let blockManager = DayBlockManager.shared
     private let customBottomModalDelegate = BottomModalDelegate()
     weak var delegate: CreateBlockViewControllerDelegate?
     
-    private let groupData = DayBlockManager.shared.groupData
-    private let blockData = DayBlockManager.shared.blockData
+    private let groupData = GroupDataStore.shared
+    private let blockData = BlockDataStore.shared
     
     /// 블럭 편집 모드
     private var mode: Mode = .create {

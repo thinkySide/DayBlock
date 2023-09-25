@@ -10,11 +10,10 @@ import UIKit
 final class HomeViewController: UIViewController {
     
     let viewManager = HomeView()
-    let blockManager = DayBlockManager.shared
     let trackingManager = TrackingManager.shared
     
-    let groupData = DayBlockManager.shared.groupData
-    let blockData = DayBlockManager.shared.blockData
+    let groupData = GroupDataStore.shared
+    let blockData = BlockDataStore.shared
     
     // 스크롤 시작 지점 저장 변수
     lazy var startScrollX: CGFloat = 0
@@ -57,7 +56,7 @@ final class HomeViewController: UIViewController {
     /// 데이터 설정을 위한 CoreData를 불러와 Fetch합니다.
     private func setupCoreData() {
         groupData.fetchRequestEntity()
-        blockManager.initialSetupForCoreData()
+        groupData.initDefaultGroup()
     }
     
     /// NavigationBar Item을 설정합니다.

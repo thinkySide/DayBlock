@@ -12,12 +12,11 @@ final class EditGroupViewController: UIViewController {
     weak var delegate: EditGroupViewControllerDelegate?
     
     private let viewManager = EditGroupDetailView()
-    private let blockManager = DayBlockManager.shared
     private let colorManager = ColorManager.shared
     private let customBottomModalDelegate = BottomModalDelegate()
     
-    private let groupData = DayBlockManager.shared.groupData
-    private let blockData = DayBlockManager.shared.blockData
+    private let groupData = GroupDataStore.shared
+    private let blockData = BlockDataStore.shared
     
     /// 기존 그룹명 저장용
     private var initialGroupName = ""

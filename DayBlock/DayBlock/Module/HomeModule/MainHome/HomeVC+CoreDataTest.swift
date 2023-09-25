@@ -20,17 +20,17 @@ extension HomeViewController {
     func insertTrackingTestData() {
         let block = blockData.list()[0]
         
-        let trackingDate = TrackingDate(context: blockManager.context)
+        let trackingDate = TrackingDate(context: groupData.context)
         trackingDate.year = "2023년"
         trackingDate.month = "09월"
         trackingDate.day = "21일"
         trackingDate.dayOfWeek = "목요일"
         
-        let trackingTime1 = TrackingTime(context: blockManager.context)
+        let trackingTime1 = TrackingTime(context: groupData.context)
         trackingTime1.startTime = "15:00"
         trackingTime1.endTime = "17:00"
         
-        let trackingTime2 = TrackingTime(context: blockManager.context)
+        let trackingTime2 = TrackingTime(context: groupData.context)
         trackingTime2.startTime = "20:00"
         trackingTime2.endTime = "22:30"
         
@@ -38,7 +38,7 @@ extension HomeViewController {
         trackingDate.addToTrackingTimeList(trackingTime2)
         block.addToTrackingDateList(trackingDate)
         
-        blockManager.saveContext()
+        groupData.saveContext()
     }
     
     /// CoreData를 프린트합니다.

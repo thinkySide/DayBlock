@@ -53,6 +53,22 @@ extension GroupDataStore {
         }
     }
     
+    /// 그룹이 없을 시, 기본 그룹을 생성합니다.
+    func initDefaultGroup() {
+        
+        // 그룹 엔티티의 값이 비어있다면
+        if entities.isEmpty {
+            
+            // 기본 그룹 생성
+            let newGroup = Group(context: context)
+            newGroup.name = "기본 그룹"
+            newGroup.color = 0x323232
+            
+            // 콘텍스트 저장
+            saveContext()
+        }
+    }
+    
     /// 그룹 리스트를 반환합니다.
     func list() -> [Group] {
         return entities

@@ -12,12 +12,11 @@ final class CreateGroupViewController: UIViewController {
     // MARK: - Variable
     
     private let viewManager = CreateGroupView()
-    private let blockManager = DayBlockManager.shared
     private let customBottomModalDelegate = BottomModalDelegate()
     weak var delegate: CreateGroupViewControllerDelegate?
     
-    private let groupData = DayBlockManager.shared.groupData
-    private let blockData = DayBlockManager.shared.blockData
+    private let groupData = GroupDataStore.shared
+    private let blockData = BlockDataStore.shared
     
     /// Present화면인지, Navigation인지 확인
     

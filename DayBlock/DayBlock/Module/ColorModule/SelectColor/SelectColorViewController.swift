@@ -10,12 +10,11 @@ import UIKit
 final class SelectColorViewController: UIViewController {
     
     private let viewManager = SelectColorView()
-    private let blockManager = DayBlockManager.shared
     private let colorManager = ColorManager.shared
     weak var delegate: SelectColorViewControllerDelegate?
     
-    private let groupData = DayBlockManager.shared.groupData
-    private let blockData = DayBlockManager.shared.blockData
+    private let groupData = GroupDataStore.shared
+    private let blockData = BlockDataStore.shared
     
     /// 스크롤 제어를 위한 초깃값
     private var isScrolled: Bool = false
