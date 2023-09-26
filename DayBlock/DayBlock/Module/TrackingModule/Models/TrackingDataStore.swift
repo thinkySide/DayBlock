@@ -35,7 +35,10 @@ final class TrackingDataStore {
     
     /// 트래킹 시간 엔티티
     var timeList: [TrackingTime] {
-        if let entity = focusDate().trackingTimeList?.array as? [TrackingTime] {
+        
+        guard !dateList.isEmpty else { return [] }
+        
+        if let entity = dateList.last?.trackingTimeList?.array as? [TrackingTime] {
             return entity
         }
         
@@ -76,7 +79,7 @@ extension TrackingDataStore {
     /// 현재 트래킹 데이터를 출력합니다.
     func printData() {
         if let lastTime = timeList.last {
-            print("\(lastTime.startTime) ~ \(lastTime.endTime)")
+            print("\(lastTime.startTime) ~ \(String(describing: lastTime.endTime))")
         }
     }
     
@@ -87,8 +90,18 @@ extension TrackingDataStore {
             return lastDate
         }
         
-        print("Error: focusDate 반환 실패")
-        return TrackingDate()
+        fatalError("Error: focusDate 반환 실패")
+    }
+    
+    /// 현재 포커스된(트래킹 중인) 시간 데이터를 반환합니다.
+    /// ⚠️ 트래킹 시간 데이터의 가장 마지막 데이터를 트래킹 중인 것으로 간주
+    func focusTime() -> TrackingTime {
+        if let lastTime = timeList.last {
+            return lastTime
+        }
+        
+        print("Error: focusTime 반환 실패")
+        return TrackingTime()
     }
     
     /// 트래킹 시작 데이터를 생성합니다.
@@ -109,6 +122,26 @@ extension TrackingDataStore {
         newTrackingDate.addToTrackingTimeList(newTrackingTime)
         blockData.focusEntity().addToTrackingDateList(newTrackingDate)
         groupData.saveContext()
+    }
+    
+    /// 트래킹 종료 데이터를 생성합니다.
+    func createFinishData() {
+        let replaceTime = TrackingTime(context: context)
+        replaceTime.startTime = focusTime().startTime
+        replaceTime.endTime = todaySeconds()
+        
+        if let safeList = focusDate().trackingTimeList {
+            focusDate().replaceTrackingTimeList(at: safeList.count - 1, with: replaceTime)
+            groupData.saveContext()
+        }
+    }
+    
+    /// 트래킹 중단 시 데이터를 삭제합니다.
+    func removeStopData() {
+        if let safeList = blockData.focusEntity().trackingDateList {
+            blockData.focusEntity().removeFromTrackingDateList(at: safeList.count - 1)
+            groupData.saveContext()
+        }
     }
 }
 

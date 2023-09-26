@@ -7,13 +7,13 @@
 
 import UIKit
 
-protocol TrackingCompleteViewControllerDelegate: AnyObject {
-    func endTrackingMode()
-}
+//protocol TrackingCompleteViewControllerDelegate: AnyObject {
+//    func finishTrackingMode()
+//}
 
 final class TrackingCompleteViewController: UIViewController {
     
-    weak var delegate: TrackingCompleteViewControllerDelegate?
+    // weak var delegate: TrackingCompleteViewControllerDelegate?
     
     // MARK: - Manager
     
@@ -42,7 +42,7 @@ final class TrackingCompleteViewController: UIViewController {
     @objc func backToHomeButtonTapped() {
         
         // 1. Tracking 모드 해제 및 fillLayer 히든 해제
-        delegate?.endTrackingMode()
+        // delegate?.finishTrackingMode()
         
         // 2. dismiss
         dismiss(animated: true)

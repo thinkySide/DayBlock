@@ -71,31 +71,15 @@ extension HomeViewController {
 }
 
 // MARK: - Tracking Complete Method
-extension HomeViewController: TrackingCompleteViewControllerDelegate {
+extension HomeViewController {
     
     /// TrackingCompleteViewController로 Present 합니다.
     func presentTrackingCompleteVC() {
         let trackingCompleteVC = TrackingCompleteViewController()
-        trackingCompleteVC.delegate = self
+        // trackingCompleteVC.delegate = self
         trackingCompleteVC.modalTransitionStyle = .coverVertical
         trackingCompleteVC.modalPresentationStyle = .overFullScreen
         present(trackingCompleteVC, animated: true)
-    }
-    
-    /// 트래킹 모드 종료 델리게이트
-    func endTrackingMode() {
-        
-        // 블럭 프리뷰 애니메이션 종료
-        viewManager.blockPreview.stopTrackingAnimation()
-        
-        // 블럭 프리뷰 배열 초기화
-        viewManager.blockPreview.resetCurrentBlocks()
-        
-        // 트래킹 Dictionary 초기화
-        trackingManager.resetTrackingBlocks()
-        
-        // 트래킹 모드 종료
-        viewManager.switchToHomeMode()
     }
 }
 
@@ -126,7 +110,7 @@ extension HomeViewController {
     
     /// 트래킹 중단 팝업 - "중단할래요" 버튼 탭 메서드입니다.
     @objc private func trackingStopPopupConfirmButtonTapped() {
-        endTrackingMode()
+        viewManager.stopTrackingMode()
     }
     
     /// 트래킹 중단 팝업 - "아니오" 버튼 탭 메서드입니다.

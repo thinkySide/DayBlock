@@ -9,10 +9,13 @@ import Foundation
 
 protocol HomeViewDelegate: AnyObject {
     func homeView(_ homeView: HomeView, displayTabBarForTrackingMode isDisplay: Bool)
+    
     func homeView(_ homeView: HomeView, trackingDidStart mode: HomeView.TrakingMode)
     func homeView(_ homeView: HomeView, trackingDidPause mode: HomeView.TrakingMode)
     func homeView(_ homeView: HomeView, trackingDidRestart mode: HomeView.TrakingMode)
+    func homeView(_ homeView: HomeView, trackingDidStop mode: HomeView.TrakingMode)
     func homeView(_ homeView: HomeView, trackingDidFinish mode: HomeView.TrakingMode)
+    
     func homeView(_ homeView: HomeView, setupProgressViewColor mode: HomeView.TrakingMode)
 }
 

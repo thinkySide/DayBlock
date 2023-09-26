@@ -13,6 +13,7 @@ final class HomeView: UIView {
         case start
         case pause
         case restart
+        case stop
         case finish
     }
     
@@ -132,14 +133,35 @@ final class HomeView: UIView {
     
     // MARK: - Method
     
-    /// 트래킹 모드 → 홈 모드로 전환합니다.
-    func switchToHomeMode() {
+    /// 트래킹 모드를 중단합니다.
+    func stopTrackingMode() {
+        print("트래킹 STOP")
         
-        trackingMode = .finish
-        print("finish")
+        trackingMode = .stop
+        delegate?.homeView(self, trackingDidStop: trackingMode)
+        
+        // Tracking 버튼 설정
+        trackingButton.setImage(UIImage(named: Icon.trackingStart), for: .normal)
+        
+        // 공통 설정
+        delegate?.homeView(self, displayTabBarForTrackingMode: true)
+        groupSelectButton.isHidden = false
+        blockCollectionView.isHidden = false
+        trackingBlock.isHidden = true
+        messageLabel.isHidden = false
+        trackingTimeLabel.isHidden = true
+        trackingProgressView.isHidden = true
+        trackingStopBarButtonItem.customView?.isHidden = true
+    }
+    
+    /// 트래킹 완료 후 종료합니다.
+    func finishTrackingMode() {
+        
+        print("트래킹 FINISH")
         
         // Tracking 종료
-        delegate?.homeView(self, trackingDidFinish: .finish)
+        trackingMode = .finish
+        delegate?.homeView(self, trackingDidFinish: trackingMode)
         
         // Tracking 버튼 설정
         trackingButton.setImage(UIImage(named: Icon.trackingStart), for: .normal)
@@ -157,66 +179,38 @@ final class HomeView: UIView {
     
     @objc func trackingButtonTapped() {
         
-        // Tracking 모드 변경
-        // trackingMode = trackingMode == .pause ? .start : .pause
-        
         // 트래킹 모드 변경 로직
-        if trackingMode == .finish {
-            trackingMode = .start
-        } else if trackingMode == .start {
-            trackingMode = .pause
-        } else if trackingMode == .pause {
-            trackingMode = .restart
-        } else if trackingMode == .restart {
-            trackingMode = .pause
-        }
+        if trackingMode == .finish || trackingMode == .stop { trackingMode = .start }
+        else if trackingMode == .start { trackingMode = .pause }
+        else if trackingMode == .pause { trackingMode = .restart }
+        else if trackingMode == .restart { trackingMode = .pause }
         
         // Tracking 모드 설정
         switch trackingMode {
         case .start:
-            print("start")
-            
-            // Tracking 시작
-            delegate?.homeView(self, trackingDidStart: .start)
+            delegate?.homeView(self, trackingDidStart: trackingMode)
             trackingTimeLabel.textColor = Color.mainText
-            
-            // Tracking 버튼 설정
             trackingButton.setImage(UIImage(named: Icon.trackingPause), for: .normal)
-            
-            // ProgressView 컬러 설정
             delegate?.homeView(self, setupProgressViewColor: .start)
             
         case .pause:
-            print("pause")
-            
-            // Tracking 일시정지
-            delegate?.homeView(self, trackingDidPause: .pause)
+            delegate?.homeView(self, trackingDidPause: trackingMode)
             trackingTimeLabel.textColor = Color.disabledText
-            
-            // Tracking 버튼 설정
             trackingButton.setImage(UIImage(named: Icon.trackingStart), for: .normal)
-            
-            // ProgressView 컬러
             trackingProgressView.progressTintColor = Color.disabledText
-            
-            // BlockPreview 애니메이션 일시정지
             blockPreview.pausedTrackingAnimation()
             
         case .restart:
-            print("restart")
-            
-            // Tracking 재시작
-            delegate?.homeView(self, trackingDidRestart: .restart)
+            delegate?.homeView(self, trackingDidRestart: trackingMode)
             trackingTimeLabel.textColor = Color.mainText
-            
-            // Tracking 버튼 설정
             trackingButton.setImage(UIImage(named: Icon.trackingPause), for: .normal)
-            
-            // ProgressView 컬러 설정
             delegate?.homeView(self, setupProgressViewColor: .start)
             
+        case .stop:
+            break
+            
         case .finish:
-            print("finish")
+            break
         }
         
         // 공통 설정
