@@ -12,11 +12,12 @@ final class HomeView: UIView {
     enum TrakingMode {
         case start
         case pause
-        case stop
+        case restart
+        case finish
     }
     
     weak var delegate: HomeViewDelegate?
-    var trackingMode: TrakingMode = .pause
+    var trackingMode: TrakingMode = .finish
     
     // MARK: - Component
     
@@ -134,17 +135,17 @@ final class HomeView: UIView {
     /// 트래킹 모드 → 홈 모드로 전환합니다.
     func switchToHomeMode() {
         
+        trackingMode = .finish
+        print("finish")
+        
         // Tracking 종료
-        delegate?.homeView(self, trackingDidStop: .stop)
+        delegate?.homeView(self, trackingDidFinish: .finish)
         
         // Tracking 버튼 설정
-        trackingButton.setImage(
-            UIImage(named: Icon.trackingStart),
-            for: .normal)
+        trackingButton.setImage(UIImage(named: Icon.trackingStart), for: .normal)
         
         // 공통 설정
         delegate?.homeView(self, displayTabBarForTrackingMode: true)
-        trackingMode = .pause
         groupSelectButton.isHidden = false
         blockCollectionView.isHidden = false
         trackingBlock.isHidden = true
@@ -156,35 +157,44 @@ final class HomeView: UIView {
     
     @objc func trackingButtonTapped() {
         
-        /// Tracking 모드 변경
-        trackingMode = trackingMode == .pause ? .start : .pause
+        // Tracking 모드 변경
+        // trackingMode = trackingMode == .pause ? .start : .pause
+        
+        // 트래킹 모드 변경 로직
+        if trackingMode == .finish {
+            trackingMode = .start
+        } else if trackingMode == .start {
+            trackingMode = .pause
+        } else if trackingMode == .pause {
+            trackingMode = .restart
+        } else if trackingMode == .restart {
+            trackingMode = .pause
+        }
         
         // Tracking 모드 설정
         switch trackingMode {
         case .start:
+            print("start")
             
             // Tracking 시작
             delegate?.homeView(self, trackingDidStart: .start)
             trackingTimeLabel.textColor = Color.mainText
             
             // Tracking 버튼 설정
-            trackingButton.setImage(
-                UIImage(named: Icon.trackingPause),
-                for: .normal)
+            trackingButton.setImage(UIImage(named: Icon.trackingPause), for: .normal)
             
             // ProgressView 컬러 설정
             delegate?.homeView(self, setupProgressViewColor: .start)
             
         case .pause:
+            print("pause")
             
             // Tracking 일시정지
             delegate?.homeView(self, trackingDidPause: .pause)
             trackingTimeLabel.textColor = Color.disabledText
             
             // Tracking 버튼 설정
-            trackingButton.setImage(
-                UIImage(named: Icon.trackingStart),
-                for: .normal)
+            trackingButton.setImage(UIImage(named: Icon.trackingStart), for: .normal)
             
             // ProgressView 컬러
             trackingProgressView.progressTintColor = Color.disabledText
@@ -192,8 +202,21 @@ final class HomeView: UIView {
             // BlockPreview 애니메이션 일시정지
             blockPreview.pausedTrackingAnimation()
             
-        case .stop:
-            break
+        case .restart:
+            print("restart")
+            
+            // Tracking 재시작
+            delegate?.homeView(self, trackingDidRestart: .restart)
+            trackingTimeLabel.textColor = Color.mainText
+            
+            // Tracking 버튼 설정
+            trackingButton.setImage(UIImage(named: Icon.trackingPause), for: .normal)
+            
+            // ProgressView 컬러 설정
+            delegate?.homeView(self, setupProgressViewColor: .start)
+            
+        case .finish:
+            print("finish")
         }
         
         // 공통 설정
@@ -208,11 +231,8 @@ final class HomeView: UIView {
     }
     
     func toggleTrackingButton(_ bool: Bool) {
-        if bool {
-            trackingButton.isEnabled = true
-        } else {
-            trackingButton.isEnabled = false
-        }
+        if bool { trackingButton.isEnabled = true }
+        else { trackingButton.isEnabled = false }
     }
     
     func setupProgressViewColor(color: UIColor) {

@@ -32,7 +32,7 @@ extension HomeViewController: HomeViewDelegate {
         
         // 현재 시간 추가 후 트래킹 블럭 리스트 반환
         trackingData.appendCurrentTimeInTrackingBlocks()
-        print(trackingData.trackingBlocks())
+        trackingData.printData()
         
         // 2. 트래킹 시작 날짜 데이터 넣기
         trackingData.createStartData()
@@ -54,10 +54,19 @@ extension HomeViewController: HomeViewDelegate {
         trackingManager.trackingTimer.invalidate()
     }
     
+    /// 트래킹 모드가 재시작 된 후 호출되는 Delegate 메서드입니다.
+    ///
+    /// - Parameter mode: 현재 트래킹 모드
+    func homeView(_ homeView: HomeView, trackingDidRestart mode: HomeView.TrakingMode) {
+        
+        // 1. 타이머 시작
+        trackingManager.trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingEverySecond), userInfo: nil, repeats: true)
+    }
+    
     /// 트래킹 모드가 종료된 후 호출되는 Delegate 메서드입니다.
     ///
     /// - Parameter mode: 현재 트래킹 모드
-    func homeView(_ homeView: HomeView, trackingDidStop mode: HomeView.TrakingMode) {
+    func homeView(_ homeView: HomeView, trackingDidFinish mode: HomeView.TrakingMode) {
         
         // 1. 타이머 비활성화
         trackingManager.trackingTimer.invalidate()

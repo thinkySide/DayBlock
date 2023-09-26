@@ -73,6 +73,13 @@ extension TrackingDataStore {
 // MARK: - CRUD Method
 extension TrackingDataStore {
     
+    /// 현재 트래킹 데이터를 출력합니다.
+    func printData() {
+        if let lastTime = timeList.last {
+            print("\(lastTime.startTime) ~ \(lastTime.endTime)")
+        }
+    }
+    
     /// 현재 포커스된(트래킹 중인) 날짜 데이터를 반환합니다.
     /// ⚠️ 트래킹 날짜 데이터의 가장 마지막 데이터를 트래킹 중인 것으로 간주
     func focusDate() -> TrackingDate {
@@ -119,7 +126,12 @@ extension TrackingDataStore {
             let focusBlock = safeTodaySeconds / 1800
             let hour = String(focusBlock / 2)
             let minute = focusBlock % 2 == 0 ? "00" : "30"
-            currentTrackingBlocks.append("\(hour):\(minute)")
+            let time = "\(hour):\(minute)"
+            
+            // 중복 블럭 거르기
+            if !currentTrackingBlocks.contains(time) {
+                currentTrackingBlocks.append(time)
+            }
         }
     }
     
