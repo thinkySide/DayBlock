@@ -21,8 +21,8 @@
         <relationship name="trackingTimeList" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="TrackingTime" inverseName="superDate" inverseEntity="TrackingTime"/>
     </entity>
     <entity name="TrackingTime" representedClassName="TrackingTime" syncable="YES">
-        <attribute name="endTime" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="startTime" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="endTime" optional="YES" attributeType="String"/>
+        <attribute name="startTime" attributeType="String"/>
         <relationship name="superDate" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TrackingDate" inverseName="trackingTimeList" inverseEntity="TrackingDate"/>
     </entity>
 </model>
