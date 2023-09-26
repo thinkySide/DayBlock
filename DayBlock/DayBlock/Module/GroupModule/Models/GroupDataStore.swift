@@ -21,14 +21,18 @@ final class GroupDataStore {
     /// 그룹 엔티티
     private var entities: [Group] = []
     
-    /// 리모트 그룹
+    /// 리모트 그룹 (그룹 생성, 편집 용도의 객체)
     private var remoteObject = RemoteGroup(name: "", color: 0x0061FD, list: [])
     
-    /// 현재 그룹 인덱스
+    /// 현재 포커스된 그룹 인덱스
     private var focusIndexValue = 0
     
     /// 현재 편집중인 그룹 인덱스
     private var editIndexValue = 0
+}
+
+// MARK: - Core Data Method
+extension GroupDataStore {
     
     /// 콘텍스트 저장 및 그룹 엔티티를 패치합니다.
     func saveContext() {
@@ -39,13 +43,9 @@ final class GroupDataStore {
             print(error.localizedDescription)
         }
     }
-}
-
-// MARK: - Method
-extension GroupDataStore {
     
     /// 그룹 엔티티 패치를 요청합니다.
-    func fetchRequestEntity() {
+    private func fetchRequestEntity() {
         do {
             entities = try context.fetch(Group.fetchRequest())
         } catch {
@@ -68,54 +68,10 @@ extension GroupDataStore {
             saveContext()
         }
     }
-    
-    /// 그룹 리스트를 반환합니다.
-    func list() -> [Group] {
-        return entities
-    }
-    
-    
-    
-    
-    
-    /// 현재 포커스된 그룹 인덱스를 반환합니다.
-    func focusIndex() -> Int {
-        return focusIndexValue
-    }
-    
-    /// 지정한 인덱스로 포커스된 그룹 인덱스를 업데이트합니다.
-    func updateFocusIndex(to index: Int) {
-        focusIndexValue = index
-    }
-    
-    /// 현재 포커스된 그룹을 반환합니다.
-    func focusEntity() -> Group {
-        return entities[focusIndexValue]
-    }
-    
-    /// 현재 포커스된 그룹의 컬러를 반환합니다.
-    func focusColor() -> UIColor {
-        return UIColor(rgb: entities[focusIndexValue].color)
-    }
-    
-    
-    
-    
-    /// 편집 중인 그룹의 인덱스를 반환합니다.
-    func editIndex() -> Int {
-        return editIndexValue
-    }
-    
-    /// 지정한 인덱스로 편집 중인 그룹 인덱스를 업데이트합니다.
-    func updateEditIndex(to index: Int) {
-        editIndexValue = index
-    }
-    
-    /// 현재 편집 중인 그룹을 삭제합니다.
-    func delete() {
-        context.delete(entities[editIndexValue])
-        saveContext()
-    }
+}
+
+// MARK: - CRUD Method
+extension GroupDataStore {
     
     /// Remote 그룹을 통해 새 그룹을 생성합니다.
     func create() {
@@ -130,6 +86,11 @@ extension GroupDataStore {
         resetRemote()
     }
     
+    /// 그룹 리스트를 반환합니다.
+    func list() -> [Group] {
+        return entities
+    }
+    
     /// 그룹의 이름을 업데이트합니다.
     func update(name: String) {
         let group = entities[editIndexValue]
@@ -137,28 +98,79 @@ extension GroupDataStore {
         group.color = remoteObject.color
         saveContext()
     }
+    
+    /// 현재 편집 중인 그룹을 삭제합니다.
+    func delete() {
+        context.delete(entities[editIndexValue])
+        saveContext()
+    }
 }
 
+// MARK: - Focus Group Method
+extension GroupDataStore {
+    
+    /// 현재 포커스된 그룹을 반환합니다.
+    func focusEntity() -> Group {
+        return entities[focusIndexValue]
+    }
+    
+    /// 현재 포커스된 그룹 인덱스를 반환합니다.
+    func focusIndex() -> Int {
+        return focusIndexValue
+    }
+    
+    /// 지정한 인덱스로 포커스된 그룹 인덱스를 업데이트합니다.
+    ///
+    /// - Parameter index: 업데이트 할 인덱스 값
+    func updateFocusIndex(to index: Int) {
+        focusIndexValue = index
+    }
+    
+    /// 현재 포커스된 그룹의 컬러를 반환합니다.
+    func focusColor() -> UIColor {
+        return UIColor(rgb: entities[focusIndexValue].color)
+    }
+}
+
+// MARK: - Edit Group Method
+extension GroupDataStore {
+    
+    /// 편집 중인 그룹의 인덱스를 반환합니다.
+    func editIndex() -> Int {
+        return editIndexValue
+    }
+    
+    /// 지정한 인덱스로 편집 중인 그룹 인덱스를 업데이트합니다.
+    ///
+    /// - Parameter index: 업데이트 할 인덱스 값
+    func updateEditIndex(to index: Int) {
+        editIndexValue = index
+    }
+}
 
 // MARK: - Remote Group
 extension GroupDataStore {
     
-    /// READ - 리모트 그룹 받아오기
+    /// 리모트 그룹을 반환합니다.
     func remote() -> RemoteGroup {
         return remoteObject
     }
     
-    /// UPDATE - 리모트 그룹 그룹명 업데이트
+    /// 리모트 그룹의 그룹명을 업데이트합니다.
+    ///
+    /// - Parameter name: 업데이트 할 그룹명
     func updateRemote(name: String) {
         remoteObject.name = name
     }
     
-    /// UPDATE - 리모트 그룹 컬러 업데이트
+    /// 리모트 그룹의 컬러를 업데이트합니다.
+    ///
+    /// - Parameter color: 업데이트 할 색상값
     func updateRemote(color: Int) {
         remoteObject.color = color
     }
     
-    /// RESET - 리모트 그룹 초기화
+    /// 리모트 그룹을 기본값으로 초기화합니다.
     func resetRemote() {
         remoteObject = RemoteGroup(name: "", color: 0x0061FD, list: [])
     }

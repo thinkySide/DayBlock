@@ -55,7 +55,7 @@ final class HomeViewController: UIViewController {
     
     /// 데이터 설정을 위한 CoreData를 불러와 Fetch합니다.
     private func setupCoreData() {
-        groupData.fetchRequestEntity()
+        groupData.saveContext()
         groupData.initDefaultGroup()
     }
     
