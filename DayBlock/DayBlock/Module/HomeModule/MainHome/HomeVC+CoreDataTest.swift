@@ -32,7 +32,7 @@ extension HomeViewController {
         
         let trackingTime2 = TrackingTime(context: groupData.context)
         trackingTime2.startTime = "20:00"
-        trackingTime2.endTime = "22:30"
+        // trackingTime2.endTime = "22:30"
         
         trackingDate.addToTrackingTimeList(trackingTime1)
         trackingDate.addToTrackingTimeList(trackingTime2)

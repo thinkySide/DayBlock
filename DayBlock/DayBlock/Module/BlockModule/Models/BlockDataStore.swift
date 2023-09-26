@@ -21,8 +21,7 @@ final class BlockDataStore {
     private var entities: [Block] = []
     
     /// 리모트 객체
-    private var remoteObject = RemoteGroup(name: "기본 그룹", color: 0x323232, list: [
-        RemoteBlock(taskLabel: "블럭 쌓기", todayOutput: 0.0, icon: "batteryblock.fill")])
+    private var remoteObject = RemoteGroup()
     
     /// 리모트 객체 인덱스
     var remoteIndex = 0
@@ -227,8 +226,7 @@ extension BlockDataStore {
     /// 리모트 객체를 기본값으로 초기화합니다.
     func resetRemote() {
         let group = groupData.focusEntity()
-        remoteObject = RemoteGroup(name: group.name, color: group.color, list: [
-            RemoteBlock(taskLabel: "블럭 쌓기", todayOutput: 0.0, icon: "batteryblock.fill")])
+        remoteObject = RemoteGroup(name: group.name, color: group.color)
         remoteIndex = groupData.focusIndex()
     }
 }
