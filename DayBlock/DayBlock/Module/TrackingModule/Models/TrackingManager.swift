@@ -16,12 +16,31 @@ final class TrackingManager {
     static let shared = TrackingManager()
     private init() {}
     
+    /// 날짜 타이머
     var dateTimer: Timer!
+    
+    /// 트래킹 타이머
     var trackingTimer: Timer!
 
     var totalTime = 0
     var currentTime: Float = 0
     var totalBlock: Float = 0
+    
+    /// 시간 라벨 포맷
+    var timeLabelFormat: String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "HH:mm"
+        return formatter.string(from: Date())
+    }
+    
+    /// 트래킹 데이터 저장 포맷
+    var trackingStoreFormat: String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "HH/mm/ss"
+        return formatter.string(from: Date())
+    }
 
     var timeFormatter: String {
         let hour = totalTime / 3600
@@ -76,8 +95,8 @@ final class TrackingManager {
     }
     
     /// 트래킹 시작 시간을 업데이트합니다.
-    func updateTrackingStartTime(_ timeFormat: String) {
-        let timeArray = timeFormat.components(separatedBy: "/")
+    func updateTrackingStartTime() {
+        let timeArray = trackingStoreFormat.components(separatedBy: "/")
         var numArray: [Int] = []
         
         for index in timeArray {
@@ -173,4 +192,9 @@ final class TrackingManager {
         default: break
         }
     }
+}
+
+// MARK: - Timer Method
+extension TrackingManager {
+    
 }

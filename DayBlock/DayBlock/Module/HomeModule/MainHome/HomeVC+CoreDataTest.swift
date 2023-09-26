@@ -12,7 +12,7 @@ extension HomeViewController {
     
     /// CoreData 테스트용 메서드입니다.
     func testCoreData() {
-        // insertTrackingTestData()
+        insertTrackingTestData()
         printCoreData()
     }
     
@@ -27,11 +27,11 @@ extension HomeViewController {
         trackingDate.dayOfWeek = "목요일"
         
         let trackingTime1 = TrackingTime(context: groupData.context)
-        trackingTime1.startTime = "15:00"
-        trackingTime1.endTime = "17:00"
+        trackingTime1.startTime = 1500
+        trackingTime1.endTime = 1700
         
         let trackingTime2 = TrackingTime(context: groupData.context)
-        trackingTime2.startTime = "20:00"
+        trackingTime2.startTime = 2000
         // trackingTime2.endTime = "22:30"
         
         trackingDate.addToTrackingTimeList(trackingTime1)

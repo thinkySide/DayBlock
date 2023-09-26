@@ -27,20 +27,13 @@ extension HomeViewController {
     
     /// 현재 시간을 기준으로 timeLabel을 설정합니다.
     @objc private func updateTimeLabel() {
-        let timeFormatter = DateFormatter()
-        timeFormatter.locale = Locale(identifier: "ko_KR")
-        timeFormatter.dateFormat = "HH:mm"
-        viewManager.timeLabel.text = timeFormatter.string(from: Date())
-        
-        let trackingFormatter = DateFormatter()
-        trackingFormatter.locale = Locale(identifier: "ko_KR")
-        trackingFormatter.dateFormat = "HH/mm/ss"
-        
-        // 트래킹 타임 업데이트
-        trackingManager.updateTrackingStartTime(trackingFormatter.string(from: Date()))
+        viewManager.timeLabel.text = trackingManager.timeLabelFormat
         
         // 00:00에 날짜 업데이트
         if viewManager.timeLabel.text == "00:00" { updateDateLabel() }
+        
+        // 트래킹 타임 업데이트
+        trackingManager.updateTrackingStartTime()
     }
     
     /// 현재 날짜 및 요일을 기준으로 dateLabel을 설정합니다.
