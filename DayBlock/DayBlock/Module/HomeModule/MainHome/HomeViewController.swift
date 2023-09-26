@@ -10,10 +10,11 @@ import UIKit
 final class HomeViewController: UIViewController {
     
     let viewManager = HomeView()
-    let trackingManager = TrackingManager.shared
+    let trackingManager = TimerManager.shared
     
     let groupData = GroupDataStore.shared
     let blockData = BlockDataStore.shared
+    let trackingData = TrackingDataStore.shared
     
     // 스크롤 시작 지점 저장 변수
     lazy var startScrollX: CGFloat = 0

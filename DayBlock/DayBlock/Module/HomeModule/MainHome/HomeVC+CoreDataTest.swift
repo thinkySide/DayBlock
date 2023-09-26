@@ -12,7 +12,7 @@ extension HomeViewController {
     
     /// CoreData 테스트용 메서드입니다.
     func testCoreData() {
-        insertTrackingTestData()
+        // insertTrackingTestData()
         printCoreData()
     }
     
@@ -66,8 +66,8 @@ extension HomeViewController {
                             print("      • superBlock: \(date.superBlock.taskLabel)")
                             print("      • year: \(date.year)")
                             print("      • month: \(date.month)")
-                            print("      • dayOfWeek: \(date.dayOfWeek)")
                             print("      • day: \(date.day)")
+                            print("      • dayOfWeek: \(date.dayOfWeek)")
                             print("")
                             
                             if let timeList = date.trackingTimeList?.array as? [TrackingTime] {

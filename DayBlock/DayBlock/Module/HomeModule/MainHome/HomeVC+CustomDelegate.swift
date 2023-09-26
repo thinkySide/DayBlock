@@ -28,7 +28,10 @@ extension HomeViewController: HomeViewDelegate {
         trackingManager.trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingEverySecond), userInfo: nil, repeats: true)
         
         // 2. 트래킹 보드 애니메이션 시작
-        activateTrackingBoard()
+        // activateTrackingBoard()
+        
+        // 2. 트래킹 시작 날짜 데이터 넣기
+        trackingData.createStartData()
         
         // 3. 현재 트래킹 중인 블럭 정보 저장
         let blockDataList = blockData.list()

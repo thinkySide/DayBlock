@@ -1,5 +1,5 @@
 //
-//  TrackingManager.swift
+//  TimerManager.swift
 //  DayBlock
 //
 //  Created by 김민준 on 2023/08/31.
@@ -8,12 +8,12 @@
 import Foundation
 
 /// 블럭 트래킹 매니저
-final class TrackingManager {
+final class TimerManager {
     
     // MARK: - Properties
     
     /// 싱글톤
-    static let shared = TrackingManager()
+    static let shared = TimerManager()
     private init() {}
     
     /// 날짜 타이머
@@ -195,6 +195,6 @@ final class TrackingManager {
 }
 
 // MARK: - Timer Method
-extension TrackingManager {
+extension TimerManager {
     
 }

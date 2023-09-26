@@ -23,6 +23,7 @@
 		071E3ABD2AC166B2000C346F /* BlockDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071E3ABC2AC166B2000C346F /* BlockDataStore.swift */; };
 		0736905C2AC2D22A00A42187 /* TrackingTime+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0736905A2AC2D22A00A42187 /* TrackingTime+CoreDataClass.swift */; };
 		0736905D2AC2D22A00A42187 /* TrackingTime+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0736905B2AC2D22A00A42187 /* TrackingTime+CoreDataProperties.swift */; };
+		0736905F2AC2D41400A42187 /* TrackingDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0736905E2AC2D41400A42187 /* TrackingDataStore.swift */; };
 		073EBFEE2AB6C7B80031F6AB /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 073EBFED2AB6C7B80031F6AB /* .swiftlint.yml */; };
 		073EBFF02AB6D4D40031F6AB /* SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EBFEF2AB6D4D40031F6AB /* SFSymbols.swift */; };
 		07454DE329EA6CEE00B3458D /* UIViewController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454DE229EA6CEE00B3458D /* UIViewController++.swift */; };
@@ -79,7 +80,7 @@
 		078C50F429D73D0200F239BA /* TrackingBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F329D73D0200F239BA /* TrackingBoard.swift */; };
 		078C50F629D9BBB200F239BA /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F529D9BBB200F239BA /* ScheduleViewController.swift */; };
 		078C50F829D9BBFE00F239BA /* RepositoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F729D9BBFE00F239BA /* RepositoryViewController.swift */; };
-		07A45CE42AA0952000C09342 /* TrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A45CE32AA0952000C09342 /* TrackingManager.swift */; };
+		07A45CE42AA0952000C09342 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A45CE32AA0952000C09342 /* TimerManager.swift */; };
 		07B49BC42A88EBA3006D1011 /* MenuPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC32A88EBA3006D1011 /* MenuPopup.swift */; };
 		07B49BC62A88EC14006D1011 /* MenuPopupItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC52A88EC14006D1011 /* MenuPopupItem.swift */; };
 		07B49BC82A8DD84D006D1011 /* ListGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC72A8DD84D006D1011 /* ListGroupViewController.swift */; };
@@ -119,6 +120,7 @@
 		071E3ABC2AC166B2000C346F /* BlockDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockDataStore.swift; sourceTree = "<group>"; };
 		0736905A2AC2D22A00A42187 /* TrackingTime+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingTime+CoreDataClass.swift"; sourceTree = "<group>"; };
 		0736905B2AC2D22A00A42187 /* TrackingTime+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingTime+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0736905E2AC2D41400A42187 /* TrackingDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingDataStore.swift; sourceTree = "<group>"; };
 		073EBFED2AB6C7B80031F6AB /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		073EBFEF2AB6D4D40031F6AB /* SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbols.swift; sourceTree = "<group>"; };
 		07454DE229EA6CEE00B3458D /* UIViewController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController++.swift"; sourceTree = "<group>"; };
@@ -177,7 +179,7 @@
 		078C50F329D73D0200F239BA /* TrackingBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingBoard.swift; sourceTree = "<group>"; };
 		078C50F529D9BBB200F239BA /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		078C50F729D9BBFE00F239BA /* RepositoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryViewController.swift; sourceTree = "<group>"; };
-		07A45CE32AA0952000C09342 /* TrackingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingManager.swift; sourceTree = "<group>"; };
+		07A45CE32AA0952000C09342 /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		07B49BC32A88EBA3006D1011 /* MenuPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopup.swift; sourceTree = "<group>"; };
 		07B49BC52A88EC14006D1011 /* MenuPopupItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopupItem.swift; sourceTree = "<group>"; };
 		07B49BC72A8DD84D006D1011 /* ListGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListGroupViewController.swift; sourceTree = "<group>"; };
@@ -425,7 +427,8 @@
 		076248B62AB2F621000A8664 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				07A45CE32AA0952000C09342 /* TrackingManager.swift */,
+				07A45CE32AA0952000C09342 /* TimerManager.swift */,
+				0736905E2AC2D41400A42187 /* TrackingDataStore.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -819,7 +822,7 @@
 				0749D7202AB988F2004DF368 /* HomeVC+Tracking.swift in Sources */,
 				0736905D2AC2D22A00A42187 /* TrackingTime+CoreDataProperties.swift in Sources */,
 				07B49C452A95E5BD006D1011 /* TrackingCompleteViewController.swift in Sources */,
-				07A45CE42AA0952000C09342 /* TrackingManager.swift in Sources */,
+				07A45CE42AA0952000C09342 /* TimerManager.swift in Sources */,
 				0749D71C2AB84198004DF368 /* HomeVC+BlockCollectionView.swift in Sources */,
 				07454E1329EC138E00B3458D /* SelectGroupTableViewCell.swift in Sources */,
 				07454E1129EBFDF200B3458D /* ActionButton.swift in Sources */,
@@ -844,6 +847,7 @@
 				075A5AEB2A81DCDD0004F847 /* PopupViewController.swift in Sources */,
 				0719649429E0692E009CA1A4 /* FormTextField.swift in Sources */,
 				0749D71E2AB97862004DF368 /* HomeVC+ScrollView.swift in Sources */,
+				0736905F2AC2D41400A42187 /* TrackingDataStore.swift in Sources */,
 				0749D7222AB9E3D7004DF368 /* HomeVC+LongPressGesture.swift in Sources */,
 				0719648629DAF9A5009CA1A4 /* HomeBlockCollectionViewCell.swift in Sources */,
 				078C50F829D9BBFE00F239BA /* RepositoryViewController.swift in Sources */,
