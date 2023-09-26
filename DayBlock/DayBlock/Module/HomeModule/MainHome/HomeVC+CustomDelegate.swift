@@ -122,7 +122,7 @@ extension HomeViewController: CreateBlockViewControllerDelegate {
         switchHomeGroup(index: groupData.focusIndex())
         
         // 2. 현재 블럭 인덱스를 가장 마지막 인덱스로 저장(생성 블럭 이전 인덱스)
-        blockIndex = blockData.lastIndex()
+        blockIndex = blockData.list().count - 1
         blockData.updateFocusIndex(to: blockIndex)
         
         // 3. BlockCollectionView 스크롤 위치 지정

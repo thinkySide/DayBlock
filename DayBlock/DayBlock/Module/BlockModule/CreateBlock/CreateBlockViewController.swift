@@ -182,7 +182,7 @@ extension CreateBlockViewController: UITextFieldDelegate {
         guard let text = viewManager.taskLabelTextField.textField.text else { return }
         
         // 리모트 블럭 업데이트
-        blockData.updateRemote(label: text)
+        blockData.updateRemoteBlock(label: text)
         
         // 라벨 실시간 업데이트
         viewManager.updateTaskLabel(text)
@@ -333,7 +333,7 @@ extension CreateBlockViewController: SelectGroupViewControllerDelegate, SelectIc
     func updateIcon() {
         
         // 아이콘 업데이트
-        let icon = blockData.remoteIcon()
+        let icon = blockData.remoteBlockIcon()
         viewManager.iconSelect.selectIcon.image = icon
         viewManager.updateIcon(icon)
     }

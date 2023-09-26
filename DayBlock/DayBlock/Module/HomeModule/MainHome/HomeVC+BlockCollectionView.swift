@@ -164,9 +164,9 @@ extension HomeViewController: UICollectionViewDelegate {
             guard let self else { return }
             let editBlock = data[indexPath.row]
             blockData.updateRemote(group: groupData.focusEntity())
-            blockData.updateRemote(label: editBlock.taskLabel)
-            blockData.updateRemote(output: editBlock.todayOutput)
-            blockData.updateRemote(icon: editBlock.icon)
+            blockData.updateRemoteBlock(label: editBlock.taskLabel)
+            blockData.updateRemoteBlock(todayOutput: editBlock.todayOutput)
+            blockData.updateRemoteBlock(icon: editBlock.icon)
             blockData.updateFocusIndex(to: indexPath.row)
             pushEditBlockViewController()
         }

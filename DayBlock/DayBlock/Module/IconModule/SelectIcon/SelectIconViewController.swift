@@ -69,7 +69,7 @@ final class SelectIconViewController: UIViewController {
         let itemIndex = indexPath[0].item
         symbolManager.updateSelectedIndex(to: itemIndex)
         
-        blockData.updateRemote(icon: symbolManager.selected())
+        blockData.updateRemoteBlock(icon: symbolManager.selected())
         
         /// delegate
         delegate?.updateIcon()
