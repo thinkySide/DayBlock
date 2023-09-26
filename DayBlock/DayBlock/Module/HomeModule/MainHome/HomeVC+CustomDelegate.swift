@@ -30,6 +30,10 @@ extension HomeViewController: HomeViewDelegate {
         // 2. 트래킹 보드 애니메이션 시작
         // activateTrackingBoard()
         
+        // 현재 시간 추가 후 트래킹 블럭 리스트 반환
+        trackingData.appendCurrentTimeInTrackingBlocks()
+        print(trackingData.trackingBlocks())
+        
         // 2. 트래킹 시작 날짜 데이터 넣기
         trackingData.createStartData()
         

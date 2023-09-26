@@ -25,7 +25,7 @@ final class TrackingDataStore {
     private let timerManager = TimerManager.shared
     
     /// 트래킹 날짜 엔티티
-    var trackingDateList: [TrackingDate] {
+    var dateList: [TrackingDate] {
         if let entity = blockData.focusEntity().trackingDateList?.array as? [TrackingDate] {
             return entity
         }
@@ -34,13 +34,16 @@ final class TrackingDataStore {
     }
     
     /// 트래킹 시간 엔티티
-    var trackingTimeList: [TrackingTime] {
+    var timeList: [TrackingTime] {
         if let entity = focusDate().trackingTimeList?.array as? [TrackingTime] {
             return entity
         }
         
         fatalError("Error: trackingTimeList Entity 반환 실패")
     }
+    
+    /// 현재 트래킹 되고 있는 블럭
+    private var currentTrackingBlocks: [String] = []
 }
 
 // MARK: - Format Method
@@ -73,7 +76,7 @@ extension TrackingDataStore {
     /// 현재 포커스된(트래킹 중인) 날짜 데이터를 반환합니다.
     /// ⚠️ 트래킹 날짜 데이터의 가장 마지막 데이터를 트래킹 중인 것으로 간주
     func focusDate() -> TrackingDate {
-        if let lastDate = trackingDateList.last {
+        if let lastDate = dateList.last {
             return lastDate
         }
         
@@ -99,5 +102,29 @@ extension TrackingDataStore {
         newTrackingDate.addToTrackingTimeList(newTrackingTime)
         blockData.focusEntity().addToTrackingDateList(newTrackingDate)
         groupData.saveContext()
+    }
+}
+
+// MARK: - Tracking Blocks Method
+extension TrackingDataStore {
+    
+    /// 현재 트래킹 되고 있는 블럭 리스트를 반환합니다.
+    func trackingBlocks() -> [String] {
+        return currentTrackingBlocks
+    }
+    
+    /// 현재 시간에 맞는 블럭을 트래킹 블럭리스트에 추가합니다.
+    func appendCurrentTimeInTrackingBlocks() {
+        if let safeTodaySeconds = Int(todaySeconds()) {
+            let focusBlock = safeTodaySeconds / 1800
+            let hour = String(focusBlock / 2)
+            let minute = focusBlock % 2 == 0 ? "00" : "30"
+            currentTrackingBlocks.append("\(hour):\(minute)")
+        }
+    }
+    
+    /// 현재 트래킹 되고 있는 블럭 리스트를 초기화합니다.
+    func resetTrackingBlocks() {
+        currentTrackingBlocks.removeAll()
     }
 }
