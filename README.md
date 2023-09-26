@@ -575,3 +575,14 @@ NotificationCenter를 활용해 그룹이 업데이트 되는 시점에 맞춰 H
 ---
 
 <br>
+
+### **Day 84 - 23.09.27**
+
+- **TrackingData CoreData 로직 구현**   
+트래킹 데이터 저장을 위한 로직을 재구성했습니다. Group - Block - TrackingDate - TrackingTime 순으로 이어진 데이터 타입을 생성하고, 이를 CRUD 할 수 있게 구현했습니다. 가장 시간이 오래 걸린 구현 작업이었던 것 같습니다.
+
+<img width="300" src="https://github.com/thinkySide/DayBlock/assets/113565086/47a67a92-d26c-43ee-bd28-6324e9f57786b">
+
+---
+
+<br>
