@@ -28,6 +28,31 @@ extension UIViewController {
         UIApplication.shared.isIdleTimerDisabled = !bool
     }
     
+    /// 토스트 메시지를 출력하는 메서드
+    func showToast(toast: ToastMessage, isActive active: Bool) {
+    
+        // 중복 클릭에 의한 불필요한 Dispatch 대기열 삭제
+        toastWorkItem?.cancel()
+        
+        // 토스트 활성화
+        if active {
+            UIView.animate(withDuration: 0.2) { toast.alpha = 1 }
+            
+            // 2초 뒤 비활성화
+            toastWorkItem = DispatchWorkItem {
+                UIView.animate(withDuration: 0.2) { toast.alpha = 0 }
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now()+2, execute: toastWorkItem!)
+            return
+        }
+        
+        // 토스트 비활성화
+        if !active {
+            UIView.animate(withDuration: 0.2) { toast.alpha = 0 }
+        }
+    }
+    
     /// UIView에 UITapGesture를 추가합니다.
     ///
     /// - Parameter component: 제스처를 추가할 UIView

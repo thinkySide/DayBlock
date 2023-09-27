@@ -90,6 +90,7 @@
 		07B49BD42A8F23FF006D1011 /* ToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BD32A8F23FF006D1011 /* ToastMessage.swift */; };
 		07B49C452A95E5BD006D1011 /* TrackingCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49C442A95E5BD006D1011 /* TrackingCompleteViewController.swift */; };
 		07B49C472A95E66D006D1011 /* TrackingCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49C462A95E66D006D1011 /* TrackingCompleteView.swift */; };
+		07B592122AC4126C0046ABFC /* DispatchWorkItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B592112AC4126C0046ABFC /* DispatchWorkItem.swift */; };
 		07C0BDA62ABC137700D5E779 /* Group+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BD9E2ABC137700D5E779 /* Group+CoreDataClass.swift */; };
 		07C0BDA72ABC137700D5E779 /* Group+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BD9F2ABC137700D5E779 /* Group+CoreDataProperties.swift */; };
 		07C0BDAA2ABC137700D5E779 /* Block+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDA22ABC137700D5E779 /* Block+CoreDataClass.swift */; };
@@ -189,6 +190,7 @@
 		07B49BD32A8F23FF006D1011 /* ToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessage.swift; sourceTree = "<group>"; };
 		07B49C442A95E5BD006D1011 /* TrackingCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingCompleteViewController.swift; sourceTree = "<group>"; };
 		07B49C462A95E66D006D1011 /* TrackingCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingCompleteView.swift; sourceTree = "<group>"; };
+		07B592112AC4126C0046ABFC /* DispatchWorkItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchWorkItem.swift; sourceTree = "<group>"; };
 		07C0BD9E2ABC137700D5E779 /* Group+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+CoreDataClass.swift"; sourceTree = "<group>"; };
 		07C0BD9F2ABC137700D5E779 /* Group+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		07C0BDA22ABC137700D5E779 /* Block+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Block+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -663,6 +665,7 @@
 				078C50ED29D72F9D00F239BA /* UIColor++.swift */,
 				0771983E29E2F4D10021088A /* UIButton++.swift */,
 				07454DE229EA6CEE00B3458D /* UIViewController++.swift */,
+				07B592112AC4126C0046ABFC /* DispatchWorkItem.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -790,6 +793,7 @@
 				0719648C29DDB1C0009CA1A4 /* TrackingBoardBlock.swift in Sources */,
 				07B49BC62A88EC14006D1011 /* MenuPopupItem.swift in Sources */,
 				07454DE729EA94EB00B3458D /* DisablePasteTextField.swift in Sources */,
+				07B592122AC4126C0046ABFC /* DispatchWorkItem.swift in Sources */,
 				07EB771929F53855000BD87E /* ColorManager.swift in Sources */,
 				0749D7262AB9E456004DF368 /* HomeVC+SelectGroupHalfModal.swift in Sources */,
 				071E3AB92AC15B14000C346F /* Text.swift in Sources */,

@@ -100,6 +100,12 @@ extension HomeViewController: DayBlockDelegate {
     /// - Parameter taskLabel: 트래킹 완료된 작업 이름
     func dayBlock(_ dayBlock: DayBlock, trackingComplete taskLabel: String?) {
         
+        // 0. 아직 블럭이 생성되지 않았다면, 메서드 종료
+        guard timerManager.totalTime > 1800 else {
+            showToast(toast: viewManager.toastView, isActive: true)
+            return
+        }
+        
         // 1. 최종 트래킹 데이터 저장
         trackingData.createFinishData()
         
