@@ -71,7 +71,7 @@ final class DayBlock: UIView {
     }()
     
     /// 아이콘
-    private let icon: UIImageView = {
+    let icon: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(systemName: "batteryblock.fill")
         image.contentMode = .scaleAspectFit
@@ -164,8 +164,8 @@ final class DayBlock: UIView {
                 colorTag.widthAnchor.constraint(equalToConstant: 20),
                 colorTag.heightAnchor.constraint(equalToConstant: 30),
                 icon.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 48),
-                icon.widthAnchor.constraint(equalToConstant: 56),
-                icon.heightAnchor.constraint(equalToConstant: 56)
+                icon.widthAnchor.constraint(equalToConstant: 44),
+                icon.heightAnchor.constraint(equalToConstant: 44)
             ])
         }
 

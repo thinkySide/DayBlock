@@ -108,8 +108,6 @@ extension HomeViewController {
     
     /// 트래킹 중단 BarButtonItem Tap 이벤트 메서드입니다.
     @objc func trackingStopBarButtonItemTapped(_ sender: UIGestureRecognizer) {
-        viewManager.trackingButtonTapped()
-        viewManager.blockPreview.pausedTrackingAnimation()
         presentStopTrackingPopup()
     }
     
@@ -135,6 +133,6 @@ extension HomeViewController {
     
     /// 트래킹 중단 팝업 - "아니오" 버튼 탭 메서드입니다.
     @objc private func trackingStopPopupCancelButtonTapped() {
-        viewManager.trackingButtonTapped()
+        //
     }
 }

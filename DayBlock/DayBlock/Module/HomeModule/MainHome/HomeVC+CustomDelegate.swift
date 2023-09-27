@@ -27,21 +27,20 @@ extension HomeViewController: HomeViewDelegate {
         // 1. 타이머 시작
         timerManager.trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingEverySecond), userInfo: nil, repeats: true)
         
-        // 2. 트래킹 보드 애니메이션 시작
-        // activateTrackingBoard()
+        // 2. SFSymbol 애니메이션 시작
+        startSFSymbolBounceAnimation(viewManager.trackingBlock.icon)
         
-        // 현재 시간 추가 후 트래킹 블럭 리스트 반환
+        // 3. 현재 시간 추가 후 트래킹 블럭 리스트 반환
         trackingData.appendCurrentTimeInTrackingBlocks()
-        // trackingData.printData()
         
-        // 2. 트래킹 시작 날짜 데이터 넣기
+        // 4. 트래킹 시작 날짜 데이터 넣기
         trackingData.createStartData()
         
-        // 3. 현재 트래킹 중인 블럭 정보 저장
+        // 5. 현재 트래킹 중인 블럭 정보 저장
         let blockDataList = blockData.list()
         viewManager.trackingBlock.update(group: groupData.focusEntity(), block: blockDataList[blockIndex])
         
-        // 4. 화면 꺼짐 방지
+        // 6. 화면 꺼짐 방지
         isScreenCanSleep(false)
     }
     
@@ -52,6 +51,9 @@ extension HomeViewController: HomeViewDelegate {
         
         // 1. 타이머 비활성화
         timerManager.trackingTimer.invalidate()
+        
+        // 2. SFSymbol 애니메이션 종료
+        stopSFSymbolAnimation(viewManager.trackingBlock.icon)
     }
     
     /// 트래킹 모드가 재시작 된 후 호출되는 Delegate 메서드입니다.
@@ -61,6 +63,9 @@ extension HomeViewController: HomeViewDelegate {
         
         // 1. 타이머 시작
         timerManager.trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingEverySecond), userInfo: nil, repeats: true)
+        
+        // 2. SFSymbol 애니메이션 재시작
+        startSFSymbolBounceAnimation(viewManager.trackingBlock.icon)
     }
     
     /// 트래킹 모드가 중단 된 후 호출되는 Delegate 메서드입니다.
@@ -73,6 +78,9 @@ extension HomeViewController: HomeViewDelegate {
         
         // 1. 트래커 초기화
         resetTracker()
+        
+        // 2. SFSymbol 애니메이션 종료
+        stopSFSymbolAnimation(viewManager.trackingBlock.icon)
     }
     
     /// 트래킹 모드가 완료된 후 호출되는 Delegate 메서드입니다.
@@ -117,6 +125,9 @@ extension HomeViewController: DayBlockDelegate {
         
         // 4. 트래커 초기화
         resetTracker()
+        
+        // 5. SFSymbol 애니메이션 종료
+        stopSFSymbolAnimation(viewManager.trackingBlock.icon)
     }
 }
 

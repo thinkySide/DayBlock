@@ -28,6 +28,20 @@ extension UIViewController {
         UIApplication.shared.isIdleTimerDisabled = !bool
     }
     
+    /// SFSymbol Bounce 애니메이션을 시작합니다.
+    func startSFSymbolBounceAnimation(_ symbol: UIImageView) {
+        if #available(iOS 17.0, *) {
+            symbol.addSymbolEffect(.bounce, options: .speed(0.3).repeating)
+        }
+    }
+    
+    /// SFSymbol 애니메이션을 종료합니다.
+    func stopSFSymbolAnimation(_ symbol: UIImageView) {
+        if #available(iOS 17.0, *) {
+            symbol.removeAllSymbolEffects()
+        }
+    }
+    
     /// 토스트 메시지를 출력하는 메서드
     func showToast(toast: ToastMessage, isActive active: Bool) {
     
@@ -43,7 +57,7 @@ extension UIViewController {
                 UIView.animate(withDuration: 0.2) { toast.alpha = 0 }
             }
             
-            DispatchQueue.main.asyncAfter(deadline: .now()+2, execute: toastWorkItem!)
+            DispatchQueue.main.asyncAfter(deadline: .now()+3, execute: toastWorkItem!)
             return
         }
         

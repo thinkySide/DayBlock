@@ -5,4 +5,12 @@
 //  Created by 김민준 on 2023/09/27.
 //
 
-import Foundation
+import UIKit
+
+extension UIImageView {
+    
+    func startBounceAnimation() {
+        
+    }
+    
+}

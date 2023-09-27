@@ -12,9 +12,6 @@ final class ListGroupViewController: UIViewController {
     // Delegate
     weak var delegate: ListGroupViewControllerDelegate?
     
-    // 딜레이를 위한 Dispath아이템
-    // var workItem: DispatchWorkItem?
-    
     private let viewManager = ListGroupView()
     
     private let groupData = GroupDataStore.shared
@@ -59,34 +56,6 @@ final class ListGroupViewController: UIViewController {
         viewManager.groupTableView.delegate = self
         viewManager.groupTableView.register(SelectGroupTableViewCell.self, forCellReuseIdentifier: Cell.groupSelect)
     }
-    
-    // MARK: - Custom Method
-    
-    /// 토스트 메시지를 출력하는 메서드
-//    private func showToast(is active: Bool) {
-//    
-//        // 중복 클릭에 의한 불필요한 Dispatch 대기열 삭제
-//        workItem?.cancel()
-//        
-//        // 토스트 활성화
-//        if active {
-//            UIView.animate(withDuration: 0.2) { self.viewManager.toastView.alpha = 1 }
-//            
-//            // 2초 뒤 비활성화
-//            workItem = DispatchWorkItem {
-//                UIView.animate(withDuration: 0.2) { self.viewManager.toastView.alpha = 0 }
-//            }
-//            
-//            DispatchQueue.main.asyncAfter(deadline: .now()+2, execute: workItem!)
-//            
-//            return
-//        }
-//        
-//        // 토스트 비활성화
-//        if !active {
-//            UIView.animate(withDuration: 0.2) { self.viewManager.toastView.alpha = 0 }
-//        }
-//    }
 }
 
 // MARK: - UITableViewDataSource & UITableViewDelegate

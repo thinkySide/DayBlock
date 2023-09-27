@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Symbols
 
 final class CreateBlockView: UIView {
     
@@ -27,14 +28,13 @@ final class CreateBlockView: UIView {
         view.layer.cornerRadius = 9
         
         /// 하단 왼쪽, 하단 오른쪽만 cornerRadius 값 주기
-        view.layer.maskedCorners = CACornerMask(
-            arrayLiteral: .layerMinXMaxYCorner, .layerMaxXMaxYCorner)
+        view.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMaxYCorner, .layerMaxXMaxYCorner)
         return view
     }()
     
     private let blockPreviewIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(systemName: "batteryblock.fill") // ⛳️
+        image.image = UIImage(systemName: "batteryblock.fill")
         image.contentMode = .scaleAspectFit
         image.tintColor = Color.mainText
         return image

@@ -18,7 +18,6 @@
 		0719649429E0692E009CA1A4 /* FormTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719649329E0692E009CA1A4 /* FormTextField.swift */; };
 		0719649629E0763C009CA1A4 /* FormSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719649529E0763C009CA1A4 /* FormSelectButton.swift */; };
 		0719649829E148CA009CA1A4 /* DayBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719649729E148CA009CA1A4 /* DayBlock.swift */; };
-		071E3AB92AC15B14000C346F /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071E3AB82AC15B14000C346F /* Text.swift */; };
 		071E3ABB2AC15EF1000C346F /* GroupDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071E3ABA2AC15EF1000C346F /* GroupDataStore.swift */; };
 		071E3ABD2AC166B2000C346F /* BlockDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071E3ABC2AC166B2000C346F /* BlockDataStore.swift */; };
 		0736905C2AC2D22A00A42187 /* TrackingTime+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0736905A2AC2D22A00A42187 /* TrackingTime+CoreDataClass.swift */; };
@@ -91,6 +90,7 @@
 		07B49C452A95E5BD006D1011 /* TrackingCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49C442A95E5BD006D1011 /* TrackingCompleteViewController.swift */; };
 		07B49C472A95E66D006D1011 /* TrackingCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49C462A95E66D006D1011 /* TrackingCompleteView.swift */; };
 		07B592122AC4126C0046ABFC /* DispatchWorkItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B592112AC4126C0046ABFC /* DispatchWorkItem.swift */; };
+		07B592142AC42B7D0046ABFC /* UIImageView++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B592132AC42B7D0046ABFC /* UIImageView++.swift */; };
 		07C0BDA62ABC137700D5E779 /* Group+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BD9E2ABC137700D5E779 /* Group+CoreDataClass.swift */; };
 		07C0BDA72ABC137700D5E779 /* Group+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BD9F2ABC137700D5E779 /* Group+CoreDataProperties.swift */; };
 		07C0BDAA2ABC137700D5E779 /* Block+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDA22ABC137700D5E779 /* Block+CoreDataClass.swift */; };
@@ -116,7 +116,6 @@
 		0719649329E0692E009CA1A4 /* FormTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTextField.swift; sourceTree = "<group>"; };
 		0719649529E0763C009CA1A4 /* FormSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSelectButton.swift; sourceTree = "<group>"; };
 		0719649729E148CA009CA1A4 /* DayBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayBlock.swift; sourceTree = "<group>"; };
-		071E3AB82AC15B14000C346F /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		071E3ABA2AC15EF1000C346F /* GroupDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDataStore.swift; sourceTree = "<group>"; };
 		071E3ABC2AC166B2000C346F /* BlockDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockDataStore.swift; sourceTree = "<group>"; };
 		0736905A2AC2D22A00A42187 /* TrackingTime+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingTime+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -191,6 +190,7 @@
 		07B49C442A95E5BD006D1011 /* TrackingCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingCompleteViewController.swift; sourceTree = "<group>"; };
 		07B49C462A95E66D006D1011 /* TrackingCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingCompleteView.swift; sourceTree = "<group>"; };
 		07B592112AC4126C0046ABFC /* DispatchWorkItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchWorkItem.swift; sourceTree = "<group>"; };
+		07B592132AC42B7D0046ABFC /* UIImageView++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView++.swift"; sourceTree = "<group>"; };
 		07C0BD9E2ABC137700D5E779 /* Group+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+CoreDataClass.swift"; sourceTree = "<group>"; };
 		07C0BD9F2ABC137700D5E779 /* Group+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		07C0BDA22ABC137700D5E779 /* Block+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Block+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -511,7 +511,6 @@
 				076248A72AB2DA63000A8664 /* IconModule */,
 				076248A92AB2DB0F000A8664 /* ScheduleModule */,
 				076248AA2AB2DB2A000A8664 /* RepositoryModule */,
-				071E3AB82AC15B14000C346F /* Text.swift */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -665,6 +664,7 @@
 				078C50ED29D72F9D00F239BA /* UIColor++.swift */,
 				0771983E29E2F4D10021088A /* UIButton++.swift */,
 				07454DE229EA6CEE00B3458D /* UIViewController++.swift */,
+				07B592132AC42B7D0046ABFC /* UIImageView++.swift */,
 				07B592112AC4126C0046ABFC /* DispatchWorkItem.swift */,
 			);
 			path = Extension;
@@ -796,7 +796,6 @@
 				07B592122AC4126C0046ABFC /* DispatchWorkItem.swift in Sources */,
 				07EB771929F53855000BD87E /* ColorManager.swift in Sources */,
 				0749D7262AB9E456004DF368 /* HomeVC+SelectGroupHalfModal.swift in Sources */,
-				071E3AB92AC15B14000C346F /* Text.swift in Sources */,
 				0719648E29DF044C009CA1A4 /* GroupSelectButton.swift in Sources */,
 				071E3ABD2AC166B2000C346F /* BlockDataStore.swift in Sources */,
 				077A663629ED2ABA00D99C68 /* CreateGroupView.swift in Sources */,
@@ -821,6 +820,7 @@
 				078C50C029D7152F00F239BA /* DayBlock.xcdatamodeld in Sources */,
 				0770802F29E78C9200D66900 /* SelectGroupViewController.swift in Sources */,
 				07B49C472A95E66D006D1011 /* TrackingCompleteView.swift in Sources */,
+				07B592142AC42B7D0046ABFC /* UIImageView++.swift in Sources */,
 				0749D72D2ABAD7E9004DF368 /* HomeDelegate.swift in Sources */,
 				078C50D129D726FE00F239BA /* HomeView.swift in Sources */,
 				0749D7202AB988F2004DF368 /* HomeVC+Timer.swift in Sources */,
