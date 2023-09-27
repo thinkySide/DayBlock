@@ -22,40 +22,60 @@ extension HomeViewController {
         updateTimeLabel()
         
         // 1초마다 날짜 및 시간 업데이트 하는 타이머 실행
-        trackingManager.dateTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimeLabel), userInfo: nil, repeats: true)
+        timerManager.dateTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimeLabel), userInfo: nil, repeats: true)
     }
     
     /// 현재 시간을 기준으로 timeLabel을 설정합니다.
     @objc private func updateTimeLabel() {
-        viewManager.timeLabel.text = trackingManager.timeLabelFormat
+        viewManager.timeLabel.text = timerManager.timeLabelFormat
         
         // 00:00에 날짜 업데이트
         if viewManager.timeLabel.text == "00:00" { updateDateLabel() }
         
         // 트래킹 타임 업데이트
-        trackingManager.updateTrackingStartTime()
+        timerManager.updateTrackingStartTime()
     }
     
     /// 현재 날짜 및 요일을 기준으로 dateLabel을 설정합니다.
     private func updateDateLabel() {
-        viewManager.dateLabel.text = trackingManager.dateFormat
+        viewManager.dateLabel.text = timerManager.dateFormat
     }
     
     /// 1초마다 실행되는 트래킹 메서드입니다.
     @objc func trackingEverySecond() {
-        trackingManager.totalTime += 1
-        trackingManager.currentTime += 1
+        timerManager.totalTime += 1
+        timerManager.currentTime += 1
         
         // 30분 단위 블럭 추가 및 현재 시간 초기화 (0.5블럭)
-        if trackingManager.totalTime % 1800 == 0 {
-            trackingManager.totalBlock += 0.5
-            viewManager.updateCurrentProductivityLabel(trackingManager.totalBlock)
-            trackingManager.currentTime = 0
+        if timerManager.totalTime % 1800 == 0 {
+            timerManager.totalBlock += 0.5
+            viewManager.updateCurrentProductivityLabel(timerManager.totalBlock)
+            timerManager.currentTime = 0
         }
         
         // TimeLabel & ProgressView 업데이트
-        viewManager.updateTracking(time: trackingManager.timeFormatter,
-                                   progress: trackingManager.currentTime / 1800)
+        viewManager.updateTracking(time: timerManager.timeFormatter,
+                                   progress: timerManager.currentTime / 1800)
+    }
+    
+    /// 트래커를 초기화합니다.
+    func resetTracker() {
+        
+        // 1. 타이머 비활성화
+        timerManager.trackingTimer.invalidate()
+        
+        // 2. UI 및 트래커 초기화
+        viewManager.updateTracking(time: "00:00:00", progress: 0)
+        timerManager.totalTime = 0
+        timerManager.currentTime = 0
+        timerManager.totalBlock = 0
+        
+        // 3. 컬렉션뷰 초기화
+        viewManager.blockCollectionView.reloadData()
+        viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: blockIndex, section: 0), at: .left, animated: true)
+        
+        // 4. 화면 꺼짐 해제
+        isScreenCanSleep(true)
     }
 }
 
@@ -64,7 +84,7 @@ extension HomeViewController {
     
     /// 트래킹 보드를 활성화하고 애니메이션을 실행합니다.
     func activateTrackingBoard() {
-        guard let trackingIndexs = trackingManager.fetchTrackingBlocks()[trackingManager.trackingFormat] else { return }
+        guard let trackingIndexs = timerManager.fetchTrackingBlocks()[timerManager.trackingFormat] else { return }
         let color = groupData.focusColor()
         viewManager.blockPreview.activateTrackingAnimation(trackingIndexs, color: color)
     }

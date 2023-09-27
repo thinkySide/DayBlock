@@ -128,6 +128,13 @@ final class HomeView: UIView {
         button.addTarget(self, action: #selector(trackingButtonTapped), for: .touchUpInside)
         return button
     }()
+    
+    let toastView: ToastMessage = {
+        let view = ToastMessage()
+        view.messageLabel.text = "블럭 0.5개 이상 생산 시 등록이 가능해요"
+        view.alpha = 1
+        return view
+    }()
 
     let tabBarStackView = TabBar()
     
@@ -135,8 +142,6 @@ final class HomeView: UIView {
     
     /// 트래킹 모드를 중단합니다.
     func stopTrackingMode() {
-        print("트래킹 STOP")
-        
         trackingMode = .stop
         delegate?.homeView(self, trackingDidStop: trackingMode)
         
@@ -269,6 +274,7 @@ final class HomeView: UIView {
             trackingTimeLabel,
             trackingProgressView,
             trackingButton,
+            toastView,
             tabBarStackView
         ]
             .forEach {
@@ -341,6 +347,9 @@ final class HomeView: UIView {
             trackingButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             trackingButton.widthAnchor.constraint(equalToConstant: 72),
             trackingButton.heightAnchor.constraint(equalToConstant: 72),
+            
+            toastView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            toastView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -48),
             
             /// tabBarStackView
             tabBarStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),

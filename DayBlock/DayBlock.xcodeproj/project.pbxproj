@@ -35,7 +35,7 @@
 		07454E1929EFD8A400B3458D /* ActionButtonSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1829EFD8A400B3458D /* ActionButtonSet.swift */; };
 		0749D71C2AB84198004DF368 /* HomeVC+BlockCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749D71B2AB84198004DF368 /* HomeVC+BlockCollectionView.swift */; };
 		0749D71E2AB97862004DF368 /* HomeVC+ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749D71D2AB97862004DF368 /* HomeVC+ScrollView.swift */; };
-		0749D7202AB988F2004DF368 /* HomeVC+Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749D71F2AB988F2004DF368 /* HomeVC+Tracking.swift */; };
+		0749D7202AB988F2004DF368 /* HomeVC+Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749D71F2AB988F2004DF368 /* HomeVC+Timer.swift */; };
 		0749D7222AB9E3D7004DF368 /* HomeVC+LongPressGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749D7212AB9E3D7004DF368 /* HomeVC+LongPressGesture.swift */; };
 		0749D7262AB9E456004DF368 /* HomeVC+SelectGroupHalfModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749D7252AB9E456004DF368 /* HomeVC+SelectGroupHalfModal.swift */; };
 		0749D7282AB9E832004DF368 /* HomeVC+Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749D7272AB9E832004DF368 /* HomeVC+Notification.swift */; };
@@ -132,7 +132,7 @@
 		07454E1829EFD8A400B3458D /* ActionButtonSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonSet.swift; sourceTree = "<group>"; };
 		0749D71B2AB84198004DF368 /* HomeVC+BlockCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+BlockCollectionView.swift"; sourceTree = "<group>"; };
 		0749D71D2AB97862004DF368 /* HomeVC+ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+ScrollView.swift"; sourceTree = "<group>"; };
-		0749D71F2AB988F2004DF368 /* HomeVC+Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+Tracking.swift"; sourceTree = "<group>"; };
+		0749D71F2AB988F2004DF368 /* HomeVC+Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+Timer.swift"; sourceTree = "<group>"; };
 		0749D7212AB9E3D7004DF368 /* HomeVC+LongPressGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+LongPressGesture.swift"; sourceTree = "<group>"; };
 		0749D7252AB9E456004DF368 /* HomeVC+SelectGroupHalfModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+SelectGroupHalfModal.swift"; sourceTree = "<group>"; };
 		0749D7272AB9E832004DF368 /* HomeVC+Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+Notification.swift"; sourceTree = "<group>"; };
@@ -490,7 +490,7 @@
 				0749D7272AB9E832004DF368 /* HomeVC+Notification.swift */,
 				0749D71B2AB84198004DF368 /* HomeVC+BlockCollectionView.swift */,
 				0749D71D2AB97862004DF368 /* HomeVC+ScrollView.swift */,
-				0749D71F2AB988F2004DF368 /* HomeVC+Tracking.swift */,
+				0749D71F2AB988F2004DF368 /* HomeVC+Timer.swift */,
 				0749D7212AB9E3D7004DF368 /* HomeVC+LongPressGesture.swift */,
 				0749D7252AB9E456004DF368 /* HomeVC+SelectGroupHalfModal.swift */,
 				0719648529DAF9A5009CA1A4 /* HomeBlockCollectionViewCell.swift */,
@@ -698,7 +698,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					078C50B129D7152F00F239BA = {
 						CreatedOnToolsVersion = 14.2;
@@ -819,7 +819,7 @@
 				07B49C472A95E66D006D1011 /* TrackingCompleteView.swift in Sources */,
 				0749D72D2ABAD7E9004DF368 /* HomeDelegate.swift in Sources */,
 				078C50D129D726FE00F239BA /* HomeView.swift in Sources */,
-				0749D7202AB988F2004DF368 /* HomeVC+Tracking.swift in Sources */,
+				0749D7202AB988F2004DF368 /* HomeVC+Timer.swift in Sources */,
 				0736905D2AC2D22A00A42187 /* TrackingTime+CoreDataProperties.swift in Sources */,
 				07B49C452A95E5BD006D1011 /* TrackingCompleteViewController.swift in Sources */,
 				07A45CE42AA0952000C09342 /* TimerManager.swift in Sources */,
@@ -877,6 +877,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -909,6 +910,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -937,6 +939,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -969,6 +972,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -995,6 +999,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9XG4S4XZWN;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DayBlock/Essential/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1025,6 +1030,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9XG4S4XZWN;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DayBlock/Essential/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

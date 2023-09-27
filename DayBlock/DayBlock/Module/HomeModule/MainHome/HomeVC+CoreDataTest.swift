@@ -11,7 +11,7 @@ import UIKit
 extension HomeViewController {
     
     /// CoreData 테스트용 메서드입니다.
-    func testCoreData() {
+    @objc func testCoreData() {
         // insertTrackingTestData()
         printCoreData()
     }
@@ -75,7 +75,7 @@ extension HomeViewController {
                                     print("         [TrackingTime]")
                                     print("         • superDate: \(time.superDate.month) \(time.superDate.day)")
                                     print("         • startTime: \(time.startTime)")
-                                    print("         • endTime: \(time.endTime)")
+                                    print("         • endTime: \(String(describing: time.endTime))")
                                     print("")
                                 }
                             }

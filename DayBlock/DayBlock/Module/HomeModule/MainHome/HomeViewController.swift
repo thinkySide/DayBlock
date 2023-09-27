@@ -10,7 +10,7 @@ import UIKit
 final class HomeViewController: UIViewController {
     
     let viewManager = HomeView()
-    let trackingManager = TimerManager.shared
+    let timerManager = TimerManager.shared
     
     let groupData = GroupDataStore.shared
     let blockData = BlockDataStore.shared
@@ -40,6 +40,10 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(testCoreData))
+        viewManager.blockPreview.addGestureRecognizer(gesture)
+        
         setupCoreData()
         setupNotification()
         setupDelegate()
@@ -48,8 +52,6 @@ final class HomeViewController: UIViewController {
         setupTimer()
         setupUI()
         setupGestrue()
-        
-        testCoreData()
     }
     
     // MARK: - Setup Method

@@ -25,7 +25,7 @@ extension HomeViewController: HomeViewDelegate {
     func homeView(_ homeView: HomeView, trackingDidStart mode: HomeView.TrakingMode) {
         
         // 1. 타이머 시작
-        trackingManager.trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingEverySecond), userInfo: nil, repeats: true)
+        timerManager.trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingEverySecond), userInfo: nil, repeats: true)
         
         // 2. 트래킹 보드 애니메이션 시작
         // activateTrackingBoard()
@@ -51,7 +51,7 @@ extension HomeViewController: HomeViewDelegate {
     func homeView(_ homeView: HomeView, trackingDidPause mode: HomeView.TrakingMode) {
         
         // 1. 타이머 비활성화
-        trackingManager.trackingTimer.invalidate()
+        timerManager.trackingTimer.invalidate()
     }
     
     /// 트래킹 모드가 재시작 된 후 호출되는 Delegate 메서드입니다.
@@ -60,7 +60,7 @@ extension HomeViewController: HomeViewDelegate {
     func homeView(_ homeView: HomeView, trackingDidRestart mode: HomeView.TrakingMode) {
         
         // 1. 타이머 시작
-        trackingManager.trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingEverySecond), userInfo: nil, repeats: true)
+        timerManager.trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingEverySecond), userInfo: nil, repeats: true)
     }
     
     /// 트래킹 모드가 중단 된 후 호출되는 Delegate 메서드입니다.
@@ -68,50 +68,18 @@ extension HomeViewController: HomeViewDelegate {
     /// - Parameter mode: 현재 트래킹 모드
     func homeView(_ homeView: HomeView, trackingDidStop mode: HomeView.TrakingMode) {
         
-        print(#function)
-        
         // 0. 이전에 트래킹 되고 있던 데이터 삭제
         trackingData.removeStopData()
         
-        // 1. 타이머 비활성화
-        trackingManager.trackingTimer.invalidate()
-        
-        // 2. UI 및 트래커 초기화
-        viewManager.updateTracking(time: "00:00:00", progress: 0)
-        trackingManager.totalTime = 0
-        trackingManager.currentTime = 0
-        trackingManager.totalBlock = 0
-        
-        // 3. 컬렉션뷰 초기화
-        viewManager.blockCollectionView.reloadData()
-        viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: blockIndex, section: 0), at: .left, animated: true)
-        
-        // 4. 화면 꺼짐 해제
-        isScreenCanSleep(true)
+        // 1. 트래커 초기화
+        resetTracker()
     }
     
     /// 트래킹 모드가 완료된 후 호출되는 Delegate 메서드입니다.
     ///
     /// - Parameter mode: 현재 트래킹 모드
     func homeView(_ homeView: HomeView, trackingDidFinish mode: HomeView.TrakingMode) {
-        
-        print(#function)
-        
-        // 1. 타이머 비활성화
-        trackingManager.trackingTimer.invalidate()
-        
-        // 2. UI 및 트래커 초기화
-        viewManager.updateTracking(time: "00:00:00", progress: 0)
-        trackingManager.totalTime = 0
-        trackingManager.currentTime = 0
-        trackingManager.totalBlock = 0
-
-        // 3. 컬렉션뷰 초기화
-        viewManager.blockCollectionView.reloadData()
-        viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: blockIndex, section: 0), at: .left, animated: true)
-        
-        // 4. 화면 꺼짐 해제
-        isScreenCanSleep(true)
+        resetTracker()
     }
     
     /// ProgressView의 컬러를 설정하기 위한 Delegate 메서드입니다.
@@ -141,15 +109,8 @@ extension HomeViewController: DayBlockDelegate {
         // 3. 홈 화면 트래킹 모드 종료
         viewManager.finishTrackingMode()
         
-        // 4. 타이머 및 UI 초기화
-        trackingManager.trackingTimer.invalidate()
-        viewManager.updateTracking(time: "00:00:00", progress: 0)
-        trackingManager.totalTime = 0
-        trackingManager.currentTime = 0
-        trackingManager.totalBlock = 0
-        viewManager.blockCollectionView.reloadData()
-        viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: blockIndex, section: 0), at: .left, animated: true)
-        isScreenCanSleep(true)
+        // 4. 트래커 초기화
+        resetTracker()
     }
 }
 
