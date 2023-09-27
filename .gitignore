@@ -1,5 +1,6 @@
 ##Project-wide
 .DS_Store
+.xcuserstate
 
 # Xcode
 #
