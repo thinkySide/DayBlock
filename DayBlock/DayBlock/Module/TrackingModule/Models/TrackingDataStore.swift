@@ -73,7 +73,7 @@ extension TrackingDataStore {
     }
 }
 
-// MARK: - CRUD Method
+// MARK: - READ Method
 extension TrackingDataStore {
     
     /// 현재 트래킹 데이터를 출력합니다.
@@ -103,6 +103,10 @@ extension TrackingDataStore {
         print("Error: focusTime 반환 실패")
         return TrackingTime()
     }
+}
+
+// MARK: - CREAT & REMOVE Method
+extension TrackingDataStore {
     
     /// 트래킹 시작 데이터를 생성합니다.
     func createStartData() {
@@ -145,7 +149,7 @@ extension TrackingDataStore {
     }
 }
 
-// MARK: - Tracking Blocks Method
+// MARK: - Tracking Preview Blocks Method
 extension TrackingDataStore {
     
     /// 현재 트래킹 되고 있는 블럭 리스트를 반환합니다.
@@ -154,6 +158,9 @@ extension TrackingDataStore {
     }
     
     /// 현재 시간에 맞는 블럭을 트래킹 블럭리스트에 추가합니다.
+    ///
+    /// 트래킹이 시작될 때 1번 호출,
+    /// 블럭 0.5개가 생산될 때마다 1번씩 호출
     func appendCurrentTimeInTrackingBlocks() {
         if let safeTodaySeconds = Int(todaySeconds()) {
             let focusBlock = safeTodaySeconds / 1800
@@ -165,6 +172,8 @@ extension TrackingDataStore {
             if !currentTrackingBlocks.contains(time) {
                 currentTrackingBlocks.append(time)
             }
+            
+            print("트래킹 프리뷰: \(currentTrackingBlocks)")
         }
     }
     

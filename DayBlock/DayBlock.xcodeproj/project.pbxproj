@@ -568,6 +568,7 @@
 			children = (
 				078C50E729D72D2900F239BA /* NameSpace.swift */,
 				073EBFEF2AB6D4D40031F6AB /* SFSymbols.swift */,
+				07B592112AC4126C0046ABFC /* DispatchWorkItem.swift */,
 			);
 			path = File;
 			sourceTree = "<group>";
@@ -665,7 +666,6 @@
 				0771983E29E2F4D10021088A /* UIButton++.swift */,
 				07454DE229EA6CEE00B3458D /* UIViewController++.swift */,
 				07B592132AC42B7D0046ABFC /* UIImageView++.swift */,
-				07B592112AC4126C0046ABFC /* DispatchWorkItem.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";

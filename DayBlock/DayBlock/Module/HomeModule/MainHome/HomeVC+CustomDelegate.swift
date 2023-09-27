@@ -27,18 +27,19 @@ extension HomeViewController: HomeViewDelegate {
         // 1. 타이머 시작
         timerManager.trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingEverySecond), userInfo: nil, repeats: true)
         
-        // 2. SFSymbol 애니메이션 시작
-        startSFSymbolBounceAnimation(viewManager.trackingBlock.icon)
-        
-        // 3. 현재 시간 추가 후 트래킹 블럭 리스트 반환
-        trackingData.appendCurrentTimeInTrackingBlocks()
-        
-        // 4. 트래킹 시작 날짜 데이터 넣기
+        // 2. 트래킹 시작 날짜 데이터 넣기
         trackingData.createStartData()
         
-        // 5. 현재 트래킹 중인 블럭 정보 저장
+        // 3. 현재 트래킹 중인 블럭 정보 저장
         let blockDataList = blockData.list()
         viewManager.trackingBlock.update(group: groupData.focusEntity(), block: blockDataList[blockIndex])
+        
+        // 4. 트래킹 보드 애니메이션 시작
+        trackingData.appendCurrentTimeInTrackingBlocks()
+        updateTrackingBoard(isPaused: false)
+        
+        // 5. SFSymbol 애니메이션 시작
+        startSFSymbolBounceAnimation(viewManager.trackingBlock.icon)
         
         // 6. 화면 꺼짐 방지
         isScreenCanSleep(false)
@@ -52,7 +53,10 @@ extension HomeViewController: HomeViewDelegate {
         // 1. 타이머 비활성화
         timerManager.trackingTimer.invalidate()
         
-        // 2. SFSymbol 애니메이션 종료
+        // 2. 트래킹 보드 애니메이션 일시정지
+        updateTrackingBoard(isPaused: true)
+        
+        // 3. SFSymbol 애니메이션 종료
         stopSFSymbolAnimation(viewManager.trackingBlock.icon)
     }
     
@@ -64,7 +68,10 @@ extension HomeViewController: HomeViewDelegate {
         // 1. 타이머 시작
         timerManager.trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingEverySecond), userInfo: nil, repeats: true)
         
-        // 2. SFSymbol 애니메이션 재시작
+        // 2. 트래킹 보드 애니메이션 재시작
+        updateTrackingBoard(isPaused: false)
+        
+        // 3. SFSymbol 애니메이션 재시작
         startSFSymbolBounceAnimation(viewManager.trackingBlock.icon)
     }
     
@@ -88,6 +95,7 @@ extension HomeViewController: HomeViewDelegate {
     /// - Parameter mode: 현재 트래킹 모드
     func homeView(_ homeView: HomeView, trackingDidFinish mode: HomeView.TrakingMode) {
         resetTracker()
+        trackingData.resetTrackingBlocks()
     }
     
     /// ProgressView의 컬러를 설정하기 위한 Delegate 메서드입니다.
@@ -126,7 +134,10 @@ extension HomeViewController: DayBlockDelegate {
         // 4. 트래커 초기화
         resetTracker()
         
-        // 5. SFSymbol 애니메이션 종료
+        // 5. 트래킹 프리뷰 블럭 초기화
+        trackingData.resetTrackingBlocks()
+        
+        // 6. SFSymbol 애니메이션 종료
         stopSFSymbolAnimation(viewManager.trackingBlock.icon)
     }
 }

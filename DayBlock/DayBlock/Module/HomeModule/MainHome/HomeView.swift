@@ -203,7 +203,6 @@ final class HomeView: UIView {
             trackingTimeLabel.textColor = Color.disabledText
             trackingButton.setImage(UIImage(named: Icon.trackingStart), for: .normal)
             trackingProgressView.progressTintColor = Color.disabledText
-            blockPreview.pausedTrackingAnimation()
             
         case .restart:
             delegate?.homeView(self, trackingDidRestart: trackingMode)

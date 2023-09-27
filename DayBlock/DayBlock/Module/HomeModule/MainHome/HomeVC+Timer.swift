@@ -46,11 +46,15 @@ extension HomeViewController {
         timerManager.totalTime += 1
         timerManager.currentTime += 1
         
-        // 30분 단위 블럭 추가 및 현재 시간 초기화 (0.5블럭)
+        // 0.5개가 생산될 때마다 호출
         if timerManager.totalTime % 1800 == 0 {
             timerManager.totalBlock += 0.5
             viewManager.updateCurrentProductivityLabel(timerManager.totalBlock)
             timerManager.currentTime = 0
+            
+            // 프리뷰를 위한 배열 업데이트
+            trackingData.appendCurrentTimeInTrackingBlocks()
+            updateTrackingBoard(isPaused: false)
         }
         
         // TimeLabel & ProgressView 업데이트
@@ -82,11 +86,11 @@ extension HomeViewController {
 // MARK: - Tracking Board
 extension HomeViewController {
     
-    /// 트래킹 보드를 활성화하고 애니메이션을 실행합니다.
-    func activateTrackingBoard() {
-        guard let trackingIndexs = timerManager.fetchTrackingBlocks()[timerManager.trackingFormat] else { return }
-        let color = groupData.focusColor()
-        viewManager.blockPreview.activateTrackingAnimation(trackingIndexs, color: color)
+    /// 트래킹 보드를 업데이트하고 애니메이션을 실행합니다.
+    func updateTrackingBoard(isPaused: Bool) {
+        let currentBlocks = trackingData.trackingBlocks()
+        let currentColor = groupData.focusColor()
+        viewManager.blockPreview.updateTrackingAnimation(currentBlocks, isPaused: isPaused, color: currentColor)
     }
 }
 
@@ -96,7 +100,6 @@ extension HomeViewController {
     /// TrackingCompleteViewController로 Present 합니다.
     func presentTrackingCompleteVC() {
         let trackingCompleteVC = TrackingCompleteViewController()
-        // trackingCompleteVC.delegate = self
         trackingCompleteVC.modalTransitionStyle = .coverVertical
         trackingCompleteVC.modalPresentationStyle = .overFullScreen
         present(trackingCompleteVC, animated: true)

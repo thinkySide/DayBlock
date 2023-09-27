@@ -12,9 +12,6 @@ final class TrackingBoard: UIView {
     /// 블럭 사이즈
     var blockSize: CGFloat
     
-    /// 현재 활성화 중인 블럭
-    var currentBlocks: [TrackingBoardBlock] = []
-    
     /// 블럭 간 간격
     private let spacing: CGFloat
     
@@ -52,129 +49,105 @@ final class TrackingBoard: UIView {
         case halfTime
     }
     
-    func animationCondition(_ time: Time, paintBlock: TrackingBoardBlock, color: UIColor) {
-        
-        /// 현재 애니메이션 블럭에 추가(중복 추가 방지)
-        if !currentBlocks.contains(paintBlock) {
-            currentBlocks.append(paintBlock)
-        }
+    private func startAnimation(_ time: Time, paintBlock: TrackingBoardBlock, isPaused: Bool, color: UIColor) {
         
         switch time {
-        case .onTime: paintBlock.configureAnimation(.firstHalf, color: color, isPaused: false)
+        case .onTime: paintBlock.configureAnimation(.firstHalf, color: color, isPaused: isPaused)
             
         case .halfTime:
             
             // 첫번째 반쪽 차있을 때, 두번째 반쪽만 차있을 때
             if paintBlock.state == .firstHalf {
-                paintBlock.configureAnimation(.fullTime, color: color, isPaused: false)
+                paintBlock.configureAnimation(.fullTime, color: color, isPaused: isPaused)
                 return
             }
             
             if paintBlock.state == .fullTime { return }
-            else { paintBlock.configureAnimation(.secondHalf, color: color, isPaused: false) }
+            else { paintBlock.configureAnimation(.secondHalf, color: color, isPaused: isPaused) }
         }
     }
     
     /// 트래킹 애니메이션을 활성화합니다.
-    func activateTrackingAnimation(_ indexs: [String], color: UIColor) {
-        for index in indexs {
+    func updateTrackingAnimation(_ blocks: [String], isPaused: Bool, color: UIColor) {
+        for index in blocks {
             switch index {
                 
-            case "0000": animationCondition(.onTime, paintBlock: block00, color: color)
-            case "0030": animationCondition(.halfTime, paintBlock: block00, color: color)
+            case "0:00": startAnimation(.onTime, paintBlock: block00, isPaused: isPaused, color: color)
+            case "0:30": startAnimation(.halfTime, paintBlock: block00, isPaused: isPaused, color: color)
                  
-            case "0100": animationCondition(.onTime, paintBlock: block01, color: color)
-            case "0130": animationCondition(.halfTime, paintBlock: block01, color: color)
+            case "1:00": startAnimation(.onTime, paintBlock: block01, isPaused: isPaused, color: color)
+            case "1:30": startAnimation(.halfTime, paintBlock: block01, isPaused: isPaused, color: color)
                 
-            case "0200": animationCondition(.onTime, paintBlock: block02, color: color)
-            case "0230": animationCondition(.halfTime, paintBlock: block02, color: color)
+            case "2:00": startAnimation(.onTime, paintBlock: block02, isPaused: isPaused, color: color)
+            case "2:30": startAnimation(.halfTime, paintBlock: block02, isPaused: isPaused, color: color)
                 
-            case "0300": animationCondition(.onTime, paintBlock: block03, color: color)
-            case "0330": animationCondition(.halfTime, paintBlock: block03, color: color)
+            case "3:00": startAnimation(.onTime, paintBlock: block03, isPaused: isPaused, color: color)
+            case "3:30": startAnimation(.halfTime, paintBlock: block03, isPaused: isPaused, color: color)
                 
-            case "0400": animationCondition(.onTime, paintBlock: block04, color: color)
-            case "0430": animationCondition(.halfTime, paintBlock: block04, color: color)
+            case "4:00": startAnimation(.onTime, paintBlock: block04, isPaused: isPaused, color: color)
+            case "4:30": startAnimation(.halfTime, paintBlock: block04, isPaused: isPaused, color: color)
                 
-            case "0500": animationCondition(.onTime, paintBlock: block05, color: color)
-            case "0530": animationCondition(.halfTime, paintBlock: block05, color: color)
+            case "5:00": startAnimation(.onTime, paintBlock: block05, isPaused: isPaused, color: color)
+            case "5:30": startAnimation(.halfTime, paintBlock: block05, isPaused: isPaused, color: color)
                 
-            case "0600": animationCondition(.onTime, paintBlock: block06, color: color)
-            case "0630": animationCondition(.halfTime, paintBlock: block06, color: color)
+            case "6:00": startAnimation(.onTime, paintBlock: block06, isPaused: isPaused, color: color)
+            case "6:30": startAnimation(.halfTime, paintBlock: block06, isPaused: isPaused, color: color)
                 
-            case "0700": animationCondition(.onTime, paintBlock: block07, color: color)
-            case "0730": animationCondition(.halfTime, paintBlock: block07, color: color)
+            case "7:00": startAnimation(.onTime, paintBlock: block07, isPaused: isPaused, color: color)
+            case "7:30": startAnimation(.halfTime, paintBlock: block07, isPaused: isPaused, color: color)
                 
-            case "0800": animationCondition(.onTime, paintBlock: block08, color: color)
-            case "0830": animationCondition(.halfTime, paintBlock: block08, color: color)
+            case "8:00": startAnimation(.onTime, paintBlock: block08, isPaused: isPaused, color: color)
+            case "8:30": startAnimation(.halfTime, paintBlock: block08, isPaused: isPaused, color: color)
                 
-            case "0900": animationCondition(.onTime, paintBlock: block09, color: color)
-            case "0930": animationCondition(.halfTime, paintBlock: block09, color: color)
+            case "9:00": startAnimation(.onTime, paintBlock: block09, isPaused: isPaused, color: color)
+            case "9:30": startAnimation(.halfTime, paintBlock: block09, isPaused: isPaused, color: color)
                 
-            case "1000": animationCondition(.onTime, paintBlock: block10, color: color)
-            case "1030": animationCondition(.halfTime, paintBlock: block10, color: color)
+            case "10:00": startAnimation(.onTime, paintBlock: block10, isPaused: isPaused, color: color)
+            case "10:30": startAnimation(.halfTime, paintBlock: block10, isPaused: isPaused, color: color)
                  
-            case "1100": animationCondition(.onTime, paintBlock: block11, color: color)
-            case "1130": animationCondition(.halfTime, paintBlock: block11, color: color)
+            case "11:00": startAnimation(.onTime, paintBlock: block11, isPaused: isPaused, color: color)
+            case "11:30": startAnimation(.halfTime, paintBlock: block11, isPaused: isPaused, color: color)
                 
-            case "1200": animationCondition(.onTime, paintBlock: block12, color: color)
-            case "1230": animationCondition(.halfTime, paintBlock: block12, color: color)
+            case "12:00": startAnimation(.onTime, paintBlock: block12, isPaused: isPaused, color: color)
+            case "12:30": startAnimation(.halfTime, paintBlock: block12, isPaused: isPaused, color: color)
                 
-            case "1300": animationCondition(.onTime, paintBlock: block13, color: color)
-            case "1330": animationCondition(.halfTime, paintBlock: block13, color: color)
+            case "13:00": startAnimation(.onTime, paintBlock: block13, isPaused: isPaused, color: color)
+            case "13:30": startAnimation(.halfTime, paintBlock: block13, isPaused: isPaused, color: color)
                 
-            case "1400": animationCondition(.onTime, paintBlock: block14, color: color)
-            case "1430": animationCondition(.halfTime, paintBlock: block14, color: color)
+            case "14:00": startAnimation(.onTime, paintBlock: block14, isPaused: isPaused, color: color)
+            case "14:30": startAnimation(.halfTime, paintBlock: block14, isPaused: isPaused, color: color)
                 
-            case "1500": animationCondition(.onTime, paintBlock: block15, color: color)
-            case "1530": animationCondition(.halfTime, paintBlock: block15, color: color)
+            case "15:00": startAnimation(.onTime, paintBlock: block15, isPaused: isPaused, color: color)
+            case "15:30": startAnimation(.halfTime, paintBlock: block15, isPaused: isPaused, color: color)
                 
-            case "1600": animationCondition(.onTime, paintBlock: block16, color: color)
-            case "1630": animationCondition(.halfTime, paintBlock: block16, color: color)
+            case "16:00": startAnimation(.onTime, paintBlock: block16, isPaused: isPaused, color: color)
+            case "16:30": startAnimation(.halfTime, paintBlock: block16, isPaused: isPaused, color: color)
                 
-            case "1700": animationCondition(.onTime, paintBlock: block17, color: color)
-            case "1730": animationCondition(.halfTime, paintBlock: block17, color: color)
+            case "17:00": startAnimation(.onTime, paintBlock: block17, isPaused: isPaused, color: color)
+            case "17:30": startAnimation(.halfTime, paintBlock: block17, isPaused: isPaused, color: color)
                 
-            case "1800": animationCondition(.onTime, paintBlock: block18, color: color)
-            case "1830": animationCondition(.halfTime, paintBlock: block18, color: color)
+            case "18:00": startAnimation(.onTime, paintBlock: block18, isPaused: isPaused, color: color)
+            case "18:30": startAnimation(.halfTime, paintBlock: block18, isPaused: isPaused, color: color)
                 
-            case "1900": animationCondition(.onTime, paintBlock: block19, color: color)
-            case "1930": animationCondition(.halfTime, paintBlock: block19, color: color)
+            case "19:00": startAnimation(.onTime, paintBlock: block19, isPaused: isPaused, color: color)
+            case "19:30": startAnimation(.halfTime, paintBlock: block19, isPaused: isPaused, color: color)
                 
-            case "2000": animationCondition(.onTime, paintBlock: block20, color: color)
-            case "2030": animationCondition(.halfTime, paintBlock: block20, color: color)
+            case "20:00": startAnimation(.onTime, paintBlock: block20, isPaused: isPaused, color: color)
+            case "20:30": startAnimation(.halfTime, paintBlock: block20, isPaused: isPaused, color: color)
             
-            case "2100": animationCondition(.onTime, paintBlock: block21, color: color)
-            case "2130": animationCondition(.halfTime, paintBlock: block21, color: color)
+            case "21:00": startAnimation(.onTime, paintBlock: block21, isPaused: isPaused, color: color)
+            case "21:30": startAnimation(.halfTime, paintBlock: block21, isPaused: isPaused, color: color)
                 
-            case "2200": animationCondition(.onTime, paintBlock: block22, color: color)
-            case "2230": animationCondition(.halfTime, paintBlock: block22, color: color)
+            case "22:00": startAnimation(.onTime, paintBlock: block22, isPaused: isPaused, color: color)
+            case "22:30": startAnimation(.halfTime, paintBlock: block22, isPaused: isPaused, color: color)
                 
-            case "2300": animationCondition(.onTime, paintBlock: block23, color: color)
-            case "2330": animationCondition(.halfTime, paintBlock: block23, color: color)
+            case "23:00": startAnimation(.onTime, paintBlock: block23, isPaused: isPaused, color: color)
+            case "23:30": startAnimation(.halfTime, paintBlock: block23, isPaused: isPaused, color: color)
                 
             default:
                 break
             }
         }
-    }
-    
-    /// 트래킹 애니메이션을 일시정지 합니다.
-    func pausedTrackingAnimation() {
-        for block in currentBlocks {
-            block.configureAnimation(block.state ?? .none, isPaused: true)
-        }
-    }
-    
-    /// 트래킹 애니메이션을 종료합니다.
-    func stopTrackingAnimation() {
-        for block in currentBlocks {
-            block.painting(.none)
-        }
-    }
-    
-    /// currentBlocks를 초기화합니다.
-    func resetCurrentBlocks() {
-        currentBlocks.removeAll()
     }
     
     // MARK: - Initial Method
