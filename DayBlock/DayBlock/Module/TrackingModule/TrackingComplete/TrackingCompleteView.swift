@@ -55,7 +55,7 @@ final class TrackingCompleteView: UIView {
     
     let timeLabel: UILabel = {
         let label = UILabel()
-        label.text = "14:05-15:35"
+        label.text = "14:05 ~ 15:35"
         label.font = UIFont(name: Poppins.bold, size: 30)
         label.textColor = Color.mainText
         label.textAlignment = .center

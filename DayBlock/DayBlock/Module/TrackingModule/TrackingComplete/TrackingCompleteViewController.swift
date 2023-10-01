@@ -9,10 +9,11 @@ import UIKit
 
 final class TrackingCompleteViewController: UIViewController {
     
-    // MARK: - Manager
-    
-    private let viewManager = TrackingCompleteView()
     weak var delegate: TrackingCompleteViewControllerDelegate?
+    private let viewManager = TrackingCompleteView()
+    private let groupData = GroupDataStore.shared
+    private let blockData = BlockDataStore.shared
+    private let trackingData = TrackingDataStore.shared
     
     // MARK: - Life Cycle Method
     
@@ -23,10 +24,22 @@ final class TrackingCompleteViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
         setupEvent()
     }
     
     // MARK: - Setup Method
+    
+    private func setupUI() {
+        viewManager.iconBlock.backgroundColor = groupData.focusColor()
+        viewManager.iconBlock.symbol.image = UIImage(systemName: blockData.focusEntity().icon)
+        
+        viewManager.taskLabel.text = blockData.focusEntity().taskLabel
+        
+        viewManager.dateLabel.text = trackingData.focusDateFormat()
+        
+        viewManager.timeLabel.text = trackingData.focusTrackingTimeFormat()
+    }
     
     private func setupEvent() {
         viewManager.backToHomeButton.addTarget(self, action: #selector(backToHomeButtonTapped), for: .touchUpInside)

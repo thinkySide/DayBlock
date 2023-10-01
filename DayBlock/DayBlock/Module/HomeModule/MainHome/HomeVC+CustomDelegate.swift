@@ -135,8 +135,6 @@ extension HomeViewController: DayBlockDelegate {
         // 3. 원활한 모션을 위한 지연 실행
         DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {
             self.viewManager.blockPreview.stopTrackingAnimation(self.trackingData.trackingBlocks())
-            self.resetTracker()
-            self.trackingData.resetTrackingBlocks()
             self.stopSFSymbolAnimation(self.viewManager.trackingBlock.icon)
         }
     }

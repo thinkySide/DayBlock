@@ -110,6 +110,40 @@ extension TrackingDataStore {
         print("Error: focusTime 반환 실패")
         return TrackingTime()
     }
+    
+    /// 포커스된(트래킹 완료) 날짜를 문자열로 변환 후 반환합니다.
+    func focusDateFormat() -> String {
+        return "\(focusDate().year)년 \(focusDate().month)월 \(focusDate().day)일 \(focusDate().dayOfWeek)요일"
+    }
+    
+    /// 포커스된(트래킹 완료) 시간을 문자열로 변환 후 반환합니다.
+    func focusTrackingTimeFormat() -> String {
+        
+        func secondsToTime(_ time: String?) -> String {
+            if let time = time,
+               let seconds = Int(time) {
+                
+                // 1. 시간 단위로 변환
+                let hour = seconds / 3600
+                let minute = seconds / 60 - (60 * hour)
+                
+                // 2. 만약 10보다 작다면(한자리 수라면) 앞에 0 붙여서 return
+                var stringHour = String(hour)
+                var stringMinute = String(minute)
+                if hour < 10 { stringHour.insert("0", at: stringHour.startIndex) }
+                if minute < 10 { stringMinute.insert("0", at: stringMinute.startIndex) }
+                
+                return "\(stringHour):\(stringMinute)"
+            }
+            
+            fatalError("잘못된 트래킹 데이터가 저장되었습니다.")
+        }
+        
+         let startTime = secondsToTime(focusTime().startTime)
+         let endTime = secondsToTime(focusTime().endTime)
+
+        return "\(startTime) ~ \(endTime)"
+    }
 }
 
 // MARK: - CREAT & REMOVE Method
@@ -120,10 +154,10 @@ extension TrackingDataStore {
         
         // 1. 현재 날짜를 기준으로 트래킹 날짜 엔티티 생성
         let newTrackingDate = TrackingDate(context: context)
-        newTrackingDate.year = formatter("yyyy년")
-        newTrackingDate.month = formatter("MM월")
-        newTrackingDate.day = formatter("dd일")
-        newTrackingDate.dayOfWeek = formatter("E요일")
+        newTrackingDate.year = formatter("yyyy")
+        newTrackingDate.month = formatter("MM")
+        newTrackingDate.day = formatter("dd")
+        newTrackingDate.dayOfWeek = formatter("E")
         
         // 2. 현재 시작 시간을 기준으로 트래킹 시간 엔티티 생성
         let newTrackingTime = TrackingTime(context: context)
