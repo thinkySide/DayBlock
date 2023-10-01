@@ -86,7 +86,11 @@ extension HomeViewController: HomeViewDelegate {
         // 1. 트래커 초기화
         resetTracker()
         
-        // 2. SFSymbol 애니메이션 종료
+        // 2. 트래킹 보드 애니메이션 및 트래킹 종료
+        print(trackingData.trackingBlocks())
+        // viewManager.blockPreview.updateTrackingAnimation(currentBlocks, isPaused: isPaused, color: currentColor)
+        
+        // 3. SFSymbol 애니메이션 종료
         stopSFSymbolAnimation(viewManager.trackingBlock.icon)
     }
     

@@ -42,6 +42,12 @@ final class TrackingBoard: UIView {
     lazy var block22 = TrackingBoardBlock(frame: .zero, size: blockSize)
     lazy var block23 = TrackingBoardBlock(frame: .zero, size: blockSize)
     
+    lazy var blocks: [TrackingBoardBlock] = [
+        block00, block01, block02, block03, block04, block05, block06, block07, block08,
+        block09, block10, block11, block12, block13, block14, block15, block16, block17,
+        block18, block19, block20, block21, block22, block23
+    ]
+    
     // MARK: - Method
     
     enum Time {
@@ -49,6 +55,7 @@ final class TrackingBoard: UIView {
         case halfTime
     }
     
+    /// 애니메이션을 시작합니다.
     private func startAnimation(_ time: Time, paintBlock: TrackingBoardBlock, isPaused: Bool, color: UIColor) {
         
         switch time {
@@ -68,85 +75,18 @@ final class TrackingBoard: UIView {
     }
     
     /// 트래킹 애니메이션을 활성화합니다.
-    func updateTrackingAnimation(_ blocks: [String], isPaused: Bool, color: UIColor) {
-        for index in blocks {
-            switch index {
-                
-            case "0:00": startAnimation(.onTime, paintBlock: block00, isPaused: isPaused, color: color)
-            case "0:30": startAnimation(.halfTime, paintBlock: block00, isPaused: isPaused, color: color)
-                 
-            case "1:00": startAnimation(.onTime, paintBlock: block01, isPaused: isPaused, color: color)
-            case "1:30": startAnimation(.halfTime, paintBlock: block01, isPaused: isPaused, color: color)
-                
-            case "2:00": startAnimation(.onTime, paintBlock: block02, isPaused: isPaused, color: color)
-            case "2:30": startAnimation(.halfTime, paintBlock: block02, isPaused: isPaused, color: color)
-                
-            case "3:00": startAnimation(.onTime, paintBlock: block03, isPaused: isPaused, color: color)
-            case "3:30": startAnimation(.halfTime, paintBlock: block03, isPaused: isPaused, color: color)
-                
-            case "4:00": startAnimation(.onTime, paintBlock: block04, isPaused: isPaused, color: color)
-            case "4:30": startAnimation(.halfTime, paintBlock: block04, isPaused: isPaused, color: color)
-                
-            case "5:00": startAnimation(.onTime, paintBlock: block05, isPaused: isPaused, color: color)
-            case "5:30": startAnimation(.halfTime, paintBlock: block05, isPaused: isPaused, color: color)
-                
-            case "6:00": startAnimation(.onTime, paintBlock: block06, isPaused: isPaused, color: color)
-            case "6:30": startAnimation(.halfTime, paintBlock: block06, isPaused: isPaused, color: color)
-                
-            case "7:00": startAnimation(.onTime, paintBlock: block07, isPaused: isPaused, color: color)
-            case "7:30": startAnimation(.halfTime, paintBlock: block07, isPaused: isPaused, color: color)
-                
-            case "8:00": startAnimation(.onTime, paintBlock: block08, isPaused: isPaused, color: color)
-            case "8:30": startAnimation(.halfTime, paintBlock: block08, isPaused: isPaused, color: color)
-                
-            case "9:00": startAnimation(.onTime, paintBlock: block09, isPaused: isPaused, color: color)
-            case "9:30": startAnimation(.halfTime, paintBlock: block09, isPaused: isPaused, color: color)
-                
-            case "10:00": startAnimation(.onTime, paintBlock: block10, isPaused: isPaused, color: color)
-            case "10:30": startAnimation(.halfTime, paintBlock: block10, isPaused: isPaused, color: color)
-                 
-            case "11:00": startAnimation(.onTime, paintBlock: block11, isPaused: isPaused, color: color)
-            case "11:30": startAnimation(.halfTime, paintBlock: block11, isPaused: isPaused, color: color)
-                
-            case "12:00": startAnimation(.onTime, paintBlock: block12, isPaused: isPaused, color: color)
-            case "12:30": startAnimation(.halfTime, paintBlock: block12, isPaused: isPaused, color: color)
-                
-            case "13:00": startAnimation(.onTime, paintBlock: block13, isPaused: isPaused, color: color)
-            case "13:30": startAnimation(.halfTime, paintBlock: block13, isPaused: isPaused, color: color)
-                
-            case "14:00": startAnimation(.onTime, paintBlock: block14, isPaused: isPaused, color: color)
-            case "14:30": startAnimation(.halfTime, paintBlock: block14, isPaused: isPaused, color: color)
-                
-            case "15:00": startAnimation(.onTime, paintBlock: block15, isPaused: isPaused, color: color)
-            case "15:30": startAnimation(.halfTime, paintBlock: block15, isPaused: isPaused, color: color)
-                
-            case "16:00": startAnimation(.onTime, paintBlock: block16, isPaused: isPaused, color: color)
-            case "16:30": startAnimation(.halfTime, paintBlock: block16, isPaused: isPaused, color: color)
-                
-            case "17:00": startAnimation(.onTime, paintBlock: block17, isPaused: isPaused, color: color)
-            case "17:30": startAnimation(.halfTime, paintBlock: block17, isPaused: isPaused, color: color)
-                
-            case "18:00": startAnimation(.onTime, paintBlock: block18, isPaused: isPaused, color: color)
-            case "18:30": startAnimation(.halfTime, paintBlock: block18, isPaused: isPaused, color: color)
-                
-            case "19:00": startAnimation(.onTime, paintBlock: block19, isPaused: isPaused, color: color)
-            case "19:30": startAnimation(.halfTime, paintBlock: block19, isPaused: isPaused, color: color)
-                
-            case "20:00": startAnimation(.onTime, paintBlock: block20, isPaused: isPaused, color: color)
-            case "20:30": startAnimation(.halfTime, paintBlock: block20, isPaused: isPaused, color: color)
+    func updateTrackingAnimation(_ trackingBlocks: [String], isPaused: Bool, color: UIColor) {
+        for index in trackingBlocks {
+            let split = index.split(separator: ":").map { String($0) }
+            let hour = split[0]
+            let minute = split[1]
             
-            case "21:00": startAnimation(.onTime, paintBlock: block21, isPaused: isPaused, color: color)
-            case "21:30": startAnimation(.halfTime, paintBlock: block21, isPaused: isPaused, color: color)
-                
-            case "22:00": startAnimation(.onTime, paintBlock: block22, isPaused: isPaused, color: color)
-            case "22:30": startAnimation(.halfTime, paintBlock: block22, isPaused: isPaused, color: color)
-                
-            case "23:00": startAnimation(.onTime, paintBlock: block23, isPaused: isPaused, color: color)
-            case "23:30": startAnimation(.halfTime, paintBlock: block23, isPaused: isPaused, color: color)
-                
-            default:
-                break
-            }
+            // 트래킹 블럭 지정
+            let paintBlocks = blocks[Int(hour)!]
+            let time = minute == "00" ? Time.onTime : Time.halfTime
+            
+            // 애니메이션 시작
+            startAnimation(time, paintBlock: paintBlocks, isPaused: isPaused, color: color)
         }
     }
     
