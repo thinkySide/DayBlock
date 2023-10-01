@@ -86,9 +86,8 @@ extension HomeViewController: HomeViewDelegate {
         // 1. 트래커 초기화
         resetTracker()
         
-        // 2. 트래킹 보드 애니메이션 및 트래킹 종료
-        print(trackingData.trackingBlocks())
-        // viewManager.blockPreview.updateTrackingAnimation(currentBlocks, isPaused: isPaused, color: currentColor)
+        // 2. 트래킹 보드 애니메이션 종료
+        viewManager.blockPreview.stopTrackingAnimation(trackingData.trackingBlocks())
         
         // 3. SFSymbol 애니메이션 종료
         stopSFSymbolAnimation(viewManager.trackingBlock.icon)
@@ -109,6 +108,9 @@ extension HomeViewController: HomeViewDelegate {
         
         // 1. 현재 그룹의 컬러를 기준으로 설정
         viewManager.setupProgressViewColor(color: groupData.focusColor())
+        
+        // 2. 트래킹 보드 애니메이션 종료
+        viewManager.blockPreview.stopTrackingAnimation(trackingData.trackingBlocks())
     }
 }
 

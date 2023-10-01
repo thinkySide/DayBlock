@@ -82,11 +82,26 @@ final class TrackingBoard: UIView {
             let minute = split[1]
             
             // 트래킹 블럭 지정
+            let paintBlock = blocks[Int(hour)!]
+            let time = minute == "00" ? Time.onTime : Time.halfTime
+            
+            startAnimation(time, paintBlock: paintBlock, isPaused: isPaused, color: color)
+        }
+    }
+    
+    /// 트래킹 애니메이션을 중지합니다.
+    func stopTrackingAnimation(_ trackingBlocks: [String]) {
+        for index in trackingBlocks {
+            let split = index.split(separator: ":").map { String($0) }
+            let hour = split[0]
+            let minute = split[1]
+            
+            // 트래킹 블럭 지정
             let paintBlocks = blocks[Int(hour)!]
             let time = minute == "00" ? Time.onTime : Time.halfTime
             
-            // 애니메이션 시작
-            startAnimation(time, paintBlock: paintBlocks, isPaused: isPaused, color: color)
+            // 색칠 삭제
+            paintBlocks.painting(.none)
         }
     }
     
