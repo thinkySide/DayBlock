@@ -19,6 +19,15 @@ extension HomeViewController: HomeViewDelegate {
         tabBarController?.tabBar.alpha = value
     }
     
+    /// ProgressView의 컬러를 설정하기 위한 Delegate 메서드입니다.
+    ///
+    /// - Parameter mode: 현재 트래킹 모드
+    func homeView(_ homeView: HomeView, setupProgressViewColor mode: HomeView.TrakingMode) {
+        
+        // 1. 현재 그룹의 컬러를 기준으로 설정
+        viewManager.setupProgressViewColor(color: groupData.focusColor())
+    }
+    
     /// 트래킹 모드가 시작 된 후 호출되는 Delegate 메서드입니다.
     ///
     /// - Parameter mode: 현재 트래킹 모드
@@ -99,15 +108,6 @@ extension HomeViewController: HomeViewDelegate {
     func homeView(_ homeView: HomeView, trackingDidFinish mode: HomeView.TrakingMode) {
         resetTracker()
         trackingData.resetTrackingBlocks()
-    }
-    
-    /// ProgressView의 컬러를 설정하기 위한 Delegate 메서드입니다.
-    ///
-    /// - Parameter mode: 현재 트래킹 모드
-    func homeView(_ homeView: HomeView, setupProgressViewColor mode: HomeView.TrakingMode) {
-        
-        // 1. 현재 그룹의 컬러를 기준으로 설정
-        viewManager.setupProgressViewColor(color: groupData.focusColor())
         
         // 2. 트래킹 보드 애니메이션 종료
         viewManager.blockPreview.stopTrackingAnimation(trackingData.trackingBlocks())
