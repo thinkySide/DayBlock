@@ -240,7 +240,7 @@ final class HomeView: UIView {
         trackingProgressView.setProgress(progress, animated: true)
     }
     
-    func updateCurrentProductivityLabel(_ amount: Float) {
+    func updateCurrentProductivityLabel(_ amount: Double) {
         trackingBlock.updateProductivityLabel(to: amount)
     }
     

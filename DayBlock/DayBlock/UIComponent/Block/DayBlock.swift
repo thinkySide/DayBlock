@@ -106,7 +106,7 @@ final class DayBlock: UIView {
     /// 생산성 라벨값을 업데이트합니다.
     ///
     /// - Parameter value: 업데이트할 생산성 합계값
-    func updateProductivityLabel(to value: Float) {
+    func updateProductivityLabel(to value: Double) {
         productivityLabel.text = String(value)
     }
     

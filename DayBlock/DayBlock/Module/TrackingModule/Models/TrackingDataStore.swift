@@ -174,6 +174,7 @@ extension TrackingDataStore {
         let replaceTime = TrackingTime(context: context)
         replaceTime.startTime = focusTime().startTime
         replaceTime.endTime = todaySeconds()
+        replaceTime.output = TimerManager.shared.totalBlock
         
         if let safeList = focusDate().trackingTimeList {
             focusDate().replaceTrackingTimeList(at: safeList.count - 1, with: replaceTime)

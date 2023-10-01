@@ -2,7 +2,7 @@
 //  TrackingTime+CoreDataProperties.swift
 //  DayBlock
 //
-//  Created by 김민준 on 2023/09/26.
+//  Created by 김민준 on 10/1/23.
 //
 //
 
@@ -15,8 +15,9 @@ extension TrackingTime {
         return NSFetchRequest<TrackingTime>(entityName: "TrackingTime")
     }
 
-    @NSManaged public var startTime: String
-    @NSManaged public var endTime: String?
+    @NSManaged public var endTime: String
+    @NSManaged public var startTime: String?
+    @NSManaged public var output: Double
     @NSManaged public var superDate: TrackingDate
 
 }

@@ -32,7 +32,7 @@ final class TimerManager {
     var currentTime: Float = 0
     
     /// 총 생산한 블럭 수량
-    var totalBlock: Float = 0
+    var totalBlock: Double = 0
 
     /// 타이머에 사용되는 포맷
     var format: String {

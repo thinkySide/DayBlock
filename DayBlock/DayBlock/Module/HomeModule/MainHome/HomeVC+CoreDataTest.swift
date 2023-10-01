@@ -76,6 +76,7 @@ extension HomeViewController {
                                     print("         • superDate: \(time.superDate.month) \(time.superDate.day)")
                                     print("         • startTime: \(time.startTime)")
                                     print("         • endTime: \(String(describing: time.endTime))")
+                                    print("         • output: \(time.output)")
                                     print("")
                                 }
                             }

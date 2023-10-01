@@ -33,12 +33,16 @@ final class TrackingCompleteViewController: UIViewController {
     private func setupUI() {
         viewManager.iconBlock.backgroundColor = groupData.focusColor()
         viewManager.iconBlock.symbol.image = UIImage(systemName: blockData.focusEntity().icon)
-        
+
         viewManager.taskLabel.text = blockData.focusEntity().taskLabel
         
         viewManager.dateLabel.text = trackingData.focusDateFormat()
         
         viewManager.timeLabel.text = trackingData.focusTrackingTimeFormat()
+        
+        viewManager.plusSummaryLabel.textColor = groupData.focusColor()
+        
+        // 2.5개 이거 계산해야함
     }
     
     private func setupEvent() {
