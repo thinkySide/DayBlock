@@ -27,18 +27,15 @@ extension HomeViewController {
     
     /// 현재 시간을 기준으로 timeLabel을 설정합니다.
     @objc private func updateTimeLabel() {
-        viewManager.timeLabel.text = timerManager.timeLabelFormat
+        viewManager.timeLabel.text = trackingData.timeLabel()
         
         // 00:00에 날짜 업데이트
         if viewManager.timeLabel.text == "00:00" { updateDateLabel() }
-        
-        // 트래킹 타임 업데이트
-        timerManager.updateTrackingStartTime()
     }
     
     /// 현재 날짜 및 요일을 기준으로 dateLabel을 설정합니다.
     private func updateDateLabel() {
-        viewManager.dateLabel.text = timerManager.dateFormat
+        viewManager.dateLabel.text = trackingData.dateLabel()
     }
     
     /// 1초마다 실행되는 트래킹 메서드입니다.
@@ -58,8 +55,8 @@ extension HomeViewController {
         }
         
         // TimeLabel & ProgressView 업데이트
-        viewManager.updateTracking(time: timerManager.timeFormatter,
-                                   progress: timerManager.currentTime / 1800)
+        viewManager.updateTracking(time: timerManager.format,
+                                   progress: timerManager.progressPercent())
     }
     
     /// 트래커를 초기화합니다.
@@ -70,9 +67,7 @@ extension HomeViewController {
         
         // 2. UI 및 트래커 초기화
         viewManager.updateTracking(time: "00:00:00", progress: 0)
-        timerManager.totalTime = 0
-        timerManager.currentTime = 0
-        timerManager.totalBlock = 0
+        timerManager.reset()
         
         // 3. 컬렉션뷰 초기화
         viewManager.blockCollectionView.reloadData()

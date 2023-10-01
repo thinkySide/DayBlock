@@ -21,9 +21,6 @@ final class TrackingDataStore {
     private let groupData = GroupDataStore.shared
     private let blockData = BlockDataStore.shared
     
-    /// 타이머 매니저
-    private let timerManager = TimerManager.shared
-    
     /// 트래킹 날짜 엔티티
     var dateList: [TrackingDate] {
         if let entity = blockData.focusEntity().trackingDateList?.array as? [TrackingDate] {
@@ -70,6 +67,16 @@ extension TrackingDataStore {
               let second = Int(timeArray[2]) else { return "" }
         
         return String((hour * 3600) + (minute * 60) + second)
+    }
+    
+    /// 현재 날짜 라벨 문자열을 반환합니다.
+    func dateLabel() -> String {
+        return formatter("M월 d일 E요일")
+    }
+    
+    /// 현재 시간 라벨 문자열을 반환합니다.
+    func timeLabel() -> String {
+        return formatter("HH:mm")
     }
 }
 
