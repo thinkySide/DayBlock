@@ -45,18 +45,30 @@ extension HomeViewController {
         
         // 0.5개가 생산될 때마다 호출
         if timerManager.totalTime % 1800 == 0 {
-            timerManager.totalBlock += 0.5
-            viewManager.updateCurrentProductivityLabel(timerManager.totalBlock)
-            timerManager.currentTime = 0
-            
-            // 프리뷰를 위한 배열 업데이트
-            trackingData.appendCurrentTimeInTrackingBlocks()
-            updateTrackingBoard(isPaused: false)
+            produceBlock()
         }
         
         // TimeLabel & ProgressView 업데이트
         viewManager.updateTracking(time: timerManager.format,
                                    progress: timerManager.progressPercent())
+    }
+    
+    /// 블럭 0.5개 생산 시 실행되는 트래킹 메서드입니다.
+    func produceBlock() {
+        
+        // 1. 생산한 전체 블럭
+        timerManager.totalBlock += 0.5
+        viewManager.updateCurrentProductivityLabel(timerManager.totalBlock)
+        
+        // 2. 현재 시간 초기화
+        timerManager.currentTime = 0
+        
+        // 3. trackingTime 코어데이터 업데이트
+        trackingData.appendDataInProgress()
+        
+        // 4. 트래킹 보드를 위한 배열 업데이트
+        trackingData.appendCurrentTimeInTrackingBlocks()
+        updateTrackingBoard(isPaused: false)
     }
     
     /// 트래커를 초기화합니다.

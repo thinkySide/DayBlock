@@ -110,7 +110,7 @@ final class TrackingCompleteView: UIView {
         return label
     }()
     
-    let blockPreview: TrackingBoard = {
+    let trackingBoard: TrackingBoard = {
         let preview = TrackingBoard(frame: .zero, blockSize: 32, spacing: 8)
         preview.block07.painting(.firstHalf, color: Color.testBlue)
         preview.block08.painting(.secondHalf, color: Color.testBlue)
@@ -182,7 +182,7 @@ final class TrackingCompleteView: UIView {
          dashedSeparator,
          dateLabel, timeLabel,
          summaryLabel,
-         blockPreview,
+         trackingBoard,
          totalValue, totalLabel, bottomSeparator, todayValue, todayLabel,
          backToHomeButton].forEach {
             addSubview($0)
@@ -215,11 +215,11 @@ final class TrackingCompleteView: UIView {
             summaryLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             // blockPreview
-            blockPreview.topAnchor.constraint(equalTo: summaryLabel.bottomAnchor, constant: 8),
-            blockPreview.centerXAnchor.constraint(equalTo: centerXAnchor),
+            trackingBoard.topAnchor.constraint(equalTo: summaryLabel.bottomAnchor, constant: 8),
+            trackingBoard.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             // totalValue
-            totalValue.topAnchor.constraint(equalTo: blockPreview.bottomAnchor, constant: 44),
+            totalValue.topAnchor.constraint(equalTo: trackingBoard.bottomAnchor, constant: 44),
             totalValue.trailingAnchor.constraint(equalTo: bottomSeparator.leadingAnchor, constant: -18),
             
             // totalLabel
@@ -227,13 +227,13 @@ final class TrackingCompleteView: UIView {
             totalLabel.centerXAnchor.constraint(equalTo: totalValue.centerXAnchor),
             
             // bottomSeparator
-            bottomSeparator.topAnchor.constraint(equalTo: blockPreview.bottomAnchor, constant: 60),
+            bottomSeparator.topAnchor.constraint(equalTo: trackingBoard.bottomAnchor, constant: 60),
             bottomSeparator.centerXAnchor.constraint(equalTo: centerXAnchor),
             bottomSeparator.widthAnchor.constraint(equalToConstant: 2),
             bottomSeparator.heightAnchor.constraint(equalToConstant: 20),
             
             // todayValue
-            todayValue.topAnchor.constraint(equalTo: blockPreview.bottomAnchor, constant: 44),
+            todayValue.topAnchor.constraint(equalTo: trackingBoard.bottomAnchor, constant: 44),
             todayValue.leadingAnchor.constraint(equalTo: bottomSeparator.leadingAnchor, constant: 18),
             
             // todayLabel

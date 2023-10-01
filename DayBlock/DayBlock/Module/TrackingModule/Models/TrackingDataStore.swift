@@ -169,17 +169,29 @@ extension TrackingDataStore {
         groupData.saveContext()
     }
     
-    /// 트래킹 종료 데이터를 생성합니다.
-    func createFinishData() {
-        let replaceTime = TrackingTime(context: context)
-        replaceTime.startTime = focusTime().startTime
-        replaceTime.endTime = todaySeconds()
-        replaceTime.output = TimerManager.shared.totalBlock
+    /// 블럭 0.5개를 생산할 때마다 추가하는 새로운 trackingTime 데이터
+    func appendDataInProgress() {
         
-        if let safeList = focusDate().trackingTimeList {
-            focusDate().replaceTrackingTimeList(at: safeList.count - 1, with: replaceTime)
-            groupData.saveContext()
-        }
+        // 현재 세션 종료 및 저장
+        focusTime().endTime = todaySeconds()
+        
+        // 새로운 세션 시작
+        let trackingTime = TrackingTime(context: context)
+        trackingTime.startTime = todaySeconds()
+        focusDate().addToTrackingTimeList(trackingTime)
+        
+        // 코어데이터 저장
+        groupData.saveContext()
+    }
+    
+    /// 트래킹을 종료함과 동시에 데이터를 저장합니다.
+    func finishData() {
+        
+        // 현재 세션 종료 및 저장
+        focusTime().endTime = todaySeconds()
+        
+        // 코어데이터 저장
+        groupData.saveContext()
     }
     
     /// 트래킹 중단 시 데이터를 삭제합니다.

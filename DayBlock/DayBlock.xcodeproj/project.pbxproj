@@ -78,8 +78,8 @@
 		078C50F629D9BBB200F239BA /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F529D9BBB200F239BA /* ScheduleViewController.swift */; };
 		078C50F829D9BBFE00F239BA /* RepositoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F729D9BBFE00F239BA /* RepositoryViewController.swift */; };
 		07967CF92AC95EE100BB45B5 /* TrackingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07967CF82AC95EE100BB45B5 /* TrackingDelegate.swift */; };
-		07967CFC2AC98B3F00BB45B5 /* TrackingTime+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07967CFA2AC98B3F00BB45B5 /* TrackingTime+CoreDataClass.swift */; };
-		07967CFD2AC98B3F00BB45B5 /* TrackingTime+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07967CFB2AC98B3F00BB45B5 /* TrackingTime+CoreDataProperties.swift */; };
+		07967D002AC9A1D300BB45B5 /* TrackingTime+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07967CFE2AC9A1D300BB45B5 /* TrackingTime+CoreDataClass.swift */; };
+		07967D012AC9A1D300BB45B5 /* TrackingTime+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07967CFF2AC9A1D300BB45B5 /* TrackingTime+CoreDataProperties.swift */; };
 		07A45CE42AA0952000C09342 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A45CE32AA0952000C09342 /* TimerManager.swift */; };
 		07B49BC42A88EBA3006D1011 /* MenuPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC32A88EBA3006D1011 /* MenuPopup.swift */; };
 		07B49BC62A88EC14006D1011 /* MenuPopupItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC52A88EC14006D1011 /* MenuPopupItem.swift */; };
@@ -179,8 +179,8 @@
 		078C50F529D9BBB200F239BA /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		078C50F729D9BBFE00F239BA /* RepositoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryViewController.swift; sourceTree = "<group>"; };
 		07967CF82AC95EE100BB45B5 /* TrackingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingDelegate.swift; sourceTree = "<group>"; };
-		07967CFA2AC98B3F00BB45B5 /* TrackingTime+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingTime+CoreDataClass.swift"; sourceTree = "<group>"; };
-		07967CFB2AC98B3F00BB45B5 /* TrackingTime+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingTime+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		07967CFE2AC9A1D300BB45B5 /* TrackingTime+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingTime+CoreDataClass.swift"; sourceTree = "<group>"; };
+		07967CFF2AC9A1D300BB45B5 /* TrackingTime+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingTime+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		07A45CE32AA0952000C09342 /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		07B49BC32A88EBA3006D1011 /* MenuPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopup.swift; sourceTree = "<group>"; };
 		07B49BC52A88EC14006D1011 /* MenuPopupItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopupItem.swift; sourceTree = "<group>"; };
@@ -235,8 +235,8 @@
 				07C0BDA32ABC137700D5E779 /* Block+CoreDataProperties.swift */,
 				07C0BDB02ABC452600D5E779 /* TrackingDate+CoreDataClass.swift */,
 				07C0BDB12ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift */,
-				07967CFA2AC98B3F00BB45B5 /* TrackingTime+CoreDataClass.swift */,
-				07967CFB2AC98B3F00BB45B5 /* TrackingTime+CoreDataProperties.swift */,
+				07967CFE2AC9A1D300BB45B5 /* TrackingTime+CoreDataClass.swift */,
+				07967CFF2AC9A1D300BB45B5 /* TrackingTime+CoreDataProperties.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -797,7 +797,7 @@
 				07B49BC62A88EC14006D1011 /* MenuPopupItem.swift in Sources */,
 				07454DE729EA94EB00B3458D /* DisablePasteTextField.swift in Sources */,
 				07B592122AC4126C0046ABFC /* DispatchWorkItem.swift in Sources */,
-				07967CFC2AC98B3F00BB45B5 /* TrackingTime+CoreDataClass.swift in Sources */,
+				07967D002AC9A1D300BB45B5 /* TrackingTime+CoreDataClass.swift in Sources */,
 				07EB771929F53855000BD87E /* ColorManager.swift in Sources */,
 				0749D7262AB9E456004DF368 /* HomeVC+SelectGroupHalfModal.swift in Sources */,
 				0719648E29DF044C009CA1A4 /* GroupSelectButton.swift in Sources */,
@@ -845,7 +845,7 @@
 				0719648129DAF38A009CA1A4 /* RemoteBlock.swift in Sources */,
 				07C0BDAB2ABC137700D5E779 /* Block+CoreDataProperties.swift in Sources */,
 				0770803429E797E100D66900 /* SelectIconViewController.swift in Sources */,
-				07967CFD2AC98B3F00BB45B5 /* TrackingTime+CoreDataProperties.swift in Sources */,
+				07967D012AC9A1D300BB45B5 /* TrackingTime+CoreDataProperties.swift in Sources */,
 				07454DE329EA6CEE00B3458D /* UIViewController++.swift in Sources */,
 				0719648829DC5066009CA1A4 /* TabBar.swift in Sources */,
 				07EB771729F5335F000BD87E /* SelectColorCollectionViewCell.swift in Sources */,

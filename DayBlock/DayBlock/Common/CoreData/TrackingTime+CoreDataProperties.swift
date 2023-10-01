@@ -15,9 +15,8 @@ extension TrackingTime {
         return NSFetchRequest<TrackingTime>(entityName: "TrackingTime")
     }
 
-    @NSManaged public var endTime: String
-    @NSManaged public var startTime: String?
-    @NSManaged public var output: Double
+    @NSManaged public var startTime: String
+    @NSManaged public var endTime: String?
     @NSManaged public var superDate: TrackingDate
 
 }

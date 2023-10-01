@@ -127,7 +127,7 @@ extension HomeViewController: DayBlockDelegate {
 //        }
         
         // 1. 최종 트래킹 데이터 저장
-        trackingData.createFinishData()
+        trackingData.finishData()
         
         // 2. 트래킹 완료 화면 Present
         presentTrackingCompleteVC()

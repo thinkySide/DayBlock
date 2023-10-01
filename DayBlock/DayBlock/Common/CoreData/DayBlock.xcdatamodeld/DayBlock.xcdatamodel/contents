@@ -22,7 +22,6 @@
     </entity>
     <entity name="TrackingTime" representedClassName="TrackingTime" syncable="YES">
         <attribute name="endTime" optional="YES" attributeType="String"/>
-        <attribute name="output" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="startTime" attributeType="String"/>
         <relationship name="superDate" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TrackingDate" inverseName="trackingTimeList" inverseEntity="TrackingDate"/>
     </entity>
