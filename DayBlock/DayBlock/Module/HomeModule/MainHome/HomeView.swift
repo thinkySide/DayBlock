@@ -162,8 +162,6 @@ final class HomeView: UIView {
     /// 트래킹 완료 후 종료합니다.
     func finishTrackingMode() {
         
-        print("트래킹 FINISH")
-        
         // Tracking 종료
         trackingMode = .finish
         delegate?.homeView(self, trackingDidFinish: trackingMode)

@@ -12,6 +12,7 @@ final class TrackingCompleteViewController: UIViewController {
     // MARK: - Manager
     
     private let viewManager = TrackingCompleteView()
+    weak var delegate: TrackingCompleteViewControllerDelegate?
     
     // MARK: - Life Cycle Method
     
@@ -34,6 +35,7 @@ final class TrackingCompleteViewController: UIViewController {
     // MARK: - Event Method
     
     @objc func backToHomeButtonTapped() {
+        delegate?.trackingCompleteVC(backToHomeButtonTapped: self)
         dismiss(animated: true)
     }
 }

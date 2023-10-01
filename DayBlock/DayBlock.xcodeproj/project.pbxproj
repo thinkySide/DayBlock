@@ -79,6 +79,7 @@
 		078C50F429D73D0200F239BA /* TrackingBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F329D73D0200F239BA /* TrackingBoard.swift */; };
 		078C50F629D9BBB200F239BA /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F529D9BBB200F239BA /* ScheduleViewController.swift */; };
 		078C50F829D9BBFE00F239BA /* RepositoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F729D9BBFE00F239BA /* RepositoryViewController.swift */; };
+		07967CF92AC95EE100BB45B5 /* TrackingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07967CF82AC95EE100BB45B5 /* TrackingDelegate.swift */; };
 		07A45CE42AA0952000C09342 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A45CE32AA0952000C09342 /* TimerManager.swift */; };
 		07B49BC42A88EBA3006D1011 /* MenuPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC32A88EBA3006D1011 /* MenuPopup.swift */; };
 		07B49BC62A88EC14006D1011 /* MenuPopupItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC52A88EC14006D1011 /* MenuPopupItem.swift */; };
@@ -179,6 +180,7 @@
 		078C50F329D73D0200F239BA /* TrackingBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingBoard.swift; sourceTree = "<group>"; };
 		078C50F529D9BBB200F239BA /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		078C50F729D9BBFE00F239BA /* RepositoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryViewController.swift; sourceTree = "<group>"; };
+		07967CF82AC95EE100BB45B5 /* TrackingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingDelegate.swift; sourceTree = "<group>"; };
 		07A45CE32AA0952000C09342 /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		07B49BC32A88EBA3006D1011 /* MenuPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopup.swift; sourceTree = "<group>"; };
 		07B49BC52A88EC14006D1011 /* MenuPopupItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopupItem.swift; sourceTree = "<group>"; };
@@ -431,6 +433,7 @@
 			children = (
 				07A45CE32AA0952000C09342 /* TimerManager.swift */,
 				0736905E2AC2D41400A42187 /* TrackingDataStore.swift */,
+				07967CF82AC95EE100BB45B5 /* TrackingDelegate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -811,6 +814,7 @@
 				07C0BDAA2ABC137700D5E779 /* Block+CoreDataClass.swift in Sources */,
 				0719648329DAF4B5009CA1A4 /* RemoteGroup.swift in Sources */,
 				07B49BCF2A8DE22C006D1011 /* EditGroupDetailView.swift in Sources */,
+				07967CF92AC95EE100BB45B5 /* TrackingDelegate.swift in Sources */,
 				078C50F629D9BBB200F239BA /* ScheduleViewController.swift in Sources */,
 				07C0BDA72ABC137700D5E779 /* Group+CoreDataProperties.swift in Sources */,
 				07C0BDAF2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift in Sources */,

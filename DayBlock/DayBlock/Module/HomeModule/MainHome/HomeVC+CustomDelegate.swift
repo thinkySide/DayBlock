@@ -89,16 +89,16 @@ extension HomeViewController: HomeViewDelegate {
     /// - Parameter mode: 현재 트래킹 모드
     func homeView(_ homeView: HomeView, trackingDidStop mode: HomeView.TrakingMode) {
         
-        // 0. 이전에 트래킹 되고 있던 데이터 삭제
-        trackingData.removeStopData()
-        
-        // 1. 트래커 초기화
-        resetTracker()
-        
-        // 2. 트래킹 보드 애니메이션 종료
+        // 1. 트래킹 보드 애니메이션 종료
         viewManager.blockPreview.stopTrackingAnimation(trackingData.trackingBlocks())
         
-        // 3. SFSymbol 애니메이션 종료
+        // 2. 이전에 트래킹 되고 있던 데이터 삭제
+        trackingData.removeStopData()
+        
+        // 3. 트래커 초기화
+        resetTracker()
+        
+        // 4. SFSymbol 애니메이션 종료
         stopSFSymbolAnimation(viewManager.trackingBlock.icon)
     }
     
@@ -108,9 +108,6 @@ extension HomeViewController: HomeViewDelegate {
     func homeView(_ homeView: HomeView, trackingDidFinish mode: HomeView.TrakingMode) {
         resetTracker()
         trackingData.resetTrackingBlocks()
-        
-        // 2. 트래킹 보드 애니메이션 종료
-        viewManager.blockPreview.stopTrackingAnimation(trackingData.trackingBlocks())
     }
 }
 
@@ -122,11 +119,11 @@ extension HomeViewController: DayBlockDelegate {
     /// - Parameter taskLabel: 트래킹 완료된 작업 이름
     func dayBlock(_ dayBlock: DayBlock, trackingComplete taskLabel: String?) {
         
-        // 0. 아직 블럭이 생성되지 않았다면, 메서드 종료
-        guard timerManager.totalTime > 1800 else {
-            showToast(toast: viewManager.toastView, isActive: true)
-            return
-        }
+        // 0. 아직 블럭이 생성되지 않았다면, 메서드
+//        guard timerManager.totalTime > 1800 else {
+//            showToast(toast: viewManager.toastView, isActive: true)
+//            return
+//        }
         
         // 1. 최종 트래킹 데이터 저장
         trackingData.createFinishData()
@@ -134,17 +131,13 @@ extension HomeViewController: DayBlockDelegate {
         // 2. 트래킹 완료 화면 Present
         presentTrackingCompleteVC()
         
-        // 3. 홈 화면 트래킹 모드 종료
-        viewManager.finishTrackingMode()
-        
-        // 4. 트래커 초기화
-        resetTracker()
-        
-        // 5. 트래킹 프리뷰 블럭 초기화
-        trackingData.resetTrackingBlocks()
-        
-        // 6. SFSymbol 애니메이션 종료
-        stopSFSymbolAnimation(viewManager.trackingBlock.icon)
+        // 3. 원활한 모션을 위한 지연 실행
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {
+            self.viewManager.blockPreview.stopTrackingAnimation(self.trackingData.trackingBlocks())
+            self.resetTracker()
+            self.trackingData.resetTrackingBlocks()
+            self.stopSFSymbolAnimation(self.viewManager.trackingBlock.icon)
+        }
     }
 }
 
@@ -188,5 +181,12 @@ extension HomeViewController: CreateBlockViewControllerDelegate {
         
         // 4. 생성된 블럭이 포커스 되어있으므로, 트래킹 버튼 활성화
         viewManager.toggleTrackingButton(true)
+    }
+}
+
+// MARK: - Tracking Complete View Controller Delegate
+extension HomeViewController: TrackingCompleteViewControllerDelegate {
+    func trackingCompleteVC(backToHomeButtonTapped trackingCompleteVC: TrackingCompleteViewController) {
+        viewManager.finishTrackingMode()
     }
 }
