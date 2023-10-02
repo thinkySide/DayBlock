@@ -80,6 +80,7 @@
 		07967CF92AC95EE100BB45B5 /* TrackingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07967CF82AC95EE100BB45B5 /* TrackingDelegate.swift */; };
 		07967D002AC9A1D300BB45B5 /* TrackingTime+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07967CFE2AC9A1D300BB45B5 /* TrackingTime+CoreDataClass.swift */; };
 		07967D012AC9A1D300BB45B5 /* TrackingTime+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07967CFF2AC9A1D300BB45B5 /* TrackingTime+CoreDataProperties.swift */; };
+		07967D032ACA606000BB45B5 /* HomeVC+TrackingLifeCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07967D022ACA606000BB45B5 /* HomeVC+TrackingLifeCycle.swift */; };
 		07A45CE42AA0952000C09342 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A45CE32AA0952000C09342 /* TimerManager.swift */; };
 		07B49BC42A88EBA3006D1011 /* MenuPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC32A88EBA3006D1011 /* MenuPopup.swift */; };
 		07B49BC62A88EC14006D1011 /* MenuPopupItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC52A88EC14006D1011 /* MenuPopupItem.swift */; };
@@ -181,6 +182,7 @@
 		07967CF82AC95EE100BB45B5 /* TrackingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingDelegate.swift; sourceTree = "<group>"; };
 		07967CFE2AC9A1D300BB45B5 /* TrackingTime+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingTime+CoreDataClass.swift"; sourceTree = "<group>"; };
 		07967CFF2AC9A1D300BB45B5 /* TrackingTime+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingTime+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		07967D022ACA606000BB45B5 /* HomeVC+TrackingLifeCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+TrackingLifeCycle.swift"; sourceTree = "<group>"; };
 		07A45CE32AA0952000C09342 /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		07B49BC32A88EBA3006D1011 /* MenuPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopup.swift; sourceTree = "<group>"; };
 		07B49BC52A88EC14006D1011 /* MenuPopupItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopupItem.swift; sourceTree = "<group>"; };
@@ -490,6 +492,7 @@
 			children = (
 				078C50D029D726FE00F239BA /* HomeView.swift */,
 				078C50B929D7152F00F239BA /* HomeViewController.swift */,
+				07967D022ACA606000BB45B5 /* HomeVC+TrackingLifeCycle.swift */,
 				07C0BDAE2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift */,
 				0749D7292ABACAD3004DF368 /* HomeVC+CustomDelegate.swift */,
 				0749D7272AB9E832004DF368 /* HomeVC+Notification.swift */,
@@ -782,6 +785,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0770803129E78D0500D66900 /* SelectGroupView.swift in Sources */,
+				07967D032ACA606000BB45B5 /* HomeVC+TrackingLifeCycle.swift in Sources */,
 				076248CF2AB30319000A8664 /* IconDelegate.swift in Sources */,
 				078C50BA29D7152F00F239BA /* HomeViewController.swift in Sources */,
 				0719649229E04FD8009CA1A4 /* CreateBlockView.swift in Sources */,

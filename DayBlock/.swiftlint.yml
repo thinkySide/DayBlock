@@ -19,3 +19,4 @@ disabled_rules:
     - line_length # 줄 길이 제한
     - type_body_length # 클래스 바디 길이 제한
     - closure_parameter_position # 클로저 파라미터 위치 제한
+    - unused_optional_binding # 사용 안하는 옵셔널 바인딩 제한

@@ -31,7 +31,7 @@ final class DayBlock: UIView {
     private lazy var contentsView: UIView = {
         let view = UIView()
         view.clipsToBounds = true
-        [animationView, plus, productivityLabel, colorTag, icon, taskLabel]
+        [animationView, plus, outputLabel, colorTag, icon, taskLabel]
             .forEach { view.addSubview($0) }
         return view
     }()
@@ -53,7 +53,7 @@ final class DayBlock: UIView {
     }()
     
     /// 생산성 합계 라벨
-    private let productivityLabel: UILabel = {
+    let outputLabel: UILabel = {
         let label = UILabel()
         label.text = "0.0"
         label.textColor = Color.mainText
@@ -107,7 +107,7 @@ final class DayBlock: UIView {
     ///
     /// - Parameter value: 업데이트할 생산성 합계값
     func updateProductivityLabel(to value: Double) {
-        productivityLabel.text = String(value)
+        outputLabel.text = String(value)
     }
     
     /// LongPressGesture 애니메이션 실행 메서드입니다.
@@ -150,7 +150,7 @@ final class DayBlock: UIView {
     func setupBlockSize() {
         if size == .middle {
             plus.font = UIFont(name: Poppins.bold, size: 18)
-            productivityLabel.font = UIFont(name: Poppins.bold, size: 18)
+            outputLabel.font = UIFont(name: Poppins.bold, size: 18)
             colorTag.layer.cornerRadius = 9
             taskLabel.font = UIFont(name: Pretendard.bold, size: 17)
 
@@ -159,7 +159,7 @@ final class DayBlock: UIView {
                 self.heightAnchor.constraint(equalToConstant: Size.middle.rawValue),
                 plus.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 16),
                 plus.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 16),
-                productivityLabel.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 16),
+                outputLabel.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 16),
                 colorTag.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -32),
                 colorTag.widthAnchor.constraint(equalToConstant: 20),
                 colorTag.heightAnchor.constraint(equalToConstant: 30),
@@ -171,7 +171,7 @@ final class DayBlock: UIView {
 
         if size == .large {
             plus.font = UIFont(name: Poppins.bold, size: 24)
-            productivityLabel.font = UIFont(name: Poppins.bold, size: 24)
+            outputLabel.font = UIFont(name: Poppins.bold, size: 24)
             colorTag.layer.cornerRadius = 11
             taskLabel.font = UIFont(name: Pretendard.bold, size: 24)
 
@@ -180,7 +180,7 @@ final class DayBlock: UIView {
                 self.heightAnchor.constraint(equalToConstant: Size.large.rawValue),
                 plus.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 24),
                 plus.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 24),
-                productivityLabel.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 24),
+                outputLabel.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 24),
                 colorTag.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -48),
                 colorTag.widthAnchor.constraint(equalToConstant: 26),
                 colorTag.heightAnchor.constraint(equalToConstant: 38),
@@ -212,7 +212,7 @@ final class DayBlock: UIView {
             .forEach { addSubview($0) }
     
         [contentsView, animationView,
-         plus, productivityLabel, colorTag, icon, taskLabel]
+         plus, outputLabel, colorTag, icon, taskLabel]
             .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
 
         NSLayoutConstraint.activate([
@@ -228,7 +228,7 @@ final class DayBlock: UIView {
             animationView.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor),
             animationView.centerYAnchor.constraint(equalTo: contentsView.centerYAnchor),
             
-            productivityLabel.leadingAnchor.constraint(equalTo: plus.trailingAnchor),
+            outputLabel.leadingAnchor.constraint(equalTo: plus.trailingAnchor),
             
             colorTag.topAnchor.constraint(equalTo: contentsView.topAnchor),
             

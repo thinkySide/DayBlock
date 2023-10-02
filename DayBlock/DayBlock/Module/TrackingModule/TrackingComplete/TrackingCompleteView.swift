@@ -112,9 +112,6 @@ final class TrackingCompleteView: UIView {
     
     let trackingBoard: TrackingBoard = {
         let preview = TrackingBoard(frame: .zero, blockSize: 32, spacing: 8)
-        preview.block07.painting(.firstHalf, color: Color.testBlue)
-        preview.block08.painting(.secondHalf, color: Color.testBlue)
-        preview.block09.painting(.fullTime, color: Color.testBlue)
         return preview
     }()
     

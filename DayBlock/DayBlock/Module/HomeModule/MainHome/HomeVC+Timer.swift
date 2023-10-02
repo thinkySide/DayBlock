@@ -56,15 +56,15 @@ extension HomeViewController {
     /// 블럭 0.5개 생산 시 실행되는 트래킹 메서드입니다.
     func produceBlock() {
         
-        // 1. 생산한 전체 블럭
-        timerManager.totalBlock += 0.5
-        viewManager.updateCurrentProductivityLabel(timerManager.totalBlock)
+        // 1. trackingTime 코어데이터 업데이트
+        trackingData.appendDataInProgress()
         
         // 2. 현재 시간 초기화
         timerManager.currentTime = 0
         
-        // 3. trackingTime 코어데이터 업데이트
-        trackingData.appendDataInProgress()
+        // 3. 생산한 전체 블럭
+        timerManager.totalBlock += 0.5
+        viewManager.updateCurrentProductivityLabel(timerManager.totalBlock)
         
         // 4. 트래킹 보드를 위한 배열 업데이트
         trackingData.appendCurrentTimeInTrackingBlocks()
@@ -85,6 +85,9 @@ extension HomeViewController {
         viewManager.blockCollectionView.reloadData()
         viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: blockIndex, section: 0), at: .left, animated: true)
         
+        // 4. ouput 라벨 초기화
+        viewManager.trackingBlock.outputLabel.text = "0.0"
+        
         // 4. 화면 꺼짐 해제
         isScreenCanSleep(true)
     }
@@ -95,6 +98,10 @@ extension HomeViewController {
     
     /// 트래킹 보드를 업데이트하고 애니메이션을 실행합니다.
     func updateTrackingBoard(isPaused: Bool) {
+        
+        print(#function)
+        print("현재 trackingBlocks: \(trackingData.trackingBlocks())")
+        
         let currentBlocks = trackingData.trackingBlocks()
         let currentColor = groupData.focusColor()
         viewManager.blockPreview.updateTrackingAnimation(currentBlocks, isPaused: isPaused, color: currentColor)

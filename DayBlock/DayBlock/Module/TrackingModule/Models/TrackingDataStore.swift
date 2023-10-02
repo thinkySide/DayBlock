@@ -139,10 +139,27 @@ extension TrackingDataStore {
             fatalError("잘못된 트래킹 데이터가 저장되었습니다.")
         }
         
-         let startTime = secondsToTime(focusTime().startTime)
-         let endTime = secondsToTime(focusTime().endTime)
-
+        guard let firstTime = timeList.first else {
+            return "Error"
+        }
+        let startTime = secondsToTime(firstTime.startTime)
+        let endTime = secondsToTime(focusTime().endTime)
+        
         return "\(startTime) ~ \(endTime)"
+    }
+    
+    /// 포커스된(트래킹 완료) 블럭의 개수를 반환합니다.
+    func focusTrackingBlockCount() -> Double {
+        
+        // endTime이 nil이 아닌 경우에 0.5개씩 추가
+        var count: Double = 0.0
+        for time in timeList {
+            if let _ = time.endTime {
+                count += 0.5
+            }
+        }
+        
+        return count
     }
 }
 
@@ -187,8 +204,8 @@ extension TrackingDataStore {
     /// 트래킹을 종료함과 동시에 데이터를 저장합니다.
     func finishData() {
         
-        // 현재 세션 종료 및 저장
-        focusTime().endTime = todaySeconds()
+        // 현재 세션 종료(삭제)
+        focusDate().removeFromTrackingTimeList(focusTime())
         
         // 코어데이터 저장
         groupData.saveContext()
@@ -211,6 +228,13 @@ extension TrackingDataStore {
         return currentTrackingBlocks
     }
     
+    /// 트래킹 완료된 시점의 블럭 리스트를 반환합니다
+    func finishTrackingBlocks() -> [String] {
+        var blocks = currentTrackingBlocks
+        blocks.removeLast()
+        return blocks
+    }
+    
     /// 현재 시간에 맞는 블럭을 트래킹 블럭리스트에 추가합니다.
     ///
     /// 트래킹이 시작될 때 1번 호출,
@@ -227,7 +251,8 @@ extension TrackingDataStore {
                 currentTrackingBlocks.append(time)
             }
             
-            print("트래킹 프리뷰: \(currentTrackingBlocks)")
+            print("트래킹 데이터 추가: \(time)")
+            print("추가 후 currentTrackingBlocks: \(currentTrackingBlocks)")
         }
     }
     

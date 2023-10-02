@@ -55,6 +55,32 @@ final class TrackingBoard: UIView {
         case halfTime
     }
     
+    /// 트래킹 완료 후 보드 표시 메서드입니다.
+    func fillBlocks(_ trackingBlocks: [String], color: UIColor) {
+        print(trackingBlocks)
+        
+        for trackingBlock in trackingBlocks {
+            let split = trackingBlock.split(separator: ":").map { String($0) }
+            let hour = split[0]
+            let minute = split[1]
+            
+            print("hour: \(hour)")
+            print("minute: \(minute)")
+            
+            // 트래킹 블럭 지정
+            let paintBlock = blocks[Int(hour)!]
+            
+            let paint = minute == "00" ? TrackingBoardBlock.Paint.firstHalf : TrackingBoardBlock.Paint.secondHalf
+            
+            // 첫번째 반쪽이 이미 차있다면, full로 변경
+            if paintBlock.state == .firstHalf {
+                paintBlock.painting(.fullTime, color: color)
+            } else {
+                paintBlock.painting(paint, color: color)
+            }
+        }
+    }
+    
     /// 애니메이션을 시작합니다.
     private func startAnimation(_ time: Time, paintBlock: TrackingBoardBlock, isPaused: Bool, color: UIColor) {
         
@@ -84,7 +110,6 @@ final class TrackingBoard: UIView {
             // 트래킹 블럭 지정
             let paintBlock = blocks[Int(hour)!]
             let time = minute == "00" ? Time.onTime : Time.halfTime
-            
             startAnimation(time, paintBlock: paintBlock, isPaused: isPaused, color: color)
         }
     }

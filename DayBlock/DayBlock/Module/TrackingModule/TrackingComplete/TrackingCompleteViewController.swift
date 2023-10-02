@@ -39,8 +39,9 @@ final class TrackingCompleteViewController: UIViewController {
         viewManager.timeLabel.text = trackingData.focusTrackingTimeFormat()
         
         viewManager.plusSummaryLabel.textColor = groupData.focusColor()
+        viewManager.mainSummaryLabel.text = String(trackingData.focusTrackingBlockCount())
         
-        viewManager.trackingBoard
+        viewManager.trackingBoard.fillBlocks(trackingData.finishTrackingBlocks(), color: groupData.focusColor())
     }
     
     private func setupEvent() {
