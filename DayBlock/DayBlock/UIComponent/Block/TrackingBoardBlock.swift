@@ -100,9 +100,8 @@ final class TrackingBoardBlock: UIView {
         // 애니메이션 중지 상태
         if isPaused {
             area.backgroundColor = UIColor(rgb: 0xB0B3BB)
-            UIView.animate(withDuration: 0) {
-                area.alpha = 1
-            }
+            area.layer.removeAllAnimations()
+            area.alpha = 1
         }
     }
     

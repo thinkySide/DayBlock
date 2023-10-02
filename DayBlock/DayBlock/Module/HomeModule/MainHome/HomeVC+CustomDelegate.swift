@@ -71,5 +71,3 @@ extension HomeViewController: CreateBlockViewControllerDelegate {
         viewManager.toggleTrackingButton(true)
     }
 }
-
-

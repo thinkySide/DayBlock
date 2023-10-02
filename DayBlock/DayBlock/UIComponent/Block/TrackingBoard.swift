@@ -89,7 +89,7 @@ final class TrackingBoard: UIView {
             
         case .halfTime:
             
-            // 첫번째 반쪽 차있을 때, 두번째 반쪽만 차있을 때
+            // 첫번째 반쪽 차있을 때
             if paintBlock.state == .firstHalf {
                 paintBlock.configureAnimation(.fullTime, color: color, isPaused: isPaused)
                 return

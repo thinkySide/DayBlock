@@ -7,6 +7,44 @@
 
 import Foundation
 
+// MARK: - Auto Method
+extension HomeViewController {
+    
+    /// 1초마다 실행되는 트래킹 메서드입니다.
+    @objc func trackingEverySecond() {
+        timerManager.totalTime += 1
+        timerManager.currentTime += 1
+        
+        // 0.5개가 생산될 때마다 호출
+        if timerManager.totalTime % 1800 == 0 {
+            produceBlock()
+        }
+        
+        // TimeLabel & ProgressView 업데이트
+        viewManager.updateTracking(time: timerManager.format,
+                                   progress: timerManager.progressPercent())
+    }
+    
+    /// 블럭 0.5개 생산 시 실행되는 트래킹 메서드입니다.
+    func produceBlock() {
+        
+        // 1. trackingTime 코어데이터 업데이트
+        trackingData.appendDataInProgress()
+        
+        // 2. 현재 시간 초기화
+        timerManager.currentTime = 0
+        
+        // 3. 생산한 전체 블럭
+        timerManager.totalBlock += 0.5
+        viewManager.updateCurrentProductivityLabel(timerManager.totalBlock)
+        
+        // 4. 트래킹 보드를 위한 배열 업데이트
+        trackingData.appendCurrentTimeInTrackingBlocks()
+        updateTrackingBoard(isPaused: false)
+    }
+}
+
+// MARK: - Tracking Cycle Method
 extension HomeViewController {
     
     /// 트래킹 모드가 시작 된 후 호출되는 Delegate 메서드입니다.
@@ -88,7 +126,14 @@ extension HomeViewController {
     ///
     /// - Parameter mode: 현재 트래킹 모드
     func homeView(_ homeView: HomeView, trackingDidFinish mode: HomeView.TrakingMode) {
+        
+        // 1. 트래킹 보드 애니메이션 종료
+        viewManager.blockPreview.stopTrackingAnimation(trackingData.trackingBlocks())
+        
+        // 2. 트래커 초기화
         resetTracker()
+        
+        // 3. 트래킹 블럭 초기화
         trackingData.resetTrackingBlocks()
     }
 }
@@ -113,11 +158,8 @@ extension HomeViewController: DayBlockDelegate {
         // 2. 트래킹 완료 화면 Present
         presentTrackingCompleteVC()
         
-        // 3. 원활한 모션을 위한 지연 실행
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {
-            self.viewManager.blockPreview.stopTrackingAnimation(self.trackingData.trackingBlocks())
-            self.stopSFSymbolAnimation(self.viewManager.trackingBlock.icon)
-        }
+        // 3. 심볼 애니메이션 종료
+        stopSFSymbolAnimation(viewManager.trackingBlock.icon)
     }
 }
 
