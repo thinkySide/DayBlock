@@ -7,10 +7,21 @@
 
 import UIKit
 
+protocol TrackingBoardBlockDelegate: AnyObject {
+    func trackingBoardBlock(animateWillRefresh isRefresh: Bool)
+}
+
 final class TrackingBoardBlock: UIView {
     
+    var animation: ((UIView, CGFloat) -> ())?
+    
+    weak var delegate: TrackingBoardBlockDelegate?
+    
     /// 애니메이션 확인용 변수
-    var isAnimate: Bool = false
+    var isAnimate = false
+    
+    /// 다음 블럭 애니메이션을 대기하고 있는 상태 확인용 변수
+    var isRefresh = false
     
     /// 블럭 색칠 상태
     enum Paint {
@@ -24,6 +35,7 @@ final class TrackingBoardBlock: UIView {
     private let full: UIView = {
         let view = UIView()
         view.clipsToBounds = true
+        view.alpha = 0
         return view
     }()
     
@@ -31,6 +43,7 @@ final class TrackingBoardBlock: UIView {
     private let firstHalf: UIView = {
         let view = UIView()
         view.clipsToBounds = true
+        view.alpha = 0
         return view
     }()
     
@@ -38,6 +51,7 @@ final class TrackingBoardBlock: UIView {
     private let secondHalf: UIView = {
         let view = UIView()
         view.clipsToBounds = true
+        view.alpha = 0
         return view
     }()
     
@@ -90,18 +104,19 @@ final class TrackingBoardBlock: UIView {
     }
     
     /// 실제 블럭 애니메이션 동작 메서드
-    private func animate(_ area: UIView, color: UIColor, isPaused: Bool) {
+    func animate(_ area: UIView, color: UIColor, isPaused: Bool) {
         
         // 애니메이션 활성화 상태
         if !isPaused {
             area.backgroundColor = color
             isAnimate = true
-            animateAlpha(area, toAlpha: 0)
+            animateAlpha(area, toAlpha: 1)
         }
         
         // 애니메이션 중지 상태
         if isPaused {
             area.backgroundColor = UIColor(rgb: 0xB0B3BB)
+            area.layer.removeAllAnimations()
             isAnimate = false
             area.alpha = 1
         }
@@ -109,12 +124,24 @@ final class TrackingBoardBlock: UIView {
     
     /// Alpha값을 조정하는 재귀함수
     func animateAlpha(_ view: UIView, toAlpha: CGFloat) {
+        
         UIView.animate(withDuration: 1.0, delay: 0, options: [.curveEaseInOut]) {
             view.alpha = toAlpha
-        } completion: { _ in
-            if view.alpha == 0 { print("alpha == 0")}
-            if !self.isAnimate { return }
-            self.animateAlpha(view, toAlpha: toAlpha == 0 ? 1 : 0)
+        } completion: { [weak self] _ in
+            
+            guard let self = self else { return }
+            
+            // 애니메이션 중이 아니라면, 재귀함수 종료
+            // 다음 블럭이 기다리고 있는 상태라면 종료(다음 애니메이션 주기로 넘어가기 위함)
+            if view.alpha == 0 && isRefresh {
+                delegate?.trackingBoardBlock(animateWillRefresh: isRefresh)
+                isRefresh = false
+                isAnimate = true
+                return
+            }
+            
+            // 재귀함수 호출
+            if isAnimate { animateAlpha(view, toAlpha: toAlpha == 0 ? 1 : 0) }
         }
     }
     

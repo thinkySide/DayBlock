@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol TrackingBoardDelegate: AnyObject {
+    func trackingBoard(animationWillRefresh trackingBoard: TrackingBoard)
+}
+
 final class TrackingBoard: UIView {
+    
+    weak var delegate: TrackingBoardDelegate?
     
     /// 블럭 사이즈
     var blockSize: CGFloat
@@ -82,7 +88,7 @@ final class TrackingBoard: UIView {
     }
     
     /// 애니메이션을 시작합니다.
-    private func startAnimation(_ time: Time, paintBlock: TrackingBoardBlock, isPaused: Bool, color: UIColor) {
+    private func startAnimation(_ time: Time, paintBlock: TrackingBoardBlock, color: UIColor, isPaused: Bool) {
         
         switch time {
         case .onTime: paintBlock.configureAnimation(.firstHalf, color: color, isPaused: isPaused)
@@ -101,7 +107,7 @@ final class TrackingBoard: UIView {
     }
     
     /// 트래킹 애니메이션을 활성화합니다.
-    func updateTrackingAnimation(_ trackingBlocks: [String], isPaused: Bool, color: UIColor) {
+    func updateTrackingAnimation(_ trackingBlocks: [String], color: UIColor, isPaused: Bool) {
         for index in trackingBlocks {
             let split = index.split(separator: ":").map { String($0) }
             let hour = split[0]
@@ -109,8 +115,10 @@ final class TrackingBoard: UIView {
             
             // 트래킹 블럭 지정
             let paintBlock = blocks[Int(hour)!]
+            print("\(Int(hour)!)번째 블럭 애니메이션 시작")
+            
             let time = minute == "00" ? Time.onTime : Time.halfTime
-            startAnimation(time, paintBlock: paintBlock, isPaused: isPaused, color: color)
+            startAnimation(time, paintBlock: paintBlock, color: color, isPaused: isPaused)
         }
     }
     
@@ -119,15 +127,30 @@ final class TrackingBoard: UIView {
         for index in trackingBlocks {
             let split = index.split(separator: ":").map { String($0) }
             let hour = split[0]
-            let minute = split[1]
             
             // 트래킹 블럭 지정
             let paintBlocks = blocks[Int(hour)!]
-            let time = minute == "00" ? Time.onTime : Time.halfTime
+            print("\(Int(hour)!)번째 블럭 애니메이션 중지")
             
             // 색칠 삭제
             paintBlocks.painting(.none)
+            paintBlocks.layer.removeAllAnimations()
         }
+    }
+    
+    /// 애니메이션 리프레시를 위한 트래킹 블럭 목록을 업데이트합니다.
+    func refreshAnimation(_ trackingBlocks: [String], color: UIColor) {
+        
+        // 첫번째 블럭을 기준으로 모든 블럭 리프레시
+        let block = trackingBlocks[0].split(separator: ":").map { String($0) }
+        let hour = block[0]
+        
+        // 트래킹 블럭 지정
+        let paintBlock = blocks[Int(hour)!]
+        paintBlock.delegate = self
+        paintBlock.isRefresh = true
+        
+        print("\(Int(hour)!)번 블럭 기준 모든 블럭 리프레시")
     }
     
     // MARK: - Initial Method
@@ -237,5 +260,11 @@ final class TrackingBoard: UIView {
             block23.topAnchor.constraint(equalTo: block12.bottomAnchor, constant: spacing),
             block23.leadingAnchor.constraint(equalTo: block22.trailingAnchor, constant: spacing)
         ])
+    }
+}
+
+extension TrackingBoard: TrackingBoardBlockDelegate {
+    func trackingBoardBlock(animateWillRefresh isRefresh: Bool) {
+        delegate?.trackingBoard(animationWillRefresh: self)
     }
 }

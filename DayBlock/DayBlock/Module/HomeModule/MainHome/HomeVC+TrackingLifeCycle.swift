@@ -40,7 +40,9 @@ extension HomeViewController {
         
         // 4. 트래킹 보드를 위한 배열 업데이트
         trackingData.appendCurrentTimeInTrackingBlocks()
-        updateTrackingBoard(isPaused: false)
+        
+        // 5. 리프레쉬
+        viewManager.blockPreview.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
     }
 }
 
