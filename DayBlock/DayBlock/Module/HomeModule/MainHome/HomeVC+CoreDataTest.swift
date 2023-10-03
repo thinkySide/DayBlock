@@ -14,9 +14,6 @@ extension HomeViewController {
     @objc func testCoreData() {
         // insertTrackingTestData()
         // printCoreData()
-        
-        trackingData.testData.append("17:00")
-        viewManager.blockPreview.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
     }
     
     /// 테스트 트래킹 데이터를 생성하고, CoreData를 업데이트합니다.
