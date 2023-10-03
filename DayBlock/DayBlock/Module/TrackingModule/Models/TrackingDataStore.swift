@@ -10,7 +10,7 @@ import CoreData
 
 final class TrackingDataStore {
     
-    var testData = ["15:00"]
+    var testData = ["00:00", "01:00", "01:30", "02:00", "03:00", "03:30"]
     
     /// 싱글톤
     static let shared = TrackingDataStore()
@@ -228,6 +228,7 @@ extension TrackingDataStore {
     /// 현재 트래킹 되고 있는 블럭 리스트를 반환합니다.
     func trackingBlocks() -> [String] {
         return testData
+        
         // return currentTrackingBlocks
     }
     

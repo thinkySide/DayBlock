@@ -95,29 +95,66 @@ final class TrackingBoard: UIView {
             
         case .halfTime:
             
-            // 첫번째 반쪽 차있을 때
-            if paintBlock.state == .firstHalf {
-                paintBlock.configureAnimation(.fullTime, color: color, isPaused: isPaused)
+            if paintBlock.state == .secondHalf {
+                paintBlock.configureAnimation(.secondHalf, color: color, isPaused: isPaused)
                 return
             }
             
-            if paintBlock.state == .fullTime { return }
-            else { paintBlock.configureAnimation(.secondHalf, color: color, isPaused: isPaused) }
+            if paintBlock.state == .fullTime {
+                paintBlock.configureAnimation(.fullTime, color: color, isPaused: isPaused)
+                return
+            }
         }
     }
     
-    /// 트래킹 애니메이션을 활성화합니다.
-    func updateTrackingAnimation(_ trackingBlocks: [String], color: UIColor, isPaused: Bool) {
+    func pauseTrackingAnimation(_ trackingBlocks: [String], isPaused: Bool) {
         for index in trackingBlocks {
             let split = index.split(separator: ":").map { String($0) }
             let hour = split[0]
             let minute = split[1]
             
+            let blockIndex = Int(hour)!
+            
             // 트래킹 블럭 지정
-            let paintBlock = blocks[Int(hour)!]
-            print("\(Int(hour)!)번째 블럭 애니메이션 시작")
+            let paintBlock = blocks[blockIndex]
             
             let time = minute == "00" ? Time.onTime : Time.halfTime
+            
+            // 만약 앞에가 채워져있으면 이번 블럭은 건너뛰고 대신 이전 블럭의 애니메이션 삭제 후 full로 실행하기
+            if time == .halfTime && paintBlock.state == .firstHalf {
+                print("\(hour):\(minute) 블럭을 통해 fullTime이 되었기에 기존 애니메이션 삭제")
+                paintBlock.state = .fullTime
+            }
+            
+            print("\(hour):\(minute) 블럭 채우기")
+            startAnimation(time, paintBlock: paintBlock, color: Color.entireBlock, isPaused: isPaused)
+        }
+    }
+    
+    /// 트래킹 애니메이션을 활성화합니다.
+    func updateTrackingAnimation(_ trackingBlocks: [String], color: UIColor, isPaused: Bool) {
+        
+        print("애니메이션에 돌아갈 블럭 목록: \(trackingBlocks)")
+        
+        for index in trackingBlocks {
+            let split = index.split(separator: ":").map { String($0) }
+            let hour = split[0]
+            let minute = split[1]
+            
+            let blockIndex = Int(hour)!
+            
+            // 트래킹 블럭 지정
+            let paintBlock = blocks[blockIndex]
+            
+            let time = minute == "00" ? Time.onTime : Time.halfTime
+            
+            // 만약 앞에가 채워져있으면 이번 블럭은 건너뛰고 대신 이전 블럭의 애니메이션 삭제 후 full로 실행하기
+            if time == .halfTime && paintBlock.state == .firstHalf {
+                print("\(hour):\(minute) 블럭을 통해 fullTime이 되었기에 기존 애니메이션 삭제")
+                paintBlock.state = .fullTime
+            }
+            
+            print("\(hour):\(minute) 블럭 채우기")
             startAnimation(time, paintBlock: paintBlock, color: color, isPaused: isPaused)
         }
     }
@@ -132,8 +169,12 @@ final class TrackingBoard: UIView {
             let paintBlocks = blocks[Int(hour)!]
             print("\(Int(hour)!)번째 블럭 애니메이션 중지")
             
-            // 색칠 삭제
-            paintBlocks.painting(.none)
+            // 색칠 초기화
+            paintBlocks.full.backgroundColor = Color.entireBlock
+            paintBlocks.firstHalf.backgroundColor = Color.entireBlock
+            paintBlocks.secondHalf.backgroundColor = Color.entireBlock
+            
+            // 애니메이션 해제
             paintBlocks.isAnimate = false
             paintBlocks.layer.removeAllAnimations()
         }

@@ -66,7 +66,7 @@ extension HomeViewController {
         
         // 4. 트래킹 보드 애니메이션 시작
         trackingData.appendCurrentTimeInTrackingBlocks()
-        updateTrackingBoard(isPaused: true)
+        // updateTrackingBoard(isPaused: true)
         updateTrackingBoard(isPaused: false)
         
         // 5. SFSymbol 애니메이션 시작

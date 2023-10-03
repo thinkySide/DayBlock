@@ -13,8 +13,6 @@ protocol TrackingBoardBlockDelegate: AnyObject {
 
 final class TrackingBoardBlock: UIView {
     
-    var animation: ((UIView, CGFloat) -> ())?
-    
     weak var delegate: TrackingBoardBlockDelegate?
     
     /// 애니메이션 확인용 변수
@@ -32,7 +30,7 @@ final class TrackingBoardBlock: UIView {
     }
     
     /// 전체 색칠 상태
-    private let full: UIView = {
+    let full: UIView = {
         let view = UIView()
         view.clipsToBounds = true
         view.alpha = 0
@@ -40,7 +38,7 @@ final class TrackingBoardBlock: UIView {
     }()
     
     /// 00~29 까지의 첫번째 반쪽 색칠 상태
-    private let firstHalf: UIView = {
+    let firstHalf: UIView = {
         let view = UIView()
         view.clipsToBounds = true
         view.alpha = 0
@@ -48,7 +46,7 @@ final class TrackingBoardBlock: UIView {
     }()
     
     /// 30~59 까지의 두번째 반쪽 색칠 상태
-    private let secondHalf: UIView = {
+    let secondHalf: UIView = {
         let view = UIView()
         view.clipsToBounds = true
         view.alpha = 0
@@ -115,10 +113,17 @@ final class TrackingBoardBlock: UIView {
         
         // 애니메이션 중지 상태
         if isPaused {
-            area.backgroundColor = UIColor(rgb: 0xB0B3BB)
+            
+            if color == Color.entireBlock {
+                area.backgroundColor = Color.entireBlock
+                area.alpha = 0
+            } else {
+                area.backgroundColor = UIColor(rgb: 0xB0B3BB)
+                area.alpha = 1
+            }
+            
             area.layer.removeAllAnimations()
             isAnimate = false
-            area.alpha = 1
         }
     }
     
@@ -134,20 +139,23 @@ final class TrackingBoardBlock: UIView {
             // 애니메이션 중이 아니라면, 재귀함수 종료
             // 다음 블럭이 기다리고 있는 상태라면 종료(다음 애니메이션 주기로 넘어가기 위함)
             if view.alpha == 0 && isRefresh {
+                print("어머 리프레쉬 됐구나!")
                 delegate?.trackingBoardBlock(animateWillRefresh: isRefresh)
                 isRefresh = false
                 return
             }
             
             // 재귀함수 호출
-            if isAnimate { animateAlpha(view, toAlpha: toAlpha == 0 ? 1 : 0) }
+            if isAnimate {
+                print("재귀함수 호출")
+                animateAlpha(view, toAlpha: toAlpha == 0 ? 1 : 0)
+            }
         }
     }
     
     // MARK: - Initial Method
     
     init(frame: CGRect, size: CGFloat) {
-        // self.state = paint
         super.init(frame: frame)
         
         /// Blcok Color
