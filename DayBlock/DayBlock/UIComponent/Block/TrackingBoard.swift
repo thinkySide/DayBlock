@@ -134,6 +134,7 @@ final class TrackingBoard: UIView {
             
             // 색칠 삭제
             paintBlocks.painting(.none)
+            paintBlocks.isAnimate = false
             paintBlocks.layer.removeAllAnimations()
         }
     }

@@ -136,7 +136,6 @@ final class TrackingBoardBlock: UIView {
             if view.alpha == 0 && isRefresh {
                 delegate?.trackingBoardBlock(animateWillRefresh: isRefresh)
                 isRefresh = false
-                isAnimate = true
                 return
             }
             
