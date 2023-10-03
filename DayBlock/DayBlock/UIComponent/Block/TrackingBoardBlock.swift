@@ -9,6 +9,9 @@ import UIKit
 
 final class TrackingBoardBlock: UIView {
     
+    /// 애니메이션 확인용 변수
+    var isAnimate: Bool = false
+    
     /// 블럭 색칠 상태
     enum Paint {
         case firstHalf
@@ -92,16 +95,26 @@ final class TrackingBoardBlock: UIView {
         // 애니메이션 활성화 상태
         if !isPaused {
             area.backgroundColor = color
-            UIView.animate(withDuration: 1.0, delay: 0, options: [.repeat, .autoreverse, .curveEaseInOut]) {
-                area.alpha = 0
-            }
+            isAnimate = true
+            animateAlpha(area, toAlpha: 0)
         }
         
         // 애니메이션 중지 상태
         if isPaused {
             area.backgroundColor = UIColor(rgb: 0xB0B3BB)
-            area.layer.removeAllAnimations()
+            isAnimate = false
             area.alpha = 1
+        }
+    }
+    
+    /// Alpha값을 조정하는 재귀함수
+    func animateAlpha(_ view: UIView, toAlpha: CGFloat) {
+        UIView.animate(withDuration: 1.0, delay: 0, options: [.curveEaseInOut]) {
+            view.alpha = toAlpha
+        } completion: { _ in
+            if view.alpha == 0 { print("alpha == 0")}
+            if !self.isAnimate { return }
+            self.animateAlpha(view, toAlpha: toAlpha == 0 ? 1 : 0)
         }
     }
     
@@ -163,5 +176,4 @@ final class TrackingBoardBlock: UIView {
         firstHalf.layer.cornerRadius = cornerRadius
         secondHalf.layer.cornerRadius = cornerRadius
     }
-    
 }

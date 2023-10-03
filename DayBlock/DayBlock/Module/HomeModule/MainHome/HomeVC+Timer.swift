@@ -66,8 +66,6 @@ extension HomeViewController {
     
     /// 트래킹 보드를 업데이트하고 애니메이션을 실행합니다.
     func updateTrackingBoard(isPaused: Bool) {
-        
-        print(#function)
         print("현재 trackingBlocks: \(trackingData.trackingBlocks())")
         
         let currentBlocks = trackingData.trackingBlocks()
