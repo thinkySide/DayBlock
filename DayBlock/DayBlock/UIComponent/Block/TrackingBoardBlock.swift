@@ -67,14 +67,29 @@ final class TrackingBoardBlock: UIView {
         // 블럭 초기화
         backgroundColor = Color.entireBlock
         firstHalf.backgroundColor = .clear
+        firstHalf.alpha = 1
         secondHalf.backgroundColor = .clear
+        secondHalf.alpha = 1
         
         // 색상 변경
-        switch area {
-        case .firstHalf: firstHalf.backgroundColor = color
-        case .secondHalf: secondHalf.backgroundColor = color
-        case .fullTime: backgroundColor = color
-        case .none: backgroundColor = Color.entireBlock
+        switch state {
+        case .firstHalf: 
+            print("state == firstHalf")
+            firstHalf.backgroundColor = color
+            
+        case .secondHalf:
+            print("state == secondHalf")
+            secondHalf.backgroundColor = color
+            
+        case .fullTime:
+            print("state == fullTime")
+            backgroundColor = color
+            
+        case .none?:
+            print("state == none")
+            backgroundColor = Color.entireBlock
+
+        case nil: print("state == nil")
         }
     }
     

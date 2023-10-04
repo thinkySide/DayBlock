@@ -49,6 +49,7 @@ final class TrackingCompleteViewController: UIViewController {
         
         // 트래킹 보드
         viewManager.trackingBoard.fillBlocks(trackingData.finishTrackingBlocks(), color: groupData.focusColor())
+        // viewManager.trackingBoard.fillBlocks(["00:00", "01:00", "01:30", "02:00", "03:30"], color: groupData.focusColor())
         
         // 전체 생산량
         viewManager.totalValue.text = trackingData.totalOutput(blockData.focusEntity())

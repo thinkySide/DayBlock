@@ -70,19 +70,24 @@ final class TrackingBoard: UIView {
             let hour = split[0]
             let minute = split[1]
             
-            print("hour: \(hour)")
-            print("minute: \(minute)")
-            
             // 트래킹 블럭 지정
             let paintBlock = blocks[Int(hour)!]
+            let state = minute == "00" ? TrackingBoardBlock.Paint.firstHalf : TrackingBoardBlock.Paint.secondHalf
             
-            let paint = minute == "00" ? TrackingBoardBlock.Paint.firstHalf : TrackingBoardBlock.Paint.secondHalf
+            if state == .firstHalf {
+                print("\(hour):\(minute) 블럭 firstHalf")
+                paintBlock.painting(.firstHalf, color: color)
+            }
             
             // 첫번째 반쪽이 이미 차있다면, full로 변경
-            if paintBlock.state == .firstHalf {
+            else if paintBlock.state == .firstHalf && state == .secondHalf {
+                print("\(hour):\(minute) 블럭 fullTime")
                 paintBlock.painting(.fullTime, color: color)
-            } else {
-                paintBlock.painting(paint, color: color)
+            } 
+            
+            else {
+                print("\(hour):\(minute) 블럭 secondHalf")
+                paintBlock.painting(.secondHalf, color: color)
             }
         }
     }

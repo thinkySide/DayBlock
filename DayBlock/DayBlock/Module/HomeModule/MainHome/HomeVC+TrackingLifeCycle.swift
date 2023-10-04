@@ -120,7 +120,10 @@ extension HomeViewController {
         // 3. 트래커 초기화
         resetTracker()
         
-        // 4. SFSymbol 애니메이션 종료
+        // 4. 트래킹 블럭 초기화
+        trackingData.resetTrackingBlocks()
+        
+        // 5. SFSymbol 애니메이션 종료
         stopSFSymbolAnimation(viewManager.trackingBlock.icon)
     }
     
