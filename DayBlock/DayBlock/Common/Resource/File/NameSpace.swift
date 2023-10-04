@@ -20,6 +20,9 @@ enum Noti {
 enum UserDefaultsKey {
     static let groupIndex = "groupIndex"
     static let blockIndex = "blockIndex"
+    
+    static let isTracking = "isTracking"
+    static let isPause = "isPause"
 }
 
 // MARK: - Colors

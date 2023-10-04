@@ -68,9 +68,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneWillEnterForeground(_ scene: UIScene) {
         // 여기서 나간 시점과의 차이 계산해서 이것저것 반영할 것.
+        
+        let timestamp = Date().timeIntervalSince1970
+        print(timestamp)
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+        
+        // 나가는 시점의 시간 계산
+        let timestamp = Date().timeIntervalSince1970
+        print(timestamp)
     }
 }

@@ -64,15 +64,17 @@ extension HomeViewController {
         let blockDataList = blockData.list()
         viewManager.trackingBlock.update(group: groupData.focusEntity(), block: blockDataList[blockIndex])
         
-        // 4. 트래킹 보드 애니메이션 시작
+        // 4. UserDefaults 트래킹 모드 확인용 변수 업데이트
+        UserDefaults.standard.set(true, forKey: UserDefaultsKey.isTracking)
+        
+        // 5. 트래킹 보드 애니메이션 시작
         trackingData.appendCurrentTimeInTrackingBlocks()
-        // updateTrackingBoard(isPaused: true)
         updateTrackingBoard(isPaused: false)
         
-        // 5. SFSymbol 애니메이션 시작
+        // 6. SFSymbol 애니메이션 시작
         startSFSymbolBounceAnimation(viewManager.trackingBlock.icon)
         
-        // 6. 화면 꺼짐 방지
+        // 7. 화면 꺼짐 방지
         isScreenCanSleep(false)
     }
     
@@ -84,10 +86,13 @@ extension HomeViewController {
         // 1. 타이머 비활성화
         timerManager.trackingTimer.invalidate()
         
-        // 2. 트래킹 보드 애니메이션 일시정지
+        // 2. UserDefaults 트래킹 일시정지 확인용 변수 업데이트
+        UserDefaults.standard.set(true, forKey: UserDefaultsKey.isPause)
+        
+        // 3. 트래킹 보드 애니메이션 일시정지
         updateTrackingBoard(isPaused: true)
         
-        // 3. SFSymbol 애니메이션 종료
+        // 4. SFSymbol 애니메이션 종료
         stopSFSymbolAnimation(viewManager.trackingBlock.icon)
     }
     
@@ -99,10 +104,13 @@ extension HomeViewController {
         // 1. 타이머 시작
         timerManager.trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingEverySecond), userInfo: nil, repeats: true)
         
-        // 2. 트래킹 보드 애니메이션 재시작
+        // 2. UserDefaults 트래킹 일시정지 확인용 변수 업데이트
+        UserDefaults.standard.set(false, forKey: UserDefaultsKey.isPause)
+        
+        // 3. 트래킹 보드 애니메이션 재시작
         updateTrackingBoard(isPaused: false)
         
-        // 3. SFSymbol 애니메이션 재시작
+        // 4. SFSymbol 애니메이션 재시작
         startSFSymbolBounceAnimation(viewManager.trackingBlock.icon)
     }
     
@@ -123,7 +131,10 @@ extension HomeViewController {
         // 4. 트래킹 블럭 초기화
         trackingData.resetTrackingBlocks()
         
-        // 5. SFSymbol 애니메이션 종료
+        // 5. UserDefaults 트래킹 모드 확인용 변수 업데이트
+        UserDefaults.standard.set(false, forKey: UserDefaultsKey.isTracking)
+        
+        // 6. SFSymbol 애니메이션 종료
         stopSFSymbolAnimation(viewManager.trackingBlock.icon)
     }
     
@@ -172,7 +183,10 @@ extension HomeViewController: DayBlockDelegate {
         // 2. 트래킹 완료 화면 Present
         presentTrackingCompleteVC()
         
-        // 3. 심볼 애니메이션 종료
+        // 3. UserDefaults 트래킹 모드 확인용 변수 업데이트
+        UserDefaults.standard.set(false, forKey: UserDefaultsKey.isTracking)
+        
+        // 4. 심볼 애니메이션 종료
         stopSFSymbolAnimation(viewManager.trackingBlock.icon)
     }
 }
