@@ -10,8 +10,6 @@ import CoreData
 
 final class TrackingDataStore {
     
-    // var testData = ["00:00", "01:00", "01:30", "02:00", "03:00", "03:30"]
-    
     /// 싱글톤
     static let shared = TrackingDataStore()
     private init() {}

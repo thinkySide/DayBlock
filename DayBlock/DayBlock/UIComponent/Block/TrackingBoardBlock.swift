@@ -147,7 +147,6 @@ final class TrackingBoardBlock: UIView {
             
             // 재귀함수 호출
             if isAnimate {
-                print("재귀함수 호출")
                 animateAlpha(view, toAlpha: toAlpha == 0 ? 1 : 0)
             }
         }

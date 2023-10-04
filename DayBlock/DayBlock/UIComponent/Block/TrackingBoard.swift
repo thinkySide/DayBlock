@@ -91,16 +91,20 @@ final class TrackingBoard: UIView {
     private func startAnimation(_ time: Time, paintBlock: TrackingBoardBlock, color: UIColor, isPaused: Bool) {
         
         switch time {
-        case .onTime: paintBlock.configureAnimation(.firstHalf, color: color, isPaused: isPaused)
+        case .onTime:
+            print("firstHalf")
+            paintBlock.configureAnimation(.firstHalf, color: color, isPaused: isPaused)
             
         case .halfTime:
             
             if paintBlock.state == .secondHalf {
+                print("secondHalf")
                 paintBlock.configureAnimation(.secondHalf, color: color, isPaused: isPaused)
                 return
             }
             
             if paintBlock.state == .fullTime {
+                print("fullTime")
                 paintBlock.configureAnimation(.fullTime, color: color, isPaused: isPaused)
                 return
             }
@@ -145,13 +149,20 @@ final class TrackingBoard: UIView {
             
             // 트래킹 블럭 지정
             let paintBlock = blocks[blockIndex]
-            
             let time = minute == "00" ? Time.onTime : Time.halfTime
             
+            if time == .onTime {
+                paintBlock.state = .firstHalf
+            }
+            
             // 만약 앞에가 채워져있으면 이번 블럭은 건너뛰고 대신 이전 블럭의 애니메이션 삭제 후 full로 실행하기
-            if time == .halfTime && paintBlock.state == .firstHalf {
+            else if time == .halfTime && paintBlock.state == .firstHalf {
                 print("\(hour):\(minute) 블럭을 통해 fullTime이 되었기에 기존 애니메이션 삭제")
                 paintBlock.state = .fullTime
+            }
+            
+            else {
+                paintBlock.state = .secondHalf
             }
             
             print("\(hour):\(minute) 블럭 채우기")
