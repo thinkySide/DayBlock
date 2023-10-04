@@ -86,11 +86,15 @@ extension HomeViewController {
     /// - Parameter cell: 등록할 CollectionViewCell
     private func makeTrackingBlockCell(_ cell: HomeBlockCollectionViewCell, blockEntity: Block) -> HomeBlockCollectionViewCell {
         cell.plusLabel.textColor = groupData.focusColor()
-        cell.totalProductivityLabel.text = "\(blockEntity.todayOutput)"
+        cell.totalProductivityLabel.text = trackingData.totalOutput(blockEntity)
         cell.blockColorTag.backgroundColor = groupData.focusColor()
         cell.blockIcon.image = UIImage(systemName: blockEntity.icon)
         cell.blockLabel.text = blockEntity.taskLabel
         cell.stroke.isHidden = true
+        
+        // 뒷면 UI
+        cell.backTotalValue.text = trackingData.totalOutput(blockEntity)
+        cell.backTodayValue.text = trackingData.todayOutput(blockEntity)
         return cell
     }
     

@@ -146,9 +146,6 @@ extension HomeViewController {
         // 5. 컬렉션뷰 초기화
         viewManager.blockCollectionView.reloadData()
         viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: blockIndex, section: 0), at: .left, animated: true)
-        
-        
-        
     }
 }
 
@@ -181,7 +178,7 @@ extension HomeViewController: DayBlockDelegate {
 extension HomeViewController: TrackingCompleteViewControllerDelegate {
     
     /// 트래킹 완료 화면에서 확인 버튼 탭 시 호출되는 Delegate 메서드입니다.
-    /// 1번 호출
+    /// 1번 호출 : trackingDidFinish 메서드 호출
     func trackingCompleteVC(backToHomeButtonTapped trackingCompleteVC: TrackingCompleteViewController) {
         viewManager.finishTrackingMode()
     }

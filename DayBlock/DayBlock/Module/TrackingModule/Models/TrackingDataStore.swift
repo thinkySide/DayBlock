@@ -347,5 +347,6 @@ extension TrackingDataStore {
     /// 현재 트래킹 되고 있는 블럭 리스트를 초기화합니다.
     func resetTrackingBlocks() {
         currentTrackingBlocks.removeAll()
+        print("트래킹 블럭 리셋: \(currentTrackingBlocks)")
     }
 }

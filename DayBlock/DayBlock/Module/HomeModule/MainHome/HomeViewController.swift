@@ -83,6 +83,7 @@ final class HomeViewController: UIViewController {
     private func setupUI() {
         initialGroupSelectButton()
         initialTrackingStartButton()
+        viewManager.productivityLabel.text = "TODAY +\(trackingData.todayAllOutput())"
     }
     
     /// 제스처를 연결하고 설정합니다.
