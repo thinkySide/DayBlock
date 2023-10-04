@@ -13,6 +13,8 @@ enum Noti {
     static let reloadForDeleteBlock = "reloadForDeleteBlock"
     static let reloadForUpdateBlock = "reloadForUpdateBlock"
     static let updateCreateBlockUI = "updateCreateBlockUI"
+    
+    static let latestAccess = "latestAccess"
 }
 
 // MARK: - UserDefaults Key
@@ -23,6 +25,8 @@ enum UserDefaultsKey {
     
     static let isTracking = "isTracking"
     static let isPause = "isPause"
+    
+    static let latestAccess = "latestAccess"
 }
 
 // MARK: - Colors

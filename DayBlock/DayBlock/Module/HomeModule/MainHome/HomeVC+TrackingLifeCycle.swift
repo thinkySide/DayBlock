@@ -133,6 +133,7 @@ extension HomeViewController {
         
         // 5. UserDefaults 트래킹 모드 확인용 변수 업데이트
         UserDefaults.standard.set(false, forKey: UserDefaultsKey.isTracking)
+        UserDefaults.standard.set(false, forKey: UserDefaultsKey.isPause)
         
         // 6. SFSymbol 애니메이션 종료
         stopSFSymbolAnimation(viewManager.trackingBlock.icon)
@@ -185,6 +186,7 @@ extension HomeViewController: DayBlockDelegate {
         
         // 3. UserDefaults 트래킹 모드 확인용 변수 업데이트
         UserDefaults.standard.set(false, forKey: UserDefaultsKey.isTracking)
+        UserDefaults.standard.set(false, forKey: UserDefaultsKey.isPause)
         
         // 4. 심볼 애니메이션 종료
         stopSFSymbolAnimation(viewManager.trackingBlock.icon)

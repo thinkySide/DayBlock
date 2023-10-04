@@ -67,17 +67,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
-        // 여기서 나간 시점과의 차이 계산해서 이것저것 반영할 것.
         
-        let timestamp = Date().timeIntervalSince1970
-        print(timestamp)
+        // 마지막 접속 시간 Notification 전달
+        if let latestAccess = UserDefaults.standard.object(forKey: UserDefaultsKey.latestAccess) as? Int {
+            NotificationCenter.default.post(
+                name: NSNotification.Name(Noti.latestAccess),
+                object: nil,
+                userInfo: ["time" : latestAccess])
+        }
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
+        
+        // 코어데이터 저장
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
         
-        // 나가는 시점의 시간 계산
-        let timestamp = Date().timeIntervalSince1970
-        print(timestamp)
+        // 나가는 시점의 시간 계산 후 UserDefaults에 저장
+        let timestamp = Int(Date().timeIntervalSince1970)
+        UserDefaults.standard.setValue(timestamp, forKey: UserDefaultsKey.latestAccess)
     }
 }
