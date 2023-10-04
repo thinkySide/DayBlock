@@ -49,11 +49,7 @@ extension HomeViewController {
         viewManager.updateTracking(time: "00:00:00", progress: 0)
         timerManager.reset()
         
-        // 3. 컬렉션뷰 초기화
-        viewManager.blockCollectionView.reloadData()
-        viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: blockIndex, section: 0), at: .left, animated: true)
-        
-        // 4. ouput 라벨 초기화
+        // 3. ouput 라벨 초기화
         viewManager.trackingBlock.outputLabel.text = "0.0"
         
         // 4. 화면 꺼짐 해제

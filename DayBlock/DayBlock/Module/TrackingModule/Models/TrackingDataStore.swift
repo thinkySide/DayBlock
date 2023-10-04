@@ -140,7 +140,7 @@ extension TrackingDataStore {
         }
         
         guard let firstTime = timeList.first else {
-            return "Error"
+            return "12:34 ~ 56:78"
         }
         let startTime = secondsToTime(firstTime.startTime)
         let endTime = secondsToTime(focusTime().endTime)
@@ -160,6 +160,93 @@ extension TrackingDataStore {
         }
         
         return count
+    }
+    
+    /// 지정한 블럭의 전체 생산량을 반환합니다.
+    func totalOutput(_ block: Block) -> String {
+        guard let dateList = block.trackingDateList?.array as? [TrackingDate] else {
+            fatalError("전체 생산량 반환 실패")
+        }
+        
+        var count: Double = 0.0
+        
+        // 개수 세기
+        for date in dateList {
+            if let trackingTimeList = date.trackingTimeList {
+                for _ in trackingTimeList {
+                    count += 0.5
+                }
+            }
+        }
+        
+        return String(count)
+    }
+    
+    /// 지정한 블럭의 오늘 생산량을 반환합니다.
+    func todayOutput(_ block: Block) -> String {
+        guard let dateList = block.trackingDateList?.array as? [TrackingDate] else {
+            fatalError("오늘 생산량 반환 실패")
+        }
+        
+        // 오늘 생산량 리스트
+        let todayDateList = dateList.filter {
+            $0.year == formatter("yyyy") &&
+            $0.month == formatter("MM") &&
+            $0.day == formatter("dd")
+        }
+        
+        var count: Double = 0.0
+        
+        // 개수 세기
+        for date in todayDateList {
+            if let trackingTimeList = date.trackingTimeList {
+                for _ in trackingTimeList {
+                    count += 0.5
+                }
+            }
+        }
+        
+        return String(count)
+    }
+    
+    /// 전체 그룹 - 블럭의 오늘 생산량을 반환합니다.
+    func todayAllOutput() -> String {
+        var count: Double = 0.0
+        
+        // 1. 그룹 반복
+        for group in groupData.list() {
+            guard let blockList = group.blockList?.array as? [Block] else {
+                fatalError("블럭 리스트 반환 실패")
+            }
+            
+            // 2. 블럭 반복
+            for block in blockList {
+                guard let dateList = block.trackingDateList?.array as? [TrackingDate] else {
+                    fatalError("날짜 리스트 반환 실패")
+                }
+                
+                // 오늘 날짜 리스트
+                let todayDateList = dateList.filter {
+                    $0.year == formatter("yyyy") &&
+                    $0.month == formatter("MM") &&
+                    $0.day == formatter("dd")
+                }
+                
+                // 3. 날짜 반복
+                for date in todayDateList {
+                    guard let timeList = date.trackingTimeList?.array as? [TrackingTime] else {
+                        fatalError("시간 리스트 반환 실패")
+                    }
+                    
+                    // 4. 시간 반복
+                    for _ in timeList {
+                        count += 0.5
+                    }
+                }
+            }
+        }
+        
+        return String(count)
     }
 }
 

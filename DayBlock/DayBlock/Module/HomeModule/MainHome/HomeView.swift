@@ -53,7 +53,7 @@ final class HomeView: UIView {
         return label
     }()
     
-    private let productivityLabel: UILabel = {
+    let productivityLabel: UILabel = {
         let label = UILabel()
         label.text = "TODAY +0.0" // ⛳️
         label.font = UIFont(name: Poppins.bold, size: 23)

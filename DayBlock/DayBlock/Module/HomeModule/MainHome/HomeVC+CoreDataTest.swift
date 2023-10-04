@@ -13,29 +13,24 @@ extension HomeViewController {
     /// CoreData 테스트용 메서드입니다.
     @objc func testCoreData() {
         // insertTrackingTestData()
-        // printCoreData()
+        printCoreData()
     }
     
     /// 테스트 트래킹 데이터를 생성하고, CoreData를 업데이트합니다.
     func insertTrackingTestData() {
-        let block = blockData.list()[0]
+        let block = blockData.focusEntity()
         
         let trackingDate = TrackingDate(context: groupData.context)
-        trackingDate.year = "2023년"
-        trackingDate.month = "09월"
-        trackingDate.day = "21일"
-        trackingDate.dayOfWeek = "목요일"
+        trackingDate.year = "2023"
+        trackingDate.month = "10"
+        trackingDate.day = "04"
+        trackingDate.dayOfWeek = "수"
         
         let trackingTime1 = TrackingTime(context: groupData.context)
         trackingTime1.startTime = "1500"
         trackingTime1.endTime = "1700"
         
-        let trackingTime2 = TrackingTime(context: groupData.context)
-        trackingTime2.startTime = "2000"
-        // trackingTime2.endTime = "2230"
-        
         trackingDate.addToTrackingTimeList(trackingTime1)
-        trackingDate.addToTrackingTimeList(trackingTime2)
         block.addToTrackingDateList(trackingDate)
         
         groupData.saveContext()

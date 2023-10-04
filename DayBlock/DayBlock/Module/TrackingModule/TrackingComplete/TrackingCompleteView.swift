@@ -191,7 +191,7 @@ final class TrackingCompleteView: UIView {
         NSLayoutConstraint.activate([
             
             // titleStackView
-            titleStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 56),
+            titleStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 72),
             titleStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             // dashedSeparator

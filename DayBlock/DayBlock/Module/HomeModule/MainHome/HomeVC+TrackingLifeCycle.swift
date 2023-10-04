@@ -127,6 +127,8 @@ extension HomeViewController {
     /// 트래킹 완료 화면에서 확인 버튼 탭 시 호출되는 Delegate 메서드입니다.
     ///
     /// - Parameter mode: 현재 트래킹 모드
+    ///
+    /// 2번 호출
     func homeView(_ homeView: HomeView, trackingDidFinish mode: HomeView.TrakingMode) {
         
         // 1. 트래킹 보드 애니메이션 종료
@@ -137,6 +139,16 @@ extension HomeViewController {
         
         // 3. 트래킹 블럭 초기화
         trackingData.resetTrackingBlocks()
+        
+        // 4. UI 업데이트
+        viewManager.productivityLabel.text = "TODAY +\(trackingData.todayAllOutput())"
+        
+        // 5. 컬렉션뷰 초기화
+        viewManager.blockCollectionView.reloadData()
+        viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: blockIndex, section: 0), at: .left, animated: true)
+        
+        
+        
     }
 }
 
@@ -169,6 +181,7 @@ extension HomeViewController: DayBlockDelegate {
 extension HomeViewController: TrackingCompleteViewControllerDelegate {
     
     /// 트래킹 완료 화면에서 확인 버튼 탭 시 호출되는 Delegate 메서드입니다.
+    /// 1번 호출
     func trackingCompleteVC(backToHomeButtonTapped trackingCompleteVC: TrackingCompleteViewController) {
         viewManager.finishTrackingMode()
     }

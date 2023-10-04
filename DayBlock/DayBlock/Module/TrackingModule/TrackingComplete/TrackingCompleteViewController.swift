@@ -31,17 +31,30 @@ final class TrackingCompleteViewController: UIViewController {
     // MARK: - Setup Method
     
     private func setupUI() {
+        
+        // 아이콘
         viewManager.iconBlock.backgroundColor = groupData.focusColor()
         viewManager.iconBlock.symbol.image = UIImage(systemName: blockData.focusEntity().icon)
+        
+        // 작업명
         viewManager.taskLabel.text = blockData.focusEntity().taskLabel
         
+        // 날짜 및 시간 라벨
         viewManager.dateLabel.text = trackingData.focusDateFormat()
         viewManager.timeLabel.text = trackingData.focusTrackingTimeFormat()
         
+        // 생산량 라벨
         viewManager.plusSummaryLabel.textColor = groupData.focusColor()
         viewManager.mainSummaryLabel.text = String(trackingData.focusTrackingBlockCount())
         
+        // 트래킹 보드
         viewManager.trackingBoard.fillBlocks(trackingData.finishTrackingBlocks(), color: groupData.focusColor())
+        
+        // 전체 생산량
+        viewManager.totalValue.text = trackingData.totalOutput(blockData.focusEntity())
+        
+        // 오늘 생산량
+        viewManager.todayValue.text = trackingData.todayOutput(blockData.focusEntity())
     }
     
     private func setupEvent() {
