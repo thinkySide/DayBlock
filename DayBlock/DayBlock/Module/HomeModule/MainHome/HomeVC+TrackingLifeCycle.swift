@@ -89,10 +89,13 @@ extension HomeViewController {
         // 2. UserDefaults 트래킹 일시정지 확인용 변수 업데이트
         UserDefaults.standard.set(true, forKey: UserDefaultsKey.isPause)
         
-        // 3. 트래킹 보드 애니메이션 일시정지
+        // 3. 현재 일시정지 된 시간 기록
+        timerManager.pausedTime = trackingData.todaySeconds()
+        
+        // 4. 트래킹 보드 애니메이션 일시정지
         updateTrackingBoard(isPaused: true)
         
-        // 4. SFSymbol 애니메이션 종료
+        // 5. SFSymbol 애니메이션 종료
         stopSFSymbolAnimation(viewManager.trackingBlock.icon)
     }
     

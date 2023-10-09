@@ -57,7 +57,7 @@ extension TrackingDataStore {
         return formatter.string(from: Date())
     }
     
-    /// 오늘 날짜가 00:00분을 기준으로 몇 초가 경과되었는지 반환합니다.
+    /// 오늘 날짜가 00:00분을 기준으로 몇 초가 경과되었는지 문자열로 반환합니다.
     func todaySeconds() -> String {
         let currentTime = formatter("HH/mm/ss")
         let timeArray = currentTime.components(separatedBy: "/")
@@ -67,6 +67,18 @@ extension TrackingDataStore {
               let second = Int(timeArray[2]) else { return "" }
         
         return String((hour * 3600) + (minute * 60) + second)
+    }
+    
+    /// 오늘 날짜가 00:00분을 기준으로 몇 초가 경과되었는지 정수형으로 반환합니다.
+    func todaySeconds() -> Int {
+        let currentTime = formatter("HH/mm/ss")
+        let timeArray = currentTime.components(separatedBy: "/")
+        
+        guard let hour = Int(timeArray[0]),
+              let minute = Int(timeArray[1]),
+              let second = Int(timeArray[2]) else { return 0 }
+        
+        return (hour * 3600) + (minute * 60) + second
     }
     
     /// 현재 날짜 라벨 문자열을 반환합니다.
@@ -285,6 +297,36 @@ extension TrackingDataStore {
         focusDate().addToTrackingTimeList(trackingTime)
         
         // 코어데이터 저장
+        groupData.saveContext()
+    }
+    
+    /// 백그라운드에 나가있을 동안 생성된 블럭을 코어데이터에 추가합니다.
+    ///
+    /// 마지막으로 백그라운은드로 진입한 시점 (00:00분 기준 경과 초)
+    func appendDataBetweenBackground() {
+        
+        // 1. 트래킹 마무리 시간 업데이트
+        let initialStartTime = Int(focusTime().startTime)!
+        let pausedTime = TimerManager.shared.pausedTime
+        let pausingTime = todaySeconds() - pausedTime
+        let endTime = initialStartTime + 1800 + pausingTime
+        focusTime().endTime = String(endTime)
+        
+        print("시작 시간: \(initialStartTime)")
+        print("일시정지 시간: \(pausingTime)")
+        print("종료 시간: \(endTime)\n")
+        
+        // 2. 일시정시 시간 초기화
+        TimerManager.shared.pausedTime = 0
+        
+        // 3. 새로운 세션 시작
+        let trackingTime = TrackingTime(context: context)
+        trackingTime.startTime = String(endTime + 1)
+        focusDate().addToTrackingTimeList(trackingTime)
+        
+        print("새로운 세션 시작, 시작 시간: \(String(endTime + 1))")
+        
+        // 4. 코어데이터 저장
         groupData.saveContext()
     }
     

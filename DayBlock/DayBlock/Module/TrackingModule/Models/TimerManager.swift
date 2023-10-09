@@ -33,6 +33,9 @@ final class TimerManager {
     
     /// 총 생산한 블럭 수량
     var totalBlock: Double = 0
+    
+    /// 일시정지 된 시간
+    var pausedTime = 0
 
     /// 타이머에 사용되는 포맷
     var format: String {

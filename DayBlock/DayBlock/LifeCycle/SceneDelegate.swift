@@ -54,18 +54,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
     }
 
-    func sceneDidDisconnect(_ scene: UIScene) {
-        //
-    }
-
-    func sceneDidBecomeActive(_ scene: UIScene) {
-        //
-    }
-
-    func sceneWillResignActive(_ scene: UIScene) {
-        //
-    }
-
     func sceneWillEnterForeground(_ scene: UIScene) {
         
         // 마지막 접속 시간 Notification 전달
@@ -79,11 +67,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneDidEnterBackground(_ scene: UIScene) {
         
+        print(#function)
+        
         // 코어데이터 저장
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
         
         // 나가는 시점의 시간 계산 후 UserDefaults에 저장
-        let timestamp = Int(Date().timeIntervalSince1970)
+        // let timestamp = Int(Date().timeIntervalSince1970)
+        let timestamp = Int(TrackingDataStore.shared.todaySeconds())!
         UserDefaults.standard.setValue(timestamp, forKey: UserDefaultsKey.latestAccess)
     }
 }

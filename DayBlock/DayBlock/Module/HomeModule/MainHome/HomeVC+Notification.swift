@@ -39,9 +39,54 @@ extension HomeViewController {
     
     /// 백그라운드 모드로 진입 후 트래킹 모드를 재시작 합니다.
     @objc private func restartTrackingMode(_ notification: Notification) {
-        let latestTime = notification.userInfo?["time"] as? Int ?? 0
-        let currentTime = Int(Date().timeIntervalSince1970)
-        print("\(currentTime - latestTime)초 지났음.")
+        
+        // 1. 트래킹 모드 확인
+        let isTracking = UserDefaults.standard.object(forKey: UserDefaultsKey.isTracking) as? Bool ?? false
+        let isPause = UserDefaults.standard.object(forKey: UserDefaultsKey.isPause) as? Bool ?? false
+        
+        // 2. 트래킹 모드 진행 중일 시 실행
+        if isTracking && !isPause {
+            
+            print("트래킹 모드 재실행")
+            
+            // 3. 시간 확인
+            let latestTime = notification.userInfo?["time"] as? Int ?? 0 // 마지막 todaySeconds와 같음.
+            let currentTime = Int(TrackingDataStore.shared.todaySeconds())!
+            let elapsedTime = currentTime - latestTime - 2 // 시간 보정용 2초 빼기
+            
+            print("현재 트래킹 시작 시점: \(trackingData.focusTime().startTime)")
+            print("백그라운드 진입 시점: \(latestTime)")
+            print("현재 시점: \(trackingData.todaySeconds())")
+            
+            // 4. 시간 업데이트
+            timerManager.totalTime += elapsedTime
+            timerManager.currentTime += Float(elapsedTime)
+            
+            // 4-1. 0.5개 이상의 블럭이 생산된 경우
+            if timerManager.currentTime > 1800 {
+                let count = Int(timerManager.currentTime / 1800)
+                print("\(count)번의 블럭이 생성되었음.")
+                timerManager.currentTime -= 1800 * Float(count)
+                
+                for _ in 1...count {
+                    
+                    // 4-2. 생산 블럭 업데이트
+                    timerManager.totalBlock += 0.5
+                    
+                    // 4-3. 그동안 트래킹 되었던 데이터 추가
+                    trackingData.appendDataBetweenBackground()
+                }
+                
+                // 5. 생산 블럭량 라벨 업데이트
+                viewManager.updateCurrentProductivityLabel(timerManager.totalBlock)
+                
+                // 6. 트래킹 보드 애니메이션 업데이트
+                viewManager.blockPreview.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
+            }
+            
+            // 7. 타이머 및 프로그레스 바 UI 업데이트
+            viewManager.updateTracking(time: timerManager.format, progress: timerManager.progressPercent())
+        }
     }
     
     /// 블럭 편집 Noti를 받았을 때 블럭을 편집 후 리로드합니다.
