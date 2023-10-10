@@ -75,18 +75,18 @@ final class TrackingBoard: UIView {
             let state = minute == "00" ? TrackingBoardBlock.Paint.firstHalf : TrackingBoardBlock.Paint.secondHalf
             
             if state == .firstHalf {
-                print("\(hour):\(minute) 블럭 firstHalf")
+                // print("\(hour):\(minute) 블럭 firstHalf")
                 paintBlock.painting(.firstHalf, color: color)
             }
             
             // 첫번째 반쪽이 이미 차있다면, full로 변경
             else if paintBlock.state == .firstHalf && state == .secondHalf {
-                print("\(hour):\(minute) 블럭 fullTime")
+                // print("\(hour):\(minute) 블럭 fullTime")
                 paintBlock.painting(.fullTime, color: color)
             } 
             
             else {
-                print("\(hour):\(minute) 블럭 secondHalf")
+                // print("\(hour):\(minute) 블럭 secondHalf")
                 paintBlock.painting(.secondHalf, color: color)
             }
         }
@@ -143,7 +143,7 @@ final class TrackingBoard: UIView {
     /// 트래킹 애니메이션을 활성화합니다.
     func updateTrackingAnimation(_ trackingBlocks: [String], color: UIColor, isPaused: Bool) {
         
-        print("애니메이션에 돌아갈 블럭 목록: \(trackingBlocks)\n")
+        // print("애니메이션에 돌아갈 블럭 목록: \(trackingBlocks)\n")
         
         for index in trackingBlocks {
             let split = index.split(separator: ":").map { String($0) }
@@ -183,7 +183,7 @@ final class TrackingBoard: UIView {
             
             // 트래킹 블럭 지정
             let paintBlocks = blocks[Int(hour)!]
-            print("\(Int(hour)!)번째 블럭 애니메이션 중지")
+            // print("\(Int(hour)!)번째 블럭 애니메이션 중지")
             
             // 색칠 초기화
             paintBlocks.full.backgroundColor = Color.entireBlock

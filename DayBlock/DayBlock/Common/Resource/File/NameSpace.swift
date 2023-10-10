@@ -27,6 +27,7 @@ enum UserDefaultsKey {
     static let isPause = "isPause"
     
     static let latestAccess = "latestAccess"
+    static let pausedTime = "pausedTime"
 }
 
 // MARK: - Colors

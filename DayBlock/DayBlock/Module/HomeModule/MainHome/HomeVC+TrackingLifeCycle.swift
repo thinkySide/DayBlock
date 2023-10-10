@@ -97,6 +97,7 @@ extension HomeViewController {
         
         // 4. UserDefaults 트래킹 모드 확인용 변수 업데이트
         UserDefaults.standard.set(true, forKey: UserDefaultsKey.isTracking)
+        UserDefaults.standard.set(false, forKey: UserDefaultsKey.isPause)
         UserDefaults.standard.setValue(blockData.focusIndex(), forKey: UserDefaultsKey.blockIndex)
         
         // 5. 트래킹 보드 애니메이션 시작

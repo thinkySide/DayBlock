@@ -61,7 +61,7 @@ extension TrackingDataStore {
     }
     
     /// 오늘 날짜가 00:00분을 기준으로 몇 초가 경과되었는지 문자열로 반환합니다.
-    func todaySeconds() -> String {
+    func todaySecondsToString() -> String {
         let currentTime = formatter("HH/mm/ss")
         let timeArray = currentTime.components(separatedBy: "/")
         
@@ -73,7 +73,7 @@ extension TrackingDataStore {
     }
     
     /// 오늘 날짜가 00:00분을 기준으로 몇 초가 경과되었는지 정수형으로 반환합니다.
-    func todaySeconds() -> Int {
+    func todaySecondsToInt() -> Int {
         let currentTime = formatter("HH/mm/ss")
         let timeArray = currentTime.components(separatedBy: "/")
         
@@ -280,7 +280,7 @@ extension TrackingDataStore {
         
         // 2. 현재 시작 시간을 기준으로 트래킹 시간 엔티티 생성
         let newTrackingTime = TrackingTime(context: context)
-        newTrackingTime.startTime = todaySeconds()
+        newTrackingTime.startTime = todaySecondsToString()
         
         // 3. 트래킹 데이터 업데이트 및 저장
         newTrackingDate.addToTrackingTimeList(newTrackingTime)
@@ -292,11 +292,11 @@ extension TrackingDataStore {
     func appendDataInProgress() {
         
         // 현재 세션 종료 및 저장
-        focusTime().endTime = todaySeconds()
+        focusTime().endTime = todaySecondsToString()
         
         // 새로운 세션 시작
         let trackingTime = TrackingTime(context: context)
-        trackingTime.startTime = todaySeconds()
+        trackingTime.startTime = todaySecondsToString()
         focusDate().addToTrackingTimeList(trackingTime)
         
         // 코어데이터 저장
@@ -384,7 +384,7 @@ extension TrackingDataStore {
     /// 트래킹이 시작될 때 1번 호출,
     /// 블럭 0.5개가 생산될 때마다 1번씩 호출
     func appendCurrentTimeInTrackingBlocks() {
-        if let safeTodaySeconds = Int(todaySeconds()) {
+        if let safeTodaySeconds = Int(todaySecondsToString()) {
             let focusBlock = safeTodaySeconds / targetSecond
             let hour = String(focusBlock / 2)
             let minute = focusBlock % 2 == 0 ? "00" : "30"
@@ -396,7 +396,7 @@ extension TrackingDataStore {
             }
             
             print("트래킹 데이터 추가: \(time)")
-            print("추가 후 currentTrackingBlocks: \(currentTrackingBlocks)")
+            // print("추가 후 currentTrackingBlocks: \(currentTrackingBlocks)")
         }
     }
     
@@ -418,6 +418,6 @@ extension TrackingDataStore {
         currentTrackingBlocks.append(testTrackingBoardDatas[count])
          
         print("트래킹 데이터 추가: \(testTrackingBoardDatas[count])")
-        print("추가 후 currentTrackingBlocks: \(currentTrackingBlocks)")
+        // print("추가 후 currentTrackingBlocks: \(currentTrackingBlocks)")
     }
 }

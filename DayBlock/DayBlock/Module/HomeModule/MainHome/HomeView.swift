@@ -22,6 +22,14 @@ final class HomeView: UIView {
     
     // MARK: - Component
     
+    let testLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: Pretendard.semiBold, size: 16)
+        label.textColor = Color.subText
+        label.textAlignment = .left
+        return label
+    }()
+    
     let groupSelectButton: GroupSelectButton = {
         let group = GroupSelectButton()
         return group
@@ -93,7 +101,7 @@ final class HomeView: UIView {
         return block
     }()
     
-    private let messageLabel: UILabel = {
+    let messageLabel: UILabel = {
         let label = UILabel()
         label.text = "오늘 하루는 어떤 블럭으로\n채우고 계신가요?" // ⛳️
         label.font = UIFont(name: Pretendard.semiBold, size: 18)
@@ -272,7 +280,8 @@ final class HomeView: UIView {
             trackingProgressView,
             trackingButton,
             toastView,
-            tabBarStackView
+            tabBarStackView,
+            testLabel
         ]
             .forEach {
                 /// 1. addSubView(component)
@@ -347,6 +356,9 @@ final class HomeView: UIView {
             
             toastView.centerXAnchor.constraint(equalTo: centerXAnchor),
             toastView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -48),
+            
+            testLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            testLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -48),
             
             /// tabBarStackView
             tabBarStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),

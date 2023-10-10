@@ -22,11 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
-        print(#function)
-        
         // 나가는 시점의 시간 계산 후 UserDefaults에 저장
-        let timestamp = Int(Date().timeIntervalSince1970)
-        UserDefaults.standard.setValue(timestamp, forKey: UserDefaultsKey.latestAccess)
+        // let timestamp = Int(TrackingDataStore.shared.todaySecondsToString())!
+        // print("앱이 죽기 전 마지막 시간을 기록합니다: \(timestamp)")
+        // UserDefaults.standard.setValue(timestamp, forKey: UserDefaultsKey.latestAccess)
     }
     
     // MARK: - Core Data stack

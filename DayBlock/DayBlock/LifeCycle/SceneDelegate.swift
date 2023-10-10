@@ -56,6 +56,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneWillEnterForeground(_ scene: UIScene) {
         
+        print(#function)
+        print("")
+        
         // 마지막 접속 시간 Notification 전달
         if let latestAccess = UserDefaults.standard.object(forKey: UserDefaultsKey.latestAccess) as? Int {
             NotificationCenter.default.post(
@@ -74,7 +77,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
         
         // 나가는 시점의 시간 계산 후 UserDefaults에 저장
-        let timestamp = Int(TrackingDataStore.shared.todaySeconds())!
+        let timestamp = Int(TrackingDataStore.shared.todaySecondsToString())
         UserDefaults.standard.setValue(timestamp, forKey: UserDefaultsKey.latestAccess)
+        
+        // 일시정지 시간 저장
+        let pausedTime = TimerManager.shared.pausedTime
+        print("일시정지 시간 저장: \(pausedTime)")
+        UserDefaults.standard.setValue(pausedTime, forKey: UserDefaultsKey.pausedTime)
+        
+        // 타이머 정지
+        TimerManager.shared.trackingTimer.invalidate()
     }
 }

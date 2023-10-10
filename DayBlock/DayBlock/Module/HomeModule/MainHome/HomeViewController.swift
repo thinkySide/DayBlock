@@ -45,7 +45,6 @@ final class HomeViewController: UIViewController {
         viewManager.blockPreview.addGestureRecognizer(gesture)
         
         setupCoreData()
-        setupTrackingMode()
         setupNotification()
         setupDelegate()
         setupNavigationItem()
@@ -53,9 +52,21 @@ final class HomeViewController: UIViewController {
         setupTimer()
         setupUI()
         setupGestrue()
+        
+        testBackGroundTime() // 나중에 빼기
+        
+        // setupTrackingMode()
     }
     
     // MARK: - Setup Method
+    
+    /// 테스트용 메서드
+    func testBackGroundTime() {
+        let lastAccess = UserDefaults.standard.object(forKey: UserDefaultsKey.latestAccess) as? Int ?? 0
+        let currentTime = trackingData.todaySecondsToInt()
+        let elapsedTime = currentTime - lastAccess // 보정용 2초 빼기
+        viewManager.testLabel.text = "앱 종료 시간 - \(elapsedTime)초"
+    }
     
     /// 데이터 설정을 위한 CoreData를 불러와 Fetch합니다.
     private func setupCoreData() {
@@ -65,6 +76,11 @@ final class HomeViewController: UIViewController {
     
     /// 처음 트래킹 모드 실행 메서드
     private func setupTrackingMode() {
+        
+        // 얼마나 앱이 종료되었는지 확인
+        let lastAccess = UserDefaults.standard.object(forKey: UserDefaultsKey.latestAccess) as? Int ?? 0
+        let currentTime = trackingData.todaySecondsToInt()
+        let elapsedTime = currentTime - lastAccess // 보정용 2초 빼기
         
         // 트래킹 모드 여부 확인
         let isTracking = UserDefaults.standard.object(forKey: UserDefaultsKey.isTracking) as? Bool ?? false
@@ -81,6 +97,36 @@ final class HomeViewController: UIViewController {
             
             // TODO: 트래킹 모드 재시작 로직
             
+            // 1. 그룹&블럭 인덱스 업데이트
+            groupData.updateFocusIndex(to: groupIndex)
+            blockData.updateFocusIndex(to: blockIndex)
+            
+            // 2. 트래킹 데이터 업데이트
+            
+            
+            // totalTime이 없음...
+            // 현재 시간 - 트래킹 시작한 시간 - 일시정지 시간
+            let pausedTime = UserDefaults.standard.object(forKey: UserDefaultsKey.pausedTime) as? Int ?? 0
+            timerManager.totalTime =
+            trackingData.todaySecondsToInt() - Int(trackingData.focusTime().startTime)! - pausedTime
+            
+            print("totalTime: \(timerManager.totalTime)")
+            
+            timerManager.totalTime += elapsedTime
+            timerManager.currentTime += Float(elapsedTime)
+            
+            // 3. 트래킹 모드 시작
+            viewManager.trackingButtonTapped()
+            
+            // 4. 타이머 및 프로그레스 바 UI 업데이트
+            viewManager.updateTracking(time: timerManager.format, progress: timerManager.progressPercent())
+            
+            // 일시정지 상태
+            if isPause {
+                
+                // 한번 더 탭해 일시정지 상태로 만들기
+                viewManager.trackingButtonTapped()
+            }
         }
     }
     
