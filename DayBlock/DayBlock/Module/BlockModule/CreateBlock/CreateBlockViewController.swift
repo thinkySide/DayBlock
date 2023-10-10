@@ -137,7 +137,7 @@ final class CreateBlockViewController: UIViewController {
             delegate?.createBlockViewController(self, blockDidCreate: .create)
         }
         
-        // 블럭 편집 모드sr
+        // 블럭 편집 모드
         if mode == .edit {
             blockData.update()
             navigationController?.popViewController(animated: true)

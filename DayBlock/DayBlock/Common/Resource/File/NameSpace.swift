@@ -26,6 +26,8 @@ enum UserDefaultsKey {
     static let isTracking = "isTracking"
     static let isPause = "isPause"
     
+    static let totalTime = "totalTime"
+    
     static let latestAccess = "latestAccess"
     static let pausedTime = "pausedTime"
 }

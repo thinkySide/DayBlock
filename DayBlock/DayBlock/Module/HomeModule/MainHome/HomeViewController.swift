@@ -52,10 +52,7 @@ final class HomeViewController: UIViewController {
         setupTimer()
         setupUI()
         setupGestrue()
-        
-        testBackGroundTime() // 나중에 빼기
-        
-        // setupTrackingMode()
+        setupTrackingMode()
     }
     
     // MARK: - Setup Method
@@ -77,11 +74,6 @@ final class HomeViewController: UIViewController {
     /// 처음 트래킹 모드 실행 메서드
     private func setupTrackingMode() {
         
-        // 얼마나 앱이 종료되었는지 확인
-        let lastAccess = UserDefaults.standard.object(forKey: UserDefaultsKey.latestAccess) as? Int ?? 0
-        let currentTime = trackingData.todaySecondsToInt()
-        let elapsedTime = currentTime - lastAccess // 보정용 2초 빼기
-        
         // 트래킹 모드 여부 확인
         let isTracking = UserDefaults.standard.object(forKey: UserDefaultsKey.isTracking) as? Bool ?? false
         let isPause = UserDefaults.standard.object(forKey: UserDefaultsKey.isPause) as? Bool ?? false
@@ -95,38 +87,58 @@ final class HomeViewController: UIViewController {
         if isTracking {
             print("App 실행, 트래킹 모드 재시작\n")
             
-            // TODO: 트래킹 모드 재시작 로직
-            
-            // 1. 그룹&블럭 인덱스 업데이트
+            // 1. 그룹 & 블럭 인덱스 업데이트
             groupData.updateFocusIndex(to: groupIndex)
             blockData.updateFocusIndex(to: blockIndex)
             
-            // 2. 트래킹 데이터 업데이트
-            
-            
-            // totalTime이 없음...
-            // 현재 시간 - 트래킹 시작한 시간 - 일시정지 시간
+            // 나갔다 들어온 시간
+            let lastAccess = UserDefaults.standard.object(forKey: UserDefaultsKey.latestAccess) as? Int ?? 0
             let pausedTime = UserDefaults.standard.object(forKey: UserDefaultsKey.pausedTime) as? Int ?? 0
-            timerManager.totalTime =
-            trackingData.todaySecondsToInt() - Int(trackingData.focusTime().startTime)! - pausedTime
+            let elapsedTime = trackingData.todaySecondsToInt() - lastAccess
+
+            // 1. 전체 트래킹 시간 업데이트
+            let originalTotalTime = UserDefaults.standard.object(forKey: UserDefaultsKey.totalTime) as? Int ?? 0
             
-            print("totalTime: \(timerManager.totalTime)")
+            // 전체 시간 = 기존 전체 시간 + 지난 시간 - 일시정지 시간
+            let totalTime = originalTotalTime + elapsedTime
+            timerManager.totalTime = totalTime
             
-            timerManager.totalTime += elapsedTime
-            timerManager.currentTime += Float(elapsedTime)
+            // 2-2. 현재 트래킹 시간 업데이트
             
-            // 3. 트래킹 모드 시작
-            viewManager.trackingButtonTapped()
+            // 현재 시간 = 기존 전체 시간 % 타겟 숫자 + 지난 시간 - 일시정지 시간
+            let currentTime = originalTotalTime % trackingData.targetSecond + elapsedTime
+            timerManager.currentTime = Float(currentTime)
             
-            // 4. 타이머 및 프로그레스 바 UI 업데이트
+            // 3. 0.5개 이상의 블럭이 생산되었을 경우
+            if timerManager.currentTime > Float(trackingData.targetSecond) {
+                let count = Int(timerManager.currentTime / Float(trackingData.targetSecond))
+                viewManager.dateLabel.text = "\(count)개의 블럭 생성!"
+                timerManager.currentTime -= Float(trackingData.targetSecond) * Float(count)
+                
+                for _ in 1...count {
+                    
+                    // 3-1. 생산 블럭 업데이트
+                    timerManager.totalBlock += 0.5
+                    
+                    // 3-2. 그동안 트래킹 되었던 데이터 추가
+                    trackingData.appedDataBetweenAppDisconect()
+                }
+                
+                // 4. 생산 블럭량 라벨 업데이트
+                viewManager.updateCurrentProductivityLabel(timerManager.totalBlock)
+                
+                // 5. 트래킹 보드 애니메이션 업데이트
+                viewManager.blockPreview.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
+            }
+            
+            // 6. 타이머 및 프로그레스 바 UI 업데이트
             viewManager.updateTracking(time: timerManager.format, progress: timerManager.progressPercent())
             
-            // 일시정지 상태
-            if isPause {
-                
-                // 한번 더 탭해 일시정지 상태로 만들기
-                viewManager.trackingButtonTapped()
-            }
+            // 7. 트래킹 모드 시작
+            viewManager.trackingButtonTapped()
+            
+            // 8. 일시정지 상태
+            if isPause { viewManager.trackingButtonTapped() }
         }
     }
     

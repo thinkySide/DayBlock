@@ -344,6 +344,11 @@ extension TrackingDataStore {
         groupData.saveContext()
     }
     
+    /// 앱이 종료되어있을 동안 추가된 트래킹 데이터를 추가합니다.
+    func appedDataBetweenAppDisconect() {
+        
+    }
+    
     /// 트래킹을 종료함과 동시에 데이터를 저장합니다.
     func finishData() {
         

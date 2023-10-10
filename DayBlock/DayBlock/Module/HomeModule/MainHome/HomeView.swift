@@ -26,7 +26,8 @@ final class HomeView: UIView {
         let label = UILabel()
         label.font = UIFont(name: Pretendard.semiBold, size: 16)
         label.textColor = Color.subText
-        label.textAlignment = .left
+        label.textAlignment = .center
+        label.numberOfLines = 3
         return label
     }()
     
@@ -358,7 +359,7 @@ final class HomeView: UIView {
             toastView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -48),
             
             testLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            testLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -48),
+            testLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -68),
             
             /// tabBarStackView
             tabBarStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),

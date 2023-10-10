@@ -24,6 +24,9 @@ extension HomeViewController {
         // TimeLabel & ProgressView 업데이트
         viewManager.updateTracking(time: timerManager.format,
                                    progress: timerManager.progressPercent())
+        
+        // 테스트 라벨
+        viewManager.testLabel.text = "totalTime - \(timerManager.totalTime)초\ncurrentTime - \(timerManager.currentTime)초\npausedTime - \(timerManager.pausedTime)초"
     }
     
     /// 블럭 0.5개 생산 시 실행되는 트래킹 메서드입니다.

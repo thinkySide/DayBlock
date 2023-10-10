@@ -73,19 +73,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         print(#function)
         print("")
         
-        // 코어데이터 저장
+        // 1. 타이머 정지
+        TimerManager.shared.trackingTimer.invalidate()
+        
+        // 2. 코어데이터 저장
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
         
-        // 나가는 시점의 시간 계산 후 UserDefaults에 저장
-        let timestamp = Int(TrackingDataStore.shared.todaySecondsToString())
-        UserDefaults.standard.setValue(timestamp, forKey: UserDefaultsKey.latestAccess)
+        // 3. 나가는 시점 저장
+        let lastAccess = Int(TrackingDataStore.shared.todaySecondsToString())
+        UserDefaults.standard.setValue(lastAccess, forKey: UserDefaultsKey.latestAccess)
         
-        // 일시정지 시간 저장
+        // 4. totalTime 저장
+        let totalTime = TimerManager.shared.totalTime
+        UserDefaults.standard.setValue(totalTime, forKey: UserDefaultsKey.totalTime)
+        
+        // 5. 일시정지 시간 저장
         let pausedTime = TimerManager.shared.pausedTime
-        print("일시정지 시간 저장: \(pausedTime)")
         UserDefaults.standard.setValue(pausedTime, forKey: UserDefaultsKey.pausedTime)
-        
-        // 타이머 정지
-        TimerManager.shared.trackingTimer.invalidate()
     }
 }

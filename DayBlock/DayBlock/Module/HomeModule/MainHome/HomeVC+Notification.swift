@@ -40,7 +40,6 @@ extension HomeViewController {
     /// 백그라운드 모드로 진입 후 트래킹 모드를 재시작 합니다.
     @objc private func restartTrackingMode(_ notification: Notification) {
         
-        testBackGroundTime()
         
         // 1. 트래킹 모드 확인
         let isTracking = UserDefaults.standard.object(forKey: UserDefaultsKey.isTracking) as? Bool ?? false
@@ -60,21 +59,13 @@ extension HomeViewController {
             // 3. 시간 확인
             let latestTime = notification.userInfo?["time"] as? Int ?? 0 // 마지막 todaySeconds와 같음.
             let currentTime = Int(TrackingDataStore.shared.todaySecondsToString())!
-            let elapsedTime = currentTime - latestTime // 시간 보정용 3초 빼기
+            let elapsedTime = currentTime - latestTime
             
-            print("음 \(elapsedTime)초가 지났군")
-            // print("현재 트래킹 시작 시점: \(trackingData.focusTime().startTime)")
-            // print("백그라운드 진입 시점: \(latestTime)")
-            // print("현재 시점: \(trackingData.todaySecondsToString())\n")
+            print("음 \(elapsedTime)초가 지났군") 
             
             // 4. 시간 업데이트
-            print("totalTime 전: \(timerManager.totalTime)")
             timerManager.totalTime += elapsedTime
-            print("totalTime 후: \(timerManager.totalTime)")
-            
-            print("currentTime 전: \(timerManager.currentTime)")
             timerManager.currentTime += Float(elapsedTime)
-            print("currentTime 후: \(timerManager.currentTime)")
             
             // 4-1. 0.5개 이상의 블럭이 생산된 경우
             if timerManager.currentTime > Float(trackingData.targetSecond) {
