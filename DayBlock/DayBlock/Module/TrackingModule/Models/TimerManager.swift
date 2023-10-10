@@ -54,7 +54,7 @@ extension TimerManager {
     
     /// Progress 퍼센트 수치를 반환합니다.
     func progressPercent() -> Float {
-        return currentTime / 1800
+        return currentTime / Float(trackingData.targetSecond)
     }
     
     /// 타이머를 기본값(0)으로 초기화합니다.

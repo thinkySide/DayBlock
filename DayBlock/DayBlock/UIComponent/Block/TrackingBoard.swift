@@ -143,7 +143,7 @@ final class TrackingBoard: UIView {
     /// 트래킹 애니메이션을 활성화합니다.
     func updateTrackingAnimation(_ trackingBlocks: [String], color: UIColor, isPaused: Bool) {
         
-        print("애니메이션에 돌아갈 블럭 목록: \(trackingBlocks)")
+        print("애니메이션에 돌아갈 블럭 목록: \(trackingBlocks)\n")
         
         for index in trackingBlocks {
             let split = index.split(separator: ":").map { String($0) }
@@ -208,7 +208,7 @@ final class TrackingBoard: UIView {
         paintBlock.delegate = self
         paintBlock.isRefresh = true
         
-        print("\(Int(hour)!)번 블럭 기준 모든 블럭 리프레시")
+        // print("\(Int(hour)!)번 블럭 기준 모든 블럭 리프레시")
     }
     
     // MARK: - Initial Method

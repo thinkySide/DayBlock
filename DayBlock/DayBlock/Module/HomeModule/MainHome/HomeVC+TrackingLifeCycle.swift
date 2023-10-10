@@ -16,14 +16,10 @@ extension HomeViewController {
         timerManager.currentTime += 1
         
         // 0.5개가 생산될 때마다 호출
-        if timerManager.totalTime % 10 == 0 {
+        if timerManager.totalTime % trackingData.targetSecond == 0 {
             testTracking()
+            // produceBlock()
         }
-        
-//        // 0.5개가 생산될 때마다 호출
-//        if timerManager.totalTime % 1800 == 0 {
-//            produceBlock()
-//        }
         
         // TimeLabel & ProgressView 업데이트
         viewManager.updateTracking(time: timerManager.format,
@@ -207,7 +203,7 @@ extension HomeViewController: DayBlockDelegate {
     func dayBlock(_ dayBlock: DayBlock, trackingComplete taskLabel: String?) {
         
         // 0. 아직 블럭이 생성되지 않았다면, 메서드
-        guard timerManager.totalTime > 10 else { // 원래 값 1800, 테스트용 10
+        guard timerManager.totalTime > trackingData.targetSecond else {
             showToast(toast: viewManager.toastView, isActive: true)
             return
         }

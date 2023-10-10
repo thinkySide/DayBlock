@@ -74,10 +74,10 @@ final class HomeViewController: UIViewController {
         // 그룹 및 블럭 인덱스 확인
         let groupIndex = UserDefaults.standard.object(forKey: UserDefaultsKey.groupIndex) as? Int ?? 0
         let blockIndex = UserDefaults.standard.object(forKey: UserDefaultsKey.blockIndex) as? Int ?? 0
-        print("그룹 인덱스: \(groupIndex), 블럭 인덱스: \(blockIndex)")
+        print("그룹 인덱스: \(groupIndex), 블럭 인덱스: \(blockIndex)\n")
         
         if isTracking {
-            print("App 실행, 트래킹 모드 재시작")
+            print("App 실행, 트래킹 모드 재시작\n")
             
             // TODO: 트래킹 모드 재시작 로직
             

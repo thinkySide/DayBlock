@@ -17,6 +17,9 @@ final class TrackingDataStore {
     /// CoreData Context
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    /// 0.5개의 블럭을 생산하는 주기
+    let targetSecond = 10
+    
     /// 그룹 & 블럭 데이터
     private let groupData = GroupDataStore.shared
     private let blockData = BlockDataStore.shared
@@ -308,27 +311,27 @@ extension TrackingDataStore {
         // 1. 트래킹 마무리 시간 업데이트
         let initialStartTime = Int(focusTime().startTime)!
         let pausedTime = TimerManager.shared.pausedTime
-        let pausingTime = todaySeconds() - pausedTime
-        let endTime = initialStartTime + 1800 + pausingTime
+        let endTime = initialStartTime + targetSecond + pausedTime
         focusTime().endTime = String(endTime)
         
         print("시작 시간: \(initialStartTime)")
-        print("일시정지 시간: \(pausingTime)")
+        print("일시정지 시간: \(pausedTime)")
         print("종료 시간: \(endTime)\n")
         
         // 2. 일시정시 시간 초기화
         TimerManager.shared.pausedTime = 0
         
         // 3. 트래킹 보드 블럭 리스트 추가
-        let focusBlock = initialStartTime / 1800
-        let hour = String(focusBlock / 2)
-        let minute = focusBlock % 2 == 0 ? "00" : "30"
-        let time = "\(hour):\(minute)"
+//        let focusBlock = initialStartTime / targetSecond
+//        let hour = String(focusBlock / 2)
+//        let minute = focusBlock % 2 == 0 ? "00" : "30"
+//        let time = "\(hour):\(minute)"
         
         // 3-1. 중복 블럭 거르고 추가하기
-        if !currentTrackingBlocks.contains(time) {
-            currentTrackingBlocks.append(time)
-        }
+        // if !currentTrackingBlocks.contains(time) {
+            testAppend()
+            // currentTrackingBlocks.append(time)
+        // }
         
         // 4. 새로운 세션 시작
         let trackingTime = TrackingTime(context: context)
@@ -382,7 +385,7 @@ extension TrackingDataStore {
     /// 블럭 0.5개가 생산될 때마다 1번씩 호출
     func appendCurrentTimeInTrackingBlocks() {
         if let safeTodaySeconds = Int(todaySeconds()) {
-            let focusBlock = safeTodaySeconds / 1800
+            let focusBlock = safeTodaySeconds / targetSecond
             let hour = String(focusBlock / 2)
             let minute = focusBlock % 2 == 0 ? "00" : "30"
             let time = "\(hour):\(minute)"
@@ -395,11 +398,6 @@ extension TrackingDataStore {
             print("트래킹 데이터 추가: \(time)")
             print("추가 후 currentTrackingBlocks: \(currentTrackingBlocks)")
         }
-    }
-    
-    /// 백그라운드 실행 동안 트래킹된 블럭을 트래킹 블럭리스트에 추가합니다.
-    func appendBackgroundTimeInTrackingBlocks() {
-        
     }
     
     /// 현재 트래킹 되고 있는 블럭 리스트를 초기화합니다.

@@ -154,7 +154,7 @@ final class TrackingBoardBlock: UIView {
             // 애니메이션 중이 아니라면, 재귀함수 종료
             // 다음 블럭이 기다리고 있는 상태라면 종료(다음 애니메이션 주기로 넘어가기 위함)
             if view.alpha == 0 && isRefresh {
-                print("어머 리프레쉬 됐구나!")
+                // print("어머 리프레쉬 됐구나!")
                 delegate?.trackingBoardBlock(animateWillRefresh: isRefresh)
                 isRefresh = false
                 return

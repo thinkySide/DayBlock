@@ -47,7 +47,7 @@ extension HomeViewController {
         // 2. 트래킹 모드 진행 중일 시 실행
         if isTracking && !isPause {
             
-            print("트래킹 모드 재실행")
+            print("트래킹 모드 재실행\n")
             
             // 3. 시간 확인
             let latestTime = notification.userInfo?["time"] as? Int ?? 0 // 마지막 todaySeconds와 같음.
@@ -56,17 +56,17 @@ extension HomeViewController {
             
             print("현재 트래킹 시작 시점: \(trackingData.focusTime().startTime)")
             print("백그라운드 진입 시점: \(latestTime)")
-            print("현재 시점: \(trackingData.todaySeconds())")
+            print("현재 시점: \(trackingData.todaySeconds())\n")
             
             // 4. 시간 업데이트
             timerManager.totalTime += elapsedTime
             timerManager.currentTime += Float(elapsedTime)
             
             // 4-1. 0.5개 이상의 블럭이 생산된 경우
-            if timerManager.currentTime > 1800 {
-                let count = Int(timerManager.currentTime / 1800)
-                print("\(count)번의 블럭이 생성되었음.")
-                timerManager.currentTime -= 1800 * Float(count)
+            if timerManager.currentTime > Float(trackingData.targetSecond) {
+                let count = Int(timerManager.currentTime / Float(trackingData.targetSecond))
+                print("\(count)번의 블럭이 생성되었음.\n")
+                timerManager.currentTime -= Float(trackingData.targetSecond) * Float(count)
                 
                 for _ in 1...count {
                     
