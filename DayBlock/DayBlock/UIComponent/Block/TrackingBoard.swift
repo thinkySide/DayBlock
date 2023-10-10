@@ -97,19 +97,19 @@ final class TrackingBoard: UIView {
         
         switch time {
         case .onTime:
-            print("firstHalf")
+            // print("firstHalf")
             paintBlock.configureAnimation(.firstHalf, color: color, isPaused: isPaused)
             
         case .halfTime:
             
             if paintBlock.state == .secondHalf {
-                print("secondHalf")
+                // print("secondHalf")
                 paintBlock.configureAnimation(.secondHalf, color: color, isPaused: isPaused)
                 return
             }
             
             if paintBlock.state == .fullTime {
-                print("fullTime")
+                // print("fullTime")
                 paintBlock.configureAnimation(.fullTime, color: color, isPaused: isPaused)
                 return
             }
@@ -131,11 +131,11 @@ final class TrackingBoard: UIView {
             
             // 만약 앞에가 채워져있으면 이번 블럭은 건너뛰고 대신 이전 블럭의 애니메이션 삭제 후 full로 실행하기
             if time == .halfTime && paintBlock.state == .firstHalf {
-                print("\(hour):\(minute) 블럭을 통해 fullTime이 되었기에 기존 애니메이션 삭제")
+                // print("\(hour):\(minute) 블럭을 통해 fullTime이 되었기에 기존 애니메이션 삭제")
                 paintBlock.state = .fullTime
             }
             
-            print("\(hour):\(minute) 블럭 채우기")
+            // print("\(hour):\(minute) 블럭 채우기")
             startAnimation(time, paintBlock: paintBlock, color: Color.entireBlock, isPaused: isPaused)
         }
     }
@@ -162,7 +162,7 @@ final class TrackingBoard: UIView {
             
             // 만약 앞에가 채워져있으면 이번 블럭은 건너뛰고 대신 이전 블럭의 애니메이션 삭제 후 full로 실행하기
             else if time == .halfTime && paintBlock.state == .firstHalf {
-                print("\(hour):\(minute) 블럭을 통해 fullTime이 되었기에 기존 애니메이션 삭제")
+                // print("\(hour):\(minute) 블럭을 통해 fullTime이 되었기에 기존 애니메이션 삭제")
                 paintBlock.state = .fullTime
             }
             
@@ -170,7 +170,7 @@ final class TrackingBoard: UIView {
                 paintBlock.state = .secondHalf
             }
             
-            print("\(hour):\(minute) 블럭 채우기")
+            // print("\(hour):\(minute) 블럭 채우기")
             startAnimation(time, paintBlock: paintBlock, color: color, isPaused: isPaused)
         }
     }

@@ -208,6 +208,9 @@ extension HomeViewController: PopupViewControllerDelegate {
         blockData.delete(deleteBlock)
         viewManager.blockCollectionView.reloadData()
         
+        // UI 업데이트
+        viewManager.productivityLabel.text = "TODAY +\(trackingData.todayAllOutput())"
+        
         // 그룹 리스트가 비어있을 시, 트래킹 버튼 비활성화
         let blockList = groupData.focusEntity().blockList?.array as! [Block]
         if blockList.isEmpty || (blockData.focusIndex() == blockList.count) {

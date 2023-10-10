@@ -43,7 +43,7 @@ final class TrackingDataStore {
     }
     
     /// 현재 트래킹 되고 있는 블럭
-    private var currentTrackingBlocks: [String] = []
+    var currentTrackingBlocks: [String] = []
 }
 
 // MARK: - Format Method
@@ -406,5 +406,20 @@ extension TrackingDataStore {
     func resetTrackingBlocks() {
         currentTrackingBlocks.removeAll()
         print("트래킹 블럭 리셋: \(currentTrackingBlocks)")
+    }
+}
+
+// MARK: - Test Method
+extension TrackingDataStore {
+    
+    /// 테스트 변수 추가
+    func testAppend() {
+        
+        // 몇번째 트래킹 블럭 활성화 할지 결정하기
+        let count = Int(TimerManager.shared.totalBlock / 0.5) - 1
+        currentTrackingBlocks.append(testTrackingBoardDatas[count])
+         
+        print("트래킹 데이터 추가: \(testTrackingBoardDatas[count])")
+        print("추가 후 currentTrackingBlocks: \(currentTrackingBlocks)")
     }
 }
