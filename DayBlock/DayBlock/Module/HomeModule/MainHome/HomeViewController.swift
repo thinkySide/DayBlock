@@ -65,18 +65,23 @@ final class HomeViewController: UIViewController {
     
     /// 처음 트래킹 모드 실행 메서드
     private func setupTrackingMode() {
-//        let isTracking = UserDefaults.standard.object(forKey: UserDefaultsKey.isTracking) as? Bool ?? false
-//        let isPause = UserDefaults.standard.object(forKey: UserDefaultsKey.isPause) as? Bool ?? false
-//        
-//        if isTracking {
-//            print("App 실행, 트래킹 모드 재시작")
-//            
-//            let latestTime = UserDefaults.standard.object(forKey: UserDefaultsKey.latestAccess) as? Int ?? 0
-//            let currentTime = Int(Date().timeIntervalSince1970)
-//            let elapsedTIme = currentTime - latestTime
-//            
-//            print("\(elapsedTIme)초 지남.")
-//        }
+        
+        // 트래킹 모드 여부 확인
+        let isTracking = UserDefaults.standard.object(forKey: UserDefaultsKey.isTracking) as? Bool ?? false
+        let isPause = UserDefaults.standard.object(forKey: UserDefaultsKey.isPause) as? Bool ?? false
+        print("현재 트래킹 모드: \(isTracking), 일시정지: \(isPause)")
+        
+        // 그룹 및 블럭 인덱스 확인
+        let groupIndex = UserDefaults.standard.object(forKey: UserDefaultsKey.groupIndex) as? Int ?? 0
+        let blockIndex = UserDefaults.standard.object(forKey: UserDefaultsKey.blockIndex) as? Int ?? 0
+        print("그룹 인덱스: \(groupIndex), 블럭 인덱스: \(blockIndex)")
+        
+        if isTracking {
+            print("App 실행, 트래킹 모드 재시작")
+            
+            // TODO: 트래킹 모드 재시작 로직
+            
+        }
     }
     
     /// NavigationBar Item을 설정합니다.

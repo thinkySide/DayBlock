@@ -31,8 +31,11 @@ extension HomeViewController {
         // 1. trackingTime 코어데이터 업데이트
         trackingData.appendDataInProgress()
         
-        // 2. 현재 시간 초기화
+        // 2-1. 현재 트래킹 시간 초기화
         timerManager.currentTime = 0
+        
+        // 2-2. 일시정지 시간 초기화
+        timerManager.pausedTime = 0
         
         // 3. 생산한 전체 블럭
         timerManager.totalBlock += 0.5
@@ -43,6 +46,10 @@ extension HomeViewController {
         
         // 5. 리프레쉬
         viewManager.blockPreview.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
+    }
+    
+    @objc func pausedEverySecond() {
+        timerManager.pausedTime += 1
     }
 }
 
@@ -66,6 +73,7 @@ extension HomeViewController {
         
         // 4. UserDefaults 트래킹 모드 확인용 변수 업데이트
         UserDefaults.standard.set(true, forKey: UserDefaultsKey.isTracking)
+        UserDefaults.standard.setValue(blockData.focusIndex(), forKey: UserDefaultsKey.blockIndex)
         
         // 5. 트래킹 보드 애니메이션 시작
         trackingData.appendCurrentTimeInTrackingBlocks()
@@ -83,19 +91,19 @@ extension HomeViewController {
     /// - Parameter mode: 현재 트래킹 모드
     func homeView(_ homeView: HomeView, trackingDidPause mode: HomeView.TrakingMode) {
         
-        // 1. 타이머 비활성화
+        // 1-1. 트래킹 타이머 비활성화
         timerManager.trackingTimer.invalidate()
+        
+        // 1-2. 일시정지 타이머 활성화
+        timerManager.pausedTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(pausedEverySecond), userInfo: nil, repeats: true)
         
         // 2. UserDefaults 트래킹 일시정지 확인용 변수 업데이트
         UserDefaults.standard.set(true, forKey: UserDefaultsKey.isPause)
         
-        // 3. 현재 일시정지 된 시간 기록
-        timerManager.pausedTime = trackingData.todaySeconds()
-        
-        // 4. 트래킹 보드 애니메이션 일시정지
+        // 3. 트래킹 보드 애니메이션 일시정지
         updateTrackingBoard(isPaused: true)
         
-        // 5. SFSymbol 애니메이션 종료
+        // 4. SFSymbol 애니메이션 종료
         stopSFSymbolAnimation(viewManager.trackingBlock.icon)
     }
     
@@ -104,8 +112,11 @@ extension HomeViewController {
     /// - Parameter mode: 현재 트래킹 모드
     func homeView(_ homeView: HomeView, trackingDidRestart mode: HomeView.TrakingMode) {
         
-        // 1. 타이머 시작
+        // 1-1. 트래킹 타이머 시작
         timerManager.trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingEverySecond), userInfo: nil, repeats: true)
+        
+        // 1-2. 일시정지 타이머 정지
+        timerManager.pausedTimer.invalidate()
         
         // 2. UserDefaults 트래킹 일시정지 확인용 변수 업데이트
         UserDefaults.standard.set(false, forKey: UserDefaultsKey.isPause)

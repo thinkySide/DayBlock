@@ -319,14 +319,25 @@ extension TrackingDataStore {
         // 2. 일시정시 시간 초기화
         TimerManager.shared.pausedTime = 0
         
-        // 3. 새로운 세션 시작
+        // 3. 트래킹 보드 블럭 리스트 추가
+        let focusBlock = initialStartTime / 1800
+        let hour = String(focusBlock / 2)
+        let minute = focusBlock % 2 == 0 ? "00" : "30"
+        let time = "\(hour):\(minute)"
+        
+        // 3-1. 중복 블럭 거르고 추가하기
+        if !currentTrackingBlocks.contains(time) {
+            currentTrackingBlocks.append(time)
+        }
+        
+        // 4. 새로운 세션 시작
         let trackingTime = TrackingTime(context: context)
         trackingTime.startTime = String(endTime + 1)
         focusDate().addToTrackingTimeList(trackingTime)
         
         print("새로운 세션 시작, 시작 시간: \(String(endTime + 1))")
         
-        // 4. 코어데이터 저장
+        // 5. 코어데이터 저장
         groupData.saveContext()
     }
     
@@ -384,6 +395,11 @@ extension TrackingDataStore {
             print("트래킹 데이터 추가: \(time)")
             print("추가 후 currentTrackingBlocks: \(currentTrackingBlocks)")
         }
+    }
+    
+    /// 백그라운드 실행 동안 트래킹된 블럭을 트래킹 블럭리스트에 추가합니다.
+    func appendBackgroundTimeInTrackingBlocks() {
+        
     }
     
     /// 현재 트래킹 되고 있는 블럭 리스트를 초기화합니다.
