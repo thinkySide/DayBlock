@@ -40,7 +40,6 @@ extension HomeViewController {
     /// 백그라운드 모드로 진입 후 트래킹 모드를 재시작 합니다.
     @objc private func restartTrackingMode(_ notification: Notification) {
         
-        
         // 1. 트래킹 모드 확인
         let isTracking = UserDefaults.standard.object(forKey: UserDefaultsKey.isTracking) as? Bool ?? false
         let isPause = UserDefaults.standard.object(forKey: UserDefaultsKey.isPause) as? Bool ?? false

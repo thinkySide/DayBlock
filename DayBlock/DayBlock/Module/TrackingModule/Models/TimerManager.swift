@@ -42,7 +42,6 @@ final class TimerManager {
 
     /// 타이머에 사용되는 포맷
     var format: String {
-        print("포맷 메서드 실행, totalTime: \(totalTime)")
         let hour = totalTime / 3600
         let minute = (totalTime - (hour * 3600)) / 60
         let second = (totalTime - (hour * 3600)) - (minute * 60)

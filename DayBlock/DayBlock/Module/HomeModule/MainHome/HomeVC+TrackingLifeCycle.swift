@@ -17,8 +17,8 @@ extension HomeViewController {
         
         // 0.5개가 생산될 때마다 호출
         if timerManager.totalTime % trackingData.targetSecond == 0 {
-            testTracking()
-            // produceBlock()
+            // testTracking()
+            produceBlock()
         }
         
         // TimeLabel & ProgressView 업데이트
@@ -73,7 +73,7 @@ extension HomeViewController {
         viewManager.updateCurrentProductivityLabel(timerManager.totalBlock)
         
         // 4. 트래킹 보드를 위한 배열 업데이트
-        trackingData.testAppend()
+        trackingData.testAppendForBackground()
         
         // 5. 리프레쉬
         viewManager.blockPreview.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
@@ -82,6 +82,31 @@ extension HomeViewController {
 
 // MARK: - Tracking Cycle Method
 extension HomeViewController {
+    
+    /// APP이 종료된 후 다시 트래킹 모드를 실행할 때 호출되는 메서드입니다.
+    func homeView(_ homeView: HomeView, trackingDidRelaunch mode: HomeView.TrakingMode) {
+        
+        // 1. 타이머 시작
+        timerManager.trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingEverySecond), userInfo: nil, repeats: true)
+        
+        // 2. 현재 트래킹 중인 블럭 정보 저장
+        let blockDataList = blockData.list()
+        viewManager.trackingBlock.update(group: groupData.focusEntity(), block: blockDataList[blockIndex])
+        
+        // 3. UserDefaults 트래킹 모드 확인용 변수 업데이트
+        UserDefaults.standard.set(true, forKey: UserDefaultsKey.isTracking)
+        UserDefaults.standard.set(false, forKey: UserDefaultsKey.isPause)
+        UserDefaults.standard.setValue(blockData.focusIndex(), forKey: UserDefaultsKey.blockIndex)
+        
+        // 4. 트래킹 보드 애니메이션 시작
+        updateTrackingBoard(isPaused: false)
+        
+        // 5. SFSymbol 애니메이션 시작
+        startSFSymbolBounceAnimation(viewManager.trackingBlock.icon)
+        
+        // 6. 화면 꺼짐 방지
+        isScreenCanSleep(false)
+    }
     
     /// 트래킹 모드가 시작 된 후 호출되는 Delegate 메서드입니다.
     ///
@@ -104,8 +129,8 @@ extension HomeViewController {
         UserDefaults.standard.setValue(blockData.focusIndex(), forKey: UserDefaultsKey.blockIndex)
         
         // 5. 트래킹 보드 애니메이션 시작
-        trackingData.currentTrackingBlocks.append("00:00")
-        // trackingData.appendCurrentTimeInTrackingBlocks()
+        // trackingData.currentTrackingBlocks.append("00:00")
+        trackingData.appendCurrentTimeInTrackingBlocks()
         updateTrackingBoard(isPaused: false)
         
         // 6. SFSymbol 애니메이션 시작

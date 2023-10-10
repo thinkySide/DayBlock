@@ -57,14 +57,6 @@ final class HomeViewController: UIViewController {
     
     // MARK: - Setup Method
     
-    /// 테스트용 메서드
-    func testBackGroundTime() {
-        let lastAccess = UserDefaults.standard.object(forKey: UserDefaultsKey.latestAccess) as? Int ?? 0
-        let currentTime = trackingData.todaySecondsToInt()
-        let elapsedTime = currentTime - lastAccess // 보정용 2초 빼기
-        viewManager.testLabel.text = "앱 종료 시간 - \(elapsedTime)초"
-    }
-    
     /// 데이터 설정을 위한 CoreData를 불러와 Fetch합니다.
     private func setupCoreData() {
         groupData.saveContext()
@@ -93,7 +85,7 @@ final class HomeViewController: UIViewController {
             
             // 나갔다 들어온 시간
             let lastAccess = UserDefaults.standard.object(forKey: UserDefaultsKey.latestAccess) as? Int ?? 0
-            let pausedTime = UserDefaults.standard.object(forKey: UserDefaultsKey.pausedTime) as? Int ?? 0
+            // let pausedTime = UserDefaults.standard.object(forKey: UserDefaultsKey.pausedTime) as? Int ?? 0
             let elapsedTime = trackingData.todaySecondsToInt() - lastAccess
 
             // 1. 전체 트래킹 시간 업데이트
@@ -109,6 +101,10 @@ final class HomeViewController: UIViewController {
             let currentTime = originalTotalTime % trackingData.targetSecond + elapsedTime
             timerManager.currentTime = Float(currentTime)
             
+            // 기존 트래킹 보드 업데이트
+            // trackingData.testAppendForDisconnect()
+            trackingData.regenerationTrackingBlocks()
+            
             // 3. 0.5개 이상의 블럭이 생산되었을 경우
             if timerManager.currentTime > Float(trackingData.targetSecond) {
                 let count = Int(timerManager.currentTime / Float(trackingData.targetSecond))
@@ -121,7 +117,7 @@ final class HomeViewController: UIViewController {
                     timerManager.totalBlock += 0.5
                     
                     // 3-2. 그동안 트래킹 되었던 데이터 추가
-                    trackingData.appedDataBetweenAppDisconect()
+                    trackingData.appendDataBetweenBackground()
                 }
                 
                 // 4. 생산 블럭량 라벨 업데이트
@@ -135,7 +131,7 @@ final class HomeViewController: UIViewController {
             viewManager.updateTracking(time: timerManager.format, progress: timerManager.progressPercent())
             
             // 7. 트래킹 모드 시작
-            viewManager.trackingButtonTapped()
+            viewManager.trackingRestartForDisconnect()
             
             // 8. 일시정지 상태
             if isPause { viewManager.trackingButtonTapped() }

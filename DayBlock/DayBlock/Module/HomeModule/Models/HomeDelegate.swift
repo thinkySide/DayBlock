@@ -15,6 +15,7 @@ protocol HomeViewDelegate: AnyObject {
     func homeView(_ homeView: HomeView, trackingDidRestart mode: HomeView.TrakingMode)
     func homeView(_ homeView: HomeView, trackingDidStop mode: HomeView.TrakingMode)
     func homeView(_ homeView: HomeView, trackingDidFinish mode: HomeView.TrakingMode)
+    func homeView(_ homeView: HomeView, trackingDidRelaunch mode: HomeView.TrakingMode)
     
     func homeView(_ homeView: HomeView, setupProgressViewColor mode: HomeView.TrakingMode)
 }

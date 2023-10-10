@@ -51,6 +51,7 @@ final class HomeView: UIView {
         label.font = UIFont(name: Pretendard.semiBold, size: 16)
         label.textColor = Color.subText
         label.textAlignment = .left
+        label.numberOfLines = 2
         return label
     }()
     
@@ -201,6 +202,53 @@ final class HomeView: UIView {
         switch trackingMode {
         case .start:
             delegate?.homeView(self, trackingDidStart: trackingMode)
+            trackingTimeLabel.textColor = Color.mainText
+            trackingButton.setImage(UIImage(named: Icon.trackingPause), for: .normal)
+            delegate?.homeView(self, setupProgressViewColor: .start)
+            
+        case .pause:
+            delegate?.homeView(self, trackingDidPause: trackingMode)
+            trackingTimeLabel.textColor = Color.disabledText
+            trackingButton.setImage(UIImage(named: Icon.trackingStart), for: .normal)
+            trackingProgressView.progressTintColor = Color.disabledText
+            
+        case .restart:
+            delegate?.homeView(self, trackingDidRestart: trackingMode)
+            trackingTimeLabel.textColor = Color.mainText
+            trackingButton.setImage(UIImage(named: Icon.trackingPause), for: .normal)
+            delegate?.homeView(self, setupProgressViewColor: .start)
+            
+        case .stop:
+            break
+            
+        case .finish:
+            break
+        }
+        
+        // 공통 설정
+        delegate?.homeView(self, displayTabBarForTrackingMode: false)
+        groupSelectButton.isHidden = true
+        blockCollectionView.isHidden = true
+        trackingBlock.isHidden = false
+        messageLabel.isHidden = true
+        trackingTimeLabel.isHidden = false
+        trackingProgressView.isHidden = false
+        trackingStopBarButtonItem.customView?.isHidden = false
+    }
+    
+    /// 앱이 다시 실행됐을 때 작동하는 메서드
+    func trackingRestartForDisconnect() {
+        // 트래킹 모드 변경 로직
+        if trackingMode == .finish || trackingMode == .stop { trackingMode = .start }
+        else if trackingMode == .start { trackingMode = .pause }
+        else if trackingMode == .pause { trackingMode = .restart }
+        else if trackingMode == .restart { trackingMode = .pause }
+        
+        // Tracking 모드 설정
+        switch trackingMode {
+        case .start:
+            // delegate?.homeView(self, trackingDidStart: trackingMode)
+            delegate?.homeView(self, trackingDidRelaunch: trackingMode)
             trackingTimeLabel.textColor = Color.mainText
             trackingButton.setImage(UIImage(named: Icon.trackingPause), for: .normal)
             delegate?.homeView(self, setupProgressViewColor: .start)
