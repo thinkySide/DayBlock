@@ -27,7 +27,7 @@ final class HomeView: UIView {
         label.font = UIFont(name: Pretendard.semiBold, size: 16)
         label.textColor = Color.subText
         label.textAlignment = .center
-        label.numberOfLines = 3
+        label.numberOfLines = 4
         return label
     }()
     

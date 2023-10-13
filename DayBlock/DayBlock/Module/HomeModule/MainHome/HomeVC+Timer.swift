@@ -43,7 +43,7 @@ extension HomeViewController {
     func resetTracker() {
         
         // 1. 타이머 비활성화
-        timerManager.trackingTimer.invalidate()
+        timerManager.trackingTimer?.invalidate()
         
         // 2. UI 및 트래커 초기화
         viewManager.updateTracking(time: "00:00:00", progress: 0)

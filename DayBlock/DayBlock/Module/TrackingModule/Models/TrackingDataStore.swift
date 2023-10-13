@@ -18,7 +18,7 @@ final class TrackingDataStore {
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     /// 0.5개의 블럭을 생산하는 주기
-    let targetSecond = 1800
+    let targetSecond = 10
     
     /// 그룹 & 블럭 데이터
     private let groupData = GroupDataStore.shared
@@ -322,20 +322,22 @@ extension TrackingDataStore {
         // 2. 일시정시 시간 초기화
         TimerManager.shared.pausedTime = 0
         
-        // 3. 트래킹 보드 블럭 리스트 추가
-        let focusBlock = initialStartTime / targetSecond
-        let hour = String(focusBlock / 2)
-        let minute = focusBlock % 2 == 0 ? "00" : "30"
-        let time = "\(hour):\(minute)"
-        
-        // 3-1. 중복 블럭 거르고 추가하기
-        if !currentTrackingBlocks.contains(time) {
-            currentTrackingBlocks.append(time)
-        }
+//        // 3. 트래킹 보드 블럭 리스트 추가
+//        let focusBlock = initialStartTime / targetSecond
+//        let hour = String(focusBlock / 2)
+//        let minute = focusBlock % 2 == 0 ? "00" : "30"
+//        let time = "\(hour):\(minute)"
+//        
+//        // 3-1. 중복 블럭 거르고 추가하기
+//        if !currentTrackingBlocks.contains(time) {
+//            currentTrackingBlocks.append(time)
+//        }
         
         // 몇번째 트래킹 블럭 활성화 할지 결정하기
-        // let count = Int(TimerManager.shared.totalBlock / 0.5) - 1
-        // currentTrackingBlocks.append(testTrackingBoardDatas[count])
+         let count = Int(TimerManager.shared.totalBlock / 0.5)
+        if !currentTrackingBlocks.contains(testTrackingBoardDatas[count]) {
+            currentTrackingBlocks.append(testTrackingBoardDatas[count])
+        }
         
         // 4. 새로운 세션 시작
         let trackingTime = TrackingTime(context: context)
@@ -491,10 +493,11 @@ extension TrackingDataStore {
     func testAppendForBackground() {
         
         // 몇번째 트래킹 블럭 활성화 할지 결정하기
-        let count = Int(TimerManager.shared.totalBlock / 0.5) - 1
-        currentTrackingBlocks.append(testTrackingBoardDatas[count])
-         
-        print("트래킹 데이터 추가: \(testTrackingBoardDatas[count])")
+        let count = Int(TimerManager.shared.totalBlock / 0.5)
+        
+        if !currentTrackingBlocks.contains(testTrackingBoardDatas[count]) {
+            currentTrackingBlocks.append(testTrackingBoardDatas[count])
+        }
     }
     
     func testAppendForDisconnect() {
@@ -503,7 +506,9 @@ extension TrackingDataStore {
         }
         
         for (index, _) in timeList.enumerated() {
-            currentTrackingBlocks.append(testTrackingBoardDatas[index])
+            if !currentTrackingBlocks.contains(testTrackingBoardDatas[index]) {
+                currentTrackingBlocks.append(testTrackingBoardDatas[index])
+            }
         }
     }
 }

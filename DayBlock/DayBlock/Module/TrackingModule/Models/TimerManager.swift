@@ -23,7 +23,7 @@ final class TimerManager {
     var dateTimer: Timer!
     
     /// 트래킹 타이머
-    var trackingTimer: Timer!
+    var trackingTimer: Timer?
     
     /// 일시정지 타이머
     var pausedTimer: Timer!

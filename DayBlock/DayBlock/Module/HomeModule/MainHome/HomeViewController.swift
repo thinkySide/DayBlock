@@ -69,15 +69,12 @@ final class HomeViewController: UIViewController {
         // 트래킹 모드 여부 확인
         let isTracking = UserDefaults.standard.object(forKey: UserDefaultsKey.isTracking) as? Bool ?? false
         let isPause = UserDefaults.standard.object(forKey: UserDefaultsKey.isPause) as? Bool ?? false
-        print("현재 트래킹 모드: \(isTracking), 일시정지: \(isPause)")
         
         // 그룹 및 블럭 인덱스 확인
         let groupIndex = UserDefaults.standard.object(forKey: UserDefaultsKey.groupIndex) as? Int ?? 0
         let blockIndex = UserDefaults.standard.object(forKey: UserDefaultsKey.blockIndex) as? Int ?? 0
-        print("그룹 인덱스: \(groupIndex), 블럭 인덱스: \(blockIndex)\n")
         
         if isTracking {
-            print("App 실행, 트래킹 모드 재시작\n")
             
             // 1. 그룹 & 블럭 인덱스 업데이트
             groupData.updateFocusIndex(to: groupIndex)
@@ -96,14 +93,18 @@ final class HomeViewController: UIViewController {
             timerManager.totalTime = totalTime
             
             // 2-2. 현재 트래킹 시간 업데이트
-            
             // 현재 시간 = 기존 전체 시간 % 타겟 숫자 + 지난 시간 - 일시정지 시간
             let currentTime = originalTotalTime % trackingData.targetSecond + elapsedTime
             timerManager.currentTime = Float(currentTime)
             
+            // 3. totalBlock 업데이트
+            for _ in 1...(timerManager.totalTime / trackingData.targetSecond) {
+                timerManager.totalBlock += 0.5
+            }
+            
             // 기존 트래킹 보드 업데이트
-            // trackingData.testAppendForDisconnect()
-            trackingData.regenerationTrackingBlocks()
+            trackingData.testAppendForDisconnect()
+            // trackingData.regenerationTrackingBlocks()
             
             // 3. 0.5개 이상의 블럭이 생산되었을 경우
             if timerManager.currentTime > Float(trackingData.targetSecond) {
@@ -112,11 +113,6 @@ final class HomeViewController: UIViewController {
                 timerManager.currentTime -= Float(trackingData.targetSecond) * Float(count)
                 
                 for _ in 1...count {
-                    
-                    // 3-1. 생산 블럭 업데이트
-                    timerManager.totalBlock += 0.5
-                    
-                    // 3-2. 그동안 트래킹 되었던 데이터 추가
                     trackingData.appendDataBetweenBackground()
                 }
                 

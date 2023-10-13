@@ -17,8 +17,8 @@ extension HomeViewController {
         
         // 0.5개가 생산될 때마다 호출
         if timerManager.totalTime % trackingData.targetSecond == 0 {
-            // testTracking()
-            produceBlock()
+            testTracking()
+            // produceBlock()
         }
         
         // TimeLabel & ProgressView 업데이트
@@ -26,7 +26,7 @@ extension HomeViewController {
                                    progress: timerManager.progressPercent())
         
         // 테스트 라벨
-        viewManager.testLabel.text = "totalTime - \(timerManager.totalTime)초\ncurrentTime - \(timerManager.currentTime)초\npausedTime - \(timerManager.pausedTime)초"
+        viewManager.testLabel.text = "totalTime - \(timerManager.totalTime)초\ncurrentTime - \(timerManager.currentTime)초\nlist - \(trackingData.currentTrackingBlocks)"
     }
     
     /// 블럭 0.5개 생산 시 실행되는 트래킹 메서드입니다.
@@ -129,8 +129,9 @@ extension HomeViewController {
         UserDefaults.standard.setValue(blockData.focusIndex(), forKey: UserDefaultsKey.blockIndex)
         
         // 5. 트래킹 보드 애니메이션 시작
+        trackingData.testAppendForDisconnect()
         // trackingData.currentTrackingBlocks.append("00:00")
-        trackingData.appendCurrentTimeInTrackingBlocks()
+        // trackingData.appendCurrentTimeInTrackingBlocks()
         updateTrackingBoard(isPaused: false)
         
         // 6. SFSymbol 애니메이션 시작
@@ -146,7 +147,7 @@ extension HomeViewController {
     func homeView(_ homeView: HomeView, trackingDidPause mode: HomeView.TrakingMode) {
         
         // 1-1. 트래킹 타이머 비활성화
-        timerManager.trackingTimer.invalidate()
+        timerManager.trackingTimer?.invalidate()
         
         // 1-2. 일시정지 타이머 활성화
         timerManager.pausedTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(pausedEverySecond), userInfo: nil, repeats: true)
@@ -205,6 +206,10 @@ extension HomeViewController {
         
         // 6. SFSymbol 애니메이션 종료
         stopSFSymbolAnimation(viewManager.trackingBlock.icon)
+        
+        // 7. 컬렉션뷰 초기화
+        viewManager.blockCollectionView.reloadData()
+        viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: blockIndex, section: 0), at: .left, animated: true)
     }
     
     /// 트래킹 완료 화면에서 확인 버튼 탭 시 호출되는 Delegate 메서드입니다.
@@ -250,14 +255,17 @@ extension HomeViewController: DayBlockDelegate {
         // 4. 심볼 애니메이션 종료
         stopSFSymbolAnimation(viewManager.trackingBlock.icon)
         
-        // 5. 트래킹 보드 애니메이션 종료
-        viewManager.blockPreview.stopTrackingAnimation(trackingData.trackingBlocks())
-        
-        // 6. 트래커 초기화
-        resetTracker()
-        
-        // 7. 트래킹 블럭 초기화
-        trackingData.resetTrackingBlocks()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            
+            // 5. 트래킹 보드 애니메이션 종료
+            self.viewManager.blockPreview.stopTrackingAnimation(self.trackingData.trackingBlocks())
+            
+            // 6. 트래커 초기화
+            self.resetTracker()
+            
+            // 7. 트래킹 블럭 초기화
+            self.trackingData.resetTrackingBlocks()
+        }
     }
 }
 

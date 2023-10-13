@@ -74,7 +74,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         print("")
         
         // 1. 타이머 정지
-        TimerManager.shared.trackingTimer.invalidate()
+        TimerManager.shared.trackingTimer?.invalidate()
         
         // 2. 코어데이터 저장
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()

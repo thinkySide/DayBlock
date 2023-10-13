@@ -106,8 +106,15 @@ extension BlockDataStore {
         let updateBlock = Block(context: context)
         updateBlock.taskLabel = remoteBlock().taskLabel
         updateBlock.icon = remoteBlock().icon
+        
+        // 2. 기존 트래킹 데이터 업데이트
+        if let trackingDateList = focusEntity().trackingDateList?.array as? [TrackingDate] {
+            for trackingDate in trackingDateList {
+                updateBlock.addToTrackingDateList(trackingDate)
+            }
+        }
 
-        // 2-1. 그룹이 동일한 경우
+        // 3-1. 그룹이 동일한 경우
         //      - 블럭 엔티티 현재 인덱스에 삽입 후
         //      - 기존 블럭 엔티티 삭제
         if groupData.focusIndex() == remoteIndex {
@@ -115,13 +122,12 @@ extension BlockDataStore {
             delete(list()[focusIndexValue + 1])
         }
         
-        // 2-2. 그룹이 이동된 경우
+        // 3-2. 그룹이 이동된 경우
         //      - 현재 인덱스의 블럭 엔티티 삭제 후
         //      - 리모트 그룹 인덱스의 가장 마지막 인덱스에 블럭 엔티티 삽입
         //      - 현재 블럭 인덱스 업데이트(화면 이동용)
         if groupData.focusIndex() != remoteIndex {
             delete(focusEntity())
-            
             if let entity = groupData.list()[remoteIndex].blockList?.array as? [Block] {
                 groupData.list()[remoteIndex].insertIntoBlockList(updateBlock, at: entity.count)
                 updateFocusIndex(to: entity.count)
