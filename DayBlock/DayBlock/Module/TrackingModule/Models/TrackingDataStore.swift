@@ -315,13 +315,10 @@ extension TrackingDataStore {
         let endTime = initialStartTime + targetSecond + pausedTime
         focusTime().endTime = String(endTime)
         
-        print("시작 시간: \(initialStartTime)")
-        print("일시정지 시간: \(pausedTime)")
-        print("종료 시간: \(endTime)\n")
-        
         // 2. 일시정시 시간 초기화
         TimerManager.shared.pausedTime = 0
         
+        // MARK: - 실제 동작 코드
 //        // 3. 트래킹 보드 블럭 리스트 추가
 //        let focusBlock = initialStartTime / targetSecond
 //        let hour = String(focusBlock / 2)
@@ -333,18 +330,21 @@ extension TrackingDataStore {
 //            currentTrackingBlocks.append(time)
 //        }
         
+        
+        
+        // MARK: - 테스트 코드
         // 몇번째 트래킹 블럭 활성화 할지 결정하기
          let count = Int(TimerManager.shared.totalBlock / 0.5)
         if !currentTrackingBlocks.contains(testTrackingBoardDatas[count]) {
             currentTrackingBlocks.append(testTrackingBoardDatas[count])
         }
         
+        
+        
         // 4. 새로운 세션 시작
         let trackingTime = TrackingTime(context: context)
-        trackingTime.startTime = String(endTime + 1)
+        trackingTime.startTime = String(endTime)
         focusDate().addToTrackingTimeList(trackingTime)
-        
-        print("새로운 세션 시작, 시작 시간: \(String(endTime + 1))")
         
         // 5. 코어데이터 저장
         groupData.saveContext()
@@ -353,35 +353,6 @@ extension TrackingDataStore {
     /// 앱이 종료되어있을 동안 추가된 트래킹 데이터를 추가합니다.
     func appedDataBetweenAppDisconect() {
         
-        // 1. 트래킹 마무리 시간 업데이트
-        let initialStartTime = Int(focusTime().startTime)!
-        let pausedTime = TimerManager.shared.pausedTime
-        let endTime = initialStartTime + targetSecond + pausedTime
-        focusTime().endTime = String(endTime)
-        
-        // 2. 일시정시 시간 초기화
-        TimerManager.shared.pausedTime = 0
-        
-        // 3. 트래킹 보드 블럭 리스트 추가
-        let focusBlock = initialStartTime / targetSecond
-        let hour = String(focusBlock / 2)
-        let minute = focusBlock % 2 == 0 ? "00" : "30"
-        let time = "\(hour):\(minute)"
-        
-        // 3-1. 중복 블럭 거르고 추가하기
-        if !currentTrackingBlocks.contains(time) {
-            currentTrackingBlocks.append(time)
-        }
-        
-        // 3. 트래킹 보드 블럭 리스트 추가
-//        let count = Int(TimerManager.shared.totalBlock / 0.5) - 1
-//        currentTrackingBlocks.append(testTrackingBoardDatas[count])
-        
-        // 4. 새로운 세션 시작
-        let trackingTime = TrackingTime(context: context)
-        trackingTime.startTime = String(endTime + 1)
-        focusDate().addToTrackingTimeList(trackingTime)
-        groupData.saveContext()
     }
     
     /// 트래킹을 종료함과 동시에 데이터를 저장합니다.
