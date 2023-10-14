@@ -25,7 +25,7 @@ final class TrackingDataStore {
     private let blockData = BlockDataStore.shared
     
     /// 트래킹 날짜 엔티티
-    var dateList: [TrackingDate] {
+    var focusDateList: [TrackingDate] {
         if let entity = blockData.focusEntity().trackingDateList?.array as? [TrackingDate] {
             return entity
         }
@@ -34,11 +34,11 @@ final class TrackingDataStore {
     }
     
     /// 트래킹 시간 엔티티
-    var timeList: [TrackingTime] {
+    var focusTimeList: [TrackingTime] {
         
-        guard !dateList.isEmpty else { return [] }
+        guard !focusDateList.isEmpty else { return [] }
         
-        if let entity = dateList.last?.trackingTimeList?.array as? [TrackingTime] {
+        if let entity = focusDateList.last?.trackingTimeList?.array as? [TrackingTime] {
             return entity
         }
         
@@ -100,7 +100,7 @@ extension TrackingDataStore {
     
     /// 현재 트래킹 데이터를 출력합니다.
     func printData() {
-        if let lastTime = timeList.last {
+        if let lastTime = focusTimeList.last {
             print("\(lastTime.startTime) ~ \(String(describing: lastTime.endTime))")
         }
     }
@@ -108,7 +108,7 @@ extension TrackingDataStore {
     /// 현재 포커스된(트래킹 중인) 날짜 데이터를 반환합니다.
     /// ⚠️ 트래킹 날짜 데이터의 가장 마지막 데이터를 트래킹 중인 것으로 간주
     func focusDate() -> TrackingDate {
-        if let lastDate = dateList.last {
+        if let lastDate = focusDateList.last {
             return lastDate
         }
         
@@ -118,7 +118,7 @@ extension TrackingDataStore {
     /// 현재 포커스된(트래킹 중인) 시간 데이터를 반환합니다.
     /// ⚠️ 트래킹 시간 데이터의 가장 마지막 데이터를 트래킹 중인 것으로 간주
     func focusTime() -> TrackingTime {
-        if let lastTime = timeList.last {
+        if let lastTime = focusTimeList.last {
             return lastTime
         }
         
@@ -153,7 +153,7 @@ extension TrackingDataStore {
             fatalError("잘못된 트래킹 데이터가 저장되었습니다.")
         }
         
-        guard let firstTime = timeList.first else {
+        guard let firstTime = focusTimeList.first else {
             return "12:34 ~ 56:78"
         }
         let startTime = secondsToTime(firstTime.startTime)
@@ -167,7 +167,7 @@ extension TrackingDataStore {
         
         // endTime이 nil이 아닌 경우에 0.5개씩 추가
         var count: Double = 0.0
-        for time in timeList {
+        for time in focusTimeList {
             if let _ = time.endTime {
                 count += 0.5
             }
@@ -390,7 +390,6 @@ extension TrackingDataStore {
     
     /// 현재 트래킹 되고 있는 블럭 리스트를 반환합니다.
     func trackingBlocks() -> [String] {
-        // return testData
         return currentTrackingBlocks
     }
     
@@ -483,11 +482,8 @@ extension TrackingDataStore {
     }
     
     func testAppendForDisconnect() {
-        guard let timeList = focusDate().trackingTimeList?.array as? [TrackingTime] else {
-            fatalError("시간 리스트 반환 실패")
-        }
         
-        for index in 0..<timeList.count {
+        for index in 0..<focusTimeList.count {
             if !currentTrackingBlocks.contains(testTrackingBoardDatas[index]) {
                 currentTrackingBlocks.append(testTrackingBoardDatas[index])
             }

@@ -92,33 +92,25 @@ final class HomeViewController: UIViewController {
             let currentTime = newTotalTime % trackingData.targetSecond
             timerManager.currentTime = Float(currentTime)
             
-            // 7. 0.5개 이상의 블럭이 생산되었을 경우
-            //    ex) currentTime = 87초, targetSecond = 10
-            //        -> 8개의 블럭이 생성되었음!
-            if timerManager.currentTime > Float(trackingData.targetSecond) {
-                
-                // 8. totalBlock 업데이트
-                var loopCount = timerManager.totalTime / trackingData.targetSecond
-                while loopCount > 0 {
-                    timerManager.totalBlock += 0.5
-                    loopCount -= 1
-                }
-                
-                // 9. 몇개의 블럭이 생성되었는지 확인
-                let count = Int(timerManager.currentTime / Float(trackingData.targetSecond))
-                viewManager.dateLabel.text = "\(count)개의 블럭 생성!"
-                
-                // 10. 현재 세션 시간은 다시 원상복귀
-                timerManager.currentTime = Float(timerManager.totalTime % trackingData.targetSecond)
-                
-                // 11. 블럭이 생성된 만큼 데이터 추가
-                for _ in 0..<count {
+            // 8. totalBlock 업데이트
+            timerManager.totalBlock = Double(timerManager.totalTime / trackingData.targetSecond) * 0.5
+
+            // 9. 몇개의 블럭이 생성되었는지 확인
+            var count = 0
+            if let timeList = trackingData.focusDate().trackingTimeList {
+                count = (timerManager.totalTime / trackingData.targetSecond) - timeList.count
+                // viewManager.dateLabel.text = "count: \(count)"
+            }
+            
+            // 11. 블럭이 생성된 만큼 데이터 추가(0보다 클 때만)
+            if count >= 0 {
+                for _ in 0...count {
                     trackingData.appedDataBetweenAppDisconect()
                 }
-                
-                // 12. 생산 블럭량 라벨 업데이트
-                viewManager.updateCurrentProductivityLabel(timerManager.totalBlock)
             }
+            
+            // 12. 생산 블럭량 라벨 업데이트
+            viewManager.updateCurrentProductivityLabel(timerManager.totalBlock)
             
             // 13. 추가된 데이터로 트래킹 보드 리스트 업데이트
             trackingData.testAppendForDisconnect() // 테스트 코드

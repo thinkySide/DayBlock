@@ -55,8 +55,8 @@ extension HomeViewController {
                     print("   • todayOutput: \(block.todayOutput)")
                     print("")
                     
-                    if let dateList = block.trackingDateList?.array as? [TrackingDate] {
-                        for date in dateList {
+                    if let focusDateList = block.trackingDateList?.array as? [TrackingDate] {
+                        for date in focusDateList {
                             print("      [TrackingDate]")
                             print("      • superBlock: \(date.superBlock.taskLabel)")
                             print("      • year: \(date.year)")
@@ -65,8 +65,8 @@ extension HomeViewController {
                             print("      • dayOfWeek: \(date.dayOfWeek)")
                             print("")
                             
-                            if let timeList = date.trackingTimeList?.array as? [TrackingTime] {
-                                for time in timeList {
+                            if let focusTimeList = date.trackingTimeList?.array as? [TrackingTime] {
+                                for time in focusTimeList {
                                     print("         [TrackingTime]")
                                     print("         • superDate: \(time.superDate.month) \(time.superDate.day)")
                                     print("         • startTime: \(time.startTime)")

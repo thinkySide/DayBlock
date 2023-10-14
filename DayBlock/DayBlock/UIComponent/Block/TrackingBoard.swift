@@ -199,6 +199,7 @@ final class TrackingBoard: UIView {
     /// 애니메이션 리프레시를 위한 트래킹 블럭 목록을 업데이트합니다.
     func refreshAnimation(_ trackingBlocks: [String], color: UIColor) {
         
+        // 만약 빈 배열이 전달된다면 그대로 종료
         if trackingBlocks.isEmpty { return }
         
         // 첫번째 블럭을 기준으로 모든 블럭 리프레시

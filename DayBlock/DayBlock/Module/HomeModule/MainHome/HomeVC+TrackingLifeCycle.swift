@@ -26,7 +26,12 @@ extension HomeViewController {
                                    progress: timerManager.progressPercent())
         
         // 테스트 라벨
-        viewManager.testLabel.text = "totalTime - \(timerManager.totalTime)초\ncurrentTime - \(timerManager.currentTime)초\nlist - \(trackingData.currentTrackingBlocks)"
+        // viewManager.testLabel.text = "totalTime - \(timerManager.totalTime)초\ncurrentTime - \(timerManager.currentTime)초\nlist - \(trackingData.currentTrackingBlocks)"
+        var testText = ""
+        for time in trackingData.focusTimeList {
+            testText += "\(time.startTime)~\(String(describing: time.endTime))\n"
+        }
+        // viewManager.testLabel.text = testText
     }
     
     /// 블럭 0.5개 생산 시 실행되는 트래킹 메서드입니다.
