@@ -199,6 +199,8 @@ final class TrackingBoard: UIView {
     /// 애니메이션 리프레시를 위한 트래킹 블럭 목록을 업데이트합니다.
     func refreshAnimation(_ trackingBlocks: [String], color: UIColor) {
         
+        if trackingBlocks.isEmpty { return }
+        
         // 첫번째 블럭을 기준으로 모든 블럭 리프레시
         let block = trackingBlocks[0].split(separator: ":").map { String($0) }
         let hour = block[0]

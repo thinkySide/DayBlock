@@ -122,8 +122,7 @@ extension TrackingDataStore {
             return lastTime
         }
         
-        print("Error: focusTime 반환 실패")
-        return TrackingTime()
+        fatalError("Error: focusTime 반환 실패")
     }
     
     /// 포커스된(트래킹 완료) 날짜를 문자열로 변환 후 반환합니다.
@@ -353,6 +352,18 @@ extension TrackingDataStore {
     /// 앱이 종료되어있을 동안 추가된 트래킹 데이터를 추가합니다.
     func appedDataBetweenAppDisconect() {
         
+        // 1. 현재 트래킹 중인 세션의 마지막 시간 = 시작 시간 + 한 세션의 시간
+        let initialStartTime = Int(focusTime().startTime)!
+        let endTime = initialStartTime + targetSecond
+        focusTime().endTime = String(endTime)
+        
+        // 2. 새로운 세션 시작
+        let trackingTime = TrackingTime(context: context)
+        trackingTime.startTime = String(endTime)
+        focusDate().addToTrackingTimeList(trackingTime)
+        
+        // 3. 코어데이터 저장
+        groupData.saveContext()
     }
     
     /// 트래킹을 종료함과 동시에 데이터를 저장합니다.
@@ -476,7 +487,7 @@ extension TrackingDataStore {
             fatalError("시간 리스트 반환 실패")
         }
         
-        for (index, _) in timeList.enumerated() {
+        for index in 0..<timeList.count {
             if !currentTrackingBlocks.contains(testTrackingBoardDatas[index]) {
                 currentTrackingBlocks.append(testTrackingBoardDatas[index])
             }

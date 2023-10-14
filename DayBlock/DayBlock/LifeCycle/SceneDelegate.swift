@@ -56,9 +56,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneWillEnterForeground(_ scene: UIScene) {
         
-        print(#function)
-        print("")
-        
         // 마지막 접속 시간 Notification 전달
         if let latestAccess = UserDefaults.standard.object(forKey: UserDefaultsKey.latestAccess) as? Int {
             NotificationCenter.default.post(
@@ -69,9 +66,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-        
-        print(#function)
-        print("")
         
         // 1. 타이머 정지
         TimerManager.shared.trackingTimer?.invalidate()

@@ -16,16 +16,17 @@ extension HomeViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(HomeBlockCollectionViewCell.self, forCellWithReuseIdentifier: Cell.block)
-        
         configureCarouselLayout()
-        configureStartGroupFocus()
+        configureStartFocus()
     }
     
     /// UserDefault를 사용한 초기 CollectionView의 그룹 선택값을 설정합니다.
-    private func configureStartGroupFocus() {
+    private func configureStartFocus() {
         let groupIndex = UserDefaults.standard.object(forKey: UserDefaultsKey.groupIndex) as? Int ?? 0
+        let blockIndex = UserDefaults.standard.object(forKey: UserDefaultsKey.blockIndex) as? Int ?? 0
         switchHomeGroup(index: groupIndex)
         groupData.updateFocusIndex(to: groupIndex)
+        blockData.updateFocusIndex(to: blockIndex)
     }
     
     /// CollectionView 캐러셀 레이아웃 구성을 위한 메서드입니다.
