@@ -116,6 +116,7 @@ final class EditGroupViewController: UIViewController {
         deletePopup.deletePopupView.subLabel.text = "그룹과 관련된 블럭과 정보가 모두 삭제돼요"
         deletePopup.modalPresentationStyle = .overCurrentContext
         deletePopup.modalTransitionStyle = .crossDissolve
+        view.endEditing(true)
         self.present(deletePopup, animated: true)
     }
 }

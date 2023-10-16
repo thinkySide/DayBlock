@@ -2,12 +2,13 @@
 //  Group+CoreDataProperties.swift
 //  DayBlock
 //
-//  Created by 김민준 on 2023/09/21.
+//  Created by 김민준 on 10/16/23.
 //
 //
 
 import Foundation
 import CoreData
+
 
 extension Group {
 
@@ -15,8 +16,9 @@ extension Group {
         return NSFetchRequest<Group>(entityName: "Group")
     }
 
-    @NSManaged public var color: Int
     @NSManaged public var name: String
+    @NSManaged public var color: Int
+    @NSManaged public var order: Int
     @NSManaged public var blockList: NSOrderedSet?
 
 }

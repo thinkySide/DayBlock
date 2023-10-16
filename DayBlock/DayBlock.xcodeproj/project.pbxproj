@@ -83,6 +83,10 @@
 		07967D012AC9A1D300BB45B5 /* TrackingTime+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07967CFF2AC9A1D300BB45B5 /* TrackingTime+CoreDataProperties.swift */; };
 		07967D032ACA606000BB45B5 /* HomeVC+TrackingLifeCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07967D022ACA606000BB45B5 /* HomeVC+TrackingLifeCycle.swift */; };
 		07A45CE42AA0952000C09342 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A45CE32AA0952000C09342 /* TimerManager.swift */; };
+		07B04BAC2ADD500800580711 /* Block+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B04BA82ADD500800580711 /* Block+CoreDataClass.swift */; };
+		07B04BAD2ADD500800580711 /* Block+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B04BA92ADD500800580711 /* Block+CoreDataProperties.swift */; };
+		07B04BAE2ADD500800580711 /* Group+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B04BAA2ADD500800580711 /* Group+CoreDataClass.swift */; };
+		07B04BAF2ADD500800580711 /* Group+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B04BAB2ADD500800580711 /* Group+CoreDataProperties.swift */; };
 		07B49BC42A88EBA3006D1011 /* MenuPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC32A88EBA3006D1011 /* MenuPopup.swift */; };
 		07B49BC62A88EC14006D1011 /* MenuPopupItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC52A88EC14006D1011 /* MenuPopupItem.swift */; };
 		07B49BC82A8DD84D006D1011 /* ListGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC72A8DD84D006D1011 /* ListGroupViewController.swift */; };
@@ -94,10 +98,6 @@
 		07B49C472A95E66D006D1011 /* TrackingCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49C462A95E66D006D1011 /* TrackingCompleteView.swift */; };
 		07B592122AC4126C0046ABFC /* DispatchWorkItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B592112AC4126C0046ABFC /* DispatchWorkItem.swift */; };
 		07B592142AC42B7D0046ABFC /* UIImageView++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B592132AC42B7D0046ABFC /* UIImageView++.swift */; };
-		07C0BDA62ABC137700D5E779 /* Group+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BD9E2ABC137700D5E779 /* Group+CoreDataClass.swift */; };
-		07C0BDA72ABC137700D5E779 /* Group+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BD9F2ABC137700D5E779 /* Group+CoreDataProperties.swift */; };
-		07C0BDAA2ABC137700D5E779 /* Block+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDA22ABC137700D5E779 /* Block+CoreDataClass.swift */; };
-		07C0BDAB2ABC137700D5E779 /* Block+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDA32ABC137700D5E779 /* Block+CoreDataProperties.swift */; };
 		07C0BDAF2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDAE2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift */; };
 		07C0BDB42ABC452600D5E779 /* TrackingDate+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDB02ABC452600D5E779 /* TrackingDate+CoreDataClass.swift */; };
 		07C0BDB52ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDB12ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift */; };
@@ -186,6 +186,10 @@
 		07967CFF2AC9A1D300BB45B5 /* TrackingTime+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingTime+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		07967D022ACA606000BB45B5 /* HomeVC+TrackingLifeCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+TrackingLifeCycle.swift"; sourceTree = "<group>"; };
 		07A45CE32AA0952000C09342 /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
+		07B04BA82ADD500800580711 /* Block+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Block+CoreDataClass.swift"; sourceTree = "<group>"; };
+		07B04BA92ADD500800580711 /* Block+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Block+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		07B04BAA2ADD500800580711 /* Group+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+CoreDataClass.swift"; sourceTree = "<group>"; };
+		07B04BAB2ADD500800580711 /* Group+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		07B49BC32A88EBA3006D1011 /* MenuPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopup.swift; sourceTree = "<group>"; };
 		07B49BC52A88EC14006D1011 /* MenuPopupItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopupItem.swift; sourceTree = "<group>"; };
 		07B49BC72A8DD84D006D1011 /* ListGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListGroupViewController.swift; sourceTree = "<group>"; };
@@ -197,10 +201,6 @@
 		07B49C462A95E66D006D1011 /* TrackingCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingCompleteView.swift; sourceTree = "<group>"; };
 		07B592112AC4126C0046ABFC /* DispatchWorkItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchWorkItem.swift; sourceTree = "<group>"; };
 		07B592132AC42B7D0046ABFC /* UIImageView++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView++.swift"; sourceTree = "<group>"; };
-		07C0BD9E2ABC137700D5E779 /* Group+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+CoreDataClass.swift"; sourceTree = "<group>"; };
-		07C0BD9F2ABC137700D5E779 /* Group+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		07C0BDA22ABC137700D5E779 /* Block+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Block+CoreDataClass.swift"; sourceTree = "<group>"; };
-		07C0BDA32ABC137700D5E779 /* Block+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Block+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		07C0BDAE2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+CoreDataTest.swift"; sourceTree = "<group>"; };
 		07C0BDB02ABC452600D5E779 /* TrackingDate+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingDate+CoreDataClass.swift"; sourceTree = "<group>"; };
 		07C0BDB12ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingDate+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -233,10 +233,10 @@
 			isa = PBXGroup;
 			children = (
 				078C50BE29D7152F00F239BA /* DayBlock.xcdatamodeld */,
-				07C0BD9E2ABC137700D5E779 /* Group+CoreDataClass.swift */,
-				07C0BD9F2ABC137700D5E779 /* Group+CoreDataProperties.swift */,
-				07C0BDA22ABC137700D5E779 /* Block+CoreDataClass.swift */,
-				07C0BDA32ABC137700D5E779 /* Block+CoreDataProperties.swift */,
+				07B04BAA2ADD500800580711 /* Group+CoreDataClass.swift */,
+				07B04BAB2ADD500800580711 /* Group+CoreDataProperties.swift */,
+				07B04BA82ADD500800580711 /* Block+CoreDataClass.swift */,
+				07B04BA92ADD500800580711 /* Block+CoreDataProperties.swift */,
 				07C0BDB02ABC452600D5E779 /* TrackingDate+CoreDataClass.swift */,
 				07C0BDB12ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift */,
 				07967CFE2AC9A1D300BB45B5 /* TrackingTime+CoreDataClass.swift */,
@@ -816,19 +816,20 @@
 				07B49BD42A8F23FF006D1011 /* ToastMessage.swift in Sources */,
 				07B49BC42A88EBA3006D1011 /* MenuPopup.swift in Sources */,
 				07B49BC82A8DD84D006D1011 /* ListGroupViewController.swift in Sources */,
+				07B04BAD2ADD500800580711 /* Block+CoreDataProperties.swift in Sources */,
+				07B04BAC2ADD500800580711 /* Block+CoreDataClass.swift in Sources */,
 				07DD3E932AB022ED002D128F /* SimpleIconBlock.swift in Sources */,
 				078C50F429D73D0200F239BA /* TrackingBoard.swift in Sources */,
-				07C0BDAA2ABC137700D5E779 /* Block+CoreDataClass.swift in Sources */,
 				0719648329DAF4B5009CA1A4 /* RemoteGroup.swift in Sources */,
 				07B49BCF2A8DE22C006D1011 /* EditGroupDetailView.swift in Sources */,
 				07967CF92AC95EE100BB45B5 /* TrackingDelegate.swift in Sources */,
 				078C50F629D9BBB200F239BA /* ScheduleViewController.swift in Sources */,
-				07C0BDA72ABC137700D5E779 /* Group+CoreDataProperties.swift in Sources */,
 				07C0BDAF2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift in Sources */,
 				071E3ABB2AC15EF1000C346F /* GroupDataStore.swift in Sources */,
 				0771983F29E2F4D10021088A /* UIButton++.swift in Sources */,
 				07B49BCD2A8DE204006D1011 /* EditGroupViewController.swift in Sources */,
 				078C50C029D7152F00F239BA /* DayBlock.xcdatamodeld in Sources */,
+				07B04BAF2ADD500800580711 /* Group+CoreDataProperties.swift in Sources */,
 				0770802F29E78C9200D66900 /* SelectGroupViewController.swift in Sources */,
 				07B49C472A95E66D006D1011 /* TrackingCompleteView.swift in Sources */,
 				07B592142AC42B7D0046ABFC /* UIImageView++.swift in Sources */,
@@ -843,14 +844,12 @@
 				073EBFF02AB6D4D40031F6AB /* SFSymbols.swift in Sources */,
 				0770803629E7981300D66900 /* SelectIconView.swift in Sources */,
 				078C50EE29D72F9D00F239BA /* UIColor++.swift in Sources */,
-				07C0BDA62ABC137700D5E779 /* Group+CoreDataClass.swift in Sources */,
 				076248CD2AB302FD000A8664 /* ColorDelegate.swift in Sources */,
 				076248CB2AB3023A000A8664 /* GroupDelegate.swift in Sources */,
 				075A5AE92A81D04B0004F847 /* PopupView.swift in Sources */,
 				07B49BCA2A8DD878006D1011 /* ListGroupView.swift in Sources */,
 				07DD3E952AB02BE3002D128F /* DashedSeparator.swift in Sources */,
 				0719648129DAF38A009CA1A4 /* RemoteBlock.swift in Sources */,
-				07C0BDAB2ABC137700D5E779 /* Block+CoreDataProperties.swift in Sources */,
 				0770803429E797E100D66900 /* SelectIconViewController.swift in Sources */,
 				07967D012AC9A1D300BB45B5 /* TrackingTime+CoreDataProperties.swift in Sources */,
 				07454DE329EA6CEE00B3458D /* UIViewController++.swift in Sources */,
@@ -862,6 +861,7 @@
 				076248C92AB301C9000A8664 /* BlockDelegate.swift in Sources */,
 				075A5AEB2A81DCDD0004F847 /* PopupViewController.swift in Sources */,
 				0719649429E0692E009CA1A4 /* FormTextField.swift in Sources */,
+				07B04BAE2ADD500800580711 /* Group+CoreDataClass.swift in Sources */,
 				0749D71E2AB97862004DF368 /* HomeVC+ScrollView.swift in Sources */,
 				0736905F2AC2D41400A42187 /* TrackingDataStore.swift in Sources */,
 				0749D7222AB9E3D7004DF368 /* HomeVC+LongPressGesture.swift in Sources */,

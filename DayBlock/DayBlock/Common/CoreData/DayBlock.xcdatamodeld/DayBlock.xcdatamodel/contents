@@ -2,6 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22222" systemVersion="23A344" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Block" representedClassName="Block" syncable="YES">
         <attribute name="icon" optional="YES" attributeType="String"/>
+        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="taskLabel" optional="YES" attributeType="String"/>
         <attribute name="todayOutput" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="superGroup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="blockList" inverseEntity="Group"/>
@@ -10,6 +11,7 @@
     <entity name="Group" representedClassName="Group" syncable="YES">
         <attribute name="color" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="blockList" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Block" inverseName="superGroup" inverseEntity="Block"/>
     </entity>
     <entity name="TrackingDate" representedClassName="TrackingDate" syncable="YES">

@@ -18,6 +18,9 @@ final class GroupDataStore {
     /// CoreData Context
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    /// Request
+    let fetchReQuest = Group.fetchRequest()
+    
     /// 그룹 엔티티
     private var entities: [Group] = []
     
@@ -46,8 +49,13 @@ extension GroupDataStore {
     
     /// 그룹 엔티티 패치를 요청합니다.
     private func fetchRequestEntity() {
+        
+        // order 속성 기준 오름차순 정렬
+        let sortDescriptor = NSSortDescriptor(key: "order", ascending: true)
+        fetchReQuest.sortDescriptors = [sortDescriptor]
+        
         do {
-            entities = try context.fetch(Group.fetchRequest())
+            entities = try context.fetch(fetchReQuest)
         } catch {
             print(error.localizedDescription)
         }
@@ -80,6 +88,7 @@ extension GroupDataStore {
         let newGroup = Group(context: context)
         newGroup.name = remoteObject.name
         newGroup.color = remoteObject.color
+        newGroup.order = entities.count
         
         // 콘텍스트 저장 및 리모트 그룹 초기화
         saveContext()
@@ -102,6 +111,20 @@ extension GroupDataStore {
     /// 현재 편집 중인 그룹을 삭제합니다.
     func delete() {
         context.delete(entities[editIndexValue])
+        saveContext()
+    }
+    
+    /// A엔티티와 B엔티티의 위치를 변경합니다.
+    func moveCell(aIndex: Int, bIndex: Int) {
+        
+        // 이동할 그룹 삭제 후 insert
+        let moveGroup = entities.remove(at: aIndex)
+        entities.insert(moveGroup, at: bIndex)
+        
+        for (index, group) in entities.enumerated() {
+            group.order = index
+        }
+        
         saveContext()
     }
 }

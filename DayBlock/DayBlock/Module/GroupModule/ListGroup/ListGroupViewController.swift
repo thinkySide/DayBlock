@@ -32,6 +32,9 @@ final class ListGroupViewController: UIViewController {
     
     private func setupDelegate() {
         viewManager.delegate = self
+        viewManager.groupTableView.dragDelegate = self
+        viewManager.groupTableView.dropDelegate = self
+        viewManager.groupTableView.dragInteractionEnabled = true
     }
     
     private func setupNavigation() {
@@ -83,6 +86,8 @@ extension ListGroupViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        print("\(groupData.list()[indexPath.row].order)")
+        
         // 셀 클릭 시, 바로 비활성화되는 애니메이션 추가
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -102,6 +107,13 @@ extension ListGroupViewController: UITableViewDataSource, UITableViewDelegate {
         let editGroupDetailVC = EditGroupViewController()
         editGroupDetailVC.delegate = self
         navigationController?.pushViewController(editGroupDetailVC, animated: true)
+    }
+    
+    /// 실제 셀이 드래그 & 드롭 되었을 때 실행될 메서드
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        print("\(sourceIndexPath.row) -> \(destinationIndexPath.row)")
+        groupData.moveCell(aIndex: sourceIndexPath.row, bIndex: destinationIndexPath.row)
+        viewManager.groupTableView.reloadData()
     }
 }
 
@@ -134,4 +146,32 @@ extension ListGroupViewController: CreateGroupViewControllerDelegate {
     func updateGroupList() {
         viewManager.groupTableView.reloadData()
     }
+}
+
+// MARK: - UITableViewDragDelegate
+extension ListGroupViewController: UITableViewDragDelegate {
+    
+    /// 드래그 시작 시 호출되는 메서드
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        dragItems()
+    }
+    
+    func dragItems() -> [UIDragItem] {
+        let itemProvider = NSItemProvider()
+        return [UIDragItem(itemProvider: itemProvider)]
+    }
+}
+
+// MARK: - UITableViewDropDelegate
+extension ListGroupViewController: UITableViewDropDelegate {
+    
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        if session.localDragSession != nil {
+            return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+        }
+        return UITableViewDropProposal(operation: .cancel, intent: .unspecified)
+    }
+    
+    /// 내려놓을 때 실행할 메서드
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) { }
 }

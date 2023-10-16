@@ -2,12 +2,13 @@
 //  Block+CoreDataProperties.swift
 //  DayBlock
 //
-//  Created by 김민준 on 2023/09/21.
+//  Created by 김민준 on 10/16/23.
 //
 //
 
 import Foundation
 import CoreData
+
 
 extension Block {
 
@@ -18,6 +19,7 @@ extension Block {
     @NSManaged public var icon: String
     @NSManaged public var taskLabel: String
     @NSManaged public var todayOutput: Double
+    @NSManaged public var order: Int
     @NSManaged public var superGroup: Group
     @NSManaged public var trackingDateList: NSOrderedSet?
 
@@ -58,6 +60,6 @@ extension Block {
 
 }
 
-extension Block: Identifiable {
+extension Block : Identifiable {
 
 }
