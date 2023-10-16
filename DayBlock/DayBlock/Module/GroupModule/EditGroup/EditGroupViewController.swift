@@ -38,10 +38,12 @@ final class EditGroupViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+        view.endEditing(true)
+        
         // Remote 그룹 초기화
         groupData.resetRemote()
     }
-    
+
     // MARK: - SETUP METHOD
     
     private func setupUI() {

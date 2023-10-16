@@ -51,6 +51,11 @@ final class CreateBlockViewController: UIViewController {
         addHideKeyboardGesture()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        view.endEditing(true)
+    }
+    
     deinit {
         blockData.resetRemote()
     }
