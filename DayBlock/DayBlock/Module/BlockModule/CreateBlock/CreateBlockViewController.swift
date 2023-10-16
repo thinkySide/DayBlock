@@ -206,7 +206,9 @@ extension CreateBlockViewController: UITextFieldDelegate {
     
     /// FieldForm 전체 영역 선택 가능
     @objc func taskLabelTapped() {
-        viewManager.taskLabelTextField.textField.becomeFirstResponder()
+        DispatchQueue.main.async {
+            self.viewManager.taskLabelTextField.textField.becomeFirstResponder()
+        }
     }
     
     /// 그룹 내 동일한 작업명의 블럭 확인
