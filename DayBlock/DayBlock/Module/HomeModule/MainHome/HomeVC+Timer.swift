@@ -75,7 +75,7 @@ extension HomeViewController {
     func presentTrackingCompleteVC() {
         let trackingCompleteVC = TrackingCompleteViewController()
         trackingCompleteVC.delegate = self
-        trackingCompleteVC.modalTransitionStyle = .coverVertical
+        trackingCompleteVC.modalTransitionStyle = .crossDissolve
         trackingCompleteVC.modalPresentationStyle = .overFullScreen
         present(trackingCompleteVC, animated: true)
     }

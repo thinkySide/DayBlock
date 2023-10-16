@@ -37,14 +37,14 @@ final class DayBlock: UIView {
     }()
     
     /// 애니메이션용 View
-    private let animationView: UIView = {
+    let animationView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(rgb: 0xF4F5F7)
         return view
     }()
     
     /// 플러스 기호
-    private let plus: UILabel = {
+    let plus: UILabel = {
         let label = UILabel()
         label.text = "+"
         label.textColor = .systemBlue
@@ -62,7 +62,7 @@ final class DayBlock: UIView {
     }()
     
     /// 컬러 태그
-    private let colorTag: UIView = {
+    let colorTag: UIView = {
         let view = UIView()
         view.backgroundColor = .systemBlue
         view.clipsToBounds = true
@@ -80,7 +80,7 @@ final class DayBlock: UIView {
     }()
     
     /// 작업명 라벨
-    private let taskLabel: UILabel = {
+    let taskLabel: UILabel = {
         let label = UILabel()
         label.text = "Github 브랜치 관리하기"
         label.textColor = Color.mainText
@@ -234,7 +234,7 @@ final class DayBlock: UIView {
             
             icon.centerXAnchor.constraint(equalTo: contentsView.centerXAnchor),
             
-            taskLabel.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 12),
+            taskLabel.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 24),
             taskLabel.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 24),
             taskLabel.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -24)
         ])

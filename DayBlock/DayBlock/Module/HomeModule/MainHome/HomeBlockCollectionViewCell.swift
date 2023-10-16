@@ -317,7 +317,7 @@ final class HomeBlockCollectionViewCell: UICollectionViewCell {
             blockIcon.heightAnchor.constraint(equalToConstant: 56),
             
             /// blockLabel
-            blockLabel.topAnchor.constraint(equalTo: blockIcon.bottomAnchor, constant: 12),
+            blockLabel.topAnchor.constraint(equalTo: blockIcon.bottomAnchor, constant: 16),
             blockLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             blockLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             

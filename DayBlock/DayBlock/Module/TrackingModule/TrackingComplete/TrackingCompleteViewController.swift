@@ -26,6 +26,13 @@ final class TrackingCompleteViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupEvent()
+        
+        /// 애니메이션
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+            UIView.animate(withDuration: 0.3) {
+                self.viewManager.animationEnd()
+            }
+        }
     }
     
     // MARK: - Setup Method
@@ -56,6 +63,9 @@ final class TrackingCompleteViewController: UIViewController {
         
         // 오늘 생산량
         viewManager.todayValue.text = trackingData.todayOutput(blockData.focusEntity())
+        
+        // 체크 심볼
+        viewManager.checkSymbol.tintColor = groupData.focusColor()
     }
     
     private func setupEvent() {

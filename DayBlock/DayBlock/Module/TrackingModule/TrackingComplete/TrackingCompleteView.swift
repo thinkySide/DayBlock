@@ -159,6 +159,44 @@ final class TrackingCompleteView: UIView {
         return label
     }()
     
+    // MARK: - Animation Component
+    let checkSymbol: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(systemName: "checkmark.circle.fill")
+        image.contentMode = .scaleAspectFit
+        image.tintColor = .black
+        return image
+    }()
+    
+    let checkLabel: UILabel = {
+        let label = UILabel()
+        label.text = "블럭 생산 완료!"
+        label.font = UIFont(name: Pretendard.bold, size: 22)
+        label.textColor = Color.mainText
+        label.textAlignment = .center
+        return label
+    }()
+    
+    /// 블럭 생산 완료 애니메이션 종료 후 호출되는 메서드입니다.
+    func animationEnd() {
+        [checkSymbol, checkLabel].forEach { $0.alpha = 0 }
+        
+        [
+            titleStackView,
+            dashedSeparator,
+            dateLabel,
+            timeLabel,
+            summaryLabel,
+            trackingBoard,
+            totalValue,
+            totalLabel,
+            bottomSeparator,
+            todayValue,
+            todayLabel,
+            backToHomeButton
+        ].forEach { $0.alpha = 1 }
+    }
+    
     // MARK: - Initial Method
     
     override init(frame: CGRect) {
@@ -182,6 +220,12 @@ final class TrackingCompleteView: UIView {
          trackingBoard,
          totalValue, totalLabel, bottomSeparator, todayValue, todayLabel,
          backToHomeButton].forEach {
+            addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.alpha = 0
+        }
+        
+        [checkSymbol, checkLabel].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -240,7 +284,17 @@ final class TrackingCompleteView: UIView {
             // backToHomeButton
             backToHomeButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             backToHomeButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
-            backToHomeButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -56)
+            backToHomeButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -56),
+            
+            // checkSymbol
+            checkSymbol.centerXAnchor.constraint(equalTo: centerXAnchor),
+            checkSymbol.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -16),
+            checkSymbol.widthAnchor.constraint(equalToConstant: 64),
+            checkSymbol.heightAnchor.constraint(equalToConstant: 64),
+            
+            // checkLabel
+            checkLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            checkLabel.topAnchor.constraint(equalTo: checkSymbol.bottomAnchor, constant: 16)
         ])
     }
 }
