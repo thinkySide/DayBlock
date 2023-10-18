@@ -43,7 +43,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             // scheduleNavigationController
             items[1].image = UIImage(named: Icon.schedule)
-            items[1].title = "계획표"
+            items[1].title = "관리소"
             
             // storageNavigationController
             items[2].image = UIImage(named: Icon.storage)
