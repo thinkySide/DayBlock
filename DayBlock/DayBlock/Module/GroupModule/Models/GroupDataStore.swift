@@ -115,11 +115,11 @@ extension GroupDataStore {
     }
     
     /// A엔티티와 B엔티티의 위치를 변경합니다.
-    func moveCell(aIndex: Int, bIndex: Int) {
+    func moveCell(sourceIndex: Int, destinationIndex: Int) {
         
         // 이동할 그룹 삭제 후 insert
-        let moveGroup = entities.remove(at: aIndex)
-        entities.insert(moveGroup, at: bIndex)
+        let moveGroup = entities.remove(at: sourceIndex)
+        entities.insert(moveGroup, at: destinationIndex)
         
         for (index, group) in entities.enumerated() {
             group.order = index

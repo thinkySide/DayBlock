@@ -108,13 +108,6 @@ extension ListGroupViewController: UITableViewDataSource, UITableViewDelegate {
         editGroupDetailVC.delegate = self
         navigationController?.pushViewController(editGroupDetailVC, animated: true)
     }
-    
-    /// 실제 셀이 드래그 & 드롭 되었을 때 실행될 메서드
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        print("\(sourceIndexPath.row) -> \(destinationIndexPath.row)")
-        groupData.moveCell(aIndex: sourceIndexPath.row, bIndex: destinationIndexPath.row)
-        viewManager.groupTableView.reloadData()
-    }
 }
 
 // MARK: - EditGroupViewDelegate
@@ -153,12 +146,39 @@ extension ListGroupViewController: UITableViewDragDelegate {
     
     /// 드래그 시작 시 호출되는 메서드
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        dragItems()
-    }
-    
-    func dragItems() -> [UIDragItem] {
+        
+        // 만약 0번째 아이템이라면 빈 배열 반환
+        if indexPath.row == 0 { return [] }
+        
         let itemProvider = NSItemProvider()
         return [UIDragItem(itemProvider: itemProvider)]
+    }
+    
+    /// 셀이 이동될 수 있는지 여부를 판단하는 메서드
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        
+        // 만약 0번째 아이템이라면 이동 취소
+        if indexPath.row == 0 {
+            showToast(toast: viewManager.toastView, isActive: true)
+            return false
+        }
+        
+        return true
+    }
+    
+    /// 실제 셀이 드래그 & 드롭 되었을 때 실행될 메서드
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        print("\(sourceIndexPath.row) -> \(destinationIndexPath.row)")
+        
+        // 만약 첫번째 그룹을 이동시키려 한다면 실행 취소
+        if sourceIndexPath.row == 0 || destinationIndexPath.row == 0 {
+            showToast(toast: viewManager.toastView, isActive: true)
+            viewManager.groupTableView.reloadData()
+            return
+        }
+        
+        groupData.moveCell(sourceIndex: sourceIndexPath.row, destinationIndex: destinationIndexPath.row)
+        viewManager.groupTableView.reloadData()
     }
 }
 
