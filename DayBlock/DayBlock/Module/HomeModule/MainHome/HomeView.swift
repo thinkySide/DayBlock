@@ -146,7 +146,7 @@ final class HomeView: UIView {
         return view
     }()
 
-    let tabBarStackView = TabBar()
+    let tabBarStackView = TabBar(location: .tracking)
     
     // MARK: - Method
     
@@ -314,7 +314,6 @@ final class HomeView: UIView {
     
     func setupInitial() {
         backgroundColor = .white
-        tabBarStackView.switchEffect(to: .tracking)
     }
     
     func setupAddSubView() {

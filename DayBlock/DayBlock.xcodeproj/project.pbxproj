@@ -76,7 +76,7 @@
 		078C50EB29D72EE300F239BA /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 078C50EA29D72EE300F239BA /* Poppins-Bold.ttf */; };
 		078C50EE29D72F9D00F239BA /* UIColor++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50ED29D72F9D00F239BA /* UIColor++.swift */; };
 		078C50F429D73D0200F239BA /* TrackingBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F329D73D0200F239BA /* TrackingBoard.swift */; };
-		078C50F629D9BBB200F239BA /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F529D9BBB200F239BA /* ScheduleViewController.swift */; };
+		078C50F629D9BBB200F239BA /* ManageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F529D9BBB200F239BA /* ManageViewController.swift */; };
 		078C50F829D9BBFE00F239BA /* RepositoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F729D9BBFE00F239BA /* RepositoryViewController.swift */; };
 		07967CF92AC95EE100BB45B5 /* TrackingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07967CF82AC95EE100BB45B5 /* TrackingDelegate.swift */; };
 		07967D002AC9A1D300BB45B5 /* TrackingTime+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07967CFE2AC9A1D300BB45B5 /* TrackingTime+CoreDataClass.swift */; };
@@ -105,6 +105,8 @@
 		07DD3E952AB02BE3002D128F /* DashedSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DD3E942AB02BE3002D128F /* DashedSeparator.swift */; };
 		07EB771729F5335F000BD87E /* SelectColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB771629F5335F000BD87E /* SelectColorCollectionViewCell.swift */; };
 		07EB771929F53855000BD87E /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB771829F53855000BD87E /* ColorManager.swift */; };
+		07FAF9872AE0DE70003BD30B /* ManageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FAF9862AE0DE70003BD30B /* ManageView.swift */; };
+		07FAF9892AE0E6DB003BD30B /* RepositoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FAF9882AE0E6DB003BD30B /* RepositoryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -179,7 +181,7 @@
 		078C50EA29D72EE300F239BA /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		078C50ED29D72F9D00F239BA /* UIColor++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor++.swift"; sourceTree = "<group>"; };
 		078C50F329D73D0200F239BA /* TrackingBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingBoard.swift; sourceTree = "<group>"; };
-		078C50F529D9BBB200F239BA /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
+		078C50F529D9BBB200F239BA /* ManageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageViewController.swift; sourceTree = "<group>"; };
 		078C50F729D9BBFE00F239BA /* RepositoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryViewController.swift; sourceTree = "<group>"; };
 		07967CF82AC95EE100BB45B5 /* TrackingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingDelegate.swift; sourceTree = "<group>"; };
 		07967CFE2AC9A1D300BB45B5 /* TrackingTime+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingTime+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -208,6 +210,8 @@
 		07DD3E942AB02BE3002D128F /* DashedSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashedSeparator.swift; sourceTree = "<group>"; };
 		07EB771629F5335F000BD87E /* SelectColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		07EB771829F53855000BD87E /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
+		07FAF9862AE0DE70003BD30B /* ManageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageView.swift; sourceTree = "<group>"; };
+		07FAF9882AE0E6DB003BD30B /* RepositoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -330,17 +334,19 @@
 			path = IconModule;
 			sourceTree = "<group>";
 		};
-		076248A92AB2DB0F000A8664 /* ScheduleModule */ = {
+		076248A92AB2DB0F000A8664 /* ManageModule */ = {
 			isa = PBXGroup;
 			children = (
-				078C50F529D9BBB200F239BA /* ScheduleViewController.swift */,
+				07FAF9862AE0DE70003BD30B /* ManageView.swift */,
+				078C50F529D9BBB200F239BA /* ManageViewController.swift */,
 			);
-			path = ScheduleModule;
+			path = ManageModule;
 			sourceTree = "<group>";
 		};
 		076248AA2AB2DB2A000A8664 /* RepositoryModule */ = {
 			isa = PBXGroup;
 			children = (
+				07FAF9882AE0E6DB003BD30B /* RepositoryView.swift */,
 				078C50F729D9BBFE00F239BA /* RepositoryViewController.swift */,
 			);
 			path = RepositoryModule;
@@ -517,7 +523,7 @@
 				076248A42AB2D8BC000A8664 /* GroupModule */,
 				076248A62AB2DA3D000A8664 /* ColorModule */,
 				076248A72AB2DA63000A8664 /* IconModule */,
-				076248A92AB2DB0F000A8664 /* ScheduleModule */,
+				076248A92AB2DB0F000A8664 /* ManageModule */,
 				076248AA2AB2DB2A000A8664 /* RepositoryModule */,
 			);
 			path = Module;
@@ -804,6 +810,7 @@
 				07B49BC62A88EC14006D1011 /* MenuPopupItem.swift in Sources */,
 				07454DE729EA94EB00B3458D /* DisablePasteTextField.swift in Sources */,
 				07B592122AC4126C0046ABFC /* DispatchWorkItem.swift in Sources */,
+				07FAF9892AE0E6DB003BD30B /* RepositoryView.swift in Sources */,
 				07967D002AC9A1D300BB45B5 /* TrackingTime+CoreDataClass.swift in Sources */,
 				07EB771929F53855000BD87E /* ColorManager.swift in Sources */,
 				0749D7262AB9E456004DF368 /* HomeVC+SelectGroupHalfModal.swift in Sources */,
@@ -823,7 +830,7 @@
 				0719648329DAF4B5009CA1A4 /* RemoteGroup.swift in Sources */,
 				07B49BCF2A8DE22C006D1011 /* EditGroupDetailView.swift in Sources */,
 				07967CF92AC95EE100BB45B5 /* TrackingDelegate.swift in Sources */,
-				078C50F629D9BBB200F239BA /* ScheduleViewController.swift in Sources */,
+				078C50F629D9BBB200F239BA /* ManageViewController.swift in Sources */,
 				07C0BDAF2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift in Sources */,
 				071E3ABB2AC15EF1000C346F /* GroupDataStore.swift in Sources */,
 				0771983F29E2F4D10021088A /* UIButton++.swift in Sources */,
@@ -832,6 +839,7 @@
 				07B04BAF2ADD500800580711 /* Group+CoreDataProperties.swift in Sources */,
 				0770802F29E78C9200D66900 /* SelectGroupViewController.swift in Sources */,
 				07B49C472A95E66D006D1011 /* TrackingCompleteView.swift in Sources */,
+				07FAF9872AE0DE70003BD30B /* ManageView.swift in Sources */,
 				07B592142AC42B7D0046ABFC /* UIImageView++.swift in Sources */,
 				0749D72D2ABAD7E9004DF368 /* HomeDelegate.swift in Sources */,
 				078C50D129D726FE00F239BA /* HomeView.swift in Sources */,

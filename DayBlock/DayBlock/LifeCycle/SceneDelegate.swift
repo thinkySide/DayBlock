@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // UINavigation 추가
         let homeNavigationController = UINavigationController(rootViewController: HomeViewController())
-        let scheduleNavigationController = UINavigationController(rootViewController: ScheduleViewController())
+        let scheduleNavigationController = UINavigationController(rootViewController: ManageViewController())
         let storageNavigationController = UINavigationController(rootViewController: RepositoryViewController())
         
         // UITabBarController 추가

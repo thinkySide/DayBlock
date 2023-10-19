@@ -13,7 +13,7 @@ final class TabBar: UIStackView {
     /// 현재 탭바의 위치
     enum Location {
         case tracking
-        case schedule
+        case manage
         case repository
     }
 
@@ -27,8 +27,8 @@ final class TabBar: UIStackView {
         return view
     }()
 
-    /// 계획표 탭
-    private let schedule: UIView = {
+    /// 관리소 탭
+    private let manage: UIView = {
         let view = UIView()
         view.backgroundColor = Color.mainText
         view.alpha = 0
@@ -43,32 +43,10 @@ final class TabBar: UIStackView {
         return view
     }()
 
-    // MARK: - Event Method
-
-    /// 탭바 전환 이펙트를 실행합니다.
-    ///
-    /// - Parameter tab: 전환할 탭
-    func switchEffect(to tab: Location) {
-        switch tab {
-        case .tracking:
-            tracking.alpha = 1
-            schedule.alpha = 0
-            repository.alpha = 0
-        case .schedule:
-            tracking.alpha = 0
-            schedule.alpha = 1
-            repository.alpha = 0
-        case .repository:
-            tracking.alpha = 0
-            schedule.alpha = 0
-            repository.alpha = 1
-        }
-    }
-
     // MARK: - Initial Method
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(location: Location) {
+        super.init(frame: .zero)
         backgroundColor = UIColor(rgb: 0xF7F7F7)
 
         axis = .horizontal
@@ -77,8 +55,23 @@ final class TabBar: UIStackView {
         spacing = 0
 
         addArrangedSubview(tracking)
-        addArrangedSubview(schedule)
+        addArrangedSubview(manage)
         addArrangedSubview(repository)
+        
+        switch location {
+        case .tracking:
+            tracking.alpha = 1
+            manage.alpha = 0
+            repository.alpha = 0
+        case .manage:
+            tracking.alpha = 0
+            manage.alpha = 1
+            repository.alpha = 0
+        case .repository:
+            tracking.alpha = 0
+            manage.alpha = 0
+            repository.alpha = 1
+        }
     }
 
     required init(coder: NSCoder) {
