@@ -107,6 +107,7 @@
 		07EB771929F53855000BD87E /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB771829F53855000BD87E /* ColorManager.swift */; };
 		07FAF9872AE0DE70003BD30B /* ManageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FAF9862AE0DE70003BD30B /* ManageView.swift */; };
 		07FAF9892AE0E6DB003BD30B /* RepositoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FAF9882AE0E6DB003BD30B /* RepositoryView.swift */; };
+		07FAF98B2AE0E7AD003BD30B /* SectionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FAF98A2AE0E7AD003BD30B /* SectionBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -212,6 +213,7 @@
 		07EB771829F53855000BD87E /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 		07FAF9862AE0DE70003BD30B /* ManageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageView.swift; sourceTree = "<group>"; };
 		07FAF9882AE0E6DB003BD30B /* RepositoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryView.swift; sourceTree = "<group>"; };
+		07FAF98A2AE0E7AD003BD30B /* SectionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -571,6 +573,7 @@
 			isa = PBXGroup;
 			children = (
 				0719648729DC5066009CA1A4 /* TabBar.swift */,
+				07FAF98A2AE0E7AD003BD30B /* SectionBar.swift */,
 				07B49BD32A8F23FF006D1011 /* ToastMessage.swift */,
 				07454E0E29EBE50500B3458D /* BottomModal.swift */,
 			);
@@ -838,6 +841,7 @@
 				078C50C029D7152F00F239BA /* DayBlock.xcdatamodeld in Sources */,
 				07B04BAF2ADD500800580711 /* Group+CoreDataProperties.swift in Sources */,
 				0770802F29E78C9200D66900 /* SelectGroupViewController.swift in Sources */,
+				07FAF98B2AE0E7AD003BD30B /* SectionBar.swift in Sources */,
 				07B49C472A95E66D006D1011 /* TrackingCompleteView.swift in Sources */,
 				07FAF9872AE0DE70003BD30B /* ManageView.swift in Sources */,
 				07B592142AC42B7D0046ABFC /* UIImageView++.swift in Sources */,

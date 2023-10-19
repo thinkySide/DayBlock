@@ -50,9 +50,10 @@ final class TabBar: UIStackView {
         backgroundColor = UIColor(rgb: 0xF7F7F7)
 
         axis = .horizontal
-        distribution = .fillEqually
+        distribution = .fillProportionally
         alignment = .fill
-        spacing = 0
+        spacing = 32
+        alpha = 0 // 임시로 가려놓기
 
         addArrangedSubview(tracking)
         addArrangedSubview(manage)

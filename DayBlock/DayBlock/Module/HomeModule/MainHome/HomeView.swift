@@ -412,7 +412,7 @@ final class HomeView: UIView {
             tabBarStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             tabBarStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tabBarStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            tabBarStackView.heightAnchor.constraint(equalToConstant: 2)
+            tabBarStackView.heightAnchor.constraint(equalToConstant: 1)
         ])
     }
 }
