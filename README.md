@@ -604,3 +604,14 @@ NotificationCenter를 활용해 그룹이 업데이트 되는 시점에 맞춰 H
 ---
 
 <br>
+
+### **Day 86 - 23.10.19**
+
+- **ManageBlockViewController 퍼블리싱**   
+블럭 및 그룹 관리 페이지를 위한 퍼블리싱을 완료했습니다. UITableView의 Header, Footer 기능을 활용하여 구현했습니다.
+
+<img width="300" src="https://github.com/thinkySide/DayBlock/assets/113565086/b79981e6-a1e6-4e04-a5f3-aeec140bab6c">
+
+---
+
+<br>
