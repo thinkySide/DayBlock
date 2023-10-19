@@ -18,7 +18,6 @@ final class ManageBlockView: UIView {
     
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.backgroundColor = UIColor(rgb: 0xF7F7F7)
         tableView.separatorStyle = .none
         return tableView
     }()

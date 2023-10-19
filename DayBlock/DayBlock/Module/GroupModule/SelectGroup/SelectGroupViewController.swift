@@ -45,7 +45,7 @@ final class SelectGroupViewController: UIViewController {
     func setupDelegate() {
         viewManager.groupTableView.dataSource = self
         viewManager.groupTableView.delegate = self
-        viewManager.groupTableView.register(SelectGroupTableViewCell.self, forCellReuseIdentifier: Cell.groupSelect)
+        viewManager.groupTableView.register(ListGroupTableViewCell.self, forCellReuseIdentifier: Cell.groupSelect)
     }
     
     func setupGesture() {
@@ -165,7 +165,7 @@ extension SelectGroupViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = viewManager.groupTableView.dequeueReusableCell(withIdentifier: Cell.groupSelect, for: indexPath) as! SelectGroupTableViewCell
+        let cell = viewManager.groupTableView.dequeueReusableCell(withIdentifier: Cell.groupSelect, for: indexPath) as! ListGroupTableViewCell
         
         /// 셀 업데이트
         let groupList = groupData.list()

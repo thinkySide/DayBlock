@@ -63,6 +63,11 @@ final class ManageBlockTableViewCell: UITableViewCell {
     
     private func setupUI() {
         
+        // 셀 선택 색상 변경
+        let selected = UIView()
+        selected.backgroundColor = Color.contentsBlock
+        self.selectedBackgroundView = selected
+        
         [iconBlock, vStack, chevron].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false

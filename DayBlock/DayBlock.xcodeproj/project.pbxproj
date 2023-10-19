@@ -28,7 +28,7 @@
 		07454DE729EA94EB00B3458D /* DisablePasteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454DE629EA94EB00B3458D /* DisablePasteTextField.swift */; };
 		07454E0F29EBE50500B3458D /* BottomModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E0E29EBE50500B3458D /* BottomModal.swift */; };
 		07454E1129EBFDF200B3458D /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1029EBFDF200B3458D /* ActionButton.swift */; };
-		07454E1329EC138E00B3458D /* SelectGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1229EC138E00B3458D /* SelectGroupTableViewCell.swift */; };
+		07454E1329EC138E00B3458D /* ListGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1229EC138E00B3458D /* ListGroupTableViewCell.swift */; };
 		07454E1529EC170600B3458D /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1429EC170600B3458D /* Separator.swift */; };
 		07454E1929EFD8A400B3458D /* ActionButtonSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1829EFD8A400B3458D /* ActionButtonSet.swift */; };
 		0749D71C2AB84198004DF368 /* HomeVC+BlockCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749D71B2AB84198004DF368 /* HomeVC+BlockCollectionView.swift */; };
@@ -56,6 +56,7 @@
 		077A663629ED2ABA00D99C68 /* CreateGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077A663529ED2ABA00D99C68 /* CreateGroupView.swift */; };
 		077E80F12AE13E0B004CDB8F /* ManageBlockTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077E80F02AE13E0B004CDB8F /* ManageBlockTableViewHeader.swift */; };
 		077E80F32AE141CA004CDB8F /* ManageBlockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077E80F22AE141CA004CDB8F /* ManageBlockTableViewCell.swift */; };
+		077E80F52AE1659B004CDB8F /* ManageBlockTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077E80F42AE1659B004CDB8F /* ManageBlockTableViewFooter.swift */; };
 		07817F0B2A0A05DE00D024F6 /* IconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07817F0A2A0A05DE00D024F6 /* IconManager.swift */; };
 		07817F0D2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07817F0C2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift */; };
 		078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B529D7152F00F239BA /* AppDelegate.swift */; };
@@ -134,7 +135,7 @@
 		07454DE629EA94EB00B3458D /* DisablePasteTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisablePasteTextField.swift; sourceTree = "<group>"; };
 		07454E0E29EBE50500B3458D /* BottomModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomModal.swift; sourceTree = "<group>"; };
 		07454E1029EBFDF200B3458D /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
-		07454E1229EC138E00B3458D /* SelectGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGroupTableViewCell.swift; sourceTree = "<group>"; };
+		07454E1229EC138E00B3458D /* ListGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListGroupTableViewCell.swift; sourceTree = "<group>"; };
 		07454E1429EC170600B3458D /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
 		07454E1829EFD8A400B3458D /* ActionButtonSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonSet.swift; sourceTree = "<group>"; };
 		0749D71B2AB84198004DF368 /* HomeVC+BlockCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+BlockCollectionView.swift"; sourceTree = "<group>"; };
@@ -162,6 +163,7 @@
 		077A663529ED2ABA00D99C68 /* CreateGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupView.swift; sourceTree = "<group>"; };
 		077E80F02AE13E0B004CDB8F /* ManageBlockTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBlockTableViewHeader.swift; sourceTree = "<group>"; };
 		077E80F22AE141CA004CDB8F /* ManageBlockTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBlockTableViewCell.swift; sourceTree = "<group>"; };
+		077E80F42AE1659B004CDB8F /* ManageBlockTableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBlockTableViewFooter.swift; sourceTree = "<group>"; };
 		07817F0A2A0A05DE00D024F6 /* IconManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconManager.swift; sourceTree = "<group>"; };
 		07817F0C2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIconCollectionViewCell.swift; sourceTree = "<group>"; };
 		078C50B229D7152F00F239BA /* DayBlock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayBlock.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -346,6 +348,7 @@
 				07FAF9862AE0DE70003BD30B /* ManageBlockView.swift */,
 				078C50F529D9BBB200F239BA /* ManageBlockViewController.swift */,
 				077E80F02AE13E0B004CDB8F /* ManageBlockTableViewHeader.swift */,
+				077E80F42AE1659B004CDB8F /* ManageBlockTableViewFooter.swift */,
 				077E80F22AE141CA004CDB8F /* ManageBlockTableViewCell.swift */,
 			);
 			path = ManageModule;
@@ -394,7 +397,6 @@
 			children = (
 				0770803029E78D0500D66900 /* SelectGroupView.swift */,
 				0770802E29E78C9200D66900 /* SelectGroupViewController.swift */,
-				07454E1229EC138E00B3458D /* SelectGroupTableViewCell.swift */,
 			);
 			path = SelectGroup;
 			sourceTree = "<group>";
@@ -404,6 +406,7 @@
 			children = (
 				07B49BC92A8DD878006D1011 /* ListGroupView.swift */,
 				07B49BC72A8DD84D006D1011 /* ListGroupViewController.swift */,
+				07454E1229EC138E00B3458D /* ListGroupTableViewCell.swift */,
 			);
 			path = ListGroup;
 			sourceTree = "<group>";
@@ -859,7 +862,7 @@
 				07B49C452A95E5BD006D1011 /* TrackingCompleteViewController.swift in Sources */,
 				07A45CE42AA0952000C09342 /* TimerManager.swift in Sources */,
 				0749D71C2AB84198004DF368 /* HomeVC+BlockCollectionView.swift in Sources */,
-				07454E1329EC138E00B3458D /* SelectGroupTableViewCell.swift in Sources */,
+				07454E1329EC138E00B3458D /* ListGroupTableViewCell.swift in Sources */,
 				07454E1129EBFDF200B3458D /* ActionButton.swift in Sources */,
 				073EBFF02AB6D4D40031F6AB /* SFSymbols.swift in Sources */,
 				0770803629E7981300D66900 /* SelectIconView.swift in Sources */,
@@ -882,6 +885,7 @@
 				075A5AEB2A81DCDD0004F847 /* PopupViewController.swift in Sources */,
 				0719649429E0692E009CA1A4 /* FormTextField.swift in Sources */,
 				07B04BAE2ADD500800580711 /* Group+CoreDataClass.swift in Sources */,
+				077E80F52AE1659B004CDB8F /* ManageBlockTableViewFooter.swift in Sources */,
 				0749D71E2AB97862004DF368 /* HomeVC+ScrollView.swift in Sources */,
 				0736905F2AC2D41400A42187 /* TrackingDataStore.swift in Sources */,
 				0749D7222AB9E3D7004DF368 /* HomeVC+LongPressGesture.swift in Sources */,

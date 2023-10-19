@@ -25,6 +25,11 @@ final class ManageBlockViewController: UIViewController {
         setupTableView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewManager.tableView.reloadData()
+    }
+    
     // MARK: - Setup Method
     private func setupGesture() {
         let blockManage = viewManager.sectionBar.firstSection
@@ -37,12 +42,18 @@ final class ManageBlockViewController: UIViewController {
     private func setupTableView() {
         viewManager.tableView.dataSource = self
         viewManager.tableView.delegate = self
+        
         viewManager.tableView.register(
             ManageBlockTableViewCell.self,
             forCellReuseIdentifier: ManageBlockTableViewCell.cellID)
+        
         viewManager.tableView.register(
             ManageBlockTableViewHeader.self,
             forHeaderFooterViewReuseIdentifier: ManageBlockTableViewHeader.headerID)
+        
+        viewManager.tableView.register(
+            ManageBlockTableViewFooter.self,
+            forHeaderFooterViewReuseIdentifier: ManageBlockTableViewFooter.footerID)
     }
     
     // MARK: - Gesture Method
@@ -72,30 +83,38 @@ extension ManageBlockViewController: UITableViewDataSource, UITableViewDelegate 
     
     /// FooterView 설정 메서드
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footer = UIView()
-        footer.backgroundColor = .systemBlue
+        guard let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: ManageBlockTableViewFooter.footerID) as? ManageBlockTableViewFooter else {
+            return UIView()
+        }
+        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(footerCellTapped))
+        footer.addGestureRecognizer(gesture)
+        
         return footer
     }
     
     /// Header 높이 값 설정 메서드
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 58
+        return 68
     }
     
     /// Footer 높이 값 설정 메서드
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 56
+        return 64
     }
     
+    /// 섹션 개수 값 설정 메서드
     func numberOfSections(in tableView: UITableView) -> Int {
         return groupData.list().count
     }
     
+    /// 섹션 안에 들어갈 아이템 개수 값 설정 메서드
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let blockList = groupData.list()[section].blockList?.array as? [Block] else { return 0 }
         return blockList.count
     }
     
+    /// 개별 셀 설정 메서드
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = viewManager.tableView.dequeueReusableCell(withIdentifier: ManageBlockTableViewCell.cellID) as? ManageBlockTableViewCell else {
             return UITableViewCell()
@@ -109,5 +128,26 @@ extension ManageBlockViewController: UITableViewDataSource, UITableViewDelegate 
         cell.outputLabel.text = "total +\(trackingData.totalOutput(block))"
         
         return cell
+    }
+    
+    /// 셀 선택 시 호출되는 메서드
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // 셀 클릭 시, 바로 비활성화되는 애니메이션 추가
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    /// Footer(블럭 추가하기) 탭 시 호출되는 메서드
+    @objc func footerCellTapped(_ gesture: UITapGestureRecognizer) {
+        print(#function)
+        guard let footer = gesture.view as? ManageBlockTableViewFooter else { return }
+        
+        UIView.animate(withDuration: 0.05) {
+            footer.contentView.backgroundColor = Color.contentsBlock.withAlphaComponent(0.8)
+        } completion: { _ in
+            UIView.animate(withDuration: 0.4) {
+                footer.contentView.backgroundColor = .white
+            }
+        }
     }
 }

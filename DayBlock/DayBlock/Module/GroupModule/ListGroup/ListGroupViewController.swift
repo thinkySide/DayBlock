@@ -57,7 +57,7 @@ final class ListGroupViewController: UIViewController {
     private func setupTableView() {
         viewManager.groupTableView.dataSource = self
         viewManager.groupTableView.delegate = self
-        viewManager.groupTableView.register(SelectGroupTableViewCell.self, forCellReuseIdentifier: Cell.groupSelect)
+        viewManager.groupTableView.register(ListGroupTableViewCell.self, forCellReuseIdentifier: Cell.groupSelect)
     }
 }
 
@@ -69,7 +69,7 @@ extension ListGroupViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = viewManager.groupTableView.dequeueReusableCell(withIdentifier: Cell.groupSelect, for: indexPath) as! SelectGroupTableViewCell
+        let cell = viewManager.groupTableView.dequeueReusableCell(withIdentifier: Cell.groupSelect, for: indexPath) as! ListGroupTableViewCell
         
         // 셀 업데이트
         let groupList = groupData.list()
@@ -85,8 +85,6 @@ extension ListGroupViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        print("\(groupData.list()[indexPath.row].order)")
         
         // 셀 클릭 시, 바로 비활성화되는 애니메이션 추가
         tableView.deselectRow(at: indexPath, animated: true)

@@ -27,7 +27,7 @@ final class ManageBlockTableViewHeader: UITableViewHeaderFooterView {
         blockLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            blockLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            blockLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 40),
             blockLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20)
         ])
     }
