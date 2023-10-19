@@ -16,23 +16,10 @@ final class ManageBlockView: UIView {
         return sectionBar
     }()
     
-    let tableHeaderView: UIView = {
-        let header = UIView()
-        header.backgroundColor = .systemBlue
-        
-        let label = UILabel()
-        label.font = UIFont(name: Pretendard.semiBold, size: 18)
-        label.textColor = Color.mainText
-        label.textAlignment = .left
-        label.text = "블럭명"
-        
-        header.addSubview(label)
-        return header
-    }()
-    
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.backgroundColor = .systemGreen
+        tableView.backgroundColor = UIColor(rgb: 0xF7F7F7)
+        tableView.separatorStyle = .none
         return tableView
     }()
     

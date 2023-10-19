@@ -28,7 +28,7 @@ final class TrackingCompleteView: UIView {
     }()
     
     let iconBlock: SimpleIconBlock = {
-        let icon = SimpleIconBlock()
+        let icon = SimpleIconBlock(size: 44)
         return icon
     }()
     

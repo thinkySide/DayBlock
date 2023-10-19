@@ -21,13 +21,13 @@ final class SimpleIconBlock: UIView {
     
     // MARK: - Initial Method
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(size: CGFloat) {
+        super.init(frame: .zero)
         
         // Design Setting
         self.backgroundColor = Color.testBlue
         self.clipsToBounds = true
-        self.layer.cornerRadius = 12
+        self.layer.cornerRadius = size / 3.5
         
         // AddView & translatesAutoresizingMaskIntoConstraints
         [symbol].forEach {
@@ -35,15 +35,17 @@ final class SimpleIconBlock: UIView {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
+        let spacing = size / 5
+        
         // AutoLayout Setting
         NSLayoutConstraint.activate([
-            self.widthAnchor.constraint(equalToConstant: 44),
+            self.widthAnchor.constraint(equalToConstant: size),
             self.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1),
             
-            symbol.topAnchor.constraint(equalTo: topAnchor, constant: 8),
-            symbol.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
-            symbol.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            symbol.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
+            symbol.topAnchor.constraint(equalTo: topAnchor, constant: spacing),
+            symbol.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -spacing),
+            symbol.leadingAnchor.constraint(equalTo: leadingAnchor, constant: spacing),
+            symbol.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -spacing)
         ])
     }
     

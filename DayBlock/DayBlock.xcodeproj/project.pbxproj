@@ -55,6 +55,7 @@
 		077A663429ED2AB000D99C68 /* CreateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077A663329ED2AB000D99C68 /* CreateGroupViewController.swift */; };
 		077A663629ED2ABA00D99C68 /* CreateGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077A663529ED2ABA00D99C68 /* CreateGroupView.swift */; };
 		077E80F12AE13E0B004CDB8F /* ManageBlockTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077E80F02AE13E0B004CDB8F /* ManageBlockTableViewHeader.swift */; };
+		077E80F32AE141CA004CDB8F /* ManageBlockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077E80F22AE141CA004CDB8F /* ManageBlockTableViewCell.swift */; };
 		07817F0B2A0A05DE00D024F6 /* IconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07817F0A2A0A05DE00D024F6 /* IconManager.swift */; };
 		07817F0D2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07817F0C2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift */; };
 		078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B529D7152F00F239BA /* AppDelegate.swift */; };
@@ -160,6 +161,7 @@
 		077A663329ED2AB000D99C68 /* CreateGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupViewController.swift; sourceTree = "<group>"; };
 		077A663529ED2ABA00D99C68 /* CreateGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupView.swift; sourceTree = "<group>"; };
 		077E80F02AE13E0B004CDB8F /* ManageBlockTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBlockTableViewHeader.swift; sourceTree = "<group>"; };
+		077E80F22AE141CA004CDB8F /* ManageBlockTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBlockTableViewCell.swift; sourceTree = "<group>"; };
 		07817F0A2A0A05DE00D024F6 /* IconManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconManager.swift; sourceTree = "<group>"; };
 		07817F0C2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIconCollectionViewCell.swift; sourceTree = "<group>"; };
 		078C50B229D7152F00F239BA /* DayBlock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayBlock.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -344,6 +346,7 @@
 				07FAF9862AE0DE70003BD30B /* ManageBlockView.swift */,
 				078C50F529D9BBB200F239BA /* ManageBlockViewController.swift */,
 				077E80F02AE13E0B004CDB8F /* ManageBlockTableViewHeader.swift */,
+				077E80F22AE141CA004CDB8F /* ManageBlockTableViewCell.swift */,
 			);
 			path = ManageModule;
 			sourceTree = "<group>";
@@ -799,6 +802,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				077E80F32AE141CA004CDB8F /* ManageBlockTableViewCell.swift in Sources */,
 				0770803129E78D0500D66900 /* SelectGroupView.swift in Sources */,
 				07967D032ACA606000BB45B5 /* HomeVC+TrackingLifeCycle.swift in Sources */,
 				076248CF2AB30319000A8664 /* IconDelegate.swift in Sources */,

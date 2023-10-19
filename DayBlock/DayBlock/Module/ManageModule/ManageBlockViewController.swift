@@ -38,6 +38,9 @@ final class ManageBlockViewController: UIViewController {
         viewManager.tableView.dataSource = self
         viewManager.tableView.delegate = self
         viewManager.tableView.register(
+            ManageBlockTableViewCell.self,
+            forCellReuseIdentifier: ManageBlockTableViewCell.cellID)
+        viewManager.tableView.register(
             ManageBlockTableViewHeader.self,
             forHeaderFooterViewReuseIdentifier: ManageBlockTableViewHeader.headerID)
     }
@@ -57,24 +60,29 @@ final class ManageBlockViewController: UIViewController {
 
 extension ManageBlockViewController: UITableViewDataSource, UITableViewDelegate {
     
+    /// HeaderView 설정 메서드
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ManageBlockTableViewHeader.headerID) as? ManageBlockTableViewHeader else {
             return UIView()
         }
         
+        header.blockLabel.text = "\(groupData.list()[section].name)"
         return header
     }
     
+    /// FooterView 설정 메서드
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footer = UIView()
         footer.backgroundColor = .systemBlue
         return footer
     }
     
+    /// Header 높이 값 설정 메서드
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 58
     }
     
+    /// Footer 높이 값 설정 메서드
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 56
     }
@@ -84,10 +92,22 @@ extension ManageBlockViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        guard let blockList = groupData.list()[section].blockList?.array as? [Block] else { return 0 }
+        return blockList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let cell = viewManager.tableView.dequeueReusableCell(withIdentifier: ManageBlockTableViewCell.cellID) as? ManageBlockTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        let blockList = blockData.listInSelectedGroup(at: indexPath.section)
+        let block = blockList[indexPath.row]
+        cell.iconBlock.symbol.image = UIImage(systemName: block.icon)
+        cell.iconBlock.backgroundColor = UIColor(rgb: block.superGroup.color)
+        cell.taskLabel.text = block.taskLabel
+        cell.outputLabel.text = "total +\(trackingData.totalOutput(block))"
+        
+        return cell
     }
 }
