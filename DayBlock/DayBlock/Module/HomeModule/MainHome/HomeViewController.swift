@@ -55,6 +55,19 @@ final class HomeViewController: UIViewController {
         setupTrackingMode()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let tbAppearance = UITabBarAppearance()
+        tbAppearance.configureWithOpaqueBackground()
+        tbAppearance.backgroundColor = .clear
+        tbAppearance.shadowColor = .clear
+        tabBarController?.tabBar.standardAppearance = tbAppearance
+        if #available(iOS 15.0, *) {
+            tabBarController?.tabBar.scrollEdgeAppearance = tbAppearance
+        }
+    }
+    
     // MARK: - Setup Method
     
     /// 데이터 설정을 위한 CoreData를 불러와 Fetch합니다.
