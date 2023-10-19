@@ -76,7 +76,7 @@
 		078C50EB29D72EE300F239BA /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 078C50EA29D72EE300F239BA /* Poppins-Bold.ttf */; };
 		078C50EE29D72F9D00F239BA /* UIColor++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50ED29D72F9D00F239BA /* UIColor++.swift */; };
 		078C50F429D73D0200F239BA /* TrackingBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F329D73D0200F239BA /* TrackingBoard.swift */; };
-		078C50F629D9BBB200F239BA /* ManageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F529D9BBB200F239BA /* ManageViewController.swift */; };
+		078C50F629D9BBB200F239BA /* ManageBlockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F529D9BBB200F239BA /* ManageBlockViewController.swift */; };
 		078C50F829D9BBFE00F239BA /* RepositoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50F729D9BBFE00F239BA /* RepositoryViewController.swift */; };
 		07967CF92AC95EE100BB45B5 /* TrackingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07967CF82AC95EE100BB45B5 /* TrackingDelegate.swift */; };
 		07967D002AC9A1D300BB45B5 /* TrackingTime+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07967CFE2AC9A1D300BB45B5 /* TrackingTime+CoreDataClass.swift */; };
@@ -182,7 +182,7 @@
 		078C50EA29D72EE300F239BA /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		078C50ED29D72F9D00F239BA /* UIColor++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor++.swift"; sourceTree = "<group>"; };
 		078C50F329D73D0200F239BA /* TrackingBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingBoard.swift; sourceTree = "<group>"; };
-		078C50F529D9BBB200F239BA /* ManageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageViewController.swift; sourceTree = "<group>"; };
+		078C50F529D9BBB200F239BA /* ManageBlockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBlockViewController.swift; sourceTree = "<group>"; };
 		078C50F729D9BBFE00F239BA /* RepositoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryViewController.swift; sourceTree = "<group>"; };
 		07967CF82AC95EE100BB45B5 /* TrackingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingDelegate.swift; sourceTree = "<group>"; };
 		07967CFE2AC9A1D300BB45B5 /* TrackingTime+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingTime+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -340,7 +340,7 @@
 			isa = PBXGroup;
 			children = (
 				07FAF9862AE0DE70003BD30B /* ManageView.swift */,
-				078C50F529D9BBB200F239BA /* ManageViewController.swift */,
+				078C50F529D9BBB200F239BA /* ManageBlockViewController.swift */,
 			);
 			path = ManageModule;
 			sourceTree = "<group>";
@@ -833,7 +833,7 @@
 				0719648329DAF4B5009CA1A4 /* RemoteGroup.swift in Sources */,
 				07B49BCF2A8DE22C006D1011 /* EditGroupDetailView.swift in Sources */,
 				07967CF92AC95EE100BB45B5 /* TrackingDelegate.swift in Sources */,
-				078C50F629D9BBB200F239BA /* ManageViewController.swift in Sources */,
+				078C50F629D9BBB200F239BA /* ManageBlockViewController.swift in Sources */,
 				07C0BDAF2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift in Sources */,
 				071E3ABB2AC15EF1000C346F /* GroupDataStore.swift in Sources */,
 				0771983F29E2F4D10021088A /* UIButton++.swift in Sources */,

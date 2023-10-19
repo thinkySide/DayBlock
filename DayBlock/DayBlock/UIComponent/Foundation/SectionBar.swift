@@ -9,18 +9,23 @@ import UIKit
 
 final class SectionBar: UIView {
     
-    let section1: Section = {
+    enum Active {
+        case first
+        case second
+    }
+    
+    let firstSection: Section = {
         let section = Section(state: .active)
         return section
     }()
     
-    let section2: Section = {
+    let secondSection: Section = {
         let section = Section(state: .inActive)
         return section
     }()
     
     lazy var hStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [section1, section2])
+        let stackView = UIStackView(arrangedSubviews: [firstSection, secondSection])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.alignment = .fill
@@ -29,6 +34,18 @@ final class SectionBar: UIView {
     }()
     
     private let separator = Separator()
+    
+    // MARK: - Event Method
+    func active(_ active: Active) {
+        switch active {
+        case .first:
+            firstSection.switchState(isActive: true)
+            secondSection.switchState(isActive: false)
+        case .second:
+            firstSection.switchState(isActive: false)
+            secondSection.switchState(isActive: true)
+        }
+    }
     
     // MARK: - Initial Method
     init() {

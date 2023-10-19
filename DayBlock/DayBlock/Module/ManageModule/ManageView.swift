@@ -11,8 +11,8 @@ final class ManageView: UIView {
     
     let sectionBar: SectionBar = {
         let sectionBar = SectionBar()
-        sectionBar.section1.label.text = "블럭 관리"
-        sectionBar.section2.label.text = "그룹 관리"
+        sectionBar.firstSection.label.text = "블럭 관리"
+        sectionBar.secondSection.label.text = "그룹 관리"
         return sectionBar
     }()
     

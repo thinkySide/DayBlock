@@ -96,4 +96,14 @@ extension UIViewController {
         let gesture = UITapGestureRecognizer(target: target, action: action)
         component.customView?.addGestureRecognizer(gesture)
     }
+    
+    /// Section에 UITapGesture를 추가합니다.
+    ///
+    /// - Parameter component: 제스처를 추가할 Section
+    /// - Parameter target: 제스처가 동작할 타겟
+    /// - Parameter action: 제스처 동작 메서드
+    func addTapGesture<T: Section>(_ component: T, target: Any?, action: Selector) {
+        let gesture = UITapGestureRecognizer(target: self, action: action)
+        component.addGestureRecognizer(gesture)
+    }
 }
