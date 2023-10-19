@@ -85,7 +85,7 @@ final class Section: UIView {
     
     let label: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: Pretendard.semiBold, size: 16)
+        label.font = UIFont(name: Pretendard.semiBold, size: 17)
         label.textColor = Color.mainText
         label.textAlignment = .center
         label.text = "섹션"
@@ -102,11 +102,11 @@ final class Section: UIView {
         if isActive {
             label.textColor = Color.mainText
             activeLine.backgroundColor = Color.mainText
-            activeLine.heightAnchor.constraint(equalToConstant: 2).isActive = true
+            activeLine.alpha = 1
         } else {
             label.textColor = Color.disabledText
             activeLine.backgroundColor = UIColor(rgb: 0xF7F7F7)
-            activeLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
+            activeLine.alpha = 0
         }
     }
     
