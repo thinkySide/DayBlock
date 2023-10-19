@@ -54,6 +54,7 @@
 		0771983F29E2F4D10021088A /* UIButton++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0771983E29E2F4D10021088A /* UIButton++.swift */; };
 		077A663429ED2AB000D99C68 /* CreateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077A663329ED2AB000D99C68 /* CreateGroupViewController.swift */; };
 		077A663629ED2ABA00D99C68 /* CreateGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077A663529ED2ABA00D99C68 /* CreateGroupView.swift */; };
+		077E80F12AE13E0B004CDB8F /* ManageBlockTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077E80F02AE13E0B004CDB8F /* ManageBlockTableViewHeader.swift */; };
 		07817F0B2A0A05DE00D024F6 /* IconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07817F0A2A0A05DE00D024F6 /* IconManager.swift */; };
 		07817F0D2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07817F0C2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift */; };
 		078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B529D7152F00F239BA /* AppDelegate.swift */; };
@@ -105,7 +106,7 @@
 		07DD3E952AB02BE3002D128F /* DashedSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DD3E942AB02BE3002D128F /* DashedSeparator.swift */; };
 		07EB771729F5335F000BD87E /* SelectColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB771629F5335F000BD87E /* SelectColorCollectionViewCell.swift */; };
 		07EB771929F53855000BD87E /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB771829F53855000BD87E /* ColorManager.swift */; };
-		07FAF9872AE0DE70003BD30B /* ManageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FAF9862AE0DE70003BD30B /* ManageView.swift */; };
+		07FAF9872AE0DE70003BD30B /* ManageBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FAF9862AE0DE70003BD30B /* ManageBlockView.swift */; };
 		07FAF9892AE0E6DB003BD30B /* RepositoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FAF9882AE0E6DB003BD30B /* RepositoryView.swift */; };
 		07FAF98B2AE0E7AD003BD30B /* SectionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FAF98A2AE0E7AD003BD30B /* SectionBar.swift */; };
 /* End PBXBuildFile section */
@@ -158,6 +159,7 @@
 		0771983E29E2F4D10021088A /* UIButton++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton++.swift"; sourceTree = "<group>"; };
 		077A663329ED2AB000D99C68 /* CreateGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupViewController.swift; sourceTree = "<group>"; };
 		077A663529ED2ABA00D99C68 /* CreateGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupView.swift; sourceTree = "<group>"; };
+		077E80F02AE13E0B004CDB8F /* ManageBlockTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBlockTableViewHeader.swift; sourceTree = "<group>"; };
 		07817F0A2A0A05DE00D024F6 /* IconManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconManager.swift; sourceTree = "<group>"; };
 		07817F0C2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIconCollectionViewCell.swift; sourceTree = "<group>"; };
 		078C50B229D7152F00F239BA /* DayBlock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayBlock.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -211,7 +213,7 @@
 		07DD3E942AB02BE3002D128F /* DashedSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashedSeparator.swift; sourceTree = "<group>"; };
 		07EB771629F5335F000BD87E /* SelectColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		07EB771829F53855000BD87E /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
-		07FAF9862AE0DE70003BD30B /* ManageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageView.swift; sourceTree = "<group>"; };
+		07FAF9862AE0DE70003BD30B /* ManageBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBlockView.swift; sourceTree = "<group>"; };
 		07FAF9882AE0E6DB003BD30B /* RepositoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryView.swift; sourceTree = "<group>"; };
 		07FAF98A2AE0E7AD003BD30B /* SectionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -339,8 +341,9 @@
 		076248A92AB2DB0F000A8664 /* ManageModule */ = {
 			isa = PBXGroup;
 			children = (
-				07FAF9862AE0DE70003BD30B /* ManageView.swift */,
+				07FAF9862AE0DE70003BD30B /* ManageBlockView.swift */,
 				078C50F529D9BBB200F239BA /* ManageBlockViewController.swift */,
+				077E80F02AE13E0B004CDB8F /* ManageBlockTableViewHeader.swift */,
 			);
 			path = ManageModule;
 			sourceTree = "<group>";
@@ -831,6 +834,7 @@
 				07DD3E932AB022ED002D128F /* SimpleIconBlock.swift in Sources */,
 				078C50F429D73D0200F239BA /* TrackingBoard.swift in Sources */,
 				0719648329DAF4B5009CA1A4 /* RemoteGroup.swift in Sources */,
+				077E80F12AE13E0B004CDB8F /* ManageBlockTableViewHeader.swift in Sources */,
 				07B49BCF2A8DE22C006D1011 /* EditGroupDetailView.swift in Sources */,
 				07967CF92AC95EE100BB45B5 /* TrackingDelegate.swift in Sources */,
 				078C50F629D9BBB200F239BA /* ManageBlockViewController.swift in Sources */,
@@ -843,7 +847,7 @@
 				0770802F29E78C9200D66900 /* SelectGroupViewController.swift in Sources */,
 				07FAF98B2AE0E7AD003BD30B /* SectionBar.swift in Sources */,
 				07B49C472A95E66D006D1011 /* TrackingCompleteView.swift in Sources */,
-				07FAF9872AE0DE70003BD30B /* ManageView.swift in Sources */,
+				07FAF9872AE0DE70003BD30B /* ManageBlockView.swift in Sources */,
 				07B592142AC42B7D0046ABFC /* UIImageView++.swift in Sources */,
 				0749D72D2ABAD7E9004DF368 /* HomeDelegate.swift in Sources */,
 				078C50D129D726FE00F239BA /* HomeView.swift in Sources */,

@@ -15,7 +15,7 @@ extension HomeViewController: HomeViewDelegate {
     /// - Parameter isDisplay: TabBar 표시 여부
     func homeView(_ homeView: HomeView, displayTabBarForTrackingMode isDisplay: Bool) {
         let value: CGFloat = isDisplay ? 1 : 0
-        viewManager.tabBarStackView.alpha = value
+        // viewManager.tabBarStackView.alpha = value
         tabBarController?.tabBar.alpha = value
     }
     
