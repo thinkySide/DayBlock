@@ -28,6 +28,23 @@ final class ManageBlockViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewManager.tableView.reloadData()
+        
+        // 스크롤 색상 초기화
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .white
+        appearance.shadowColor = .clear
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        
+        let appearance2 = UITabBarAppearance()
+        appearance2.configureWithOpaqueBackground()
+        appearance2.backgroundColor = .white
+        appearance2.shadowColor = .clear
+        tabBarController?.tabBar.standardAppearance = appearance2
+        if #available(iOS 15.0, *) {
+            tabBarController?.tabBar.scrollEdgeAppearance = appearance2
+        }
     }
     
     // MARK: - Setup Method
@@ -76,6 +93,8 @@ extension ManageBlockViewController: UITableViewDataSource, UITableViewDelegate 
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ManageBlockTableViewHeader.headerID) as? ManageBlockTableViewHeader else {
             return UIView()
         }
+        
+        header.layoutMargins = UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40)
         
         header.blockLabel.text = "\(groupData.list()[section].name)"
         return header

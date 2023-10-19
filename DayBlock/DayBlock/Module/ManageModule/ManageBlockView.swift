@@ -19,6 +19,8 @@ final class ManageBlockView: UIView {
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.separatorStyle = .none
+        tableView.backgroundColor = .white
+        tableView.showsVerticalScrollIndicator = false
         return tableView
     }()
     
@@ -42,7 +44,7 @@ final class ManageBlockView: UIView {
     }
     
     private func addView() {
-        [sectionBar, tableView, tabBarStackView].forEach {
+        [tableView, sectionBar, tabBarStackView].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -54,7 +56,7 @@ final class ManageBlockView: UIView {
             sectionBar.leadingAnchor.constraint(equalTo: leadingAnchor),
             sectionBar.trailingAnchor.constraint(equalTo: trailingAnchor),
             
-            tableView.topAnchor.constraint(equalTo: sectionBar.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: sectionBar.bottomAnchor, constant: -12),
             tableView.bottomAnchor.constraint(equalTo: tabBarStackView.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),

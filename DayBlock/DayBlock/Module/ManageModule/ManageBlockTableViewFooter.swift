@@ -40,7 +40,7 @@ final class ManageBlockTableViewFooter: UITableViewHeaderFooterView {
         
         NSLayoutConstraint.activate([
             iconBlock.centerYAnchor.constraint(equalTo: centerYAnchor),
-            iconBlock.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            iconBlock.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 21),
             
             label.centerYAnchor.constraint(equalTo: iconBlock.centerYAnchor),
             label.leadingAnchor.constraint(equalTo: iconBlock.trailingAnchor, constant: 12)

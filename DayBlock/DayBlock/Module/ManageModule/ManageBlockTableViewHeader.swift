@@ -10,9 +10,15 @@ import UIKit
 final class ManageBlockTableViewHeader: UITableViewHeaderFooterView {
     static let headerID = "ManageBlockTableViewHeader"
     
+    let spacer: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(rgb: 0xF2F2F7)
+        return view
+    }()
+    
     let blockLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: Pretendard.semiBold, size: 18)
+        label.font = UIFont(name: Pretendard.bold, size: 18)
         label.textColor = Color.mainText
         label.textAlignment = .left
         label.text = "블럭명"
@@ -23,11 +29,17 @@ final class ManageBlockTableViewHeader: UITableViewHeaderFooterView {
         super.init(reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .white
         
+        contentView.addSubview(spacer)
         contentView.addSubview(blockLabel)
+        spacer.translatesAutoresizingMaskIntoConstraints = false
         blockLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            blockLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 40),
+            spacer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            spacer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            spacer.heightAnchor.constraint(equalToConstant: 12),
+            
+            blockLabel.topAnchor.constraint(equalTo: spacer.bottomAnchor, constant: 20),
             blockLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20)
         ])
     }
