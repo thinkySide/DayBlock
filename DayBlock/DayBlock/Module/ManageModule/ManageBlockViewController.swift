@@ -30,20 +30,20 @@ final class ManageBlockViewController: UIViewController {
         viewManager.tableView.reloadData()
         
         // 스크롤 색상 초기화
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .white
-        appearance.shadowColor = .clear
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        let nbAppearance = UINavigationBarAppearance()
+        nbAppearance.configureWithOpaqueBackground()
+        nbAppearance.backgroundColor = .white
+        nbAppearance.shadowColor = .clear
+        navigationController?.navigationBar.standardAppearance = nbAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = nbAppearance
         
-        let appearance2 = UITabBarAppearance()
-        appearance2.configureWithOpaqueBackground()
-        appearance2.backgroundColor = .white
-        appearance2.shadowColor = .clear
-        tabBarController?.tabBar.standardAppearance = appearance2
+        let tbAppearance = UITabBarAppearance()
+        tbAppearance.configureWithOpaqueBackground()
+        tbAppearance.backgroundColor = .white
+        tbAppearance.shadowColor = .clear
+        tabBarController?.tabBar.standardAppearance = tbAppearance
         if #available(iOS 15.0, *) {
-            tabBarController?.tabBar.scrollEdgeAppearance = appearance2
+            tabBarController?.tabBar.scrollEdgeAppearance = tbAppearance
         }
     }
     
@@ -106,6 +106,9 @@ extension ManageBlockViewController: UITableViewDataSource, UITableViewDelegate 
             return UIView()
         }
         
+        // 섹션 정보 저장
+        footer.tag = section
+        
         let gesture = UITapGestureRecognizer(target: self, action: #selector(footerCellTapped))
         footer.addGestureRecognizer(gesture)
         
@@ -158,8 +161,9 @@ extension ManageBlockViewController: UITableViewDataSource, UITableViewDelegate 
     
     /// Footer(블럭 추가하기) 탭 시 호출되는 메서드
     @objc func footerCellTapped(_ gesture: UITapGestureRecognizer) {
-        print(#function)
         guard let footer = gesture.view as? ManageBlockTableViewFooter else { return }
+        let section = footer.tag
+        print("\(section)번째 그룹에 블럭 추가하기")
         
         UIView.animate(withDuration: 0.05) {
             footer.contentView.backgroundColor = Color.contentsBlock.withAlphaComponent(0.8)
