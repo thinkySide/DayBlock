@@ -45,7 +45,7 @@ final class SelectGroupViewController: UIViewController {
     func setupDelegate() {
         viewManager.groupTableView.dataSource = self
         viewManager.groupTableView.delegate = self
-        viewManager.groupTableView.register(ListGroupTableViewCell.self, forCellReuseIdentifier: Cell.groupSelect)
+        viewManager.groupTableView.register(ManageGroupTableViewCell.self, forCellReuseIdentifier: Cell.groupSelect)
     }
     
     func setupGesture() {
@@ -146,7 +146,7 @@ final class SelectGroupViewController: UIViewController {
     }
     
     @objc func editGroupMenuTapped() {
-        let editGroupVC = ListGroupViewController()
+        let editGroupVC = ManageGroupViewController()
         editGroupVC.delegate = self
         let navController = UINavigationController(rootViewController: editGroupVC)
         navController.modalPresentationStyle = .overFullScreen
@@ -165,7 +165,7 @@ extension SelectGroupViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = viewManager.groupTableView.dequeueReusableCell(withIdentifier: Cell.groupSelect, for: indexPath) as! ListGroupTableViewCell
+        let cell = viewManager.groupTableView.dequeueReusableCell(withIdentifier: Cell.groupSelect, for: indexPath) as! ManageGroupTableViewCell
         
         /// 셀 업데이트
         let groupList = groupData.list()
@@ -189,7 +189,7 @@ extension SelectGroupViewController: CreateGroupViewControllerDelegate {
 
 // MARK: - ListGroupViewControllerDelegate
 
-extension SelectGroupViewController: ListGroupViewControllerDelegate {
+extension SelectGroupViewController: ManageGroupViewControllerDelegate {
     func reloadData() {
         viewManager.groupTableView.reloadData()
         

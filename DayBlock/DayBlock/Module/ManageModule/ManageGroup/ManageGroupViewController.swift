@@ -1,5 +1,5 @@
 //
-//  ListGroupViewController.swift
+//  ManageGroupViewController.swift
 //  DayBlock
 //
 //  Created by 김민준 on 2023/08/17.
@@ -7,12 +7,12 @@
 
 import UIKit
 
-final class ListGroupViewController: UIViewController {
+final class ManageGroupViewController: UIViewController {
     
     // Delegate
-    weak var delegate: ListGroupViewControllerDelegate?
+    weak var delegate: ManageGroupViewControllerDelegate?
     
-    private let viewManager = ListGroupView()
+    private let viewManager = ManageGroupView()
     
     private let groupData = GroupDataStore.shared
     private let blockData = BlockDataStore.shared
@@ -23,12 +23,19 @@ final class ListGroupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupTabBar()
         setupDelegate()
+        setupGesture()
         setupNavigation()
         setupTableView()
     }
     
     // MARK: - Setup Method
+    
+    private func setupTabBar() {
+        tabBarController?.tabBar.selectedItem?.title = "관리소"
+        tabBarController?.tabBar.selectedItem?.image = UIImage(named: Icon.schedule)
+    }
     
     private func setupDelegate() {
         viewManager.delegate = self
@@ -37,16 +44,23 @@ final class ListGroupViewController: UIViewController {
         viewManager.groupTableView.dragInteractionEnabled = true
     }
     
+    private func setupGesture() {
+        let blockManage = viewManager.sectionBar.firstSection
+        addTapGesture(blockManage, target: self, action: #selector(blockManageSectionTapped))
+        
+        let groupManage = viewManager.sectionBar.secondSection
+        addTapGesture(groupManage, target: self, action: #selector(groupManageSectionTapped))
+    }
+    
     private func setupNavigation() {
-        title = "그룹 리스트"
         navigationController?.navigationBar
             .titleTextAttributes = [.font: UIFont(name: Pretendard.semiBold, size: 16)!]
         
         // Dismiss 버튼
-        navigationItem.leftBarButtonItem = viewManager.backBarButtonItem
+        // navigationItem.leftBarButtonItem = viewManager.backBarButtonItem
         
         // 그룹 추가 버튼
-        navigationItem.rightBarButtonItem = viewManager.addBarButtonItem
+        // navigationItem.rightBarButtonItem = viewManager.addBarButtonItem
         
         // 뒤로가기 버튼(다음 화면)
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
@@ -57,19 +71,42 @@ final class ListGroupViewController: UIViewController {
     private func setupTableView() {
         viewManager.groupTableView.dataSource = self
         viewManager.groupTableView.delegate = self
-        viewManager.groupTableView.register(ListGroupTableViewCell.self, forCellReuseIdentifier: Cell.groupSelect)
+        viewManager.groupTableView.register(ManageGroupTableViewCell.self, forCellReuseIdentifier: Cell.groupSelect)
+    }
+    
+    // MARK: - Gesture Method
+    
+    /// 블럭 관리 섹션을 탭했을 때 호출되는 메서드입니다.
+    @objc func blockManageSectionTapped() {
+        viewManager.sectionBar.active(.first)
+        
+        guard var viewControllers = tabBarController?.viewControllers else {
+            return
+        }
+        
+        let manageBlockVC = UINavigationController(rootViewController: ManageBlockViewController())
+        viewControllers[1] = manageBlockVC
+        tabBarController?.setViewControllers(viewControllers, animated: true)
+    }
+    
+    /// 그룹 관리 섹션을 탭했을 때 호출되는 메서드입니다.
+    @objc func groupManageSectionTapped() {
+        viewManager.sectionBar.active(.second)
+        
+        // 스크롤 위치 초기화
+        viewManager.groupTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
     }
 }
 
 // MARK: - UITableViewDataSource & UITableViewDelegate
 
-extension ListGroupViewController: UITableViewDataSource, UITableViewDelegate {
+extension ManageGroupViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return groupData.list().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = viewManager.groupTableView.dequeueReusableCell(withIdentifier: Cell.groupSelect, for: indexPath) as! ListGroupTableViewCell
+        let cell = viewManager.groupTableView.dequeueReusableCell(withIdentifier: Cell.groupSelect, for: indexPath) as! ManageGroupTableViewCell
         
         // 셀 업데이트
         let groupList = groupData.list()
@@ -110,7 +147,7 @@ extension ListGroupViewController: UITableViewDataSource, UITableViewDelegate {
 
 // MARK: - EditGroupViewDelegate
 
-extension ListGroupViewController: ListGroupViewDelegate {
+extension ManageGroupViewController: ManageGroupViewDelegate {
     func dismissVC() {
         dismiss(animated: true)
         delegate?.reloadData()
@@ -125,7 +162,7 @@ extension ListGroupViewController: ListGroupViewDelegate {
 
 // MARK: - EditGroupDetailViewControllerDelegate
 
-extension ListGroupViewController: EditGroupViewControllerDelegate {
+extension ManageGroupViewController: EditGroupViewControllerDelegate {
     func reloadData() {
         viewManager.groupTableView.reloadData()
     }
@@ -133,14 +170,14 @@ extension ListGroupViewController: EditGroupViewControllerDelegate {
 
 // MARK: - CreateGroupViewControllerDelegate
 
-extension ListGroupViewController: CreateGroupViewControllerDelegate {
+extension ManageGroupViewController: CreateGroupViewControllerDelegate {
     func updateGroupList() {
         viewManager.groupTableView.reloadData()
     }
 }
 
 // MARK: - UITableViewDragDelegate
-extension ListGroupViewController: UITableViewDragDelegate {
+extension ManageGroupViewController: UITableViewDragDelegate {
     
     /// 드래그 시작 시 호출되는 메서드
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
@@ -181,7 +218,7 @@ extension ListGroupViewController: UITableViewDragDelegate {
 }
 
 // MARK: - UITableViewDropDelegate
-extension ListGroupViewController: UITableViewDropDelegate {
+extension ManageGroupViewController: UITableViewDropDelegate {
     
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
         if session.localDragSession != nil {

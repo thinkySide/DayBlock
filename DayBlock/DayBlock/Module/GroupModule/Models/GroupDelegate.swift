@@ -20,12 +20,12 @@ protocol CreateGroupViewControllerDelegate: AnyObject {
 
 // MARK: - List Group
 
-protocol ListGroupViewDelegate: AnyObject {
+protocol ManageGroupViewDelegate: AnyObject {
     func dismissVC()
     func addGroup()
 }
 
-protocol ListGroupViewControllerDelegate: AnyObject {
+protocol ManageGroupViewControllerDelegate: AnyObject {
     func reloadData()
 }
 

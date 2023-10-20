@@ -1,5 +1,5 @@
 //
-//  ListGroupView.swift
+//  ManageGroupView.swift
 //  DayBlock
 //
 //  Created by 김민준 on 2023/08/17.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class ListGroupView: UIView {
+final class ManageGroupView: UIView {
     
-    weak var delegate: ListGroupViewDelegate?
+    weak var delegate: ManageGroupViewDelegate?
     
     // MARK: - Component
     
@@ -25,6 +25,14 @@ final class ListGroupView: UIView {
         let item = UIBarButtonItem(image: UIImage(systemName: "plus")?.withConfiguration(configuration), style: .plain, target: self, action: #selector(addBarButtonItemTapped))
         item.tintColor = Color.mainText
         return item
+    }()
+    
+    let sectionBar: SectionBar = {
+        let sectionBar = SectionBar()
+        sectionBar.firstSection.label.text = "블럭 관리"
+        sectionBar.secondSection.label.text = "그룹 관리"
+        sectionBar.active(.second)
+        return sectionBar
     }()
     
     let groupTableView: UITableView = {
@@ -55,15 +63,20 @@ final class ListGroupView: UIView {
         super.init(frame: frame)
         backgroundColor = .white
         
-        [groupTableView, toastView].forEach {
+        [sectionBar, groupTableView, toastView].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
         NSLayoutConstraint.activate([
             
+            // sectionBar
+            sectionBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            sectionBar.leadingAnchor.constraint(equalTo: leadingAnchor),
+            sectionBar.trailingAnchor.constraint(equalTo: trailingAnchor),
+            
             // groupTableView
-            groupTableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
+            groupTableView.topAnchor.constraint(equalTo: sectionBar.bottomAnchor),
             groupTableView.bottomAnchor.constraint(equalTo: bottomAnchor),
             groupTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             groupTableView.trailingAnchor.constraint(equalTo: trailingAnchor),

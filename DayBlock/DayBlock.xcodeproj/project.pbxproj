@@ -28,7 +28,7 @@
 		07454DE729EA94EB00B3458D /* DisablePasteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454DE629EA94EB00B3458D /* DisablePasteTextField.swift */; };
 		07454E0F29EBE50500B3458D /* BottomModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E0E29EBE50500B3458D /* BottomModal.swift */; };
 		07454E1129EBFDF200B3458D /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1029EBFDF200B3458D /* ActionButton.swift */; };
-		07454E1329EC138E00B3458D /* ListGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1229EC138E00B3458D /* ListGroupTableViewCell.swift */; };
+		07454E1329EC138E00B3458D /* ManageGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1229EC138E00B3458D /* ManageGroupTableViewCell.swift */; };
 		07454E1529EC170600B3458D /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1429EC170600B3458D /* Separator.swift */; };
 		07454E1929EFD8A400B3458D /* ActionButtonSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1829EFD8A400B3458D /* ActionButtonSet.swift */; };
 		0749D71C2AB84198004DF368 /* HomeVC+BlockCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749D71B2AB84198004DF368 /* HomeVC+BlockCollectionView.swift */; };
@@ -92,8 +92,8 @@
 		07B04BAF2ADD500800580711 /* Group+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B04BAB2ADD500800580711 /* Group+CoreDataProperties.swift */; };
 		07B49BC42A88EBA3006D1011 /* MenuPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC32A88EBA3006D1011 /* MenuPopup.swift */; };
 		07B49BC62A88EC14006D1011 /* MenuPopupItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC52A88EC14006D1011 /* MenuPopupItem.swift */; };
-		07B49BC82A8DD84D006D1011 /* ListGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC72A8DD84D006D1011 /* ListGroupViewController.swift */; };
-		07B49BCA2A8DD878006D1011 /* ListGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC92A8DD878006D1011 /* ListGroupView.swift */; };
+		07B49BC82A8DD84D006D1011 /* ManageGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC72A8DD84D006D1011 /* ManageGroupViewController.swift */; };
+		07B49BCA2A8DD878006D1011 /* ManageGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC92A8DD878006D1011 /* ManageGroupView.swift */; };
 		07B49BCD2A8DE204006D1011 /* EditGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BCC2A8DE204006D1011 /* EditGroupViewController.swift */; };
 		07B49BCF2A8DE22C006D1011 /* EditGroupDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BCE2A8DE22C006D1011 /* EditGroupDetailView.swift */; };
 		07B49BD42A8F23FF006D1011 /* ToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BD32A8F23FF006D1011 /* ToastMessage.swift */; };
@@ -135,7 +135,7 @@
 		07454DE629EA94EB00B3458D /* DisablePasteTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisablePasteTextField.swift; sourceTree = "<group>"; };
 		07454E0E29EBE50500B3458D /* BottomModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomModal.swift; sourceTree = "<group>"; };
 		07454E1029EBFDF200B3458D /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
-		07454E1229EC138E00B3458D /* ListGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListGroupTableViewCell.swift; sourceTree = "<group>"; };
+		07454E1229EC138E00B3458D /* ManageGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageGroupTableViewCell.swift; sourceTree = "<group>"; };
 		07454E1429EC170600B3458D /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
 		07454E1829EFD8A400B3458D /* ActionButtonSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonSet.swift; sourceTree = "<group>"; };
 		0749D71B2AB84198004DF368 /* HomeVC+BlockCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+BlockCollectionView.swift"; sourceTree = "<group>"; };
@@ -201,8 +201,8 @@
 		07B04BAB2ADD500800580711 /* Group+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		07B49BC32A88EBA3006D1011 /* MenuPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopup.swift; sourceTree = "<group>"; };
 		07B49BC52A88EC14006D1011 /* MenuPopupItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopupItem.swift; sourceTree = "<group>"; };
-		07B49BC72A8DD84D006D1011 /* ListGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListGroupViewController.swift; sourceTree = "<group>"; };
-		07B49BC92A8DD878006D1011 /* ListGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListGroupView.swift; sourceTree = "<group>"; };
+		07B49BC72A8DD84D006D1011 /* ManageGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageGroupViewController.swift; sourceTree = "<group>"; };
+		07B49BC92A8DD878006D1011 /* ManageGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageGroupView.swift; sourceTree = "<group>"; };
 		07B49BCC2A8DE204006D1011 /* EditGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGroupViewController.swift; sourceTree = "<group>"; };
 		07B49BCE2A8DE22C006D1011 /* EditGroupDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGroupDetailView.swift; sourceTree = "<group>"; };
 		07B49BD32A8F23FF006D1011 /* ToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessage.swift; sourceTree = "<group>"; };
@@ -309,7 +309,6 @@
 				076248B52AB2F613000A8664 /* Models */,
 				076248AE2AB2DD5D000A8664 /* CreateGroup */,
 				076248AF2AB2DD6E000A8664 /* SelectGroup */,
-				076248B02AB2DD7A000A8664 /* ListGroup */,
 				076248B12AB2DDE7000A8664 /* EditGroup */,
 			);
 			path = GroupModule;
@@ -345,11 +344,8 @@
 		076248A92AB2DB0F000A8664 /* ManageModule */ = {
 			isa = PBXGroup;
 			children = (
-				07FAF9862AE0DE70003BD30B /* ManageBlockView.swift */,
-				078C50F529D9BBB200F239BA /* ManageBlockViewController.swift */,
-				077E80F02AE13E0B004CDB8F /* ManageBlockTableViewHeader.swift */,
-				077E80F42AE1659B004CDB8F /* ManageBlockTableViewFooter.swift */,
-				077E80F22AE141CA004CDB8F /* ManageBlockTableViewCell.swift */,
+				076248B02AB2DD7A000A8664 /* ManageGroup */,
+				0776DB5C2AE23DBD008379A1 /* ManageBlock */,
 			);
 			path = ManageModule;
 			sourceTree = "<group>";
@@ -401,14 +397,14 @@
 			path = SelectGroup;
 			sourceTree = "<group>";
 		};
-		076248B02AB2DD7A000A8664 /* ListGroup */ = {
+		076248B02AB2DD7A000A8664 /* ManageGroup */ = {
 			isa = PBXGroup;
 			children = (
-				07B49BC92A8DD878006D1011 /* ListGroupView.swift */,
-				07B49BC72A8DD84D006D1011 /* ListGroupViewController.swift */,
-				07454E1229EC138E00B3458D /* ListGroupTableViewCell.swift */,
+				07B49BC92A8DD878006D1011 /* ManageGroupView.swift */,
+				07B49BC72A8DD84D006D1011 /* ManageGroupViewController.swift */,
+				07454E1229EC138E00B3458D /* ManageGroupTableViewCell.swift */,
 			);
-			path = ListGroup;
+			path = ManageGroup;
 			sourceTree = "<group>";
 		};
 		076248B12AB2DDE7000A8664 /* EditGroup */ = {
@@ -598,6 +594,18 @@
 				0714B8042ACD005000B560D6 /* TestDataSet.swift */,
 			);
 			path = File;
+			sourceTree = "<group>";
+		};
+		0776DB5C2AE23DBD008379A1 /* ManageBlock */ = {
+			isa = PBXGroup;
+			children = (
+				07FAF9862AE0DE70003BD30B /* ManageBlockView.swift */,
+				078C50F529D9BBB200F239BA /* ManageBlockViewController.swift */,
+				077E80F02AE13E0B004CDB8F /* ManageBlockTableViewHeader.swift */,
+				077E80F42AE1659B004CDB8F /* ManageBlockTableViewFooter.swift */,
+				077E80F22AE141CA004CDB8F /* ManageBlockTableViewCell.swift */,
+			);
+			path = ManageBlock;
 			sourceTree = "<group>";
 		};
 		078C50A929D7152F00F239BA = {
@@ -835,7 +843,7 @@
 				0719649829E148CA009CA1A4 /* DayBlock.swift in Sources */,
 				07B49BD42A8F23FF006D1011 /* ToastMessage.swift in Sources */,
 				07B49BC42A88EBA3006D1011 /* MenuPopup.swift in Sources */,
-				07B49BC82A8DD84D006D1011 /* ListGroupViewController.swift in Sources */,
+				07B49BC82A8DD84D006D1011 /* ManageGroupViewController.swift in Sources */,
 				07B04BAD2ADD500800580711 /* Block+CoreDataProperties.swift in Sources */,
 				07B04BAC2ADD500800580711 /* Block+CoreDataClass.swift in Sources */,
 				07DD3E932AB022ED002D128F /* SimpleIconBlock.swift in Sources */,
@@ -862,7 +870,7 @@
 				07B49C452A95E5BD006D1011 /* TrackingCompleteViewController.swift in Sources */,
 				07A45CE42AA0952000C09342 /* TimerManager.swift in Sources */,
 				0749D71C2AB84198004DF368 /* HomeVC+BlockCollectionView.swift in Sources */,
-				07454E1329EC138E00B3458D /* ListGroupTableViewCell.swift in Sources */,
+				07454E1329EC138E00B3458D /* ManageGroupTableViewCell.swift in Sources */,
 				07454E1129EBFDF200B3458D /* ActionButton.swift in Sources */,
 				073EBFF02AB6D4D40031F6AB /* SFSymbols.swift in Sources */,
 				0770803629E7981300D66900 /* SelectIconView.swift in Sources */,
@@ -870,7 +878,7 @@
 				076248CD2AB302FD000A8664 /* ColorDelegate.swift in Sources */,
 				076248CB2AB3023A000A8664 /* GroupDelegate.swift in Sources */,
 				075A5AE92A81D04B0004F847 /* PopupView.swift in Sources */,
-				07B49BCA2A8DD878006D1011 /* ListGroupView.swift in Sources */,
+				07B49BCA2A8DD878006D1011 /* ManageGroupView.swift in Sources */,
 				07DD3E952AB02BE3002D128F /* DashedSeparator.swift in Sources */,
 				0719648129DAF38A009CA1A4 /* RemoteBlock.swift in Sources */,
 				0770803429E797E100D66900 /* SelectIconViewController.swift in Sources */,

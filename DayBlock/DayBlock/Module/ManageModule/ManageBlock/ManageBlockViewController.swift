@@ -21,6 +21,7 @@ final class ManageBlockViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupTabBar()
         setupGesture()
         setupTableView()
     }
@@ -29,7 +30,7 @@ final class ManageBlockViewController: UIViewController {
         super.viewWillAppear(animated)
         viewManager.tableView.reloadData()
         
-        // 스크롤 색상 초기화
+        // 네비게이션바 스크롤 색상 초기화
         let nbAppearance = UINavigationBarAppearance()
         nbAppearance.configureWithOpaqueBackground()
         nbAppearance.backgroundColor = .white
@@ -37,6 +38,7 @@ final class ManageBlockViewController: UIViewController {
         navigationController?.navigationBar.standardAppearance = nbAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = nbAppearance
         
+        // 탭배 스크롤 색상 초기화
         let tbAppearance = UITabBarAppearance()
         tbAppearance.configureWithOpaqueBackground()
         tbAppearance.backgroundColor = .white
@@ -48,6 +50,11 @@ final class ManageBlockViewController: UIViewController {
     }
     
     // MARK: - Setup Method
+    private func setupTabBar() {
+        tabBarController?.tabBar.selectedItem?.title = "관리소"
+        tabBarController?.tabBar.selectedItem?.image = UIImage(named: Icon.schedule)
+    }
+    
     private func setupGesture() {
         let blockManage = viewManager.sectionBar.firstSection
         addTapGesture(blockManage, target: self, action: #selector(blockManageSectionTapped))
@@ -78,14 +85,26 @@ final class ManageBlockViewController: UIViewController {
     /// 블럭 관리 섹션을 탭했을 때 호출되는 메서드입니다.
     @objc func blockManageSectionTapped() {
         viewManager.sectionBar.active(.first)
+        
+        // 스크롤 위치 초기화
+        viewManager.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
     }
     
     /// 그룹 관리 섹션을 탭했을 때 호출되는 메서드입니다.
     @objc func groupManageSectionTapped() {
         viewManager.sectionBar.active(.second)
+        
+        guard var viewControllers = tabBarController?.viewControllers else {
+            return
+        }
+        
+        let manageGroupVC = UINavigationController(rootViewController: ManageGroupViewController())
+        viewControllers[1] = manageGroupVC
+        tabBarController?.setViewControllers(viewControllers, animated: true)
     }
 }
 
+// MARK: - UITableView
 extension ManageBlockViewController: UITableViewDataSource, UITableViewDelegate {
     
     /// HeaderView 설정 메서드

@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // UINavigation 추가
         let homeNavigationController = UINavigationController(rootViewController: HomeViewController())
-        let scheduleNavigationController = UINavigationController(rootViewController: ManageBlockViewController())
+        let manageBlockViewController = UINavigationController(rootViewController: ManageBlockViewController())
         let storageNavigationController = UINavigationController(rootViewController: RepositoryViewController())
         
         // UITabBarController 추가
@@ -30,7 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarController.tabBar.tintColor = Color.mainText
         tabBarController.setViewControllers([
             homeNavigationController,
-            scheduleNavigationController,
+            manageBlockViewController,
             storageNavigationController
         ], animated: true)
         
