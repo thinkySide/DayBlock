@@ -32,6 +32,9 @@ final class GroupDataStore {
     
     /// 현재 편집중인 그룹 인덱스
     private var editIndexValue = 0
+    
+    /// 관리 중인 그룹 인덱스
+    private var manageIndexValue = 0
 }
 
 // MARK: - Core Data Method
@@ -196,5 +199,21 @@ extension GroupDataStore {
     /// 리모트 그룹을 기본값으로 초기화합니다.
     func resetRemote() {
         remoteObject = RemoteGroup(name: "", color: 0x0061FD, list: [])
+    }
+}
+
+// MARK: - Manage Group Index
+extension GroupDataStore {
+    
+    /// 관리 중인 그룹의 인덱스를 반환합니다.
+    func manageIndex() -> Int {
+        return manageIndexValue
+    }
+    
+    /// 지정한 인덱스로 관리  중인 그룹 인덱스를 업데이트합니다.
+    ///
+    /// - Parameter index: 업데이트 할 인덱스 값
+    func updateManageIndex(to index: Int) {
+        manageIndexValue = index
     }
 }

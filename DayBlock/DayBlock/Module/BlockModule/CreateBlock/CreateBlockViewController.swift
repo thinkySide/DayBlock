@@ -13,6 +13,7 @@ final class CreateBlockViewController: UIViewController {
     enum Mode {
         case create
         case edit
+        case manage
     }
     
     // MARK: - Variable
@@ -44,7 +45,7 @@ final class CreateBlockViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupInitial()
-        setupNavigion()
+        setupNavigation()
         setupDelegate()
         setupAddTarget()
         setupNotification()
@@ -81,7 +82,21 @@ final class CreateBlockViewController: UIViewController {
         originalBlockName = taskLabel
     }
     
+    /// 블럭 관리 모드로 기본 설정 진행
+    func configureManageMode() {
+        mode = .manage
+    }
+    
     func setupInitial() {
+        
+        // 매니지모드에서 실행되는 것이라면 섹션값을 기준으로 실행
+        if mode == .manage {
+            let sectionIndex = groupData.manageIndex()
+            blockData.updateRemote(group: groupData.list()[sectionIndex])
+            viewManager.updateBlockInfo(blockData.remote())
+            blockData.remoteIndex = sectionIndex
+            return
+        }
         
         // 1. 현재 그룹을 기준으로 리모트 블럭 업데이트
         blockData.updateRemote(group: groupData.focusEntity())
@@ -89,11 +104,11 @@ final class CreateBlockViewController: UIViewController {
         // 2. 리모트 블럭을 기준으로 블럭 UI 업데이트
         viewManager.updateBlockInfo(blockData.remote())
         
-        // 리모트 그룹 인덱스 업데이트
+        // 3. 리모트 그룹 인덱스 업데이트
         blockData.remoteIndex = groupData.focusIndex()
     }
     
-    func setupNavigion() {
+    func setupNavigation() {
         
         // Custom
         navigationController?.navigationBar
@@ -147,6 +162,12 @@ final class CreateBlockViewController: UIViewController {
             blockData.update()
             navigationController?.popViewController(animated: true)
             delegate?.createBlockViewController(self, blockDidEdit: .edit)
+        }
+        
+        // 블럭 관리 모드
+        if mode == .manage {
+            blockData.create()
+            navigationController?.popViewController(animated: true)
         }
     }
     
@@ -270,23 +291,24 @@ extension CreateBlockViewController: FormSelectButtonDelegate {
         /// present
         let selectGroupVC = SelectGroupViewController()
         selectGroupVC.delegate = self
+        let navigationController = UINavigationController(rootViewController: selectGroupVC)
         
         // 그룹 선택 모드 변경
         selectGroupVC.mode = .create
         
         if #available(iOS 15.0, *) {
-            selectGroupVC.modalPresentationStyle = .pageSheet
-            if let sheet = selectGroupVC.sheetPresentationController {
+            if let sheet = navigationController.sheetPresentationController {
                 sheet.detents = [.medium()]
                 sheet.prefersGrabberVisible = true
                 sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+                sheet.preferredCornerRadius = 30
             }
         } else {
-            selectGroupVC.modalPresentationStyle = .custom
-            selectGroupVC.transitioningDelegate = customBottomModalDelegate
+            navigationController.modalPresentationStyle = .custom
+            navigationController.transitioningDelegate = customBottomModalDelegate
         }
         
-        present(selectGroupVC, animated: true)
+        present(navigationController, animated: true)
     }
     
     func iconFormTapped() {

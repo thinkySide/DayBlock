@@ -23,6 +23,7 @@ final class ManageBlockViewController: UIViewController {
         super.viewDidLoad()
         setupTabBar()
         setupGesture()
+        setupNavigation()
         setupTableView()
     }
     
@@ -61,6 +62,12 @@ final class ManageBlockViewController: UIViewController {
         
         let groupManage = viewManager.sectionBar.secondSection
         addTapGesture(groupManage, target: self, action: #selector(groupManageSectionTapped))
+    }
+    
+    private func setupNavigation() {
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = Color.mainText
+        navigationItem.backBarButtonItem = backBarButtonItem
     }
     
     private func setupTableView() {
@@ -178,9 +185,12 @@ extension ManageBlockViewController: UITableViewDataSource, UITableViewDelegate 
     /// Footer(블럭 추가하기) 탭 시 호출되는 메서드
     @objc func footerCellTapped(_ gesture: UITapGestureRecognizer) {
         guard let footer = gesture.view as? ManageBlockTableViewFooter else { return }
-        let section = footer.tag
-        print("\(section)번째 그룹에 블럭 추가하기")
         
+        // 관리 중인 섹션 인덱스 업데이트
+        let section = footer.tag
+        groupData.updateManageIndex(to: section)
+        
+        // 탭 애니메이션 실행
         UIView.animate(withDuration: 0.05) {
             footer.contentView.backgroundColor = Color.contentsBlock.withAlphaComponent(0.8)
         } completion: { _ in
@@ -188,5 +198,12 @@ extension ManageBlockViewController: UITableViewDataSource, UITableViewDelegate 
                 footer.contentView.backgroundColor = .white
             }
         }
+        
+        // 섹션에 속한 그룹의 블럭 생성 화면 Push
+        let createBlockVC = CreateBlockViewController()
+        createBlockVC.hidesBottomBarWhenPushed = true
+        createBlockVC.setupCreateMode()
+        createBlockVC.configureManageMode()
+        navigationController?.pushViewController(createBlockVC, animated: true)
     }
 }

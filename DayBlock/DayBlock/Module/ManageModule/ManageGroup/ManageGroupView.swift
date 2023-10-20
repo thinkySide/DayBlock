@@ -36,9 +36,10 @@ final class ManageGroupView: UIView {
     }()
     
     let groupTableView: UITableView = {
-        let table = UITableView()
+        let table = UITableView(frame: .zero, style: .grouped)
         table.separatorStyle = .none
         table.showsVerticalScrollIndicator = true
+        table.backgroundColor = .white
         return table
     }()
     

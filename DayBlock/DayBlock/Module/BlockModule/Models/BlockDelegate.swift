@@ -9,5 +9,6 @@ import Foundation
 
 protocol CreateBlockViewControllerDelegate: AnyObject {
     func createBlockViewController(_ createBlockViewController: CreateBlockViewController, blockDidEdit mode: CreateBlockViewController.Mode)
+    
     func createBlockViewController(_ createBlockViewController: CreateBlockViewController, blockDidCreate mode: CreateBlockViewController.Mode)
 }

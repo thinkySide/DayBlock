@@ -77,6 +77,7 @@ final class ManageGroupViewController: UIViewController {
         viewManager.groupTableView.dataSource = self
         viewManager.groupTableView.delegate = self
         viewManager.groupTableView.register(ManageGroupTableViewCell.self, forCellReuseIdentifier: Cell.groupSelect)
+        viewManager.groupTableView.register(SelectGroupTableViewFooter.self, forHeaderFooterViewReuseIdentifier: SelectGroupTableViewFooter.footerID)
     }
     
     // MARK: - Gesture Method
@@ -148,6 +149,53 @@ extension ManageGroupViewController: UITableViewDataSource, UITableViewDelegate 
         editGroupDetailVC.delegate = self
         editGroupDetailVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(editGroupDetailVC, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat.leastNormalMagnitude
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        guard let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: SelectGroupTableViewFooter.footerID) as? SelectGroupTableViewFooter else {
+            return UIView()
+        }
+        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(footerCellTapped))
+        footer.addGestureRecognizer(gesture)
+        
+        return footer
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 56
+    }
+    
+    /// Footer(그룹 추가하기) 를 터치했을 때 실행되는 메서드입니다.
+    @objc func footerCellTapped(_ gesture: UITapGestureRecognizer) {
+        guard let footer = gesture.view as? SelectGroupTableViewFooter else { return }
+        
+        // 터치 애니메이션
+        UIView.animate(withDuration: 0.05) {
+            footer.contentView.backgroundColor = Color.contentsBlock.withAlphaComponent(0.8)
+        } completion: { _ in
+            UIView.animate(withDuration: 0.4) {
+                footer.contentView.backgroundColor = .white
+            }
+        }
+        
+        // 그룹 생성 ViewController Push
+        let createGroupVC = CreateGroupViewController()
+        createGroupVC.delegate = self
+        
+        // Present 세팅
+        createGroupVC.screenMode = .navigation
+        createGroupVC.hidesBottomBarWhenPushed = true
+        
+        self.navigationController?.pushViewController(createGroupVC, animated: true)
     }
 }
 

@@ -60,11 +60,6 @@ final class CreateGroupViewController: UIViewController {
     
     // MARK: - Initial Method
     
-    /// 뒤로가기 버튼 설정 메서드
-    func setupBackButton() {
-        // navigationItem.leftBarButtonItem = viewManager.backBarButtonItem
-    }
-    
     func setupNavigation() {
         
         // Custom
@@ -184,7 +179,6 @@ extension CreateGroupViewController: FormSelectButtonDelegate {
         
         // Half-Modal 설정
         if #available(iOS 15.0, *) {
-            selectColorVC.modalPresentationStyle = .pageSheet
             if let sheet = selectColorVC.sheetPresentationController {
                 sheet.detents = [.medium()]
                 sheet.prefersGrabberVisible = true

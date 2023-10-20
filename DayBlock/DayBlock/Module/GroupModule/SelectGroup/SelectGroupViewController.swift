@@ -245,7 +245,6 @@ extension SelectGroupViewController: UITableViewDataSource, UITableViewDelegate 
         createGroupVC.delegate = self
         
         // Present 세팅
-        createGroupVC.setupBackButton()
         createGroupVC.screenMode = .navigation
         
         self.navigationController?.pushViewController(createGroupVC, animated: true)
@@ -271,13 +270,5 @@ extension SelectGroupViewController: ManageGroupViewControllerDelegate {
         // TableView 선택
         let currentIndex = groupData.focusIndex()
         viewManager.groupTableView.selectRow(at: IndexPath(row: currentIndex, section: 0), animated: false, scrollPosition: .bottom)
-    }
-}
-
-extension SelectGroupViewController: UISheetPresentationControllerDelegate {
-    
-    @available(iOS 15.0, *)
-    func sheetPresentationControllerDidChangeSelectedDetentIdentifier(_ sheetPresentationController: UISheetPresentationController) {
-        print(#function)
     }
 }
