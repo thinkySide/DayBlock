@@ -11,17 +11,18 @@ final class SelectGroupView: UIView {
     
     // MARK: - Component
     
-    private let title: UILabel = {
-        let label = UILabel()
-        label.text = "그룹 선택"
-        label.font = UIFont(name: Pretendard.semiBold, size: 16)
-        label.textColor = Color.mainText
-        label.textAlignment = .center
-        return label
-    }()
+    // private let title: UILabel = {
+    //     let label = UILabel()
+    //     label.text = "그룹 선택"
+    //     label.font = UIFont(name: Pretendard.semiBold, size: 16)
+    //     label.textColor = Color.mainText
+    //     label.textAlignment = .center
+    //     return label
+    // }()
     
     let groupTableView: UITableView = {
-        let table = UITableView()
+        let table = UITableView(frame: .zero, style: .grouped)
+        table.backgroundColor = .white
         table.separatorStyle = .none
         table.showsVerticalScrollIndicator = true
         return table
@@ -32,13 +33,13 @@ final class SelectGroupView: UIView {
         return stack
     }()
     
-    lazy var menuButton: UIButton = {
-        let button = UIButton()
-        let icon = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)
-        button.setImage(UIImage(systemName: "ellipsis", withConfiguration: icon), for: .normal)
-        button.tintColor = Color.mainText
-        return button
-    }()
+    // lazy var menuButton: UIButton = {
+    //     let button = UIButton()
+    //     let icon = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)
+    //     button.setImage(UIImage(systemName: "ellipsis", withConfiguration: icon), for: .normal)
+    //     button.tintColor = Color.mainText
+    //     return button
+    // }()
     
     /// Background 터치 활성화를 위한 뷰
     let backgroundView: UIView = {
@@ -48,19 +49,19 @@ final class SelectGroupView: UIView {
         return view
     }()
     
-    let customUIMenu: MenuPopup = {
-        let menu = MenuPopup(frame: .zero, number: .two)
-        menu.firstItem.title.text = "그룹 생성"
-        let firstIcon = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
-        menu.firstItem.icon.image = UIImage(systemName: "plus")
-        
-        menu.secondItem.title.text = "그룹 편집"
-        let secondIcon = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
-        menu.secondItem.icon.image = UIImage(systemName: "pencil")
-        
-        menu.alpha = 0
-        return menu
-    }()
+    // let customUIMenu: MenuPopup = {
+    //     let menu = MenuPopup(frame: .zero, number: .two)
+    //     menu.firstItem.title.text = "그룹 생성"
+    //     let firstIcon = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
+    //     menu.firstItem.icon.image = UIImage(systemName: "plus")
+    //
+    //     menu.secondItem.title.text = "그룹 편집"
+    //     let secondIcon = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
+    //     menu.secondItem.icon.image = UIImage(systemName: "pencil")
+    //
+    //     menu.alpha = 0
+    //     return menu
+    // }()
     
     // MARK: - Initial
     override init(frame: CGRect) {
@@ -85,7 +86,7 @@ final class SelectGroupView: UIView {
     }
     
     func setupAddSubView() {
-        [title, menuButton, groupTableView, actionStackView, backgroundView, customUIMenu]
+        [groupTableView, actionStackView, backgroundView]
             .forEach {
                 /// 1. addSubView(component)
                 addSubview($0)
@@ -101,18 +102,18 @@ final class SelectGroupView: UIView {
         NSLayoutConstraint.activate([
             
             // title
-            title.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            title.centerXAnchor.constraint(equalTo: centerXAnchor),
+            // title.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            // title.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             // addButton
-            menuButton.centerYAnchor.constraint(equalTo: title.centerYAnchor),
-            menuButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
-            menuButton.widthAnchor.constraint(equalToConstant: 40),
-            menuButton.heightAnchor.constraint(equalTo: menuButton.widthAnchor),
+            // menuButton.centerYAnchor.constraint(equalTo: title.centerYAnchor),
+            // menuButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+            // menuButton.widthAnchor.constraint(equalToConstant: 40),
+            // menuButton.heightAnchor.constraint(equalTo: menuButton.widthAnchor),
             
             // groupTableView
-            groupTableView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 8),
-            groupTableView.bottomAnchor.constraint(equalTo: actionStackView.topAnchor, constant: -16),
+            groupTableView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+            groupTableView.bottomAnchor.constraint(equalTo: actionStackView.topAnchor, constant: -4),
             groupTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             groupTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
@@ -125,11 +126,11 @@ final class SelectGroupView: UIView {
             backgroundView.topAnchor.constraint(equalTo: groupTableView.topAnchor),
             backgroundView.bottomAnchor.constraint(equalTo: actionStackView.topAnchor),
             backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor)
             
             // customUIMenu
-            customUIMenu.topAnchor.constraint(equalTo: menuButton.bottomAnchor, constant: 0),
-            customUIMenu.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12)
+            // customUIMenu.topAnchor.constraint(equalTo: menuButton.bottomAnchor, constant: 0),
+            // customUIMenu.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12)
         ])
     }
 }

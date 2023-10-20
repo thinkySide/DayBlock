@@ -19,24 +19,25 @@ extension HomeViewController: SelectGroupViewControllerDelegate {
     func presentSelectGroupHalfModal() {
         let selectGroupVC = SelectGroupViewController()
         selectGroupVC.delegate = self
+        let navigationController = UINavigationController(rootViewController: selectGroupVC)
 
         if #available(iOS 15.0, *) {
-            selectGroupVC.modalPresentationStyle = .pageSheet
-            if let sheet = selectGroupVC.sheetPresentationController {
+            if let sheet = navigationController.sheetPresentationController {
                 sheet.detents = [.medium()]
                 sheet.prefersGrabberVisible = true
                 sheet.prefersScrollingExpandsWhenScrolledToEdge = false
                 sheet.prefersEdgeAttachedInCompactHeight = true
+                sheet.preferredCornerRadius = 30
             }
         }
         
         else {
             let customBottomModalDelegate = BottomModalDelegate()
-            selectGroupVC.modalPresentationStyle = .custom
-            selectGroupVC.transitioningDelegate = customBottomModalDelegate
+            navigationController.modalPresentationStyle = .custom
+            navigationController.transitioningDelegate = customBottomModalDelegate
         }
         
-        present(selectGroupVC, animated: true)
+        present(navigationController, animated: true)
     }
     
     /// 포커스된 그룹을 지정한 인덱스로 업데이트합니다.
@@ -62,6 +63,15 @@ extension HomeViewController: SelectGroupViewControllerDelegate {
         let blockList = groupData.focusEntity().blockList?.array as! [Block]
         if blockList.isEmpty { viewManager.toggleTrackingButton(false) }
         else { viewManager.toggleTrackingButton(true) }
+    }
+    
+    /// 관리소 탭으로 이동하는 메서드입니다.
+    func switchManageGroupTabBar() {
+        guard let tabBarView = tabBarController?.view else { return }
+        
+        UIView.transition(with: tabBarView, duration: 0.3, options: .transitionCrossDissolve) {
+            self.tabBarController?.selectedIndex = 1
+        }
     }
 }
 

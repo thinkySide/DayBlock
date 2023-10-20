@@ -84,16 +84,13 @@ final class ManageBlockViewController: UIViewController {
     
     /// 블럭 관리 섹션을 탭했을 때 호출되는 메서드입니다.
     @objc func blockManageSectionTapped() {
-        viewManager.sectionBar.active(.first)
-        
+
         // 스크롤 위치 초기화
         viewManager.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
     }
     
     /// 그룹 관리 섹션을 탭했을 때 호출되는 메서드입니다.
     @objc func groupManageSectionTapped() {
-        viewManager.sectionBar.active(.second)
-        
         guard var viewControllers = tabBarController?.viewControllers else {
             return
         }

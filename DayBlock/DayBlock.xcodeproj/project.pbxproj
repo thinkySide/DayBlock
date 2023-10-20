@@ -52,6 +52,7 @@
 		0770803829E7988100D66900 /* SelectColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770803729E7988100D66900 /* SelectColorView.swift */; };
 		0770803A29E7989B00D66900 /* SelectColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770803929E7989A00D66900 /* SelectColorViewController.swift */; };
 		0771983F29E2F4D10021088A /* UIButton++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0771983E29E2F4D10021088A /* UIButton++.swift */; };
+		0776DB632AE267DC008379A1 /* SelectGroupTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0776DB622AE267DC008379A1 /* SelectGroupTableViewFooter.swift */; };
 		077A663429ED2AB000D99C68 /* CreateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077A663329ED2AB000D99C68 /* CreateGroupViewController.swift */; };
 		077A663629ED2ABA00D99C68 /* CreateGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077A663529ED2ABA00D99C68 /* CreateGroupView.swift */; };
 		077E80F12AE13E0B004CDB8F /* ManageBlockTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077E80F02AE13E0B004CDB8F /* ManageBlockTableViewHeader.swift */; };
@@ -159,6 +160,7 @@
 		0770803729E7988100D66900 /* SelectColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectColorView.swift; sourceTree = "<group>"; };
 		0770803929E7989A00D66900 /* SelectColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectColorViewController.swift; sourceTree = "<group>"; };
 		0771983E29E2F4D10021088A /* UIButton++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton++.swift"; sourceTree = "<group>"; };
+		0776DB622AE267DC008379A1 /* SelectGroupTableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGroupTableViewFooter.swift; sourceTree = "<group>"; };
 		077A663329ED2AB000D99C68 /* CreateGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupViewController.swift; sourceTree = "<group>"; };
 		077A663529ED2ABA00D99C68 /* CreateGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupView.swift; sourceTree = "<group>"; };
 		077E80F02AE13E0B004CDB8F /* ManageBlockTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBlockTableViewHeader.swift; sourceTree = "<group>"; };
@@ -393,6 +395,7 @@
 			children = (
 				0770803029E78D0500D66900 /* SelectGroupView.swift */,
 				0770802E29E78C9200D66900 /* SelectGroupViewController.swift */,
+				0776DB622AE267DC008379A1 /* SelectGroupTableViewFooter.swift */,
 			);
 			path = SelectGroup;
 			sourceTree = "<group>";
@@ -889,6 +892,7 @@
 				07EB771729F5335F000BD87E /* SelectColorCollectionViewCell.swift in Sources */,
 				078C50B829D7152F00F239BA /* SceneDelegate.swift in Sources */,
 				0719649029E04F7E009CA1A4 /* CreateBlockViewController.swift in Sources */,
+				0776DB632AE267DC008379A1 /* SelectGroupTableViewFooter.swift in Sources */,
 				076248C92AB301C9000A8664 /* BlockDelegate.swift in Sources */,
 				075A5AEB2A81DCDD0004F847 /* PopupViewController.swift in Sources */,
 				0719649429E0692E009CA1A4 /* FormTextField.swift in Sources */,

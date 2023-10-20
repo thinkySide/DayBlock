@@ -44,4 +44,5 @@ protocol EditGroupViewControllerDelegate: AnyObject {
 @objc protocol SelectGroupViewControllerDelegate: AnyObject {
     @objc optional func updateGroup()
     @objc optional func switchHomeGroup(index: Int)
+    @objc optional func switchManageGroupTabBar()
 }

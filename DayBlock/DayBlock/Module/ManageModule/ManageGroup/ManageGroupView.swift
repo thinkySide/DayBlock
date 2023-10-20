@@ -83,7 +83,7 @@ final class ManageGroupView: UIView {
             
             // toastView
             toastView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            toastView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -48)
+            toastView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
     }
     

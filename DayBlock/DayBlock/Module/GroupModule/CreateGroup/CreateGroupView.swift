@@ -13,12 +13,12 @@ final class CreateGroupView: UIView {
     
     // MARK: - Component
     
-    lazy var backBarButtonItem: UIBarButtonItem = {
-        let configuration = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
-        let item = UIBarButtonItem(image: UIImage(systemName: "xmark")?.withConfiguration(configuration), style: .plain, target: self, action: #selector(backBarButtonItemTapped))
-        item.tintColor = Color.mainText
-        return item
-    }()
+//    lazy var backBarButtonItem: UIBarButtonItem = {
+//        let configuration = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
+//        let item = UIBarButtonItem(image: UIImage(systemName: "xmark")?.withConfiguration(configuration), style: .plain, target: self, action: #selector(backBarButtonItemTapped))
+//        item.tintColor = Color.mainText
+//        return item
+//    }()
     
     lazy var groupLabelTextField: FormTextField = {
         let form = FormTextField()

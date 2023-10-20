@@ -30,6 +30,11 @@ final class ManageGroupViewController: UIViewController {
         setupTableView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewManager.groupTableView.reloadData()
+    }
+    
     // MARK: - Setup Method
     
     private func setupTabBar() {
@@ -141,6 +146,7 @@ extension ManageGroupViewController: UITableViewDataSource, UITableViewDelegate 
         // EditGroupDetailViewController로 Push
         let editGroupDetailVC = EditGroupViewController()
         editGroupDetailVC.delegate = self
+        editGroupDetailVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(editGroupDetailVC, animated: true)
     }
 }
@@ -156,6 +162,7 @@ extension ManageGroupViewController: ManageGroupViewDelegate {
     func addGroup() {
         let createGroupVC = CreateGroupViewController()
         createGroupVC.delegate = self
+        createGroupVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(createGroupVC, animated: true)
     }
 }
