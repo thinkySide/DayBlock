@@ -180,6 +180,28 @@ extension ManageBlockViewController: UITableViewDataSource, UITableViewDelegate 
         
         // 셀 클릭 시, 바로 비활성화되는 애니메이션 추가
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        // 관리 중인 섹션 인덱스 업데이트
+        groupData.updateManageIndex(to: indexPath.section)
+        
+        // 관리 블럭 및 그룹 인덱스 업데이트
+        groupData.updateManageIndex(to: indexPath.section)
+        blockData.updateManageIndex(to: indexPath.row)
+        
+        // 편집 할 블럭 및 리모트 블럭 업데이트
+        let editBlock = blockData.listInSelectedGroup(at: indexPath.section)[indexPath.row]
+        blockData.updateRemote(group: groupData.list()[indexPath.section])
+        blockData.updateRemoteBlock(label: editBlock.taskLabel)
+        blockData.updateRemoteBlock(todayOutput: editBlock.todayOutput)
+        blockData.updateRemoteBlock(icon: editBlock.icon)
+        
+        // 해당 블럭 편집 화면 Push
+        let editBlockVC = CreateBlockViewController()
+        editBlockVC.hidesBottomBarWhenPushed = true
+        editBlockVC.configureManageEditMode()
+        navigationController?.pushViewController(editBlockVC, animated: true)
+        
+        print("groupManageIndex: \(groupData.manageIndex()), blockManageIndex: \(blockData.manageIndex())")
     }
     
     /// Footer(블럭 추가하기) 탭 시 호출되는 메서드
@@ -203,7 +225,7 @@ extension ManageBlockViewController: UITableViewDataSource, UITableViewDelegate 
         let createBlockVC = CreateBlockViewController()
         createBlockVC.hidesBottomBarWhenPushed = true
         createBlockVC.setupCreateMode()
-        createBlockVC.configureManageMode()
+        createBlockVC.configureManageCreateMode()
         navigationController?.pushViewController(createBlockVC, animated: true)
     }
 }

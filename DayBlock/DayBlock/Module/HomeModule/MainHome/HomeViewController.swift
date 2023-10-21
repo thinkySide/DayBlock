@@ -58,6 +58,10 @@ final class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        // CollectionView 리로드
+        viewManager.blockCollectionView.reloadData()
+        
+        // TabBar 설정
         let tbAppearance = UITabBarAppearance()
         tbAppearance.configureWithOpaqueBackground()
         tbAppearance.backgroundColor = .clear

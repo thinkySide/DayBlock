@@ -195,7 +195,7 @@ extension HomeViewController {
         let editBlockVC = CreateBlockViewController()
         editBlockVC.delegate = self
         editBlockVC.hidesBottomBarWhenPushed = true
-        editBlockVC.setupEditMode()
+        editBlockVC.configureEditMode()
         navigationController?.pushViewController(editBlockVC, animated: true)
     }
 }

@@ -205,6 +205,11 @@ extension GroupDataStore {
 // MARK: - Manage Group Index
 extension GroupDataStore {
     
+    /// 현재 관리 중인 그룹을 반환합니다.
+    func manageEntity() -> Group {
+        return entities[manageIndexValue]
+    }
+    
     /// 관리 중인 그룹의 인덱스를 반환합니다.
     func manageIndex() -> Int {
         return manageIndexValue

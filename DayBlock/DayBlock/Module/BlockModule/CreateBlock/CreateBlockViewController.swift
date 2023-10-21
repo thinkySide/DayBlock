@@ -13,7 +13,8 @@ final class CreateBlockViewController: UIViewController {
     enum Mode {
         case create
         case edit
-        case manage
+        case manageCreate
+        case manageEdit
     }
     
     // MARK: - Variable
@@ -28,8 +29,13 @@ final class CreateBlockViewController: UIViewController {
     /// 블럭 편집 모드
     private var mode: Mode = .create {
         didSet {
-            if mode == .create { title = "블럭 생성" }
-            if mode == .edit { title = "블럭 편집" }
+            if mode == .create || mode == .manageCreate {
+                title = "블럭 생성"
+            }
+            
+            if mode == .edit || mode == .manageEdit {
+                title = "블럭 편집"
+            }
         }
     }
     
@@ -69,7 +75,7 @@ final class CreateBlockViewController: UIViewController {
     }
     
     /// 블럭 편집 모드로 기본 설정 진행
-    func setupEditMode() {
+    func configureEditMode() {
         mode = .edit
         
         // UI 업데이트
@@ -82,15 +88,29 @@ final class CreateBlockViewController: UIViewController {
         originalBlockName = taskLabel
     }
     
-    /// 블럭 관리 모드로 기본 설정 진행
-    func configureManageMode() {
-        mode = .manage
+    /// 블럭 관리 생성 모드로 기본 설정 진행
+    func configureManageCreateMode() {
+        mode = .manageCreate
+    }
+    
+    /// 블럭 관리 생성 모드로 기본 설정 진행
+    func configureManageEditMode() {
+        mode = .manageEdit
+        
+        // UI 업데이트
+        let taskLabel = blockData.remote().list[0].taskLabel
+        viewManager.taskLabelTextField.textField.text = taskLabel
+        viewManager.taskLabelTextField.countLabel.text = "\(taskLabel.count)/18"
+        viewManager.createBarButtonItem.isEnabled = true
+        
+        // 편집 중인 블럭명 저장
+        originalBlockName = taskLabel
     }
     
     func setupInitial() {
         
         // 매니지모드에서 실행되는 것이라면 섹션값을 기준으로 실행
-        if mode == .manage {
+        if mode == .manageCreate || mode == .manageEdit {
             let sectionIndex = groupData.manageIndex()
             blockData.updateRemote(group: groupData.list()[sectionIndex])
             viewManager.updateBlockInfo(blockData.remote())
@@ -164,9 +184,15 @@ final class CreateBlockViewController: UIViewController {
             delegate?.createBlockViewController(self, blockDidEdit: .edit)
         }
         
-        // 블럭 관리 모드
-        if mode == .manage {
+        // 블럭 관리 생성 모드
+        if mode == .manageCreate {
             blockData.create()
+            navigationController?.popViewController(animated: true)
+        }
+        
+        // 블럭 관리 편집 모드
+        if mode == .manageEdit {
+            blockData.updateForManageMode()
             navigationController?.popViewController(animated: true)
         }
     }

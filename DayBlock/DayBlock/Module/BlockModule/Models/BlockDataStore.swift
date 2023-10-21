@@ -29,6 +29,9 @@ final class BlockDataStore {
     /// 현재 포커스 중인 블럭 인덱스
     private var focusIndexValue = 0
     
+    /// 현재 관리 중인 블럭 인덱스
+    private var manageIndexValue = 0
+    
     /// 그룹 데이터 객체
     /// ⚠️ 결합도가 높아지지만 구현을 위해 우선 이렇게 사용해보기
     private let groupData = GroupDataStore.shared
@@ -68,6 +71,16 @@ extension BlockDataStore {
         }
         
         fatalError("Error: block Entity 반환 실패")
+    }
+    
+    /// 관리 중인 블럭 리스트를 반환합니다.
+    func manageList() -> [Block] {
+        
+        if let manageEntities = groupData.manageEntity().blockList?.array as? [Block] {
+            return manageEntities
+        }
+        
+        fatalError("Manage Block Entity 반환 실패")
     }
     
     /// 지정한 인덱스와 일치하는 그룹에 속한 블럭 리스트를 반환합니다.
@@ -135,6 +148,46 @@ extension BlockDataStore {
             }
         }
 
+        // 3. 그룹 데이터 저장
+        groupData.saveContext()
+    }
+    
+    /// 블럭 관리 모드에서 블럭 수정 완료 후 엔티티를 업데이트합니다.
+    func updateForManageMode() {
+        
+        // 1. 리모트 블럭을 통한 블럭 엔티티 생성
+        let updateBlock = Block(context: context)
+        updateBlock.taskLabel = remoteBlock().taskLabel
+        updateBlock.icon = remoteBlock().icon
+        
+        // 2. 기존 트래킹 데이터 업데이트
+        if let trackingDateList = manageEntity().trackingDateList?.array as? [TrackingDate] {
+            for trackingDate in trackingDateList {
+                updateBlock.addToTrackingDateList(trackingDate)
+            }
+        }
+        
+        // 3-1. 그룹이 동일한 경우
+        //      - 블럭 엔티티 현재 인덱스에 삽입 후
+        //      - 기존 블럭 엔티티 삭제
+        if groupData.manageIndex() == remoteIndex {
+            groupData.manageEntity().insertIntoBlockList(updateBlock, at: manageIndexValue)
+            delete(manageList()[manageIndexValue + 1])
+        }
+        
+        // 3-2. 그룹이 이동된 경우
+        //      - 현재 인덱스의 블럭 엔티티 삭제 후
+        //      - 리모트 그룹 인덱스의 가장 마지막 인덱스에 블럭 엔티티 삽입
+        //      - 현재 블럭 인덱스 업데이트(화면 이동용)
+        if groupData.manageIndex() != remoteIndex {
+            delete(manageEntity())
+            if let entity = groupData.list()[remoteIndex].blockList?.array as? [Block] {
+                groupData.list()[remoteIndex].insertIntoBlockList(updateBlock, at: entity.count)
+                // updateManageIndex(to: entity.count)
+                // groupData.updateManageIndex(to: remoteIndex)
+            }
+        }
+        
         // 3. 그룹 데이터 저장
         groupData.saveContext()
     }
@@ -234,5 +287,26 @@ extension BlockDataStore {
         let group = groupData.focusEntity()
         remoteObject = RemoteGroup(name: group.name, color: group.color)
         remoteIndex = groupData.focusIndex()
+    }
+}
+
+// MARK: - Manage Index
+extension BlockDataStore {
+    
+    /// 현재 관리 중인 블럭을 반환합니다.
+    func manageEntity() -> Block {
+        return manageList()[manageIndexValue]
+    }
+    
+    /// 관리 중인 블럭 인덱스를 반환합니다.
+    func manageIndex() -> Int {
+        return manageIndexValue
+    }
+    
+    /// 지정된 인덱스로 관리 블럭 인덱스를 업데이트합니다.
+    ///
+    /// - Parameter index: 업데이트 할 인덱스 값
+    func updateManageIndex(to index: Int) {
+        manageIndexValue = index
     }
 }
