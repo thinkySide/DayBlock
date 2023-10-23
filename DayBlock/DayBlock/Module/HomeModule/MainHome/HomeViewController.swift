@@ -59,9 +59,12 @@ final class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         
         // 트래킹 버튼 토글
-        var isToggle = false
-        isToggle = groupData.focusEntity().blockList?.count == 0 ? false : true
-        viewManager.toggleTrackingButton(isToggle)
+        let blockCount = groupData.focusEntity().blockList?.count
+        if blockCount == 0 || blockCount == blockData.focusIndex() {
+            viewManager.toggleTrackingButton(false)
+        } else {
+            viewManager.toggleTrackingButton(true)
+        }
         
         // CollectionView 리로드
         viewManager.blockCollectionView.reloadData()
