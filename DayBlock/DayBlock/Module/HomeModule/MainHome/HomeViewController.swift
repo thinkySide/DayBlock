@@ -58,6 +58,11 @@ final class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        // 트래킹 버튼 토글
+        var isToggle = false
+        isToggle = groupData.focusEntity().blockList?.count == 0 ? false : true
+        viewManager.toggleTrackingButton(isToggle)
+        
         // CollectionView 리로드
         viewManager.blockCollectionView.reloadData()
         

@@ -50,6 +50,9 @@ extension HomeViewController: CreateBlockViewControllerDelegate {
         
         // 4. 편집된 블럭이 포커스 되어있으므로, 트래킹 버튼 활성화
         viewManager.toggleTrackingButton(true)
+        
+        // 여기서 델리게이트로 트래킹버튼을 비활성화 시켜야할 듯.
+        // 만약 방금 수정한 섹션과 현재 보고 있는 그룹의 인덱스가 같다면.
     }
     
     /// 블럭 생성 후 호출되는 Delegate 메서드입니다.
