@@ -117,12 +117,12 @@ extension GroupDataStore {
         saveContext()
     }
     
-    /// A엔티티와 B엔티티의 위치를 변경합니다.
-    func moveCell(sourceIndex: Int, destinationIndex: Int) {
+    /// 그룹 셀의 위치를 변경합니다.
+    func moveCell(_ sourceRow: Int, _ destinationRow: Int) {
         
         // 이동할 그룹 삭제 후 insert
-        let moveGroup = entities.remove(at: sourceIndex)
-        entities.insert(moveGroup, at: destinationIndex)
+        let moveGroup = entities.remove(at: sourceRow)
+        entities.insert(moveGroup, at: destinationRow)
         
         for (index, group) in entities.enumerated() {
             group.order = index

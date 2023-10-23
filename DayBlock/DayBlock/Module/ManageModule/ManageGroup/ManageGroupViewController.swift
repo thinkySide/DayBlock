@@ -267,7 +267,7 @@ extension ManageGroupViewController: UITableViewDragDelegate {
             return
         }
         
-        groupData.moveCell(sourceIndex: sourceIndexPath.row, destinationIndex: destinationIndexPath.row)
+        groupData.moveCell(sourceIndexPath.row, destinationIndexPath.row)
         viewManager.groupTableView.reloadData()
     }
 }

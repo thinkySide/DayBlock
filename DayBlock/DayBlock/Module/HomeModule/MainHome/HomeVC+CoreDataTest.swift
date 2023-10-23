@@ -51,6 +51,7 @@ extension HomeViewController {
                     print("   [\(block.taskLabel) Block]")
                     print("   • superGroup: \(block.superGroup.name)")
                     // print("   • id: \(block.id)")
+                    print("   • order: \(block.order)")
                     print("   • icon: \(block.icon)")
                     print("   • todayOutput: \(block.todayOutput)")
                     print("")

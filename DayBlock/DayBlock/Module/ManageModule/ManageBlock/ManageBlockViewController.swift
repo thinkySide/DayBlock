@@ -25,6 +25,27 @@ final class ManageBlockViewController: UIViewController {
         setupGesture()
         setupNavigation()
         setupTableView()
+        
+        viewManager.testButton.addTarget(self, action: #selector(test), for: .touchUpInside)
+    }
+    
+    @objc func test() {
+        let groupList = groupData.list()
+        for group in groupList {
+            
+            print("[\(group.name) Group]")
+            print("• color: \(group.color)")
+            print("")
+            
+            if let blockList = group.blockList?.array as? [Block] {
+                for block in blockList {
+                    print("   [\(block.taskLabel) Block]")
+                    print("   • order: \(block.order)")
+                    print("")
+                }
+            }
+            print("------------------------------------------\n")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,18 +92,22 @@ final class ManageBlockViewController: UIViewController {
     }
     
     private func setupTableView() {
-        viewManager.tableView.dataSource = self
-        viewManager.tableView.delegate = self
+        let tableView = viewManager.tableView
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.dragDelegate = self
+        tableView.dropDelegate = self
+        tableView.dragInteractionEnabled = true
         
-        viewManager.tableView.register(
+        tableView.register(
             ManageBlockTableViewCell.self,
             forCellReuseIdentifier: ManageBlockTableViewCell.cellID)
         
-        viewManager.tableView.register(
+        tableView.register(
             ManageBlockTableViewHeader.self,
             forHeaderFooterViewReuseIdentifier: ManageBlockTableViewHeader.headerID)
         
-        viewManager.tableView.register(
+        tableView.register(
             ManageBlockTableViewFooter.self,
             forHeaderFooterViewReuseIdentifier: ManageBlockTableViewFooter.footerID)
     }
@@ -227,5 +252,38 @@ extension ManageBlockViewController: UITableViewDataSource, UITableViewDelegate 
         createBlockVC.setupCreateMode()
         createBlockVC.configureManageCreateMode()
         navigationController?.pushViewController(createBlockVC, animated: true)
+    }
+}
+
+// MARK: - UITableViewDragDelegate
+extension ManageBlockViewController: UITableViewDragDelegate {
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        print(#function)
+        let itemProvider = NSItemProvider()
+        return [UIDragItem(itemProvider: itemProvider)]
+    }
+    
+    /// 실제 셀이 드래그 & 드롭 되었을 때 실행될 메서드
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        print("섹션 \(sourceIndexPath.section)의 \(sourceIndexPath.row)에서  섹션\(destinationIndexPath.section)의 \(destinationIndexPath.row)로 이동")
+        
+        blockData.moveCell(sourceIndexPath, destinationIndexPath)
+        viewManager.tableView.reloadData()
+    }
+}
+
+// MARK: - UITableViewDropDelegate
+extension ManageBlockViewController: UITableViewDropDelegate {
+    
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        if session.localDragSession != nil {
+            return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+        }
+        return UITableViewDropProposal(operation: .cancel, intent: .unspecified)
+    }
+    
+    /// App이나 View 간의 드래그 앤 드롭 발생시 호출되는 메서드
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        print(#function)
     }
 }

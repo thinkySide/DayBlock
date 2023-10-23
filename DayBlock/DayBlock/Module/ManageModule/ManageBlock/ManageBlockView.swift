@@ -9,6 +9,14 @@ import UIKit
 
 final class ManageBlockView: UIView {
     
+    let testButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("테스트 버튼", for: .normal)
+        button.backgroundColor = .systemBlue
+        button.tintColor = .white
+        return button
+    }()
+    
     let sectionBar: SectionBar = {
         let sectionBar = SectionBar()
         sectionBar.firstSection.label.text = "블럭 관리"
@@ -44,7 +52,7 @@ final class ManageBlockView: UIView {
     }
     
     private func addView() {
-        [tableView, sectionBar, tabBarStackView].forEach {
+        [tableView, sectionBar, tabBarStackView, testButton].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -64,7 +72,12 @@ final class ManageBlockView: UIView {
             tabBarStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             tabBarStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tabBarStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            tabBarStackView.heightAnchor.constraint(equalToConstant: 1)
+            tabBarStackView.heightAnchor.constraint(equalToConstant: 1),
+            
+            testButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            testButton.bottomAnchor.constraint(equalTo: tabBarStackView.topAnchor, constant: -24),
+            testButton.widthAnchor.constraint(equalToConstant: 120),
+            testButton.heightAnchor.constraint(equalToConstant: 56)
         ])
     }
 }

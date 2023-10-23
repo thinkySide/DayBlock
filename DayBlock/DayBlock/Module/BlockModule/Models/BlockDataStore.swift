@@ -51,6 +51,7 @@ extension BlockDataStore {
             newBlock.taskLabel = remoteBlock().taskLabel
             newBlock.todayOutput = remoteBlock().todayOutput
             newBlock.icon = remoteBlock().icon
+            newBlock.order = listInSelectedGroup(at: groupData.focusIndex()).count
             
             // 2. 그룹 데이터 업데이트 및 저장
             groupData.updateFocusIndex(to: index)
@@ -66,7 +67,7 @@ extension BlockDataStore {
         
         // 현재 그룹 인덱스값을 이용해 그룹 엔티티에서 블럭 엔티티값 반환
         if let entity = groupData.focusEntity().blockList?.array as? [Block] {
-            entities = entity
+            entities = entity.sorted { $0.order < $1.order }
             return entities
         }
         
@@ -77,7 +78,7 @@ extension BlockDataStore {
     func manageList() -> [Block] {
         
         if let manageEntities = groupData.manageEntity().blockList?.array as? [Block] {
-            return manageEntities
+            return manageEntities.sorted { $0.order < $1.order }
         }
         
         fatalError("Manage Block Entity 반환 실패")
@@ -89,7 +90,7 @@ extension BlockDataStore {
     func listInSelectedGroup(at index: Int) -> [Block] {
         let group = groupData.list()[index]
         if let blockList = group.blockList?.array as? [Block] {
-            return blockList
+            return blockList.sorted { $0.order < $1.order }
         }
         
         print("\(#function): 인덱스에 일치하는 블럭 리스트가 없습니다.")
@@ -102,7 +103,7 @@ extension BlockDataStore {
     func listInSelectedGroup(with groupName: String) -> [Block] {
         for group in groupData.list() where group.name == groupName {
             if let blockList = group.blockList?.array as? [Block] {
-                return blockList
+                return blockList.sorted { $0.order < $1.order }
             }
         }
         
@@ -189,6 +190,66 @@ extension BlockDataStore {
         }
         
         // 3. 그룹 데이터 저장
+        groupData.saveContext()
+    }
+    
+    /// 블럭 셀의 위치를 변경합니다.
+    func moveCell(_ source: IndexPath, _ destination: IndexPath) {
+        
+        // 1. 처음, 이동할 위치의 블럭 리스트
+        let sourceGroup = groupData.list()[source.section]
+        let sourceList = listInSelectedGroup(at: source.section)
+        
+        let destinationGroup = groupData.list()[destination.section]
+        let destinationList = listInSelectedGroup(at: destination.section)
+        
+        // 2. 이동할 블럭 저장
+        let targetBlock = sourceList[source.row]
+        let saveBlock = Block(context: context)
+        saveBlock.taskLabel = targetBlock.taskLabel
+        saveBlock.icon = targetBlock.icon
+        saveBlock.todayOutput = targetBlock.todayOutput
+        saveBlock.superGroup = targetBlock.superGroup
+        saveBlock.trackingDateList = targetBlock.trackingDateList
+        
+        // 이동할 블럭 삭제
+        sourceGroup.removeFromBlockList(sourceList[source.row])
+        context.delete(sourceList[source.row])
+        
+        // 이동할 블럭 해당 인덱스에 끼워넣기
+        destinationGroup.insertIntoBlockList(saveBlock, at: destination.row)
+        
+        // 3-1. 만약 그룹 내 블럭 이동이라면
+        if source.section == destination.section {
+            print("같은 그룹으로 이동")
+            
+            for block in destinationList {
+                
+                // 아래로 셀이 내려갔을 때
+                if source.row < destination.row {
+                    if block.order > source.row && block.order <= destination.row {
+                        block.order -= 1
+                    }
+                }
+                
+                // 위로 셀이 올라갔을 때
+                else if source.row > destination.row {
+                    if block.order < source.row && block.order >= destination.row {
+                        block.order += 1
+                    }
+                }
+            }
+            
+            saveBlock.order = destination.row
+        }
+        
+        // 3-2. 만약 그룹 외 블럭 이동이라면
+        else if source.section != destination.section {
+            print("다른 그룹으로 이동")
+            
+        }
+        
+        // 4. 코어데이터 저장
         groupData.saveContext()
     }
     
