@@ -615,3 +615,14 @@ NotificationCenter를 활용해 그룹이 업데이트 되는 시점에 맞춰 H
 ---
 
 <br>
+
+### **Day 87 - 23.10.23**
+
+- **ManageBlockViewController 셀 이동 로직 구현**   
+블럭 셀을 이동해 순서를 바꾸는 기능을 구현했습니다. CoreData에서 순서를 보장해주지 않아 order 프로퍼티를 만들어 업데이트해주는 식으로 진행했습니다.
+
+<img width="300" src="https://github.com/thinkySide/DayBlock/assets/113565086/8ab5a30b-8a3f-4f27-8492-5a4abdefb048">
+
+---
+
+<br>

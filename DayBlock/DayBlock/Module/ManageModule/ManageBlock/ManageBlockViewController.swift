@@ -265,10 +265,27 @@ extension ManageBlockViewController: UITableViewDragDelegate {
     
     /// 실제 셀이 드래그 & 드롭 되었을 때 실행될 메서드
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        print("섹션 \(sourceIndexPath.section)의 \(sourceIndexPath.row)에서  섹션\(destinationIndexPath.section)의 \(destinationIndexPath.row)로 이동")
+        
+        // 같은 셀 이동했을 때 불필요한 코드 실행 방지
+        if sourceIndexPath == destinationIndexPath { return }
+        
+//        let sourceList = blockData.listInSelectedGroup(at: sourceIndexPath.section)
+//        let destinationList = blockData.listInSelectedGroup(at: destinationIndexPath.section)
+//        let targetBlock = sourceList[sourceIndexPath.row]
+//        
+//        // 이동하려는 그룹에 동일 작업명 블럭 있을 시 조기 종료
+//        if sourceIndexPath.section != destinationIndexPath.section &&
+//            destinationList.contains(where: { block in
+//            block.taskLabel == targetBlock.taskLabel
+//        }) {
+//            print("얌마 같은 블럭 있다")
+//            tableView.moveRow(at: destinationIndexPath, to: sourceIndexPath)
+//            tableView.reloadData()
+//            return
+//        }
         
         blockData.moveCell(sourceIndexPath, destinationIndexPath)
-        viewManager.tableView.reloadData()
+        tableView.reloadData()
     }
 }
 
