@@ -247,6 +247,16 @@ extension BlockDataStore {
         else if source.section != destination.section {
             print("다른 그룹으로 이동")
             
+            // 그룹 이동에 따른 인덱스 조정
+            for block in sourceList where source.row < block.order {
+                block.order -= 1
+            }
+            
+            for block in destinationList where destination.row <= block.order {
+                block.order += 1
+            }
+            
+            saveBlock.order = destination.row
         }
         
         // 4. 코어데이터 저장
