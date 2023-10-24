@@ -69,7 +69,7 @@ extension BlockDataStore {
             newBlock.taskLabel = remoteBlock().taskLabel
             newBlock.todayOutput = remoteBlock().todayOutput
             newBlock.icon = remoteBlock().icon
-            newBlock.order = listInSelectedGroup(at: groupData.focusIndex()).count
+            newBlock.order = listInSelectedGroup(at: groupData.manageIndex()).count
             
             // 2. 그룹 데이터 업데이트 및 저장
             groupData.list()[index].addToBlockList(newBlock)
@@ -276,6 +276,26 @@ extension BlockDataStore {
         
         // 4. 코어데이터 저장
         groupData.saveContext()
+    }
+    
+    /// 일반 편집 모드에서 블럭의 order값을 일괄적으로 업데이트합니다.
+    func updateOrder() {
+        let blockList = listInSelectedGroup(at: groupData.focusIndex())
+        
+        // 현재 선택한 블럭의 인덱스보다 큰 order값을 가진 블럭들만 업데이트
+        for block in blockList where block.order > focusIndexValue {
+            block.order -= 1
+        }
+    }
+    
+    /// 관리 편집 모드에서 블럭의 order 값을 일괄적으로 업데이트합니다.
+    func updateOrderForManageMode() {
+        let blockList = listInSelectedGroup(at: groupData.manageIndex())
+        
+        // 현재 선택한 블럭의 인덱스보다 큰 order값을 가진 블럭들만 업데이트
+        for block in blockList where block.order > manageIndexValue {
+            block.order -= 1
+        }
     }
     
     // MARK: - 4. DELETE

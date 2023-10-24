@@ -207,9 +207,12 @@ extension HomeViewController: PopupViewControllerDelegate {
     func confirmButtonTapped() {
         let deleteBlock = blockData.focusEntity()
         blockData.delete(deleteBlock)
-        viewManager.blockCollectionView.reloadData()
+        
+        // Order 값 업데이트
+        blockData.updateOrder()
         
         // UI 업데이트
+        viewManager.blockCollectionView.reloadData()
         viewManager.productivityLabel.text = "TODAY +\(trackingData.todayAllOutput())"
         
         // 그룹 리스트가 비어있을 시, 트래킹 버튼 비활성화

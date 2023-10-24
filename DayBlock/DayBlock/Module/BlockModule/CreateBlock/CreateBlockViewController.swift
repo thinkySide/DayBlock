@@ -422,6 +422,9 @@ extension CreateBlockViewController: PopupViewControllerDelegate {
             let deleteBlock = blockData.focusEntity()
             blockData.delete(deleteBlock)
             
+            // Order 값 업데이트
+            blockData.updateOrder()
+            
             // 델리게이트로 HomeViewController의 컬렉션 뷰 리로드
             delegate?.createBlockViewController(self, blockDidDelete: mode)
         }
@@ -432,6 +435,9 @@ extension CreateBlockViewController: PopupViewControllerDelegate {
             // 블럭 데이터 삭제(코어데이터)
             let deleteBlock = blockData.manageEntity()
             blockData.delete(deleteBlock)
+            
+            // Order 값 업데이트
+            blockData.updateOrderForManageMode()
         }
         
         // 이전 화면으로 돌아가기
