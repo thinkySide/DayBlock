@@ -250,17 +250,20 @@ extension CreateBlockViewController: UITextFieldDelegate {
     @objc func taskLabelTextFieldChanged() {
         guard let text = viewManager.taskLabelTextField.textField.text else { return }
         
-        // 리모트 블럭 업데이트
-        blockData.updateRemoteBlock(label: text)
-        
-        // 라벨 실시간 업데이트
-        viewManager.updateTaskLabel(text)
-        
-        // 글자수 현황 업데이트
-        viewManager.taskLabelTextField.countLabel.text = "\(text.count)/18"
-        
-        // 동일한 작업명의 블럭 생성 막기
-        checkSameBlock()
+        DispatchQueue.main.async {
+            
+            // 리모트 블럭 업데이트
+            self.blockData.updateRemoteBlock(label: text)
+            
+            // 라벨 실시간 업데이트
+            self.viewManager.updateTaskLabel(text)
+            
+            // 글자수 현황 업데이트
+            self.viewManager.taskLabelTextField.countLabel.text = "\(text.count)/18"
+            
+            // 동일한 작업명의 블럭 생성 막기
+            self.checkSameBlock()
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -282,7 +285,8 @@ extension CreateBlockViewController: UITextFieldDelegate {
         if let groupName = viewManager.groupSelect.selectLabel.text {
             for block in blockData.listInSelectedGroup(with: groupName) {
                 
-                let currentGroupIndex = groupData.focusIndex()
+                // 일반 편집 & 관리 편집 모드 구분
+                let currentGroupIndex = mode == .edit ? groupData.focusIndex() : groupData.manageIndex()
                 let remoteBlockGroupIndex = blockData.remoteIndex
                 let remoteBlockLabel = blockData.remote().list[0].taskLabel
                 

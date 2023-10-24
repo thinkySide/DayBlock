@@ -14,7 +14,7 @@ final class ManageBlockView: UIView {
         button.setTitle("테스트 버튼", for: .normal)
         button.backgroundColor = .systemBlue
         button.tintColor = .white
-        button.alpha = 1
+        button.alpha = 0
         return button
     }()
     
