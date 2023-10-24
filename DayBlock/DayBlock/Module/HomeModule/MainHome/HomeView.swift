@@ -65,7 +65,7 @@ final class HomeView: UIView {
     
     let productivityLabel: UILabel = {
         let label = UILabel()
-        label.text = "TODAY +0.0" // ⛳️
+        label.text = "today +0.0" // ⛳️
         label.font = UIFont(name: Poppins.bold, size: 23)
         label.textColor = Color.mainText
         label.textAlignment = .left
@@ -352,7 +352,7 @@ final class HomeView: UIView {
             
             /// timeLabel
             timeLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 5),
-            timeLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
+            timeLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin-2), // 시각 보정
             timeLabel.heightAnchor.constraint(equalToConstant: timeLabel.font.pointSize),
             
             /// productivityLabel
@@ -399,8 +399,8 @@ final class HomeView: UIView {
             /// trackingButton
             trackingButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -48),
             trackingButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            trackingButton.widthAnchor.constraint(equalToConstant: 72),
-            trackingButton.heightAnchor.constraint(equalToConstant: 72),
+            trackingButton.widthAnchor.constraint(equalToConstant: 64),
+            trackingButton.heightAnchor.constraint(equalToConstant: 64),
             
             toastView.centerXAnchor.constraint(equalTo: centerXAnchor),
             toastView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -48),

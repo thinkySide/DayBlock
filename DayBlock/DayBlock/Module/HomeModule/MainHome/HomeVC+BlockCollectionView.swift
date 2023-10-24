@@ -213,14 +213,14 @@ extension HomeViewController: PopupViewControllerDelegate {
         
         // UI 업데이트
         viewManager.blockCollectionView.reloadData()
-        viewManager.productivityLabel.text = "TODAY +\(trackingData.todayAllOutput())"
+        viewManager.productivityLabel.text = "today +\(trackingData.todayAllOutput())"
         
         // 그룹 리스트가 비어있을 시, 트래킹 버튼 비활성화
-//        let blockList = groupData.focusEntity().blockList?.array as! [Block]
-//        if blockList.isEmpty || (blockData.focusIndex() == blockList.count) {
-//            viewManager.toggleTrackingButton(false)
-//        } else {
-//            viewManager.toggleTrackingButton(true)
-//        }
+        let blockList = groupData.focusEntity().blockList?.array as! [Block]
+        if blockList.isEmpty || (blockData.focusIndex() == blockList.count) {
+            viewManager.toggleTrackingButton(false)
+        } else {
+            viewManager.toggleTrackingButton(true)
+        }
     }
 }

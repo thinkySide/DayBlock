@@ -61,8 +61,8 @@ final class SectionBar: UIView {
         NSLayoutConstraint.activate([
             hStackView.topAnchor.constraint(equalTo: topAnchor),
             hStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            hStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
-            hStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
+            hStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+            hStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
             
             separator.leadingAnchor.constraint(equalTo: leadingAnchor),
             separator.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -85,7 +85,7 @@ final class Section: UIView {
     
     let label: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: Pretendard.semiBold, size: 17)
+        label.font = UIFont(name: Pretendard.semiBold, size: 16)
         label.textColor = Color.mainText
         label.textAlignment = .center
         label.text = "섹션"

@@ -83,7 +83,7 @@ extension HomeViewController: CreateBlockViewControllerDelegate {
         viewManager.blockCollectionView.reloadData()
         
         // UI 업데이트
-        viewManager.productivityLabel.text = "TODAY +\(trackingData.todayAllOutput())"
+        viewManager.productivityLabel.text = "today +\(trackingData.todayAllOutput())"
     }
 }
 

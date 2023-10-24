@@ -225,7 +225,7 @@ extension HomeViewController {
     func homeView(_ homeView: HomeView, trackingDidFinish mode: HomeView.TrakingMode) {
         
         // 1. UI 업데이트
-        viewManager.productivityLabel.text = "TODAY +\(trackingData.todayAllOutput())"
+        viewManager.productivityLabel.text = "today +\(trackingData.todayAllOutput())"
         
         // 2. 컬렉션뷰 초기화
         viewManager.blockCollectionView.reloadData()
