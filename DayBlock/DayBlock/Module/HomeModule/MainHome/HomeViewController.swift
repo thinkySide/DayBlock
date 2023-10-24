@@ -66,6 +66,10 @@ final class HomeViewController: UIViewController {
             viewManager.toggleTrackingButton(true)
         }
         
+//        // 그룹 선택 버튼 업데이트
+//        viewManager.groupSelectButton.color.backgroundColor = groupData.focusColor()
+//        viewManager.groupSelectButton.label.text = groupData.focusEntity().name
+        
         // CollectionView 리로드
         viewManager.blockCollectionView.reloadData()
         

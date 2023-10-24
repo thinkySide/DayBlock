@@ -186,7 +186,7 @@ final class CreateBlockViewController: UIViewController {
         
         // 블럭 관리 생성 모드
         if mode == .manageCreate {
-            blockData.create()
+            blockData.createForManageMode()
             navigationController?.popViewController(animated: true)
         }
         

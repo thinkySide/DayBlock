@@ -60,6 +60,23 @@ extension BlockDataStore {
         }
     }
     
+    /// 현재 리모트 객체의 정보로 새 블럭을 생성합니다. (관리 모드)
+    func createForManageMode() {
+        for (index, groups) in groupData.list().enumerated() where remoteObject.name == groups.name {
+            
+            // 1. 블럭 엔티티 생성
+            let newBlock = Block(context: context)
+            newBlock.taskLabel = remoteBlock().taskLabel
+            newBlock.todayOutput = remoteBlock().todayOutput
+            newBlock.icon = remoteBlock().icon
+            newBlock.order = listInSelectedGroup(at: groupData.focusIndex()).count
+            
+            // 2. 그룹 데이터 업데이트 및 저장
+            groupData.list()[index].addToBlockList(newBlock)
+            groupData.saveContext()
+        }
+    }
+    
     // MARK: - 2. READ
     
     /// 블럭 리스트를 반환합니다.
@@ -184,8 +201,6 @@ extension BlockDataStore {
             delete(manageEntity())
             if let entity = groupData.list()[remoteIndex].blockList?.array as? [Block] {
                 groupData.list()[remoteIndex].insertIntoBlockList(updateBlock, at: entity.count)
-                // updateManageIndex(to: entity.count)
-                // groupData.updateManageIndex(to: remoteIndex)
             }
         }
         
