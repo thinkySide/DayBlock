@@ -14,7 +14,7 @@ final class ManageBlockView: UIView {
         button.setTitle("테스트 버튼", for: .normal)
         button.backgroundColor = .systemBlue
         button.tintColor = .white
-        button.alpha = 1
+        button.alpha = 0
         return button
     }()
     
@@ -31,6 +31,13 @@ final class ManageBlockView: UIView {
         tableView.backgroundColor = .white
         tableView.showsVerticalScrollIndicator = false
         return tableView
+    }()
+    
+    let toastView: ToastMessage = {
+        let view = ToastMessage()
+        view.messageLabel.text = "그룹 내 동일한 블럭명이 있어요"
+        view.alpha = 0
+        return view
     }()
     
     let tabBarStackView = TabBar(location: .manage)
@@ -53,7 +60,7 @@ final class ManageBlockView: UIView {
     }
     
     private func addView() {
-        [tableView, sectionBar, tabBarStackView, testButton].forEach {
+        [tableView, sectionBar, tabBarStackView, testButton, toastView].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -78,7 +85,10 @@ final class ManageBlockView: UIView {
             testButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             testButton.bottomAnchor.constraint(equalTo: tabBarStackView.topAnchor, constant: -24),
             testButton.widthAnchor.constraint(equalToConstant: 120),
-            testButton.heightAnchor.constraint(equalToConstant: 56)
+            testButton.heightAnchor.constraint(equalToConstant: 56),
+            
+            toastView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            toastView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
     }
 }

@@ -282,6 +282,6 @@ extension ManageGroupViewController: UITableViewDropDelegate {
         return UITableViewDropProposal(operation: .cancel, intent: .unspecified)
     }
     
-    /// 내려놓을 때 실행할 메서드
+    /// 다른 APP으로 내려놓을 때 실행할 메서드
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) { }
 }
