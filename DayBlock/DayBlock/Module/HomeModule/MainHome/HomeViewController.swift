@@ -82,6 +82,8 @@ final class HomeViewController: UIViewController {
         if #available(iOS 15.0, *) {
             tabBarController?.tabBar.scrollEdgeAppearance = tbAppearance
         }
+        
+        viewManager.messageLabel.text = "현재 인덱스: \(blockData.focusIndex())"
     }
     
     // MARK: - Setup Method
@@ -156,6 +158,11 @@ final class HomeViewController: UIViewController {
 
             // 17. 일시정지 상태
             if isPause { viewManager.trackingButtonTapped() }
+        }
+        
+        // 트래킹 모드가 아니라면
+        else if !isTracking {
+            blockData.updateFocusIndex(to: 0)
         }
     }
     
