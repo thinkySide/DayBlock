@@ -72,6 +72,7 @@ final class CreateBlockViewController: UIViewController {
     /// 블럭 생성 모드로 기본 설정 진행
     func setupCreateMode() {
         mode = .create
+        viewManager.deleteButton.alpha = 0
     }
     
     /// 블럭 편집 모드로 기본 설정 진행
@@ -91,6 +92,7 @@ final class CreateBlockViewController: UIViewController {
     /// 블럭 관리 생성 모드로 기본 설정 진행
     func configureManageCreateMode() {
         mode = .manageCreate
+        viewManager.deleteButton.alpha = 0
     }
     
     /// 블럭 관리 생성 모드로 기본 설정 진행
@@ -146,15 +148,18 @@ final class CreateBlockViewController: UIViewController {
     
     func setupAddTarget() {
         
-        /// taskLabelTextField - Tap Event
+        // taskLabelTextField - Tap Event
         let taskLabelTap = UITapGestureRecognizer(target: self, action: #selector(taskLabelTapped))
         viewManager.taskLabelTextField.addGestureRecognizer(taskLabelTap)
         
-        /// taskLabelTextField - EditingChanged Event
+        // taskLabelTextField - EditingChanged Event
         viewManager.taskLabelTextField.textField
             .addTarget(self, action: #selector(taskLabelTextFieldChanged), for: .editingChanged)
         
-        /// createBarButtonItem
+        // deleteButton
+        viewManager.deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+        
+        // createBarButtonItem
         viewManager.createBarButtonItem.target = self
         viewManager.createBarButtonItem.action = #selector(createBarButtonItemTapped)
     }
@@ -204,6 +209,18 @@ final class CreateBlockViewController: UIViewController {
         let editGroup = groupData.editIndex()
         let selectGroup = groupData.focusIndex()
         if editGroup == selectGroup { setupInitial() }
+    }
+    
+    /// 삭제 버튼 탭 시 실행되는 메서드
+    @objc func deleteButtonTapped() {
+        let deletePopup = PopupViewController()
+        deletePopup.delegate = self
+        deletePopup.deletePopupView.mainLabel.text = "블럭을 삭제할까요?"
+        deletePopup.deletePopupView.subLabel.text = "블럭의 정보가 모두 삭제돼요"
+        deletePopup.modalPresentationStyle = .overCurrentContext
+        deletePopup.modalTransitionStyle = .crossDissolve
+        view.endEditing(true)
+        self.present(deletePopup, animated: true)
     }
 }
 
@@ -391,5 +408,33 @@ extension CreateBlockViewController: SelectGroupViewControllerDelegate, SelectIc
         let icon = blockData.remoteBlockIcon()
         viewManager.iconSelect.selectIcon.image = icon
         viewManager.updateIcon(icon)
+    }
+}
+
+// MARK: - PopupViewControllerDelegate
+extension CreateBlockViewController: PopupViewControllerDelegate {
+    func confirmButtonTapped() {
+        
+        // 일반 편집 모드 일 때
+        if mode == .edit {
+            
+            // 실제 블럭 데이터 삭제 메서드(코어데이터)
+            let deleteBlock = blockData.focusEntity()
+            blockData.delete(deleteBlock)
+            
+            // 델리게이트로 HomeViewController의 컬렉션 뷰 리로드
+            delegate?.createBlockViewController(self, blockDidDelete: mode)
+        }
+        
+        // 관리 모드 편집 모드 일 때
+        else if mode == .manageEdit {
+            
+            // 블럭 데이터 삭제(코어데이터)
+            let deleteBlock = blockData.manageEntity()
+            blockData.delete(deleteBlock)
+        }
+        
+        // 이전 화면으로 돌아가기
+        navigationController?.popViewController(animated: true)
     }
 }

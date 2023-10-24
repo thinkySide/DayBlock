@@ -101,7 +101,7 @@ final class EditGroupDetailView: UIView {
             selectFormStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
             // deleteButton
-            deleteButton.topAnchor.constraint(equalTo: selectFormStackView.bottomAnchor, constant: 32),
+            deleteButton.topAnchor.constraint(equalTo: selectFormStackView.bottomAnchor, constant: 40),
             deleteButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             deleteButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin)
         ])

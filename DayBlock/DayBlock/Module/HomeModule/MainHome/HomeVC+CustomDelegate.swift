@@ -32,6 +32,25 @@ extension HomeViewController: HomeViewDelegate {
 // MARK: - Create Block ViewController Delegate
 extension HomeViewController: CreateBlockViewControllerDelegate {
     
+    /// 블럭 생성 후 호출되는 Delegate 메서드입니다.
+    ///
+    /// - Parameter mode: CreateBlockViewController의 현재 모드
+    func createBlockViewController(_ createBlockViewController: CreateBlockViewController, blockDidCreate mode: CreateBlockViewController.Mode) {
+        
+        // 1. 그룹 업데이트(그룹이 편집이 되었을 경우를 확인하기 위해)
+        switchHomeGroup(index: groupData.focusIndex())
+        
+        // 2. 현재 블럭 인덱스를 가장 마지막 인덱스로 저장(생성 블럭 이전 인덱스)
+        blockIndex = blockData.list().count - 1
+        blockData.updateFocusIndex(to: blockIndex)
+        
+        // 3. BlockCollectionView 스크롤 위치 지정
+        viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: blockIndex, section: 0), at: .left, animated: true)
+        
+        // 4. 생성된 블럭이 포커스 되어있으므로, 트래킹 버튼 활성화
+        viewManager.toggleTrackingButton(true)
+    }
+    
     /// 블럭 편집 후 호출되는 Delegate 메서드입니다.
     ///
     /// - Parameter mode: CreateBlockViewController의 현재 모드
@@ -55,23 +74,16 @@ extension HomeViewController: CreateBlockViewControllerDelegate {
         // 만약 방금 수정한 섹션과 현재 보고 있는 그룹의 인덱스가 같다면.
     }
     
-    /// 블럭 생성 후 호출되는 Delegate 메서드입니다.
+    /// 블럭 삭제 후 호출되는 Delegate 메서드입니다.
     ///
     /// - Parameter mode: CreateBlockViewController의 현재 모드
-    func createBlockViewController(_ createBlockViewController: CreateBlockViewController, blockDidCreate mode: CreateBlockViewController.Mode) {
+    func createBlockViewController(_ createBlockViewController: CreateBlockViewController, blockDidDelete mode: CreateBlockViewController.Mode) {
         
-        // 1. 그룹 업데이트(그룹이 편집이 되었을 경우를 확인하기 위해)
-        switchHomeGroup(index: groupData.focusIndex())
+        // 컬렉션뷰 리로드
+        viewManager.blockCollectionView.reloadData()
         
-        // 2. 현재 블럭 인덱스를 가장 마지막 인덱스로 저장(생성 블럭 이전 인덱스)
-        blockIndex = blockData.list().count - 1
-        blockData.updateFocusIndex(to: blockIndex)
-        
-        // 3. BlockCollectionView 스크롤 위치 지정
-        viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: blockIndex, section: 0), at: .left, animated: true)
-        
-        // 4. 생성된 블럭이 포커스 되어있으므로, 트래킹 버튼 활성화
-        viewManager.toggleTrackingButton(true)
+        // UI 업데이트
+        viewManager.productivityLabel.text = "TODAY +\(trackingData.todayAllOutput())"
     }
 }
 

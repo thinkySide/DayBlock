@@ -107,7 +107,7 @@ final class CreateGroupView: UIView {
             /// selectFormStackView
             selectFormStackView.topAnchor.constraint(equalTo: groupLabelTextField.bottomAnchor, constant: 8),
             selectFormStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
-            selectFormStackView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            selectFormStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }
 }

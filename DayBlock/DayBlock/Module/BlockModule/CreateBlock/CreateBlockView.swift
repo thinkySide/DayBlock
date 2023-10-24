@@ -89,6 +89,11 @@ final class CreateBlockView: UIView {
         item.isEnabled = false
         return item
     }()
+    
+    let deleteButton: ActionButton = {
+        let button = ActionButton(frame: .zero, mode: .delete)
+        return button
+    }()
 
     // MARK: - Method
     
@@ -140,13 +145,13 @@ final class CreateBlockView: UIView {
     func setupAddSubView() {
         
         /// 1. addSubView(component)
-        [blockPreview, taskLabelTextField, selectFormStackView]
+        [blockPreview, taskLabelTextField, selectFormStackView, deleteButton]
             .forEach { addSubview($0) }
         
         /// 2. translatesAutoresizingMaskIntoConstraints = false
         [
             blockPreview, blockPreviewColorTag, blockPreviewIcon,
-            blockTaskLabel, taskLabelTextField, selectFormStackView,
+            blockTaskLabel, taskLabelTextField, selectFormStackView, deleteButton,
             groupSelect, iconSelect
         ]
             .forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
@@ -188,7 +193,12 @@ final class CreateBlockView: UIView {
             // selectFormStackView
             selectFormStackView.topAnchor.constraint(equalTo: taskLabelTextField.bottomAnchor, constant: 8),
             selectFormStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
-            selectFormStackView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            selectFormStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            
+            // deleteButton
+            deleteButton.topAnchor.constraint(equalTo: selectFormStackView.bottomAnchor, constant: 40),
+            deleteButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
+            deleteButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin)
         ])
     }
 }
