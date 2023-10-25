@@ -77,8 +77,8 @@ final class ManageGroupView: UIView {
             sectionBar.trailingAnchor.constraint(equalTo: trailingAnchor),
             
             // groupTableView
-            groupTableView.topAnchor.constraint(equalTo: sectionBar.bottomAnchor),
-            groupTableView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            groupTableView.topAnchor.constraint(equalTo: sectionBar.bottomAnchor, constant: 8),
+            groupTableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             groupTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             groupTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             

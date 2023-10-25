@@ -72,7 +72,7 @@ final class ManageBlockView: UIView {
             sectionBar.leadingAnchor.constraint(equalTo: leadingAnchor),
             sectionBar.trailingAnchor.constraint(equalTo: trailingAnchor),
             
-            tableView.topAnchor.constraint(equalTo: sectionBar.bottomAnchor, constant: -12),
+            tableView.topAnchor.constraint(equalTo: sectionBar.bottomAnchor, constant: 8),
             tableView.bottomAnchor.constraint(equalTo: tabBarStackView.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),

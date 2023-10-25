@@ -12,16 +12,18 @@ final class ManageBlockTableViewHeader: UITableViewHeaderFooterView {
     
     let spacer: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(rgb: 0xF2F2F7)
+        // view.backgroundColor = UIColor(rgb: 0xF2F2F7)
+        view.backgroundColor = .white
+        view.alpha = 0
         return view
     }()
     
-    let blockLabel: UILabel = {
+    let groupLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: Pretendard.bold, size: 18)
         label.textColor = Color.mainText
         label.textAlignment = .left
-        label.text = "블럭명"
+        label.text = "그룹명"
         return label
     }()
     
@@ -30,17 +32,17 @@ final class ManageBlockTableViewHeader: UITableViewHeaderFooterView {
         contentView.backgroundColor = .white
         
         contentView.addSubview(spacer)
-        contentView.addSubview(blockLabel)
+        contentView.addSubview(groupLabel)
         spacer.translatesAutoresizingMaskIntoConstraints = false
-        blockLabel.translatesAutoresizingMaskIntoConstraints = false
+        groupLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             spacer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             spacer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            spacer.heightAnchor.constraint(equalToConstant: 12),
+            spacer.heightAnchor.constraint(equalToConstant: 8),
             
-            blockLabel.topAnchor.constraint(equalTo: spacer.bottomAnchor, constant: 20),
-            blockLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20)
+            groupLabel.topAnchor.constraint(equalTo: spacer.bottomAnchor, constant: 20),
+            groupLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20)
         ])
     }
     

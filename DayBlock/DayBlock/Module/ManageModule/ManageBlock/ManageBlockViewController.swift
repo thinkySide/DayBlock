@@ -51,28 +51,12 @@ final class ManageBlockViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewManager.tableView.reloadData()
-        
-        // 네비게이션바 스크롤 색상 초기화
-        let nbAppearance = UINavigationBarAppearance()
-        nbAppearance.configureWithOpaqueBackground()
-        nbAppearance.backgroundColor = .white
-        nbAppearance.shadowColor = .clear
-        navigationController?.navigationBar.standardAppearance = nbAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = nbAppearance
-        
-        // 탭배 스크롤 색상 초기화
-        let tbAppearance = UITabBarAppearance()
-        tbAppearance.configureWithOpaqueBackground()
-        tbAppearance.backgroundColor = .white
-        tbAppearance.shadowColor = .clear
-        tabBarController?.tabBar.standardAppearance = tbAppearance
-        if #available(iOS 15.0, *) {
-            tabBarController?.tabBar.scrollEdgeAppearance = tbAppearance
-        }
     }
     
     // MARK: - Setup Method
     private func setupTabBar() {
+        
+        // 선택된 탭바 지정
         tabBarController?.tabBar.selectedItem?.title = "관리소"
         tabBarController?.tabBar.selectedItem?.image = UIImage(named: Icon.schedule)
     }
@@ -86,9 +70,20 @@ final class ManageBlockViewController: UIViewController {
     }
     
     private func setupNavigation() {
+        
+        // 뒤로가기 버튼 커스텀
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         backBarButtonItem.tintColor = Color.mainText
         navigationItem.backBarButtonItem = backBarButtonItem
+        
+        // 네비게이션바의 Appearance를 설정
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.configureWithTransparentBackground()
+        navigationController?.navigationBar.tintColor = .white
+        navigationItem.scrollEdgeAppearance = navigationBarAppearance
+        navigationItem.standardAppearance = navigationBarAppearance
+        navigationItem.compactAppearance = navigationBarAppearance
+        navigationController?.setNeedsStatusBarAppearanceUpdate()
     }
     
     private func setupTableView() {
@@ -144,7 +139,7 @@ extension ManageBlockViewController: UITableViewDataSource, UITableViewDelegate 
         
         header.layoutMargins = UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40)
         
-        header.blockLabel.text = "\(groupData.list()[section].name)"
+        header.groupLabel.text = "\(groupData.list()[section].name)"
         return header
     }
     
@@ -165,7 +160,7 @@ extension ManageBlockViewController: UITableViewDataSource, UITableViewDelegate 
     
     /// Header 높이 값 설정 메서드
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 68
+        return 56
     }
     
     /// Footer 높이 값 설정 메서드
@@ -225,8 +220,6 @@ extension ManageBlockViewController: UITableViewDataSource, UITableViewDelegate 
         editBlockVC.hidesBottomBarWhenPushed = true
         editBlockVC.configureManageEditMode()
         navigationController?.pushViewController(editBlockVC, animated: true)
-        
-        print("groupManageIndex: \(groupData.manageIndex()), blockManageIndex: \(blockData.manageIndex())")
     }
     
     /// Footer(블럭 추가하기) 탭 시 호출되는 메서드

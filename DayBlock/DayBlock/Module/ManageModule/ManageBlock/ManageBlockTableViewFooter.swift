@@ -23,7 +23,7 @@ final class ManageBlockTableViewFooter: UITableViewHeaderFooterView {
     let label: UILabel = {
         let label = UILabel()
         label.text = "블럭 추가하기"
-        label.font = UIFont(name: Pretendard.semiBold, size: 17)
+        label.font = UIFont(name: Pretendard.semiBold, size: 16)
         label.textColor = Color.subText2
         label.textAlignment = .left
         return label

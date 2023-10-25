@@ -47,7 +47,8 @@ final class TabBar: UIStackView {
 
     init(location: Location) {
         super.init(frame: .zero)
-        backgroundColor = UIColor(rgb: 0xF7F7F7)
+        // backgroundColor = UIColor(rgb: 0xF7F7F7)
+        backgroundColor = .white
 
         axis = .horizontal
         distribution = .fillProportionally
