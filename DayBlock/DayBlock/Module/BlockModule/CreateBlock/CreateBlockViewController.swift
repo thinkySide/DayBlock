@@ -442,6 +442,19 @@ extension CreateBlockViewController: PopupViewControllerDelegate {
             
             // Order 값 업데이트
             blockData.updateOrderForManageMode()
+            
+            // 만약 포커스 그룹의 마지막 인덱스를 삭제한다면
+            // 포커스 인덱스 값 업데이트(블럭 리스트의 count를 기준으로)
+            let lastIndex = blockData.listInSelectedGroup(at: groupData.focusIndex()).count
+            
+            print("마지막 인덱스: \(lastIndex)")
+            
+            if groupData.manageIndex() == groupData.focusIndex() &&
+                blockData.focusIndex() - 1 == lastIndex {
+                
+                print("인덱스 업데이트")
+                blockData.updateFocusIndex(to: lastIndex)
+            }
         }
         
         // 이전 화면으로 돌아가기
