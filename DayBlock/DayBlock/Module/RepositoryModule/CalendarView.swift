@@ -6,13 +6,12 @@
 //
 
 import UIKit
+import FSCalendar
 
 final class CalendarView: UIView {
-    
-    let calendarView: UICalendarView = {
-        let calendar = UICalendarView()
-        calendar.locale = Locale(identifier: "ko_KR")
-        calendar.fontDesign = .rounded
+
+    let calendar: FSCalendar = {
+        let calendar = FSCalendar()
         return calendar
     }()
     
@@ -36,7 +35,7 @@ final class CalendarView: UIView {
     }
     
     private func addView() {
-        [tabBarStackView].forEach {
+        [calendar, tabBarStackView].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -44,6 +43,11 @@ final class CalendarView: UIView {
     
     private func addConstraints() {
         NSLayoutConstraint.activate([
+            calendar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            calendar.leadingAnchor.constraint(equalTo: leadingAnchor),
+            calendar.trailingAnchor.constraint(equalTo: trailingAnchor),
+            calendar.heightAnchor.constraint(equalToConstant: 400),
+            
             tabBarStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             tabBarStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tabBarStackView.trailingAnchor.constraint(equalTo: trailingAnchor),

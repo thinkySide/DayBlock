@@ -87,6 +87,7 @@
 		07967D012AC9A1D300BB45B5 /* TrackingTime+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07967CFF2AC9A1D300BB45B5 /* TrackingTime+CoreDataProperties.swift */; };
 		07967D032ACA606000BB45B5 /* HomeVC+TrackingLifeCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07967D022ACA606000BB45B5 /* HomeVC+TrackingLifeCycle.swift */; };
 		07A45CE42AA0952000C09342 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A45CE32AA0952000C09342 /* TimerManager.swift */; };
+		07AE45CB2AF0EAA300125316 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 07AE45CA2AF0EAA300125316 /* FSCalendar */; };
 		07B04BAC2ADD500800580711 /* Block+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B04BA82ADD500800580711 /* Block+CoreDataClass.swift */; };
 		07B04BAD2ADD500800580711 /* Block+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B04BA92ADD500800580711 /* Block+CoreDataProperties.swift */; };
 		07B04BAE2ADD500800580711 /* Group+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B04BAA2ADD500800580711 /* Group+CoreDataClass.swift */; };
@@ -229,6 +230,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07AE45CB2AF0EAA300125316 /* FSCalendar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -726,6 +728,7 @@
 			);
 			name = DayBlock;
 			packageProductDependencies = (
+				07AE45CA2AF0EAA300125316 /* FSCalendar */,
 			);
 			productName = DayBlock;
 			productReference = 078C50B229D7152F00F239BA /* DayBlock.app */;
@@ -756,6 +759,7 @@
 			);
 			mainGroup = 078C50A929D7152F00F239BA;
 			packageReferences = (
+				07AE45C92AF0EAA300125316 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = 078C50B329D7152F00F239BA /* Products */;
 			projectDirPath = "";
@@ -977,7 +981,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1033,7 +1037,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1060,7 +1064,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1091,7 +1095,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1127,6 +1131,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		07AE45C92AF0EAA300125316 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		07AE45CA2AF0EAA300125316 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 07AE45C92AF0EAA300125316 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		078C50BE29D7152F00F239BA /* DayBlock.xcdatamodeld */ = {

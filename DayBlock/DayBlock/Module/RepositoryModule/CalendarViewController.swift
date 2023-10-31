@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FSCalendar
 
 final class CalendarViewController: UIViewController {
     
@@ -20,4 +21,15 @@ final class CalendarViewController: UIViewController {
         super.viewDidLoad()
         
     }
+    
+    // MARK: - Setup Method
+    private func setupCalendar() {
+        viewManager.calendar.dataSource = self
+        viewManager.calendar.delegate = self
+    }
+}
+
+// MARK: - FSCalendarDataSource & FSCalendarDelegate
+extension CalendarViewController: FSCalendarDataSource & FSCalendarDelegate {
+    
 }
