@@ -21,6 +21,7 @@ final class CalendarViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCalendar()
+        setupEvent()
     }
     
     // MARK: - Setup Method
@@ -30,6 +31,34 @@ final class CalendarViewController: UIViewController {
         
         // Header date 설정
         viewManager.calendarHeaderLabel.text = calendarManager.headerDateFormatter.string(from: Date())
+    }
+    
+    private func setupEvent() {
+        viewManager.previousButton.addTarget(self, action: #selector(previousButtonTapped), for: .touchUpInside)
+        
+        viewManager.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+    }
+    
+    // MARK: - Event Method
+    
+    /// 달력 이전 버튼 클릭 시 호출되는 메서드입니다.
+    @objc private func previousButtonTapped() {
+        guard let previousDate = 
+                Calendar.current.date(
+                    byAdding: .weekOfMonth,
+                    value: -1,
+                    to: viewManager.calendar.currentPage) else { return }
+        viewManager.calendar.setCurrentPage(previousDate, animated: true)
+    }
+    
+    /// 달력 다음 버튼 클릭 시 호출되는 메서드입니다.
+    @objc private func nextButtonTapped() {
+        guard let nextDate =
+                Calendar.current.date(
+                    byAdding: .month,
+                    value: 1,
+                    to: viewManager.calendar.currentPage) else { return }
+        viewManager.calendar.setCurrentPage(nextDate, animated: true)
     }
 }
 
