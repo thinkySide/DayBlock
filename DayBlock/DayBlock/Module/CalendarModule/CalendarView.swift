@@ -9,9 +9,26 @@ import UIKit
 import FSCalendar
 
 final class CalendarView: UIView {
+    
+    let calendarHeaderLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: Poppins.bold, size: 22)
+        label.textColor = Color.mainText
+        label.textAlignment = .left
+        return label
+    }()
 
     let calendar: FSCalendar = {
         let calendar = FSCalendar()
+        
+        // 기본 설정
+        // calendar.locale = Locale(identifier: "ko_KR") // locale 설정
+        calendar.placeholderType = .none // 현재 달의 날짜만 표시
+        
+        // 기본 Header 삭제
+        calendar.headerHeight = 0
+        
+        
         return calendar
     }()
     
@@ -35,7 +52,7 @@ final class CalendarView: UIView {
     }
     
     private func addView() {
-        [calendar, tabBarStackView].forEach {
+        [calendarHeaderLabel, calendar, tabBarStackView].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -43,7 +60,10 @@ final class CalendarView: UIView {
     
     private func addConstraints() {
         NSLayoutConstraint.activate([
-            calendar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            calendarHeaderLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            calendarHeaderLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            
+            calendar.topAnchor.constraint(equalTo: calendarHeaderLabel.bottomAnchor),
             calendar.leadingAnchor.constraint(equalTo: leadingAnchor),
             calendar.trailingAnchor.constraint(equalTo: trailingAnchor),
             calendar.heightAnchor.constraint(equalToConstant: 400),

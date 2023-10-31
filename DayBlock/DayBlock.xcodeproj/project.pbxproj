@@ -88,6 +88,7 @@
 		07967D032ACA606000BB45B5 /* HomeVC+TrackingLifeCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07967D022ACA606000BB45B5 /* HomeVC+TrackingLifeCycle.swift */; };
 		07A45CE42AA0952000C09342 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A45CE32AA0952000C09342 /* TimerManager.swift */; };
 		07AE45CB2AF0EAA300125316 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 07AE45CA2AF0EAA300125316 /* FSCalendar */; };
+		07AE45CD2AF0F66A00125316 /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AE45CC2AF0F66A00125316 /* CalendarManager.swift */; };
 		07B04BAC2ADD500800580711 /* Block+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B04BA82ADD500800580711 /* Block+CoreDataClass.swift */; };
 		07B04BAD2ADD500800580711 /* Block+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B04BA92ADD500800580711 /* Block+CoreDataProperties.swift */; };
 		07B04BAE2ADD500800580711 /* Group+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B04BAA2ADD500800580711 /* Group+CoreDataClass.swift */; };
@@ -198,6 +199,7 @@
 		07967CFF2AC9A1D300BB45B5 /* TrackingTime+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingTime+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		07967D022ACA606000BB45B5 /* HomeVC+TrackingLifeCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+TrackingLifeCycle.swift"; sourceTree = "<group>"; };
 		07A45CE32AA0952000C09342 /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
+		07AE45CC2AF0F66A00125316 /* CalendarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
 		07B04BA82ADD500800580711 /* Block+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Block+CoreDataClass.swift"; sourceTree = "<group>"; };
 		07B04BA92ADD500800580711 /* Block+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Block+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		07B04BAA2ADD500800580711 /* Group+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -354,13 +356,14 @@
 			path = ManageModule;
 			sourceTree = "<group>";
 		};
-		076248AA2AB2DB2A000A8664 /* RepositoryModule */ = {
+		076248AA2AB2DB2A000A8664 /* CalendarModule */ = {
 			isa = PBXGroup;
 			children = (
+				07AE45CC2AF0F66A00125316 /* CalendarManager.swift */,
 				07FAF9882AE0E6DB003BD30B /* CalendarView.swift */,
 				078C50F729D9BBFE00F239BA /* CalendarViewController.swift */,
 			);
-			path = RepositoryModule;
+			path = CalendarModule;
 			sourceTree = "<group>";
 		};
 		076248AC2AB2DC1E000A8664 /* Button */ = {
@@ -536,7 +539,7 @@
 				076248A62AB2DA3D000A8664 /* ColorModule */,
 				076248A72AB2DA63000A8664 /* IconModule */,
 				076248A92AB2DB0F000A8664 /* ManageModule */,
-				076248AA2AB2DB2A000A8664 /* RepositoryModule */,
+				076248AA2AB2DB2A000A8664 /* CalendarModule */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -880,6 +883,7 @@
 				07454E1329EC138E00B3458D /* ManageGroupTableViewCell.swift in Sources */,
 				07454E1129EBFDF200B3458D /* ActionButton.swift in Sources */,
 				073EBFF02AB6D4D40031F6AB /* SFSymbols.swift in Sources */,
+				07AE45CD2AF0F66A00125316 /* CalendarManager.swift in Sources */,
 				0770803629E7981300D66900 /* SelectIconView.swift in Sources */,
 				078C50EE29D72F9D00F239BA /* UIColor++.swift in Sources */,
 				076248CD2AB302FD000A8664 /* ColorDelegate.swift in Sources */,
