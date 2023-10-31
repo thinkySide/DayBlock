@@ -39,7 +39,7 @@ final class ManageGroupViewController: UIViewController {
     
     private func setupTabBar() {
         tabBarController?.tabBar.selectedItem?.title = "관리소"
-        tabBarController?.tabBar.selectedItem?.image = UIImage(named: Icon.schedule)
+        tabBarController?.tabBar.selectedItem?.image = UIImage(named: Icon.storage)
     }
     
     private func setupDelegate() {
@@ -91,7 +91,7 @@ final class ManageGroupViewController: UIViewController {
         }
         
         let manageBlockVC = UINavigationController(rootViewController: ManageBlockViewController())
-        viewControllers[1] = manageBlockVC
+        viewControllers[2] = manageBlockVC
         tabBarController?.setViewControllers(viewControllers, animated: true)
     }
     

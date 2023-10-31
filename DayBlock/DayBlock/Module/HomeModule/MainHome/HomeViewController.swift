@@ -79,10 +79,8 @@ final class HomeViewController: UIViewController {
         tbAppearance.backgroundColor = .clear
         tbAppearance.shadowColor = .clear
         tabBarController?.tabBar.standardAppearance = tbAppearance
-        if #available(iOS 15.0, *) {
-            tabBarController?.tabBar.scrollEdgeAppearance = tbAppearance
-        }
-        
+        tabBarController?.tabBar.scrollEdgeAppearance = tbAppearance
+
         viewManager.messageLabel.text = "현재 인덱스: \(blockData.focusIndex())"
     }
     

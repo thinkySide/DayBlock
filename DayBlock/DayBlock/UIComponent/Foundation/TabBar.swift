@@ -14,7 +14,7 @@ final class TabBar: UIStackView {
     enum Location {
         case tracking
         case manage
-        case repository
+        case calendar
     }
 
     // MARK: - Component
@@ -69,7 +69,7 @@ final class TabBar: UIStackView {
             tracking.alpha = 0
             manage.alpha = 1
             repository.alpha = 0
-        case .repository:
+        case .calendar:
             tracking.alpha = 0
             manage.alpha = 0
             repository.alpha = 1

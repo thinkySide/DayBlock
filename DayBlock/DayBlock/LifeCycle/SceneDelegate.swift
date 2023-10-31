@@ -22,16 +22,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // UINavigation 추가
         let homeNavigationController = UINavigationController(rootViewController: HomeViewController())
+        
+        let calendarNavigationController = UINavigationController(rootViewController: CalendarViewController())
+        
         let manageBlockViewController = UINavigationController(rootViewController: ManageBlockViewController())
-        let storageNavigationController = UINavigationController(rootViewController: RepositoryViewController())
         
         // UITabBarController 추가
         let tabBarController = UITabBarController()
         tabBarController.tabBar.tintColor = Color.mainText
         tabBarController.setViewControllers([
             homeNavigationController,
+            calendarNavigationController,
             manageBlockViewController,
-            storageNavigationController
         ], animated: true)
         
         // UITabBarItem 추가
@@ -41,13 +43,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             items[0].image = UIImage(named: Icon.home)
             items[0].title = "트래킹"
             
-            // scheduleNavigationController
+            // calendarNavigationController
             items[1].image = UIImage(named: Icon.schedule)
-            items[1].title = "관리소"
+            items[1].title = "캘린더"
             
-            // storageNavigationController
+            // manageBlockViewController
             items[2].image = UIImage(named: Icon.storage)
-            items[2].title = "저장소"
+            items[2].title = "관리소"
         }
         
         window?.rootViewController = tabBarController

@@ -58,7 +58,7 @@ final class ManageBlockViewController: UIViewController {
         
         // 선택된 탭바 지정
         tabBarController?.tabBar.selectedItem?.title = "관리소"
-        tabBarController?.tabBar.selectedItem?.image = UIImage(named: Icon.schedule)
+        tabBarController?.tabBar.selectedItem?.image = UIImage(named: Icon.storage)
     }
     
     private func setupGesture() {
@@ -123,7 +123,7 @@ final class ManageBlockViewController: UIViewController {
         }
         
         let manageGroupVC = UINavigationController(rootViewController: ManageGroupViewController())
-        viewControllers[1] = manageGroupVC
+        viewControllers[2] = manageGroupVC
         tabBarController?.setViewControllers(viewControllers, animated: true)
     }
 }

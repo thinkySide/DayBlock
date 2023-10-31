@@ -1,5 +1,5 @@
 //
-//  RepositoryViewController.swift
+//  CalendarViewController.swift
 //  DayBlock
 //
 //  Created by 김민준 on 2023/04/02.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class RepositoryViewController: UIViewController {
+final class CalendarViewController: UIViewController {
     
-    private let viewManager = RepositoryView()
+    private let viewManager = CalendarView()
     
     // MARK: - ViewController LifeCycle
     override func loadView() {

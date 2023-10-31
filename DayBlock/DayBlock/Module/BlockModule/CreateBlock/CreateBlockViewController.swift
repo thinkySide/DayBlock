@@ -440,7 +440,7 @@ extension CreateBlockViewController: PopupViewControllerDelegate {
             let deleteBlock = blockData.manageEntity()
             blockData.delete(deleteBlock)
             
-            // Order 값 업데이트
+            // Order 값 업데이트aΩ
             blockData.updateOrderForManageMode()
             
             // 만약 포커스 그룹의 마지막 인덱스를 삭제한다면

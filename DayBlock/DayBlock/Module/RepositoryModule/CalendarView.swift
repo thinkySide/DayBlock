@@ -1,5 +1,5 @@
 //
-//  RepositoryView.swift
+//  CalendarView.swift
 //  DayBlock
 //
 //  Created by 김민준 on 10/19/23.
@@ -7,9 +7,16 @@
 
 import UIKit
 
-final class RepositoryView: UIView {
+final class CalendarView: UIView {
     
-    let tabBarStackView = TabBar(location: .repository)
+    let calendarView: UICalendarView = {
+        let calendar = UICalendarView()
+        calendar.locale = Locale(identifier: "ko_KR")
+        calendar.fontDesign = .rounded
+        return calendar
+    }()
+    
+    let tabBarStackView = TabBar(location: .calendar)
     
     // MARK: - Initial Setup
     override init(frame: CGRect) {
