@@ -89,6 +89,7 @@
 		07A45CE42AA0952000C09342 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A45CE32AA0952000C09342 /* TimerManager.swift */; };
 		07AE45CB2AF0EAA300125316 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 07AE45CA2AF0EAA300125316 /* FSCalendar */; };
 		07AE45CD2AF0F66A00125316 /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AE45CC2AF0F66A00125316 /* CalendarManager.swift */; };
+		07AE45CF2AF1032700125316 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AE45CE2AF1032700125316 /* CalendarCell.swift */; };
 		07B04BAC2ADD500800580711 /* Block+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B04BA82ADD500800580711 /* Block+CoreDataClass.swift */; };
 		07B04BAD2ADD500800580711 /* Block+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B04BA92ADD500800580711 /* Block+CoreDataProperties.swift */; };
 		07B04BAE2ADD500800580711 /* Group+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B04BAA2ADD500800580711 /* Group+CoreDataClass.swift */; };
@@ -200,6 +201,7 @@
 		07967D022ACA606000BB45B5 /* HomeVC+TrackingLifeCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+TrackingLifeCycle.swift"; sourceTree = "<group>"; };
 		07A45CE32AA0952000C09342 /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		07AE45CC2AF0F66A00125316 /* CalendarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
+		07AE45CE2AF1032700125316 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		07B04BA82ADD500800580711 /* Block+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Block+CoreDataClass.swift"; sourceTree = "<group>"; };
 		07B04BA92ADD500800580711 /* Block+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Block+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		07B04BAA2ADD500800580711 /* Group+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -362,6 +364,7 @@
 				07AE45CC2AF0F66A00125316 /* CalendarManager.swift */,
 				07FAF9882AE0E6DB003BD30B /* CalendarView.swift */,
 				078C50F729D9BBFE00F239BA /* CalendarViewController.swift */,
+				07AE45CE2AF1032700125316 /* CalendarCell.swift */,
 			);
 			path = CalendarModule;
 			sourceTree = "<group>";
@@ -856,6 +859,7 @@
 				07B49BC82A8DD84D006D1011 /* ManageGroupViewController.swift in Sources */,
 				07B04BAD2ADD500800580711 /* Block+CoreDataProperties.swift in Sources */,
 				07B04BAC2ADD500800580711 /* Block+CoreDataClass.swift in Sources */,
+				07AE45CF2AF1032700125316 /* CalendarCell.swift in Sources */,
 				07DD3E932AB022ED002D128F /* SimpleIconBlock.swift in Sources */,
 				078C50F429D73D0200F239BA /* TrackingBoard.swift in Sources */,
 				0719648329DAF4B5009CA1A4 /* RemoteGroup.swift in Sources */,

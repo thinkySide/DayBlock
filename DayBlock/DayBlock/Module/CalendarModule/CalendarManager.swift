@@ -20,4 +20,11 @@ final class CalendarManager {
         formatter.timeZone = TimeZone(identifier: "KST")
         return formatter
     }()
+    
+    func dayFormat(from date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_kr")
+        formatter.dateFormat = "d"
+        return formatter.string(from: date)
+    }
 }

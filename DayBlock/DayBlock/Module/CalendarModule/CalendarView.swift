@@ -41,12 +41,17 @@ final class CalendarView: UIView {
         let calendar = FSCalendar()
         
         // 기본 설정
-        // calendar.locale = Locale(identifier: "ko_KR") // locale 설정
         calendar.placeholderType = .none // 현재 달의 날짜만 표시
         
         // 기본 Header 삭제
         calendar.headerHeight = 0
         
+        // 요일 라벨 설정
+        calendar.appearance.weekdayFont = UIFont(name: Poppins.bold, size: 13)
+        calendar.appearance.weekdayTextColor = UIColor(rgb: 0x757575)
+        
+        // 선택 효과 가리기
+        calendar.appearance.selectionColor = .none
         
         return calendar
     }()
@@ -96,7 +101,7 @@ final class CalendarView: UIView {
             calendar.topAnchor.constraint(equalTo: calendarHeaderLabel.bottomAnchor),
             calendar.leadingAnchor.constraint(equalTo: leadingAnchor),
             calendar.trailingAnchor.constraint(equalTo: trailingAnchor),
-            calendar.heightAnchor.constraint(equalToConstant: 400),
+            calendar.heightAnchor.constraint(equalToConstant: 360),
             
             tabBarStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             tabBarStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
