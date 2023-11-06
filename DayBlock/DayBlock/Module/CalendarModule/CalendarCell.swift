@@ -12,8 +12,6 @@ final class CalendarCell: FSCalendarCell {
     
     static let id = "CalendarCell"
     
-    weak var selectionLayer: CAShapeLayer!
-    
     let dateBlock: UIView = {
         let view = UIView()
         view.backgroundColor = Color.entireBlock
@@ -69,6 +67,18 @@ final class CalendarCell: FSCalendarCell {
         super.configureAppearance()
     }
     
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                selectedDateCircle.alpha = 1
+            }
+            
+            else {
+                selectedDateCircle.alpha = 0
+            }
+        }
+    }
+    
     private func setupDateCircle() {
         selectedDateCircle.addSubview(selectedDateLabel)
         
@@ -76,6 +86,8 @@ final class CalendarCell: FSCalendarCell {
             selectedDateLabel.centerXAnchor.constraint(equalTo: selectedDateCircle.centerXAnchor),
             selectedDateLabel.centerYAnchor.constraint(equalTo: selectedDateCircle.centerYAnchor)
         ])
+        
+        self.shapeLayer.fillColor = UIColor.systemRed.cgColor
     }
     
     private func setupAutoLayout() {

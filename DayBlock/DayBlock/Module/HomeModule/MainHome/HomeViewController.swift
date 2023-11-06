@@ -80,8 +80,7 @@ final class HomeViewController: UIViewController {
         tbAppearance.shadowColor = .clear
         tabBarController?.tabBar.standardAppearance = tbAppearance
         tabBarController?.tabBar.scrollEdgeAppearance = tbAppearance
-
-        viewManager.messageLabel.text = "현재 인덱스: \(blockData.focusIndex())"
+        // viewManager.messageLabel.text = "현재 인덱스: \(blockData.focusIndex())"
     }
     
     // MARK: - Setup Method

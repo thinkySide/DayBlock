@@ -53,6 +53,9 @@ final class CalendarView: UIView {
         // 선택 효과 가리기
         calendar.appearance.selectionColor = .none
         
+        // 페이징 삭제
+        calendar.scrollEnabled = false
+        
         return calendar
     }()
     
