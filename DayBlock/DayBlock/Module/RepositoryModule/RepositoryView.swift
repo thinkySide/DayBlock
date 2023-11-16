@@ -11,12 +11,12 @@ final class RepositoryView: UIView {
     
     let scrollView: UIScrollView = {
         let scroll = UIScrollView()
-        scroll.backgroundColor = UIColor(rgb: 0xF7F7F7)
         return scroll
     }()
     
     var contentView: UIView = {
         let view = UIView()
+        view.backgroundColor = UIColor(rgb: 0xF7F7F7)
         return view
     }()
     

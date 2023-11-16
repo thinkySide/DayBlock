@@ -31,11 +31,10 @@ final class RepositoryViewController: UIViewController {
         
         // 네비게이션바의 Appearance를 설정
         let navigationBarAppearance = UINavigationBarAppearance()
-        navigationBarAppearance.configureWithTransparentBackground()
-        navigationController?.navigationBar.tintColor = .white
-        navigationItem.scrollEdgeAppearance = navigationBarAppearance
+        navigationBarAppearance.backgroundColor = .white
+        navigationBarAppearance.shadowColor = .clear
         navigationItem.standardAppearance = navigationBarAppearance
-        navigationItem.compactAppearance = navigationBarAppearance
+        navigationItem.scrollEdgeAppearance = navigationBarAppearance
         navigationController?.setNeedsStatusBarAppearanceUpdate()
     }
     
