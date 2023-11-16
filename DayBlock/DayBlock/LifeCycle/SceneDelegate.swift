@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // UINavigation 추가
         let homeNavigationController = UINavigationController(rootViewController: HomeViewController())
         
-        let calendarNavigationController = UINavigationController(rootViewController: CalendarViewController())
+        let calendarNavigationController = UINavigationController(rootViewController: RepositoryViewController())
         
         let manageBlockViewController = UINavigationController(rootViewController: ManageBlockViewController())
         

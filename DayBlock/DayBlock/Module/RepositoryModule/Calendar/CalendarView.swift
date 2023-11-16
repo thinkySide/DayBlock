@@ -59,8 +59,6 @@ final class CalendarView: UIView {
         return calendar
     }()
     
-    let tabBarStackView = TabBar(location: .calendar)
-    
     // MARK: - Initial Setup
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -79,8 +77,7 @@ final class CalendarView: UIView {
     }
     
     private func addView() {
-        [calendarHeaderLabel, previousButton, nextButton,
-         calendar, tabBarStackView].forEach {
+        [calendarHeaderLabel, previousButton, nextButton, calendar].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -104,12 +101,7 @@ final class CalendarView: UIView {
             calendar.topAnchor.constraint(equalTo: calendarHeaderLabel.bottomAnchor),
             calendar.leadingAnchor.constraint(equalTo: leadingAnchor),
             calendar.trailingAnchor.constraint(equalTo: trailingAnchor),
-            calendar.heightAnchor.constraint(equalToConstant: 360),
-            
-            tabBarStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
-            tabBarStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            tabBarStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            tabBarStackView.heightAnchor.constraint(equalToConstant: 2)
+            calendar.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 }
