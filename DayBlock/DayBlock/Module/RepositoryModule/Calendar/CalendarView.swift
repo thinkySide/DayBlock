@@ -10,6 +10,8 @@ import FSCalendar
 
 final class CalendarView: UIView {
     
+    var calendarHeight: NSLayoutConstraint?
+    
     let calendarHeaderLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: Poppins.bold, size: 22)
@@ -31,7 +33,7 @@ final class CalendarView: UIView {
         let button = UIButton()
         let configuration = UIImage.SymbolConfiguration(pointSize: 16, weight: .semibold)
         let image = UIImage(systemName: "chevron.right")?.withConfiguration(configuration)
-
+        
         button.setImage(image, for: .normal)
         button.tintColor = Color.mainText
         return button
@@ -85,6 +87,8 @@ final class CalendarView: UIView {
     
     private func addConstraints() {
         NSLayoutConstraint.activate([
+            self.bottomAnchor.constraint(equalTo: calendar.bottomAnchor),
+            
             calendarHeaderLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             calendarHeaderLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             
@@ -99,9 +103,9 @@ final class CalendarView: UIView {
             nextButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             
             calendar.topAnchor.constraint(equalTo: calendarHeaderLabel.bottomAnchor),
-            calendar.leadingAnchor.constraint(equalTo: leadingAnchor),
-            calendar.trailingAnchor.constraint(equalTo: trailingAnchor),
-            calendar.bottomAnchor.constraint(equalTo: bottomAnchor)
+            calendar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 6),
+            calendar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -6),
+            calendar.heightAnchor.constraint(equalToConstant: 360)
         ])
     }
 }

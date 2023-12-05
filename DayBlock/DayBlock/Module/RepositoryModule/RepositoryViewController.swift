@@ -13,6 +13,7 @@ final class RepositoryViewController: UIViewController {
     private let viewManager = RepositoryView()
     private lazy var calendarView = viewManager.calendarView
     private let calendarManager = CalendarManager.shared
+    private let groupDataManager = GroupDataStore.shared
     
     // MARK: - ViewController LifeCycle
     override func loadView() {
@@ -48,23 +49,29 @@ final class RepositoryViewController: UIViewController {
         calendar.register(CalendarCell.self, forCellReuseIdentifier: CalendarCell.id)
         calendar.today = nil
         
-        // 현재 Cell 불러오기
-//        calendar.visibleCells().forEach { cell in
-//            let date = calendar.date(for: cell)
-//            let position = calendar.monthPosition(for: cell)
-//            calendarView.calendar.select(date)
-//        }
-        
         // Header date 설정
         calendarView.calendarHeaderLabel.text = calendarManager.headerDateFormatter.string(from: Date())
+        
+        // 오늘 날짜 선택(기본값)
+        calendarView.calendar.select(Date())
     }
     
     private func setupEvent() {
         calendarView.previousButton.addTarget(self, action: #selector(previousButtonTapped), for: .touchUpInside)
         calendarView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        
+        // 테스트용 이벤트
+        let testGesture = UITapGestureRecognizer(target: self, action: #selector(test))
+        viewManager.timeLineView.headerLabel.addGestureRecognizer(testGesture)
+        viewManager.timeLineView.headerLabel.isUserInteractionEnabled = true
     }
     
     // MARK: - Event Method
+    
+    /// 코어데이터 테스트용 메서드
+    @objc func test() {
+        groupDataManager.printCoreData()
+    }
     
     /// 달력 이전 버튼 클릭 시 호출되는 메서드입니다.
     @objc private func previousButtonTapped() {
@@ -125,7 +132,16 @@ extension RepositoryViewController: FSCalendarDataSource & FSCalendarDelegate {
     
     /// FSCalendar의 셀이 터치되었을 때 호출되는 메서드입니다.
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        //
+        
+        // 1. 코어데이터에 해당 날짜의 모든 데이터 불러오기
+        let repositoryItems = groupDataManager.fetchAllData(for: date)
+        for item in repositoryItems {
+            for time in item.trackingTimes {
+                print("\(item.blockTaskLabel) 블럭 : \(time.startTime)~\(time.endTime)")
+            }
+        }
+        
+        // 2. 데이터를 TimeLineBoard에 전달후 반영하기
     }
     
     /// FSCalendar의 셀이 선택 해제 되었을 때 호출되는 메서드입니다.

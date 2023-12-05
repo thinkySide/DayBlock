@@ -27,4 +27,11 @@ final class CalendarManager {
         formatter.dateFormat = "d"
         return formatter.string(from: date)
     }
+    
+    func fullDateFormat(from date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_kr")
+        formatter.dateFormat = "YYYY.MM.dd"
+        return formatter.string(from: date)
+    }
 }

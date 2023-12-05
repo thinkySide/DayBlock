@@ -60,6 +60,6 @@ extension Block {
 
 }
 
-extension Block : Identifiable {
+extension Block: Identifiable {
 
 }

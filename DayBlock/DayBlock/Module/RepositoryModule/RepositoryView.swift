@@ -11,6 +11,7 @@ final class RepositoryView: UIView {
     
     let scrollView: UIScrollView = {
         let scroll = UIScrollView()
+        scroll.showsVerticalScrollIndicator = false
         return scroll
     }()
     
@@ -70,17 +71,15 @@ final class RepositoryView: UIView {
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            contentView.heightAnchor.constraint(equalTo: heightAnchor),
+            contentView.bottomAnchor.constraint(equalTo: timeLineView.bottomAnchor),
             
             calendarView.topAnchor.constraint(equalTo: contentView.topAnchor),
             calendarView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             calendarView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            calendarView.heightAnchor.constraint(equalToConstant: 400),
             
             timeLineView.topAnchor.constraint(equalTo: calendarView.bottomAnchor, constant: 12),
             timeLineView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             timeLineView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            timeLineView.heightAnchor.constraint(equalToConstant: 200),
 
             tabBarStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             tabBarStackView.leadingAnchor.constraint(equalTo: leadingAnchor),

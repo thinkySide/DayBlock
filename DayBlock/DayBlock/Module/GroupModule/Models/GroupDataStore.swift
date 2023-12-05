@@ -79,6 +79,101 @@ extension GroupDataStore {
             saveContext()
         }
     }
+    
+    /// 지정한 날짜에 속하는 모든 코어 데이터를 반환합니다.
+    func fetchAllData(for date: Date) -> [RepositoryItem] {
+        
+        // 1. 날짜 변환
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_kr")
+        formatter.dateFormat = "yyyy MM dd"
+        let dateFormat = formatter.string(from: date).components(separatedBy: " ")
+        print(dateFormat)
+        let year = dateFormat[0]
+        let month = dateFormat[1]
+        let day = dateFormat[2]
+        
+        // 반환할 빈배열 생성
+        var items: [RepositoryItem] = []
+        
+        // 2. 코어데이터에서 해당 날짜와 일치하는 데이터 반환
+        for group in entities {
+            guard let blockList = group.blockList?.array as? [Block] else {
+                print("블럭 리스트 반환 실패")
+                return []
+            }
+            
+            for block in blockList {
+                guard let trackingDateList = block.trackingDateList?.array as? [TrackingDate] else {
+                    print("트래킹 날짜 리스트 반환 실패")
+                    return []
+                }
+                
+                for trackingDate in trackingDateList {
+                    if (trackingDate.year == year && trackingDate.month == month) && trackingDate.day == day {
+                        guard let trackingTimeList = trackingDate.trackingTimeList?.array as? [TrackingTime] else {
+                            print("트래킹 시간 리스트 반환 실패")
+                            return []
+                        }
+                        
+                        let repositoryItem = RepositoryItem(
+                            groupName: group.name,
+                            groupColor: group.color,
+                            blockTaskLabel: block.taskLabel,
+                            blockIcon: block.icon,
+                            trackingDate: trackingDate,
+                            trackingTimes: trackingTimeList
+                        )
+                        
+                        items.append(repositoryItem)
+                    }
+                }
+            }
+        }
+        
+        return items
+    }
+    
+    /// 전체 코어데이터를 프린트합니다.
+    func printCoreData() {
+        
+        // 1. 그룹 엔티티
+        for group in entities {
+            print("[\(group.name)] 그룹")
+            
+            // 2. 블럭 엔티티
+            guard let blockList = group.blockList?.array as? [Block] else {
+                print("블럭 엔티티 반환 실패")
+                return
+            }
+            
+            for block in blockList {
+                print("  ㄴ[\(block.taskLabel)] 블럭")
+                
+                // 3. 트래킹 날짜 엔티티
+                guard let trackingDateList = block.trackingDateList?.array as? [TrackingDate] else {
+                    print("트래킹 날짜 엔티티 반환 실패")
+                    return
+                }
+                
+                for trackingDate in trackingDateList {
+                    print("    ㄴ\(trackingDate.year)년 \(trackingDate.month)월 \(trackingDate.day)일(\(trackingDate.dayOfWeek))")
+                    
+                    // 4. 트래킹 시간 엔티티
+                    guard let trackingTimeList = trackingDate.trackingTimeList?.array as? [TrackingTime] else {
+                        print("트래킹 시간 엔티티 반환 실패")
+                        return
+                    }
+                    
+                    for trackingTime in trackingTimeList {
+                        print("      ㄴ\(trackingTime.startTime)~\(String(describing: trackingTime.endTime))")
+                    }
+                }
+            }
+            
+            print("\n----------------------------------\n")
+        }
+    }
 }
 
 // MARK: - CRUD Method

@@ -13,7 +13,7 @@ final class SimpleIconBlock: UIView {
     
     let symbol: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(systemName: "book.closed.fill")
+        // image.image = UIImage(systemName: "book.closed.fill")
         image.contentMode = .scaleAspectFit
         image.tintColor = .white
         return image
@@ -25,7 +25,7 @@ final class SimpleIconBlock: UIView {
         super.init(frame: .zero)
         
         // Design Setting
-        self.backgroundColor = Color.testBlue
+        self.backgroundColor = UIColor(rgb: 0xE8E8E8)
         self.clipsToBounds = true
         self.layer.cornerRadius = size / 3.5
         

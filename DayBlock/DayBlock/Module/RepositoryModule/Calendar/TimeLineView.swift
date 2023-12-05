@@ -11,12 +11,14 @@ final class TimeLineView: UIView {
     
     let headerLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: Poppins.bold, size: 20)
+        label.font = UIFont(name: Pretendard.bold, size: 20)
         label.textColor = Color.mainText
         label.textAlignment = .left
         label.text = "타임라인"
         return label
     }()
+    
+    let blockBoard = TimeLineBoard(blockSpace: 30, lineSpace: 10)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,14 +33,19 @@ final class TimeLineView: UIView {
     private func setupUI() {
         backgroundColor = .white
         
-        [headerLabel].forEach {
+        [headerLabel, blockBoard].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
         NSLayoutConstraint.activate([
+            self.bottomAnchor.constraint(equalTo: blockBoard.bottomAnchor, constant: 24),
+            
             headerLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            headerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20)
+            headerLabel.leadingAnchor.constraint(equalTo: blockBoard.time00.leadingAnchor),
+            
+            blockBoard.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 16),
+            blockBoard.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }
 }
