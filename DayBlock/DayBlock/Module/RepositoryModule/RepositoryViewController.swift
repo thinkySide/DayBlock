@@ -10,7 +10,7 @@ import FSCalendar
 
 final class RepositoryViewController: UIViewController {
     
-    private let viewManager = RepositoryView()
+    let viewManager = RepositoryView()
     private lazy var calendarView = viewManager.calendarView
     private let calendarManager = CalendarManager.shared
     private let groupDataManager = GroupDataStore.shared
@@ -24,6 +24,7 @@ final class RepositoryViewController: UIViewController {
         super.viewDidLoad()
         setupNavigation()
         setupCalendar()
+        setupTableView()
         setupEvent()
     }
     
@@ -62,8 +63,8 @@ final class RepositoryViewController: UIViewController {
         
         // 테스트용 이벤트
         let testGesture = UITapGestureRecognizer(target: self, action: #selector(test))
-        viewManager.timeLineView.headerLabel.addGestureRecognizer(testGesture)
-        viewManager.timeLineView.headerLabel.isUserInteractionEnabled = true
+        viewManager.summaryView.headerLabel.addGestureRecognizer(testGesture)
+        viewManager.summaryView.headerLabel.isUserInteractionEnabled = true
     }
     
     // MARK: - Event Method

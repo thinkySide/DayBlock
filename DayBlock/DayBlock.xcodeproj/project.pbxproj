@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		0714B8052ACD005000B560D6 /* TestDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0714B8042ACD005000B560D6 /* TestDataSet.swift */; };
 		07174A142B1F470100B7EC69 /* NewTrackingBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07174A132B1F470100B7EC69 /* NewTrackingBlock.swift */; };
+		07174A162B1F4AD900B7EC69 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07174A152B1F4AD900B7EC69 /* SummaryView.swift */; };
+		07174A182B1F4C6500B7EC69 /* RepositoryVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07174A172B1F4C6500B7EC69 /* RepositoryVC+TableView.swift */; };
+		07174A1A2B1F4D0200B7EC69 /* SummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07174A192B1F4D0200B7EC69 /* SummaryTableViewCell.swift */; };
 		0719648129DAF38A009CA1A4 /* RemoteBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648029DAF38A009CA1A4 /* RemoteBlock.swift */; };
 		0719648329DAF4B5009CA1A4 /* RemoteGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648229DAF4B5009CA1A4 /* RemoteGroup.swift */; };
 		0719648629DAF9A5009CA1A4 /* HomeBlockCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719648529DAF9A5009CA1A4 /* HomeBlockCollectionViewCell.swift */; };
@@ -127,6 +130,9 @@
 /* Begin PBXFileReference section */
 		0714B8042ACD005000B560D6 /* TestDataSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDataSet.swift; sourceTree = "<group>"; };
 		07174A132B1F470100B7EC69 /* NewTrackingBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTrackingBlock.swift; sourceTree = "<group>"; };
+		07174A152B1F4AD900B7EC69 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
+		07174A172B1F4C6500B7EC69 /* RepositoryVC+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RepositoryVC+TableView.swift"; sourceTree = "<group>"; };
+		07174A192B1F4D0200B7EC69 /* SummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryTableViewCell.swift; sourceTree = "<group>"; };
 		0719648029DAF38A009CA1A4 /* RemoteBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteBlock.swift; sourceTree = "<group>"; };
 		0719648229DAF4B5009CA1A4 /* RemoteGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteGroup.swift; sourceTree = "<group>"; };
 		0719648529DAF9A5009CA1A4 /* HomeBlockCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBlockCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -269,6 +275,8 @@
 				07AE45CC2AF0F66A00125316 /* CalendarManager.swift */,
 				07FAF9882AE0E6DB003BD30B /* CalendarView.swift */,
 				078630562B05E7D90092672B /* TimeLineView.swift */,
+				07174A152B1F4AD900B7EC69 /* SummaryView.swift */,
+				07174A192B1F4D0200B7EC69 /* SummaryTableViewCell.swift */,
 				07AE45CE2AF1032700125316 /* CalendarCell.swift */,
 			);
 			path = Calendar;
@@ -386,8 +394,9 @@
 		076248AA2AB2DB2A000A8664 /* RepositoryModule */ = {
 			isa = PBXGroup;
 			children = (
-				078C50F729D9BBFE00F239BA /* RepositoryViewController.swift */,
 				0756BE872AF8DAB4009CBE46 /* RepositoryView.swift */,
+				078C50F729D9BBFE00F239BA /* RepositoryViewController.swift */,
+				07174A172B1F4C6500B7EC69 /* RepositoryVC+TableView.swift */,
 				0756BE862AF8DA8D009CBE46 /* Calendar */,
 				0775E30C2B1F22EF00CC594D /* RepositoryItem.swift */,
 			);
@@ -866,6 +875,7 @@
 				0775E30D2B1F22EF00CC594D /* RepositoryItem.swift in Sources */,
 				07454E0F29EBE50500B3458D /* BottomModal.swift in Sources */,
 				078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */,
+				07174A162B1F4AD900B7EC69 /* SummaryView.swift in Sources */,
 				0770803A29E7989B00D66900 /* SelectColorViewController.swift in Sources */,
 				0770803829E7988100D66900 /* SelectColorView.swift in Sources */,
 				07C0BDB42ABC452600D5E779 /* TrackingDate+CoreDataClass.swift in Sources */,
@@ -874,6 +884,7 @@
 				0719648C29DDB1C0009CA1A4 /* TrackingBoardBlock.swift in Sources */,
 				07B49BC62A88EC14006D1011 /* MenuPopupItem.swift in Sources */,
 				07454DE729EA94EB00B3458D /* DisablePasteTextField.swift in Sources */,
+				07174A182B1F4C6500B7EC69 /* RepositoryVC+TableView.swift in Sources */,
 				07B592122AC4126C0046ABFC /* DispatchWorkItem.swift in Sources */,
 				07FAF9892AE0E6DB003BD30B /* CalendarView.swift in Sources */,
 				07967D002AC9A1D300BB45B5 /* TrackingTime+CoreDataClass.swift in Sources */,
@@ -934,6 +945,7 @@
 				07967D012AC9A1D300BB45B5 /* TrackingTime+CoreDataProperties.swift in Sources */,
 				07454DE329EA6CEE00B3458D /* UIViewController++.swift in Sources */,
 				0756BE882AF8DAB4009CBE46 /* RepositoryView.swift in Sources */,
+				07174A1A2B1F4D0200B7EC69 /* SummaryTableViewCell.swift in Sources */,
 				078630592B05FA650092672B /* TimeLineBlock.swift in Sources */,
 				0714B8052ACD005000B560D6 /* TestDataSet.swift in Sources */,
 				0719648829DC5066009CA1A4 /* TabBar.swift in Sources */,
