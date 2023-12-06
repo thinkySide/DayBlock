@@ -26,9 +26,17 @@ final class RepositoryManager {
         return items
     }
     
-    /// 저장소 아이템 배열을 업데이트 합니다.
+    /// 저장소 아이템 배열을 트래킹 시간 순으로 정렬 후 업데이트 합니다.
     func updateCurrentItems(_ items: [RepositoryItem]) {
-        self.items = items
+        let sortedItems =  items.sorted { first, second in
+            guard let firstString = first.trackingTimes.first?.startTime,
+                  let firstTime = Int(firstString),
+                  let secondString = second.trackingTimes.first?.startTime,
+                  let secondTime = Int(secondString) else { return false }
+            
+            return firstTime < secondTime
+        }
+        self.items = sortedItems
     }
     
     // MARK: - 변환 메서드

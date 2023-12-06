@@ -13,7 +13,7 @@ final class RepositoryViewController: UIViewController {
     let viewManager = RepositoryView()
     private lazy var calendarView = viewManager.calendarView
     private let calendarManager = CalendarManager.shared
-    private let groupDataManager = GroupDataStore.shared
+    let groupDataManager = GroupDataStore.shared
     let repositortyManager = RepositoryManager.shared
     
     // MARK: - ViewController LifeCycle
@@ -31,17 +31,7 @@ final class RepositoryViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // 날짜 업데이트
-        let repositoryItems = groupDataManager.fetchAllData(for: repositortyManager.currentDate)
-        repositortyManager.updateCurrentItems(repositoryItems)
-        viewManager.summaryView.tableView.reloadData()
-        updateTableViewHeight()
-        
-        // 만약 해당하는 날짜에 블럭이 없다면 라벨 출력
-        var alpha: CGFloat = 0
-        alpha = repositoryItems.isEmpty ? 1 : 0
-        viewManager.summaryView.noTrackingLabel.alpha = alpha
+        updateTableView(date: repositortyManager.currentDate)
     }
     
     // MARK: - Setup Method
@@ -104,6 +94,10 @@ final class RepositoryViewController: UIViewController {
         // 마지막 날짜 Select
         let endDate = Date().lastDayOfMonth(from: previousDate)
         calendarView.calendar.select(endDate)
+        
+        // SummaryView 업데이트
+        repositortyManager.currentDate = endDate
+        updateTableView(date: endDate)
     }
     
     /// 달력 다음 버튼 클릭 시 호출되는 메서드입니다.
@@ -118,6 +112,10 @@ final class RepositoryViewController: UIViewController {
         // 시작 날짜 Select
         let startDate = Date().firstDayOfMonth(from: nextDate)
         calendarView.calendar.select(startDate)
+        
+        // SummaryView 업데이트
+        repositortyManager.currentDate = startDate
+        updateTableView(date: startDate)
     }
 }
 
@@ -154,15 +152,7 @@ extension RepositoryViewController: FSCalendarDataSource & FSCalendarDelegate {
         repositortyManager.currentDate = date
         
         // 2. 코어데이터에 해당 날짜의 모든 데이터 불러오기
-        let repositoryItems = groupDataManager.fetchAllData(for: date)
-        repositortyManager.updateCurrentItems(repositoryItems)
-        viewManager.summaryView.tableView.reloadData()
-        updateTableViewHeight()
-        
-        // 3. 만약 해당하는 날짜에 블럭이 없다면 라벨 출력
-        var alpha: CGFloat = 0
-        alpha = repositoryItems.isEmpty ? 1 : 0
-        viewManager.summaryView.noTrackingLabel.alpha = alpha
+        updateTableView(date: date)
     }
     
     /// FSCalendar의 셀이 선택 해제 되었을 때 호출되는 메서드입니다.

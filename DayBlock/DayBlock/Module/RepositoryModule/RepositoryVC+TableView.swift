@@ -18,6 +18,21 @@ extension RepositoryViewController {
         updateTableViewHeight()
     }
     
+    /// 날짜가 변경됨에 따라 테이블 뷰를 업데이트 합니다.
+    func updateTableView(date: Date) {
+        
+        // 날짜 업데이트
+        let repositoryItems = groupDataManager.fetchAllData(for: date)
+        repositortyManager.updateCurrentItems(repositoryItems)
+        viewManager.summaryView.tableView.reloadData()
+        updateTableViewHeight()
+        
+        // 만약 해당하는 날짜에 블럭이 없다면 라벨 출력
+        var alpha: CGFloat = 0
+        alpha = repositoryItems.isEmpty ? 1 : 0
+        viewManager.summaryView.noTrackingLabel.alpha = alpha
+    }
+    
     /// 테이블 뷰의 높이를 구하는 메서드입니다.
     private func calculateTableViewHeight() -> CGFloat {
         let tableView = viewManager.summaryView.tableView
