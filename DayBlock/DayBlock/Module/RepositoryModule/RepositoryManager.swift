@@ -16,6 +16,9 @@ final class RepositoryManager {
     /// 저장소 아이템 배열
     private var items: [RepositoryItem] = []
     
+    /// 현재 날짜
+    var currentDate = Date()
+    
     // MARK: - 저장소 아이템 반환 메서드
     
     /// 저장소 아이템 배열을 반환합니다.

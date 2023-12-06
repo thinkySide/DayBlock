@@ -29,6 +29,21 @@ final class RepositoryViewController: UIViewController {
         setupEvent()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // 날짜 업데이트
+        let repositoryItems = groupDataManager.fetchAllData(for: repositortyManager.currentDate)
+        repositortyManager.updateCurrentItems(repositoryItems)
+        viewManager.summaryView.tableView.reloadData()
+        updateTableViewHeight()
+        
+        // 만약 해당하는 날짜에 블럭이 없다면 라벨 출력
+        var alpha: CGFloat = 0
+        alpha = repositoryItems.isEmpty ? 1 : 0
+        viewManager.summaryView.noTrackingLabel.alpha = alpha
+    }
+    
     // MARK: - Setup Method
     private func setupNavigation() {
         
@@ -56,15 +71,6 @@ final class RepositoryViewController: UIViewController {
         
         // 오늘 날짜 선택(기본값)
         calendarView.calendar.select(Date())
-        
-        // 오늘 날짜 업데이트
-        let repositoryItems = groupDataManager.fetchAllData(for: Date())
-        repositortyManager.updateCurrentItems(repositoryItems)
-        
-        // 만약 해당하는 날짜에 블럭이 없다면 라벨 출력
-        var alpha: CGFloat = 0
-        alpha = repositoryItems.isEmpty ? 1 : 0
-        viewManager.summaryView.noTrackingLabel.alpha = alpha
     }
     
     private func setupEvent() {
@@ -144,13 +150,16 @@ extension RepositoryViewController: FSCalendarDataSource & FSCalendarDelegate {
     /// FSCalendar의 셀이 터치되었을 때 호출되는 메서드입니다.
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         
-        // 1. 코어데이터에 해당 날짜의 모든 데이터 불러오기
+        // 1. 현재 날짜 업데이트
+        repositortyManager.currentDate = date
+        
+        // 2. 코어데이터에 해당 날짜의 모든 데이터 불러오기
         let repositoryItems = groupDataManager.fetchAllData(for: date)
         repositortyManager.updateCurrentItems(repositoryItems)
         viewManager.summaryView.tableView.reloadData()
         updateTableViewHeight()
         
-        // 2. 만약 해당하는 날짜에 블럭이 없다면 라벨 출력
+        // 3. 만약 해당하는 날짜에 블럭이 없다면 라벨 출력
         var alpha: CGFloat = 0
         alpha = repositoryItems.isEmpty ? 1 : 0
         viewManager.summaryView.noTrackingLabel.alpha = alpha

@@ -37,6 +37,7 @@ extension HomeViewController {
     /// 현재 날짜 및 요일을 기준으로 dateLabel을 설정합니다.
     private func updateDateLabel() {
         viewManager.dateLabel.text = trackingData.dateLabel()
+        viewManager.productivityLabel.text = "today +0.0"
     }
     
     /// 트래커를 초기화합니다.
