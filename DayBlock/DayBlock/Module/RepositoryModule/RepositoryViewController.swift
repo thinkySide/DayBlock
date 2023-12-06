@@ -14,6 +14,7 @@ final class RepositoryViewController: UIViewController {
     private lazy var calendarView = viewManager.calendarView
     private let calendarManager = CalendarManager.shared
     private let groupDataManager = GroupDataStore.shared
+    let repositortyManager = RepositoryManager.shared
     
     // MARK: - ViewController LifeCycle
     override func loadView() {
@@ -55,6 +56,10 @@ final class RepositoryViewController: UIViewController {
         
         // 오늘 날짜 선택(기본값)
         calendarView.calendar.select(Date())
+        
+        // 오늘 날짜 업데이트
+        let repositoryItems = groupDataManager.fetchAllData(for: Date())
+        repositortyManager.updateCurrentItems(repositoryItems)
     }
     
     private func setupEvent() {
@@ -136,11 +141,15 @@ extension RepositoryViewController: FSCalendarDataSource & FSCalendarDelegate {
         
         // 1. 코어데이터에 해당 날짜의 모든 데이터 불러오기
         let repositoryItems = groupDataManager.fetchAllData(for: date)
-        for item in repositoryItems {
-            for time in item.trackingTimes {
-                print("\(item.blockTaskLabel) 블럭 : \(time.startTime)~\(time.endTime)")
-            }
-        }
+        repositortyManager.updateCurrentItems(repositoryItems)
+        viewManager.summaryView.tableView.reloadData()
+        updateTableViewHeight()
+        
+//        for item in repositoryItems {
+//            for time in item.trackingTimes {
+//                print("\(item.blockTaskLabel) 블럭 : \(time.startTime)~\(time.endTime)")
+//            }
+//        }
         
         // 2. 데이터를 TimeLineBoard에 전달후 반영하기
     }
@@ -148,5 +157,14 @@ extension RepositoryViewController: FSCalendarDataSource & FSCalendarDelegate {
     /// FSCalendar의 셀이 선택 해제 되었을 때 호출되는 메서드입니다.
     func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
         //
+    }
+    
+    /// FSCalendar의 높이값이 변경될 때 호출되는 메서드입니다.
+    func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
+        print(#function)
+        NSLayoutConstraint.activate([
+            calendar.heightAnchor.constraint(equalToConstant: bounds.height)
+        ])
+        self.viewManager.layoutIfNeeded()
     }
 }
