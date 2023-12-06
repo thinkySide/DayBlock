@@ -60,6 +60,11 @@ final class RepositoryViewController: UIViewController {
         // 오늘 날짜 업데이트
         let repositoryItems = groupDataManager.fetchAllData(for: Date())
         repositortyManager.updateCurrentItems(repositoryItems)
+        
+        // 만약 해당하는 날짜에 블럭이 없다면 라벨 출력
+        var alpha: CGFloat = 0
+        alpha = repositoryItems.isEmpty ? 1 : 0
+        viewManager.summaryView.noTrackingLabel.alpha = alpha
     }
     
     private func setupEvent() {
@@ -145,13 +150,10 @@ extension RepositoryViewController: FSCalendarDataSource & FSCalendarDelegate {
         viewManager.summaryView.tableView.reloadData()
         updateTableViewHeight()
         
-//        for item in repositoryItems {
-//            for time in item.trackingTimes {
-//                print("\(item.blockTaskLabel) 블럭 : \(time.startTime)~\(time.endTime)")
-//            }
-//        }
-        
-        // 2. 데이터를 TimeLineBoard에 전달후 반영하기
+        // 2. 만약 해당하는 날짜에 블럭이 없다면 라벨 출력
+        var alpha: CGFloat = 0
+        alpha = repositoryItems.isEmpty ? 1 : 0
+        viewManager.summaryView.noTrackingLabel.alpha = alpha
     }
     
     /// FSCalendar의 셀이 선택 해제 되었을 때 호출되는 메서드입니다.

@@ -81,6 +81,8 @@ final class RepositoryView: UIView {
             summaryView.topAnchor.constraint(equalTo: calendarView.bottomAnchor, constant: 12),
             summaryView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             summaryView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            
+            summaryView.noTrackingLabel.centerYAnchor.constraint(equalTo: summaryView.centerYAnchor),
 
             tabBarStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             tabBarStackView.leadingAnchor.constraint(equalTo: leadingAnchor),

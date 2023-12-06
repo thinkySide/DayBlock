@@ -20,12 +20,23 @@ final class SummaryView: UIView {
         return label
     }()
     
+    let noTrackingLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: Pretendard.semiBold, size: 14)
+        label.textColor = Color.subText2
+        label.textAlignment = .center
+        label.text = "생산된 블럭이 없어요"
+        label.alpha = 0
+        return label
+    }()
+    
     let tableView: UITableView = {
         let table = UITableView(frame: .zero)
         table.separatorStyle = .none
         table.showsVerticalScrollIndicator = false
         table.backgroundColor = .white
         table.rowHeight = 56
+        table.isScrollEnabled = false
         return table
     }()
     
@@ -43,7 +54,7 @@ final class SummaryView: UIView {
     private func setupUI() {
         backgroundColor = .white
         
-        [headerLabel, tableView].forEach {
+        [tableView, noTrackingLabel].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -51,15 +62,17 @@ final class SummaryView: UIView {
         NSLayoutConstraint.activate([
             
             // 여기서 SummarView의 높이값이 TableView에 따라 유동적으로 결정되어야 한다..
-            self.topAnchor.constraint(equalTo: headerLabel.topAnchor, constant: -16),
+            self.topAnchor.constraint(equalTo: tableView.topAnchor, constant: -16),
             self.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),
             
-            headerLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            headerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            // headerLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            // headerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             
-            tableView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 12),
+            tableView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            
+            noTrackingLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
         
         // TableView 높이

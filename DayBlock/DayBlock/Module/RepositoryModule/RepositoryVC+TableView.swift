@@ -22,8 +22,13 @@ extension RepositoryViewController {
     private func calculateTableViewHeight() -> CGFloat {
         let tableView = viewManager.summaryView.tableView
         let cellCount = CGFloat(repositortyManager.currentItems().count)
+        
+        // 만약 0개라면 적당히 3.5개 정도의 셀을 가지고 있는 높이 값으로 반환
+        if cellCount == 0 {
+            return tableView.rowHeight * 3.5
+        }
+        
         let height = tableView.rowHeight * cellCount + 24 // 마진값
-        print(height)
         return height
     }
     
@@ -57,5 +62,10 @@ extension RepositoryViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 extension RepositoryViewController: UITableViewDelegate {
-    //
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // 선택 비활성화
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }

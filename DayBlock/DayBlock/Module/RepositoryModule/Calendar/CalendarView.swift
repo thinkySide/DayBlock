@@ -92,20 +92,20 @@ final class CalendarView: UIView {
             calendarHeaderLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             calendarHeaderLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             
-            previousButton.widthAnchor.constraint(equalToConstant: 20),
-            previousButton.heightAnchor.constraint(equalToConstant: 20),
+            previousButton.widthAnchor.constraint(equalToConstant: 32),
+            previousButton.heightAnchor.constraint(equalToConstant: 32),
             previousButton.centerYAnchor.constraint(equalTo: calendarHeaderLabel.centerYAnchor),
-            previousButton.trailingAnchor.constraint(equalTo: nextButton.leadingAnchor, constant: -16),
+            previousButton.trailingAnchor.constraint(equalTo: nextButton.leadingAnchor, constant: -10),
             
-            nextButton.widthAnchor.constraint(equalToConstant: 20),
-            nextButton.heightAnchor.constraint(equalToConstant: 20),
+            nextButton.widthAnchor.constraint(equalToConstant: 32),
+            nextButton.heightAnchor.constraint(equalToConstant: 32),
             nextButton.centerYAnchor.constraint(equalTo: calendarHeaderLabel.centerYAnchor),
             nextButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             
             calendar.topAnchor.constraint(equalTo: calendarHeaderLabel.bottomAnchor),
             calendar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 6),
             calendar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -6),
-            calendar.heightAnchor.constraint(equalToConstant: 360)
+             calendar.heightAnchor.constraint(equalToConstant: 368)
         ])
     }
 }

@@ -24,7 +24,7 @@ final class SummaryTableViewCell: UITableViewCell {
     
     let timeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: Poppins.semiBold, size: 14)
+        label.font = UIFont(name: Poppins.semiBold, size: 13)
         label.textColor = Color.subText2
         label.textAlignment = .left
         label.text = "00:00-00:00"
@@ -69,6 +69,12 @@ final class SummaryTableViewCell: UITableViewCell {
     }
     
     private func setupUI() {
+        
+        // 선택된 Cell 색상
+        let selected = UIView()
+        selected.backgroundColor = Color.contentsBlock
+        self.selectedBackgroundView = selected
+        
         [iconBlock, textVStackView, plus, outputLabel].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
