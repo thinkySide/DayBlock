@@ -42,6 +42,15 @@ extension RepositoryViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SummaryTableViewCell.id, for: indexPath) as? SummaryTableViewCell else { return UITableViewCell() }
+        
+        // UI 설정
+        let currentItem = repositortyManager.currentItems()[indexPath.row]
+        cell.iconBlock.symbol.image = UIImage(systemName: currentItem.blockIcon)
+        cell.iconBlock.backgroundColor = UIColor(rgb: currentItem.groupColor)
+        cell.taskLabel.text = currentItem.blockTaskLabel
+        cell.timeLabel.text = repositortyManager.trackingTimeString(to: indexPath.row)
+        cell.plus.textColor = UIColor(rgb: currentItem.groupColor)
+        cell.outputLabel.text = repositortyManager.totalOutput(to: indexPath.row)
         return cell
     }
 }

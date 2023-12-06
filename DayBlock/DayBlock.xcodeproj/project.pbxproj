@@ -70,6 +70,7 @@
 		078630572B05E7D90092672B /* TimeLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078630562B05E7D90092672B /* TimeLineView.swift */; };
 		078630592B05FA650092672B /* TimeLineBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078630582B05FA650092672B /* TimeLineBlock.swift */; };
 		0786305B2B05FFA80092672B /* TimeLineBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0786305A2B05FFA80092672B /* TimeLineBoard.swift */; };
+		078A91772B20320A005CAE34 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 078A91762B20320A005CAE34 /* Poppins-SemiBold.ttf */; };
 		078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B529D7152F00F239BA /* AppDelegate.swift */; };
 		078C50B829D7152F00F239BA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B729D7152F00F239BA /* SceneDelegate.swift */; };
 		078C50BA29D7152F00F239BA /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C50B929D7152F00F239BA /* HomeViewController.swift */; };
@@ -192,6 +193,7 @@
 		078630562B05E7D90092672B /* TimeLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineView.swift; sourceTree = "<group>"; };
 		078630582B05FA650092672B /* TimeLineBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineBlock.swift; sourceTree = "<group>"; };
 		0786305A2B05FFA80092672B /* TimeLineBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineBoard.swift; sourceTree = "<group>"; };
+		078A91762B20320A005CAE34 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		078C50B229D7152F00F239BA /* DayBlock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayBlock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		078C50B529D7152F00F239BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		078C50B729D7152F00F239BA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -741,6 +743,7 @@
 			isa = PBXGroup;
 			children = (
 				078C50EA29D72EE300F239BA /* Poppins-Bold.ttf */,
+				078A91762B20320A005CAE34 /* Poppins-SemiBold.ttf */,
 			);
 			path = Poppins;
 			sourceTree = "<group>";
@@ -823,6 +826,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				073EBFEE2AB6C7B80031F6AB /* .swiftlint.yml in Resources */,
+				078A91772B20320A005CAE34 /* Poppins-SemiBold.ttf in Resources */,
 				078C50E629D72BD100F239BA /* Pretendard-Bold.otf in Resources */,
 				078C50E229D72BD100F239BA /* Pretendard-ExtraLight.otf in Resources */,
 				078C50E529D72BD100F239BA /* Pretendard-Thin.otf in Resources */,

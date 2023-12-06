@@ -16,7 +16,7 @@ final class RepositoryManager {
     /// 저장소 아이템 배열
     private var items: [RepositoryItem] = []
     
-    // MARK: - Method
+    // MARK: - 저장소 아이템 반환 메서드
     
     /// 저장소 아이템 배열을 반환합니다.
     func currentItems() -> [RepositoryItem] {
@@ -26,5 +26,50 @@ final class RepositoryManager {
     /// 저장소 아이템 배열을 업데이트 합니다.
     func updateCurrentItems(_ items: [RepositoryItem]) {
         self.items = items
+    }
+    
+    // MARK: - 변환 메서드
+    
+    /// 트래킹 시간 문자열을 반환합니다.
+    func trackingTimeString(to index: Int) -> String {
+        let trackingTimes = items[index].trackingTimes
+        
+        // 시작 및 종료 시간 옵셔널 바인딩
+        guard let startTime = trackingTimes.first?.startTime,
+              let endTime = trackingTimes.last?.endTime else {
+            fatalError("트래킹 시간 반환에 실패했습니다.")
+        }
+        
+        // 실제 시간으로 변환
+        return "\(secondsToTime(startTime))-\(secondsToTime(endTime))"
+    }
+    
+    /// 초 단위를 실제 시간 포맷으로 변환 후 반환합니다.
+    func secondsToTime(_ time: String) -> String {
+        let seconds = Int(time)!
+        
+        // 1. 시간 단위로 변환
+        let hour = seconds / 3600
+        let minute = seconds / 60 - (60 * hour)
+        
+        // 2. 만약 10보다 작다면(한자리 수라면) 앞에 0 붙여서 return
+        var stringHour = String(hour)
+        var stringMinute = String(minute)
+        if hour < 10 { stringHour.insert("0", at: stringHour.startIndex) }
+        if minute < 10 { stringMinute.insert("0", at: stringMinute.startIndex) }
+        
+        return "\(stringHour):\(stringMinute)"
+    }
+    
+    /// 총 생산량을 반환합니다.
+    func totalOutput(to index: Int) -> String {
+        let trackingTimes = items[index].trackingTimes
+        
+        var output = 0.0
+        trackingTimes.forEach { _ in
+            output += 0.5
+        }
+        
+        return String(output)
     }
 }

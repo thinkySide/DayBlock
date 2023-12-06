@@ -24,10 +24,10 @@ final class SummaryTableViewCell: UITableViewCell {
     
     let timeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: Pretendard.medium, size: 14)
-        label.textColor = Color.subText
+        label.font = UIFont(name: Poppins.semiBold, size: 14)
+        label.textColor = Color.subText2
         label.textAlignment = .left
-        label.text = "00:00 ~ 00:00"
+        label.text = "00:00-00:00"
         return label
     }()
     

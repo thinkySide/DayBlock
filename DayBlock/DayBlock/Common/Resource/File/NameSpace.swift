@@ -75,6 +75,7 @@ enum Pretendard {
 
 enum Poppins {
     static let bold = "Poppins-Bold"
+    static let semiBold = "Poppins-SemiBold"
 }
 
 // MARK: - Icon

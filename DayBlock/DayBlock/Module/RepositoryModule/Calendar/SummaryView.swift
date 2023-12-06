@@ -57,7 +57,7 @@ final class SummaryView: UIView {
             headerLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             headerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             
-            tableView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 16),
+            tableView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 12),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
