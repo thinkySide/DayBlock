@@ -64,6 +64,7 @@ final class RepositoryViewController: UIViewController {
     }
     
     private func setupEvent() {
+        calendarView.todayButton.addTarget(self, action: #selector(todayButtonTapped), for: .touchUpInside)
         calendarView.previousButton.addTarget(self, action: #selector(previousButtonTapped), for: .touchUpInside)
         calendarView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
         
@@ -78,6 +79,15 @@ final class RepositoryViewController: UIViewController {
     /// 코어데이터 테스트용 메서드
     @objc func test() {
         groupDataManager.printCoreData()
+    }
+    
+    /// today 버튼 탭 시 호출되는 메서드입니다.
+    @objc private func todayButtonTapped() {
+        let today = Date()
+        repositortyManager.currentDate = today
+        viewManager.calendarView.calendar.select(today, scrollToDate: true)
+        calendarView.calendar.setCurrentPage(today, animated: true)
+        updateTableView(date: today)
     }
     
     /// 달력 이전 버튼 클릭 시 호출되는 메서드입니다.

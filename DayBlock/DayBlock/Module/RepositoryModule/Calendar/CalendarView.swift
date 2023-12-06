@@ -20,6 +20,8 @@ final class CalendarView: UIView {
         return label
     }()
     
+    let todayButton = SmallButton()
+    
     let previousButton: UIButton = {
         let button = UIButton()
         let configuration = UIImage.SymbolConfiguration(pointSize: 16, weight: .semibold)
@@ -79,7 +81,7 @@ final class CalendarView: UIView {
     }
     
     private func addView() {
-        [calendarHeaderLabel, previousButton, nextButton, calendar].forEach {
+        [calendarHeaderLabel, todayButton, previousButton, nextButton, calendar].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -91,6 +93,10 @@ final class CalendarView: UIView {
             
             calendarHeaderLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             calendarHeaderLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            
+            todayButton.leadingAnchor.constraint(equalTo: calendarHeaderLabel.trailingAnchor, constant: 8),
+            todayButton.centerYAnchor.constraint(equalTo: calendarHeaderLabel.centerYAnchor),
+            todayButton.widthAnchor.constraint(equalToConstant: 60),
             
             previousButton.widthAnchor.constraint(equalToConstant: 32),
             previousButton.heightAnchor.constraint(equalToConstant: 32),

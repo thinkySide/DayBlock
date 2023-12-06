@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0713019E2B205791008A2A8D /* SmallButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0713019D2B205791008A2A8D /* SmallButton.swift */; };
 		0714B8052ACD005000B560D6 /* TestDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0714B8042ACD005000B560D6 /* TestDataSet.swift */; };
 		07174A142B1F470100B7EC69 /* NewTrackingBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07174A132B1F470100B7EC69 /* NewTrackingBlock.swift */; };
 		07174A162B1F4AD900B7EC69 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07174A152B1F4AD900B7EC69 /* SummaryView.swift */; };
@@ -130,6 +131,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0713019D2B205791008A2A8D /* SmallButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallButton.swift; sourceTree = "<group>"; };
 		0714B8042ACD005000B560D6 /* TestDataSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDataSet.swift; sourceTree = "<group>"; };
 		07174A132B1F470100B7EC69 /* NewTrackingBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTrackingBlock.swift; sourceTree = "<group>"; };
 		07174A152B1F4AD900B7EC69 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
@@ -415,6 +417,7 @@
 				07454E1829EFD8A400B3458D /* ActionButtonSet.swift */,
 				0719649529E0763C009CA1A4 /* FormSelectButton.swift */,
 				0719648D29DF044C009CA1A4 /* GroupSelectButton.swift */,
+				0713019D2B205791008A2A8D /* SmallButton.swift */,
 			);
 			path = Button;
 			sourceTree = "<group>";
@@ -892,6 +895,7 @@
 				07B49BC62A88EC14006D1011 /* MenuPopupItem.swift in Sources */,
 				07454DE729EA94EB00B3458D /* DisablePasteTextField.swift in Sources */,
 				07174A182B1F4C6500B7EC69 /* RepositoryVC+TableView.swift in Sources */,
+				0713019E2B205791008A2A8D /* SmallButton.swift in Sources */,
 				07B592122AC4126C0046ABFC /* DispatchWorkItem.swift in Sources */,
 				07FAF9892AE0E6DB003BD30B /* CalendarView.swift in Sources */,
 				07967D002AC9A1D300BB45B5 /* TrackingTime+CoreDataClass.swift in Sources */,
