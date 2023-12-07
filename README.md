@@ -626,3 +626,14 @@ NotificationCenter를 활용해 그룹이 업데이트 되는 시점에 맞춰 H
 ---
 
 <br>
+
+### **Day 88 - 23.12.06**
+
+- **RepositoryViewController 구현**   
+외주 개발을 마친 후 다시 본격적인 개인 APP 작업에 들어갔습니다. 해당 날짜에 어떤 트래킹 블럭을 생산했는지 확인이 가능한 `RepositoryViewController`를 구성했습니다. `FSCalendar`를 사용해 달력 기능을 구현했습니다. 각각의 셀 커스텀을 위해 여러가지 메서드들을 활용했습니다. 추가로 `SummaryView` 배치했습니다.
+
+<img width="300" src="https://github.com/thinkySide/DayBlock/assets/113565086/e94133fc-d58e-41c7-b554-6fd78ee744a1">
+
+---
+
+<br>

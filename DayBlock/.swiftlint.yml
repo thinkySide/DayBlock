@@ -22,3 +22,4 @@ disabled_rules:
     - unused_optional_binding # 사용 안하는 옵셔널 바인딩 제한
     - file_length # 파일 길이 제한
     - vertical_whitespace # 의미없는 공백 줄 제한
+    - legacy_constructor # 레거시 코드 제한

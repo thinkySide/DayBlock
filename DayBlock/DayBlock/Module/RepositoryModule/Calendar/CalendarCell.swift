@@ -10,15 +10,12 @@ import FSCalendar
 
 final class CalendarCell: FSCalendarCell {
     
+    /// 현재 셀 상태
+    var state: CalendarCellState = .none
+    
     static let id = "CalendarCell"
     
-    let dateBlock: UIView = {
-        let view = UIView()
-        view.backgroundColor = Color.entireBlock
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 7
-        return view
-    }()
+    let block = CalendarBlock(state: .four)
     
     let dateLabel: UILabel = {
         let label = UILabel()
@@ -52,7 +49,6 @@ final class CalendarCell: FSCalendarCell {
         super.init(frame: frame)
         setupAutoLayout()
         setupDateCircle()
-        // self.backgroundColor = .systemBlue.withAlphaComponent(0.5)
     }
     
     required init!(coder aDecoder: NSCoder!) {
@@ -91,22 +87,22 @@ final class CalendarCell: FSCalendarCell {
     }
     
     private func setupAutoLayout() {
-        [dateBlock, dateLabel, selectedDateCircle].forEach {
+        [block, dateLabel, selectedDateCircle].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
         NSLayoutConstraint.activate([
-            dateBlock.topAnchor.constraint(equalTo: topAnchor, constant: 8),
-            dateBlock.centerXAnchor.constraint(equalTo: centerXAnchor),
-            dateBlock.widthAnchor.constraint(equalToConstant: 24),
-            dateBlock.heightAnchor.constraint(equalToConstant: 24),
+            block.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            block.centerXAnchor.constraint(equalTo: centerXAnchor),
+            block.widthAnchor.constraint(equalToConstant: 24),
+            block.heightAnchor.constraint(equalToConstant: 24),
             
-            dateLabel.topAnchor.constraint(equalTo: dateBlock.bottomAnchor, constant: 2),
-            dateLabel.centerXAnchor.constraint(equalTo: dateBlock.centerXAnchor),
+            dateLabel.topAnchor.constraint(equalTo: block.bottomAnchor, constant: 2),
+            dateLabel.centerXAnchor.constraint(equalTo: block.centerXAnchor),
             
-            selectedDateCircle.topAnchor.constraint(equalTo: dateBlock.bottomAnchor, constant: 3),
-            selectedDateCircle.centerXAnchor.constraint(equalTo: dateBlock.centerXAnchor),
+            selectedDateCircle.topAnchor.constraint(equalTo: block.bottomAnchor, constant: 3),
+            selectedDateCircle.centerXAnchor.constraint(equalTo: block.centerXAnchor),
             selectedDateCircle.widthAnchor.constraint(equalToConstant: 22),
             selectedDateCircle.heightAnchor.constraint(equalToConstant: 22)
         ])

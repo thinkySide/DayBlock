@@ -105,12 +105,18 @@ final class HomeView: UIView {
     
     let messageLabel: UILabel = {
         let label = UILabel()
-        label.text = "오늘 하루는 어떤 블럭으로\n채우고 계신가요?" // ⛳️
-        label.font = UIFont(name: Pretendard.semiBold, size: 18)
-        label.textColor = Color.mainText
-        label.alpha = 0.4
-        label.textAlignment = .center
+        label.font = UIFont(name: Pretendard.semiBold, size: 15)
+        label.textColor = Color.subText2
         label.numberOfLines = 2
+        
+        let attrString = NSMutableAttributedString(string: "오늘 하루는 어떤 블럭으로\n채우고 계신가요?")
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        paragraphStyle.lineSpacing = 4
+        attrString.addAttribute(NSAttributedString.Key.paragraphStyle,
+                                value: paragraphStyle,
+                                range: NSMakeRange(0, attrString.length))
+        label.attributedText = attrString
         return label
     }()
     

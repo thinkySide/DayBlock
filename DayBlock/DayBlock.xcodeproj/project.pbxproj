@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0713019E2B205791008A2A8D /* SmallButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0713019D2B205791008A2A8D /* SmallButton.swift */; };
+		071301A02B208844008A2A8D /* CalendarBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0713019F2B208844008A2A8D /* CalendarBlock.swift */; };
 		0714B8052ACD005000B560D6 /* TestDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0714B8042ACD005000B560D6 /* TestDataSet.swift */; };
-		07174A142B1F470100B7EC69 /* NewTrackingBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07174A132B1F470100B7EC69 /* NewTrackingBlock.swift */; };
 		07174A162B1F4AD900B7EC69 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07174A152B1F4AD900B7EC69 /* SummaryView.swift */; };
 		07174A182B1F4C6500B7EC69 /* RepositoryVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07174A172B1F4C6500B7EC69 /* RepositoryVC+TableView.swift */; };
 		07174A1A2B1F4D0200B7EC69 /* SummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07174A192B1F4D0200B7EC69 /* SummaryTableViewCell.swift */; };
@@ -132,8 +132,8 @@
 
 /* Begin PBXFileReference section */
 		0713019D2B205791008A2A8D /* SmallButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallButton.swift; sourceTree = "<group>"; };
+		0713019F2B208844008A2A8D /* CalendarBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBlock.swift; sourceTree = "<group>"; };
 		0714B8042ACD005000B560D6 /* TestDataSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDataSet.swift; sourceTree = "<group>"; };
-		07174A132B1F470100B7EC69 /* NewTrackingBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTrackingBlock.swift; sourceTree = "<group>"; };
 		07174A152B1F4AD900B7EC69 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		07174A172B1F4C6500B7EC69 /* RepositoryVC+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RepositoryVC+TableView.swift"; sourceTree = "<group>"; };
 		07174A192B1F4D0200B7EC69 /* SummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryTableViewCell.swift; sourceTree = "<group>"; };
@@ -280,10 +280,10 @@
 			children = (
 				07AE45CC2AF0F66A00125316 /* CalendarManager.swift */,
 				07FAF9882AE0E6DB003BD30B /* CalendarView.swift */,
+				07AE45CE2AF1032700125316 /* CalendarCell.swift */,
 				078630562B05E7D90092672B /* TimeLineView.swift */,
 				07174A152B1F4AD900B7EC69 /* SummaryView.swift */,
 				07174A192B1F4D0200B7EC69 /* SummaryTableViewCell.swift */,
-				07AE45CE2AF1032700125316 /* CalendarCell.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -607,7 +607,7 @@
 				0719648B29DDB1C0009CA1A4 /* TrackingBoardBlock.swift */,
 				078630582B05FA650092672B /* TimeLineBlock.swift */,
 				0786305A2B05FFA80092672B /* TimeLineBoard.swift */,
-				07174A132B1F470100B7EC69 /* NewTrackingBlock.swift */,
+				0713019F2B208844008A2A8D /* CalendarBlock.swift */,
 			);
 			path = Block;
 			sourceTree = "<group>";
@@ -876,7 +876,6 @@
 			files = (
 				077E80F32AE141CA004CDB8F /* ManageBlockTableViewCell.swift in Sources */,
 				0770803129E78D0500D66900 /* SelectGroupView.swift in Sources */,
-				07174A142B1F470100B7EC69 /* NewTrackingBlock.swift in Sources */,
 				07967D032ACA606000BB45B5 /* HomeVC+TrackingLifeCycle.swift in Sources */,
 				076248CF2AB30319000A8664 /* IconDelegate.swift in Sources */,
 				078C50BA29D7152F00F239BA /* HomeViewController.swift in Sources */,
@@ -906,6 +905,7 @@
 				077A663629ED2ABA00D99C68 /* CreateGroupView.swift in Sources */,
 				07817F0B2A0A05DE00D024F6 /* IconManager.swift in Sources */,
 				07454E1529EC170600B3458D /* Separator.swift in Sources */,
+				071301A02B208844008A2A8D /* CalendarBlock.swift in Sources */,
 				0719649829E148CA009CA1A4 /* DayBlock.swift in Sources */,
 				07B49BD42A8F23FF006D1011 /* ToastMessage.swift in Sources */,
 				07B49BC42A88EBA3006D1011 /* MenuPopup.swift in Sources */,

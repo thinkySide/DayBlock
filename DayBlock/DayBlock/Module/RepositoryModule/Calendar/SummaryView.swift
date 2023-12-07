@@ -25,7 +25,7 @@ final class SummaryView: UIView {
         label.font = UIFont(name: Pretendard.semiBold, size: 14)
         label.textColor = Color.subText2
         label.textAlignment = .center
-        label.text = "생산된 블럭이 없어요"
+        label.text = "생산된 블럭이 없어요 😴"
         label.alpha = 0
         return label
     }()
