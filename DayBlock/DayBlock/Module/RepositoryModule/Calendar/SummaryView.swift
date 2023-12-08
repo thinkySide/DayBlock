@@ -20,16 +20,6 @@ final class SummaryView: UIView {
         return label
     }()
     
-    let noTrackingLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: Pretendard.semiBold, size: 14)
-        label.textColor = Color.subText2
-        label.textAlignment = .center
-        label.text = "생산된 블럭이 없어요 😴"
-        label.alpha = 0
-        return label
-    }()
-    
     let tableView: UITableView = {
         let table = UITableView(frame: .zero)
         table.separatorStyle = .none
@@ -54,7 +44,7 @@ final class SummaryView: UIView {
     private func setupUI() {
         backgroundColor = .white
         
-        [tableView, noTrackingLabel].forEach {
+        [tableView].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -70,9 +60,7 @@ final class SummaryView: UIView {
             
             tableView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            
-            noTrackingLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+            tableView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
         
         // TableView 높이

@@ -23,6 +23,27 @@ final class RepositoryView: UIView {
     
     let calendarView = CalendarView()
     let summaryView = SummaryView()
+    
+    let noTrackingLabelView: UIView = {
+        let view = UIView()
+        view.alpha = 0
+        
+        let label: UILabel = {
+            let label = UILabel()
+            label.font = UIFont(name: Pretendard.semiBold, size: 14)
+            label.textColor = Color.subText2
+            label.textAlignment = .center
+            label.text = "생산된 블럭이 없어요 😴"
+            label.translatesAutoresizingMaskIntoConstraints = false
+            return label
+        }()
+        
+        view.addSubview(label)
+        label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        label.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        return view
+    }()
+    
     // let timeLineView = TimeLineView() // 일정상 다음 업데이트로
     
     let tabBarStackView = TabBar(location: .calendar)
@@ -54,7 +75,7 @@ final class RepositoryView: UIView {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         
         // 3. 실제 내용 추가
-        [calendarView, summaryView].forEach {
+        [calendarView, summaryView, noTrackingLabelView].forEach {
             contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -82,7 +103,10 @@ final class RepositoryView: UIView {
             summaryView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             summaryView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
-            summaryView.noTrackingLabel.centerYAnchor.constraint(equalTo: summaryView.centerYAnchor),
+            noTrackingLabelView.topAnchor.constraint(equalTo: summaryView.topAnchor),
+            noTrackingLabelView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            noTrackingLabelView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            noTrackingLabelView.bottomAnchor.constraint(equalTo: tabBarStackView.bottomAnchor),
 
             tabBarStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             tabBarStackView.leadingAnchor.constraint(equalTo: leadingAnchor),

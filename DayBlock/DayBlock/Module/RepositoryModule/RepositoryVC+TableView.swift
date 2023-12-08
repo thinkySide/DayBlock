@@ -35,20 +35,19 @@ extension RepositoryViewController {
         // 만약 해당하는 날짜에 블럭이 없다면 라벨 출력
         var alpha: CGFloat = 0
         alpha = repositoryManager.dayItems.isEmpty ? 1 : 0
-        viewManager.summaryView.noTrackingLabel.alpha = alpha
+        viewManager.noTrackingLabelView.alpha = alpha
     }
     
     /// 테이블 뷰의 높이를 구하는 메서드입니다.
     private func calculateTableViewHeight() -> CGFloat {
         let tableView = viewManager.summaryView.tableView
-        let cellCount = CGFloat(repositoryManager.currentItems().count)
+        let cellCount = CGFloat(repositoryManager.dayItems.count)
         
-        // 만약 0개라면 적당히 3.5개 정도의 셀을 가지고 있는 높이 값으로 반환
-        if cellCount == 0 {
-            return tableView.rowHeight * 3.5
-        }
+        // 만약 0개라면 
+        if cellCount == 0 { return 0 }
         
         let height = tableView.rowHeight * cellCount + 24 // 마진값
+        print(height)
         return height
     }
     
