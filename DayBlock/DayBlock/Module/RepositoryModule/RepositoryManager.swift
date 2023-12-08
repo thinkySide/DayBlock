@@ -13,8 +13,10 @@ final class RepositoryManager {
     static let shared = RepositoryManager()
     private init() {}
     
-    /// 저장소 아이템 배열
-    private var items: [RepositoryItem] = []
+    /// 저장소 월 아이템 배열
+    private var monthItems: [RepositoryItem] = []
+    
+    var dayItems: [RepositoryItem] = []
     
     /// 현재 날짜
     var currentDate = Date()
@@ -23,7 +25,7 @@ final class RepositoryManager {
     
     /// 저장소 아이템 배열을 반환합니다.
     func currentItems() -> [RepositoryItem] {
-        return items
+        return monthItems
     }
     
     /// 저장소 아이템 배열을 트래킹 시간 순으로 정렬 후 업데이트 합니다.
@@ -36,14 +38,52 @@ final class RepositoryManager {
             
             return firstTime < secondTime
         }
-        self.items = sortedItems
+        self.monthItems = sortedItems
+    }
+    
+    // MARK: - 캘린더 관련 메서드
+    
+    /// 현재 날짜 기준의 items를 필터링하여 반환합니다.
+    func filterSelectedDate(_ dateString: String) {
+        let fullDate = dateString.components(separatedBy: ".")
+        let year = fullDate[0]
+        let month = fullDate[1]
+        let day = fullDate[2]
+        
+        let filter = monthItems.filter { item in
+            item.trackingDate.year == year &&
+            item.trackingDate.month == month &&
+            item.trackingDate.day == day
+        }
+        
+        dayItems = filter
+    }
+    
+    /// 해당 날짜가 몇개의 블록 타입을 가지고 있는지 반환합니다.
+    func blockTypeCount(dateString: String) -> CalendarCellState {
+        let fullDate = dateString.components(separatedBy: ".")
+        let year = fullDate[0]
+        let month = fullDate[1]
+        let day = fullDate[2]
+        
+        print("fullDate: \(fullDate)")
+        
+        for item in monthItems {
+            if (item.trackingDate.year == year && item.trackingDate.month == month)
+                && item.trackingDate.day == day {
+                print("\(fullDate) 요날에 트래킹 있었네")
+                return .five
+            }
+        }
+        
+        return .none
     }
     
     // MARK: - 변환 메서드
     
     /// 트래킹 시간 문자열을 반환합니다.
     func trackingTimeString(to index: Int) -> String {
-        let trackingTimes = items[index].trackingTimes
+        let trackingTimes = monthItems[index].trackingTimes
         
         // 시작 및 종료 시간 옵셔널 바인딩
         guard let startTime = trackingTimes.first?.startTime,
@@ -74,7 +114,7 @@ final class RepositoryManager {
     
     /// 총 생산량을 반환합니다.
     func totalOutput(to index: Int) -> String {
-        let trackingTimes = items[index].trackingTimes
+        let trackingTimes = monthItems[index].trackingTimes
         
         var output = 0.0
         trackingTimes.forEach { _ in

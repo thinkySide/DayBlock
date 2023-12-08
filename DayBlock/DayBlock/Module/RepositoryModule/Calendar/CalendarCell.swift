@@ -15,7 +15,7 @@ final class CalendarCell: FSCalendarCell {
     
     static let id = "CalendarCell"
     
-    let block = CalendarBlock(state: .four)
+    let block = CalendarBlock(state: .none)
     
     let dateLabel: UILabel = {
         let label = UILabel()

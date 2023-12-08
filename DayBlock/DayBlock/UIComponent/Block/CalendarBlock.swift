@@ -38,7 +38,7 @@ final class CalendarBlock: UIView {
     
     /// 셀의 상태를 업데이트합니다.
     func updateState(_ state: CalendarCellState) {
-        print("셀 상태: \(state)")
+        // print("셀 상태: \(state)")
         switch state {
         case .none:
             oneBlock.block.backgroundColor = Color.entireBlock

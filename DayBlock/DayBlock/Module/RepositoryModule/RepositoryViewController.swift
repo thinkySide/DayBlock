@@ -11,8 +11,8 @@ import FSCalendar
 final class RepositoryViewController: UIViewController {
     
     let viewManager = RepositoryView()
-    private lazy var calendarView = viewManager.calendarView
-    private let calendarManager = CalendarManager.shared
+    lazy var calendarView = viewManager.calendarView
+    let calendarManager = CalendarManager.shared
     let groupDataManager = GroupDataStore.shared
     let repositortyManager = RepositoryManager.shared
     
@@ -31,7 +31,7 @@ final class RepositoryViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updateTableView(date: repositortyManager.currentDate)
+        updateRepositoryView(date: repositortyManager.currentDate)
     }
     
     // MARK: - Setup Method
@@ -87,7 +87,7 @@ final class RepositoryViewController: UIViewController {
         repositortyManager.currentDate = today
         viewManager.calendarView.calendar.select(today, scrollToDate: true)
         calendarView.calendar.setCurrentPage(today, animated: true)
-        updateTableView(date: today)
+        updateRepositoryView(date: today)
     }
     
     /// 달력 이전 버튼 클릭 시 호출되는 메서드입니다.
@@ -103,11 +103,11 @@ final class RepositoryViewController: UIViewController {
         
         // 마지막 날짜 Select
         let endDate = Date().lastDayOfMonth(from: previousDate)
-        calendarView.calendar.select(endDate)
+        calendarView.calendar.select(endDate, scrollToDate: true)
         
         // SummaryView 업데이트
         repositortyManager.currentDate = endDate
-        updateTableView(date: endDate)
+        updateRepositoryView(date: endDate)
     }
     
     /// 달력 다음 버튼 클릭 시 호출되는 메서드입니다.
@@ -121,11 +121,11 @@ final class RepositoryViewController: UIViewController {
         
         // 시작 날짜 Select
         let startDate = Date().firstDayOfMonth(from: nextDate)
-        calendarView.calendar.select(startDate)
+        calendarView.calendar.select(startDate, scrollToDate: true)
         
         // SummaryView 업데이트
         repositortyManager.currentDate = startDate
-        updateTableView(date: startDate)
+        updateRepositoryView(date: startDate)
     }
 }
 
@@ -141,6 +141,13 @@ extension RepositoryViewController: FSCalendarDataSource & FSCalendarDelegate {
     /// FSCalendar 셀을 반환합니다.
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         let cell = calendar.dequeueReusableCell(withIdentifier: CalendarCell.id, for: date, at: position) as! CalendarCell
+        
+        // 셀 타입 업데이트
+        let dateString = calendarManager.fullDateFormat(from: date)
+        let cellType = repositortyManager.blockTypeCount(dateString: dateString)
+        cell.block.updateState(cellType)
+        
+        // 셀 선택 날짜 업데이트
         cell.selectedDateLabel.text = calendarManager.dayFormat(from: date)
         return cell
     }
@@ -162,12 +169,7 @@ extension RepositoryViewController: FSCalendarDataSource & FSCalendarDelegate {
         repositortyManager.currentDate = date
         
         // 2. 코어데이터에 해당 날짜의 모든 데이터 불러오기
-        updateTableView(date: date)
-    }
-    
-    /// FSCalendar의 셀이 선택 해제 되었을 때 호출되는 메서드입니다.
-    func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        //
+        updateRepositoryView(date: date)
     }
     
     /// FSCalendar의 높이값이 변경될 때 호출되는 메서드입니다.

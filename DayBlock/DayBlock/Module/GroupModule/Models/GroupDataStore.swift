@@ -81,14 +81,13 @@ extension GroupDataStore {
     }
     
     /// 지정한 날짜에 속하는 모든 코어 데이터를 반환합니다.
-    func fetchAllData(for date: Date) -> [RepositoryItem] {
+    func fetchAllFullDateItem(for date: Date) -> [RepositoryItem] {
         
         // 1. 날짜 변환
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_kr")
         formatter.dateFormat = "yyyy MM dd"
         let dateFormat = formatter.string(from: date).components(separatedBy: " ")
-        print(dateFormat)
         let year = dateFormat[0]
         let month = dateFormat[1]
         let day = dateFormat[2]
@@ -111,6 +110,58 @@ extension GroupDataStore {
                 
                 for trackingDate in trackingDateList {
                     if (trackingDate.year == year && trackingDate.month == month) && trackingDate.day == day {
+                        guard let trackingTimeList = trackingDate.trackingTimeList?.array as? [TrackingTime] else {
+                            print("트래킹 시간 리스트 반환 실패")
+                            return []
+                        }
+                        
+                        let repositoryItem = RepositoryItem(
+                            groupName: group.name,
+                            groupColor: group.color,
+                            blockTaskLabel: block.taskLabel,
+                            blockIcon: block.icon,
+                            trackingDate: trackingDate,
+                            trackingTimes: trackingTimeList
+                        )
+                        
+                        items.append(repositoryItem)
+                    }
+                }
+            }
+        }
+        
+        return items
+    }
+    
+    /// 지정한 월에 속하는 모든 코어 데이터를 반환합니다.
+    func fetchAllMonthDateItem(for date: Date) -> [RepositoryItem] {
+        
+        // 1. 날짜 변환
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_kr")
+        formatter.dateFormat = "yyyy MM"
+        let dateFormat = formatter.string(from: date).components(separatedBy: " ")
+        let year = dateFormat[0]
+        let month = dateFormat[1]
+        
+        // 반환할 빈배열 생성
+        var items: [RepositoryItem] = []
+        
+        // 2. 코어데이터에서 해당 날짜와 일치하는 데이터 반환
+        for group in entities {
+            guard let blockList = group.blockList?.array as? [Block] else {
+                print("블럭 리스트 반환 실패")
+                return []
+            }
+            
+            for block in blockList {
+                guard let trackingDateList = block.trackingDateList?.array as? [TrackingDate] else {
+                    print("트래킹 날짜 리스트 반환 실패")
+                    return []
+                }
+                
+                for trackingDate in trackingDateList {
+                    if trackingDate.year == year && trackingDate.month == month {
                         guard let trackingTimeList = trackingDate.trackingTimeList?.array as? [TrackingTime] else {
                             print("트래킹 시간 리스트 반환 실패")
                             return []

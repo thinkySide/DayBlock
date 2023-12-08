@@ -18,12 +18,16 @@ extension RepositoryViewController {
         updateTableViewHeight()
     }
     
-    /// 날짜가 변경됨에 따라 테이블 뷰를 업데이트 합니다.
-    func updateTableView(date: Date) {
+    /// 날짜가 변경됨에 따라 달력 뷰(컬렉션뷰) 및 테이블 뷰를 업데이트 합니다.
+    func updateRepositoryView(date: Date) {
         
-        // 날짜 업데이트
-        let repositoryItems = groupDataManager.fetchAllData(for: date)
+        // 전체 월 기준 날짜 업데이트
+        let repositoryItems = groupDataManager.fetchAllMonthDateItem(for: date)
         repositortyManager.updateCurrentItems(repositoryItems)
+        
+        // 선택된 날짜 기준 업데이트
+        let dateString = calendarManager.fullDateFormat(from: date)
+        repositortyManager.filterSelectedDate(dateString)
         viewManager.summaryView.tableView.reloadData()
         updateTableViewHeight()
         
@@ -48,7 +52,7 @@ extension RepositoryViewController {
     }
     
     /// 테이블 뷰의 높이를 업데이트 하는 메서드입니다.
-    func updateTableViewHeight() {
+    private func updateTableViewHeight() {
         let summaryView = viewManager.summaryView
         summaryView.heightConstraint.constant = calculateTableViewHeight()
     }
@@ -57,14 +61,14 @@ extension RepositoryViewController {
 // MARK: - UITableViewDataSource
 extension RepositoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return repositortyManager.currentItems().count
+        return repositortyManager.dayItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SummaryTableViewCell.id, for: indexPath) as? SummaryTableViewCell else { return UITableViewCell() }
         
         // UI 설정
-        let currentItem = repositortyManager.currentItems()[indexPath.row]
+        let currentItem = repositortyManager.dayItems[indexPath.row]
         cell.iconBlock.symbol.image = UIImage(systemName: currentItem.blockIcon)
         cell.iconBlock.backgroundColor = UIColor(rgb: currentItem.groupColor)
         cell.taskLabel.text = currentItem.blockTaskLabel

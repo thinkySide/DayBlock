@@ -21,6 +21,7 @@ final class CalendarManager {
         return formatter
     }()
     
+    /// 일 포맷
     func dayFormat(from date: Date) -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_kr")
@@ -28,6 +29,7 @@ final class CalendarManager {
         return formatter.string(from: date)
     }
     
+    /// 전체 날짜 포맷
     func fullDateFormat(from date: Date) -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_kr")
