@@ -26,10 +26,12 @@ final class CalendarBlock: UIView {
     let fourBlock = FourBlock(size: 24)
     let fiveBlock = FiveBlock(size: 24)
     
-    init(state: CalendarCellState) {
+    init(state: CalendarCellState, colors: [UIColor] = [
+        Color.testBlue, Color.testPink, Color.testGreen, Color.testYellow, .systemPurple
+    ]) {
         super.init(frame: .zero)
         setupAutoLayout()
-        updateState(state)
+        updateState(state, colors: colors)
     }
     
     required init?(coder: NSCoder) {
@@ -37,16 +39,15 @@ final class CalendarBlock: UIView {
     }
     
     /// 셀의 상태를 업데이트합니다.
-    func updateState(_ state: CalendarCellState) {
-        // print("셀 상태: \(state)")
+    func updateState(_ state: CalendarCellState, colors: [UIColor]) {
         switch state {
         case .none:
-            oneBlock.block.backgroundColor = Color.entireBlock
             oneBlock.alpha = 1
             twoBlock.alpha = 0
             threeBlock.alpha = 0
             fourBlock.alpha = 0
             fiveBlock.alpha = 0
+            oneBlock.block.backgroundColor = Color.entireBlock
             
         case .one:
             oneBlock.alpha = 1
@@ -54,6 +55,7 @@ final class CalendarBlock: UIView {
             threeBlock.alpha = 0
             fourBlock.alpha = 0
             fiveBlock.alpha = 0
+            oneBlock.block.backgroundColor = colors[0]
             
         case .two:
             oneBlock.alpha = 0
@@ -61,6 +63,8 @@ final class CalendarBlock: UIView {
             threeBlock.alpha = 0
             fourBlock.alpha = 0
             fiveBlock.alpha = 0
+            twoBlock.firstBlock.backgroundColor = colors[0]
+            twoBlock.secondBlock.backgroundColor = colors[1]
             
         case .three:
             oneBlock.alpha = 0
@@ -68,6 +72,9 @@ final class CalendarBlock: UIView {
             threeBlock.alpha = 1
             fourBlock.alpha = 0
             fiveBlock.alpha = 0
+            threeBlock.firstBlock.backgroundColor = colors[0]
+            threeBlock.secondBlock.backgroundColor = colors[1]
+            threeBlock.thirdBlock.backgroundColor = colors[2]
             
         case .four:
             oneBlock.alpha = 0
@@ -75,6 +82,10 @@ final class CalendarBlock: UIView {
             threeBlock.alpha = 0
             fourBlock.alpha = 1
             fiveBlock.alpha = 0
+            fourBlock.firstBlock.backgroundColor = colors[0]
+            fourBlock.secondBlock.backgroundColor = colors[1]
+            fourBlock.thirdBlock.backgroundColor = colors[2]
+            fourBlock.fourthBlock.backgroundColor = colors[3]
             
         case .five:
             oneBlock.alpha = 0
@@ -82,6 +93,11 @@ final class CalendarBlock: UIView {
             threeBlock.alpha = 0
             fourBlock.alpha = 0
             fiveBlock.alpha = 1
+            fiveBlock.firstBlock.backgroundColor = colors[0]
+            fiveBlock.secondBlock.backgroundColor = colors[1]
+            fiveBlock.thirdBlock.backgroundColor = colors[2]
+            fiveBlock.fourthBlock.backgroundColor = colors[3]
+            fiveBlock.fifthBlock.backgroundColor = colors[4]
         }
     }
     

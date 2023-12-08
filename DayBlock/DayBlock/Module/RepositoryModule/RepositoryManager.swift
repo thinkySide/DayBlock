@@ -5,7 +5,7 @@
 //  Created by 김민준 on 12/5/23.
 //
 
-import Foundation
+import UIKit
 
 final class RepositoryManager {
     
@@ -45,6 +45,7 @@ final class RepositoryManager {
     
     /// 현재 날짜 기준의 items를 필터링하여 반환합니다.
     func filterSelectedDate(_ dateString: String) {
+        
         let fullDate = dateString.components(separatedBy: ".")
         let year = fullDate[0]
         let month = fullDate[1]
@@ -66,17 +67,44 @@ final class RepositoryManager {
         let month = fullDate[1]
         let day = fullDate[2]
         
-        print("fullDate: \(fullDate)")
-        
+        // 년, 월, 일이 맞는지 확인하며 셀 타입 반환
+        var groupArray: [String] = []
         for item in monthItems {
             if (item.trackingDate.year == year && item.trackingDate.month == month)
                 && item.trackingDate.day == day {
-                print("\(fullDate) 요날에 트래킹 있었네")
-                return .five
+                    
+                // 여기서 블럭 타입이 몇개였는지 체크하는 로직 작성해야 함.
+                groupArray.append(item.groupName)
             }
         }
         
-        return .none
+        // 중복된 요소 삭제 후 최종 개수 결정
+        switch Set(groupArray).count {
+        case 1: return .one
+        case 2: return .two
+        case 3: return .three
+        case 4: return .four
+        case 5: return .five
+        default: return .none
+        }
+    }
+    
+    /// dayItems의 값을 이용해 컬러 배열을 반환합니다.
+    func blockColors(dateString: String) -> [UIColor] {
+        let fullDate = dateString.components(separatedBy: ".")
+        let year = fullDate[0]
+        let month = fullDate[1]
+        let day = fullDate[2]
+        
+        var colorValues: [Int] = []
+        for item in monthItems where !colorValues.contains(item.groupColor) {
+            if (item.trackingDate.year == year && item.trackingDate.month == month)
+                && item.trackingDate.day == day {
+                colorValues.append(item.groupColor)
+            }
+        }
+        
+        return colorValues.map { UIColor(rgb: $0) }
     }
     
     // MARK: - 변환 메서드

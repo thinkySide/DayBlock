@@ -14,7 +14,7 @@ final class RepositoryViewController: UIViewController {
     lazy var calendarView = viewManager.calendarView
     let calendarManager = CalendarManager.shared
     let groupDataManager = GroupDataStore.shared
-    let repositortyManager = RepositoryManager.shared
+    let repositoryManager = RepositoryManager.shared
     
     // MARK: - ViewController LifeCycle
     override func loadView() {
@@ -31,7 +31,7 @@ final class RepositoryViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updateRepositoryView(date: repositortyManager.currentDate)
+        updateRepositoryView(date: repositoryManager.currentDate)
     }
     
     // MARK: - Setup Method
@@ -84,7 +84,7 @@ final class RepositoryViewController: UIViewController {
     /// today 버튼 탭 시 호출되는 메서드입니다.
     @objc private func todayButtonTapped() {
         let today = Date()
-        repositortyManager.currentDate = today
+        repositoryManager.currentDate = today
         viewManager.calendarView.calendar.select(today, scrollToDate: true)
         calendarView.calendar.setCurrentPage(today, animated: true)
         updateRepositoryView(date: today)
@@ -106,7 +106,7 @@ final class RepositoryViewController: UIViewController {
         calendarView.calendar.select(endDate, scrollToDate: true)
         
         // SummaryView 업데이트
-        repositortyManager.currentDate = endDate
+        repositoryManager.currentDate = endDate
         updateRepositoryView(date: endDate)
     }
     
@@ -124,7 +124,7 @@ final class RepositoryViewController: UIViewController {
         calendarView.calendar.select(startDate, scrollToDate: true)
         
         // SummaryView 업데이트
-        repositortyManager.currentDate = startDate
+        repositoryManager.currentDate = startDate
         updateRepositoryView(date: startDate)
     }
 }
@@ -144,8 +144,9 @@ extension RepositoryViewController: FSCalendarDataSource & FSCalendarDelegate {
         
         // 셀 타입 업데이트
         let dateString = calendarManager.fullDateFormat(from: date)
-        let cellType = repositortyManager.blockTypeCount(dateString: dateString)
-        cell.block.updateState(cellType)
+        let cellType = repositoryManager.blockTypeCount(dateString: dateString)
+        let colors = repositoryManager.blockColors(dateString: dateString)
+        cell.block.updateState(cellType, colors: colors)
         
         // 셀 선택 날짜 업데이트
         cell.selectedDateLabel.text = calendarManager.dayFormat(from: date)
@@ -166,7 +167,7 @@ extension RepositoryViewController: FSCalendarDataSource & FSCalendarDelegate {
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         
         // 1. 현재 날짜 업데이트
-        repositortyManager.currentDate = date
+        repositoryManager.currentDate = date
         
         // 2. 코어데이터에 해당 날짜의 모든 데이터 불러오기
         updateRepositoryView(date: date)

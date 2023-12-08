@@ -23,24 +23,25 @@ extension RepositoryViewController {
         
         // 전체 월 기준 날짜 업데이트
         let repositoryItems = groupDataManager.fetchAllMonthDateItem(for: date)
-        repositortyManager.updateCurrentItems(repositoryItems)
+        repositoryManager.updateCurrentItems(repositoryItems)
         
         // 선택된 날짜 기준 업데이트
         let dateString = calendarManager.fullDateFormat(from: date)
-        repositortyManager.filterSelectedDate(dateString)
+        repositoryManager.filterSelectedDate(dateString)
         viewManager.summaryView.tableView.reloadData()
+        viewManager.calendarView.calendar.reloadData()
         updateTableViewHeight()
         
         // 만약 해당하는 날짜에 블럭이 없다면 라벨 출력
         var alpha: CGFloat = 0
-        alpha = repositoryItems.isEmpty ? 1 : 0
+        alpha = repositoryManager.dayItems.isEmpty ? 1 : 0
         viewManager.summaryView.noTrackingLabel.alpha = alpha
     }
     
     /// 테이블 뷰의 높이를 구하는 메서드입니다.
     private func calculateTableViewHeight() -> CGFloat {
         let tableView = viewManager.summaryView.tableView
-        let cellCount = CGFloat(repositortyManager.currentItems().count)
+        let cellCount = CGFloat(repositoryManager.currentItems().count)
         
         // 만약 0개라면 적당히 3.5개 정도의 셀을 가지고 있는 높이 값으로 반환
         if cellCount == 0 {
@@ -61,20 +62,20 @@ extension RepositoryViewController {
 // MARK: - UITableViewDataSource
 extension RepositoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return repositortyManager.dayItems.count
+        return repositoryManager.dayItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SummaryTableViewCell.id, for: indexPath) as? SummaryTableViewCell else { return UITableViewCell() }
         
         // UI 설정
-        let currentItem = repositortyManager.dayItems[indexPath.row]
+        let currentItem = repositoryManager.dayItems[indexPath.row]
         cell.iconBlock.symbol.image = UIImage(systemName: currentItem.blockIcon)
         cell.iconBlock.backgroundColor = UIColor(rgb: currentItem.groupColor)
         cell.taskLabel.text = currentItem.blockTaskLabel
-        cell.timeLabel.text = repositortyManager.trackingTimeString(to: indexPath.row)
+        cell.timeLabel.text = repositoryManager.trackingTimeString(to: indexPath.row)
         cell.plus.textColor = UIColor(rgb: currentItem.groupColor)
-        cell.outputLabel.text = repositortyManager.totalOutput(to: indexPath.row)
+        cell.outputLabel.text = repositoryManager.totalOutput(to: indexPath.row)
         return cell
     }
 }
