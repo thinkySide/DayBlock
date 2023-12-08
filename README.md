@@ -637,3 +637,14 @@ NotificationCenter를 활용해 그룹이 업데이트 되는 시점에 맞춰 H
 ---
 
 <br>
+
+### **Day 89 - 23.12.08**
+
+- **RepositoryViewController 트래킹 데이터 연결 완료**   
+트래킹 데이터에 따라 UI 업데이트를 진행했습니다. 해당 날짜의 트래킹 데이터를 시작 시간이 빠른 순서 정렬로 출력하였고, 생산한 블럭 타입의 개수마다 색상을 적용해 시각화했습니다.
+
+<img width="300" src="https://github.com/thinkySide/DayBlock/assets/113565086/f0075d66-8c4b-4935-aaa8-83fc9358e347">
+
+---
+
+<br>
