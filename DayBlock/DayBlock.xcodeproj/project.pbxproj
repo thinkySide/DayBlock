@@ -10,6 +10,7 @@
 		070A90272B2827C400BBD147 /* OutputBlockPreviewInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070A90262B2827C400BBD147 /* OutputBlockPreviewInfo.swift */; };
 		070A90292B283FDD00BBD147 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070A90282B283FDD00BBD147 /* MyPageViewController.swift */; };
 		070A902C2B28400D00BBD147 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070A902B2B28400D00BBD147 /* MyPageView.swift */; };
+		070A902E2B28429000BBD147 /* SummaryInfoIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070A902D2B28429000BBD147 /* SummaryInfoIcon.swift */; };
 		0713019E2B205791008A2A8D /* SmallButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0713019D2B205791008A2A8D /* SmallButton.swift */; };
 		071301A02B208844008A2A8D /* CalendarBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0713019F2B208844008A2A8D /* CalendarBlock.swift */; };
 		0714B8052ACD005000B560D6 /* TestDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0714B8042ACD005000B560D6 /* TestDataSet.swift */; };
@@ -137,6 +138,7 @@
 		070A90262B2827C400BBD147 /* OutputBlockPreviewInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputBlockPreviewInfo.swift; sourceTree = "<group>"; };
 		070A90282B283FDD00BBD147 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		070A902B2B28400D00BBD147 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
+		070A902D2B28429000BBD147 /* SummaryInfoIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryInfoIcon.swift; sourceTree = "<group>"; };
 		0713019D2B205791008A2A8D /* SmallButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallButton.swift; sourceTree = "<group>"; };
 		0713019F2B208844008A2A8D /* CalendarBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBlock.swift; sourceTree = "<group>"; };
 		0714B8042ACD005000B560D6 /* TestDataSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDataSet.swift; sourceTree = "<group>"; };
@@ -280,6 +282,14 @@
 				070A90282B283FDD00BBD147 /* MyPageViewController.swift */,
 			);
 			path = MyPageModule;
+			sourceTree = "<group>";
+		};
+		070A902F2B28429600BBD147 /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				070A902D2B28429000BBD147 /* SummaryInfoIcon.swift */,
+			);
+			path = Info;
 			sourceTree = "<group>";
 		};
 		0749D72E2ABADA47004DF368 /* Models */ = {
@@ -730,6 +740,7 @@
 				076248C22AB2FD42000A8664 /* MenuPopup */,
 				076248C12AB2FC51000A8664 /* Popup */,
 				076248BE2AB2F9F2000A8664 /* Separator */,
+				070A902F2B28429600BBD147 /* Info */,
 			);
 			path = UIComponent;
 			sourceTree = "<group>";
@@ -956,6 +967,7 @@
 				0749D7202AB988F2004DF368 /* HomeVC+Timer.swift in Sources */,
 				07B49C452A95E5BD006D1011 /* TrackingCompleteViewController.swift in Sources */,
 				07A45CE42AA0952000C09342 /* TimerManager.swift in Sources */,
+				070A902E2B28429000BBD147 /* SummaryInfoIcon.swift in Sources */,
 				0749D71C2AB84198004DF368 /* HomeVC+BlockCollectionView.swift in Sources */,
 				07454E1329EC138E00B3458D /* ManageGroupTableViewCell.swift in Sources */,
 				07454E1129EBFDF200B3458D /* ActionButton.swift in Sources */,

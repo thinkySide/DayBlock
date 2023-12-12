@@ -19,4 +19,6 @@ final class MyPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    // MARK: - Setup Method
 }
