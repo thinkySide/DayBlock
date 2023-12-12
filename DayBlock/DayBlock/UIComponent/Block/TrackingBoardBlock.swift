@@ -54,6 +54,22 @@ final class TrackingBoardBlock: UIView {
         return view
     }()
     
+    /// mixed 상태의 첫번째 반쪽 색칠 상태
+    let mixedFirstHalf: UIView = {
+        let view = UIView()
+        view.clipsToBounds = true
+        view.alpha = 0
+        return view
+    }()
+    
+    /// mixed 상태의 두번째 반쪽 색칠 상태
+    let mixedSecondHalf: UIView = {
+        let view = UIView()
+        view.clipsToBounds = true
+        view.alpha = 0
+        return view
+    }()
+    
     /// 현재 블럭 색칠 상태
     var state: Paint?
     
@@ -71,6 +87,10 @@ final class TrackingBoardBlock: UIView {
         firstHalf.alpha = 1
         secondHalf.backgroundColor = .clear
         secondHalf.alpha = 1
+        mixedFirstHalf.backgroundColor = .clear
+        mixedFirstHalf.alpha = 1
+        mixedSecondHalf.backgroundColor = .clear
+        mixedSecondHalf.alpha = 1
         
         // 색상 변경
         switch state {
@@ -92,8 +112,8 @@ final class TrackingBoardBlock: UIView {
             
         case .mixed:
             print("state == mixed")
-            firstHalf.backgroundColor = color[0]
-            secondHalf.backgroundColor = color[1]
+            mixedFirstHalf.backgroundColor = color[0]
+            mixedSecondHalf.backgroundColor = color[1]
 
         case nil: print("state == nil")
         }
@@ -182,7 +202,7 @@ final class TrackingBoardBlock: UIView {
         self.backgroundColor = Color.entireBlock
         
         /// AddSubView & resizingMask
-        [full, firstHalf, secondHalf]
+        [full, firstHalf, secondHalf, mixedFirstHalf, mixedSecondHalf]
             .forEach {
                 addSubview($0)
                 $0.translatesAutoresizingMaskIntoConstraints = false
@@ -211,7 +231,19 @@ final class TrackingBoardBlock: UIView {
             secondHalf.topAnchor.constraint(equalTo: topAnchor),
             secondHalf.bottomAnchor.constraint(equalTo: bottomAnchor),
             secondHalf.trailingAnchor.constraint(equalTo: trailingAnchor),
-            secondHalf.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5)
+            secondHalf.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
+            
+            // mixedFirstHalf
+            mixedFirstHalf.topAnchor.constraint(equalTo: topAnchor),
+            mixedFirstHalf.bottomAnchor.constraint(equalTo: bottomAnchor),
+            mixedFirstHalf.leadingAnchor.constraint(equalTo: leadingAnchor),
+            mixedFirstHalf.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
+            
+            // mixedSecondHalf
+            mixedSecondHalf.topAnchor.constraint(equalTo: topAnchor),
+            mixedSecondHalf.bottomAnchor.constraint(equalTo: bottomAnchor),
+            mixedSecondHalf.trailingAnchor.constraint(equalTo: trailingAnchor),
+            mixedSecondHalf.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5)
         ])
     }
     
@@ -222,12 +254,20 @@ final class TrackingBoardBlock: UIView {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
 
-        /// ConrerRadius
+        // ConrerRadius
         let cornerRadius = self.frame.height / 4
         self.clipsToBounds = true
         self.layer.cornerRadius = cornerRadius
         full.layer.cornerRadius = cornerRadius
         firstHalf.layer.cornerRadius = cornerRadius
         secondHalf.layer.cornerRadius = cornerRadius
+        mixedFirstHalf.layer.cornerRadius = cornerRadius
+        mixedSecondHalf.layer.cornerRadius = cornerRadius
+        
+        // CornerRadius 부분 적용
+        mixedFirstHalf.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+        mixedFirstHalf.layer.masksToBounds = true
+        mixedSecondHalf.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+        mixedSecondHalf.layer.masksToBounds = true
     }
 }

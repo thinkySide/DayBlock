@@ -61,8 +61,37 @@ final class TrackingBoard: UIView {
         case halfTime
     }
     
+    /// 생산량 체크 보드에 트래킹 데이터를 칠합니다.
+    func paintOutputBoard(_ trackingBlocks: [String], color: [UIColor]) {
+        print(trackingBlocks)
+        
+        for trackingBlock in trackingBlocks {
+            let split = trackingBlock.split(separator: ":").map { String($0) }
+            let hour = split[0]
+            let minute = split[1]
+            
+            // 트래킹 블럭 지정
+            let blockIndex = Int(hour)!
+            let paintBlock = blocks[blockIndex]
+            let state = minute == "00" ? TrackingBoardBlock.Paint.firstHalf : TrackingBoardBlock.Paint.secondHalf
+            
+            if state == .firstHalf {
+                paintBlock.painting(.firstHalf, color: [color[blockIndex]])
+            }
+            
+            // 첫번째 반쪽이 이미 차있다면, mixed로 변경
+            else if paintBlock.state == .firstHalf && state == .secondHalf {
+                paintBlock.painting(.mixed, color: [color[blockIndex], color[blockIndex + 1]])
+            }
+            
+            else {
+                paintBlock.painting(.secondHalf, color: [color[blockIndex]])
+            }
+        }
+    }
+    
     /// 트래킹 완료 후 보드 표시 메서드입니다.
-    func fillBlocks(_ trackingBlocks: [String], color: [UIColor]) {
+    func trackingCompleteAndFill(_ trackingBlocks: [String], color: [UIColor]) {
         print(trackingBlocks)
         
         for trackingBlock in trackingBlocks {

@@ -42,7 +42,7 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(testCoreData))
-        viewManager.trackingBlockPreview.addGestureRecognizer(gesture)
+        viewManager.outputBlockPreview.addGestureRecognizer(gesture)
         
         setupCoreData()
         setupNotification()
@@ -190,7 +190,8 @@ final class HomeViewController: UIViewController {
         
         /// 우선 오늘 날짜의 모든 트래킹 데이터를 받아오고
         /// 그걸 시간대별로 나눠서 고고하면 됨.
-        viewManager.outputBlockPreview.block04.painting(.mixed, color: [.blue, .systemPink])
+        /// 즉, 0.5개 단위의 반복문을 돌면서 색칠해주면 됨.
+        viewManager.outputBlockPreview.paintOutputBoard(["00:00", "01:30", "02:00", "02:30"], color: [.blue, .red, .systemGreen, .systemPurple])
     }
     
     /// 제스처를 연결하고 설정합니다.
