@@ -130,29 +130,29 @@ extension TrackingDataStore {
         return "\(focusDate().year)년 \(focusDate().month)월 \(focusDate().day)일 \(focusDate().dayOfWeek)요일"
     }
     
-    /// 포커스된(트래킹 완료) 시간을 문자열로 변환 후 반환합니다.
-    func focusTrackingTimeFormat() -> String {
-        
-        func secondsToTime(_ time: String?) -> String {
-            if let time = time,
-               let seconds = Int(time) {
-                
-                // 1. 시간 단위로 변환
-                let hour = seconds / 3600
-                let minute = seconds / 60 - (60 * hour)
-                
-                // 2. 만약 10보다 작다면(한자리 수라면) 앞에 0 붙여서 return
-                var stringHour = String(hour)
-                var stringMinute = String(minute)
-                if hour < 10 { stringHour.insert("0", at: stringHour.startIndex) }
-                if minute < 10 { stringMinute.insert("0", at: stringMinute.startIndex) }
-                
-                return "\(stringHour):\(stringMinute)"
-            }
+    /// 초 단위를 시간 문자열로 변환해 반환합니다.
+    func secondsToTime(_ time: String?) -> String {
+        if let time = time,
+           let seconds = Int(time) {
             
-            fatalError("잘못된 트래킹 데이터가 저장되었습니다.")
+            // 1. 시간 단위로 변환
+            let hour = seconds / 3600
+            let minute = seconds / 60 - (60 * hour)
+            
+            // 2. 만약 10보다 작다면(한자리 수라면) 앞에 0 붙여서 return
+            var stringHour = String(hour)
+            var stringMinute = String(minute)
+            if hour < 10 { stringHour.insert("0", at: stringHour.startIndex) }
+            if minute < 10 { stringMinute.insert("0", at: stringMinute.startIndex) }
+            
+            return "\(stringHour):\(stringMinute)"
         }
         
+        fatalError("잘못된 트래킹 데이터가 저장되었습니다.")
+    }
+    
+    /// 포커스된(트래킹 완료) 시간을 문자열로 변환 후 반환합니다.
+    func focusTrackingTimeFormat() -> String {
         guard let firstTime = focusTimeList.first else {
             return "12:34 ~ 56:78"
         }
@@ -263,6 +263,52 @@ extension TrackingDataStore {
         
         return String(count)
     }
+    
+    /// 오늘의 생산량 보드 데이터를 반환합니다.
+    /// 시간 문자열 & 색상
+    func todayOutputBoardData() -> ([String], [UIColor]) {
+        
+        var times: [String] = []
+        var colors: [UIColor] = []
+        
+        // 1. 그룹 반복
+        for group in groupData.list() {
+            guard let blockList = group.blockList?.array as? [Block] else {
+                fatalError("블럭 리스트 반환 실패")
+            }
+            
+            // 2. 블럭 반복
+            for block in blockList {
+                guard let dateList = block.trackingDateList?.array as? [TrackingDate] else {
+                    fatalError("날짜 리스트 반환 실패")
+                }
+                
+                // 오늘 날짜 리스트
+                let todayDateList = dateList.filter {
+                    $0.year == formatter("yyyy") &&
+                    $0.month == formatter("MM") &&
+                    $0.day == formatter("dd")
+                }
+                
+                // 3. 날짜 반복
+                for date in todayDateList {
+                    guard let timeList = date.trackingTimeList?.array as? [TrackingTime] else {
+                        fatalError("시간 리스트 반환 실패")
+                    }
+                    
+                    // 4. 시간 반복
+                    for time in timeList {
+                        guard let _ = time.endTime else { break }
+                        let startTime = secondsToTime(time.startTime)
+                        times.append(startTime)
+                        colors.append(UIColor(rgb: group.color))
+                    }
+                }
+            }
+        }
+        
+        return (times, colors)
+    }
 }
 
 // MARK: - CREAT & REMOVE Method
@@ -337,8 +383,6 @@ extension TrackingDataStore {
         if !currentTrackingBlocks.contains(testTrackingBoardDatas[count]) {
             currentTrackingBlocks.append(testTrackingBoardDatas[count])
         }
-        
-        
         
         // 4. 새로운 세션 시작
         let trackingTime = TrackingTime(context: context)

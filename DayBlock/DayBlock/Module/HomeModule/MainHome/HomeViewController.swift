@@ -66,9 +66,9 @@ final class HomeViewController: UIViewController {
             viewManager.toggleTrackingButton(true)
         }
         
-//        // 그룹 선택 버튼 업데이트
-//        viewManager.groupSelectButton.color.backgroundColor = groupData.focusColor()
-//        viewManager.groupSelectButton.label.text = groupData.focusEntity().name
+        // 생산량 확인 보드 업데이트
+        let outputInfo = trackingData.todayOutputBoardData()
+        viewManager.outputBlockPreview.paintOutputBoard(outputInfo.0, color: outputInfo.1)
         
         // CollectionView 리로드
         viewManager.blockCollectionView.reloadData()
@@ -187,11 +187,8 @@ final class HomeViewController: UIViewController {
         viewManager.productivityLabel.text = "today +\(trackingData.todayAllOutput())"
         
         // 생산량 확인 보드 업데이트
-        
-        /// 우선 오늘 날짜의 모든 트래킹 데이터를 받아오고
-        /// 그걸 시간대별로 나눠서 고고하면 됨.
-        /// 즉, 0.5개 단위의 반복문을 돌면서 색칠해주면 됨.
-        viewManager.outputBlockPreview.paintOutputBoard(["00:00", "01:30", "02:00", "02:30"], color: [.blue, .red, .systemGreen, .systemPurple])
+        let outputInfo = trackingData.todayOutputBoardData()
+        viewManager.outputBlockPreview.paintOutputBoard(outputInfo.0, color: outputInfo.1)
     }
     
     /// 제스처를 연결하고 설정합니다.

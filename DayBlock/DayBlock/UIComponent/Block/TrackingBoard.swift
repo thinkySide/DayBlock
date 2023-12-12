@@ -65,7 +65,7 @@ final class TrackingBoard: UIView {
     func paintOutputBoard(_ trackingBlocks: [String], color: [UIColor]) {
         print(trackingBlocks)
         
-        for trackingBlock in trackingBlocks {
+        for (enumIndex, trackingBlock) in trackingBlocks.enumerated() {
             let split = trackingBlock.split(separator: ":").map { String($0) }
             let hour = split[0]
             let minute = split[1]
@@ -73,19 +73,21 @@ final class TrackingBoard: UIView {
             // 트래킹 블럭 지정
             let blockIndex = Int(hour)!
             let paintBlock = blocks[blockIndex]
-            let state = minute == "00" ? TrackingBoardBlock.Paint.firstHalf : TrackingBoardBlock.Paint.secondHalf
+            
+            let state = Int(minute)! >= 30 ? 
+            TrackingBoardBlock.Paint.secondHalf : TrackingBoardBlock.Paint.firstHalf
             
             if state == .firstHalf {
-                paintBlock.painting(.firstHalf, color: [color[blockIndex]])
+                paintBlock.painting(.firstHalf, color: [color[enumIndex]])
             }
             
             // 첫번째 반쪽이 이미 차있다면, mixed로 변경
             else if paintBlock.state == .firstHalf && state == .secondHalf {
-                paintBlock.painting(.mixed, color: [color[blockIndex], color[blockIndex + 1]])
+                paintBlock.painting(.mixed, color: [color[enumIndex], color[enumIndex + 1]])
             }
             
             else {
-                paintBlock.painting(.secondHalf, color: [color[blockIndex]])
+                paintBlock.painting(.secondHalf, color: [color[enumIndex]])
             }
         }
     }

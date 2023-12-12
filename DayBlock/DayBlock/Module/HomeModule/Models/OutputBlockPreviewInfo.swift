@@ -8,8 +8,5 @@
 import UIKit
 
 struct OutputBlockPreviewInfo {
-    var boardIndex: Int
-    var startTime: Int
-    var endTime: Int
-    var colors: [UIColor]
+    var startTime: String
 }
