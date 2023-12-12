@@ -186,7 +186,11 @@ final class HomeViewController: UIViewController {
         initialTrackingStartButton()
         viewManager.productivityLabel.text = "today +\(trackingData.todayAllOutput())"
         
-        viewManager.outputBlockPreview.block02.painting(.secondHalf, color: .blue)
+        // 생산량 확인 보드 업데이트
+        
+        /// 우선 오늘 날짜의 모든 트래킹 데이터를 받아오고
+        /// 그걸 시간대별로 나눠서 고고하면 됨.
+        viewManager.outputBlockPreview.block04.painting(.mixed, color: [.blue, .systemPink])
     }
     
     /// 제스처를 연결하고 설정합니다.

@@ -116,6 +116,8 @@ extension HomeViewController {
         
         // 4. 트래킹 보드 애니메이션 시작
         updateTrackingBoard(isPaused: false)
+        viewManager.trackingBlockPreview.alpha = 1
+        viewManager.outputBlockPreview.alpha = 0
         
         // 5. SFSymbol 애니메이션 시작
         startSFSymbolBounceAnimation(viewManager.trackingBlock.icon)

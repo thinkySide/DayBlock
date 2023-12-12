@@ -62,7 +62,7 @@ final class TrackingBoard: UIView {
     }
     
     /// 트래킹 완료 후 보드 표시 메서드입니다.
-    func fillBlocks(_ trackingBlocks: [String], color: UIColor) {
+    func fillBlocks(_ trackingBlocks: [String], color: [UIColor]) {
         print(trackingBlocks)
         
         for trackingBlock in trackingBlocks {

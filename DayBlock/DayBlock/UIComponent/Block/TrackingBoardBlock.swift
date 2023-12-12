@@ -23,10 +23,11 @@ final class TrackingBoardBlock: UIView {
     
     /// 블럭 색칠 상태
     enum Paint {
+        case none
         case firstHalf
         case secondHalf
         case fullTime
-        case none
+        case mixed
     }
     
     /// 전체 색칠 상태
@@ -59,7 +60,7 @@ final class TrackingBoardBlock: UIView {
     // MARK: - Method
     
     /// 블럭 색칠 메서드
-    func painting(_ area: Paint, color: UIColor = Color.entireBlock) {
+    func painting(_ area: Paint, color: [UIColor] = [Color.entireBlock]) {
         
         // 상태 변경
         state = area
@@ -73,21 +74,26 @@ final class TrackingBoardBlock: UIView {
         
         // 색상 변경
         switch state {
-        case .firstHalf: 
-            print("state == firstHalf")
-            firstHalf.backgroundColor = color
-            
-        case .secondHalf:
-            print("state == secondHalf")
-            secondHalf.backgroundColor = color
-            
-        case .fullTime:
-            print("state == fullTime")
-            backgroundColor = color
-            
         case .none?:
             print("state == none")
             backgroundColor = Color.entireBlock
+            
+        case .firstHalf:
+            print("state == firstHalf")
+            firstHalf.backgroundColor = color[0]
+            
+        case .secondHalf:
+            print("state == secondHalf")
+            secondHalf.backgroundColor = color[0]
+            
+        case .fullTime:
+            print("state == fullTime")
+            backgroundColor = color[0]
+            
+        case .mixed:
+            print("state == mixed")
+            firstHalf.backgroundColor = color[0]
+            secondHalf.backgroundColor = color[1]
 
         case nil: print("state == nil")
         }
@@ -107,12 +113,12 @@ final class TrackingBoardBlock: UIView {
         
         // 깜빡이 애니메이션
         switch state {
+        case .none?: backgroundColor = Color.entireBlock
         case .firstHalf: animate(firstHalf, color: color, isPaused: isPaused)
         case .secondHalf: animate(secondHalf, color: color, isPaused: isPaused)
         case .fullTime: animate(full, color: color, isPaused: isPaused)
-        case .none?: backgroundColor = Color.entireBlock
-        case nil:
-            break
+        case.mixed: break
+        case nil: break
         }
     }
     
