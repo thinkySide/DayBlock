@@ -72,8 +72,17 @@ final class HomeView: UIView {
         return label
     }()
     
-    let blockPreview: TrackingBoard = {
+    /// 생산량 체크용 블럭 프리뷰
+    let outputBlockPreview: TrackingBoard = {
         let preview = TrackingBoard(frame: .zero, blockSize: 18, spacing: 4)
+        preview.alpha = 1
+        return preview
+    }()
+    
+    /// 트래킹용 블럭 프리뷰
+    let trackingBlockPreview: TrackingBoard = {
+        let preview = TrackingBoard(frame: .zero, blockSize: 18, spacing: 4)
+        preview.alpha = 0
         return preview
     }()
     
@@ -207,28 +216,36 @@ final class HomeView: UIView {
         // Tracking 모드 설정
         switch trackingMode {
         case .start:
+            outputBlockPreview.alpha = 0
+            trackingBlockPreview.alpha = 1
             delegate?.homeView(self, trackingDidStart: trackingMode)
             trackingTimeLabel.textColor = Color.mainText
             trackingButton.setImage(UIImage(named: Icon.trackingPause), for: .normal)
             delegate?.homeView(self, setupProgressViewColor: .start)
             
         case .pause:
+            outputBlockPreview.alpha = 0
+            trackingBlockPreview.alpha = 1
             delegate?.homeView(self, trackingDidPause: trackingMode)
             trackingTimeLabel.textColor = Color.disabledText
             trackingButton.setImage(UIImage(named: Icon.trackingStart), for: .normal)
             trackingProgressView.progressTintColor = Color.disabledText
             
         case .restart:
+            outputBlockPreview.alpha = 0
+            trackingBlockPreview.alpha = 1
             delegate?.homeView(self, trackingDidRestart: trackingMode)
             trackingTimeLabel.textColor = Color.mainText
             trackingButton.setImage(UIImage(named: Icon.trackingPause), for: .normal)
             delegate?.homeView(self, setupProgressViewColor: .start)
             
         case .stop:
-            break
+            outputBlockPreview.alpha = 1
+            trackingBlockPreview.alpha = 0
             
         case .finish:
-            break
+            outputBlockPreview.alpha = 1
+            trackingBlockPreview.alpha = 0
         }
         
         // 공통 설정
@@ -326,7 +343,7 @@ final class HomeView: UIView {
         [
             groupSelectButton,
             dateLabel, timeLabel, productivityLabel,
-            blockPreview,
+            outputBlockPreview, trackingBlockPreview,
             blockCollectionView,
             trackingBlock,
             messageLabel,
@@ -370,11 +387,17 @@ final class HomeView: UIView {
             groupSelectButton.topAnchor.constraint(equalTo: productivityLabel.bottomAnchor, constant: 24),
             groupSelectButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            /// blockPreview
-            blockPreview.centerYAnchor.constraint(equalTo: timeLabel.centerYAnchor),
-            blockPreview.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
-            blockPreview.widthAnchor.constraint(equalToConstant: 128),
-            blockPreview.heightAnchor.constraint(equalToConstant: 84),
+            /// outputBlockPreview
+            outputBlockPreview.centerYAnchor.constraint(equalTo: timeLabel.centerYAnchor),
+            outputBlockPreview.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
+            outputBlockPreview.widthAnchor.constraint(equalToConstant: 128),
+            outputBlockPreview.heightAnchor.constraint(equalToConstant: 84),
+            
+            /// trackingBlockPreview
+            trackingBlockPreview.centerYAnchor.constraint(equalTo: timeLabel.centerYAnchor),
+            trackingBlockPreview.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
+            trackingBlockPreview.widthAnchor.constraint(equalToConstant: 128),
+            trackingBlockPreview.heightAnchor.constraint(equalToConstant: 84),
             
             /// blockCollectionView
             blockCollectionView.topAnchor.constraint(equalTo: groupSelectButton.bottomAnchor, constant: 12),

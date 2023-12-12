@@ -65,7 +65,7 @@ extension HomeViewController {
     func updateTrackingBoard(isPaused: Bool) {
         let currentBlocks = trackingData.trackingBlocks()
         let currentColor = groupData.focusColor()
-        viewManager.blockPreview.updateTrackingAnimation(currentBlocks, color: currentColor, isPaused: isPaused)
+        viewManager.trackingBlockPreview.updateTrackingAnimation(currentBlocks, color: currentColor, isPaused: isPaused)
     }
 }
 

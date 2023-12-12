@@ -42,7 +42,7 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(testCoreData))
-        viewManager.blockPreview.addGestureRecognizer(gesture)
+        viewManager.trackingBlockPreview.addGestureRecognizer(gesture)
         
         setupCoreData()
         setupNotification()
@@ -141,11 +141,11 @@ final class HomeViewController: UIViewController {
             viewManager.updateCurrentProductivityLabel(timerManager.totalBlock)
             
             // 13. 추가된 데이터로 트래킹 보드 리스트 업데이트
-            trackingData.testAppendForDisconnect() // 테스트 코드
-            // trackingData.regenerationTrackingBlocks() // 원래 코드
+            // trackingData.testAppendForDisconnect() // 테스트 코드
+            trackingData.regenerationTrackingBlocks() // 원래 코드
             
             // 14. 트래킹 보드 애니메이션 업데이트
-            viewManager.blockPreview.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
+            viewManager.trackingBlockPreview.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
             
             // 15. 타이머 및 프로그레스 바 UI 업데이트
             viewManager.updateTracking(time: timerManager.format, progress: timerManager.progressPercent())
@@ -177,7 +177,7 @@ final class HomeViewController: UIViewController {
     private func setupDelegate() {
         viewManager.delegate = self
         viewManager.trackingBlock.delegate = self
-        viewManager.blockPreview.delegate = self
+        viewManager.trackingBlockPreview.delegate = self
     }
     
     /// 기본 UI 설정을 설정합니다.
@@ -185,6 +185,8 @@ final class HomeViewController: UIViewController {
         initialGroupSelectButton()
         initialTrackingStartButton()
         viewManager.productivityLabel.text = "today +\(trackingData.todayAllOutput())"
+        
+        viewManager.outputBlockPreview.block02.painting(.secondHalf, color: .blue)
     }
     
     /// 제스처를 연결하고 설정합니다.

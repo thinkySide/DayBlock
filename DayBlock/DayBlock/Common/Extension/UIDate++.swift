@@ -9,6 +9,14 @@ import UIKit
 
 extension Date {
     
+    /// 날짜 문자열을 반환합니다.
+    var dayString: String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "dd"
+        return formatter.string(from: self)
+    }
+    
     /// 지정한 날의 마지막 Date를 반환합니다.
     func lastDayOfMonth(from date: Date) -> Date {
         let formatter = DateFormatter()

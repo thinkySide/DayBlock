@@ -17,8 +17,8 @@ final class TrackingDataStore {
     /// CoreData Context
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    /// 0.5개의 블럭을 생산하는 주기
-    let targetSecond = 5
+    /// 0.5개의 블럭을 생산하는 주기 (30분)
+    let targetSecond = 1800
     
     /// 그룹 & 블럭 데이터
     private let groupData = GroupDataStore.shared

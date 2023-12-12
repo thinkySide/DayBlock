@@ -111,7 +111,7 @@ final class RepositoryManager {
     
     /// 트래킹 시간 문자열을 반환합니다.
     func trackingTimeString(to index: Int) -> String {
-        let trackingTimes = monthItems[index].trackingTimes
+        let trackingTimes = dayItems[index].trackingTimes
         
         // 시작 및 종료 시간 옵셔널 바인딩
         guard let startTime = trackingTimes.first?.startTime,
@@ -142,7 +142,7 @@ final class RepositoryManager {
     
     /// 총 생산량을 반환합니다.
     func totalOutput(to index: Int) -> String {
-        let trackingTimes = monthItems[index].trackingTimes
+        let trackingTimes = dayItems[index].trackingTimes
         
         var output = 0.0
         trackingTimes.forEach { _ in

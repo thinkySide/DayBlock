@@ -84,7 +84,7 @@ extension HomeViewController {
                 viewManager.updateCurrentProductivityLabel(timerManager.totalBlock)
                 
                 // 6. 트래킹 보드 애니메이션 업데이트
-                viewManager.blockPreview.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
+                viewManager.trackingBlockPreview.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
             }
             
             // 7. 타이머 및 프로그레스 바 UI 업데이트
