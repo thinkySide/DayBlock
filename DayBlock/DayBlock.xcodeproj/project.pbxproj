@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		070A90272B2827C400BBD147 /* OutputBlockPreviewInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070A90262B2827C400BBD147 /* OutputBlockPreviewInfo.swift */; };
+		070A90292B283FDD00BBD147 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070A90282B283FDD00BBD147 /* MyPageViewController.swift */; };
+		070A902C2B28400D00BBD147 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070A902B2B28400D00BBD147 /* MyPageView.swift */; };
 		0713019E2B205791008A2A8D /* SmallButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0713019D2B205791008A2A8D /* SmallButton.swift */; };
 		071301A02B208844008A2A8D /* CalendarBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0713019F2B208844008A2A8D /* CalendarBlock.swift */; };
 		0714B8052ACD005000B560D6 /* TestDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0714B8042ACD005000B560D6 /* TestDataSet.swift */; };
@@ -133,6 +135,8 @@
 
 /* Begin PBXFileReference section */
 		070A90262B2827C400BBD147 /* OutputBlockPreviewInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputBlockPreviewInfo.swift; sourceTree = "<group>"; };
+		070A90282B283FDD00BBD147 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		070A902B2B28400D00BBD147 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		0713019D2B205791008A2A8D /* SmallButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallButton.swift; sourceTree = "<group>"; };
 		0713019F2B208844008A2A8D /* CalendarBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBlock.swift; sourceTree = "<group>"; };
 		0714B8042ACD005000B560D6 /* TestDataSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDataSet.swift; sourceTree = "<group>"; };
@@ -269,6 +273,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		070A902A2B283FE800BBD147 /* MyPageModule */ = {
+			isa = PBXGroup;
+			children = (
+				070A902B2B28400D00BBD147 /* MyPageView.swift */,
+				070A90282B283FDD00BBD147 /* MyPageViewController.swift */,
+			);
+			path = MyPageModule;
+			sourceTree = "<group>";
+		};
 		0749D72E2ABADA47004DF368 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -588,6 +601,7 @@
 				076248A72AB2DA63000A8664 /* IconModule */,
 				076248A92AB2DB0F000A8664 /* ManageModule */,
 				076248AA2AB2DB2A000A8664 /* RepositoryModule */,
+				070A902A2B283FE800BBD147 /* MyPageModule */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -893,6 +907,7 @@
 				07C0BDB42ABC452600D5E779 /* TrackingDate+CoreDataClass.swift in Sources */,
 				077A663429ED2AB000D99C68 /* CreateGroupViewController.swift in Sources */,
 				0749D72A2ABACAD3004DF368 /* HomeVC+CustomDelegate.swift in Sources */,
+				070A902C2B28400D00BBD147 /* MyPageView.swift in Sources */,
 				0719648C29DDB1C0009CA1A4 /* TrackingBoardBlock.swift in Sources */,
 				07B49BC62A88EC14006D1011 /* MenuPopupItem.swift in Sources */,
 				07454DE729EA94EB00B3458D /* DisablePasteTextField.swift in Sources */,
@@ -968,6 +983,7 @@
 				078C50B829D7152F00F239BA /* SceneDelegate.swift in Sources */,
 				0719649029E04F7E009CA1A4 /* CreateBlockViewController.swift in Sources */,
 				0776DB632AE267DC008379A1 /* SelectGroupTableViewFooter.swift in Sources */,
+				070A90292B283FDD00BBD147 /* MyPageViewController.swift in Sources */,
 				076248C92AB301C9000A8664 /* BlockDelegate.swift in Sources */,
 				075A5AEB2A81DCDD0004F847 /* PopupViewController.swift in Sources */,
 				0719649429E0692E009CA1A4 /* FormTextField.swift in Sources */,

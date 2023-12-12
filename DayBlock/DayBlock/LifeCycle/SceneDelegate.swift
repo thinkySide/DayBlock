@@ -22,10 +22,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // UINavigation 추가
         let homeNavigationController = UINavigationController(rootViewController: HomeViewController())
-        
         let calendarNavigationController = UINavigationController(rootViewController: RepositoryViewController())
-        
         let manageBlockViewController = UINavigationController(rootViewController: ManageBlockViewController())
+        let myPageViewController = UINavigationController(rootViewController: MyPageViewController())
         
         // UITabBarController 추가
         let tabBarController = UITabBarController()
@@ -34,6 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             homeNavigationController,
             calendarNavigationController,
             manageBlockViewController,
+            myPageViewController
         ], animated: true)
         
         // UITabBarItem 추가
@@ -50,6 +50,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             // manageBlockViewController
             items[2].image = UIImage(named: Icon.storage)
             items[2].title = "관리소"
+            
+            // myPageViewController
+            items[3].image = UIImage(named: Icon.storage)
+            items[3].title = "내정보"
         }
         
         window?.rootViewController = tabBarController
