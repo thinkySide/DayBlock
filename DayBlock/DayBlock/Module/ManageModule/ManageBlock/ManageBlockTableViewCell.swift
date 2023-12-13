@@ -45,7 +45,7 @@ final class ManageBlockTableViewCell: UITableViewCell {
     
     let chevron: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(systemName: "chevron.right")
+        image.image = UIImage(named: Icon.selectIcon)?.withTintColor(UIColor(rgb: 0x898989))
         image.contentMode = .scaleAspectFit
         image.tintColor = Color.subText2
         return image

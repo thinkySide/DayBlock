@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		070A90272B2827C400BBD147 /* OutputBlockPreviewInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070A90262B2827C400BBD147 /* OutputBlockPreviewInfo.swift */; };
 		070A90292B283FDD00BBD147 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070A90282B283FDD00BBD147 /* MyPageViewController.swift */; };
-		070A902C2B28400D00BBD147 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070A902B2B28400D00BBD147 /* MyPageView.swift */; };
+		070A902C2B28400D00BBD147 /* TotalTodayBurningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070A902B2B28400D00BBD147 /* TotalTodayBurningView.swift */; };
 		070A902E2B28429000BBD147 /* SummaryInfoIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070A902D2B28429000BBD147 /* SummaryInfoIcon.swift */; };
 		0713019E2B205791008A2A8D /* SmallButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0713019D2B205791008A2A8D /* SmallButton.swift */; };
 		071301A02B208844008A2A8D /* CalendarBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0713019F2B208844008A2A8D /* CalendarBlock.swift */; };
@@ -32,6 +32,8 @@
 		071E3ABB2AC15EF1000C346F /* GroupDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071E3ABA2AC15EF1000C346F /* GroupDataStore.swift */; };
 		071E3ABD2AC166B2000C346F /* BlockDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071E3ABC2AC166B2000C346F /* BlockDataStore.swift */; };
 		0736905F2AC2D41400A42187 /* TrackingDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0736905E2AC2D41400A42187 /* TrackingDataStore.swift */; };
+		0736AC532B298FFA00D90AB2 /* SettingDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0736AC522B298FFA00D90AB2 /* SettingDataStore.swift */; };
+		0736AC552B299D6E00D90AB2 /* InfoCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0736AC542B299D6E00D90AB2 /* InfoCellView.swift */; };
 		073EBFEE2AB6C7B80031F6AB /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 073EBFED2AB6C7B80031F6AB /* .swiftlint.yml */; };
 		073EBFF02AB6D4D40031F6AB /* SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EBFEF2AB6D4D40031F6AB /* SFSymbols.swift */; };
 		07454DE329EA6CEE00B3458D /* UIViewController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454DE229EA6CEE00B3458D /* UIViewController++.swift */; };
@@ -72,6 +74,9 @@
 		077E80F52AE1659B004CDB8F /* ManageBlockTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077E80F42AE1659B004CDB8F /* ManageBlockTableViewFooter.swift */; };
 		07817F0B2A0A05DE00D024F6 /* IconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07817F0A2A0A05DE00D024F6 /* IconManager.swift */; };
 		07817F0D2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07817F0C2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift */; };
+		07849BEE2B2976B2009BF4A8 /* SettingViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07849BED2B2976B2009BF4A8 /* SettingViewTableViewCell.swift */; };
+		07849BF02B297929009BF4A8 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07849BEF2B297929009BF4A8 /* MyPageView.swift */; };
+		07849BF22B297BD5009BF4A8 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07849BF12B297BD5009BF4A8 /* SettingView.swift */; };
 		078630572B05E7D90092672B /* TimeLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078630562B05E7D90092672B /* TimeLineView.swift */; };
 		078630592B05FA650092672B /* TimeLineBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078630582B05FA650092672B /* TimeLineBlock.swift */; };
 		0786305B2B05FFA80092672B /* TimeLineBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0786305A2B05FFA80092672B /* TimeLineBoard.swift */; };
@@ -137,7 +142,7 @@
 /* Begin PBXFileReference section */
 		070A90262B2827C400BBD147 /* OutputBlockPreviewInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputBlockPreviewInfo.swift; sourceTree = "<group>"; };
 		070A90282B283FDD00BBD147 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
-		070A902B2B28400D00BBD147 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
+		070A902B2B28400D00BBD147 /* TotalTodayBurningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalTodayBurningView.swift; sourceTree = "<group>"; };
 		070A902D2B28429000BBD147 /* SummaryInfoIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryInfoIcon.swift; sourceTree = "<group>"; };
 		0713019D2B205791008A2A8D /* SmallButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallButton.swift; sourceTree = "<group>"; };
 		0713019F2B208844008A2A8D /* CalendarBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBlock.swift; sourceTree = "<group>"; };
@@ -160,6 +165,8 @@
 		071E3ABA2AC15EF1000C346F /* GroupDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDataStore.swift; sourceTree = "<group>"; };
 		071E3ABC2AC166B2000C346F /* BlockDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockDataStore.swift; sourceTree = "<group>"; };
 		0736905E2AC2D41400A42187 /* TrackingDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingDataStore.swift; sourceTree = "<group>"; };
+		0736AC522B298FFA00D90AB2 /* SettingDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingDataStore.swift; sourceTree = "<group>"; };
+		0736AC542B299D6E00D90AB2 /* InfoCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCellView.swift; sourceTree = "<group>"; };
 		073EBFED2AB6C7B80031F6AB /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		073EBFEF2AB6D4D40031F6AB /* SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbols.swift; sourceTree = "<group>"; };
 		07454DE229EA6CEE00B3458D /* UIViewController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController++.swift"; sourceTree = "<group>"; };
@@ -200,6 +207,9 @@
 		077E80F42AE1659B004CDB8F /* ManageBlockTableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBlockTableViewFooter.swift; sourceTree = "<group>"; };
 		07817F0A2A0A05DE00D024F6 /* IconManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconManager.swift; sourceTree = "<group>"; };
 		07817F0C2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIconCollectionViewCell.swift; sourceTree = "<group>"; };
+		07849BED2B2976B2009BF4A8 /* SettingViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewTableViewCell.swift; sourceTree = "<group>"; };
+		07849BEF2B297929009BF4A8 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
+		07849BF12B297BD5009BF4A8 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		078630562B05E7D90092672B /* TimeLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineView.swift; sourceTree = "<group>"; };
 		078630582B05FA650092672B /* TimeLineBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineBlock.swift; sourceTree = "<group>"; };
 		0786305A2B05FFA80092672B /* TimeLineBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineBoard.swift; sourceTree = "<group>"; };
@@ -278,8 +288,10 @@
 		070A902A2B283FE800BBD147 /* MyPageModule */ = {
 			isa = PBXGroup;
 			children = (
-				070A902B2B28400D00BBD147 /* MyPageView.swift */,
+				07849BEF2B297929009BF4A8 /* MyPageView.swift */,
 				070A90282B283FDD00BBD147 /* MyPageViewController.swift */,
+				07849BED2B2976B2009BF4A8 /* SettingViewTableViewCell.swift */,
+				070A902B2B28400D00BBD147 /* TotalTodayBurningView.swift */,
 			);
 			path = MyPageModule;
 			sourceTree = "<group>";
@@ -288,8 +300,18 @@
 			isa = PBXGroup;
 			children = (
 				070A902D2B28429000BBD147 /* SummaryInfoIcon.swift */,
+				0736AC542B299D6E00D90AB2 /* InfoCellView.swift */,
 			);
 			path = Info;
+			sourceTree = "<group>";
+		};
+		0736AC512B298FDB00D90AB2 /* SettingModule */ = {
+			isa = PBXGroup;
+			children = (
+				0736AC522B298FFA00D90AB2 /* SettingDataStore.swift */,
+				07849BF12B297BD5009BF4A8 /* SettingView.swift */,
+			);
+			path = SettingModule;
 			sourceTree = "<group>";
 		};
 		0749D72E2ABADA47004DF368 /* Models */ = {
@@ -612,6 +634,7 @@
 				076248A92AB2DB0F000A8664 /* ManageModule */,
 				076248AA2AB2DB2A000A8664 /* RepositoryModule */,
 				070A902A2B283FE800BBD147 /* MyPageModule */,
+				0736AC512B298FDB00D90AB2 /* SettingModule */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -904,6 +927,7 @@
 			files = (
 				077E80F32AE141CA004CDB8F /* ManageBlockTableViewCell.swift in Sources */,
 				0770803129E78D0500D66900 /* SelectGroupView.swift in Sources */,
+				0736AC532B298FFA00D90AB2 /* SettingDataStore.swift in Sources */,
 				07967D032ACA606000BB45B5 /* HomeVC+TrackingLifeCycle.swift in Sources */,
 				076248CF2AB30319000A8664 /* IconDelegate.swift in Sources */,
 				078C50BA29D7152F00F239BA /* HomeViewController.swift in Sources */,
@@ -912,13 +936,14 @@
 				0775E30D2B1F22EF00CC594D /* RepositoryItem.swift in Sources */,
 				07454E0F29EBE50500B3458D /* BottomModal.swift in Sources */,
 				078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */,
+				0736AC552B299D6E00D90AB2 /* InfoCellView.swift in Sources */,
 				07174A162B1F4AD900B7EC69 /* SummaryView.swift in Sources */,
 				0770803A29E7989B00D66900 /* SelectColorViewController.swift in Sources */,
 				0770803829E7988100D66900 /* SelectColorView.swift in Sources */,
 				07C0BDB42ABC452600D5E779 /* TrackingDate+CoreDataClass.swift in Sources */,
 				077A663429ED2AB000D99C68 /* CreateGroupViewController.swift in Sources */,
 				0749D72A2ABACAD3004DF368 /* HomeVC+CustomDelegate.swift in Sources */,
-				070A902C2B28400D00BBD147 /* MyPageView.swift in Sources */,
+				070A902C2B28400D00BBD147 /* TotalTodayBurningView.swift in Sources */,
 				0719648C29DDB1C0009CA1A4 /* TrackingBoardBlock.swift in Sources */,
 				07B49BC62A88EC14006D1011 /* MenuPopupItem.swift in Sources */,
 				07454DE729EA94EB00B3458D /* DisablePasteTextField.swift in Sources */,
@@ -956,6 +981,7 @@
 				078630572B05E7D90092672B /* TimeLineView.swift in Sources */,
 				07B49BCD2A8DE204006D1011 /* EditGroupViewController.swift in Sources */,
 				078C50C029D7152F00F239BA /* DayBlock.xcdatamodeld in Sources */,
+				07849BEE2B2976B2009BF4A8 /* SettingViewTableViewCell.swift in Sources */,
 				07B04BAF2ADD500800580711 /* Group+CoreDataProperties.swift in Sources */,
 				0770802F29E78C9200D66900 /* SelectGroupViewController.swift in Sources */,
 				07FAF98B2AE0E7AD003BD30B /* SectionBar.swift in Sources */,
@@ -963,6 +989,7 @@
 				07FAF9872AE0DE70003BD30B /* ManageBlockView.swift in Sources */,
 				07B592142AC42B7D0046ABFC /* UIImageView++.swift in Sources */,
 				0749D72D2ABAD7E9004DF368 /* HomeDelegate.swift in Sources */,
+				07849BF22B297BD5009BF4A8 /* SettingView.swift in Sources */,
 				078C50D129D726FE00F239BA /* HomeView.swift in Sources */,
 				0749D7202AB988F2004DF368 /* HomeVC+Timer.swift in Sources */,
 				07B49C452A95E5BD006D1011 /* TrackingCompleteViewController.swift in Sources */,
@@ -1006,6 +1033,7 @@
 				0749D7222AB9E3D7004DF368 /* HomeVC+LongPressGesture.swift in Sources */,
 				0719648629DAF9A5009CA1A4 /* HomeBlockCollectionViewCell.swift in Sources */,
 				078C50F829D9BBFE00F239BA /* RepositoryViewController.swift in Sources */,
+				07849BF02B297929009BF4A8 /* MyPageView.swift in Sources */,
 				070A90272B2827C400BBD147 /* OutputBlockPreviewInfo.swift in Sources */,
 				0719649629E0763C009CA1A4 /* FormSelectButton.swift in Sources */,
 				078C50E829D72D2900F239BA /* NameSpace.swift in Sources */,

@@ -2,50 +2,40 @@
 //  MyPageView.swift
 //  DayBlock
 //
-//  Created by 김민준 on 12/12/23.
+//  Created by 김민준 on 12/13/23.
 //
 
 import UIKit
 
 final class MyPageView: UIView {
     
-    private let headerLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: Pretendard.bold, size: 19)
-        label.textColor = Color.mainText
-        label.textAlignment = .center
-        label.text = "생산한 블럭을\n차곡차곡 쌓아뒀어요"
-        label.numberOfLines = 2
-        return label
+    let settingData = SettingDataStore()
+    
+    let scrollView: UIScrollView = {
+        let scroll = UIScrollView()
+        scroll.showsVerticalScrollIndicator = false
+        return scroll
     }()
     
-    let totalInfoIcon: SummaryInfoIcon = {
-        let icon = SummaryInfoIcon()
-        icon.tagLabel.text = "total"
-        icon.updateColor(UIColor(rgb: 0x4C73FD))
-        return icon
+    var contentView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(rgb: 0xF7F7F7)
+        return view
     }()
     
-    let todayInfoIcon: SummaryInfoIcon = {
-        let icon = SummaryInfoIcon()
-        icon.tagLabel.text = "today"
-        icon.icon.image = UIImage(systemName: "gauge.with.needle.fill")
-        icon.updateColor(UIColor(rgb: 0x2EBB55))
-        return icon
-    }()
+    let totalTodayBurningView = TotalTodayBurningView()
     
-    let burningInfoIcon: SummaryInfoIcon = {
-        let icon = SummaryInfoIcon()
-        icon.tagLabel.text = "burning"
-        icon.icon.image = UIImage(systemName: "flame.fill")
-        icon.updateColor(UIColor(rgb: 0xFD4C4C))
-        return icon
-    }()
+    lazy var usageSettingView = SettingView(rowCount: settingData.usageData().count)
+    lazy var developerSettingView = SettingView(rowCount: settingData.developerData().count)
+    
+    let versionInfo = InfoCellView(tagLabel: "버전", valueLabel: "0.1")
+    
+    let tabBarStackView = TabBar(location: .myPage)
     
     // MARK: - Initial Method
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .white
+        backgroundColor = .white
         setupAutoLayout()
     }
     
@@ -53,25 +43,51 @@ final class MyPageView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Auto Layout Method
     private func setupAutoLayout() {
-        [headerLabel, totalInfoIcon, todayInfoIcon, burningInfoIcon].forEach {
-            addSubview($0)
+        addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        addSubview(tabBarStackView)
+        
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        tabBarStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        [totalTodayBurningView, usageSettingView, developerSettingView, versionInfo].forEach {
+            contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
         NSLayoutConstraint.activate([
-            headerLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            headerLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            scrollView.topAnchor.constraint(equalTo: topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: tabBarStackView.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
-            totalInfoIcon.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 24),
-            totalInfoIcon.trailingAnchor.constraint(equalTo: todayInfoIcon.leadingAnchor, constant: 0),
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            contentView.bottomAnchor.constraint(equalTo: versionInfo.bottomAnchor, constant: 0),
             
-            todayInfoIcon.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 24),
-            todayInfoIcon.centerXAnchor.constraint(equalTo: centerXAnchor),
+            totalTodayBurningView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            totalTodayBurningView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            totalTodayBurningView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
-            burningInfoIcon.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 24),
-            burningInfoIcon.leadingAnchor.constraint(equalTo: todayInfoIcon.trailingAnchor, constant: 0)
+            usageSettingView.topAnchor.constraint(equalTo: totalTodayBurningView.bottomAnchor, constant: 12),
+            usageSettingView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            usageSettingView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            
+            developerSettingView.topAnchor.constraint(equalTo: usageSettingView.bottomAnchor, constant: 12),
+            developerSettingView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            developerSettingView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            
+            versionInfo.topAnchor.constraint(equalTo: developerSettingView.bottomAnchor),
+            versionInfo.leadingAnchor.constraint(equalTo: leadingAnchor),
+            versionInfo.trailingAnchor.constraint(equalTo: trailingAnchor),
+            
+            tabBarStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            tabBarStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            tabBarStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            tabBarStackView.heightAnchor.constraint(equalToConstant: 2)
         ])
     }
 }

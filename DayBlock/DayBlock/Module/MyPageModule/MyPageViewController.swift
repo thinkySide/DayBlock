@@ -11,6 +11,7 @@ final class MyPageViewController: UIViewController {
     
     let viewManager = MyPageView()
     let trackingData = TrackingDataStore.shared
+    let settingData = SettingDataStore()
     
     // MARK: - ViewController LifeCycle
     override func loadView() {
@@ -20,14 +21,66 @@ final class MyPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupTableView()
     }
     
     // MARK: - Setup Method
     private func setupUI() {
         
         /// 지금까지 생산한 총 생산량 + 오늘의 생산량 + 연속일
-        viewManager.totalInfoIcon.valueLabel.text = trackingData.totalOutput()
-        viewManager.todayInfoIcon.valueLabel.text = trackingData.todayAllOutput()
-        viewManager.burningInfoIcon.valueLabel.text = trackingData.burningCount()
+        let totalTodayBurningView = viewManager.totalTodayBurningView
+        totalTodayBurningView.totalInfoIcon.valueLabel.text = trackingData.totalOutput()
+        totalTodayBurningView.todayInfoIcon.valueLabel.text = trackingData.todayAllOutput()
+        totalTodayBurningView.burningInfoIcon.valueLabel.text = trackingData.burningCount()
+    }
+    
+    private func setupTableView() {
+        let usageTableView = viewManager.usageSettingView.tableView
+        usageTableView.register(SettingViewTableViewCell.self, forCellReuseIdentifier: SettingViewTableViewCell.cellID)
+        usageTableView.dataSource = self
+        usageTableView.delegate = self
+        usageTableView.tag = 1
+        
+        let devloperTableView = viewManager.developerSettingView.tableView
+        devloperTableView.register(SettingViewTableViewCell.self, forCellReuseIdentifier: SettingViewTableViewCell.cellID)
+        devloperTableView.dataSource = self
+        devloperTableView.delegate = self
+        devloperTableView.tag = 2
+    }
+}
+
+// MARK: - 일반 설정 UITableView 설정
+extension MyPageViewController: UITableViewDataSource & UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView.tag == 1 { return settingData.usageData().count }
+        else if tableView.tag == 2 { return settingData.developerData().count }
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingViewTableViewCell.cellID, for: indexPath) as? SettingViewTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        // 일반 설정
+        if tableView.tag == 1 {
+            let setting = settingData.usageData()[indexPath.row]
+            cell.label.text = setting.name
+        }
+        
+        // 개발자 설정
+        if tableView.tag == 2 {
+            let setting = settingData.developerData()[indexPath.row]
+            cell.label.text = setting.name
+        }
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // 셀 클릭 시, 바로 비활성화되는 애니메이션 추가
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

@@ -13,8 +13,9 @@ final class TabBar: UIStackView {
     /// 현재 탭바의 위치
     enum Location {
         case tracking
-        case manage
         case calendar
+        case manage
+        case myPage
     }
 
     // MARK: - Component
@@ -65,14 +66,19 @@ final class TabBar: UIStackView {
             tracking.alpha = 1
             manage.alpha = 0
             repository.alpha = 0
-        case .manage:
-            tracking.alpha = 0
-            manage.alpha = 1
-            repository.alpha = 0
+            
         case .calendar:
             tracking.alpha = 0
             manage.alpha = 0
             repository.alpha = 1
+            
+        case .manage:
+            tracking.alpha = 0
+            manage.alpha = 1
+            repository.alpha = 0
+            
+        case .myPage:
+            break
         }
     }
 
