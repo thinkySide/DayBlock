@@ -53,11 +53,11 @@ final class TrackingDataStore {
 extension TrackingDataStore {
     
     /// 커스텀 날짜 포맷을 지정하고 문자열을 반환합니다.
-    func formatter(_ dateFormat: String) -> String {
+    func formatter(_ dateFormat: String, to date: Date = Date()) -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = dateFormat
-        return formatter.string(from: Date())
+        return formatter.string(from: date)
     }
     
     /// 오늘 날짜가 00:00분을 기준으로 몇 초가 경과되었는지 문자열로 반환합니다.
@@ -86,12 +86,12 @@ extension TrackingDataStore {
     
     /// 현재 날짜 라벨 문자열을 반환합니다.
     func dateLabel() -> String {
-        return formatter("M월 d일 E요일")
+        return formatter("M월 d일 E요일", to: Date())
     }
     
     /// 현재 시간 라벨 문자열을 반환합니다.
     func timeLabel() -> String {
-        return formatter("HH:mm")
+        return formatter("HH:mm", to: Date())
     }
 }
 
@@ -174,6 +174,41 @@ extension TrackingDataStore {
         }
         
         return count
+    }
+    
+    /// 현재까지 트래킹한 전체 블록 개수 문자열을 반환합니다.
+    func totalOutput() -> String {
+        
+        var count: Double = 0.0
+        
+        // 1. 그룹 반복
+        for group in groupData.list() {
+            guard let blockList = group.blockList?.array as? [Block] else {
+                fatalError("블럭 리스트 반환 실패")
+            }
+            
+            // 2. 블럭 반복
+            for block in blockList {
+                guard let dateList = block.trackingDateList?.array as? [TrackingDate] else {
+                    fatalError("날짜 리스트 반환 실패")
+                }
+                
+                // 3. 날짜 반복
+                for date in dateList {
+                    guard let timeList = date.trackingTimeList?.array as? [TrackingTime] else {
+                        fatalError("시간 리스트 반환 실패")
+                    }
+                    
+                    // 4. 시간 반복
+                    for time in timeList {
+                        guard let _ = time.endTime else { break }
+                        count += 0.5
+                    }
+                }
+            }
+        }
+        
+        return String(count)
     }
     
     /// 지정한 블럭의 전체 생산량을 반환합니다.
@@ -308,6 +343,66 @@ extension TrackingDataStore {
         }
         
         return (times, colors)
+    }
+    
+    /// 현재까지 연속으로 몇일 생산성을 발휘했는지 체크해 일수 문자열을 반환합니다.
+    func burningCount() -> String {
+        var count = 0
+        var targetDate = Date()
+
+        while true {
+            guard let date = Calendar.current.date(byAdding: .day, value: -1, to: targetDate) else { break }
+            targetDate = date
+            
+            let dateFormat = formatter("yyyy.MM.dd", to: date).components(separatedBy: ".")
+            let year = dateFormat[0]
+            let month = dateFormat[1]
+            let day = dateFormat[2]
+            
+            // 1. 그룹 반복
+            for group in groupData.list() {
+                guard let blockList = group.blockList?.array as? [Block] else {
+                    fatalError("블럭 리스트 반환 실패")
+                }
+                
+                // 2. 블럭 반복
+                for block in blockList {
+                    guard let dateList = block.trackingDateList?.array as? [TrackingDate] else {
+                        fatalError("날짜 리스트 반환 실패")
+                    }
+                    
+                    // 해당 날짜 리스트
+                    let todayDateList = dateList.filter {
+                        $0.year == year &&
+                        $0.month == month &&
+                        $0.day == day
+                    }
+                    
+                    // 해당 일에 하나라도 블럭이 생성되었다면
+                    if !todayDateList.isEmpty {
+                        count += 1
+                    }
+                    
+                    // 블럭이 생성되지 않았다면, 마지막으로 오늘 생성되었는지 확인 후 종료
+                    else {
+                        
+                        let todayDateList = dateList.filter {
+                            $0.year == formatter("yyyy") &&
+                            $0.month == formatter("MM") &&
+                            $0.day == formatter("dd")
+                        }
+                        
+                        if !todayDateList.isEmpty {
+                            count += 1
+                        }
+                        
+                        return String(count)
+                    }
+                }
+            }
+        }
+        
+        return String(count)
     }
 }
 
