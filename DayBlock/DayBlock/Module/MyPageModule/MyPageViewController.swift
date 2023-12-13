@@ -82,5 +82,17 @@ extension MyPageViewController: UITableViewDataSource & UITableViewDelegate {
         
         // 셀 클릭 시, 바로 비활성화되는 애니메이션 추가
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        // 초기화 셀 클릭
+        if tableView.tag == 1 && indexPath.row == 3 { resetAllDataCellTapped() }
+    }
+}
+
+// MARK: - Cell Touch Event Method
+extension MyPageViewController {
+    
+    /// 초기화 셀 버튼 탭 시 호출되는 메서드입니다.
+    func resetAllDataCellTapped() {
+        
     }
 }

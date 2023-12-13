@@ -227,6 +227,13 @@ extension GroupDataStore {
     /// 모든 코어데이터를 초기화합니다.
     func resetAllData() {
         
+        // 1. 전체 엔티티 삭제
+        for entity in self.entities {
+            context.delete(entity)
+        }
+        
+        // 2. 기본 그룹 재생성
+        initDefaultGroup()
     }
 }
 

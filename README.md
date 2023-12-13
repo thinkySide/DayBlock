@@ -648,3 +648,14 @@ NotificationCenter를 활용해 그룹이 업데이트 되는 시점에 맞춰 H
 ---
 
 <br>
+
+### **Day 90 - 23.12.13**
+
+- **MyPageViewController 퍼블리싱**   
+`MyPageViewController`를 생성했습니다. 전체 생산량, 오늘 생산량, 연속 생산량을 시각화해 보여주고 각종 설정 및 정보를 확인 할 수 있는 TableView를 생성했습니다. 두개 이상의 `UITableViewDelegate`를 두개의 테이블에 적용하기 위해 `tag` 속성을 사용해 구분했습니다.
+
+<img width="300" src="https://github.com/thinkySide/DayBlock/assets/113565086/6c5f3625-b7c9-42be-87a8-4191f7a81444">
+
+---
+
+<br>
