@@ -49,7 +49,7 @@ final class MyPageViewController: UIViewController {
     }
 }
 
-// MARK: - 일반 설정 UITableView 설정
+// MARK: - UITableViewDataSource & UITableViewDelegate
 extension MyPageViewController: UITableViewDataSource & UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

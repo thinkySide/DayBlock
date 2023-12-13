@@ -345,60 +345,83 @@ extension TrackingDataStore {
         return (times, colors)
     }
     
-    /// 현재까지 연속으로 몇일 생산성을 발휘했는지 체크해 일수 문자열을 반환합니다.
+    /// 연속으로 몇일 트래킹을 진행했는지 문자열로 반환합니다.
     func burningCount() -> String {
         var count = 0
-        var targetDate = Date()
-
-        while true {
-            guard let date = Calendar.current.date(byAdding: .day, value: -1, to: targetDate) else { break }
-            targetDate = date
-            
-            let dateFormat = formatter("yyyy.MM.dd", to: date).components(separatedBy: ".")
-            let year = dateFormat[0]
-            let month = dateFormat[1]
-            let day = dateFormat[2]
+        var targetDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+        var isContinuos = true
+        
+        while isContinuos {
             
             // 1. 그룹 반복
-            for group in groupData.list() {
+            for (enumIndex, group) in groupData.list().enumerated() {
+                
                 guard let blockList = group.blockList?.array as? [Block] else {
                     fatalError("블럭 리스트 반환 실패")
                 }
                 
-                // 2. 블럭 반복
+                // 블럭 리스트가 비어 있을 때 다음 그룹 반복 주기로 이동
+                if blockList.isEmpty {
+                    
+                    // 만약 마지막 그룹 인덱스라면
+                    if enumIndex == groupData.list().count - 1 {
+                        isContinuos = false
+                        break
+                    }
+                    
+                    continue
+                }
+                
+                // 2. 블럭반복
                 for block in blockList {
                     guard let dateList = block.trackingDateList?.array as? [TrackingDate] else {
                         fatalError("날짜 리스트 반환 실패")
                     }
                     
-                    // 해당 날짜 리스트
-                    let todayDateList = dateList.filter {
-                        $0.year == year &&
-                        $0.month == month &&
-                        $0.day == day
-                    }
-                    
-                    // 해당 일에 하나라도 블럭이 생성되었다면
-                    if !todayDateList.isEmpty {
-                        count += 1
-                    }
-                    
-                    // 블럭이 생성되지 않았다면, 마지막으로 오늘 생성되었는지 확인 후 종료
-                    else {
+                    // 날짜 리스트가 비어 있을 때 다음 블럭 반복 주기로 이동
+                    if dateList.isEmpty {
                         
-                        let todayDateList = dateList.filter {
-                            $0.year == formatter("yyyy") &&
-                            $0.month == formatter("MM") &&
-                            $0.day == formatter("dd")
+                        // 만약 마지막 그룹 인덱스라면
+                        if enumIndex == groupData.list().count - 1 {
+                            isContinuos = false
+                            break
                         }
                         
-                        if !todayDateList.isEmpty {
+                        continue
+                    }
+                    
+                    let filter = dateList.filter {
+                        $0.year == formatter("yyyy", to: targetDate) &&
+                        $0.month == formatter("MM", to: targetDate) &&
+                        $0.day == formatter("dd", to: targetDate)
+                    }
+                    
+                    // 만약 하나라도 해당 날짜에 데이터가 생성되었다면
+                    if !filter.isEmpty {
+                        count += 1
+                        targetDate = Calendar.current.date(byAdding: .day, value: -1, to: targetDate)!
+                        continue
+                    }
+                    
+                    // 만약 데이터가 생성되지 않았다면 연속이 끊긴 것으로 간주,
+                    // 마지막으로 오늘 데이터가 생성되었는지 확인 후 반복문 종료
+                    else {
+                        
+                        let todayFilter = dateList.filter {
+                            $0.year == formatter("yyyy", to: Date()) &&
+                            $0.month == formatter("MM", to: Date()) &&
+                            $0.day == formatter("dd", to: Date())
+                        }
+                        
+                        if !todayFilter.isEmpty {
                             count += 1
                         }
                         
-                        return String(count)
+                        isContinuos = false
+                        break
                     }
                 }
+                
             }
         }
         

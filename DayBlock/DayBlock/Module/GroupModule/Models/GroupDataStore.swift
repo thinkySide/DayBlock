@@ -223,6 +223,11 @@ extension GroupDataStore {
         
         saveContext()
     }
+    
+    /// 모든 코어데이터를 초기화합니다.
+    func resetAllData() {
+        
+    }
 }
 
 // MARK: - Focus Group Method

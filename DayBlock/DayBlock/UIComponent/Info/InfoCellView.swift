@@ -20,10 +20,10 @@ final class InfoCellView: UIView {
     
     private let valueLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: Pretendard.medium, size: 14)
+        label.font = UIFont(name: Pretendard.semiBold, size: 14)
         label.textColor = Color.subText2
         label.textAlignment = .center
-        label.text = "0.1"
+        label.text = "0.1.0"
         return label
     }()
     
@@ -32,6 +32,8 @@ final class InfoCellView: UIView {
         super.init(frame: .zero)
         setupAutoLayout()
         self.backgroundColor = .white
+        self.tagLabel.text = tagLabel
+        self.valueLabel.text = valueLabel
     }
     
     required init?(coder: NSCoder) {
