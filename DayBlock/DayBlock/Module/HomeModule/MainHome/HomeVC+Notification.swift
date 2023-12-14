@@ -35,6 +35,14 @@ extension HomeViewController {
             name: NSNotification.Name(Noti.reloadForUpdateBlock),
             object: nil
         )
+        
+        // 모든 데이터 초기화 observer
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(resetAllData),
+            name: .resetAllData,
+            object: nil
+        )
     }
     
     /// 백그라운드 모드로 진입 후 트래킹 모드를 재시작 합니다.
@@ -108,6 +116,14 @@ extension HomeViewController {
     ///
     /// - Parameter notification: 블럭 삭제 Notification
     @objc private func reloadForDeleteBlock(_ notification: Notification) {
+        switchHomeGroup(index: 0)
+    }
+    
+    /// 모든 데이터 초기화 Notification을 받았을 때 그룹 내 블럭 선택값을 초기화합니다.
+    /// - Post : ResetDataViewController
+    ///
+    /// - Parameter notification: 블럭 삭제 Notification
+    @objc private func resetAllData(_ notification: Notification) {
         switchHomeGroup(index: 0)
     }
 }

@@ -117,15 +117,7 @@ final class HomeView: UIView {
         label.font = UIFont(name: Pretendard.semiBold, size: 15)
         label.textColor = Color.subText2
         label.numberOfLines = 2
-        
-        let attrString = NSMutableAttributedString(string: "오늘 하루는 어떤 블럭으로\n채우고 계신가요?")
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .center
-        paragraphStyle.lineSpacing = 4
-        attrString.addAttribute(NSAttributedString.Key.paragraphStyle,
-                                value: paragraphStyle,
-                                range: NSMakeRange(0, attrString.length))
-        label.attributedText = attrString
+        label.asLineSpacing(targetString: "오늘 하루는 어떤 블럭으로\n채우고 계신가요?", lineSpacing: 4, alignment: .center)
         return label
     }()
     

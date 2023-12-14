@@ -34,8 +34,12 @@
 		0736905F2AC2D41400A42187 /* TrackingDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0736905E2AC2D41400A42187 /* TrackingDataStore.swift */; };
 		0736AC532B298FFA00D90AB2 /* SettingDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0736AC522B298FFA00D90AB2 /* SettingDataStore.swift */; };
 		0736AC552B299D6E00D90AB2 /* InfoCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0736AC542B299D6E00D90AB2 /* InfoCellView.swift */; };
+		0736AC572B2A6C8500D90AB2 /* ResetDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0736AC562B2A6C8500D90AB2 /* ResetDataViewController.swift */; };
+		0736AC5A2B2A6CCD00D90AB2 /* ResetDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0736AC592B2A6CCD00D90AB2 /* ResetDataView.swift */; };
+		0736AC5C2B2A70B100D90AB2 /* UILabel++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0736AC5B2B2A70B100D90AB2 /* UILabel++.swift */; };
 		073EBFEE2AB6C7B80031F6AB /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 073EBFED2AB6C7B80031F6AB /* .swiftlint.yml */; };
 		073EBFF02AB6D4D40031F6AB /* SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EBFEF2AB6D4D40031F6AB /* SFSymbols.swift */; };
+		07446E3F2B2A7E650002E9EF /* NotificationName++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07446E3E2B2A7E650002E9EF /* NotificationName++.swift */; };
 		07454DE329EA6CEE00B3458D /* UIViewController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454DE229EA6CEE00B3458D /* UIViewController++.swift */; };
 		07454DE729EA94EB00B3458D /* DisablePasteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454DE629EA94EB00B3458D /* DisablePasteTextField.swift */; };
 		07454E0F29EBE50500B3458D /* BottomModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E0E29EBE50500B3458D /* BottomModal.swift */; };
@@ -167,8 +171,12 @@
 		0736905E2AC2D41400A42187 /* TrackingDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingDataStore.swift; sourceTree = "<group>"; };
 		0736AC522B298FFA00D90AB2 /* SettingDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingDataStore.swift; sourceTree = "<group>"; };
 		0736AC542B299D6E00D90AB2 /* InfoCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCellView.swift; sourceTree = "<group>"; };
+		0736AC562B2A6C8500D90AB2 /* ResetDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetDataViewController.swift; sourceTree = "<group>"; };
+		0736AC592B2A6CCD00D90AB2 /* ResetDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetDataView.swift; sourceTree = "<group>"; };
+		0736AC5B2B2A70B100D90AB2 /* UILabel++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel++.swift"; sourceTree = "<group>"; };
 		073EBFED2AB6C7B80031F6AB /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		073EBFEF2AB6D4D40031F6AB /* SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbols.swift; sourceTree = "<group>"; };
+		07446E3E2B2A7E650002E9EF /* NotificationName++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName++.swift"; sourceTree = "<group>"; };
 		07454DE229EA6CEE00B3458D /* UIViewController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController++.swift"; sourceTree = "<group>"; };
 		07454DE629EA94EB00B3458D /* DisablePasteTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisablePasteTextField.swift; sourceTree = "<group>"; };
 		07454E0E29EBE50500B3458D /* BottomModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomModal.swift; sourceTree = "<group>"; };
@@ -310,8 +318,18 @@
 			children = (
 				0736AC522B298FFA00D90AB2 /* SettingDataStore.swift */,
 				07849BF12B297BD5009BF4A8 /* SettingView.swift */,
+				0736AC582B2A6C8900D90AB2 /* ResetData */,
 			);
 			path = SettingModule;
+			sourceTree = "<group>";
+		};
+		0736AC582B2A6C8900D90AB2 /* ResetData */ = {
+			isa = PBXGroup;
+			children = (
+				0736AC592B2A6CCD00D90AB2 /* ResetDataView.swift */,
+				0736AC562B2A6C8500D90AB2 /* ResetDataViewController.swift */,
+			);
+			path = ResetData;
 			sourceTree = "<group>";
 		};
 		0749D72E2ABADA47004DF368 /* Models */ = {
@@ -810,6 +828,8 @@
 				07454DE229EA6CEE00B3458D /* UIViewController++.swift */,
 				07B592132AC42B7D0046ABFC /* UIImageView++.swift */,
 				07AE45D02AF38ABE00125316 /* UIDate++.swift */,
+				0736AC5B2B2A70B100D90AB2 /* UILabel++.swift */,
+				07446E3E2B2A7E650002E9EF /* NotificationName++.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -969,6 +989,7 @@
 				07B04BAC2ADD500800580711 /* Block+CoreDataClass.swift in Sources */,
 				07AE45CF2AF1032700125316 /* CalendarCell.swift in Sources */,
 				07DD3E932AB022ED002D128F /* SimpleIconBlock.swift in Sources */,
+				0736AC572B2A6C8500D90AB2 /* ResetDataViewController.swift in Sources */,
 				078C50F429D73D0200F239BA /* TrackingBoard.swift in Sources */,
 				0719648329DAF4B5009CA1A4 /* RemoteGroup.swift in Sources */,
 				077E80F12AE13E0B004CDB8F /* ManageBlockTableViewHeader.swift in Sources */,
@@ -987,6 +1008,7 @@
 				07FAF98B2AE0E7AD003BD30B /* SectionBar.swift in Sources */,
 				07B49C472A95E66D006D1011 /* TrackingCompleteView.swift in Sources */,
 				07FAF9872AE0DE70003BD30B /* ManageBlockView.swift in Sources */,
+				0736AC5A2B2A6CCD00D90AB2 /* ResetDataView.swift in Sources */,
 				07B592142AC42B7D0046ABFC /* UIImageView++.swift in Sources */,
 				0749D72D2ABAD7E9004DF368 /* HomeDelegate.swift in Sources */,
 				07849BF22B297BD5009BF4A8 /* SettingView.swift in Sources */,
@@ -1010,6 +1032,7 @@
 				07DD3E952AB02BE3002D128F /* DashedSeparator.swift in Sources */,
 				0719648129DAF38A009CA1A4 /* RemoteBlock.swift in Sources */,
 				0770803429E797E100D66900 /* SelectIconViewController.swift in Sources */,
+				07446E3F2B2A7E650002E9EF /* NotificationName++.swift in Sources */,
 				07967D012AC9A1D300BB45B5 /* TrackingTime+CoreDataProperties.swift in Sources */,
 				07454DE329EA6CEE00B3458D /* UIViewController++.swift in Sources */,
 				0756BE882AF8DAB4009CBE46 /* RepositoryView.swift in Sources */,
@@ -1025,6 +1048,7 @@
 				070A90292B283FDD00BBD147 /* MyPageViewController.swift in Sources */,
 				076248C92AB301C9000A8664 /* BlockDelegate.swift in Sources */,
 				075A5AEB2A81DCDD0004F847 /* PopupViewController.swift in Sources */,
+				0736AC5C2B2A70B100D90AB2 /* UILabel++.swift in Sources */,
 				0719649429E0692E009CA1A4 /* FormTextField.swift in Sources */,
 				07B04BAE2ADD500800580711 /* Group+CoreDataClass.swift in Sources */,
 				077E80F52AE1659B004CDB8F /* ManageBlockTableViewFooter.swift in Sources */,

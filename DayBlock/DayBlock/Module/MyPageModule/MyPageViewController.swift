@@ -20,8 +20,13 @@ final class MyPageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
         setupTableView()
+        setupNavigation()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupUI()
     }
     
     // MARK: - Setup Method
@@ -46,6 +51,12 @@ final class MyPageViewController: UIViewController {
         devloperTableView.dataSource = self
         devloperTableView.delegate = self
         devloperTableView.tag = 2
+    }
+    
+    private func setupNavigation() {
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = Color.mainText
+        navigationItem.backBarButtonItem = backBarButtonItem
     }
 }
 
@@ -93,6 +104,8 @@ extension MyPageViewController {
     
     /// 초기화 셀 버튼 탭 시 호출되는 메서드입니다.
     func resetAllDataCellTapped() {
-        
+        let resetVC = ResetDataViewController()
+        resetVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(resetVC, animated: true)
     }
 }

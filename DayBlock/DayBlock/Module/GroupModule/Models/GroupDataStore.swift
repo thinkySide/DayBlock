@@ -233,7 +233,11 @@ extension GroupDataStore {
         }
         
         // 2. 기본 그룹 재생성
-        initDefaultGroup()
+        let newGroup = Group(context: context)
+        newGroup.name = "기본 그룹"
+        newGroup.color = 0x323232
+        
+        saveContext()
     }
 }
 
