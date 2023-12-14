@@ -35,6 +35,11 @@ final class ManageGroupViewController: UIViewController {
         viewManager.groupTableView.reloadData()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        showToast(toast: viewManager.toastView, isActive: false)
+    }
+    
     // MARK: - Setup Method
     
     private func setupTabBar() {
@@ -134,6 +139,7 @@ extension ManageGroupViewController: UITableViewDataSource, UITableViewDelegate 
         
         // 첫번째 그룹(그룹없음) 클릭 시, 수정 불가 안내
         if indexPath.row == 0 {
+            Vibration.error.vibrate()
             showToast(toast: viewManager.toastView, isActive: true)
             return
         }

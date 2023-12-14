@@ -207,6 +207,7 @@ extension HomeViewController {
     func homeView(_ homeView: HomeView, trackingDidStop mode: HomeView.TrakingMode) {
         
         // 1. 트래킹 보드 애니메이션 종료
+        showToast(toast: viewManager.toastView, isActive: false)
         viewManager.trackingBlockPreview.stopTrackingAnimation(trackingData.trackingBlocks())
         viewManager.trackingBlockPreview.alpha = 0
         viewManager.outputBlockPreview.alpha = 1
@@ -240,6 +241,7 @@ extension HomeViewController {
     func homeView(_ homeView: HomeView, trackingDidFinish mode: HomeView.TrakingMode) {
         
         // 1. UI 업데이트
+        showToast(toast: viewManager.toastView, isActive: false)
         viewManager.productivityLabel.text = "today +\(trackingData.todayAllOutput())"
         
         // 2. 컬렉션뷰 초기화
@@ -259,6 +261,7 @@ extension HomeViewController: DayBlockDelegate {
         // 0. 아직 블럭이 생성되지 않았다면, 메서드
         guard timerManager.totalTime > trackingData.targetSecond else {
             showToast(toast: viewManager.toastView, isActive: true)
+            Vibration.error.vibrate()
             return
         }
         
@@ -267,6 +270,7 @@ extension HomeViewController: DayBlockDelegate {
         
         // 2. 트래킹 완료 화면 Present
         presentTrackingCompleteVC()
+        Vibration.success.vibrate()
         
         // 3. UserDefaults 트래킹 모드 확인용 변수 업데이트
         UserDefaults.standard.set(false, forKey: UserDefaultsKey.isTracking)

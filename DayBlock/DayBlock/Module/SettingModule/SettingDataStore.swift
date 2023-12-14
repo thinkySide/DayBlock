@@ -15,8 +15,8 @@ struct SettingDataStore {
     
     private let usages: [Setting] = [
         Setting(name: "도움말"),
-        Setting(name: "APP 공유"),
-        Setting(name: "앱스토어 리뷰"),
+        // Setting(name: "APP 공유"),
+        // Setting(name: "앱스토어 리뷰"),
         Setting(name: "이메일 문의"),
         Setting(name: "초기화")
     ]

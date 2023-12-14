@@ -41,6 +41,7 @@
 		073EBFF02AB6D4D40031F6AB /* SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EBFEF2AB6D4D40031F6AB /* SFSymbols.swift */; };
 		07446E3F2B2A7E650002E9EF /* NotificationName++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07446E3E2B2A7E650002E9EF /* NotificationName++.swift */; };
 		07446E412B2A9FA70002E9EF /* MyPageVC+EmailContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07446E402B2A9FA70002E9EF /* MyPageVC+EmailContact.swift */; };
+		07446E452B2ACDD60002E9EF /* Vibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07446E442B2ACDD60002E9EF /* Vibration.swift */; };
 		07454DE329EA6CEE00B3458D /* UIViewController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454DE229EA6CEE00B3458D /* UIViewController++.swift */; };
 		07454DE729EA94EB00B3458D /* DisablePasteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454DE629EA94EB00B3458D /* DisablePasteTextField.swift */; };
 		07454E0F29EBE50500B3458D /* BottomModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E0E29EBE50500B3458D /* BottomModal.swift */; };
@@ -179,6 +180,7 @@
 		073EBFEF2AB6D4D40031F6AB /* SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbols.swift; sourceTree = "<group>"; };
 		07446E3E2B2A7E650002E9EF /* NotificationName++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName++.swift"; sourceTree = "<group>"; };
 		07446E402B2A9FA70002E9EF /* MyPageVC+EmailContact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyPageVC+EmailContact.swift"; sourceTree = "<group>"; };
+		07446E442B2ACDD60002E9EF /* Vibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vibration.swift; sourceTree = "<group>"; };
 		07454DE229EA6CEE00B3458D /* UIViewController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController++.swift"; sourceTree = "<group>"; };
 		07454DE629EA94EB00B3458D /* DisablePasteTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisablePasteTextField.swift; sourceTree = "<group>"; };
 		07454E0E29EBE50500B3458D /* BottomModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomModal.swift; sourceTree = "<group>"; };
@@ -718,6 +720,7 @@
 				078C50E729D72D2900F239BA /* NameSpace.swift */,
 				073EBFEF2AB6D4D40031F6AB /* SFSymbols.swift */,
 				07B592112AC4126C0046ABFC /* DispatchWorkItem.swift */,
+				07446E442B2ACDD60002E9EF /* Vibration.swift */,
 				0714B8042ACD005000B560D6 /* TestDataSet.swift */,
 			);
 			path = File;
@@ -972,6 +975,7 @@
 				07454DE729EA94EB00B3458D /* DisablePasteTextField.swift in Sources */,
 				07174A182B1F4C6500B7EC69 /* RepositoryVC+TableView.swift in Sources */,
 				0713019E2B205791008A2A8D /* SmallButton.swift in Sources */,
+				07446E452B2ACDD60002E9EF /* Vibration.swift in Sources */,
 				07B592122AC4126C0046ABFC /* DispatchWorkItem.swift in Sources */,
 				07FAF9892AE0E6DB003BD30B /* CalendarView.swift in Sources */,
 				07967D002AC9A1D300BB45B5 /* TrackingTime+CoreDataClass.swift in Sources */,

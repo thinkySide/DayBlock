@@ -95,14 +95,20 @@ extension MyPageViewController: UITableViewDataSource & UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         // 셀 클릭 이벤트 설정
-        if tableView.tag == 1 && indexPath.row == 1 { shareAPPCellTapped() }
-        if tableView.tag == 1 && indexPath.row == 3 { emailContactCellTapped() }
-        if tableView.tag == 1 && indexPath.row == 4 { resetAllDataCellTapped() }
+        // if tableView.tag == 1 && indexPath.row == 0 { shareAPPCellTapped() }
+        if tableView.tag == 1 && indexPath.row == 0 { helpCellTapped() }
+        if tableView.tag == 1 && indexPath.row == 1 { emailContactCellTapped() }
+        if tableView.tag == 1 && indexPath.row == 2 { resetAllDataCellTapped() }
     }
 }
 
 // MARK: - Cell Touch Event Method
 extension MyPageViewController {
+    
+    /// 도움말 셀 버튼 탭 시 호출되는 메서드입니다.
+    func helpCellTapped() {
+        
+    }
     
     /// APP 공유 셀 버튼 탭 시 호출되는 메서드입니다.
     func shareAPPCellTapped() {
@@ -128,5 +134,6 @@ extension MyPageViewController: ResetDataViewControllerDelegate {
     /// 데이터 초기화 완료 후 실행되는 메서드입니다.
     func resetDataViewController(didFinishResetData: ResetDataViewController) {
         showToast(toast: viewManager.resetToastView, isActive: true)
+        Vibration.success.vibrate()
     }
 }

@@ -28,6 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // UITabBarController 추가
         let tabBarController = UITabBarController()
+        tabBarController.delegate = self
         tabBarController.tabBar.tintColor = Color.mainText
         tabBarController.setViewControllers([
             homeNavigationController,
@@ -90,5 +91,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // 5. 일시정지 시간 저장
         let pausedTime = TimerManager.shared.pausedTime
         UserDefaults.standard.setValue(pausedTime, forKey: UserDefaultsKey.pausedTime)
+    }
+}
+
+// MARK: - UITabBarControllerDelegate
+extension SceneDelegate: UITabBarControllerDelegate {
+    
+    /// 탭 바가 선택됐을 때 호출되는 메서드입니다.
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        Vibration.light.vibrate()
     }
 }

@@ -34,6 +34,7 @@ extension MyPageViewController: MFMailComposeViewControllerDelegate {
         } else {
             print("메시지 앱 사용 불가")
             showToast(toast: viewManager.invalidMailToastView, isActive: true)
+            Vibration.error.vibrate()
         }
     }
     
@@ -50,10 +51,12 @@ extension MyPageViewController: MFMailComposeViewControllerDelegate {
         case .sent:
             dismiss(animated: true)
             showToast(toast: viewManager.successMailToastView, isActive: true)
+            Vibration.success.vibrate()
             
         case .failed:
             dismiss(animated: true)
             showToast(toast: viewManager.failMailToastView, isActive: true)
+            Vibration.error.vibrate()
             
         @unknown default: break
         }

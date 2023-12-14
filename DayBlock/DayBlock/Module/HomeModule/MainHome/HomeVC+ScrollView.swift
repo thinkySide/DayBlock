@@ -35,6 +35,9 @@ extension HomeViewController: UIScrollViewDelegate {
         // 블럭 한칸 이상을 갔느냐 못갔느냐 체크
         let scrollSizeCheck = abs(startScrollX - targetContentOffset.pointee.x)
         
+        // 햅틱 이벤트 출력
+        Vibration.soft.vibrate()
+        
         // 1. 한칸만 이동하는 제스처
         if scrollSizeCheck <= blockWidth {
             
@@ -53,8 +56,9 @@ extension HomeViewController: UIScrollViewDelegate {
         else { blockIndex = Int(round(scrollSize / blockWidth)) }
         
         // 최종 스크롤 위치 지정
-        targetContentOffset.pointee = CGPoint(x: CGFloat(blockIndex) * blockWidth - scrollView.contentInset.left,
-                                              y: scrollView.contentInset.top)
+        targetContentOffset.pointee = CGPoint(
+            x: CGFloat(blockIndex) * blockWidth - scrollView.contentInset.left,
+            y: scrollView.contentInset.top)
         
         // 사용자 터치 재활성화
         scrollView.isUserInteractionEnabled = true
@@ -65,5 +69,9 @@ extension HomeViewController: UIScrollViewDelegate {
         }
         
         blockData.updateFocusIndex(to: blockIndex)
+    }
+    
+    func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView) {
+        
     }
 }
