@@ -7,9 +7,14 @@
 
 import UIKit
 
+protocol ResetDataViewControllerDelegate: AnyObject {
+    func resetDataViewController(didFinishResetData: ResetDataViewController)
+}
+
 final class ResetDataViewController: UIViewController {
     
     private let viewManager = ResetDataView()
+    weak var delegate: ResetDataViewControllerDelegate?
     
     override func loadView() {
         view = viewManager
@@ -64,5 +69,8 @@ extension ResetDataViewController: PopupViewControllerDelegate {
         
         // 이전 화면으로 이동
         navigationController?.popViewController(animated: true)
+        
+        // 초기화 완료 모달 푸쉬
+        delegate?.resetDataViewController(didFinishResetData: self)
     }
 }

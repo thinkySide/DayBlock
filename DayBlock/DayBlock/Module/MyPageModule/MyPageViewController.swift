@@ -105,7 +105,17 @@ extension MyPageViewController {
     /// 초기화 셀 버튼 탭 시 호출되는 메서드입니다.
     func resetAllDataCellTapped() {
         let resetVC = ResetDataViewController()
+        resetVC.delegate = self
         resetVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(resetVC, animated: true)
+    }
+}
+
+// MARK: - ResetDataViewControllerDelegate
+extension MyPageViewController: ResetDataViewControllerDelegate {
+    
+    /// 데이터 초기화 완료 후 실행되는 메서드입니다.
+    func resetDataViewController(didFinishResetData: ResetDataViewController) {
+        showToast(toast: viewManager.toastView, isActive: true)
     }
 }

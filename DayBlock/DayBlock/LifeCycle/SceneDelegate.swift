@@ -65,7 +65,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // 마지막 접속 시간 Notification 전달
         if let latestAccess = UserDefaults.standard.object(forKey: UserDefaultsKey.latestAccess) as? Int {
             NotificationCenter.default.post(
-                name: NSNotification.Name(Noti.latestAccess),
+                name: .latestAccess,
                 object: nil,
                 userInfo: ["time" : latestAccess])
         }

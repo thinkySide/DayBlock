@@ -8,5 +8,9 @@
 import Foundation
 
 extension Notification.Name {
+    static let latestAccess = NSNotification.Name("latestAccess")
+    static let reloadForDeleteBlock = NSNotification.Name("reloadForDeleteBlock")
+    static let reloadForUpdateBlock = NSNotification.Name("reloadForUpdateBlock")
+    static let updateCreateBlockUI = NSNotification.Name("updateCreateBlockUI")
     static let resetAllData = NSNotification.Name("resetAllData")
 }

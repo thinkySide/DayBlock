@@ -34,7 +34,7 @@ final class ManageBlockView: UIView {
     }()
     
     let toastView: ToastMessage = {
-        let view = ToastMessage()
+        let view = ToastMessage(state: .warning)
         view.messageLabel.text = "그룹 내 동일한 블럭명이 있어요"
         view.alpha = 0
         return view

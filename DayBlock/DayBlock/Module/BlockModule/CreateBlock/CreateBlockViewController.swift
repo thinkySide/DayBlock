@@ -168,7 +168,7 @@ final class CreateBlockViewController: UIViewController {
     private func setupNotification() {
         
         // 블럭 삭제 observer
-        NotificationCenter.default.addObserver(self, selector: #selector(updateForGroupChanged), name: NSNotification.Name(Noti.updateCreateBlockUI), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateForGroupChanged), name: .updateCreateBlockUI, object: nil)
     }
     
     // MARK: - Custom Method

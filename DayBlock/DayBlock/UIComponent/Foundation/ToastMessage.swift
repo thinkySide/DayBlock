@@ -9,13 +9,16 @@ import UIKit
 
 /// 토스트 메시지 컴포넌트
 final class ToastMessage: UIView {
+    
+    enum State {
+        case warning
+        case complete
+    }
 
     /// 토스트 메시지 좌측 아이콘
     let icon: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
-        image.tintColor = UIColor(rgb: 0xF6C05A)
-        image.image = UIImage(systemName: "exclamationmark.circle.fill")
         return image
     }()
 
@@ -31,10 +34,20 @@ final class ToastMessage: UIView {
 
     // MARK: - Initial Method
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(state: State) {
+        super.init(frame: .zero)
         setupUI()
         setupAutoLayout()
+        
+        switch state {
+        case .warning:
+            icon.tintColor = UIColor(rgb: 0xF6C05A)
+            icon.image = UIImage(systemName: "exclamationmark.circle.fill")
+            
+        case .complete:
+            icon.tintColor = UIColor(rgb: 0x62DA6E)
+            icon.image = UIImage(systemName: "checkmark.circle.fill")
+        }
     }
 
     /// 컴포넌트 기본 UI 설정 메서드입니다.

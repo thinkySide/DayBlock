@@ -16,7 +16,7 @@ extension HomeViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(restartTrackingMode),
-            name: NSNotification.Name(Noti.latestAccess),
+            name: .latestAccess,
             object: nil
         )
         
@@ -24,7 +24,7 @@ extension HomeViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(reloadForDeleteBlock),
-            name: NSNotification.Name(Noti.reloadForDeleteBlock),
+            name: .reloadForDeleteBlock,
             object: nil
         )
         
@@ -32,7 +32,7 @@ extension HomeViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(reloadForUpdateBlock),
-            name: NSNotification.Name(Noti.reloadForUpdateBlock),
+            name: .reloadForUpdateBlock,
             object: nil
         )
         

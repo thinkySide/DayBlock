@@ -137,10 +137,10 @@ extension EditGroupViewController: EditGroupViewDelegate {
         delegate?.reloadData()
         
         // HomeViewController의 BlockCollectionView의 UI 업데이트
-        NotificationCenter.default.post(name: NSNotification.Name(Noti.reloadForUpdateBlock), object: self, userInfo: nil)
+        NotificationCenter.default.post(name: .reloadForUpdateBlock, object: self, userInfo: nil)
         
         // CreateBlockViewController의 UI 업데이트
-        NotificationCenter.default.post(name: NSNotification.Name(Noti.updateCreateBlockUI), object: self, userInfo: nil)
+        NotificationCenter.default.post(name: .updateCreateBlockUI, object: self, userInfo: nil)
         
         // Pop
         navigationController?.popViewController(animated: true)
@@ -159,7 +159,7 @@ extension EditGroupViewController: PopupViewControllerDelegate {
         delegate?.reloadData()
         
         // HomeViewController의 BlockCollectionView를 0번(그룹없음) 으로 Switch
-        NotificationCenter.default.post(name: NSNotification.Name(Noti.reloadForDeleteBlock), object: self, userInfo: nil)
+        NotificationCenter.default.post(name: .reloadForDeleteBlock, object: self, userInfo: nil)
         
         navigationController?.popViewController(animated: true)
     }

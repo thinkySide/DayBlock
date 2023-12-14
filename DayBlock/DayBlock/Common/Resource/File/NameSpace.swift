@@ -10,11 +10,8 @@ import UIKit
 // MARK: - Noti
 
 enum Noti {
-    static let reloadForDeleteBlock = "reloadForDeleteBlock"
-    static let reloadForUpdateBlock = "reloadForUpdateBlock"
-    static let updateCreateBlockUI = "updateCreateBlockUI"
     
-    static let latestAccess = "latestAccess"
+    
 }
 
 // MARK: - UserDefaults Key

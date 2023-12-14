@@ -32,6 +32,13 @@ final class MyPageView: UIView {
     
     let tabBarStackView = TabBar(location: .myPage)
     
+    let toastView: ToastMessage = {
+        let view = ToastMessage(state: .complete)
+        view.messageLabel.text = "초기화 작업이 완료되었습니다"
+        view.alpha = 0
+        return view
+    }()
+    
     // MARK: - Initial Method
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -47,10 +54,12 @@ final class MyPageView: UIView {
         addSubview(scrollView)
         scrollView.addSubview(contentView)
         addSubview(tabBarStackView)
+        addSubview(toastView)
         
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
         tabBarStackView.translatesAutoresizingMaskIntoConstraints = false
+        toastView.translatesAutoresizingMaskIntoConstraints = false
         
         [totalTodayBurningView, usageSettingView, developerSettingView, versionInfo].forEach {
             contentView.addSubview($0)
@@ -87,7 +96,10 @@ final class MyPageView: UIView {
             tabBarStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             tabBarStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tabBarStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            tabBarStackView.heightAnchor.constraint(equalToConstant: 2)
+            tabBarStackView.heightAnchor.constraint(equalToConstant: 2),
+            
+            toastView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            toastView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
     }
 }

@@ -147,7 +147,7 @@ final class HomeView: UIView {
     }()
     
     let toastView: ToastMessage = {
-        let view = ToastMessage()
+        let view = ToastMessage(state: .warning)
         view.messageLabel.text = "블럭 0.5개 이상 생산 시 등록이 가능해요"
         view.alpha = 0
         return view
