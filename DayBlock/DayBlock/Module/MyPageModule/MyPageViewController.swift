@@ -94,14 +94,24 @@ extension MyPageViewController: UITableViewDataSource & UITableViewDelegate {
         // 셀 클릭 시, 바로 비활성화되는 애니메이션 추가
         tableView.deselectRow(at: indexPath, animated: true)
         
-        // 초기화 셀 클릭
-        if tableView.tag == 1 && indexPath.row == 2 { emailContactCellTapped() }
-        if tableView.tag == 1 && indexPath.row == 3 { resetAllDataCellTapped() }
+        // 셀 클릭 이벤트 설정
+        if tableView.tag == 1 && indexPath.row == 1 { shareAPPCellTapped() }
+        if tableView.tag == 1 && indexPath.row == 3 { emailContactCellTapped() }
+        if tableView.tag == 1 && indexPath.row == 4 { resetAllDataCellTapped() }
     }
 }
 
 // MARK: - Cell Touch Event Method
 extension MyPageViewController {
+    
+    /// APP 공유 셀 버튼 탭 시 호출되는 메서드입니다.
+    func shareAPPCellTapped() {
+        let activityViewController = UIActivityViewController(activityItems: ["https://github.com/thinkySide/DayBlock"], applicationActivities: nil)
+        activityViewController.excludedActivityTypes = [
+            .addToReadingList, .assignToContact, .saveToCameraRoll, .markupAsPDF
+        ]
+        self.present(activityViewController, animated: true)
+    }
     
     /// 초기화 셀 버튼 탭 시 호출되는 메서드입니다.
     func resetAllDataCellTapped() {
