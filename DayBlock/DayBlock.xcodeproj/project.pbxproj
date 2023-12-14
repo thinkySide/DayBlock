@@ -40,6 +40,7 @@
 		073EBFEE2AB6C7B80031F6AB /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 073EBFED2AB6C7B80031F6AB /* .swiftlint.yml */; };
 		073EBFF02AB6D4D40031F6AB /* SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EBFEF2AB6D4D40031F6AB /* SFSymbols.swift */; };
 		07446E3F2B2A7E650002E9EF /* NotificationName++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07446E3E2B2A7E650002E9EF /* NotificationName++.swift */; };
+		07446E412B2A9FA70002E9EF /* MyPageVC+EmailContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07446E402B2A9FA70002E9EF /* MyPageVC+EmailContact.swift */; };
 		07454DE329EA6CEE00B3458D /* UIViewController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454DE229EA6CEE00B3458D /* UIViewController++.swift */; };
 		07454DE729EA94EB00B3458D /* DisablePasteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454DE629EA94EB00B3458D /* DisablePasteTextField.swift */; };
 		07454E0F29EBE50500B3458D /* BottomModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E0E29EBE50500B3458D /* BottomModal.swift */; };
@@ -177,6 +178,7 @@
 		073EBFED2AB6C7B80031F6AB /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		073EBFEF2AB6D4D40031F6AB /* SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbols.swift; sourceTree = "<group>"; };
 		07446E3E2B2A7E650002E9EF /* NotificationName++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName++.swift"; sourceTree = "<group>"; };
+		07446E402B2A9FA70002E9EF /* MyPageVC+EmailContact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyPageVC+EmailContact.swift"; sourceTree = "<group>"; };
 		07454DE229EA6CEE00B3458D /* UIViewController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController++.swift"; sourceTree = "<group>"; };
 		07454DE629EA94EB00B3458D /* DisablePasteTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisablePasteTextField.swift; sourceTree = "<group>"; };
 		07454E0E29EBE50500B3458D /* BottomModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomModal.swift; sourceTree = "<group>"; };
@@ -298,6 +300,7 @@
 			children = (
 				07849BEF2B297929009BF4A8 /* MyPageView.swift */,
 				070A90282B283FDD00BBD147 /* MyPageViewController.swift */,
+				07446E402B2A9FA70002E9EF /* MyPageVC+EmailContact.swift */,
 				07849BED2B2976B2009BF4A8 /* SettingViewTableViewCell.swift */,
 				070A902B2B28400D00BBD147 /* TotalTodayBurningView.swift */,
 			);
@@ -990,6 +993,7 @@
 				07AE45CF2AF1032700125316 /* CalendarCell.swift in Sources */,
 				07DD3E932AB022ED002D128F /* SimpleIconBlock.swift in Sources */,
 				0736AC572B2A6C8500D90AB2 /* ResetDataViewController.swift in Sources */,
+				07446E412B2A9FA70002E9EF /* MyPageVC+EmailContact.swift in Sources */,
 				078C50F429D73D0200F239BA /* TrackingBoard.swift in Sources */,
 				0719648329DAF4B5009CA1A4 /* RemoteGroup.swift in Sources */,
 				077E80F12AE13E0B004CDB8F /* ManageBlockTableViewHeader.swift in Sources */,

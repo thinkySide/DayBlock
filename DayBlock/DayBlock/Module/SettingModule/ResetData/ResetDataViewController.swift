@@ -70,7 +70,7 @@ extension ResetDataViewController: PopupViewControllerDelegate {
         // 이전 화면으로 이동
         navigationController?.popViewController(animated: true)
         
-        // 초기화 완료 모달 푸쉬
+        // 초기화 완료 토스트 출력
         delegate?.resetDataViewController(didFinishResetData: self)
     }
 }

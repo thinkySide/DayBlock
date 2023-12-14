@@ -9,9 +9,8 @@ import UIKit
 
 // MARK: - Noti
 
-enum Noti {
-    
-    
+enum Version {
+    static let current = "0.1.0"
 }
 
 // MARK: - UserDefaults Key

@@ -95,6 +95,7 @@ extension MyPageViewController: UITableViewDataSource & UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         // 초기화 셀 클릭
+        if tableView.tag == 1 && indexPath.row == 2 { emailContactCellTapped() }
         if tableView.tag == 1 && indexPath.row == 3 { resetAllDataCellTapped() }
     }
 }
@@ -116,6 +117,6 @@ extension MyPageViewController: ResetDataViewControllerDelegate {
     
     /// 데이터 초기화 완료 후 실행되는 메서드입니다.
     func resetDataViewController(didFinishResetData: ResetDataViewController) {
-        showToast(toast: viewManager.toastView, isActive: true)
+        showToast(toast: viewManager.resetToastView, isActive: true)
     }
 }

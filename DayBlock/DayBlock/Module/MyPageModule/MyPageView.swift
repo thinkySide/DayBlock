@@ -28,13 +28,34 @@ final class MyPageView: UIView {
     lazy var usageSettingView = SettingView(rowCount: settingData.usageData().count)
     lazy var developerSettingView = SettingView(rowCount: settingData.developerData().count)
     
-    let versionInfo = InfoCellView(tagLabel: "버전", valueLabel: "0.1")
+    let versionInfo = InfoCellView(tagLabel: "버전", valueLabel: Version.current)
     
     let tabBarStackView = TabBar(location: .myPage)
     
-    let toastView: ToastMessage = {
+    let invalidMailToastView: ToastMessage = {
+        let view = ToastMessage(state: .warning)
+        view.messageLabel.text = "메일 전송을 위해 'Mail' 앱 연동이 필요해요"
+        view.alpha = 0
+        return view
+    }()
+    
+    let successMailToastView: ToastMessage = {
         let view = ToastMessage(state: .complete)
-        view.messageLabel.text = "초기화 작업이 완료되었습니다"
+        view.messageLabel.text = "문의 메일 전송을 완료했어요"
+        view.alpha = 0
+        return view
+    }()
+    
+    let failMailToastView: ToastMessage = {
+        let view = ToastMessage(state: .warning)
+        view.messageLabel.text = "오류로 인해 메일 전송에 실패했어요 😢"
+        view.alpha = 0
+        return view
+    }()
+    
+    let resetToastView: ToastMessage = {
+        let view = ToastMessage(state: .complete)
+        view.messageLabel.text = "초기화 작업이 완료되었어요"
         view.alpha = 0
         return view
     }()
@@ -54,12 +75,18 @@ final class MyPageView: UIView {
         addSubview(scrollView)
         scrollView.addSubview(contentView)
         addSubview(tabBarStackView)
-        addSubview(toastView)
+        addSubview(resetToastView)
+        addSubview(invalidMailToastView)
+        addSubview(successMailToastView)
+        addSubview(failMailToastView)
         
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
         tabBarStackView.translatesAutoresizingMaskIntoConstraints = false
-        toastView.translatesAutoresizingMaskIntoConstraints = false
+        resetToastView.translatesAutoresizingMaskIntoConstraints = false
+        invalidMailToastView.translatesAutoresizingMaskIntoConstraints = false
+        successMailToastView.translatesAutoresizingMaskIntoConstraints = false
+        failMailToastView.translatesAutoresizingMaskIntoConstraints = false
         
         [totalTodayBurningView, usageSettingView, developerSettingView, versionInfo].forEach {
             contentView.addSubview($0)
@@ -98,8 +125,17 @@ final class MyPageView: UIView {
             tabBarStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             tabBarStackView.heightAnchor.constraint(equalToConstant: 2),
             
-            toastView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            toastView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20)
+            invalidMailToastView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            invalidMailToastView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            
+            successMailToastView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            successMailToastView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            
+            failMailToastView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            failMailToastView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            
+            resetToastView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            resetToastView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
     }
 }
