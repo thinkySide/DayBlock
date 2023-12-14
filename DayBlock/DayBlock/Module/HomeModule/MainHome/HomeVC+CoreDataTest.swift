@@ -13,8 +13,7 @@ extension HomeViewController {
     /// CoreData 테스트용 메서드입니다.
     @objc func testCoreData() {
         // insertTrackingTestData()
-        // printCoreData()
-        Vibration.warning.vibrate()
+        printCoreData()
     }
     
     /// 테스트 트래킹 데이터를 생성하고, CoreData를 업데이트합니다.

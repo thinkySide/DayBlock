@@ -106,7 +106,7 @@ final class HomeViewController: UIViewController {
             // 3. (현재 시간 - 마지막 종료 시점) -> 얼마나 앱이 종료되었는지 구할 수 있음
             let elapsedTime = trackingData.todaySecondsToInt() - lastAccess
             // let pausedTime = UserDefaults.standard.object(forKey: UserDefaultsKey.pausedTime) as? Int ?? 0
-
+            
             // 4. 앱 종료 전 총 트래킹 시간 구하기
             let originalTotalTime = UserDefaults.standard.object(forKey: UserDefaultsKey.totalTime) as? Int ?? 0
             
@@ -121,7 +121,7 @@ final class HomeViewController: UIViewController {
             
             // 8. totalBlock 업데이트
             timerManager.totalBlock = Double(timerManager.totalTime / trackingData.targetSecond) * 0.5
-
+            
             // 9. 몇개의 블럭이 생성되었는지 확인
             var count = 0
             if let timeList = trackingData.focusDate().trackingTimeList {
@@ -151,7 +151,7 @@ final class HomeViewController: UIViewController {
             
             // 16. 트래킹 모드 시작
             viewManager.trackingRestartForDisconnect()
-
+            
             // 17. 일시정지 상태
             if isPause { viewManager.trackingButtonTapped() }
         }

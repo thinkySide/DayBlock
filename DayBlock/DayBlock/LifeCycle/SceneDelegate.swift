@@ -53,8 +53,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             items[2].title = "관리소"
             
             // myPageViewController
-            items[3].image = UIImage(named: Icon.storage)
+            items[3].image = UIImage(named: Icon.myPage)
             items[3].title = "내정보"
+            
+            for index in items.indices {
+                let font = UIFont(name: Pretendard.semiBold,size: 15)!
+                print(font)
+                items[index].setTitleTextAttributes([NSAttributedString.Key.font: font], for: .normal)
+            }
         }
         
         window?.rootViewController = tabBarController
