@@ -659,3 +659,27 @@ NotificationCenter를 활용해 그룹이 업데이트 되는 시점에 맞춰 H
 ---
 
 <br>
+
+### **Day 91 - 23.12.14**
+
+- **초기화 기능 구현**   
+모든 그룹, 블럭, 트래킹 데이터를 삭제하는 초기화 기능을 구현했습니다. 위험도가 높은 행동인만큼, 총 3번 탭을 통해 초기화 할 수 있게 UX를 구성했습니다.
+
+<img width="300" src="https://github.com/thinkySide/DayBlock/assets/113565086/b0923e7e-109e-4156-ad95-cf86f5ddf59e">
+
+- **이메일 문의 기능 구현**   
+각종 문의 제보를 받기 위한 이메일 문의 기능을 구현했습니다. 기본 메일 앱 사용 불가 시, 경고 메시지를 출력하도록 구현했습니다.
+
+<img width="300" src="https://github.com/thinkySide/DayBlock/assets/113565086/94848405-86b3-442a-a9cf-53b08381ea29">
+
+- **햅틱 피드백 구현**   
+UX 향상을 위해 각종 성공, 경고 및 중요 탭 이벤트에 햅틱(진동) 이벤트를 구현했습니다.
+
+- **온보딩 UI 디자인**   
+APP 초기 설치 시 사용 방법 안내를 위한 온보딩 페이지 디자인을 완료했습니다.
+
+<img width="300" src="https://github.com/thinkySide/DayBlock/assets/113565086/08084b90-d0fb-4ac2-ab97-335eed4c27c7">
+
+---
+
+<br>
