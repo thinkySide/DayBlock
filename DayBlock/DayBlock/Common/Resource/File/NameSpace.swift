@@ -91,6 +91,12 @@ enum Icon {
     static let selectIcon = "selectIcon"
 }
 
+enum OnboardingImage {
+    static let first = "FirstOnboardingContent"
+    static let second = "SecondOnboardingContent"
+    static let third = "ThirdOnboardingContent"
+}
+
 // MARK: - Size
 
 enum Size {

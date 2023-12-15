@@ -26,6 +26,7 @@ final class OnboardingView: UIView {
     // MARK: - Initial Method
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = .white
         setupAutouLayout()
     }
     
@@ -48,7 +49,7 @@ final class OnboardingView: UIView {
             pageControlView.trailingAnchor.constraint(equalTo: trailingAnchor),
             pageControlView.heightAnchor.constraint(equalToConstant: 256),
             
-            pageNumbers.bottomAnchor.constraint(equalTo: pageControlView.bottomAnchor, constant: -8),
+            pageNumbers.bottomAnchor.constraint(equalTo: pageControlView.bottomAnchor, constant: 0),
             pageNumbers.centerXAnchor.constraint(equalTo: pageControlView.centerXAnchor),
             
             pageViewController.view.topAnchor.constraint(equalTo: pageControlView.bottomAnchor),

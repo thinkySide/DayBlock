@@ -15,7 +15,9 @@ final class OnboardingViewController: UIViewController {
     lazy var pages: [UIViewController] = {
         let firstVC = FirstOnboardingViewController()
         let secondVC = SecondOnboardingViewController()
-        return [firstVC, secondVC]
+        let thirdVC = ThirdOnboardingViewController()
+        let fourthVC = FourthOnboardingViewController()
+        return [firstVC, secondVC, thirdVC, fourthVC]
     }()
     
     var currentIndex: Int {

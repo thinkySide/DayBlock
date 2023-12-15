@@ -131,6 +131,10 @@
 		07B1F8C82B2C31B600E98382 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B1F8C72B2C31B600E98382 /* OnboardingViewController.swift */; };
 		07B1F8CD2B2C349600E98382 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B1F8CC2B2C349600E98382 /* OnboardingView.swift */; };
 		07B1F8CF2B2C367400E98382 /* PageNumbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B1F8CE2B2C367400E98382 /* PageNumbers.swift */; };
+		07B1F8D12B2C4A4F00E98382 /* ThirdOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B1F8D02B2C4A4F00E98382 /* ThirdOnboardingView.swift */; };
+		07B1F8D32B2C4A5B00E98382 /* ThirdOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B1F8D22B2C4A5B00E98382 /* ThirdOnboardingViewController.swift */; };
+		07B1F8D52B2C4C9000E98382 /* FourthOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B1F8D42B2C4C9000E98382 /* FourthOnboardingView.swift */; };
+		07B1F8D72B2C4C9A00E98382 /* FourthOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B1F8D62B2C4C9A00E98382 /* FourthOnboardingViewController.swift */; };
 		07B49BC42A88EBA3006D1011 /* MenuPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC32A88EBA3006D1011 /* MenuPopup.swift */; };
 		07B49BC62A88EC14006D1011 /* MenuPopupItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC52A88EC14006D1011 /* MenuPopupItem.swift */; };
 		07B49BC82A8DD84D006D1011 /* ManageGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC72A8DD84D006D1011 /* ManageGroupViewController.swift */; };
@@ -280,6 +284,10 @@
 		07B1F8C72B2C31B600E98382 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		07B1F8CC2B2C349600E98382 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		07B1F8CE2B2C367400E98382 /* PageNumbers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageNumbers.swift; sourceTree = "<group>"; };
+		07B1F8D02B2C4A4F00E98382 /* ThirdOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdOnboardingView.swift; sourceTree = "<group>"; };
+		07B1F8D22B2C4A5B00E98382 /* ThirdOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdOnboardingViewController.swift; sourceTree = "<group>"; };
+		07B1F8D42B2C4C9000E98382 /* FourthOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourthOnboardingView.swift; sourceTree = "<group>"; };
+		07B1F8D62B2C4C9A00E98382 /* FourthOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourthOnboardingViewController.swift; sourceTree = "<group>"; };
 		07B49BC32A88EBA3006D1011 /* MenuPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopup.swift; sourceTree = "<group>"; };
 		07B49BC52A88EC14006D1011 /* MenuPopupItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopupItem.swift; sourceTree = "<group>"; };
 		07B49BC72A8DD84D006D1011 /* ManageGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageGroupViewController.swift; sourceTree = "<group>"; };
@@ -879,6 +887,10 @@
 				07B1F8BF2B2C2B0C00E98382 /* FirstOnboardingViewController.swift */,
 				07B1F8C32B2C2B8E00E98382 /* SecondOnboardingView.swift */,
 				07B1F8C52B2C2B9A00E98382 /* SecondOnboardingViewController.swift */,
+				07B1F8D02B2C4A4F00E98382 /* ThirdOnboardingView.swift */,
+				07B1F8D22B2C4A5B00E98382 /* ThirdOnboardingViewController.swift */,
+				07B1F8D42B2C4C9000E98382 /* FourthOnboardingView.swift */,
+				07B1F8D62B2C4C9A00E98382 /* FourthOnboardingViewController.swift */,
 			);
 			path = OnboardingContents;
 			sourceTree = "<group>";
@@ -1001,6 +1013,7 @@
 				07967D032ACA606000BB45B5 /* HomeVC+TrackingLifeCycle.swift in Sources */,
 				076248CF2AB30319000A8664 /* IconDelegate.swift in Sources */,
 				078C50BA29D7152F00F239BA /* HomeViewController.swift in Sources */,
+				07B1F8D32B2C4A5B00E98382 /* ThirdOnboardingViewController.swift in Sources */,
 				0719649229E04FD8009CA1A4 /* CreateBlockView.swift in Sources */,
 				07C0BDB52ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift in Sources */,
 				0775E30D2B1F22EF00CC594D /* RepositoryItem.swift in Sources */,
@@ -1066,6 +1079,7 @@
 				07FAF9872AE0DE70003BD30B /* ManageBlockView.swift in Sources */,
 				07B1F8C42B2C2B8E00E98382 /* SecondOnboardingView.swift in Sources */,
 				0736AC5A2B2A6CCD00D90AB2 /* ResetDataView.swift in Sources */,
+				07B1F8D52B2C4C9000E98382 /* FourthOnboardingView.swift in Sources */,
 				07B592142AC42B7D0046ABFC /* UIImageView++.swift in Sources */,
 				0749D72D2ABAD7E9004DF368 /* HomeDelegate.swift in Sources */,
 				07849BF22B297BD5009BF4A8 /* SettingView.swift in Sources */,
@@ -1103,6 +1117,7 @@
 				07EB771729F5335F000BD87E /* SelectColorCollectionViewCell.swift in Sources */,
 				078C50B829D7152F00F239BA /* SceneDelegate.swift in Sources */,
 				0719649029E04F7E009CA1A4 /* CreateBlockViewController.swift in Sources */,
+				07B1F8D72B2C4C9A00E98382 /* FourthOnboardingViewController.swift in Sources */,
 				0776DB632AE267DC008379A1 /* SelectGroupTableViewFooter.swift in Sources */,
 				070A90292B283FDD00BBD147 /* MyPageViewController.swift in Sources */,
 				076248C92AB301C9000A8664 /* BlockDelegate.swift in Sources */,
@@ -1124,6 +1139,7 @@
 				0749D7282AB9E832004DF368 /* HomeVC+Notification.swift in Sources */,
 				07454E1929EFD8A400B3458D /* ActionButtonSet.swift in Sources */,
 				07817F0D2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift in Sources */,
+				07B1F8D12B2C4A4F00E98382 /* ThirdOnboardingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

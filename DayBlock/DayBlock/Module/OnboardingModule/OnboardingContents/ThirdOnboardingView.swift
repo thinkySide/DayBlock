@@ -1,5 +1,5 @@
 //
-//  FirstOnboardingView.swift
+//  ThirdOnboardingView.swift
 //  DayBlock
 //
 //  Created by 김민준 on 12/15/23.
@@ -7,19 +7,19 @@
 
 import UIKit
 
-final class FirstOnboardingView: UIView {
+final class ThirdOnboardingView: UIView {
     
     private let mainLabel: UILabel = {
         let label = UILabel()
         let text = """
-        데이블럭의 하루에는
-        24개의 빈 블럭이 있어요
+        직접 만든 블럭으로 생산성을
+        얼마나 발휘 했는지 트래킹해요
         """
         label.font = UIFont(name: Pretendard.medium, size: 20)
         label.textColor = Color.mainText
         label.numberOfLines = 2
         label.text = text
-        label.asFontColor(targetString: "24개의 빈 블럭이 있어요",
+        label.asFontColor(targetString: "생산성을\n얼마나 발휘 했는지 트래킹",
                           font: UIFont(name: Pretendard.bold, size: 20),
                           color: Color.mainText, lineSpacing: 4, alignment: .center)
         return label
@@ -27,13 +27,13 @@ final class FirstOnboardingView: UIView {
     
     private let image: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: OnboardingImage.first)
+        imageView.image = UIImage(named: OnboardingImage.third)
         return imageView
     }()
     
     private let subLabel: UILabel = {
         let label = UILabel()
-        let text = "“00:00분부터 23:59분까지가 하루에요”"
+        let text = "“공부, 운동, 독서 어떤 작업이든 트래킹해요”"
         label.font = UIFont(name: Pretendard.medium, size: 15)
         label.textColor = UIColor(rgb: 0x828282)
         label.textAlignment = .center

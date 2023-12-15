@@ -200,7 +200,7 @@ final class HomeViewController: UIViewController {
     
     /// APP 초기 실행 시, 온보딩 화면을 출력합니다.
     private func setupOnboarding() {
-        let startVC = UINavigationController(rootViewController: StartViewController())
+        let startVC = StartViewController()
         startVC.modalPresentationStyle = .fullScreen
         present(startVC, animated: false)
     }

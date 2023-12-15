@@ -29,6 +29,7 @@ final class StartViewController: UIViewController {
     // MARK: - Event Method
     @objc func startButtonTapped() {
         let onboardingVC = OnboardingViewController()
-        navigationController?.pushViewController(onboardingVC, animated: true)
+        onboardingVC.modalPresentationStyle = .fullScreen
+        present(onboardingVC, animated: true)
     }
 }
