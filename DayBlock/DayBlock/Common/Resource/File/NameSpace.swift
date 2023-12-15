@@ -16,6 +16,8 @@ enum Version {
 // MARK: - UserDefaults Key
 
 enum UserDefaultsKey {
+    static let isFirstLaunch = "isFirstLaunch"
+    
     static let groupIndex = "groupIndex"
     static let blockIndex = "blockIndex"
     

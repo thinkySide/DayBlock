@@ -122,6 +122,13 @@
 		07B04BAD2ADD500800580711 /* Block+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B04BA92ADD500800580711 /* Block+CoreDataProperties.swift */; };
 		07B04BAE2ADD500800580711 /* Group+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B04BAA2ADD500800580711 /* Group+CoreDataClass.swift */; };
 		07B04BAF2ADD500800580711 /* Group+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B04BAB2ADD500800580711 /* Group+CoreDataProperties.swift */; };
+		07B1F8BB2B2C23A500E98382 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B1F8BA2B2C23A500E98382 /* StartViewController.swift */; };
+		07B1F8BE2B2C23DA00E98382 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B1F8BD2B2C23DA00E98382 /* StartView.swift */; };
+		07B1F8C02B2C2B0C00E98382 /* FirstOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B1F8BF2B2C2B0C00E98382 /* FirstOnboardingViewController.swift */; };
+		07B1F8C22B2C2B1900E98382 /* FirstOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B1F8C12B2C2B1900E98382 /* FirstOnboardingView.swift */; };
+		07B1F8C42B2C2B8E00E98382 /* SecondOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B1F8C32B2C2B8E00E98382 /* SecondOnboardingView.swift */; };
+		07B1F8C62B2C2B9A00E98382 /* SecondOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B1F8C52B2C2B9A00E98382 /* SecondOnboardingViewController.swift */; };
+		07B1F8C82B2C31B600E98382 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B1F8C72B2C31B600E98382 /* OnboardingViewController.swift */; };
 		07B49BC42A88EBA3006D1011 /* MenuPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC32A88EBA3006D1011 /* MenuPopup.swift */; };
 		07B49BC62A88EC14006D1011 /* MenuPopupItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC52A88EC14006D1011 /* MenuPopupItem.swift */; };
 		07B49BC82A8DD84D006D1011 /* ManageGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC72A8DD84D006D1011 /* ManageGroupViewController.swift */; };
@@ -262,6 +269,13 @@
 		07B04BA92ADD500800580711 /* Block+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Block+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		07B04BAA2ADD500800580711 /* Group+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+CoreDataClass.swift"; sourceTree = "<group>"; };
 		07B04BAB2ADD500800580711 /* Group+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		07B1F8BA2B2C23A500E98382 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		07B1F8BD2B2C23DA00E98382 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		07B1F8BF2B2C2B0C00E98382 /* FirstOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstOnboardingViewController.swift; sourceTree = "<group>"; };
+		07B1F8C12B2C2B1900E98382 /* FirstOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstOnboardingView.swift; sourceTree = "<group>"; };
+		07B1F8C32B2C2B8E00E98382 /* SecondOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondOnboardingView.swift; sourceTree = "<group>"; };
+		07B1F8C52B2C2B9A00E98382 /* SecondOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondOnboardingViewController.swift; sourceTree = "<group>"; };
+		07B1F8C72B2C31B600E98382 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		07B49BC32A88EBA3006D1011 /* MenuPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopup.swift; sourceTree = "<group>"; };
 		07B49BC52A88EC14006D1011 /* MenuPopupItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopupItem.swift; sourceTree = "<group>"; };
 		07B49BC72A8DD84D006D1011 /* ManageGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageGroupViewController.swift; sourceTree = "<group>"; };
@@ -648,6 +662,7 @@
 		076248BD2AB2F78F000A8664 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				07B1F8BC2B2C23A900E98382 /* OnboardingModule */,
 				076248A22AB2D798000A8664 /* HomeModule */,
 				076248A52AB2D956000A8664 /* TrackingModule */,
 				076248A32AB2D857000A8664 /* BlockModule */,
@@ -840,6 +855,28 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		07B1F8BC2B2C23A900E98382 /* OnboardingModule */ = {
+			isa = PBXGroup;
+			children = (
+				07B1F8BD2B2C23DA00E98382 /* StartView.swift */,
+				07B1F8BA2B2C23A500E98382 /* StartViewController.swift */,
+				07B1F8C72B2C31B600E98382 /* OnboardingViewController.swift */,
+				07B1F8CB2B2C336600E98382 /* OnboardingContents */,
+			);
+			path = OnboardingModule;
+			sourceTree = "<group>";
+		};
+		07B1F8CB2B2C336600E98382 /* OnboardingContents */ = {
+			isa = PBXGroup;
+			children = (
+				07B1F8C12B2C2B1900E98382 /* FirstOnboardingView.swift */,
+				07B1F8BF2B2C2B0C00E98382 /* FirstOnboardingViewController.swift */,
+				07B1F8C32B2C2B8E00E98382 /* SecondOnboardingView.swift */,
+				07B1F8C52B2C2B9A00E98382 /* SecondOnboardingViewController.swift */,
+			);
+			path = OnboardingContents;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -953,6 +990,7 @@
 			files = (
 				077E80F32AE141CA004CDB8F /* ManageBlockTableViewCell.swift in Sources */,
 				0770803129E78D0500D66900 /* SelectGroupView.swift in Sources */,
+				07B1F8C62B2C2B9A00E98382 /* SecondOnboardingViewController.swift in Sources */,
 				0736AC532B298FFA00D90AB2 /* SettingDataStore.swift in Sources */,
 				07967D032ACA606000BB45B5 /* HomeVC+TrackingLifeCycle.swift in Sources */,
 				076248CF2AB30319000A8664 /* IconDelegate.swift in Sources */,
@@ -967,6 +1005,7 @@
 				0770803A29E7989B00D66900 /* SelectColorViewController.swift in Sources */,
 				0770803829E7988100D66900 /* SelectColorView.swift in Sources */,
 				07C0BDB42ABC452600D5E779 /* TrackingDate+CoreDataClass.swift in Sources */,
+				07B1F8C02B2C2B0C00E98382 /* FirstOnboardingViewController.swift in Sources */,
 				077A663429ED2AB000D99C68 /* CreateGroupViewController.swift in Sources */,
 				0749D72A2ABACAD3004DF368 /* HomeVC+CustomDelegate.swift in Sources */,
 				070A902C2B28400D00BBD147 /* TotalTodayBurningView.swift in Sources */,
@@ -975,6 +1014,7 @@
 				07454DE729EA94EB00B3458D /* DisablePasteTextField.swift in Sources */,
 				07174A182B1F4C6500B7EC69 /* RepositoryVC+TableView.swift in Sources */,
 				0713019E2B205791008A2A8D /* SmallButton.swift in Sources */,
+				07B1F8BE2B2C23DA00E98382 /* StartView.swift in Sources */,
 				07446E452B2ACDD60002E9EF /* Vibration.swift in Sources */,
 				07B592122AC4126C0046ABFC /* DispatchWorkItem.swift in Sources */,
 				07FAF9892AE0E6DB003BD30B /* CalendarView.swift in Sources */,
@@ -1007,6 +1047,7 @@
 				07C0BDAF2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift in Sources */,
 				071E3ABB2AC15EF1000C346F /* GroupDataStore.swift in Sources */,
 				0771983F29E2F4D10021088A /* UIButton++.swift in Sources */,
+				07B1F8C82B2C31B600E98382 /* OnboardingViewController.swift in Sources */,
 				078630572B05E7D90092672B /* TimeLineView.swift in Sources */,
 				07B49BCD2A8DE204006D1011 /* EditGroupViewController.swift in Sources */,
 				078C50C029D7152F00F239BA /* DayBlock.xcdatamodeld in Sources */,
@@ -1016,6 +1057,7 @@
 				07FAF98B2AE0E7AD003BD30B /* SectionBar.swift in Sources */,
 				07B49C472A95E66D006D1011 /* TrackingCompleteView.swift in Sources */,
 				07FAF9872AE0DE70003BD30B /* ManageBlockView.swift in Sources */,
+				07B1F8C42B2C2B8E00E98382 /* SecondOnboardingView.swift in Sources */,
 				0736AC5A2B2A6CCD00D90AB2 /* ResetDataView.swift in Sources */,
 				07B592142AC42B7D0046ABFC /* UIImageView++.swift in Sources */,
 				0749D72D2ABAD7E9004DF368 /* HomeDelegate.swift in Sources */,
@@ -1026,6 +1068,7 @@
 				07A45CE42AA0952000C09342 /* TimerManager.swift in Sources */,
 				070A902E2B28429000BBD147 /* SummaryInfoIcon.swift in Sources */,
 				0749D71C2AB84198004DF368 /* HomeVC+BlockCollectionView.swift in Sources */,
+				07B1F8C22B2C2B1900E98382 /* FirstOnboardingView.swift in Sources */,
 				07454E1329EC138E00B3458D /* ManageGroupTableViewCell.swift in Sources */,
 				07454E1129EBFDF200B3458D /* ActionButton.swift in Sources */,
 				073EBFF02AB6D4D40031F6AB /* SFSymbols.swift in Sources */,
@@ -1040,6 +1083,7 @@
 				07DD3E952AB02BE3002D128F /* DashedSeparator.swift in Sources */,
 				0719648129DAF38A009CA1A4 /* RemoteBlock.swift in Sources */,
 				0770803429E797E100D66900 /* SelectIconViewController.swift in Sources */,
+				07B1F8BB2B2C23A500E98382 /* StartViewController.swift in Sources */,
 				07446E3F2B2A7E650002E9EF /* NotificationName++.swift in Sources */,
 				07967D012AC9A1D300BB45B5 /* TrackingTime+CoreDataProperties.swift in Sources */,
 				07454DE329EA6CEE00B3458D /* UIViewController++.swift in Sources */,

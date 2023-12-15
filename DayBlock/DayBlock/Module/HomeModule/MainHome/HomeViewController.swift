@@ -53,6 +53,7 @@ final class HomeViewController: UIViewController {
         setupUI()
         setupGestrue()
         setupTrackingMode()
+        setupOnboarding()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -195,5 +196,12 @@ final class HomeViewController: UIViewController {
         addTapGesture(viewManager.groupSelectButton, target: self, action: #selector(groupSelectButtonTapped))
         addTapGesture(viewManager.trackingStopBarButtonItem, target: self, action: #selector(trackingStopBarButtonItemTapped))
         configureBlockLongPressGesture()
+    }
+    
+    /// APP 초기 실행 시, 온보딩 화면을 출력합니다.
+    private func setupOnboarding() {
+        let startVC = UINavigationController(rootViewController: StartViewController())
+        startVC.modalPresentationStyle = .fullScreen
+        present(startVC, animated: false)
     }
 }

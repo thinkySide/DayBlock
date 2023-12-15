@@ -58,7 +58,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             for index in items.indices {
                 let font = UIFont(name: Pretendard.semiBold,size: 15)!
-                print(font)
                 items[index].setTitleTextAttributes([NSAttributedString.Key.font: font], for: .normal)
             }
         }

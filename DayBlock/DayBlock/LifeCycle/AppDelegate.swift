@@ -21,13 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
     
-    func applicationWillTerminate(_ application: UIApplication) {
-        // 나가는 시점의 시간 계산 후 UserDefaults에 저장
-        // let timestamp = Int(TrackingDataStore.shared.todaySecondsToString())!
-        // print("앱이 죽기 전 마지막 시간을 기록합니다: \(timestamp)")
-        // UserDefaults.standard.setValue(timestamp, forKey: UserDefaultsKey.latestAccess)
-    }
-    
     // MARK: - Core Data stack
     
     lazy var persistentContainer: NSPersistentContainer = {
