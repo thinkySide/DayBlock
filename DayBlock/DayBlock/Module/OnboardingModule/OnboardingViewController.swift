@@ -9,11 +9,7 @@ import UIKit
 
 final class OnboardingViewController: UIViewController {
     
-    /// 페이지 뷰 컨트롤러
-    lazy var pageViewController: UIPageViewController = {
-        let pageVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
-        return pageVC
-    }()
+    private let viewManager = OnboardingView()
     
     /// 페이지를 위한 뷰컨트롤러 배열
     lazy var pages: [UIViewController] = {
@@ -22,26 +18,31 @@ final class OnboardingViewController: UIViewController {
         return [firstVC, secondVC]
     }()
     
+    var currentIndex: Int {
+        let pageViewController = viewManager.pageViewController
+        guard let viewController = pageViewController.viewControllers?.first else { return 0 }
+        let index = pages.firstIndex(of: viewController) ?? 0
+        print(index)
+        return index
+    }
+    
     // MARK: - ViewController LifeCycle
+    override func loadView() {
+        view = viewManager
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupPageViewController()
     }
     
     private func setupPageViewController() {
+        let pageViewController = viewManager.pageViewController
         pageViewController.dataSource = self
         pageViewController.delegate = self
         
-        // AutoLayout
+        // 자식 뷰 추가
         addChild(pageViewController)
-        view.addSubview(pageViewController.view)
-        pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            pageViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            pageViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            pageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            pageViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
         
         // ViewController 이벤트와 연결
         pageViewController.didMove(toParent: self)
@@ -68,5 +69,11 @@ extension OnboardingViewController: UIPageViewControllerDataSource & UIPageViewC
         let nextIndex = index + 1
         if nextIndex == pages.count { return nil }
         return pages[nextIndex]
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        if completed {
+            viewManager.pageNumbers.switchPage(to: currentIndex)
+        }
     }
 }

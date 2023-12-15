@@ -129,6 +129,8 @@
 		07B1F8C42B2C2B8E00E98382 /* SecondOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B1F8C32B2C2B8E00E98382 /* SecondOnboardingView.swift */; };
 		07B1F8C62B2C2B9A00E98382 /* SecondOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B1F8C52B2C2B9A00E98382 /* SecondOnboardingViewController.swift */; };
 		07B1F8C82B2C31B600E98382 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B1F8C72B2C31B600E98382 /* OnboardingViewController.swift */; };
+		07B1F8CD2B2C349600E98382 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B1F8CC2B2C349600E98382 /* OnboardingView.swift */; };
+		07B1F8CF2B2C367400E98382 /* PageNumbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B1F8CE2B2C367400E98382 /* PageNumbers.swift */; };
 		07B49BC42A88EBA3006D1011 /* MenuPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC32A88EBA3006D1011 /* MenuPopup.swift */; };
 		07B49BC62A88EC14006D1011 /* MenuPopupItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC52A88EC14006D1011 /* MenuPopupItem.swift */; };
 		07B49BC82A8DD84D006D1011 /* ManageGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49BC72A8DD84D006D1011 /* ManageGroupViewController.swift */; };
@@ -276,6 +278,8 @@
 		07B1F8C32B2C2B8E00E98382 /* SecondOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondOnboardingView.swift; sourceTree = "<group>"; };
 		07B1F8C52B2C2B9A00E98382 /* SecondOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondOnboardingViewController.swift; sourceTree = "<group>"; };
 		07B1F8C72B2C31B600E98382 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		07B1F8CC2B2C349600E98382 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		07B1F8CE2B2C367400E98382 /* PageNumbers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageNumbers.swift; sourceTree = "<group>"; };
 		07B49BC32A88EBA3006D1011 /* MenuPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopup.swift; sourceTree = "<group>"; };
 		07B49BC52A88EC14006D1011 /* MenuPopupItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopupItem.swift; sourceTree = "<group>"; };
 		07B49BC72A8DD84D006D1011 /* ManageGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageGroupViewController.swift; sourceTree = "<group>"; };
@@ -725,6 +729,7 @@
 				07FAF98A2AE0E7AD003BD30B /* SectionBar.swift */,
 				07B49BD32A8F23FF006D1011 /* ToastMessage.swift */,
 				07454E0E29EBE50500B3458D /* BottomModal.swift */,
+				07B1F8CE2B2C367400E98382 /* PageNumbers.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -860,6 +865,7 @@
 			children = (
 				07B1F8BD2B2C23DA00E98382 /* StartView.swift */,
 				07B1F8BA2B2C23A500E98382 /* StartViewController.swift */,
+				07B1F8CC2B2C349600E98382 /* OnboardingView.swift */,
 				07B1F8C72B2C31B600E98382 /* OnboardingViewController.swift */,
 				07B1F8CB2B2C336600E98382 /* OnboardingContents */,
 			);
@@ -1012,6 +1018,7 @@
 				0719648C29DDB1C0009CA1A4 /* TrackingBoardBlock.swift in Sources */,
 				07B49BC62A88EC14006D1011 /* MenuPopupItem.swift in Sources */,
 				07454DE729EA94EB00B3458D /* DisablePasteTextField.swift in Sources */,
+				07B1F8CD2B2C349600E98382 /* OnboardingView.swift in Sources */,
 				07174A182B1F4C6500B7EC69 /* RepositoryVC+TableView.swift in Sources */,
 				0713019E2B205791008A2A8D /* SmallButton.swift in Sources */,
 				07B1F8BE2B2C23DA00E98382 /* StartView.swift in Sources */,
@@ -1104,6 +1111,7 @@
 				0719649429E0692E009CA1A4 /* FormTextField.swift in Sources */,
 				07B04BAE2ADD500800580711 /* Group+CoreDataClass.swift in Sources */,
 				077E80F52AE1659B004CDB8F /* ManageBlockTableViewFooter.swift in Sources */,
+				07B1F8CF2B2C367400E98382 /* PageNumbers.swift in Sources */,
 				0749D71E2AB97862004DF368 /* HomeVC+ScrollView.swift in Sources */,
 				0736905F2AC2D41400A42187 /* TrackingDataStore.swift in Sources */,
 				0749D7222AB9E3D7004DF368 /* HomeVC+LongPressGesture.swift in Sources */,
