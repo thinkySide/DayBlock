@@ -75,6 +75,21 @@ extension GroupDataStore {
             newGroup.name = "기본 그룹"
             newGroup.color = 0x323232
             
+            // 기본 블럭 생성
+            let newBlock = Block(context: context)
+            newBlock.taskLabel = "첫번째 블럭 만들기"
+            newBlock.todayOutput = 0.0
+            newBlock.icon = "batteryblock.fill"
+            newBlock.order = 0
+            
+            // 콘텍스트 저장
+            saveContext()
+            
+            // 기본 포커스 인덱스 저장
+            updateFocusIndex(to: 0)
+            BlockDataStore.shared.updateFocusIndex(to: 0)
+            focusEntity().addToBlockList(newBlock)
+            
             // 콘텍스트 저장
             saveContext()
         }

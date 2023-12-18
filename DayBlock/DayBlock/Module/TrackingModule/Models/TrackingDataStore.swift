@@ -584,6 +584,21 @@ extension TrackingDataStore {
         }
     }
     
+    /// 온보딩 용 트래킹 블럭을 생성 및 추가합니다.
+    func appendCurrentTimeInTrackingBlocksForOnboarding() {
+        if let safeTodaySeconds = Int(todaySecondsToString()) {
+            let focusBlock = safeTodaySeconds / targetSecond
+            let hour = String(focusBlock / 2)
+            
+            let minute = focusBlock % 2 == 0 ? "00" : "30"
+            let time = "\(hour):\(minute)"
+            
+            for _ in 1...2 {
+                currentTrackingBlocks.append(time)
+            }
+        }
+    }
+    
     /// 앱이 종료된 후, 새로 시작할 때 focusDate를 이용해 새로운 currentTrackingBlocks 배열을 생성합니다.
     func regenerationTrackingBlocks() {
         guard let timeList = focusDate().trackingTimeList?.array as? [TrackingTime] else {

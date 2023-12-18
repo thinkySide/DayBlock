@@ -56,6 +56,7 @@ final class TrackingCompleteViewController: UIViewController {
         
         // 트래킹 보드
         let color = groupData.focusColor()
+        print("finishTrackingBlocks: \(trackingData.finishTrackingBlocks())")
         viewManager.trackingBoard.trackingCompleteAndFill(trackingData.finishTrackingBlocks(), color: [color])
         
         // 전체 생산량
