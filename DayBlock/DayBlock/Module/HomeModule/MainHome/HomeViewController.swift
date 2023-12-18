@@ -67,7 +67,8 @@ final class HomeViewController: UIViewController {
             viewManager.toggleTrackingButton(true)
         }
         
-        // 생산량 확인 보드 업데이트
+        // UI 업데이트
+        viewManager.productivityLabel.text = "today +\(trackingData.todayAllOutput())"
         let outputInfo = trackingData.todayOutputBoardData()
         viewManager.outputBlockPreview.paintOutputBoard(outputInfo.0, color: outputInfo.1)
         

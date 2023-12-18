@@ -42,12 +42,18 @@ final class TrackingCompleteViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupEvent()
-        trackingCompleteAnimation()
+        
+        DispatchQueue.main.async {
+            self.viewManager.circleAnimation()
+        }
     }
     
     // MARK: - Setup Method
     
     private func setupUI() {
+        
+        // 애니메이션 컬러
+        viewManager.animationCircle.backgroundColor = groupData.focusColor()
         
         // 아이콘
         viewManager.iconBlock.backgroundColor = groupData.focusColor()
@@ -66,7 +72,6 @@ final class TrackingCompleteViewController: UIViewController {
         
         // 트래킹 보드
         let color = groupData.focusColor()
-        print("finishTrackingBlocks: \(trackingData.finishTrackingBlocks())")
         viewManager.trackingBoard.trackingCompleteAndFill(trackingData.finishTrackingBlocks(), color: [color])
         
         // 전체 생산량
@@ -74,9 +79,6 @@ final class TrackingCompleteViewController: UIViewController {
         
         // 오늘 생산량
         viewManager.todayValue.text = trackingData.todayOutput(blockData.focusEntity())
-        
-        // 체크 심볼
-        viewManager.checkSymbol.tintColor = groupData.focusColor()
     }
     
     private func setupEvent() {
@@ -84,15 +86,6 @@ final class TrackingCompleteViewController: UIViewController {
     }
     
     // MARK: - Event Method
-    
-    /// 트래킹 종료 애니메이션 실행 메서드입니다.
-    func trackingCompleteAnimation() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-            UIView.animate(withDuration: 0.3) {
-                self.viewManager.animationEnd()
-            }
-        }
-    }
     
     /// 홈 화면으로 돌아가기 버튼 탭 시 호출되는 메서드입니다.
     @objc func backToHomeButtonTapped() {

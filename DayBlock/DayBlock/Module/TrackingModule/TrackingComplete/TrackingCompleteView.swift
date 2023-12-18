@@ -160,41 +160,99 @@ final class TrackingCompleteView: UIView {
     }()
     
     // MARK: - Animation Component
+    
+    let animationCircle: UIView = {
+        let circle = UIView()
+        circle.backgroundColor = Color.mainText
+        circle.clipsToBounds = true
+        return circle
+    }()
+    
     let checkSymbol: UIImageView = {
+        let configuration = UIImage.SymbolConfiguration(pointSize: 64, weight: .bold)
         let image = UIImageView()
-        image.image = UIImage(systemName: "checkmark.circle.fill")
+        image.image = UIImage(systemName: "checkmark.square.fill")?.withConfiguration(configuration)
         image.contentMode = .scaleAspectFit
-        image.tintColor = .black
+        image.tintColor = .white
+        image.alpha = 0
         return image
     }()
     
     let checkLabel: UILabel = {
         let label = UILabel()
-        label.text = "블럭 생산 완료!"
-        label.font = UIFont(name: Pretendard.bold, size: 22)
-        label.textColor = Color.mainText
+        label.text = "블럭 생산을 완료했어요!"
+        label.font = UIFont(name: Pretendard.semiBold, size: 20)
+        label.textColor = .white
         label.textAlignment = .center
+        label.alpha = 0
         return label
     }()
     
+    /// 원 애니메이션을 시작합니다.
+    func circleAnimation() {
+        
+        // cornerRadius
+        animationCircle.layer.cornerRadius = animationCircle.frame.width / 2
+        
+        // Z-Index 조정
+        animationCircle.layer.zPosition = -1
+        
+        // 커지는 애니메이션
+        UIView.animate(withDuration: 0.8, delay: 0.0, options: [.curveEaseInOut]) {
+            
+            self.animationCircle.transform = CGAffineTransform(scaleX: 1000, y: 1000)
+            self.animationCircle.center = self.center
+        } completion: { _ in
+            self.checkAnimation()
+        }
+    }
+    
+    /// 체크 애니메이션을 실행합니다.
+    func checkAnimation() {
+        
+        print(#function)
+        
+        UIView.animate(withDuration: 0.5, delay: 0.0) {
+            self.checkSymbol.alpha = 1
+            self.checkLabel.alpha = 1
+        } completion: { _ in
+            if #available(iOS 17.0, *) {
+                self.checkSymbol.addSymbolEffect(.bounce, options: .speed(1.3).nonRepeating) { _ in
+                    DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                        self.animationEnd()
+                    }
+                }
+            }
+        }
+    }
+    
     /// 블럭 생산 완료 애니메이션 종료 후 호출되는 메서드입니다.
     func animationEnd() {
-        [checkSymbol, checkLabel].forEach { $0.alpha = 0 }
         
-        [
-            titleStackView,
-            dashedSeparator,
-            dateLabel,
-            timeLabel,
-            summaryLabel,
-            trackingBoard,
-            totalValue,
-            totalLabel,
-            bottomSeparator,
-            todayValue,
-            todayLabel,
-            backToHomeButton
-        ].forEach { $0.alpha = 1 }
+        print(#function)
+        
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            guard let self else { return }
+            
+            // 비활성화
+            [animationCircle, checkSymbol, checkLabel].forEach { $0.alpha = 0 }
+            
+            // 활성화
+            [
+                titleStackView,
+                dashedSeparator,
+                dateLabel,
+                timeLabel,
+                summaryLabel,
+                trackingBoard,
+                totalValue,
+                totalLabel,
+                bottomSeparator,
+                todayValue,
+                todayLabel,
+                backToHomeButton
+            ].forEach { $0.alpha = 1 }
+        }
     }
     
     // MARK: - Initial Method
@@ -225,7 +283,7 @@ final class TrackingCompleteView: UIView {
             $0.alpha = 0
         }
         
-        [checkSymbol, checkLabel].forEach {
+        [animationCircle, checkSymbol, checkLabel].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -280,11 +338,17 @@ final class TrackingCompleteView: UIView {
             // todayLabel
             todayLabel.topAnchor.constraint(equalTo: todayValue.bottomAnchor),
             todayLabel.centerXAnchor.constraint(equalTo: todayValue.centerXAnchor),
-
+            
             // backToHomeButton
             backToHomeButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             backToHomeButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
             backToHomeButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -56),
+            
+            // animationCircle
+            animationCircle.centerXAnchor.constraint(equalTo: centerXAnchor),
+            animationCircle.centerYAnchor.constraint(equalTo: centerYAnchor),
+            animationCircle.widthAnchor.constraint(equalToConstant: 1),
+            animationCircle.heightAnchor.constraint(equalToConstant: 1),
             
             // checkSymbol
             checkSymbol.centerXAnchor.constraint(equalTo: centerXAnchor),
@@ -294,7 +358,7 @@ final class TrackingCompleteView: UIView {
             
             // checkLabel
             checkLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            checkLabel.topAnchor.constraint(equalTo: checkSymbol.bottomAnchor, constant: 16)
+            checkLabel.topAnchor.constraint(equalTo: checkSymbol.bottomAnchor, constant: 20)
         ])
     }
 }
