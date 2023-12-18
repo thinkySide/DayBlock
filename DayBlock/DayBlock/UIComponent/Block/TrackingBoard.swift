@@ -63,8 +63,13 @@ final class TrackingBoard: UIView {
     
     /// 생산량 체크 보드에 트래킹 데이터를 칠합니다.
     func paintOutputBoard(_ trackingBlocks: [String], color: [UIColor]) {
-        print(trackingBlocks)
         
+        // 전체 블럭 초기화
+        for block in blocks {
+            block.painting(.none)
+        }
+        
+        // 필요한 블럭 업데이트
         for (enumIndex, trackingBlock) in trackingBlocks.enumerated() {
             let split = trackingBlock.split(separator: ":").map { String($0) }
             let hour = split[0]
@@ -94,7 +99,6 @@ final class TrackingBoard: UIView {
     
     /// 트래킹 완료 후 보드 표시 메서드입니다.
     func trackingCompleteAndFill(_ trackingBlocks: [String], color: [UIColor]) {
-        print(trackingBlocks)
         
         for trackingBlock in trackingBlocks {
             let split = trackingBlock.split(separator: ":").map { String($0) }
@@ -174,9 +178,21 @@ final class TrackingBoard: UIView {
     /// 트래킹 애니메이션을 활성화합니다.
     func updateTrackingAnimation(_ trackingBlocks: [String], color: UIColor, isPaused: Bool) {
         
-        // print("애니메이션에 돌아갈 블럭 목록: \(trackingBlocks)\n")
+        // 전체 블럭 초기화
+        for block in blocks {
+            block.painting(.none)
+        }
         
-        for index in trackingBlocks {
+        // 중복 블럭 제거
+        var uniqueBlocks: [String] = []
+        for block in trackingBlocks where !uniqueBlocks.contains(block) {
+            uniqueBlocks.append(block)
+        }
+        
+        print("애니메이션에 돌아갈 블럭 목록: \(uniqueBlocks)\n")
+        
+        // 애니메이션 할 블럭 지정
+        for index in uniqueBlocks {
             let split = index.split(separator: ":").map { String($0) }
             let hour = split[0]
             let minute = split[1]

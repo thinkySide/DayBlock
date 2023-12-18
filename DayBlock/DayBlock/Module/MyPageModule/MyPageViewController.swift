@@ -107,7 +107,9 @@ extension MyPageViewController {
     
     /// 도움말 셀 버튼 탭 시 호출되는 메서드입니다.
     func helpCellTapped() {
-        
+        let onboardingVC = OnboardingViewController(mode: .help)
+        onboardingVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(onboardingVC, animated: true)
     }
     
     /// APP 공유 셀 버튼 탭 시 호출되는 메서드입니다.

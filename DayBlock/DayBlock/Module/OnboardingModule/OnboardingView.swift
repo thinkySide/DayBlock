@@ -9,13 +9,13 @@ import UIKit
 
 final class OnboardingView: UIView {
     
+    var pageNumbers: PageNumbers
+    
     let pageControlView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         return view
     }()
-    
-    let pageNumbers = PageNumbers(pageCount: .four)
     
     /// 페이지 뷰 컨트롤러
     lazy var pageViewController: UIPageViewController = {
@@ -24,8 +24,9 @@ final class OnboardingView: UIView {
     }()
     
     // MARK: - Initial Method
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(pageNumbers: PageNumbers.PageCount) {
+        self.pageNumbers = PageNumbers(pageCount: pageNumbers)
+        super.init(frame: .zero)
         backgroundColor = .white
         setupAutouLayout()
     }
@@ -47,7 +48,7 @@ final class OnboardingView: UIView {
             pageControlView.topAnchor.constraint(equalTo: topAnchor),
             pageControlView.leadingAnchor.constraint(equalTo: leadingAnchor),
             pageControlView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            pageControlView.heightAnchor.constraint(equalToConstant: 256),
+            pageControlView.heightAnchor.constraint(equalToConstant: 240),
             
             pageNumbers.bottomAnchor.constraint(equalTo: pageControlView.bottomAnchor, constant: 0),
             pageNumbers.centerXAnchor.constraint(equalTo: pageControlView.centerXAnchor),

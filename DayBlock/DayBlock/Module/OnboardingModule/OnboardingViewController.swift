@@ -9,16 +9,17 @@ import UIKit
 
 final class OnboardingViewController: UIViewController {
     
-    private let viewManager = OnboardingView()
+    enum Mode {
+        case onboarding
+        case help
+    }
+    
+    var mode: Mode
+    
+    private var viewManager: OnboardingView
     
     /// 페이지를 위한 뷰컨트롤러 배열
-    lazy var pages: [UIViewController] = {
-        let firstVC = FirstOnboardingViewController()
-        let secondVC = SecondOnboardingViewController()
-        let thirdVC = ThirdOnboardingViewController()
-        let fourthVC = FourthOnboardingViewController()
-        return [firstVC, secondVC, thirdVC, fourthVC]
-    }()
+    var pages: [UIViewController]
     
     var currentIndex: Int {
         let pageViewController = viewManager.pageViewController
@@ -29,13 +30,51 @@ final class OnboardingViewController: UIViewController {
     }
     
     // MARK: - ViewController LifeCycle
+    init(mode: Mode) {
+        self.mode = mode
+        
+        switch mode {
+        case .onboarding:
+            self.viewManager = OnboardingView(pageNumbers: .four)
+            let firstVC = FirstOnboardingViewController(mode: mode)
+            let secondVC = SecondOnboardingViewController(mode: mode)
+            let thirdVC = ThirdOnboardingViewController(mode: mode)
+            let fourthVC = FourthOnboardingViewController(mode: mode)
+            pages = [firstVC, secondVC, thirdVC, fourthVC]
+            
+        case .help:
+            self.viewManager = OnboardingView(pageNumbers: .three)
+            let firstVC = FirstOnboardingViewController(mode: mode)
+            let secondVC = SecondOnboardingViewController(mode: mode)
+            let thirdVC = ThirdOnboardingViewController(mode: mode)
+            pages = [firstVC, secondVC, thirdVC]
+        }
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func loadView() {
         view = viewManager
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigation()
         setupPageViewController()
+    }
+    
+    // MARK: - Setup Method
+    
+    private func setupNavigation() {
+        
+        // 타이틀 커스텀
+        title = "도움말"
+        navigationController?.navigationBar
+            .titleTextAttributes = [.font: UIFont(name: Pretendard.semiBold, size: 16)!]
     }
     
     private func setupPageViewController() {
@@ -51,6 +90,10 @@ final class OnboardingViewController: UIViewController {
         
         // 초기 화면 설정
         pageViewController.setViewControllers([pages.first!], direction: .forward, animated: true)
+    }
+    
+    @objc func dismissBarButtonItemTapped() {
+        dismiss(animated: true)
     }
 }
 

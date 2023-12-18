@@ -116,7 +116,10 @@ final class RepositoryManager {
         // 시작 및 종료 시간 옵셔널 바인딩
         guard let startTime = trackingTimes.first?.startTime,
               let endTime = trackingTimes.last?.endTime else {
-            fatalError("트래킹 시간 반환에 실패했습니다.")
+            print("first: \(trackingTimes.first?.startTime)")
+            print("last: \(trackingTimes.last?.endTime)")
+            return "Error"
+            // fatalError("트래킹 시간 반환에 실패했습니다.")
         }
         
         // 실제 시간으로 변환

@@ -88,6 +88,7 @@ final class RepositoryViewController: UIViewController {
         viewManager.calendarView.calendar.select(today, scrollToDate: true)
         calendarView.calendar.setCurrentPage(today, animated: true)
         updateRepositoryView(date: today)
+        Vibration.selection.vibrate()
     }
     
     /// 달력 이전 버튼 클릭 시 호출되는 메서드입니다.

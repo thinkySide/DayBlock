@@ -37,6 +37,7 @@ final class SectionBar: UIView {
     
     // MARK: - Event Method
     func active(_ active: Active) {
+        Vibration.selection.vibrate()
         switch active {
         case .first:
             firstSection.switchState(isActive: true)

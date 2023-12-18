@@ -199,6 +199,8 @@ final class HomeView: UIView {
     
     @objc func trackingButtonTapped() {
         
+        Vibration.selection.vibrate()
+        
         // 트래킹 모드 변경 로직
         if trackingMode == .finish || trackingMode == .stop { trackingMode = .start }
         else if trackingMode == .start { trackingMode = .pause }

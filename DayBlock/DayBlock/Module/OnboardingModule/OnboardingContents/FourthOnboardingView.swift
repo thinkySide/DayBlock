@@ -29,12 +29,13 @@ final class FourthOnboardingView: UIView {
         let block = DayBlock(frame: .zero, blockSize: .middle)
         block.colorTag.backgroundColor = Color.mainText
         block.plus.textColor = Color.mainText
+        block.outputLabel.text = "0.5"
         block.taskLabel.text = "첫번째 블럭 만들기"
         block.backgroundColor = Color.mainText.withAlphaComponent(0.2)
         return block
     }()
     
-    private let subLabel: UILabel = {
+    let subLabel: UILabel = {
         let label = UILabel()
         let text = "“블럭을 길게 눌러 첫 생산을 완료해요”"
         label.font = UIFont(name: Pretendard.medium, size: 15)
@@ -44,7 +45,7 @@ final class FourthOnboardingView: UIView {
         
         label.asFontColor(targetString: "블럭을 길게 눌러",
                           font: UIFont(name: Pretendard.bold, size: 15),
-                          color: UIColor(rgb: 0x3083FF), lineSpacing: 0, alignment: .center)
+                          color: UIColor(rgb: 0x323232), lineSpacing: 0, alignment: .center)
         return label
     }()
     

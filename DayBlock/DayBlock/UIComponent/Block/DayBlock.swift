@@ -118,6 +118,8 @@ final class DayBlock: UIView {
         // 칠하는 애니메이션
         if isFill {
             
+            Vibration.light.vibrate()
+            
             // 트래킹 블럭 저장 클로저 할당
             storeTrackingBlockClosure = { [weak self] in
                 guard let self else { return }

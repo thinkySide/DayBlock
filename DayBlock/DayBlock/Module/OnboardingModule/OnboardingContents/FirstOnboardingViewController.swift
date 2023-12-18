@@ -9,9 +9,20 @@ import UIKit
 
 final class FirstOnboardingViewController: UIViewController {
     
+    var mode: OnboardingViewController.Mode
+    
     private let viewManager = FirstOnboardingView()
     
     // MARK: - ViewController LifeCycle
+    init(mode: OnboardingViewController.Mode) {
+        self.mode = mode
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func loadView() {
         view = viewManager
     }

@@ -95,23 +95,23 @@ final class TrackingBoardBlock: UIView {
         // 색상 변경
         switch state {
         case .none?:
-            print("state == none")
+            // print("state == none")
             backgroundColor = Color.entireBlock
             
         case .firstHalf:
-            print("state == firstHalf")
+            // print("state == firstHalf")
             firstHalf.backgroundColor = color[0]
             
         case .secondHalf:
-            print("state == secondHalf")
+            // print("state == secondHalf")
             secondHalf.backgroundColor = color[0]
             
         case .fullTime:
-            print("state == fullTime")
+            // print("state == fullTime")
             backgroundColor = color[0]
             
         case .mixed:
-            print("state == mixed")
+            // print("state == mixed")
             mixedFirstHalf.backgroundColor = color[0]
             mixedSecondHalf.backgroundColor = color[1]
 
