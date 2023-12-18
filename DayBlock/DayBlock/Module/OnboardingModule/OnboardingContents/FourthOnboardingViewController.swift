@@ -46,7 +46,6 @@ extension FourthOnboardingViewController: DayBlockDelegate {
     
     /// LongPressGesutre 이후 호출되는 메서드입니다.
     func dayBlock(_ dayBlock: DayBlock, trackingComplete taskLabel: String?) {
-        Vibration.success.vibrate()
         
         // 트래킹 코어데이터 저장(현재 시간 기준으로 시작, 끝 시간 설정)
         trackingData.createStartData()
@@ -55,8 +54,12 @@ extension FourthOnboardingViewController: DayBlockDelegate {
         // 트래킹 블럭 업데이트
         trackingData.appendCurrentTimeInTrackingBlocksForOnboarding()
         
+        // 온보딩 종료로 판단(UserDefaults 업데이트)
+        UserDefaults.standard.set(false, forKey: UserDefaultsKey.isFirstLaunch)
+        
         // Push
         presentTrackingCompleteVC()
+        Vibration.success.vibrate()
     }
     
     /// TrackingCompleteViewController로 Present 합니다.
