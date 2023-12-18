@@ -23,7 +23,7 @@ final class CreateGroupView: UIView {
     lazy var groupLabelTextField: FormTextField = {
         let form = FormTextField()
         form.formLabel.text = "그룹명"
-        form.textField.placeholder = "자기계발"
+        form.textField.placeholder = "ex) 시험 공부, 피트니스"
         form.countLabel.text = "0/8"
         form.warningLabel.text = "중복되는 그룹명은 사용할 수 없어요"
         return form

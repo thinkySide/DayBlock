@@ -452,6 +452,54 @@ extension TrackingDataStore {
         groupData.saveContext()
     }
     
+    /// 온보딩의 "첫번째 블럭 만들기" 트래킹 데이터를 생성합니다.
+    func createOnboardingData() {
+        
+        let newTrackingDate = TrackingDate(context: context)
+        let newTrackingTime = TrackingTime(context: context)
+        
+        // 30분 전이 오늘일 경우
+        if todaySecondsToInt() >= 1800 {
+            print("트래킹 시작일이 금일입니다.")
+            
+            // 날짜 데이터 생성
+            newTrackingDate.year = formatter("yyyy")
+            newTrackingDate.month = formatter("MM")
+            newTrackingDate.day = formatter("dd")
+            newTrackingDate.dayOfWeek = formatter("E")
+            
+            // 시간 데이터 생성
+            // 시작 시간 = 현재 시간 - 1800초
+            newTrackingTime.startTime = "\(todaySecondsToInt() - 1800)"
+            newTrackingTime.endTime = todaySecondsToString()
+            
+            // 트래킹 데이터 저장
+            newTrackingDate.addToTrackingTimeList(newTrackingTime)
+            blockData.focusEntity().addToTrackingDateList(newTrackingDate)
+        }
+        
+        // 30분 전이 어제일 경우
+        else if todaySecondsToInt() < 1800 {
+            print("트래킹 시작일이 전일입니다.")
+            
+            // 날짜 데이터 생성
+            let previousDate = Date().previousDay(from: Date())
+            newTrackingDate.year = formatter("yyyy", to: previousDate)
+            newTrackingDate.month = formatter("MM", to: previousDate)
+            newTrackingDate.day = formatter("dd", to: previousDate)
+            newTrackingDate.dayOfWeek = formatter("E", to: previousDate)
+            
+            // 시간 데이터 생성
+            let timeValue = 1800 - todaySecondsToInt()
+            newTrackingTime.startTime = "\(86400 - timeValue)"
+            newTrackingTime.endTime = todaySecondsToString()
+        }
+        
+        newTrackingDate.addToTrackingTimeList(newTrackingTime)
+        blockData.focusEntity().addToTrackingDateList(newTrackingDate)
+        groupData.saveContext()
+    }
+    
     /// 블럭 0.5개를 생산할 때마다 추가하는 새로운 trackingTime 데이터
     func appendDataInProgress() {
         

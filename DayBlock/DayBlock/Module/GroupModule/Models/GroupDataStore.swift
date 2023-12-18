@@ -79,7 +79,7 @@ extension GroupDataStore {
             let newBlock = Block(context: context)
             newBlock.taskLabel = "첫번째 블럭 만들기"
             newBlock.todayOutput = 0.0
-            newBlock.icon = "batteryblock.fill"
+            newBlock.icon = "party.popper.fill"
             newBlock.order = 0
             
             // 콘텍스트 저장

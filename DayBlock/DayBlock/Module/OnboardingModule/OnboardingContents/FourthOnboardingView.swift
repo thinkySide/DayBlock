@@ -31,6 +31,7 @@ final class FourthOnboardingView: UIView {
         block.plus.textColor = Color.mainText
         block.outputLabel.text = "0.5"
         block.taskLabel.text = "첫번째 블럭 만들기"
+        block.icon.image = UIImage(systemName: "party.popper.fill")
         block.backgroundColor = Color.mainText.withAlphaComponent(0.2)
         return block
     }()
