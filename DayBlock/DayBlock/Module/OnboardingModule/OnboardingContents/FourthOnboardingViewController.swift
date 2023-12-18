@@ -61,8 +61,7 @@ extension FourthOnboardingViewController: DayBlockDelegate {
     
     /// TrackingCompleteViewController로 Present 합니다.
     func presentTrackingCompleteVC() {
-        let trackingCompleteVC = TrackingCompleteViewController()
-        // trackingCompleteVC.delegate = self
+        let trackingCompleteVC = TrackingCompleteViewController(mode: .onboarding)
         trackingCompleteVC.modalTransitionStyle = .crossDissolve
         trackingCompleteVC.modalPresentationStyle = .overFullScreen
         present(trackingCompleteVC, animated: true)

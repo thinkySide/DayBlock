@@ -9,13 +9,29 @@ import UIKit
 
 final class TrackingCompleteViewController: UIViewController {
     
+    enum Mode {
+        case tracking
+        case onboarding
+    }
+    
+    var mode: Mode
     weak var delegate: TrackingCompleteViewControllerDelegate?
+    
     private let viewManager = TrackingCompleteView()
     private let groupData = GroupDataStore.shared
     private let blockData = BlockDataStore.shared
     private let trackingData = TrackingDataStore.shared
     
-    // MARK: - Life Cycle Method
+    // MARK: - Life Cycle Methods
+    
+    init(mode: Mode) {
+        self.mode = mode
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         super.loadView()
@@ -26,13 +42,7 @@ final class TrackingCompleteViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupEvent()
-        
-        /// 애니메이션
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-            UIView.animate(withDuration: 0.3) {
-                self.viewManager.animationEnd()
-            }
-        }
+        trackingCompleteAnimation()
     }
     
     // MARK: - Setup Method
@@ -75,8 +85,29 @@ final class TrackingCompleteViewController: UIViewController {
     
     // MARK: - Event Method
     
+    /// 트래킹 종료 애니메이션 실행 메서드입니다.
+    func trackingCompleteAnimation() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+            UIView.animate(withDuration: 0.3) {
+                self.viewManager.animationEnd()
+            }
+        }
+    }
+    
+    /// 홈 화면으로 돌아가기 버튼 탭 시 호출되는 메서드입니다.
     @objc func backToHomeButtonTapped() {
-        delegate?.trackingCompleteVC(backToHomeButtonTapped: self)
-        dismiss(animated: true)
+        
+        // 트래킹 모드
+        if mode == .tracking {
+            delegate?.trackingCompleteVC(backToHomeButtonTapped: self)
+            dismiss(animated: true)
+            return
+        }
+        
+        // 온보딩 모드
+        if mode == .onboarding {
+            NotificationCenter.default.post(name: .finishOnboarding, object: self, userInfo: nil)
+            return
+        }
     }
 }

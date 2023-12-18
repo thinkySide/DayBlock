@@ -12,6 +12,14 @@ extension HomeViewController {
     /// Notification Observer를 추가합니다.
     func setupNotification() {
         
+        // 온보딩 종료 observer
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(finishOnboarding),
+            name: .finishOnboarding,
+            object: nil
+        )
+        
         // 마지막 트래킹 시간 추적 observer
         NotificationCenter.default.addObserver(
             self,
@@ -43,6 +51,11 @@ extension HomeViewController {
             name: .resetAllData,
             object: nil
         )
+    }
+    
+    /// 온보딩 모드를 종료합니다.
+    @objc private func finishOnboarding(_ notification: Notification) {
+        dismiss(animated: true)
     }
     
     /// 백그라운드 모드로 진입 후 트래킹 모드를 재시작 합니다.
