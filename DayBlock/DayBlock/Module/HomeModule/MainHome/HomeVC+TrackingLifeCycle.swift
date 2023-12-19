@@ -24,14 +24,6 @@ extension HomeViewController {
         // TimeLabel & ProgressView 업데이트
         viewManager.updateTracking(time: timerManager.format,
                                    progress: timerManager.progressPercent())
-        
-        // 테스트 라벨
-        // viewManager.testLabel.text = "totalTime - \(timerManager.totalTime)초\ncurrentTime - \(timerManager.currentTime)초\nlist - \(trackingData.currentTrackingBlocks)"
-        // var testText = ""
-        // for time in trackingData.focusTimeList {
-        //    testText += "\(time.startTime)~\(String(describing: time.endTime))\n"
-        // }
-        // viewManager.testLabel.text = testText
     }
     
     /// 블럭 0.5개 생산 시 실행되는 트래킹 메서드입니다.
@@ -54,11 +46,15 @@ extension HomeViewController {
         if trackingData.focusDate().day != Date().dayString {
             print("날짜 넘어감.")
             
+            // 기존 트래킹 데이터 저장
+            trackingData.finishData()
+            
             // 새로운 시작 날짜 데이터 생성
             trackingData.createStartData()
             
             // 원래 트래킹 되고 있던 블럭들 초기화
             trackingData.resetTrackingBlocks()
+            viewManager.trackingBlockPreview.resetAllBlocks()
         }
         
         // 4. 트래킹 보드를 위한 배열 업데이트
@@ -68,6 +64,7 @@ extension HomeViewController {
         viewManager.trackingBlockPreview.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
     }
     
+    /// 일시정지 시간을 계산합니다.
     @objc func pausedEverySecond() {
         timerManager.pausedTime += 1
     }

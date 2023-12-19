@@ -29,6 +29,8 @@ final class ResetDataViewController: UIViewController {
     // MARK: - Setup Method
     private func setupNavigation() {
         title = "초기화"
+        navigationController?.navigationBar
+            .titleTextAttributes = [.font: UIFont(name: Pretendard.semiBold, size: 16)!]
     }
     
     private func setupEvent() {

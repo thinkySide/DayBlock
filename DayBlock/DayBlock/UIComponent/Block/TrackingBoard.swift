@@ -61,13 +61,17 @@ final class TrackingBoard: UIView {
         case halfTime
     }
     
-    /// 생산량 체크 보드에 트래킹 데이터를 칠합니다.
-    func paintOutputBoard(_ trackingBlocks: [String], color: [UIColor]) {
-        
-        // 전체 블럭 초기화
+    /// 전체 블럭 상태를 초기화합니다.
+    func resetAllBlocks() {
         for block in blocks {
             block.painting(.none)
         }
+    }
+    
+    /// 생산량 체크 보드에 트래킹 데이터를 칠합니다.
+    func paintOutputBoard(_ trackingBlocks: [String], color: [UIColor]) {
+
+        resetAllBlocks()
         
         // 필요한 블럭 업데이트
         for (enumIndex, trackingBlock) in trackingBlocks.enumerated() {
@@ -178,10 +182,7 @@ final class TrackingBoard: UIView {
     /// 트래킹 애니메이션을 활성화합니다.
     func updateTrackingAnimation(_ trackingBlocks: [String], color: UIColor, isPaused: Bool) {
         
-        // 전체 블럭 초기화
-        for block in blocks {
-            block.painting(.none)
-        }
+        resetAllBlocks()
         
         // 중복 블럭 제거
         var uniqueBlocks: [String] = []
@@ -257,8 +258,6 @@ final class TrackingBoard: UIView {
         let paintBlock = blocks[Int(hour)!]
         paintBlock.delegate = self
         paintBlock.isRefresh = true
-        
-        // print("\(Int(hour)!)번 블럭 기준 모든 블럭 리프레시")
     }
     
     // MARK: - Initial Method

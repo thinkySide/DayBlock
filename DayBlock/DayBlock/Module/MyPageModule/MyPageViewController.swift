@@ -99,6 +99,9 @@ extension MyPageViewController: UITableViewDataSource & UITableViewDelegate {
         if tableView.tag == 1 && indexPath.row == 0 { helpCellTapped() }
         if tableView.tag == 1 && indexPath.row == 1 { emailContactCellTapped() }
         if tableView.tag == 1 && indexPath.row == 2 { resetAllDataCellTapped() }
+        
+        if tableView.tag == 2 && indexPath.row == 0 { developerInfoCellTapped() }
+        if tableView.tag == 2 && indexPath.row == 1 { openLicenseCellTapped() }
     }
 }
 
@@ -127,6 +130,18 @@ extension MyPageViewController {
         resetVC.delegate = self
         resetVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(resetVC, animated: true)
+    }
+    
+    /// 개발자 정보 셀 버튼 탭 시 호출되는 메서드입니다.
+    func developerInfoCellTapped() {
+        
+    }
+    
+    /// 오픈소스 셀 버튼 탭 시 호출되는 메서드입니다.
+    func openLicenseCellTapped() {
+        let openLicenseVC = OpenLicenseViewController()
+        openLicenseVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(openLicenseVC, animated: true)
     }
 }
 

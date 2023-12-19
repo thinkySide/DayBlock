@@ -64,6 +64,10 @@
 		076248CB2AB3023A000A8664 /* GroupDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076248CA2AB3023A000A8664 /* GroupDelegate.swift */; };
 		076248CD2AB302FD000A8664 /* ColorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076248CC2AB302FD000A8664 /* ColorDelegate.swift */; };
 		076248CF2AB30319000A8664 /* IconDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076248CE2AB30319000A8664 /* IconDelegate.swift */; };
+		076E95542B316C7D005A8D46 /* OpenLicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076E95532B316C7D005A8D46 /* OpenLicenseView.swift */; };
+		076E95572B316C96005A8D46 /* OpenLicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076E95562B316C96005A8D46 /* OpenLicenseViewController.swift */; };
+		076E95592B316F43005A8D46 /* OpenLicenseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076E95582B316F43005A8D46 /* OpenLicenseTableViewCell.swift */; };
+		076E955B2B317041005A8D46 /* OpenLicenseDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076E955A2B317040005A8D46 /* OpenLicenseDataStore.swift */; };
 		0770802F29E78C9200D66900 /* SelectGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770802E29E78C9200D66900 /* SelectGroupViewController.swift */; };
 		0770803129E78D0500D66900 /* SelectGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770803029E78D0500D66900 /* SelectGroupView.swift */; };
 		0770803429E797E100D66900 /* SelectIconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770803329E797E100D66900 /* SelectIconViewController.swift */; };
@@ -217,6 +221,10 @@
 		076248CA2AB3023A000A8664 /* GroupDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDelegate.swift; sourceTree = "<group>"; };
 		076248CC2AB302FD000A8664 /* ColorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorDelegate.swift; sourceTree = "<group>"; };
 		076248CE2AB30319000A8664 /* IconDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconDelegate.swift; sourceTree = "<group>"; };
+		076E95532B316C7D005A8D46 /* OpenLicenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenLicenseView.swift; sourceTree = "<group>"; };
+		076E95562B316C96005A8D46 /* OpenLicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenLicenseViewController.swift; sourceTree = "<group>"; };
+		076E95582B316F43005A8D46 /* OpenLicenseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenLicenseTableViewCell.swift; sourceTree = "<group>"; };
+		076E955A2B317040005A8D46 /* OpenLicenseDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenLicenseDataStore.swift; sourceTree = "<group>"; };
 		0770802E29E78C9200D66900 /* SelectGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGroupViewController.swift; sourceTree = "<group>"; };
 		0770803029E78D0500D66900 /* SelectGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGroupView.swift; sourceTree = "<group>"; };
 		0770803329E797E100D66900 /* SelectIconViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIconViewController.swift; sourceTree = "<group>"; };
@@ -352,6 +360,7 @@
 				0736AC522B298FFA00D90AB2 /* SettingDataStore.swift */,
 				07849BF12B297BD5009BF4A8 /* SettingView.swift */,
 				0736AC582B2A6C8900D90AB2 /* ResetData */,
+				076E95552B316C83005A8D46 /* OpenLicense */,
 			);
 			path = SettingModule;
 			sourceTree = "<group>";
@@ -757,6 +766,17 @@
 			path = File;
 			sourceTree = "<group>";
 		};
+		076E95552B316C83005A8D46 /* OpenLicense */ = {
+			isa = PBXGroup;
+			children = (
+				076E955A2B317040005A8D46 /* OpenLicenseDataStore.swift */,
+				076E95532B316C7D005A8D46 /* OpenLicenseView.swift */,
+				076E95562B316C96005A8D46 /* OpenLicenseViewController.swift */,
+				076E95582B316F43005A8D46 /* OpenLicenseTableViewCell.swift */,
+			);
+			path = OpenLicense;
+			sourceTree = "<group>";
+		};
 		0776DB5C2AE23DBD008379A1 /* ManageBlock */ = {
 			isa = PBXGroup;
 			children = (
@@ -1036,6 +1056,7 @@
 				07454DE729EA94EB00B3458D /* DisablePasteTextField.swift in Sources */,
 				07B1F8CD2B2C349600E98382 /* OnboardingView.swift in Sources */,
 				07174A182B1F4C6500B7EC69 /* RepositoryVC+TableView.swift in Sources */,
+				076E955B2B317041005A8D46 /* OpenLicenseDataStore.swift in Sources */,
 				0713019E2B205791008A2A8D /* SmallButton.swift in Sources */,
 				07B1F8BE2B2C23DA00E98382 /* StartView.swift in Sources */,
 				07446E452B2ACDD60002E9EF /* Vibration.swift in Sources */,
@@ -1094,6 +1115,7 @@
 				0749D71C2AB84198004DF368 /* HomeVC+BlockCollectionView.swift in Sources */,
 				07B1F8C22B2C2B1900E98382 /* FirstOnboardingView.swift in Sources */,
 				07454E1329EC138E00B3458D /* ManageGroupTableViewCell.swift in Sources */,
+				076E95592B316F43005A8D46 /* OpenLicenseTableViewCell.swift in Sources */,
 				07454E1129EBFDF200B3458D /* ActionButton.swift in Sources */,
 				073EBFF02AB6D4D40031F6AB /* SFSymbols.swift in Sources */,
 				07AE45CD2AF0F66A00125316 /* CalendarManager.swift in Sources */,
@@ -1105,6 +1127,7 @@
 				075A5AE92A81D04B0004F847 /* PopupView.swift in Sources */,
 				07B49BCA2A8DD878006D1011 /* ManageGroupView.swift in Sources */,
 				07DD3E952AB02BE3002D128F /* DashedSeparator.swift in Sources */,
+				076E95542B316C7D005A8D46 /* OpenLicenseView.swift in Sources */,
 				0719648129DAF38A009CA1A4 /* RemoteBlock.swift in Sources */,
 				0770803429E797E100D66900 /* SelectIconViewController.swift in Sources */,
 				07B1F8BB2B2C23A500E98382 /* StartViewController.swift in Sources */,
@@ -1133,6 +1156,7 @@
 				0749D71E2AB97862004DF368 /* HomeVC+ScrollView.swift in Sources */,
 				07FB58A92B3024BC00850AFB /* NewSFSymbols.swift in Sources */,
 				0736905F2AC2D41400A42187 /* TrackingDataStore.swift in Sources */,
+				076E95572B316C96005A8D46 /* OpenLicenseViewController.swift in Sources */,
 				0749D7222AB9E3D7004DF368 /* HomeVC+LongPressGesture.swift in Sources */,
 				0719648629DAF9A5009CA1A4 /* HomeBlockCollectionViewCell.swift in Sources */,
 				078C50F829D9BBFE00F239BA /* RepositoryViewController.swift in Sources */,

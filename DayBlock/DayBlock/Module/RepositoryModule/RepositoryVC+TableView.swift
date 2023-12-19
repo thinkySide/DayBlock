@@ -84,6 +84,8 @@ extension RepositoryViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        print("\(repositoryManager.trackingTimeString(to: indexPath.row))")
+        
         // 선택 비활성화
         tableView.deselectRow(at: indexPath, animated: true)
     }

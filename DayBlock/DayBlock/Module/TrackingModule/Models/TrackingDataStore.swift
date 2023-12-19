@@ -530,25 +530,23 @@ extension TrackingDataStore {
         TimerManager.shared.pausedTime = 0
         
         // MARK: - 실제 동작 코드
-//        // 3. 트래킹 보드 블럭 리스트 추가
-//        let focusBlock = initialStartTime / targetSecond
-//        let hour = String(focusBlock / 2)
-//        let minute = focusBlock % 2 == 0 ? "00" : "30"
-//        let time = "\(hour):\(minute)"
-//        
-//        // 3-1. 중복 블럭 거르고 추가하기
-//        if !currentTrackingBlocks.contains(time) {
-//            currentTrackingBlocks.append(time)
-//        }
+        // 3. 트래킹 보드 블럭 리스트 추가
+        let focusBlock = initialStartTime / targetSecond
+        let hour = String(focusBlock / 2)
+        let minute = focusBlock % 2 == 0 ? "00" : "30"
+        let time = "\(hour):\(minute)"
         
-        
+        // 3-1. 중복 블럭 거르고 추가하기
+        if !currentTrackingBlocks.contains(time) {
+            currentTrackingBlocks.append(time)
+        }
         
         // MARK: - 테스트 코드
-        // 몇번째 트래킹 블럭 활성화 할지 결정하기
-         let count = Int(TimerManager.shared.totalBlock / 0.5)
-        if !currentTrackingBlocks.contains(testTrackingBoardDatas[count]) {
-            currentTrackingBlocks.append(testTrackingBoardDatas[count])
-        }
+//        // 몇번째 트래킹 블럭 활성화 할지 결정하기
+//        let count = Int(TimerManager.shared.totalBlock / 0.5)
+//        if !currentTrackingBlocks.contains(testTrackingBoardDatas[count]) {
+//            currentTrackingBlocks.append(testTrackingBoardDatas[count])
+//        }
         
         // 4. 새로운 세션 시작
         let trackingTime = TrackingTime(context: context)
@@ -581,6 +579,9 @@ extension TrackingDataStore {
         
         // 현재 세션 종료(삭제)
         focusDate().removeFromTrackingTimeList(focusTime())
+        
+        // 마지막 트래킹 종료 시간 업데이트
+        focusTime().endTime = todaySecondsToString()
         
         // 코어데이터 저장
         groupData.saveContext()
@@ -708,10 +709,8 @@ extension TrackingDataStore {
     
     func testAppendForDisconnect() {
         
-        for index in 0..<focusTimeList.count {
-            if !currentTrackingBlocks.contains(testTrackingBoardDatas[index]) {
-                currentTrackingBlocks.append(testTrackingBoardDatas[index])
-            }
+        for index in 0..<focusTimeList.count where !currentTrackingBlocks.contains(testTrackingBoardDatas[index]) {
+            currentTrackingBlocks.append(testTrackingBoardDatas[index])
         }
     }
 }
