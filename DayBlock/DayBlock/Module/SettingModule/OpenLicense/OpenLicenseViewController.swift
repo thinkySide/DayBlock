@@ -28,6 +28,10 @@ final class OpenLicenseViewController: UIViewController {
         title = "오픈소스"
         navigationController?.navigationBar
             .titleTextAttributes = [.font: UIFont(name: Pretendard.semiBold, size: 16)!]
+        
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = Color.mainText
+        navigationItem.backBarButtonItem = backBarButtonItem
     }
     
     private func setupTableView() {
@@ -57,6 +61,12 @@ extension OpenLicenseViewController: UITableViewDataSource & UITableViewDelegate
         // 셀 클릭 시, 바로 비활성화되는 애니메이션 추가
         tableView.deselectRow(at: indexPath, animated: true)
         
+        // 인터넷 창 열기
+        guard let url = openLicenseData.fetchURL(to: indexPath.row) else {
+            print("URL 로드에 실패했습니다.")
+            return
+        }
         
+        UIApplication.shared.open(url)
     }
 }

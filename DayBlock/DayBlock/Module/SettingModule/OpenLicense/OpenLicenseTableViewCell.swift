@@ -24,7 +24,7 @@ final class OpenLicenseTableViewCell: UITableViewCell {
         let label = UILabel()
         label.text = "http:12345/6789"
         label.font = UIFont(name: Pretendard.medium, size: 13)
-        label.textColor = .systemBlue
+        label.textColor = .systemBlue.withAlphaComponent(0.7)
         label.textAlignment = .left
         return label
     }()

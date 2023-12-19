@@ -225,6 +225,7 @@
 		076E95562B316C96005A8D46 /* OpenLicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenLicenseViewController.swift; sourceTree = "<group>"; };
 		076E95582B316F43005A8D46 /* OpenLicenseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenLicenseTableViewCell.swift; sourceTree = "<group>"; };
 		076E955A2B317040005A8D46 /* OpenLicenseDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenLicenseDataStore.swift; sourceTree = "<group>"; };
+		076E95622B317770005A8D46 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		0770802E29E78C9200D66900 /* SelectGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGroupViewController.swift; sourceTree = "<group>"; };
 		0770803029E78D0500D66900 /* SelectGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGroupView.swift; sourceTree = "<group>"; };
 		0770803329E797E100D66900 /* SelectIconViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIconViewController.swift; sourceTree = "<group>"; };
@@ -777,6 +778,14 @@
 			path = OpenLicense;
 			sourceTree = "<group>";
 		};
+		076E95612B317770005A8D46 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				076E95622B317770005A8D46 /* WebKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		0776DB5C2AE23DBD008379A1 /* ManageBlock */ = {
 			isa = PBXGroup;
 			children = (
@@ -795,6 +804,7 @@
 				073EBFED2AB6C7B80031F6AB /* .swiftlint.yml */,
 				078C50B429D7152F00F239BA /* DayBlock */,
 				078C50B329D7152F00F239BA /* Products */,
+				076E95612B317770005A8D46 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

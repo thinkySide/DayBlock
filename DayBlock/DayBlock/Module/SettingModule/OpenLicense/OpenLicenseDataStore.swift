@@ -15,8 +15,6 @@ struct OpenLicense {
 struct OpenLicenseDataStore {
     
     private let licenses = [
-        OpenLicense(name: "FSCalendar", url: "https://github.com/WenchaoD/FSCalendar"),
-        OpenLicense(name: "FSCalendar", url: "https://github.com/WenchaoD/FSCalendar"),
         OpenLicense(name: "FSCalendar", url: "https://github.com/WenchaoD/FSCalendar")
     ]
     
