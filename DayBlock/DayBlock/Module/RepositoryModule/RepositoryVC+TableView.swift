@@ -43,11 +43,10 @@ extension RepositoryViewController {
         let tableView = viewManager.summaryView.tableView
         let cellCount = CGFloat(repositoryManager.dayItems.count)
         
-        // 만약 0개라면 
+        // 만약 0개라면
         if cellCount == 0 { return 0 }
         
         let height = tableView.rowHeight * cellCount + 24 // 마진값
-        print(height)
         return height
     }
     
@@ -74,7 +73,7 @@ extension RepositoryViewController: UITableViewDataSource {
         cell.taskLabel.text = currentItem.blockTaskLabel
         cell.timeLabel.text = repositoryManager.trackingTimeString(to: indexPath.row)
         cell.plus.textColor = UIColor(rgb: currentItem.groupColor)
-        cell.outputLabel.text = repositoryManager.totalOutput(to: indexPath.row)
+        cell.outputLabel.text = repositoryManager.outputPerTracking(to: indexPath.row)
         return cell
     }
 }
@@ -84,9 +83,33 @@ extension RepositoryViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        print("\(repositoryManager.trackingTimeString(to: indexPath.row))")
-        
         // 선택 비활성화
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        // TrackingCompleteVC로 Push
+        let trackingCompleteVC = TrackingCompleteViewController(mode: .calendar)
+        trackingCompleteVC.hidesBottomBarWhenPushed = true
+        
+        // 캘린더 모드 세팅
+        let item = repositoryManager.dayItems[indexPath.row]
+        
+        var trackingBlocks: [String] = []
+        for time in item.trackingTimes {
+            let blockTime = TrackingDataStore.shared.secondToTrackingBlockTimeFormat(second: time.startTime)
+            trackingBlocks.append(blockTime)
+        }
+        
+        trackingCompleteVC.setupCalendarMode(
+            icon: item.blockIcon,
+            color: item.groupColor,
+            taskLabel: item.blockTaskLabel,
+            currentDate: calendarManager.fullKoreanDateFormat(from: repositoryManager.currentDate),
+            trackingTime: repositoryManager.trackingTimeString(to: indexPath.row),
+            output: repositoryManager.outputPerTracking(to: indexPath.row),
+            trackingBlocks: trackingBlocks)
+        
+        // TrackingCompleteView에 들어간다고 변수 업데이트
+        isCompleteViewTapped = true
+        navigationController?.pushViewController(trackingCompleteVC, animated: true)
     }
 }

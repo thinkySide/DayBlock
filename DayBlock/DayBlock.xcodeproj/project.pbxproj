@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0705F40B2B317F1100127336 /* DeveloperInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0705F40A2B317F1100127336 /* DeveloperInfoView.swift */; };
+		0705F40E2B317F5400127336 /* DeveloperInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0705F40D2B317F5400127336 /* DeveloperInfoViewController.swift */; };
 		070A90272B2827C400BBD147 /* OutputBlockPreviewInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070A90262B2827C400BBD147 /* OutputBlockPreviewInfo.swift */; };
 		070A90292B283FDD00BBD147 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070A90282B283FDD00BBD147 /* MyPageViewController.swift */; };
 		070A902C2B28400D00BBD147 /* TotalTodayBurningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070A902B2B28400D00BBD147 /* TotalTodayBurningView.swift */; };
@@ -164,6 +166,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0705F40A2B317F1100127336 /* DeveloperInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperInfoView.swift; sourceTree = "<group>"; };
+		0705F40D2B317F5400127336 /* DeveloperInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperInfoViewController.swift; sourceTree = "<group>"; };
 		070A90262B2827C400BBD147 /* OutputBlockPreviewInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputBlockPreviewInfo.swift; sourceTree = "<group>"; };
 		070A90282B283FDD00BBD147 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		070A902B2B28400D00BBD147 /* TotalTodayBurningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalTodayBurningView.swift; sourceTree = "<group>"; };
@@ -334,6 +338,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0705F40C2B317F1600127336 /* DeveloperInfo */ = {
+			isa = PBXGroup;
+			children = (
+				0705F40A2B317F1100127336 /* DeveloperInfoView.swift */,
+				0705F40D2B317F5400127336 /* DeveloperInfoViewController.swift */,
+			);
+			path = DeveloperInfo;
+			sourceTree = "<group>";
+		};
 		070A902A2B283FE800BBD147 /* MyPageModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -361,6 +374,7 @@
 				0736AC522B298FFA00D90AB2 /* SettingDataStore.swift */,
 				07849BF12B297BD5009BF4A8 /* SettingView.swift */,
 				0736AC582B2A6C8900D90AB2 /* ResetData */,
+				0705F40C2B317F1600127336 /* DeveloperInfo */,
 				076E95552B316C83005A8D46 /* OpenLicense */,
 			);
 			path = SettingModule;
@@ -1046,6 +1060,7 @@
 				07967D032ACA606000BB45B5 /* HomeVC+TrackingLifeCycle.swift in Sources */,
 				076248CF2AB30319000A8664 /* IconDelegate.swift in Sources */,
 				078C50BA29D7152F00F239BA /* HomeViewController.swift in Sources */,
+				0705F40B2B317F1100127336 /* DeveloperInfoView.swift in Sources */,
 				07B1F8D32B2C4A5B00E98382 /* ThirdOnboardingViewController.swift in Sources */,
 				0719649229E04FD8009CA1A4 /* CreateBlockView.swift in Sources */,
 				07C0BDB52ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift in Sources */,
@@ -1133,6 +1148,7 @@
 				078C50EE29D72F9D00F239BA /* UIColor++.swift in Sources */,
 				076248CD2AB302FD000A8664 /* ColorDelegate.swift in Sources */,
 				076248CB2AB3023A000A8664 /* GroupDelegate.swift in Sources */,
+				0705F40E2B317F5400127336 /* DeveloperInfoViewController.swift in Sources */,
 				0786305B2B05FFA80092672B /* TimeLineBoard.swift in Sources */,
 				075A5AE92A81D04B0004F847 /* PopupView.swift in Sources */,
 				07B49BCA2A8DD878006D1011 /* ManageGroupView.swift in Sources */,

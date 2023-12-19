@@ -611,6 +611,20 @@ extension TrackingDataStore {
         return blocks
     }
     
+    /// 주어진 초 문자열을 트래킹 블럭을 돌릴 수 있는 문자열로 포맷해 반환합니다.
+    func secondToTrackingBlockTimeFormat(second: String) -> String {
+        
+        if let second = Int(second) {
+            let focusBlock = second / targetSecond
+            let hour = String(focusBlock / 2)
+            let minute = focusBlock % 2 == 0 ? "00" : "30"
+            let time = "\(hour):\(minute)"
+            return time
+        }
+        
+        fatalError("잘못된 초 문자열 삽입: \(#function)")
+    }
+    
     /// 현재 시간에 맞는 블럭을 트래킹 블럭리스트에 추가합니다.
     ///
     /// 트래킹이 시작될 때 1번 호출,

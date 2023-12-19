@@ -16,6 +16,9 @@ final class RepositoryViewController: UIViewController {
     let groupDataManager = GroupDataStore.shared
     let repositoryManager = RepositoryManager.shared
     
+    /// TrackingCompleteView 호출했는지 안했는지 분기 처리용 변수
+    var isCompleteViewTapped = false
+    
     // MARK: - ViewController LifeCycle
     override func loadView() {
         view = viewManager
@@ -31,7 +34,17 @@ final class RepositoryViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // 만약 TrackingCompleteViewController 호출 된 후 불리는 상황이라면 조기 종료
+        if isCompleteViewTapped { return }
         updateRepositoryView(date: repositoryManager.currentDate)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // 다시 변수 업데이트
+        isCompleteViewTapped = false
     }
     
     // MARK: - Setup Method
@@ -44,6 +57,11 @@ final class RepositoryViewController: UIViewController {
         navigationItem.standardAppearance = navigationBarAppearance
         navigationItem.scrollEdgeAppearance = navigationBarAppearance
         navigationController?.setNeedsStatusBarAppearanceUpdate()
+        
+        // 뒤로가기 버튼 커스텀
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = Color.mainText
+        navigationItem.backBarButtonItem = backBarButtonItem
     }
     
     private func setupCalendar() {
@@ -176,7 +194,6 @@ extension RepositoryViewController: FSCalendarDataSource & FSCalendarDelegate {
     
     /// FSCalendar의 높이값이 변경될 때 호출되는 메서드입니다.
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
-        print(#function)
         NSLayoutConstraint.activate([
             calendar.heightAnchor.constraint(equalToConstant: bounds.height)
         ])

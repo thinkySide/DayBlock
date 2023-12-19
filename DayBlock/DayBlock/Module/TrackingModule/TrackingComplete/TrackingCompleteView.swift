@@ -17,7 +17,7 @@ final class TrackingCompleteView: UIView {
         return button
     }()
     
-    private lazy var titleStackView: UIStackView = {
+    lazy var titleStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [
             iconBlock, taskLabel])
         stack.axis = .horizontal
@@ -191,6 +191,8 @@ final class TrackingCompleteView: UIView {
     /// 원 애니메이션을 시작합니다.
     func circleAnimation() {
         
+        print(#function)
+        
         // cornerRadius
         animationCircle.layer.cornerRadius = animationCircle.frame.width / 2
         
@@ -231,28 +233,31 @@ final class TrackingCompleteView: UIView {
         
         print(#function)
         
-        UIView.animate(withDuration: 0.3) { [weak self] in
-            guard let self else { return }
-            
-            // 비활성화
-            [animationCircle, checkSymbol, checkLabel].forEach { $0.alpha = 0 }
-            
-            // 활성화
-            [
-                titleStackView,
-                dashedSeparator,
-                dateLabel,
-                timeLabel,
-                summaryLabel,
-                trackingBoard,
-                totalValue,
-                totalLabel,
-                bottomSeparator,
-                todayValue,
-                todayLabel,
-                backToHomeButton
-            ].forEach { $0.alpha = 1 }
+        UIView.animate(withDuration: 0.3) {
+            self.completeAnimation()
         }
+    }
+    
+    func completeAnimation() {
+        
+        // 비활성화
+        [animationCircle, checkSymbol, checkLabel].forEach { $0.alpha = 0 }
+        
+        // 활성화
+        [
+            titleStackView,
+            dashedSeparator,
+            dateLabel,
+            timeLabel,
+            summaryLabel,
+            trackingBoard,
+            totalValue,
+            totalLabel,
+            bottomSeparator,
+            todayValue,
+            todayLabel,
+            backToHomeButton
+        ].forEach { $0.alpha = 1 }
     }
     
     // MARK: - Initial Method
@@ -267,6 +272,8 @@ final class TrackingCompleteView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    var topConstraint: NSLayoutConstraint!
     
     // MARK: - Auto Layout Method
     
@@ -290,10 +297,13 @@ final class TrackingCompleteView: UIView {
     }
     
     private func setupConstraints() {
+        
+        topConstraint = titleStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 72)
+        topConstraint.isActive = true
+        
         NSLayoutConstraint.activate([
             
             // titleStackView
-            titleStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 72),
             titleStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             // dashedSeparator

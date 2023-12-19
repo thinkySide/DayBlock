@@ -134,7 +134,9 @@ extension MyPageViewController {
     
     /// 개발자 정보 셀 버튼 탭 시 호출되는 메서드입니다.
     func developerInfoCellTapped() {
-        
+        let developerVC = DeveloperInfoViewController()
+        developerVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(developerVC, animated: true)
     }
     
     /// 오픈소스 셀 버튼 탭 시 호출되는 메서드입니다.

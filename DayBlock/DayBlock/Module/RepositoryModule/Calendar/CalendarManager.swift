@@ -36,4 +36,12 @@ final class CalendarManager {
         formatter.dateFormat = "YYYY.MM.dd"
         return formatter.string(from: date)
     }
+    
+    /// 전체 한국 날짜 포맷
+    func fullKoreanDateFormat(from date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_kr")
+        formatter.dateFormat = "YYYY년 MM월 dd일 E요일"
+        return formatter.string(from: date)
+    }
 }

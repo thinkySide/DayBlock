@@ -12,6 +12,7 @@ final class TrackingCompleteViewController: UIViewController {
     enum Mode {
         case tracking
         case onboarding
+        case calendar
     }
     
     var mode: Mode
@@ -43,14 +44,28 @@ final class TrackingCompleteViewController: UIViewController {
         setupUI()
         setupEvent()
         
+        // 캘린더 모드라면 바로 정보 표시
+        if mode == .calendar {
+            viewManager.completeAnimation()
+            return
+        }
+        
+        // 애니메이션 출력
         DispatchQueue.main.async {
             self.viewManager.circleAnimation()
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+    
     // MARK: - Setup Method
     
     private func setupUI() {
+        
+        // 캘린더 모드라면 해당 UI 업데이트 사용 X
+        if mode == .calendar { return }
         
         // 애니메이션 컬러
         viewManager.animationCircle.backgroundColor = groupData.focusColor()
@@ -81,6 +96,38 @@ final class TrackingCompleteViewController: UIViewController {
         viewManager.todayValue.text = trackingData.todayOutput(blockData.focusEntity())
     }
     
+    /// 캘린더 모드에서의 UI를 설정합니다.
+    func setupCalendarMode(icon: String, color: Int, taskLabel: String, currentDate: String, trackingTime: String, output: String, trackingBlocks: [String]) {
+        
+        let color = UIColor(rgb: color)
+        
+        // AutoLayout
+        viewManager.topConstraint.constant = 96
+        
+        // 아이콘
+        viewManager.iconBlock.backgroundColor = color
+        viewManager.iconBlock.symbol.image = UIImage(systemName: icon)
+        
+        // 작업명
+        viewManager.taskLabel.text = taskLabel
+        
+        // 날짜 및 시간 라벨
+         viewManager.dateLabel.text = currentDate
+        viewManager.timeLabel.text = trackingTime
+        
+        // 생산량 라벨
+        viewManager.plusSummaryLabel.textColor = color
+        viewManager.mainSummaryLabel.text = output
+        
+        // 트래킹 보드
+        viewManager.trackingBoard.trackingCompleteAndFill(trackingBlocks, color: [color])
+        
+        // total, today, 버튼 숨기기
+        [viewManager.totalValue, viewManager.totalLabel,
+         viewManager.todayValue, viewManager.todayLabel,
+         viewManager.bottomSeparator, viewManager.backToHomeButton].forEach { $0.isHidden = true }
+    }
+    
     private func setupEvent() {
         viewManager.backToHomeButton.addTarget(self, action: #selector(backToHomeButtonTapped), for: .touchUpInside)
     }
@@ -100,6 +147,12 @@ final class TrackingCompleteViewController: UIViewController {
         // 온보딩 모드
         if mode == .onboarding {
             NotificationCenter.default.post(name: .finishOnboarding, object: self, userInfo: nil)
+            return
+        }
+        
+        // 캘린더 모드
+        if mode == .calendar {
+            dismiss(animated: true)
             return
         }
     }

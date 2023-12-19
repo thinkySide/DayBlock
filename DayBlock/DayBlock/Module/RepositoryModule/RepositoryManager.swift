@@ -145,8 +145,8 @@ final class RepositoryManager {
         return "\(stringHour):\(stringMinute)"
     }
     
-    /// 총 생산량을 반환합니다.
-    func totalOutput(to index: Int) -> String {
+    /// 한번의 트래킹에서 얼마만큼의 생산량을 생성했는지 반환합니다.
+    func outputPerTracking(to index: Int) -> String {
         let trackingTimes = dayItems[index].trackingTimes
         
         var output = 0.0

@@ -28,10 +28,6 @@ final class OpenLicenseViewController: UIViewController {
         title = "오픈소스"
         navigationController?.navigationBar
             .titleTextAttributes = [.font: UIFont(name: Pretendard.semiBold, size: 16)!]
-        
-        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = Color.mainText
-        navigationItem.backBarButtonItem = backBarButtonItem
     }
     
     private func setupTableView() {
