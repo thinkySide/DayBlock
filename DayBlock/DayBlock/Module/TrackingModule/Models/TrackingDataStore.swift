@@ -562,13 +562,37 @@ extension TrackingDataStore {
         
         // 1. 현재 트래킹 중인 세션의 마지막 시간 = 시작 시간 + 한 세션의 시간
         let initialStartTime = Int(focusTime().startTime)!
+        print("initialStartTime: \(initialStartTime)")
         let endTime = initialStartTime + targetSecond
         focusTime().endTime = String(endTime)
         
-        // 2. 새로운 세션 시작
-        let trackingTime = TrackingTime(context: context)
-        trackingTime.startTime = String(endTime)
-        focusDate().addToTrackingTimeList(trackingTime)
+        // 2-1. 앱이 종료되어있을 동안, 하루가 지나지 않음.
+        if endTime <= 86400 {
+            print("endTime: \(endTime), 하루가 지나지 않음.")
+            let trackingTime = TrackingTime(context: context)
+            trackingTime.startTime = String(endTime)
+            focusDate().addToTrackingTimeList(trackingTime)
+        }
+        
+        // 2-2. 만약 endTime이 86400(하루의 끝) 보다 크다면,
+        // 앱이 종료되어있을 동안, 하루가 지난 것으로 설정.
+        else {
+            print("endTime: \(endTime), 하루가 지남. 새로운 endTime: \(86400 - endTime)")
+            
+            let newTrackingDate = TrackingDate(context: context)
+            newTrackingDate.year = formatter("yyyy")
+            newTrackingDate.month = formatter("MM")
+            newTrackingDate.day = formatter("dd")
+            newTrackingDate.dayOfWeek = formatter("E")
+            
+            let trackingTime = TrackingTime(context: context)
+            let newStartTime = String(86400 - endTime)
+            print("newStartTime: \(newStartTime)")
+            trackingTime.startTime = newStartTime
+            
+            newTrackingDate.addToTrackingTimeList(trackingTime)
+            blockData.focusEntity().addToTrackingDateList(newTrackingDate)
+        }
         
         // 3. 코어데이터 저장
         groupData.saveContext()
@@ -650,7 +674,7 @@ extension TrackingDataStore {
     /// 온보딩 용 트래킹 블럭을 생성 및 추가합니다.
     func appendCurrentTimeInTrackingBlocksForOnboarding() {
         if let safeTodaySeconds = Int(todaySecondsToString()) {
-            let focusBlock = safeTodaySeconds / targetSecond
+            let focusBlock = (safeTodaySeconds - targetSecond) / targetSecond
             let hour = String(focusBlock / 2)
             
             let minute = focusBlock % 2 == 0 ? "00" : "30"
@@ -670,30 +694,21 @@ extension TrackingDataStore {
         
         for time in timeList {
             
-            // 마무리 시간 기록 안됐으면 삭제
-            // guard let _ = time.endTime else { break }
-            
             let targetNumber = Int(time.startTime)! / targetSecond
             var hour = ""
             var minute = ""
             
-            // 시간 계산
-            
             // 만약 10보다 작다면 앞에 0 붙이기
-            if (targetNumber / 2) < 10 {
-                hour = "\(targetNumber / 2)"
-            } else {
-                hour = "\(targetNumber / 2)"
-            }
+            if (targetNumber / 2) < 10 { hour = "\(targetNumber / 2)" }
+            else { hour = "\(targetNumber / 2)" }
             
             // 분 계산
-            if targetNumber % 2 == 0 {
-                minute = "00"
-            } else {
-                minute = "30"
-            }
+            if targetNumber % 2 == 0 { minute = "00" }
+            else { minute = "30" }
             
             let time = "\(hour):\(minute)"
+            print("현재 생성한 시간: \(time)")
+            
             if !currentTrackingBlocks.contains(time) {
                 currentTrackingBlocks.append(time)
             }

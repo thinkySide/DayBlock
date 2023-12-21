@@ -152,7 +152,7 @@ final class HomeView: UIView {
         view.alpha = 0
         return view
     }()
-
+    
     let tabBarStackView = TabBar(location: .tracking)
     
     // MARK: - Method
@@ -199,6 +199,7 @@ final class HomeView: UIView {
     
     @objc func trackingButtonTapped() {
         
+        trackingButton.isUserInteractionEnabled = false
         Vibration.selection.vibrate()
         
         // 트래킹 모드 변경 로직
@@ -251,15 +252,19 @@ final class HomeView: UIView {
         trackingTimeLabel.isHidden = false
         trackingProgressView.isHidden = false
         trackingStopBarButtonItem.customView?.isHidden = false
+        trackingButton.isUserInteractionEnabled = true
     }
     
     /// 앱이 다시 실행됐을 때 작동하는 메서드
     func trackingRestartForDisconnect() {
+        
         // 트래킹 모드 변경 로직
         if trackingMode == .finish || trackingMode == .stop { trackingMode = .start }
         else if trackingMode == .start { trackingMode = .pause }
         else if trackingMode == .pause { trackingMode = .restart }
         else if trackingMode == .restart { trackingMode = .pause }
+        
+        print("현재 트래킹 모드: \(trackingMode)")
         
         // Tracking 모드 설정
         switch trackingMode {

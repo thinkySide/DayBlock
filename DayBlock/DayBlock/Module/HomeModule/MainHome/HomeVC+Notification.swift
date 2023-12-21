@@ -55,7 +55,8 @@ extension HomeViewController {
     
     /// 온보딩 모드를 종료합니다.
     @objc private func finishOnboarding(_ notification: Notification) {
-        viewManager.productivityLabel.text = "today +\(trackingData.todayAllOutput())"
+        trackingData.resetTrackingBlocks()
+        viewManager.trackingBlockPreview.resetAllBlocks()
         dismiss(animated: true)
     }
     

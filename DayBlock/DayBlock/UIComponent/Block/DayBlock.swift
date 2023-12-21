@@ -159,6 +159,7 @@ final class DayBlock: UIView {
             NSLayoutConstraint.activate([
                 self.widthAnchor.constraint(equalToConstant: Size.middle.rawValue),
                 self.heightAnchor.constraint(equalToConstant: Size.middle.rawValue),
+                
                 plus.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 16),
                 plus.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 16),
                 outputLabel.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 16),
@@ -168,7 +169,13 @@ final class DayBlock: UIView {
                 icon.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 52),
                 icon.widthAnchor.constraint(equalToConstant: 64),
                 icon.heightAnchor.constraint(equalToConstant: 64),
-                taskLabel.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 16)
+                taskLabel.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 16),
+                
+                outputLabel.leadingAnchor.constraint(equalTo: plus.trailingAnchor),
+                colorTag.topAnchor.constraint(equalTo: contentsView.topAnchor),
+                icon.centerXAnchor.constraint(equalTo: contentsView.centerXAnchor),
+                taskLabel.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 24),
+                taskLabel.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -24)
             ])
         }
 
@@ -181,6 +188,7 @@ final class DayBlock: UIView {
             NSLayoutConstraint.activate([
                 self.widthAnchor.constraint(equalToConstant: Size.large.rawValue),
                 self.heightAnchor.constraint(equalToConstant: Size.large.rawValue),
+                
                 plus.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 24),
                 plus.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 24),
                 outputLabel.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 24),
@@ -190,7 +198,13 @@ final class DayBlock: UIView {
                 icon.topAnchor.constraint(equalTo: contentsView.topAnchor, constant: 68),
                 icon.widthAnchor.constraint(equalToConstant: 88),
                 icon.heightAnchor.constraint(equalToConstant: 88),
-                taskLabel.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 24)
+                taskLabel.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 24),
+                
+                outputLabel.leadingAnchor.constraint(equalTo: plus.trailingAnchor),
+                colorTag.topAnchor.constraint(equalTo: contentsView.topAnchor),
+                icon.centerXAnchor.constraint(equalTo: contentsView.centerXAnchor),
+                taskLabel.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 24),
+                taskLabel.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -24)
             ])
         }
     }
@@ -231,15 +245,6 @@ final class DayBlock: UIView {
             animationView.heightAnchor.constraint(equalTo: contentsView.heightAnchor),
             animationView.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor),
             animationView.centerYAnchor.constraint(equalTo: contentsView.centerYAnchor),
-            
-            outputLabel.leadingAnchor.constraint(equalTo: plus.trailingAnchor),
-            
-            colorTag.topAnchor.constraint(equalTo: contentsView.topAnchor),
-            
-            icon.centerXAnchor.constraint(equalTo: contentsView.centerXAnchor),
-            
-            taskLabel.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor, constant: 24),
-            taskLabel.trailingAnchor.constraint(equalTo: contentsView.trailingAnchor, constant: -24)
         ])
     }
     

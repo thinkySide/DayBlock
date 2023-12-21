@@ -42,7 +42,7 @@ extension HomeViewController {
         timerManager.totalBlock += 0.5
         viewManager.updateCurrentProductivityLabel(timerManager.totalBlock)
         
-        // TODO: 만약 날짜가 넘어갔다면, 새로운 날짜 세션으로 재시작.
+        // 만약 날짜가 넘어갔다면, 새로운 날짜 세션으로 재시작.
         if trackingData.focusDate().day != Date().dayString {
             print("날짜 넘어감.")
             

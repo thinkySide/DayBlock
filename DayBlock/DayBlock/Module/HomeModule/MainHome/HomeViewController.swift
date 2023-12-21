@@ -107,7 +107,6 @@ final class HomeViewController: UIViewController {
             
             // 3. (현재 시간 - 마지막 종료 시점) -> 얼마나 앱이 종료되었는지 구할 수 있음
             let elapsedTime = trackingData.todaySecondsToInt() - lastAccess
-            // let pausedTime = UserDefaults.standard.object(forKey: UserDefaultsKey.pausedTime) as? Int ?? 0
             
             // 4. 앱 종료 전 총 트래킹 시간 구하기
             let originalTotalTime = UserDefaults.standard.object(forKey: UserDefaultsKey.totalTime) as? Int ?? 0
@@ -115,6 +114,7 @@ final class HomeViewController: UIViewController {
             // 5. 최종 시간 = 기존 전체 시간 + 지난 시간
             let newTotalTime = originalTotalTime + elapsedTime
             timerManager.totalTime = newTotalTime
+            print("[최종 시간: \(newTotalTime)] = [기존 전체 시간: \(originalTotalTime)] + [지난 시간: \(elapsedTime)]")
             
             // 6. 그럼 현재 트래킹 세션은 얼마나 진행되었는가?
             //    현재 시간 = 최종 시간 % 타겟 숫자
@@ -123,17 +123,18 @@ final class HomeViewController: UIViewController {
             
             // 8. totalBlock 업데이트
             timerManager.totalBlock = Double(timerManager.totalTime / trackingData.targetSecond) * 0.5
+            print("totalBlock: \(timerManager.totalBlock)개")
             
-            // 9. 몇개의 블럭이 생성되었는지 확인
-            var count = 0
-            if let timeList = trackingData.focusDate().trackingTimeList {
-                count = (timerManager.totalTime / trackingData.targetSecond) - timeList.count
-                // viewManager.dateLabel.text = "count: \(count)"
-            }
+            // 전체 트래킹 데이터 - focusDate의 trackingTime 개수만큼 빼야하지 않나?
             
             // 11. 블럭이 생성된 만큼 데이터 추가(0보다 클 때만)
-            if count >= 0 {
-                for _ in 0...count {
+            let timeList = trackingData.focusDate().trackingTimeList?.array as! [TrackingTime]
+            let filter = timeList.filter { $0.endTime != nil }.count
+            let count = timeList.count - filter
+            print("[전체 개수: \(timeList.count)] - [endTime이 존재하는 개수: \(filter)] = \(count)")
+            
+            if timerManager.totalBlock > 0 {
+                for _ in 1...count {
                     trackingData.appedDataBetweenAppDisconect()
                 }
             }
@@ -142,8 +143,8 @@ final class HomeViewController: UIViewController {
             viewManager.updateCurrentProductivityLabel(timerManager.totalBlock)
             
             // 13. 추가된 데이터로 트래킹 보드 리스트 업데이트
-            // trackingData.testAppendForDisconnect() // 테스트 코드
             trackingData.regenerationTrackingBlocks() // 원래 코드
+            // trackingData.testAppendForDisconnect() // 테스트 코드
             
             // 14. 트래킹 보드 애니메이션 업데이트
             viewManager.trackingBlockPreview.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
