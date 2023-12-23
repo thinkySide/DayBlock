@@ -102,22 +102,18 @@ extension HomeViewController {
         // 1. 타이머 시작
         timerManager.trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingEverySecond), userInfo: nil, repeats: true)
         
-        // 2. 현재 트래킹 중인 블럭 정보 저장
-        let blockDataList = blockData.list()
-        viewManager.trackingBlock.update(group: groupData.focusEntity(), block: blockDataList[blockIndex])
+        // 2. 기존 트래킹 중이었던 데이터 불러오기
+        let groupIndex = UserDefaults.standard.object(forKey: UserDefaultsKey.groupIndex) as? Int ?? 0
+        let blockIndex = UserDefaults.standard.object(forKey: UserDefaultsKey.blockIndex) as? Int ?? 0
+        viewManager.trackingBlock.update(group: groupData.list()[groupIndex], block: blockData.list()[blockIndex])
         
-        // 3. UserDefaults 트래킹 모드 확인용 변수 업데이트
-        UserDefaults.standard.set(true, forKey: UserDefaultsKey.isTracking)
-        UserDefaults.standard.set(false, forKey: UserDefaultsKey.isPause)
-        UserDefaults.standard.setValue(blockData.focusIndex(), forKey: UserDefaultsKey.blockIndex)
-        
-        // 4. 트래킹 보드 애니메이션 시작
+        // 3. 트래킹 보드 애니메이션 시작
         updateTrackingBoard(isPaused: false)
         
-        // 5. SFSymbol 애니메이션 시작
+        // 4. SFSymbol 애니메이션 시작
         startSFSymbolBounceAnimation(viewManager.trackingBlock.icon)
         
-        // 6. 화면 꺼짐 방지
+        // 5. 화면 꺼짐 방지
         isScreenCanSleep(false)
     }
     
@@ -133,7 +129,6 @@ extension HomeViewController {
         trackingData.createStartData()
         
         // 3. 현재 트래킹 중인 블럭 정보 저장
-        // let blockDataList = blockData.list()
         viewManager.trackingBlock.update(group: groupData.focusEntity(), block: blockData.focusEntity())
         
         // 4. UserDefaults 트래킹 모드 확인용 변수 업데이트

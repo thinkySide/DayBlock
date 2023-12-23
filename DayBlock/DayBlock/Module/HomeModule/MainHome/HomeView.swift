@@ -251,7 +251,6 @@ final class HomeView: UIView {
         // Tracking 모드 설정
         switch trackingMode {
         case .start:
-            // delegate?.homeView(self, trackingDidStart: trackingMode)
             delegate?.homeView(self, trackingDidRelaunch: trackingMode)
             trackingTimeLabel.textColor = Color.mainText
             trackingButton.setImage(UIImage(named: Icon.trackingPause), for: .normal)
