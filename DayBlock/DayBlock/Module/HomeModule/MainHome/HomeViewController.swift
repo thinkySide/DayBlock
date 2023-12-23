@@ -70,7 +70,7 @@ final class HomeViewController: UIViewController {
         // UI 업데이트
         viewManager.productivityLabel.text = "today +\(trackingData.todayAllOutput())"
         let outputInfo = trackingData.todayOutputBoardData()
-        viewManager.blockPreview.paintOutputBoard(outputInfo.0, color: outputInfo.1)
+        viewManager.blockPreview.paintOutputBoard(outputInfo)
         
         // CollectionView 리로드
         viewManager.blockCollectionView.reloadData()
@@ -186,11 +186,6 @@ final class HomeViewController: UIViewController {
     private func setupUI() {
         initialGroupSelectButton()
         initialTrackingStartButton()
-        viewManager.productivityLabel.text = "today +\(trackingData.todayAllOutput())"
-        
-        // 생산량 확인 보드 업데이트
-        let outputInfo = trackingData.todayOutputBoardData()
-        viewManager.blockPreview.paintOutputBoard(outputInfo.0, color: outputInfo.1)
     }
     
     /// 제스처를 연결하고 설정합니다.

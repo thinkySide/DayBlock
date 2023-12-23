@@ -201,7 +201,7 @@ extension HomeViewController {
         viewManager.blockPreview.stopTrackingAnimation(trackingData.trackingBlocks())
         
         let outputInfo = trackingData.todayOutputBoardData()
-        viewManager.blockPreview.paintOutputBoard(outputInfo.0, color: outputInfo.1)
+        viewManager.blockPreview.paintOutputBoard(outputInfo)
         
         // 2. 이전에 트래킹 되고 있던 데이터 삭제
         trackingData.removeStopData()
@@ -236,7 +236,7 @@ extension HomeViewController {
         viewManager.productivityLabel.text = "today +\(trackingData.todayAllOutput())"
         
         let outputInfo = trackingData.todayOutputBoardData()
-        viewManager.blockPreview.paintOutputBoard(outputInfo.0, color: outputInfo.1)
+        viewManager.blockPreview.paintOutputBoard(outputInfo)
         
         // 2. 컬렉션뷰 초기화
         viewManager.blockCollectionView.reloadData()

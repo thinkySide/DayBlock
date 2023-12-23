@@ -85,7 +85,7 @@ extension HomeViewController: CreateBlockViewControllerDelegate {
         // UI 업데이트
         viewManager.productivityLabel.text = "today +\(trackingData.todayAllOutput())"
         let outputInfo = trackingData.todayOutputBoardData()
-        viewManager.blockPreview.paintOutputBoard(outputInfo.0, color: outputInfo.1)
+        viewManager.blockPreview.paintOutputBoard(outputInfo)
     }
 }
 

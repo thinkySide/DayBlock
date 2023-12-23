@@ -301,10 +301,9 @@ extension TrackingDataStore {
     
     /// 오늘의 생산량 보드 데이터를 반환합니다.
     /// 시간 문자열 & 색상
-    func todayOutputBoardData() -> ([String], [UIColor]) {
+    func todayOutputBoardData() -> [Dictionary<String, UIColor>.Element] {
         
-        var times: [String] = []
-        var colors: [UIColor] = []
+        var datas: [String: UIColor] = [:]
         
         // 1. 그룹 반복
         for group in groupData.list() {
@@ -335,14 +334,21 @@ extension TrackingDataStore {
                     for time in timeList {
                         guard let _ = time.endTime else { break }
                         let startTime = secondsToTime(time.startTime)
-                        times.append(startTime)
-                        colors.append(UIColor(rgb: group.color))
+                        datas.updateValue(UIColor(rgb: group.color), forKey: startTime)
                     }
                 }
             }
         }
         
-        return (times, colors)
+        let sorted = datas.sorted {
+            let first = $0.key.components(separatedBy: ":")
+            let second = $1.key.components(separatedBy: ":")
+            return (first[0], first[1]) < (second[0], second[1])
+        }
+        
+        print(sorted)
+        
+        return sorted
     }
     
     /// 전체 그룹 - 블럭의 선택한 날짜의 총 생산량을 반환합니다.

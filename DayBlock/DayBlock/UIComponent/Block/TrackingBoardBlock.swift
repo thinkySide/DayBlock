@@ -195,7 +195,7 @@ final class TrackingBoardBlock: UIView {
     
     // MARK: - Initial Method
     
-    init(frame: CGRect, size: CGFloat) {
+    init(frame: CGRect = .zero, size: CGFloat) {
         super.init(frame: frame)
         
         /// Blcok Color

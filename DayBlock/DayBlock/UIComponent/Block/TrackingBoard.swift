@@ -23,30 +23,30 @@ final class TrackingBoard: UIView {
     
     // MARK: - Blocks
     
-    lazy var block00 = TrackingBoardBlock(frame: .zero, size: blockSize) // 00:00 ~ 00:29 (0 ~ 1799)
-    lazy var block01 = TrackingBoardBlock(frame: .zero, size: blockSize)
-    lazy var block02 = TrackingBoardBlock(frame: .zero, size: blockSize)
-    lazy var block03 = TrackingBoardBlock(frame: .zero, size: blockSize)
-    lazy var block04 = TrackingBoardBlock(frame: .zero, size: blockSize)
-    lazy var block05 = TrackingBoardBlock(frame: .zero, size: blockSize)
-    lazy var block06 = TrackingBoardBlock(frame: .zero, size: blockSize)
-    lazy var block07 = TrackingBoardBlock(frame: .zero, size: blockSize)
-    lazy var block08 = TrackingBoardBlock(frame: .zero, size: blockSize)
-    lazy var block09 = TrackingBoardBlock(frame: .zero, size: blockSize)
-    lazy var block10 = TrackingBoardBlock(frame: .zero, size: blockSize)
-    lazy var block11 = TrackingBoardBlock(frame: .zero, size: blockSize)
-    lazy var block12 = TrackingBoardBlock(frame: .zero, size: blockSize)
-    lazy var block13 = TrackingBoardBlock(frame: .zero, size: blockSize)
-    lazy var block14 = TrackingBoardBlock(frame: .zero, size: blockSize)
-    lazy var block15 = TrackingBoardBlock(frame: .zero, size: blockSize)
-    lazy var block16 = TrackingBoardBlock(frame: .zero, size: blockSize)
-    lazy var block17 = TrackingBoardBlock(frame: .zero, size: blockSize) // 17:00 ~ 17:59
-    lazy var block18 = TrackingBoardBlock(frame: .zero, size: blockSize)
-    lazy var block19 = TrackingBoardBlock(frame: .zero, size: blockSize)
-    lazy var block20 = TrackingBoardBlock(frame: .zero, size: blockSize)
-    lazy var block21 = TrackingBoardBlock(frame: .zero, size: blockSize)
-    lazy var block22 = TrackingBoardBlock(frame: .zero, size: blockSize)
-    lazy var block23 = TrackingBoardBlock(frame: .zero, size: blockSize) // 23:30 ~ 23:59 (0 ~ 86400)
+    lazy var block00 = TrackingBoardBlock(size: blockSize)
+    lazy var block01 = TrackingBoardBlock(size: blockSize)
+    lazy var block02 = TrackingBoardBlock(size: blockSize)
+    lazy var block03 = TrackingBoardBlock(size: blockSize)
+    lazy var block04 = TrackingBoardBlock(size: blockSize)
+    lazy var block05 = TrackingBoardBlock(size: blockSize)
+    lazy var block06 = TrackingBoardBlock(size: blockSize)
+    lazy var block07 = TrackingBoardBlock(size: blockSize)
+    lazy var block08 = TrackingBoardBlock(size: blockSize)
+    lazy var block09 = TrackingBoardBlock(size: blockSize)
+    lazy var block10 = TrackingBoardBlock(size: blockSize)
+    lazy var block11 = TrackingBoardBlock(size: blockSize)
+    lazy var block12 = TrackingBoardBlock(size: blockSize)
+    lazy var block13 = TrackingBoardBlock(size: blockSize)
+    lazy var block14 = TrackingBoardBlock(size: blockSize)
+    lazy var block15 = TrackingBoardBlock(size: blockSize)
+    lazy var block16 = TrackingBoardBlock(size: blockSize)
+    lazy var block17 = TrackingBoardBlock(size: blockSize)
+    lazy var block18 = TrackingBoardBlock(size: blockSize)
+    lazy var block19 = TrackingBoardBlock(size: blockSize)
+    lazy var block20 = TrackingBoardBlock(size: blockSize)
+    lazy var block21 = TrackingBoardBlock(size: blockSize)
+    lazy var block22 = TrackingBoardBlock(size: blockSize)
+    lazy var block23 = TrackingBoardBlock(size: blockSize)
     
     lazy var blocks: [TrackingBoardBlock] = [
         block00, block01, block02, block03, block04, block05, block06, block07, block08,
@@ -69,7 +69,15 @@ final class TrackingBoard: UIView {
     }
     
     /// 생산량 체크 보드에 트래킹 데이터를 칠합니다.
-    func paintOutputBoard(_ trackingBlocks: [String], color: [UIColor]) {
+    func paintOutputBoard(_ data: [Dictionary<String, UIColor>.Element]) {
+        
+        // 데이터 분해
+        var trackingBlocks: [String] = []
+        var color: [UIColor] = []
+        for (key, value) in data {
+            trackingBlocks.append(key)
+            color.append(value)
+        }
 
         resetAllBlocks()
         
@@ -86,13 +94,12 @@ final class TrackingBoard: UIView {
             let state = Int(minute)! >= 30 ? 
             TrackingBoardBlock.Paint.secondHalf : TrackingBoardBlock.Paint.firstHalf
             
-            if state == .firstHalf {
-                paintBlock.painting(.firstHalf, color: [color[enumIndex]])
+            if paintBlock.state == .firstHalf && state == .secondHalf {
+                paintBlock.painting(.mixed, color: [color[enumIndex - 1], color[enumIndex]])
             }
             
-            // 첫번째 반쪽이 이미 차있다면, mixed로 변경
-            else if paintBlock.state == .firstHalf && state == .secondHalf {
-                paintBlock.painting(.mixed, color: [color[enumIndex], color[enumIndex + 1]])
+            else if state == .firstHalf {
+                paintBlock.painting(.firstHalf, color: [color[enumIndex]])
             }
             
             else {
