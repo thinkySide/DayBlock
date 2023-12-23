@@ -56,7 +56,7 @@ extension HomeViewController {
     /// 온보딩 모드를 종료합니다.
     @objc private func finishOnboarding(_ notification: Notification) {
         trackingData.resetTrackingBlocks()
-        viewManager.trackingBlockPreview.resetAllBlocks()
+        viewManager.blockPreview.resetAllBlocks()
         dismiss(animated: true)
     }
     
@@ -107,7 +107,7 @@ extension HomeViewController {
                 viewManager.updateCurrentProductivityLabel(timerManager.totalBlock)
                 
                 // 6. 트래킹 보드 애니메이션 업데이트
-                viewManager.trackingBlockPreview.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
+                viewManager.blockPreview.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
             }
             
             // 7. 타이머 및 프로그레스 바 UI 업데이트

@@ -345,86 +345,68 @@ extension TrackingDataStore {
         return (times, colors)
     }
     
-    /// 연속으로 몇일 트래킹을 진행했는지 문자열로 반환합니다.
-    func burningCount() -> String {
-        var count = 0
-        var targetDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
-        var isContinuos = true
+    /// 전체 그룹 - 블럭의 선택한 날짜의 총 생산량을 반환합니다.
+    func dateAllOutput(to date: Date) -> String {
+        var count: Double = 0.0
         
-        while isContinuos {
+        // 1. 그룹 반복
+        for group in groupData.list() {
+            guard let blockList = group.blockList?.array as? [Block] else {
+                fatalError("블럭 리스트 반환 실패")
+            }
             
-            // 1. 그룹 반복
-            for (enumIndex, group) in groupData.list().enumerated() {
-                
-                guard let blockList = group.blockList?.array as? [Block] else {
-                    fatalError("블럭 리스트 반환 실패")
+            // 2. 블럭 반복
+            for block in blockList {
+                guard let dateList = block.trackingDateList?.array as? [TrackingDate] else {
+                    fatalError("날짜 리스트 반환 실패")
                 }
                 
-                // 블럭 리스트가 비어 있을 때 다음 그룹 반복 주기로 이동
-                if blockList.isEmpty {
-                    
-                    // 만약 마지막 그룹 인덱스라면
-                    if enumIndex == groupData.list().count - 1 {
-                        isContinuos = false
-                        break
-                    }
-                    
-                    continue
+                // 날짜 리스트
+                let todayDateList = dateList.filter {
+                    $0.year == formatter("yyyy", to: date) &&
+                    $0.month == formatter("MM", to: date) &&
+                    $0.day == formatter("dd", to: date)
                 }
                 
-                // 2. 블럭반복
-                for block in blockList {
-                    guard let dateList = block.trackingDateList?.array as? [TrackingDate] else {
-                        fatalError("날짜 리스트 반환 실패")
+                // 3. 날짜 반복
+                for date in todayDateList {
+                    guard let timeList = date.trackingTimeList?.array as? [TrackingTime] else {
+                        fatalError("시간 리스트 반환 실패")
                     }
                     
-                    // 날짜 리스트가 비어 있을 때 다음 블럭 반복 주기로 이동
-                    if dateList.isEmpty {
-                        
-                        // 만약 마지막 그룹 인덱스라면
-                        if enumIndex == groupData.list().count - 1 {
-                            isContinuos = false
-                            break
-                        }
-                        
-                        continue
-                    }
-                    
-                    let filter = dateList.filter {
-                        $0.year == formatter("yyyy", to: targetDate) &&
-                        $0.month == formatter("MM", to: targetDate) &&
-                        $0.day == formatter("dd", to: targetDate)
-                    }
-                    
-                    // 만약 하나라도 해당 날짜에 데이터가 생성되었다면
-                    if !filter.isEmpty {
-                        count += 1
-                        targetDate = Calendar.current.date(byAdding: .day, value: -1, to: targetDate)!
-                        continue
-                    }
-                    
-                    // 만약 데이터가 생성되지 않았다면 연속이 끊긴 것으로 간주,
-                    // 마지막으로 오늘 데이터가 생성되었는지 확인 후 반복문 종료
-                    else {
-                        
-                        let todayFilter = dateList.filter {
-                            $0.year == formatter("yyyy", to: Date()) &&
-                            $0.month == formatter("MM", to: Date()) &&
-                            $0.day == formatter("dd", to: Date())
-                        }
-                        
-                        if !todayFilter.isEmpty {
-                            count += 1
-                        }
-                        
-                        isContinuos = false
-                        break
+                    // 4. 시간 반복
+                    for time in timeList {
+                        guard let _ = time.endTime else { break }
+                        count += 0.5
                     }
                 }
-                
             }
         }
         
+        return String(count)
+    }
+    
+    /// 몇일 연속으로 블럭을 생산했는지 문자열 값으로 반환합니다.
+    func burningCount() -> String {
+        var count = 0
+        var targetDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+        
+        while true {
+            
+            // 해당 날에 생산된 블럭이 있는 경우
+            if Double(dateAllOutput(to: targetDate))! > 0 {
+                count += 1
+                targetDate = Calendar.current.date(byAdding: .day, value: -1, to: targetDate)!
+            }
+            
+            // 해당 날에 생산된 블럭이 없는 경우
+            else { break }
+        }
+        
+        // 오늘 데이터 생성되었는지 확인
+        if Double(todayAllOutput())! > 0 { count += 1 }
+        
+        // 최종 값 반환
         return String(count)
     }
 }
@@ -654,35 +636,44 @@ extension TrackingDataStore {
     /// 트래킹이 시작될 때 1번 호출,
     /// 블럭 0.5개가 생산될 때마다 1번씩 호출
     func appendCurrentTimeInTrackingBlocks() {
+        let focusBlock = todaySecondsToInt() / targetSecond
+        let hour = String(focusBlock / 2)
         
-        if let safeTodaySeconds = Int(todaySecondsToString()) {
-            let focusBlock = safeTodaySeconds / targetSecond
-            let hour = String(focusBlock / 2)
- 
-            let minute = focusBlock % 2 == 0 ? "00" : "30"
-            let time = "\(hour):\(minute)"
-            
-            // 중복 블럭 거르기
-            if !currentTrackingBlocks.contains(time) {
-                currentTrackingBlocks.append(time)
-            }
-            
-            print("트래킹 데이터 추가: \(time)")
+        let minute = focusBlock % 2 == 0 ? "00" : "30"
+        let time = "\(hour):\(minute)"
+        
+        // 중복 블럭 거르기
+        if !currentTrackingBlocks.contains(time) {
+            currentTrackingBlocks.append(time)
         }
+        
+        print("트래킹 데이터 추가: \(time)")
     }
     
     /// 온보딩 용 트래킹 블럭을 생성 및 추가합니다.
     func appendCurrentTimeInTrackingBlocksForOnboarding() {
-        if let safeTodaySeconds = Int(todaySecondsToString()) {
-            let focusBlock = (safeTodaySeconds - targetSecond) / targetSecond
-            let hour = String(focusBlock / 2)
+        
+        // 만약 현재 시간의 30분 전이 전일이라면 마지막 트래킹 블럭 추가
+        if todaySecondsToInt() < 1800 {
+            print("30분 전이 전일입니다.")
             
-            let minute = focusBlock % 2 == 0 ? "00" : "30"
-            let time = "\(hour):\(minute)"
-            
+            // 2개 추가(기존 트래킹 메서드는 마지막 시간 삭제하기 때문)
             for _ in 1...2 {
-                currentTrackingBlocks.append(time)
+                currentTrackingBlocks.append("23:30")
             }
+            return
+        }
+        
+        print("30분 전이 금일입니다.")
+        let focusBlock = (todaySecondsToInt() - targetSecond) / targetSecond
+        let hour = String(focusBlock / 2)
+        
+        let minute = focusBlock % 2 == 0 ? "00" : "30"
+        let time = "\(hour):\(minute)"
+        
+        // 2개 추가(기존 트래킹 메서드는 마지막 시간 삭제하기 때문)
+        for _ in 1...2 {
+            currentTrackingBlocks.append(time)
         }
     }
     

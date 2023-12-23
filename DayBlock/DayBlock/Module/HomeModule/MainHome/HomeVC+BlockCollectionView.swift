@@ -215,7 +215,7 @@ extension HomeViewController: PopupViewControllerDelegate {
         viewManager.blockCollectionView.reloadData()
         viewManager.productivityLabel.text = "today +\(trackingData.todayAllOutput())"
         let outputInfo = trackingData.todayOutputBoardData()
-        viewManager.outputBlockPreview.paintOutputBoard(outputInfo.0, color: outputInfo.1)
+        viewManager.blockPreview.paintOutputBoard(outputInfo.0, color: outputInfo.1)
         
         // 그룹 리스트가 비어있을 시, 트래킹 버튼 비활성화
         let blockList = groupData.focusEntity().blockList?.array as! [Block]

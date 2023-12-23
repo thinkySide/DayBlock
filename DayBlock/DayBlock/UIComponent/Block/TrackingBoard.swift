@@ -23,7 +23,7 @@ final class TrackingBoard: UIView {
     
     // MARK: - Blocks
     
-    lazy var block00 = TrackingBoardBlock(frame: .zero, size: blockSize)
+    lazy var block00 = TrackingBoardBlock(frame: .zero, size: blockSize) // 00:00 ~ 00:29 (0 ~ 1799)
     lazy var block01 = TrackingBoardBlock(frame: .zero, size: blockSize)
     lazy var block02 = TrackingBoardBlock(frame: .zero, size: blockSize)
     lazy var block03 = TrackingBoardBlock(frame: .zero, size: blockSize)
@@ -40,13 +40,13 @@ final class TrackingBoard: UIView {
     lazy var block14 = TrackingBoardBlock(frame: .zero, size: blockSize)
     lazy var block15 = TrackingBoardBlock(frame: .zero, size: blockSize)
     lazy var block16 = TrackingBoardBlock(frame: .zero, size: blockSize)
-    lazy var block17 = TrackingBoardBlock(frame: .zero, size: blockSize)
+    lazy var block17 = TrackingBoardBlock(frame: .zero, size: blockSize) // 17:00 ~ 17:59
     lazy var block18 = TrackingBoardBlock(frame: .zero, size: blockSize)
     lazy var block19 = TrackingBoardBlock(frame: .zero, size: blockSize)
     lazy var block20 = TrackingBoardBlock(frame: .zero, size: blockSize)
     lazy var block21 = TrackingBoardBlock(frame: .zero, size: blockSize)
     lazy var block22 = TrackingBoardBlock(frame: .zero, size: blockSize)
-    lazy var block23 = TrackingBoardBlock(frame: .zero, size: blockSize)
+    lazy var block23 = TrackingBoardBlock(frame: .zero, size: blockSize) // 23:30 ~ 23:59 (0 ~ 86400)
     
     lazy var blocks: [TrackingBoardBlock] = [
         block00, block01, block02, block03, block04, block05, block06, block07, block08,
@@ -247,8 +247,13 @@ final class TrackingBoard: UIView {
     /// 애니메이션 리프레시를 위한 트래킹 블럭 목록을 업데이트합니다.
     func refreshAnimation(_ trackingBlocks: [String], color: UIColor) {
         
+        resetAllBlocks()
+        
         // 만약 빈 배열이 전달된다면 그대로 종료
-        if trackingBlocks.isEmpty { return }
+        if trackingBlocks.isEmpty {
+            print("\(#function): 빈 배열이 전달되어 애니메이션을 실행하지 않고 종료합니다.")
+            return
+        }
         
         // 첫번째 블럭을 기준으로 모든 블럭 리프레시
         let block = trackingBlocks[0].split(separator: ":").map { String($0) }

@@ -9,9 +9,26 @@ import UIKit
 
 final class StartView: UIView {
     
+    private lazy var vStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [image, startButton])
+        stackView.axis = .vertical
+        stackView.spacing = 32
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        return stackView
+    }()
+    
+    private let image: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: StartImage.startImage)
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
+    
     let startButton: ActionButton = {
         let button = ActionButton(frame: .zero, mode: .confirm)
         button.setTitle("시작하기", for: .normal)
+        button.layer.cornerRadius = 28
         return button
     }()
     
@@ -27,15 +44,16 @@ final class StartView: UIView {
     }
     
     private func setupAutoLayout() {
-        [startButton].forEach {
+        [vStackView].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
         NSLayoutConstraint.activate([
-            startButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -56),
-            startButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            startButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
+            vStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            vStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            
+            startButton.widthAnchor.constraint(equalToConstant: 120)
         ])
     }
 }

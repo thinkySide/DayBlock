@@ -41,8 +41,8 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(testCoreData))
-        viewManager.outputBlockPreview.addGestureRecognizer(gesture)
+//        let gesture = UITapGestureRecognizer(target: self, action: #selector(testCoreData))
+//        viewManager.blockPreview.addGestureRecognizer(gesture)
         
         setupCoreData()
         setupNotification()
@@ -70,7 +70,7 @@ final class HomeViewController: UIViewController {
         // UI 업데이트
         viewManager.productivityLabel.text = "today +\(trackingData.todayAllOutput())"
         let outputInfo = trackingData.todayOutputBoardData()
-        viewManager.outputBlockPreview.paintOutputBoard(outputInfo.0, color: outputInfo.1)
+        viewManager.blockPreview.paintOutputBoard(outputInfo.0, color: outputInfo.1)
         
         // CollectionView 리로드
         viewManager.blockCollectionView.reloadData()
@@ -147,7 +147,7 @@ final class HomeViewController: UIViewController {
             // trackingData.testAppendForDisconnect() // 테스트 코드
             
             // 14. 트래킹 보드 애니메이션 업데이트
-            viewManager.trackingBlockPreview.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
+            viewManager.blockPreview.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
             
             // 15. 타이머 및 프로그레스 바 UI 업데이트
             viewManager.updateTracking(time: timerManager.format, progress: timerManager.progressPercent())
@@ -179,7 +179,7 @@ final class HomeViewController: UIViewController {
     private func setupDelegate() {
         viewManager.delegate = self
         viewManager.trackingBlock.delegate = self
-        viewManager.trackingBlockPreview.delegate = self
+        viewManager.blockPreview.delegate = self
     }
     
     /// 기본 UI 설정을 설정합니다.
@@ -190,7 +190,7 @@ final class HomeViewController: UIViewController {
         
         // 생산량 확인 보드 업데이트
         let outputInfo = trackingData.todayOutputBoardData()
-        viewManager.outputBlockPreview.paintOutputBoard(outputInfo.0, color: outputInfo.1)
+        viewManager.blockPreview.paintOutputBoard(outputInfo.0, color: outputInfo.1)
     }
     
     /// 제스처를 연결하고 설정합니다.

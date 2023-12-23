@@ -91,6 +91,11 @@ enum Icon {
     static let selectIcon = "selectIcon"
 }
 
+enum StartImage {
+    static let startImage = "StartImage"
+    static let appIconSVG = "AppIconSVG"
+}
+
 enum OnboardingImage {
     static let first = "FirstOnboardingContent"
     static let second = "SecondOnboardingContent"

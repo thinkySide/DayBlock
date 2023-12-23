@@ -54,14 +54,14 @@ extension HomeViewController {
             
             // 원래 트래킹 되고 있던 블럭들 초기화
             trackingData.resetTrackingBlocks()
-            viewManager.trackingBlockPreview.resetAllBlocks()
+            viewManager.blockPreview.resetAllBlocks()
         }
         
         // 4. 트래킹 보드를 위한 배열 업데이트
         trackingData.appendCurrentTimeInTrackingBlocks()
         
         // 5. 리프레쉬
-        viewManager.trackingBlockPreview.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
+        viewManager.blockPreview.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
     }
     
     /// 일시정지 시간을 계산합니다.
@@ -89,7 +89,7 @@ extension HomeViewController {
         trackingData.testAppendForBackground()
         
         // 5. 리프레쉬
-        viewManager.trackingBlockPreview.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
+        viewManager.blockPreview.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
     }
 }
 
@@ -113,8 +113,6 @@ extension HomeViewController {
         
         // 4. 트래킹 보드 애니메이션 시작
         updateTrackingBoard(isPaused: false)
-        viewManager.trackingBlockPreview.alpha = 1
-        viewManager.outputBlockPreview.alpha = 0
         
         // 5. SFSymbol 애니메이션 시작
         startSFSymbolBounceAnimation(viewManager.trackingBlock.icon)
@@ -203,11 +201,12 @@ extension HomeViewController {
     /// - Parameter mode: 현재 트래킹 모드
     func homeView(_ homeView: HomeView, trackingDidStop mode: HomeView.TrakingMode) {
         
-        // 1. 트래킹 보드 애니메이션 종료
+        // 1. 트래킹 보드 애니메이션 종료 및 업데이트
         showToast(toast: viewManager.toastView, isActive: false)
-        viewManager.trackingBlockPreview.stopTrackingAnimation(trackingData.trackingBlocks())
-        viewManager.trackingBlockPreview.alpha = 0
-        viewManager.outputBlockPreview.alpha = 1
+        viewManager.blockPreview.stopTrackingAnimation(trackingData.trackingBlocks())
+        
+        let outputInfo = trackingData.todayOutputBoardData()
+        viewManager.blockPreview.paintOutputBoard(outputInfo.0, color: outputInfo.1)
         
         // 2. 이전에 트래킹 되고 있던 데이터 삭제
         trackingData.removeStopData()
@@ -240,6 +239,9 @@ extension HomeViewController {
         // 1. UI 업데이트
         showToast(toast: viewManager.toastView, isActive: false)
         viewManager.productivityLabel.text = "today +\(trackingData.todayAllOutput())"
+        
+        let outputInfo = trackingData.todayOutputBoardData()
+        viewManager.blockPreview.paintOutputBoard(outputInfo.0, color: outputInfo.1)
         
         // 2. 컬렉션뷰 초기화
         viewManager.blockCollectionView.reloadData()
@@ -279,7 +281,7 @@ extension HomeViewController: DayBlockDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             
             // 5. 트래킹 보드 애니메이션 종료
-            self.viewManager.trackingBlockPreview.stopTrackingAnimation(self.trackingData.trackingBlocks())
+            self.viewManager.blockPreview.stopTrackingAnimation(self.trackingData.trackingBlocks())
             
             // 6. 트래커 초기화
             self.resetTracker()

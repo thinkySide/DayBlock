@@ -19,6 +19,7 @@ final class DeveloperInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigation()
+        setupEvent()
     }
     
     // MARK: - Setup Method
@@ -26,5 +27,23 @@ final class DeveloperInfoViewController: UIViewController {
         title = "개발자 정보"
         navigationController?.navigationBar
             .titleTextAttributes = [.font: UIFont(name: Pretendard.semiBold, size: 16)!]
+    }
+    
+    private func setupEvent() {
+        addTapGesture(viewManager.githubValue, target: self, action: #selector(githubLinkTapped))
+    }
+    
+    // MARK: - Event Method
+    
+    @objc func githubLinkTapped() {
+        
+        // 인터넷 창 열기
+        guard let urlString = viewManager.githubValue.text,
+              let url = URL(string: urlString) else {
+            print("URL 로드에 실패했습니다.")
+            return
+        }
+        
+        UIApplication.shared.open(url)
     }
 }
