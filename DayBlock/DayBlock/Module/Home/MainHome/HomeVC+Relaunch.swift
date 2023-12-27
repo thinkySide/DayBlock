@@ -11,56 +11,108 @@ extension HomeViewController {
     
     /// APP 종료 후, 트래킹 모드를 다시 설정하는 메서드입니다.
     func setTrackingModeAfterAppRestart() {
+        let lastTrackingTime = UserDefaultsItem.shared.trackingSecondBeforeAppTermination
+        let dayElapsed = trackingData.calculateElapsedDaySinceAppExit
+        let timeElapsed = trackingData.calculateElapsedTimeSinceAppExit
+        var trackingTimeResult = 0
         
-        // 2. 마지막으로 앱을 종료한 시점 구하기
-        let lastAccess = UserDefaultsItem.shared.lastAccessSecond
-        
-        // 3. (현재 시간 - 마지막 종료 시점) -> 얼마나 앱이 종료되었는지 구할 수 있음
-        let elapsedTime = trackingData.todaySecondsToInt() - lastAccess
-        
-        // 4. 앱 종료 전 총 트래킹 시간 구하기
-        let originalTotalTime = UserDefaultsItem.shared.trackingSecondBeforeAppTermination
-        
-        // 5. 최종 시간 = 기존 전체 시간 + 지난 시간
-        let newTotalTime = originalTotalTime + elapsedTime
-        timerManager.totalTime = newTotalTime
-        print("[최종 시간: \(newTotalTime)] = [기존 전체 시간: \(originalTotalTime)] + [지난 시간: \(elapsedTime)]")
-        
-        // 6. 그럼 현재 트래킹 세션은 얼마나 진행되었는가?
-        //    현재 시간 = 최종 시간 % 타겟 숫자
-        let currentTime = newTotalTime % trackingData.targetSecond
-        timerManager.currentTime = Float(currentTime)
-        
-        // 8. totalBlock 업데이트
-        timerManager.totalBlock = Double(timerManager.totalTime / trackingData.targetSecond) * 0.5
-        print("totalBlock: \(timerManager.totalBlock)개")
-        
-        // 11. 블럭이 생성된 만큼 데이터 추가(0보다 클 때만)
-        let timeList = trackingData.focusDate().trackingTimeList?.array as! [TrackingTime]
-        let filter = timeList.filter { $0.endTime != nil }.count
-        let count = timeList.count - filter
-        print("[전체 개수: \(timeList.count)] - [endTime이 존재하는 개수: \(filter)] = \(count)")
-        
-        if timerManager.totalBlock > 0 {
-            for _ in 1...count {
-                trackingData.appedDataBetweenAppDisconect()
+        // MARK: - 트래킹 진행중
+        if !UserDefaultsItem.shared.isPaused {
+            print("트래킹 진행중")
+            
+            // 하루가 지났는가? -> X
+            if dayElapsed == 0 {
+                print("하루 안지났음.")
+                
+                // 마지막 트래킹 시간 + 흐른 시간
+                trackingTimeResult = lastTrackingTime + timeElapsed
+            }
+            
+            // 하루가 지났는가? -> O
+            else if dayElapsed > 0 {
+                print("\(dayElapsed)일 지났음.")
+                
+                
             }
         }
         
-        // 12. 생산 블럭량 라벨 업데이트
-        viewManager.updateCurrentProductivityLabel(timerManager.totalBlock)
+        // MARK: - 트래킹 일시정지
+        else if UserDefaultsItem.shared.isPaused {
+            print("트래킹 일시정지")
+            
+            // 일시정지되었다면 마지막 트래킹 시간 그대로 사용
+            trackingTimeResult = lastTrackingTime
+            
+            // 하루가 지났는가? -> X
+            if dayElapsed == 0 {
+                print("하루 안지났음.")
+            }
+            
+            // 하루가 지났는가? -> O
+            else if dayElapsed > 0 {
+                print("\(dayElapsed)일 지났음.")
+            }
+        }
         
-        // 13. 추가된 데이터로 트래킹 보드 리스트 업데이트
+        // 최종 TimeManager 업데이트
+        updateTrackingTimeResultAfterAppRestart(result: trackingTimeResult)
+        
+        // APP 종료되어있을 동안 생성된 블럭 코어데이터 추가
+        appendDataBetweenAppExit()
+        
+        // 트래킹 보드 새롭게 업데이트
+        updateTrackingBoardAfterAppRestart()
+        
+        // 트래킹 모드 최종 시작
+        viewManager.trackingRestartForDisconnect()
+    }
+    
+    /// APP 재시작 후 트래킹 시간을 계산해 TimeManager를 업데이트합니다.
+    private func updateTrackingTimeResultAfterAppRestart(result: Int) {
+        
+        // 총 블럭 개수 및 UI 업데이트
+        timerManager.totalBlockCount = Double(result / trackingData.targetSecond) * 0.5
+        viewManager.updateCurrentProductivityLabel(timerManager.totalBlockCount)
+        
+        // 총 트래킹 시간 업데이트
+        timerManager.totalTrackingSecond = result
+        
+        // 현재 트래킹 시간 및 프로그레스바 업데이트
+        let currentTime = result % trackingData.targetSecond
+        timerManager.currentTrackingSecond = Float(currentTime)
+        viewManager.updateTracking(time: timerManager.format, progress: timerManager.progressPercent())
+    }
+    
+    /// APP이 종료되어 있을 동안 생성된 블럭 데이터를 추가합니다.
+    private func appendDataBetweenAppExit() {
+        
+        // 1. TrakcingTime 리스트 받아오기
+        let timeList = trackingData.focusDate().trackingTimeList?.array as! [TrackingTime]
+        
+        // 2. endTime이 존재하는 데이터의 개수만 받아오기(이미 완성된 데이터)
+        let completeDatas = timeList.filter { $0.endTime != nil }.count
+        
+        // 3. 생성해야할 블럭 개수 카운트
+        let count = timeList.count - completeDatas
+        
+        print("[전체 개수: \(timeList.count)] - [endTime이 존재하는 개수: \(completeDatas)] = \(count)")
+        
+        // 4. 생성해야 할 개수만큼 데이터 생성
+        if timerManager.totalBlockCount > 0 {
+            for _ in 1...count {
+                trackingData.appendDataBetweenAppExit()
+            }
+        }
+    }
+    
+    /// APP이 재시작 이후 트래킹 보드를 새롭게 업데이트합니다.
+    private func updateTrackingBoardAfterAppRestart() {
+        
+        // 추가된 데이터로 트래킹 보드 리스트 업데이트
         trackingData.regenerationTrackingBlocks() // 원래 코드
         // trackingData.testAppendForDisconnect() // 테스트 코드
         
-        // 14. 트래킹 보드 애니메이션 업데이트
+        // 트래킹 보드 애니메이션 업데이트
         viewManager.trackingBoard.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
-        
-        // 15. 타이머 및 프로그레스 바 UI 업데이트
-        viewManager.updateTracking(time: timerManager.format, progress: timerManager.progressPercent())
-        
-        // 16. 트래킹 모드 시작
-        viewManager.trackingRestartForDisconnect()
     }
 }

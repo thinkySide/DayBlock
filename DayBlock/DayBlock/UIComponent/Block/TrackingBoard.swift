@@ -49,8 +49,9 @@ final class TrackingBoard: UIView {
     lazy var block23 = TrackingBoardBlock(size: blockSize)
     
     lazy var blocks: [TrackingBoardBlock] = [
-        block00, block01, block02, block03, block04, block05, block06, block07, block08,
-        block09, block10, block11, block12, block13, block14, block15, block16, block17,
+        block00, block01, block02, block03, block04, block05, 
+        block06, block07, block08, block09, block10, block11,
+        block12, block13, block14, block15, block16, block17,
         block18, block19, block20, block21, block22, block23
     ]
     
@@ -61,213 +62,276 @@ final class TrackingBoard: UIView {
         case halfTime
     }
     
+    /// 트래킹 보드를 현재 데이터로 업데이트합니다.
+    ///
+    /// 이미 칠해져야 할 데이터 + 애니메이션 중인 데이터
+    func updateBoard() {
+        
+        // 48개의 블럭 순회
+        for (index, item) in TrackingBoardService.shared.infoItems.enumerated() {
+            
+            // 블럭 지정
+            let block = blocks[index / 2]
+            
+            // 첫번째 반쪽
+            if index % 2 == 0 {
+                //  print("\(index / 2)번째 블럭의 첫번째면: \(item.color)")
+                block.updateFirstBlock(color: item.color, isAnimated: item.isAnimated, isPaused: false)
+            }
+            
+            // 두번째 반쪽
+            else if index % 2 == 1 {
+                //  print("\(index / 2)번째 블럭의 두번째면: \(item.color)")
+                block.updateSecondBlock(color: item.color, isAnimated: item.isAnimated, isPaused: false)
+            }
+        }
+    }
+    
+    /// 트래킹 보드를 일시정지 합니다.
+    func pauseBoard() {
+        
+        // 48개의 블럭 순회
+        for (index, item) in TrackingBoardService.shared.infoItems.enumerated() {
+            
+            // 블럭 지정
+            let block = blocks[index / 2]
+            
+            // 첫번째 반쪽
+            if index % 2 == 0 {
+                // print("\(index / 2)번째 블럭의 첫번째면: \(item.color)")
+                block.updateFirstBlock(color: item.color, isAnimated: item.isAnimated, isPaused: true)
+            }
+            
+            // 두번째 반쪽
+            else if index % 2 == 1 {
+                // print("\(index / 2)번째 블럭의 두번째면: \(item.color)")
+                block.updateSecondBlock(color: item.color, isAnimated: item.isAnimated, isPaused: true)
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /// 전체 블럭 상태를 초기화합니다.
     func resetAllBlocks() {
-        for block in blocks {
-            block.painting(.none)
-        }
+//        for block in blocks {
+//            block.painting(.none)
+//        }
     }
     
     /// 생산량 체크 보드에 트래킹 데이터를 칠합니다.
     func paintOutputBoard(_ data: [Dictionary<String, UIColor>.Element]) {
         
-        // 데이터 분해
-        var trackingBlocks: [String] = []
-        var color: [UIColor] = []
-        for (key, value) in data {
-            trackingBlocks.append(key)
-            color.append(value)
-        }
-
-        resetAllBlocks()
-        
-        // 필요한 블럭 업데이트
-        for (enumIndex, trackingBlock) in trackingBlocks.enumerated() {
-            let split = trackingBlock.split(separator: ":").map { String($0) }
-            let hour = split[0]
-            let minute = split[1]
-            
-            // 트래킹 블럭 지정
-            let blockIndex = Int(hour)!
-            let paintBlock = blocks[blockIndex]
-            
-            let state = Int(minute)! >= 30 ? 
-            TrackingBoardBlock.Paint.secondHalf : TrackingBoardBlock.Paint.firstHalf
-            
-            if paintBlock.state == .firstHalf && state == .secondHalf {
-                paintBlock.painting(.mixed, color: [color[enumIndex - 1], color[enumIndex]])
-            }
-            
-            else if state == .firstHalf {
-                paintBlock.painting(.firstHalf, color: [color[enumIndex]])
-            }
-            
-            else {
-                paintBlock.painting(.secondHalf, color: [color[enumIndex]])
-            }
-        }
+//        // 데이터 분해
+//        var trackingBlocks: [String] = []
+//        var color: [UIColor] = []
+//        for (key, value) in data {
+//            trackingBlocks.append(key)
+//            color.append(value)
+//        }
+//
+//        resetAllBlocks()
+//        
+//        // 필요한 블럭 업데이트
+//        for (enumIndex, trackingBlock) in trackingBlocks.enumerated() {
+//            let split = trackingBlock.split(separator: ":").map { String($0) }
+//            let hour = split[0]
+//            let minute = split[1]
+//            
+//            // 트래킹 블럭 지정
+//            let blockIndex = Int(hour)!
+//            let paintBlock = blocks[blockIndex]
+//            
+//            let state = Int(minute)! >= 30 ? 
+//            TrackingBoardBlock.Paint.secondHalf : TrackingBoardBlock.Paint.firstHalf
+//            
+//            if paintBlock.paint == .firstHalf && state == .secondHalf {
+//                paintBlock.painting(.mixed, color: [color[enumIndex - 1], color[enumIndex]])
+//            }
+//            
+//            else if state == .firstHalf {
+//                paintBlock.painting(.firstHalf, color: [color[enumIndex]])
+//            }
+//            
+//            else {
+//                paintBlock.painting(.secondHalf, color: [color[enumIndex]])
+//            }
+//        }
     }
     
     /// 트래킹 완료 후 보드 표시 메서드입니다.
     func trackingCompleteAndFill(_ trackingBlocks: [String], color: [UIColor]) {
-        
-        for trackingBlock in trackingBlocks {
-            let split = trackingBlock.split(separator: ":").map { String($0) }
-            let hour = split[0]
-            let minute = split[1]
-            
-            // 트래킹 블럭 지정
-            let paintBlock = blocks[Int(hour)!]
-            let state = minute == "00" ? TrackingBoardBlock.Paint.firstHalf : TrackingBoardBlock.Paint.secondHalf
-            
-            if state == .firstHalf {
-                // print("\(hour):\(minute) 블럭 firstHalf")
-                paintBlock.painting(.firstHalf, color: color)
-            }
-            
-            // 첫번째 반쪽이 이미 차있다면, full로 변경
-            else if paintBlock.state == .firstHalf && state == .secondHalf {
-                // print("\(hour):\(minute) 블럭 fullTime")
-                paintBlock.painting(.fullTime, color: color)
-            } 
-            
-            else {
-                // print("\(hour):\(minute) 블럭 secondHalf")
-                paintBlock.painting(.secondHalf, color: color)
-            }
-        }
+//        
+//        for trackingBlock in trackingBlocks {
+//            let split = trackingBlock.split(separator: ":").map { String($0) }
+//            let hour = split[0]
+//            let minute = split[1]
+//            
+//            // 트래킹 블럭 지정
+//            let paintBlock = blocks[Int(hour)!]
+//            let state = minute == "00" ? TrackingBoardBlock.Paint.firstHalf : TrackingBoardBlock.Paint.secondHalf
+//            
+//            if state == .firstHalf {
+//                // print("\(hour):\(minute) 블럭 firstHalf")
+//                paintBlock.painting(.firstHalf, color: color)
+//            }
+//            
+//            // 첫번째 반쪽이 이미 차있다면, full로 변경
+//            else if paintBlock.paint == .firstHalf && state == .secondHalf {
+//                // print("\(hour):\(minute) 블럭 fullTime")
+//                paintBlock.painting(.fullTime, color: color)
+//            } 
+//            
+//            else {
+//                // print("\(hour):\(minute) 블럭 secondHalf")
+//                paintBlock.painting(.secondHalf, color: color)
+//            }
+//        }
     }
     
     /// 애니메이션을 시작합니다.
     private func startAnimation(_ time: Time, paintBlock: TrackingBoardBlock, color: UIColor, isPaused: Bool) {
         
-        switch time {
-        case .onTime:
-            // print("firstHalf")
-            paintBlock.configureAnimation(.firstHalf, color: color, isPaused: isPaused)
-            
-        case .halfTime:
-            
-            if paintBlock.state == .secondHalf {
-                // print("secondHalf")
-                paintBlock.configureAnimation(.secondHalf, color: color, isPaused: isPaused)
-                return
-            }
-            
-            if paintBlock.state == .fullTime {
-                // print("fullTime")
-                paintBlock.configureAnimation(.fullTime, color: color, isPaused: isPaused)
-                return
-            }
-        }
+//        switch time {
+//        case .onTime:
+//            // print("firstHalf")
+//            paintBlock.configureAnimation(.firstHalf, color: color, isPaused: isPaused)
+//            
+//        case .halfTime:
+//            
+//            if paintBlock.paint == .secondHalf {
+//                // print("secondHalf")
+//                paintBlock.configureAnimation(.secondHalf, color: color, isPaused: isPaused)
+//                return
+//            }
+//            
+//            if paintBlock.paint == .fullTime {
+//                // print("fullTime")
+//                paintBlock.configureAnimation(.fullTime, color: color, isPaused: isPaused)
+//                return
+//            }
+//        }
     }
     
     func pauseTrackingAnimation(_ trackingBlocks: [String], isPaused: Bool) {
-        for index in trackingBlocks {
-            let split = index.split(separator: ":").map { String($0) }
-            let hour = split[0]
-            let minute = split[1]
-            
-            let blockIndex = Int(hour)!
-            
-            // 트래킹 블럭 지정
-            let paintBlock = blocks[blockIndex]
-            
-            let time = minute == "00" ? Time.onTime : Time.halfTime
-            
-            // 만약 앞에가 채워져있으면 이번 블럭은 건너뛰고 대신 이전 블럭의 애니메이션 삭제 후 full로 실행하기
-            if time == .halfTime && paintBlock.state == .firstHalf {
-                // print("\(hour):\(minute) 블럭을 통해 fullTime이 되었기에 기존 애니메이션 삭제")
-                paintBlock.state = .fullTime
-            }
-            
-            // print("\(hour):\(minute) 블럭 채우기")
-            startAnimation(time, paintBlock: paintBlock, color: Color.entireBlock, isPaused: isPaused)
-        }
+//        for index in trackingBlocks {
+//            let split = index.split(separator: ":").map { String($0) }
+//            let hour = split[0]
+//            let minute = split[1]
+//            
+//            let blockIndex = Int(hour)!
+//            
+//            // 트래킹 블럭 지정
+//            let paintBlock = blocks[blockIndex]
+//            
+//            let time = minute == "00" ? Time.onTime : Time.halfTime
+//            
+//            // 만약 앞에가 채워져있으면 이번 블럭은 건너뛰고 대신 이전 블럭의 애니메이션 삭제 후 full로 실행하기
+//            if time == .halfTime && paintBlock.paint == .firstHalf {
+//                // print("\(hour):\(minute) 블럭을 통해 fullTime이 되었기에 기존 애니메이션 삭제")
+//                paintBlock.paint = .fullTime
+//            }
+//            
+//            // print("\(hour):\(minute) 블럭 채우기")
+//            startAnimation(time, paintBlock: paintBlock, color: Color.entireBlock, isPaused: isPaused)
+//        }
     }
     
     /// 트래킹 애니메이션을 활성화합니다.
     func updateTrackingAnimation(_ trackingBlocks: [String], color: UIColor, isPaused: Bool) {
         
-        resetAllBlocks()
-        
-        // 중복 블럭 제거
-        var uniqueBlocks: [String] = []
-        for block in trackingBlocks where !uniqueBlocks.contains(block) {
-            uniqueBlocks.append(block)
-        }
-        
-        print("애니메이션에 돌아갈 블럭 목록: \(uniqueBlocks)\n")
-        
-        // 애니메이션 할 블럭 지정
-        for index in uniqueBlocks {
-            let split = index.split(separator: ":").map { String($0) }
-            let hour = split[0]
-            let minute = split[1]
-            
-            let blockIndex = Int(hour)!
-            
-            // 트래킹 블럭 지정
-            let paintBlock = blocks[blockIndex]
-            let time = minute == "00" ? Time.onTime : Time.halfTime
-            
-            if time == .onTime {
-                paintBlock.state = .firstHalf
-            }
-            
-            // 만약 앞에가 채워져있으면 이번 블럭은 건너뛰고 대신 이전 블럭의 애니메이션 삭제 후 full로 실행하기
-            else if time == .halfTime && paintBlock.state == .firstHalf {
-                // print("\(hour):\(minute) 블럭을 통해 fullTime이 되었기에 기존 애니메이션 삭제")
-                paintBlock.state = .fullTime
-            }
-            
-            else {
-                paintBlock.state = .secondHalf
-            }
-            
-            // print("\(hour):\(minute) 블럭 채우기")
-            startAnimation(time, paintBlock: paintBlock, color: color, isPaused: isPaused)
-        }
+//        resetAllBlocks()
+//        
+//        // 중복 블럭 제거
+//        var uniqueBlocks: [String] = []
+//        for block in trackingBlocks where !uniqueBlocks.contains(block) {
+//            uniqueBlocks.append(block)
+//        }
+//        
+//        print("애니메이션에 돌아갈 블럭 목록: \(uniqueBlocks)\n")
+//        
+//        // 애니메이션 할 블럭 지정
+//        for index in uniqueBlocks {
+//            let split = index.split(separator: ":").map { String($0) }
+//            let hour = split[0]
+//            let minute = split[1]
+//            
+//            let blockIndex = Int(hour)!
+//            
+//            // 트래킹 블럭 지정
+//            let paintBlock = blocks[blockIndex]
+//            let time = minute == "00" ? Time.onTime : Time.halfTime
+//            
+//            if time == .onTime {
+//                paintBlock.paint = .firstHalf
+//            }
+//            
+//            // 만약 앞에가 채워져있으면 이번 블럭은 건너뛰고 대신 이전 블럭의 애니메이션 삭제 후 full로 실행하기
+//            else if time == .halfTime && paintBlock.paint == .firstHalf {
+//                // print("\(hour):\(minute) 블럭을 통해 fullTime이 되었기에 기존 애니메이션 삭제")
+//                paintBlock.paint = .fullTime
+//            }
+//            
+//            else {
+//                paintBlock.paint = .secondHalf
+//            }
+//            
+//            // print("\(hour):\(minute) 블럭 채우기")
+//            startAnimation(time, paintBlock: paintBlock, color: color, isPaused: isPaused)
+//        }
     }
     
     /// 트래킹 애니메이션을 중지합니다.
     func stopTrackingAnimation(_ trackingBlocks: [String]) {
-        for index in trackingBlocks {
-            let split = index.split(separator: ":").map { String($0) }
-            let hour = split[0]
-            
-            // 트래킹 블럭 지정
-            let paintBlocks = blocks[Int(hour)!]
-            // print("\(Int(hour)!)번째 블럭 애니메이션 중지")
-            
-            // 색칠 초기화
-            paintBlocks.full.backgroundColor = Color.entireBlock
-            paintBlocks.firstHalf.backgroundColor = Color.entireBlock
-            paintBlocks.secondHalf.backgroundColor = Color.entireBlock
-            
-            // 애니메이션 해제
-            paintBlocks.isAnimate = false
-            paintBlocks.layer.removeAllAnimations()
-        }
+//        for index in trackingBlocks {
+//            let split = index.split(separator: ":").map { String($0) }
+//            let hour = split[0]
+//            
+//            // 트래킹 블럭 지정
+//            let paintBlocks = blocks[Int(hour)!]
+//            // print("\(Int(hour)!)번째 블럭 애니메이션 중지")
+//            
+//            // 색칠 초기화
+//            paintBlocks.full.backgroundColor = Color.entireBlock
+//            paintBlocks.firstHalf.backgroundColor = Color.entireBlock
+//            paintBlocks.secondHalf.backgroundColor = Color.entireBlock
+//            
+//            // 애니메이션 해제
+//            paintBlocks.isAnimate = false
+//            paintBlocks.layer.removeAllAnimations()
+//        }
     }
     
     /// 애니메이션 리프레시를 위한 트래킹 블럭 목록을 업데이트합니다.
     func refreshAnimation(_ trackingBlocks: [String], color: UIColor) {
-        
-        // 만약 빈 배열이 전달된다면 그대로 종료
-        if trackingBlocks.isEmpty {
-            print("\(#function): 빈 배열이 전달되어 애니메이션을 실행하지 않고 종료합니다.")
-            return
-        }
-        
-        // 첫번째 블럭을 기준으로 모든 블럭 리프레시
-        let block = trackingBlocks[0].split(separator: ":").map { String($0) }
-        let hour = block[0]
-        
-        // 트래킹 블럭 지정
-        let paintBlock = blocks[Int(hour)!]
-        paintBlock.delegate = self
-        paintBlock.isRefresh = true
+//        
+//        // 만약 빈 배열이 전달된다면 그대로 종료
+//        if trackingBlocks.isEmpty {
+//            print("\(#function): 빈 배열이 전달되어 애니메이션을 실행하지 않고 종료합니다.")
+//            return
+//        }
+//        
+//        // 첫번째 블럭을 기준으로 모든 블럭 리프레시
+//        let block = trackingBlocks[0].split(separator: ":").map { String($0) }
+//        let hour = block[0]
+//        
+//        // 트래킹 블럭 지정
+//        let paintBlock = blocks[Int(hour)!]
+//        paintBlock.delegate = self
+//        paintBlock.isRefresh = true
     }
     
     // MARK: - Initial Method

@@ -79,7 +79,7 @@ final class HomeViewController: UIViewController {
     /// 처음 트래킹 모드 실행 메서드
     private func setupTrackingMode() {
         
-        // 1. 만약 트래킹 중이라면~
+        // 트래킹 모드 O
         if UserDefaultsItem.shared.isTracking {
             
             setTrackingModeAfterAppRestart()
@@ -88,7 +88,7 @@ final class HomeViewController: UIViewController {
             if UserDefaultsItem.shared.isPaused { viewManager.trackingButtonTapped() }
         }
         
-        // 트래킹 모드가 아니라면
+        // 트래킹 모드 X
         else if !UserDefaultsItem.shared.isTracking {
             blockData.updateFocusIndex(to: 0)
         }

@@ -79,25 +79,25 @@ extension HomeViewController {
             print("음 \(elapsedTime)초가 지났군") 
             
             // 4. 시간 업데이트
-            timerManager.totalTime += elapsedTime
-            timerManager.currentTime += Float(elapsedTime)
+            timerManager.totalTrackingSecond += elapsedTime
+            timerManager.currentTrackingSecond += Float(elapsedTime)
             
             // 4-1. 0.5개 이상의 블럭이 생산된 경우
-            if timerManager.currentTime > Float(trackingData.targetSecond) {
-                let count = Int(timerManager.currentTime / Float(trackingData.targetSecond))
-                timerManager.currentTime -= Float(trackingData.targetSecond) * Float(count)
+            if timerManager.currentTrackingSecond > Float(trackingData.targetSecond) {
+                let count = Int(timerManager.currentTrackingSecond / Float(trackingData.targetSecond))
+                timerManager.currentTrackingSecond -= Float(trackingData.targetSecond) * Float(count)
                 
                 for _ in 1...count {
                     
                     // 4-2. 생산 블럭 업데이트
-                    timerManager.totalBlock += 0.5
+                    timerManager.totalBlockCount += 0.5
                     
                     // 4-3. 그동안 트래킹 되었던 데이터 추가
                     trackingData.appendDataBetweenBackground()
                 }
                 
                 // 5. 생산 블럭량 라벨 업데이트
-                viewManager.updateCurrentProductivityLabel(timerManager.totalBlock)
+                viewManager.updateCurrentProductivityLabel(timerManager.totalBlockCount)
                 
                 // 6. 트래킹 보드 애니메이션 업데이트
                 viewManager.trackingBoard.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())

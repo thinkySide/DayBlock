@@ -87,8 +87,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let lastAccessSecond = TrackingDataStore.shared.todaySecondsToInt()
         UserDefaultsItem.shared.setLastAccessSecond(to: lastAccessSecond)
         
+        // 테스트: 나가는 시점의 Date 저장
+        let lastAccessDate = Date()
+        UserDefaultsItem.shared.setLastAccessDate(to: lastAccessDate)
+        
         // 4. trackingSecond 저장
-        let trackingSecond = TimerManager.shared.totalTime
+        let trackingSecond = TimerManager.shared.totalTrackingSecond
         UserDefaultsItem.shared.setTrackingSecondBeforeAppTermination(to: trackingSecond)
         
         // 5. 일시정지 시간 저장

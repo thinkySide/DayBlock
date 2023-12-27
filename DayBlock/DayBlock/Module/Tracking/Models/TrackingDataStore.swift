@@ -49,6 +49,28 @@ final class TrackingDataStore {
     var currentTrackingBlocks: [String] = []
 }
 
+// MARK: - New Tracking Method
+extension TrackingDataStore {
+    
+    /// 앱이 종료되어있을 동안 며칠이 지났는지 확인하는 값을 반환합니다.
+    var calculateElapsedDaySinceAppExit: Int {
+        var calendar = Calendar.current
+        calendar.locale = Locale(identifier: "ko_KR")
+        let lastAccessDay = calendar.startOfDay(for: UserDefaultsItem.shared.lastAccessDate)
+        let currentDay = calendar.startOfDay(for: Date())
+        let dateComponents = calendar.dateComponents([.day], from: lastAccessDay, to: currentDay)
+        return dateComponents.day ?? 0
+    }
+    
+    /// 앱이 종료되어있을 동안 시간이 얼마나 흘렀는지 구하고 반환합니다.
+    var calculateElapsedTimeSinceAppExit: Int {
+        let lastAccess = UserDefaultsItem.shared.lastAccessDate
+        let timeInterval = Date().timeIntervalSince(lastAccess)
+        return Int(timeInterval)
+    }
+}
+
+
 // MARK: - Format Method
 extension TrackingDataStore {
     
@@ -546,7 +568,7 @@ extension TrackingDataStore {
     }
     
     /// 앱이 종료되어있을 동안 추가된 트래킹 데이터를 추가합니다.
-    func appedDataBetweenAppDisconect() {
+    func appendDataBetweenAppExit() {
         
         // 1. 현재 트래킹 중인 세션의 마지막 시간 = 시작 시간 + 한 세션의 시간
         let initialStartTime = Int(focusTime().startTime)!
@@ -685,10 +707,13 @@ extension TrackingDataStore {
     
     /// 앱이 종료된 후, 새로 시작할 때 focusDate를 이용해 새로운 currentTrackingBlocks 배열을 생성합니다.
     func regenerationTrackingBlocks() {
+        
+        // 1. 시간 리스트 반환
         guard let timeList = focusDate().trackingTimeList?.array as? [TrackingTime] else {
             fatalError("시간 리스트 반환 실패")
         }
         
+        // 2. 시간 리스트만큼 반복하며 최종 트래킹 보드 업데이트
         for time in timeList {
             
             let targetNumber = Int(time.startTime)! / targetSecond
@@ -726,7 +751,7 @@ extension TrackingDataStore {
     func testAppendForBackground() {
         
         // 몇번째 트래킹 블럭 활성화 할지 결정하기
-        let count = Int(TimerManager.shared.totalBlock / 0.5)
+        let count = Int(TimerManager.shared.totalBlockCount / 0.5)
         
         if !currentTrackingBlocks.contains(testTrackingBoardDatas[count]) {
             currentTrackingBlocks.append(testTrackingBoardDatas[count])

@@ -42,7 +42,6 @@ final class TrackingBoardBlock: UIView {
     let firstHalf: UIView = {
         let view = UIView()
         view.clipsToBounds = true
-        view.alpha = 0
         return view
     }()
     
@@ -50,7 +49,6 @@ final class TrackingBoardBlock: UIView {
     let secondHalf: UIView = {
         let view = UIView()
         view.clipsToBounds = true
-        view.alpha = 0
         return view
     }()
     
@@ -58,7 +56,6 @@ final class TrackingBoardBlock: UIView {
     let mixedFirstHalf: UIView = {
         let view = UIView()
         view.clipsToBounds = true
-        view.alpha = 0
         return view
     }()
     
@@ -66,84 +63,192 @@ final class TrackingBoardBlock: UIView {
     let mixedSecondHalf: UIView = {
         let view = UIView()
         view.clipsToBounds = true
-        view.alpha = 0
         return view
     }()
     
     /// 현재 블럭 색칠 상태
-    var state: Paint?
+    var paint: Paint
+    
+    
+    
+    // MARK: - New Method
+    
+    /// 첫번째 반쪽 블럭을 업데이트합니다.
+    func updateFirstBlock(color: UIColor, isAnimated: Bool, isPaused: Bool) {
+        
+        // 비워져있는 블럭으로 설정
+        if color == Color.entireBlock {
+            paint = .none
+            firstHalf.backgroundColor = color
+            return
+        }
+        
+        // 상태 업데이트
+        paint = .firstHalf
+        
+        // 만약 일시정지 상태라면, 색 전환
+        if isPaused {
+            let pausedColor = UIColor(rgb: 0xB0B3BB)
+            firstHalf.layer.removeAllAnimations()
+            firstHalf.backgroundColor = pausedColor
+            firstHalf.alpha = 1
+            return
+        }
+        
+        // 색상 업데이트
+        firstHalf.backgroundColor = color
+        
+        // 애니메이션 업데이트
+        startAlphaAnimation(to: firstHalf)
+    }
+    
+    /// 두번째 반쪽 블럭을 업데이트합니다.
+    func updateSecondBlock(color: UIColor, isAnimated: Bool, isPaused: Bool) {
+        
+        // 비워져있는 블럭으로 설정
+        if color == Color.entireBlock {
+            secondHalf.backgroundColor = color
+            paint = .none
+            return
+        }
+        
+        // 이미 첫번째 반쪽이 채워져있다면, mixed로 전환
+        if paint == .firstHalf {
+            
+            // 상태 업데이트
+            paint = .mixed
+            
+            // 만약 일시정지 상태라면, 색 전환
+            if isPaused {
+                let pausedColor = UIColor(rgb: 0xB0B3BB)
+                mixedFirstHalf.layer.removeAllAnimations()
+                mixedFirstHalf.backgroundColor = pausedColor
+                mixedFirstHalf.alpha = 1
+                
+                mixedSecondHalf.layer.removeAllAnimations()
+                mixedSecondHalf.backgroundColor = pausedColor
+                mixedSecondHalf.alpha = 1
+                return
+            }
+            
+            // 색상 업데이트
+            let firstColor = firstHalf.backgroundColor
+            mixedFirstHalf.backgroundColor = firstColor
+            mixedSecondHalf.backgroundColor = color
+            firstHalf.backgroundColor = .none
+            
+            // 애니메이션 업데이트
+            startAlphaAnimation(to: mixedFirstHalf)
+            startAlphaAnimation(to: mixedSecondHalf)
+        }
+        
+        // 첫번째 반쪽이 비워져있다면, secondHalf로 전환
+        else {
+            
+            // 상태 업데이트
+            paint = .secondHalf
+            
+            // 만약 일시정지 상태라면, 색 전환
+            if isPaused {
+                let pausedColor = UIColor(rgb: 0xB0B3BB)
+                secondHalf.layer.removeAllAnimations()
+                secondHalf.backgroundColor = pausedColor
+                secondHalf.alpha = 1
+                return
+            }
+            
+            // 색상 업데이트
+            secondHalf.backgroundColor = color
+            
+            // 애니메이션 업데이트
+            startAlphaAnimation(to: secondHalf)
+        }
+    }
+    
+    /// Alpha 애니메이션을 시작합니다.
+    private func startAlphaAnimation(to view: UIView) {
+        let options = UIView.AnimationOptions(arrayLiteral: [.autoreverse, .repeat])
+        UIView.animate(withDuration: 1.0, delay: 0, options: options, animations: {
+            view.alpha = 0.0
+        }, completion: nil)
+    }
+    
+    
+    
     
     // MARK: - Method
     
     /// 블럭 색칠 메서드
     func painting(_ area: Paint, color: [UIColor] = [Color.entireBlock]) {
-        
-        // 상태 변경
-        state = area
-    
-        // 블럭 초기화
-        backgroundColor = Color.entireBlock
-        firstHalf.backgroundColor = .clear
-        firstHalf.alpha = 1
-        secondHalf.backgroundColor = .clear
-        secondHalf.alpha = 1
-        mixedFirstHalf.backgroundColor = .clear
-        mixedFirstHalf.alpha = 1
-        mixedSecondHalf.backgroundColor = .clear
-        mixedSecondHalf.alpha = 1
-        
-        // 색상 변경
-        switch state {
-        case .none?:
-            // print("state == none")
-            backgroundColor = Color.entireBlock
-            
-        case .firstHalf:
-            // print("state == firstHalf")
-            firstHalf.backgroundColor = color[0]
-            
-        case .secondHalf:
-            // print("state == secondHalf")
-            secondHalf.backgroundColor = color[0]
-            
-        case .fullTime:
-            // print("state == fullTime")
-            backgroundColor = color[0]
-            
-        case .mixed:
-            // print("state == mixed")
-            mixedFirstHalf.backgroundColor = color[0]
-            mixedSecondHalf.backgroundColor = color[1]
-
-        case nil: print("state == nil")
-        }
+//        
+//        // 상태 변경
+//        paint = area
+//    
+//        // 블럭 초기화
+//        backgroundColor = Color.entireBlock
+//        firstHalf.backgroundColor = .clear
+//        firstHalf.alpha = 1
+//        secondHalf.backgroundColor = .clear
+//        secondHalf.alpha = 1
+//        mixedFirstHalf.backgroundColor = .clear
+//        mixedFirstHalf.alpha = 1
+//        mixedSecondHalf.backgroundColor = .clear
+//        mixedSecondHalf.alpha = 1
+//        
+//        // 색상 변경
+//        switch paint {
+//        case .none?:
+//            // print("state == none")
+//            backgroundColor = Color.entireBlock
+//            
+//        case .firstHalf:
+//            // print("state == firstHalf")
+//            firstHalf.backgroundColor = color[0]
+//            
+//        case .secondHalf:
+//            // print("state == secondHalf")
+//            secondHalf.backgroundColor = color[0]
+//            
+//        case .fullTime:
+//            // print("state == fullTime")
+//            backgroundColor = color[0]
+//            
+//        case .mixed:
+//            // print("state == mixed")
+//            mixedFirstHalf.backgroundColor = color[0]
+//            mixedSecondHalf.backgroundColor = color[1]
+//
+//        case nil: print("state == nil")
+//        }
     }
     
     /// 블럭 애니메이션 설정 메서드
     func configureAnimation(_ area: Paint, color: UIColor = Color.entireBlock, isPaused: Bool) {
-        
-        // 상태 변경
-        state = area
-        
-        // 블럭 초기화
-        backgroundColor = Color.entireBlock
-        full.backgroundColor = .clear
-        firstHalf.backgroundColor = .clear
-        secondHalf.backgroundColor = .clear
-        
-        // 깜빡이 애니메이션
-        switch state {
-        case .none?: backgroundColor = Color.entireBlock
-        case .firstHalf: animate(firstHalf, color: color, isPaused: isPaused)
-        case .secondHalf: animate(secondHalf, color: color, isPaused: isPaused)
-        case .fullTime: animate(full, color: color, isPaused: isPaused)
-        case.mixed: break
-        case nil: break
-        }
+//        
+//        // 상태 변경
+//        paint = area
+//        
+//        // 블럭 초기화
+//        backgroundColor = Color.entireBlock
+//        full.backgroundColor = .clear
+//        firstHalf.backgroundColor = .clear
+//        secondHalf.backgroundColor = .clear
+//        
+//        // 깜빡이 애니메이션
+//        switch paint {
+//        case .none: backgroundColor = Color.entireBlock
+//        case .firstHalf: animate(firstHalf, color: color, isPaused: isPaused)
+//        case .secondHalf: animate(secondHalf, color: color, isPaused: isPaused)
+//        case .fullTime: animate(full, color: color, isPaused: isPaused)
+//        case.mixed: break
+//        }
     }
     
     /// 실제 블럭 애니메이션 동작 메서드
     func animate(_ area: UIView, color: UIColor, isPaused: Bool) {
+        
+        // 기존 애니메이션 초기화
+        area.layer.removeAllAnimations()
         
         // 애니메이션 활성화 상태
         if !isPaused {
@@ -169,8 +274,7 @@ final class TrackingBoardBlock: UIView {
     }
     
     /// Alpha값을 조정하는 재귀함수
-    func animateAlpha(_ view: UIView, toAlpha: CGFloat) {
-        
+    private func animateAlpha(_ view: UIView, toAlpha: CGFloat) {
         UIView.animate(withDuration: 1.0, delay: 0, options: [.curveEaseInOut]) {
             view.alpha = toAlpha
         } completion: { [weak self] _ in
@@ -195,7 +299,8 @@ final class TrackingBoardBlock: UIView {
     
     // MARK: - Initial Method
     
-    init(frame: CGRect = .zero, size: CGFloat) {
+    init(frame: CGRect = .zero, size: CGFloat, paint: Paint = .none) {
+        self.paint = paint
         super.init(frame: frame)
         
         /// Blcok Color

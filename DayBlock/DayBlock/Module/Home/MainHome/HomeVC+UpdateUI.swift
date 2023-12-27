@@ -23,7 +23,14 @@ extension HomeViewController {
     
     /// 트래킹 보드를 최신화합니다.
     func uptodateTrackingBoardUI() {
-        let outputInfo = trackingData.todayOutputBoardData()
-        viewManager.trackingBoard.paintOutputBoard(outputInfo)
+        // let outputInfo = trackingData.todayOutputBoardData()
+        // viewManager.trackingBoard.paintOutputBoard(outputInfo)
+        
+        TrackingBoardService.shared.updateColor(to: 300, color: Color.testBlue)
+        TrackingBoardService.shared.updateColor(to: 5400, color: Color.testPink)
+        TrackingBoardService.shared.updateColor(to: 7300, color: Color.testGreen)
+        TrackingBoardService.shared.updateColor(to: 9100, color: Color.testYellow)
+        
+        viewManager.trackingBoard.updateBoard()
     }
 }

@@ -13,6 +13,8 @@
 		070A90292B283FDD00BBD147 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070A90282B283FDD00BBD147 /* MyPageViewController.swift */; };
 		070A902C2B28400D00BBD147 /* TotalTodayBurningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070A902B2B28400D00BBD147 /* TotalTodayBurningView.swift */; };
 		070A902E2B28429000BBD147 /* SummaryInfoIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070A902D2B28429000BBD147 /* SummaryInfoIcon.swift */; };
+		0710ACDF2B3C3C6000BAEAD4 /* TrackingBoardBlockInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0710ACDE2B3C3C6000BAEAD4 /* TrackingBoardBlockInfo.swift */; };
+		0710ACE42B3C537200BAEAD4 /* TrackingBoardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0710ACE32B3C537200BAEAD4 /* TrackingBoardService.swift */; };
 		0713019E2B205791008A2A8D /* SmallButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0713019D2B205791008A2A8D /* SmallButton.swift */; };
 		071301A02B208844008A2A8D /* CalendarBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0713019F2B208844008A2A8D /* CalendarBlock.swift */; };
 		0714B8052ACD005000B560D6 /* TestDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0714B8042ACD005000B560D6 /* TestDataSet.swift */; };
@@ -176,6 +178,8 @@
 		070A90282B283FDD00BBD147 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		070A902B2B28400D00BBD147 /* TotalTodayBurningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalTodayBurningView.swift; sourceTree = "<group>"; };
 		070A902D2B28429000BBD147 /* SummaryInfoIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryInfoIcon.swift; sourceTree = "<group>"; };
+		0710ACDE2B3C3C6000BAEAD4 /* TrackingBoardBlockInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingBoardBlockInfo.swift; sourceTree = "<group>"; };
+		0710ACE32B3C537200BAEAD4 /* TrackingBoardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingBoardService.swift; sourceTree = "<group>"; };
 		0713019D2B205791008A2A8D /* SmallButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallButton.swift; sourceTree = "<group>"; };
 		0713019F2B208844008A2A8D /* CalendarBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBlock.swift; sourceTree = "<group>"; };
 		0714B8042ACD005000B560D6 /* TestDataSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDataSet.swift; sourceTree = "<group>"; };
@@ -374,6 +378,15 @@
 				0736AC542B299D6E00D90AB2 /* InfoCellView.swift */,
 			);
 			path = Info;
+			sourceTree = "<group>";
+		};
+		0710ACE02B3C3DB300BAEAD4 /* TrackingBoard */ = {
+			isa = PBXGroup;
+			children = (
+				0710ACDE2B3C3C6000BAEAD4 /* TrackingBoardBlockInfo.swift */,
+				0710ACE32B3C537200BAEAD4 /* TrackingBoardService.swift */,
+			);
+			path = TrackingBoard;
 			sourceTree = "<group>";
 		};
 		0736AC512B298FDB00D90AB2 /* Setting */ = {
@@ -958,6 +971,7 @@
 				07D1F4AC2B37ECEA00BFE90E /* PushNotificationService.swift */,
 				07446E442B2ACDD60002E9EF /* Vibration.swift */,
 				07D1F5292B3BF0CC00BFE90E /* UserDefaultsItem.swift */,
+				0710ACE02B3C3DB300BAEAD4 /* TrackingBoard */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1088,12 +1102,14 @@
 				07454E0F29EBE50500B3458D /* BottomModal.swift in Sources */,
 				078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */,
 				0736AC552B299D6E00D90AB2 /* InfoCellView.swift in Sources */,
+				0710ACDF2B3C3C6000BAEAD4 /* TrackingBoardBlockInfo.swift in Sources */,
 				07174A162B1F4AD900B7EC69 /* SummaryView.swift in Sources */,
 				0770803A29E7989B00D66900 /* SelectColorViewController.swift in Sources */,
 				0770803829E7988100D66900 /* SelectColorView.swift in Sources */,
 				07C0BDB42ABC452600D5E779 /* TrackingDate+CoreDataClass.swift in Sources */,
 				07B1F8C02B2C2B0C00E98382 /* FirstOnboardingViewController.swift in Sources */,
 				077A663429ED2AB000D99C68 /* CreateGroupViewController.swift in Sources */,
+				0710ACE42B3C537200BAEAD4 /* TrackingBoardService.swift in Sources */,
 				0749D72A2ABACAD3004DF368 /* HomeVC+CustomDelegate.swift in Sources */,
 				070A902C2B28400D00BBD147 /* TotalTodayBurningView.swift in Sources */,
 				0719648C29DDB1C0009CA1A4 /* TrackingBoardBlock.swift in Sources */,

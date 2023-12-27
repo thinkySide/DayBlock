@@ -29,22 +29,22 @@ final class TimerManager {
     var pausedTimer: Timer!
 
     /// 타이머 전체 시간
-    var totalTime = 0
+    var totalTrackingSecond = 0
     
     /// 현재 생산 블럭 시간 (30초 기준)
-    var currentTime: Float = 0
+    var currentTrackingSecond: Float = 0
     
     /// 총 생산한 블럭 수량
-    var totalBlock: Double = 0
+    var totalBlockCount: Double = 0
     
     /// 일시정지 된 시간
     var pausedTime = 0
 
     /// 타이머에 사용되는 포맷
     var format: String {
-        let hour = totalTime / 3600
-        let minute = (totalTime - (hour * 3600)) / 60
-        let second = (totalTime - (hour * 3600)) - (minute * 60)
+        let hour = totalTrackingSecond / 3600
+        let minute = (totalTrackingSecond - (hour * 3600)) / 60
+        let second = (totalTrackingSecond - (hour * 3600)) - (minute * 60)
         return String(format: "%02d:%02d:%02d", hour, minute, second)
     }
 }
@@ -54,13 +54,13 @@ extension TimerManager {
     
     /// Progress 퍼센트 수치를 반환합니다.
     func progressPercent() -> Float {
-        return currentTime / Float(trackingData.targetSecond)
+        return currentTrackingSecond / Float(trackingData.targetSecond)
     }
     
     /// 타이머를 기본값(0)으로 초기화합니다.
     func reset() {
-        totalTime = 0
-        currentTime = 0
-        totalBlock = 0
+        totalTrackingSecond = 0
+        currentTrackingSecond = 0
+        totalBlockCount = 0
     }
 }

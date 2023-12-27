@@ -12,11 +12,11 @@ extension HomeViewController {
     
     /// 1초마다 실행되는 트래킹 메서드입니다.
     @objc func trackingEverySecond() {
-        timerManager.totalTime += 1
-        timerManager.currentTime += 1
+        timerManager.totalTrackingSecond += 1
+        timerManager.currentTrackingSecond += 1
         
         // 0.5개가 생산될 때마다 호출
-        if timerManager.totalTime % trackingData.targetSecond == 0 {
+        if timerManager.totalTrackingSecond % trackingData.targetSecond == 0 {
             // testTracking()
             produceBlock()
         }
@@ -34,14 +34,14 @@ extension HomeViewController {
         trackingData.appendDataInProgress()
         
         // 2-1. 현재 트래킹 시간 초기화
-        timerManager.currentTime = 0
+        timerManager.currentTrackingSecond = 0
         
         // 2-2. 일시정지 시간 초기화
         timerManager.pausedTime = 0
         
         // 3. 생산한 전체 블럭
-        timerManager.totalBlock += 0.5
-        viewManager.updateCurrentProductivityLabel(timerManager.totalBlock)
+        timerManager.totalBlockCount += 0.5
+        viewManager.updateCurrentProductivityLabel(timerManager.totalBlockCount)
         
         // 만약 날짜가 넘어갔다면, 새로운 날짜 세션으로 재시작.
         if trackingData.focusDate().day != Date().dayString {
@@ -77,14 +77,14 @@ extension HomeViewController {
         trackingData.appendDataInProgress()
         
         // 2-1. 현재 트래킹 시간 초기화
-        timerManager.currentTime = 0
+        timerManager.currentTrackingSecond = 0
         
         // 2-2. 일시정지 시간 초기화
         timerManager.pausedTime = 0
         
         // 3. 생산한 전체 블럭 업데이트
-        timerManager.totalBlock += 0.5
-        viewManager.updateCurrentProductivityLabel(timerManager.totalBlock)
+        timerManager.totalBlockCount += 0.5
+        viewManager.updateCurrentProductivityLabel(timerManager.totalBlockCount)
         
         // 4. 트래킹 보드를 위한 배열 업데이트
         trackingData.testAppendForBackground()
@@ -169,6 +169,10 @@ extension HomeViewController {
         
         // 4. SFSymbol 애니메이션 종료
         stopSFSymbolAnimation(viewManager.trackingBlock.icon)
+        
+        
+        // 테스트
+        viewManager.trackingBoard.pauseBoard()
     }
     
     /// 트래킹 모드가 재시작 된 후 호출되는 Delegate 메서드입니다.
@@ -201,8 +205,7 @@ extension HomeViewController {
         showToast(toast: viewManager.toastView, isActive: false)
         viewManager.trackingBoard.stopTrackingAnimation(trackingData.trackingBlocks())
         
-        let outputInfo = trackingData.todayOutputBoardData()
-        viewManager.trackingBoard.paintOutputBoard(outputInfo)
+        uptodateTrackingBoardUI()
         
         // 2. 이전에 트래킹 되고 있던 데이터 삭제
         trackingData.removeStopData()
@@ -252,7 +255,7 @@ extension HomeViewController: DayBlockDelegate {
     func dayBlock(_ dayBlock: DayBlock, trackingComplete taskLabel: String?) {
         
         // 0. 아직 블럭이 생성되지 않았다면, 메서드
-        guard timerManager.totalTime > trackingData.targetSecond else {
+        guard timerManager.totalTrackingSecond > trackingData.targetSecond else {
             showToast(toast: viewManager.toastView, isActive: true)
             Vibration.error.vibrate()
             return
