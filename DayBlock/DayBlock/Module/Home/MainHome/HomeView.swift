@@ -73,7 +73,7 @@ final class HomeView: UIView {
     }()
     
     /// 트래킹용 블럭 프리뷰
-    let blockPreview: TrackingBoard = {
+    let trackingBoard: TrackingBoard = {
         let preview = TrackingBoard(frame: .zero, blockSize: 18, spacing: 4)
         return preview
     }()
@@ -323,7 +323,7 @@ final class HomeView: UIView {
         [
             groupSelectButton,
             dateLabel, timeLabel, productivityLabel,
-            blockPreview,
+            trackingBoard,
             blockCollectionView,
             trackingBlock,
             messageLabel,
@@ -368,10 +368,10 @@ final class HomeView: UIView {
             groupSelectButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             /// outputBlockPreview
-            blockPreview.centerYAnchor.constraint(equalTo: timeLabel.centerYAnchor),
-            blockPreview.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
-            blockPreview.widthAnchor.constraint(equalToConstant: 128),
-            blockPreview.heightAnchor.constraint(equalToConstant: 84),
+            trackingBoard.centerYAnchor.constraint(equalTo: timeLabel.centerYAnchor),
+            trackingBoard.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
+            trackingBoard.widthAnchor.constraint(equalToConstant: 128),
+            trackingBoard.heightAnchor.constraint(equalToConstant: 84),
             
             /// blockCollectionView
             blockCollectionView.topAnchor.constraint(equalTo: groupSelectButton.bottomAnchor, constant: 12),

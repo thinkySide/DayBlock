@@ -70,8 +70,4 @@ extension HomeViewController: UIScrollViewDelegate {
         
         blockData.updateFocusIndex(to: blockIndex)
     }
-    
-    func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView) {
-        
-    }
 }

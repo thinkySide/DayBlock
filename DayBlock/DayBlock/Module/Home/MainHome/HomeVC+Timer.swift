@@ -65,7 +65,7 @@ extension HomeViewController {
     func updateTrackingBoard(isPaused: Bool) {
         let currentBlocks = trackingData.trackingBlocks()
         let currentColor = groupData.focusColor()
-        viewManager.blockPreview.updateTrackingAnimation(currentBlocks, color: currentColor, isPaused: isPaused)
+        viewManager.trackingBoard.updateTrackingAnimation(currentBlocks, color: currentColor, isPaused: isPaused)
     }
 }
 
@@ -93,25 +93,18 @@ extension HomeViewController {
     /// 트래킹 중단 팝업을 Present합니다.
     func presentStopTrackingPopup() {
         let popup = PopupViewController()
+        let confirmButton = popup.deletePopupView.actionStackView.confirmButton
         popup.modalPresentationStyle = .overCurrentContext
         popup.modalTransitionStyle = .crossDissolve
         popup.deletePopupView.mainLabel.text = "블럭 생산을 중단할까요?"
         popup.deletePopupView.subLabel.text = "지금까지 생산한 블럭이 모두 사라져요."
-        popup.deletePopupView.actionStackView.confirmButton.setTitle("중단할래요", for: .normal)
-        
-        popup.deletePopupView.actionStackView.confirmButton.addTarget(self, action: #selector(trackingStopPopupConfirmButtonTapped), for: .touchUpInside)
-        popup.deletePopupView.actionStackView.cancelButton.addTarget(self, action: #selector(trackingStopPopupCancelButtonTapped), for: .touchUpInside)
-        
+        confirmButton.setTitle("중단할래요", for: .normal)
+        confirmButton.addTarget(self, action: #selector(trackingStopPopupConfirmButtonTapped), for: .touchUpInside)
         self.present(popup, animated: true)
     }
     
     /// 트래킹 중단 팝업 - "중단할래요" 버튼 탭 메서드입니다.
     @objc private func trackingStopPopupConfirmButtonTapped() {
         viewManager.stopTrackingMode()
-    }
-    
-    /// 트래킹 중단 팝업 - "아니오" 버튼 탭 메서드입니다.
-    @objc private func trackingStopPopupCancelButtonTapped() {
-        //
     }
 }

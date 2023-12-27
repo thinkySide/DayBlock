@@ -22,8 +22,9 @@ extension HomeViewController {
         }
         
         // TimeLabel & ProgressView 업데이트
-        viewManager.updateTracking(time: timerManager.format,
-                                   progress: timerManager.progressPercent())
+        let time = timerManager.format
+        let progress = timerManager.progressPercent()
+        viewManager.updateTracking(time: time, progress: progress)
     }
     
     /// 블럭 0.5개 생산 시 실행되는 트래킹 메서드입니다.
@@ -54,14 +55,14 @@ extension HomeViewController {
             
             // 원래 트래킹 되고 있던 블럭들 초기화
             trackingData.resetTrackingBlocks()
-            viewManager.blockPreview.resetAllBlocks()
+            viewManager.trackingBoard.resetAllBlocks()
         }
         
         // 4. 트래킹 보드를 위한 배열 업데이트
         trackingData.appendCurrentTimeInTrackingBlocks()
         
         // 5. 리프레쉬
-        viewManager.blockPreview.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
+        viewManager.trackingBoard.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
     }
     
     /// 일시정지 시간을 계산합니다.
@@ -89,7 +90,7 @@ extension HomeViewController {
         trackingData.testAppendForBackground()
         
         // 5. 리프레쉬
-        viewManager.blockPreview.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
+        viewManager.trackingBoard.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
     }
 }
 
@@ -103,8 +104,8 @@ extension HomeViewController {
         timerManager.trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingEverySecond), userInfo: nil, repeats: true)
         
         // 2. 기존 트래킹 중이었던 데이터 불러오기
-        let groupIndex = UserDefaults.standard.object(forKey: UserDefaultsKey.groupIndex) as? Int ?? 0
-        let blockIndex = UserDefaults.standard.object(forKey: UserDefaultsKey.blockIndex) as? Int ?? 0
+        let groupIndex = UserDefaultsItem.shared.groupIndex
+        let blockIndex = UserDefaultsItem.shared.blockIndex
         viewManager.trackingBlock.update(group: groupData.list()[groupIndex], block: blockData.list()[blockIndex])
         
         // 3. 트래킹 보드 애니메이션 시작
@@ -132,9 +133,9 @@ extension HomeViewController {
         viewManager.trackingBlock.update(group: groupData.focusEntity(), block: blockData.focusEntity())
         
         // 4. UserDefaults 트래킹 모드 확인용 변수 업데이트
-        UserDefaults.standard.set(true, forKey: UserDefaultsKey.isTracking)
-        UserDefaults.standard.set(false, forKey: UserDefaultsKey.isPause)
-        UserDefaults.standard.setValue(blockData.focusIndex(), forKey: UserDefaultsKey.blockIndex)
+        UserDefaultsItem.shared.setIsTracking(to: true)
+        UserDefaultsItem.shared.setIsPaused(to: false)
+        UserDefaultsItem.shared.setBlockIndex(to: blockData.focusIndex())
         
         // 5. 트래킹 보드 애니메이션 시작
         // trackingData.testAppendForDisconnect()
@@ -161,7 +162,7 @@ extension HomeViewController {
         timerManager.pausedTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(pausedEverySecond), userInfo: nil, repeats: true)
         
         // 2. UserDefaults 트래킹 일시정지 확인용 변수 업데이트
-        UserDefaults.standard.set(true, forKey: UserDefaultsKey.isPause)
+        UserDefaultsItem.shared.setIsPaused(to: true)
         
         // 3. 트래킹 보드 애니메이션 일시정지
         updateTrackingBoard(isPaused: true)
@@ -182,7 +183,7 @@ extension HomeViewController {
         timerManager.pausedTimer.invalidate()
         
         // 2. UserDefaults 트래킹 일시정지 확인용 변수 업데이트
-        UserDefaults.standard.set(false, forKey: UserDefaultsKey.isPause)
+        UserDefaultsItem.shared.setIsPaused(to: false)
         
         // 3. 트래킹 보드 애니메이션 재시작
         updateTrackingBoard(isPaused: false)
@@ -198,10 +199,10 @@ extension HomeViewController {
         
         // 1. 트래킹 보드 애니메이션 종료 및 업데이트
         showToast(toast: viewManager.toastView, isActive: false)
-        viewManager.blockPreview.stopTrackingAnimation(trackingData.trackingBlocks())
+        viewManager.trackingBoard.stopTrackingAnimation(trackingData.trackingBlocks())
         
         let outputInfo = trackingData.todayOutputBoardData()
-        viewManager.blockPreview.paintOutputBoard(outputInfo)
+        viewManager.trackingBoard.paintOutputBoard(outputInfo)
         
         // 2. 이전에 트래킹 되고 있던 데이터 삭제
         trackingData.removeStopData()
@@ -213,8 +214,8 @@ extension HomeViewController {
         trackingData.resetTrackingBlocks()
         
         // 5. UserDefaults 트래킹 모드 확인용 변수 업데이트
-        UserDefaults.standard.set(false, forKey: UserDefaultsKey.isTracking)
-        UserDefaults.standard.set(false, forKey: UserDefaultsKey.isPause)
+        UserDefaultsItem.shared.setIsTracking(to: false)
+        UserDefaultsItem.shared.setIsPaused(to: false)
         
         // 6. SFSymbol 애니메이션 종료
         stopSFSymbolAnimation(viewManager.trackingBlock.icon)
@@ -233,10 +234,8 @@ extension HomeViewController {
         
         // 1. UI 업데이트
         showToast(toast: viewManager.toastView, isActive: false)
-        viewManager.productivityLabel.text = "today +\(trackingData.todayAllOutput())"
-        
-        let outputInfo = trackingData.todayOutputBoardData()
-        viewManager.blockPreview.paintOutputBoard(outputInfo)
+        uptodateTodayLabelUI()
+        uptodateTrackingBoardUI()
         
         // 2. 컬렉션뷰 초기화
         viewManager.blockCollectionView.reloadData()
@@ -267,8 +266,8 @@ extension HomeViewController: DayBlockDelegate {
         Vibration.success.vibrate()
         
         // 3. UserDefaults 트래킹 모드 확인용 변수 업데이트
-        UserDefaults.standard.set(false, forKey: UserDefaultsKey.isTracking)
-        UserDefaults.standard.set(false, forKey: UserDefaultsKey.isPause)
+        UserDefaultsItem.shared.setIsTracking(to: false)
+        UserDefaultsItem.shared.setIsPaused(to: false)
         
         // 4. 심볼 애니메이션 종료
         stopSFSymbolAnimation(viewManager.trackingBlock.icon)
@@ -276,7 +275,7 @@ extension HomeViewController: DayBlockDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             
             // 5. 트래킹 보드 애니메이션 종료
-            self.viewManager.blockPreview.stopTrackingAnimation(self.trackingData.trackingBlocks())
+            self.viewManager.trackingBoard.stopTrackingAnimation(self.trackingData.trackingBlocks())
             
             // 6. 트래커 초기화
             self.resetTracker()

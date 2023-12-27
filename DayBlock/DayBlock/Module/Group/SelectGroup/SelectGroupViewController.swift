@@ -140,7 +140,7 @@ final class SelectGroupViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    /// CustomUIMenu를 애니메이션과 함께 출력합니다.
+    // CustomUIMenu를 애니메이션과 함께 출력합니다.
     // @objc func menuButtonTapped() {
     //     UIView.animate(withDuration: 0.2) {
     //         let menu = self.viewManager.customUIMenu
@@ -150,7 +150,7 @@ final class SelectGroupViewController: UIViewController {
     //     }
     // }
     
-    /// CustomUIMenu 활성화시 같이 표시되는 투명한 View Tap Event 메서드입니다.
+    // CustomUIMenu 활성화시 같이 표시되는 투명한 View Tap Event 메서드입니다.
     // @objc func backgroundTapped() {
     //     menuButtonTapped()
     // }

@@ -20,15 +20,13 @@ extension HomeViewController: SelectGroupViewControllerDelegate {
         let selectGroupVC = SelectGroupViewController()
         selectGroupVC.delegate = self
         let navigationController = UINavigationController(rootViewController: selectGroupVC)
-
-        if #available(iOS 15.0, *) {
-            if let sheet = navigationController.sheetPresentationController {
-                sheet.detents = [.medium()]
-                sheet.prefersGrabberVisible = true
-                sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-                sheet.prefersEdgeAttachedInCompactHeight = true
-                sheet.preferredCornerRadius = 30
-            }
+        
+        if let sheet = navigationController.sheetPresentationController {
+            sheet.detents = [.medium()]
+            sheet.prefersGrabberVisible = true
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            sheet.prefersEdgeAttachedInCompactHeight = true
+            sheet.preferredCornerRadius = 30
         }
         
         else {
@@ -57,7 +55,7 @@ extension HomeViewController: SelectGroupViewControllerDelegate {
         viewManager.blockCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: true)
         
         // 3. UserDefaults에 현재 그룹 인덱스 저장
-        UserDefaults.standard.set(index, forKey: UserDefaultsKey.groupIndex)
+        UserDefaultsItem.shared.setGroupIndex(to: index)
         
         // 4. 그룹 리스트가 비어있을 시, 트래킹 버튼 비활성화
         let blockList = groupData.focusEntity().blockList?.array as! [Block]

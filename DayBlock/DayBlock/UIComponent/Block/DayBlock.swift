@@ -244,7 +244,7 @@ final class DayBlock: UIView {
             animationView.widthAnchor.constraint(equalTo: contentsView.widthAnchor, constant: 240),
             animationView.heightAnchor.constraint(equalTo: contentsView.heightAnchor),
             animationView.leadingAnchor.constraint(equalTo: contentsView.leadingAnchor),
-            animationView.centerYAnchor.constraint(equalTo: contentsView.centerYAnchor),
+            animationView.centerYAnchor.constraint(equalTo: contentsView.centerYAnchor)
         ])
     }
     

@@ -83,15 +83,15 @@ extension HomeViewController: CreateBlockViewControllerDelegate {
         viewManager.blockCollectionView.reloadData()
         
         // UI 업데이트
-        viewManager.productivityLabel.text = "today +\(trackingData.todayAllOutput())"
-        let outputInfo = trackingData.todayOutputBoardData()
-        viewManager.blockPreview.paintOutputBoard(outputInfo)
+        uptodateTodayLabelUI()
+        uptodateTrackingBoardUI()
     }
 }
 
 // MARK: - TrackingBoardDelegate
 extension HomeViewController: TrackingBoardDelegate {
     func trackingBoard(animationWillRefresh trackingBoard: TrackingBoard) {
+        
         trackingBoard.pauseTrackingAnimation(trackingData.trackingBlocks(), isPaused: true)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {

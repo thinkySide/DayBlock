@@ -69,12 +69,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         
         // 마지막 접속 시간 Notification 전달
-        if let latestAccess = UserDefaults.standard.object(forKey: UserDefaultsKey.latestAccess) as? Int {
-            NotificationCenter.default.post(
-                name: .latestAccess,
-                object: nil,
-                userInfo: ["time" : latestAccess])
-        }
+        NotificationCenter.default.post(
+            name: .latestAccess,
+            object: nil,
+            userInfo: ["time" : UserDefaultsItem.shared.lastAccessSecond])
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
@@ -86,16 +84,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
         
         // 3. 나가는 시점 저장
-        let lastAccess = Int(TrackingDataStore.shared.todaySecondsToString())
-        UserDefaults.standard.setValue(lastAccess, forKey: UserDefaultsKey.latestAccess)
+        let lastAccessSecond = TrackingDataStore.shared.todaySecondsToInt()
+        UserDefaultsItem.shared.setLastAccessSecond(to: lastAccessSecond)
         
-        // 4. totalTime 저장
-        let totalTime = TimerManager.shared.totalTime
-        UserDefaults.standard.setValue(totalTime, forKey: UserDefaultsKey.totalTime)
+        // 4. trackingSecond 저장
+        let trackingSecond = TimerManager.shared.totalTime
+        UserDefaultsItem.shared.setTrackingSecondBeforeAppTermination(to: trackingSecond)
         
         // 5. 일시정지 시간 저장
-        let pausedTime = TimerManager.shared.pausedTime
-        UserDefaults.standard.setValue(pausedTime, forKey: UserDefaultsKey.pausedTime)
+        let pausedSecond = TimerManager.shared.pausedTime
+        UserDefaultsItem.shared.setPausedSecond(to: pausedSecond)
     }
 }
 

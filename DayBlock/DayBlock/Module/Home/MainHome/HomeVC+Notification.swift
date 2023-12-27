@@ -56,22 +56,15 @@ extension HomeViewController {
     /// 온보딩 모드를 종료합니다.
     @objc private func finishOnboarding(_ notification: Notification) {
         trackingData.resetTrackingBlocks()
-        viewManager.blockPreview.resetAllBlocks()
+        viewManager.trackingBoard.resetAllBlocks()
         dismiss(animated: true)
     }
     
     /// 백그라운드 모드로 진입 후 트래킹 모드를 재시작 합니다.
     @objc private func restartTrackingMode(_ notification: Notification) {
         
-        // 1. 트래킹 모드 확인
-        let isTracking = UserDefaults.standard.object(forKey: UserDefaultsKey.isTracking) as? Bool ?? false
-        let isPause = UserDefaults.standard.object(forKey: UserDefaultsKey.isPause) as? Bool ?? false
-        
-        print("isTracking: \(isTracking)")
-        print("isPause: \(isPause)")
-        
         // 2. 트래킹 모드 진행 중일 시 실행
-        if isTracking && !isPause {
+        if UserDefaultsItem.shared.isTracking && !UserDefaultsItem.shared.isPaused {
             
             print("트래킹 모드 재실행\n")
             
@@ -107,7 +100,7 @@ extension HomeViewController {
                 viewManager.updateCurrentProductivityLabel(timerManager.totalBlock)
                 
                 // 6. 트래킹 보드 애니메이션 업데이트
-                viewManager.blockPreview.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
+                viewManager.trackingBoard.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
             }
             
             // 7. 타이머 및 프로그레스 바 UI 업데이트

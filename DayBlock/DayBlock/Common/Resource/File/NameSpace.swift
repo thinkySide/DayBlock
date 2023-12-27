@@ -13,23 +13,6 @@ enum Version {
     static let current = "0.1.0"
 }
 
-// MARK: - UserDefaults Key
-
-enum UserDefaultsKey {
-    static let isFirstLaunch = "isFirstLaunch"
-    
-    static let groupIndex = "groupIndex"
-    static let blockIndex = "blockIndex"
-    
-    static let isTracking = "isTracking"
-    static let isPause = "isPause"
-    
-    static let totalTime = "totalTime"
-    
-    static let latestAccess = "latestAccess"
-    static let pausedTime = "pausedTime"
-}
-
 // MARK: - Colors
 
 enum Color {

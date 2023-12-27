@@ -8,6 +8,23 @@
 import UIKit
 
 extension UIViewController {
+    
+    /// 탭바를 투명한 기본 상태로 설정합니다.
+    func configureTabBar() {
+        let tbAppearance = UITabBarAppearance()
+        tbAppearance.configureWithOpaqueBackground()
+        tbAppearance.backgroundColor = .clear
+        tbAppearance.shadowColor = .clear
+        tabBarController?.tabBar.standardAppearance = tbAppearance
+        tabBarController?.tabBar.scrollEdgeAppearance = tbAppearance
+    }
+    
+    /// 뒤로가기 버튼을 기본 검정 화살표로 설정합니다.
+    func configureBackButton() {
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = Color.mainText
+        navigationItem.backBarButtonItem = backBarButtonItem
+    }
 
     /// 화면 터치 시 키보드가 내려가는 제스처를 추가합니다.
     func addHideKeyboardGesture() {

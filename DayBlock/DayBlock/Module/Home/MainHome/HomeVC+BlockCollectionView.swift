@@ -22,8 +22,8 @@ extension HomeViewController {
     
     /// UserDefault를 사용한 초기 CollectionView의 그룹 선택값을 설정합니다.
     private func configureStartFocus() {
-        let groupIndex = UserDefaults.standard.object(forKey: UserDefaultsKey.groupIndex) as? Int ?? 0
-        let blockIndex = UserDefaults.standard.object(forKey: UserDefaultsKey.blockIndex) as? Int ?? 0
+        let groupIndex = UserDefaultsItem.shared.groupIndex
+        let blockIndex = UserDefaultsItem.shared.blockIndex
         switchHomeGroup(index: groupIndex)
         groupData.updateFocusIndex(to: groupIndex)
         blockData.updateFocusIndex(to: blockIndex)
@@ -213,9 +213,8 @@ extension HomeViewController: PopupViewControllerDelegate {
         
         // UI 업데이트
         viewManager.blockCollectionView.reloadData()
-        viewManager.productivityLabel.text = "today +\(trackingData.todayAllOutput())"
-        let outputInfo = trackingData.todayOutputBoardData()
-        viewManager.blockPreview.paintOutputBoard(outputInfo)
+        uptodateTodayLabelUI()
+        uptodateTrackingBoardUI()
         
         // 그룹 리스트가 비어있을 시, 트래킹 버튼 비활성화
         let blockList = groupData.focusEntity().blockList?.array as! [Block]

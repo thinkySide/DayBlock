@@ -65,7 +65,7 @@ extension FourthOnboardingViewController: DayBlockDelegate {
         trackingData.appendCurrentTimeInTrackingBlocksForOnboarding()
         
         // 온보딩 종료로 판단(UserDefaults 업데이트)
-        UserDefaults.standard.set(false, forKey: UserDefaultsKey.isFirstLaunch)
+        UserDefaultsItem.shared.setIsFirstLaunch(to: false)
         
         // Push
         presentTrackingCompleteVC()
