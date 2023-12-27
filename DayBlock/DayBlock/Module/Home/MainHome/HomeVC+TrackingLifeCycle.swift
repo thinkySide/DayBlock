@@ -165,14 +165,10 @@ extension HomeViewController {
         UserDefaultsItem.shared.setIsPaused(to: true)
         
         // 3. 트래킹 보드 애니메이션 일시정지
-        updateTrackingBoard(isPaused: true)
+        viewManager.trackingBoard.pauseBoard()
         
         // 4. SFSymbol 애니메이션 종료
         stopSFSymbolAnimation(viewManager.trackingBlock.icon)
-        
-        
-        // 테스트
-        viewManager.trackingBoard.pauseBoard()
     }
     
     /// 트래킹 모드가 재시작 된 후 호출되는 Delegate 메서드입니다.
@@ -190,7 +186,7 @@ extension HomeViewController {
         UserDefaultsItem.shared.setIsPaused(to: false)
         
         // 3. 트래킹 보드 애니메이션 재시작
-        updateTrackingBoard(isPaused: false)
+        viewManager.trackingBoard.updateBoard()
         
         // 4. SFSymbol 애니메이션 재시작
         startSFSymbolBounceAnimation(viewManager.trackingBlock.icon)

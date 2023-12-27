@@ -15,18 +15,17 @@ final class TrackingBoardBlock: UIView {
     
     weak var delegate: TrackingBoardBlockDelegate?
     
-    /// 애니메이션 확인용 변수
-    var isAnimate = false
+    /// 첫번째 반쪽 애니메이션 확인용 변수
+    var isFirstHalfAnimate = false
     
     /// 다음 블럭 애니메이션을 대기하고 있는 상태 확인용 변수
-    var isRefresh = false
+    // var isRefresh = false
     
     /// 블럭 색칠 상태
     enum Paint {
         case none
         case firstHalf
         case secondHalf
-        case fullTime
         case mixed
     }
     
@@ -99,7 +98,12 @@ final class TrackingBoardBlock: UIView {
         firstHalf.backgroundColor = color
         
         // 애니메이션 업데이트
-        startAlphaAnimation(to: firstHalf)
+        if isAnimated {
+            isFirstHalfAnimate = true
+            startAlphaAnimation(to: firstHalf)
+        } else {
+            isFirstHalfAnimate = false
+        }
     }
     
     /// 두번째 반쪽 블럭을 업데이트합니다.
@@ -138,8 +142,14 @@ final class TrackingBoardBlock: UIView {
             firstHalf.backgroundColor = .none
             
             // 애니메이션 업데이트
-            startAlphaAnimation(to: mixedFirstHalf)
-            startAlphaAnimation(to: mixedSecondHalf)
+            if isAnimated {
+                startAlphaAnimation(to: mixedSecondHalf)
+                
+                // 첫번째 애니메이션도 실행되고 있을 때만 업데이트
+                if isFirstHalfAnimate {
+                    startAlphaAnimation(to: mixedFirstHalf)
+                }
+            }
         }
         
         // 첫번째 반쪽이 비워져있다면, secondHalf로 전환
@@ -161,7 +171,7 @@ final class TrackingBoardBlock: UIView {
             secondHalf.backgroundColor = color
             
             // 애니메이션 업데이트
-            startAlphaAnimation(to: secondHalf)
+            if isAnimated { startAlphaAnimation(to: secondHalf) }
         }
     }
     
@@ -172,6 +182,19 @@ final class TrackingBoardBlock: UIView {
             view.alpha = 0.0
         }, completion: nil)
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -246,55 +269,55 @@ final class TrackingBoardBlock: UIView {
     
     /// 실제 블럭 애니메이션 동작 메서드
     func animate(_ area: UIView, color: UIColor, isPaused: Bool) {
-        
-        // 기존 애니메이션 초기화
-        area.layer.removeAllAnimations()
-        
-        // 애니메이션 활성화 상태
-        if !isPaused {
-            area.backgroundColor = color
-            isAnimate = true
-            animateAlpha(area, toAlpha: 1)
-        }
-        
-        // 애니메이션 중지 상태
-        if isPaused {
-            
-            if color == Color.entireBlock {
-                area.backgroundColor = Color.entireBlock
-                area.alpha = 0
-            } else {
-                area.backgroundColor = UIColor(rgb: 0xB0B3BB)
-                area.alpha = 1
-            }
-            
-            area.layer.removeAllAnimations()
-            isAnimate = false
-        }
+//        
+//        // 기존 애니메이션 초기화
+//        area.layer.removeAllAnimations()
+//        
+//        // 애니메이션 활성화 상태
+//        if !isPaused {
+//            area.backgroundColor = color
+//            isAnimate = true
+//            animateAlpha(area, toAlpha: 1)
+//        }
+//        
+//        // 애니메이션 중지 상태
+//        if isPaused {
+//            
+//            if color == Color.entireBlock {
+//                area.backgroundColor = Color.entireBlock
+//                area.alpha = 0
+//            } else {
+//                area.backgroundColor = UIColor(rgb: 0xB0B3BB)
+//                area.alpha = 1
+//            }
+//            
+//            area.layer.removeAllAnimations()
+//            isAnimate = false
+//        }
     }
     
     /// Alpha값을 조정하는 재귀함수
     private func animateAlpha(_ view: UIView, toAlpha: CGFloat) {
-        UIView.animate(withDuration: 1.0, delay: 0, options: [.curveEaseInOut]) {
-            view.alpha = toAlpha
-        } completion: { [weak self] _ in
-            
-            guard let self = self else { return }
-            
-            // 애니메이션 중이 아니라면, 재귀함수 종료
-            // 다음 블럭이 기다리고 있는 상태라면 종료(다음 애니메이션 주기로 넘어가기 위함)
-            if view.alpha == 0 && isRefresh {
-                // print("어머 리프레쉬 됐구나!")
-                delegate?.trackingBoardBlock(animateWillRefresh: isRefresh)
-                isRefresh = false
-                return
-            }
-            
-            // 재귀함수 호출
-            if isAnimate {
-                animateAlpha(view, toAlpha: toAlpha == 0 ? 1 : 0)
-            }
-        }
+//        UIView.animate(withDuration: 1.0, delay: 0, options: [.curveEaseInOut]) {
+//            view.alpha = toAlpha
+//        } completion: { [weak self] _ in
+//            
+//            guard let self = self else { return }
+//            
+//            // 애니메이션 중이 아니라면, 재귀함수 종료
+//            // 다음 블럭이 기다리고 있는 상태라면 종료(다음 애니메이션 주기로 넘어가기 위함)
+//            if view.alpha == 0 && isRefresh {
+//                // print("어머 리프레쉬 됐구나!")
+//                delegate?.trackingBoardBlock(animateWillRefresh: isRefresh)
+//                isRefresh = false
+//                return
+//            }
+//            
+//            // 재귀함수 호출
+//            if isAnimate {
+//                animateAlpha(view, toAlpha: toAlpha == 0 ? 1 : 0)
+//            }
+//        }
     }
     
     // MARK: - Initial Method
