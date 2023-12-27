@@ -84,7 +84,7 @@ extension HomeViewController: CreateBlockViewControllerDelegate {
         
         // UI 업데이트
         uptodateTodayLabelUI()
-        uptodateTrackingBoardUI()
+        updateTrackingBoardUI()
     }
 }
 

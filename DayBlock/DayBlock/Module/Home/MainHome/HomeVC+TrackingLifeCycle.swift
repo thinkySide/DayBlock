@@ -138,10 +138,10 @@ extension HomeViewController {
         UserDefaultsItem.shared.setBlockIndex(to: blockData.focusIndex())
         
         // 5. 트래킹 보드 애니메이션 시작
-        // trackingData.testAppendForDisconnect()
-        // trackingData.currentTrackingBlocks.append("00:00")
-        trackingData.appendCurrentTimeInTrackingBlocks()
-        updateTrackingBoard(isPaused: false)
+        let todaySecond = trackingData.todaySecondsToInt()
+        let color = groupData.focusEntity().color.uicolor
+        trackingBoardService.updateAllInfo(time: todaySecond, color: color, isAnimated: true)
+        updateTrackingBoardUI()
         
         // 6. SFSymbol 애니메이션 시작
         startSFSymbolBounceAnimation(viewManager.trackingBlock.icon)
@@ -199,9 +199,8 @@ extension HomeViewController {
         
         // 1. 트래킹 보드 애니메이션 종료 및 업데이트
         showToast(toast: viewManager.toastView, isActive: false)
-        viewManager.trackingBoard.stopTrackingAnimation(trackingData.trackingBlocks())
-        
-        uptodateTrackingBoardUI()
+        trackingBoardService.resetTrackingSecods()
+        updateTrackingBoardUI()
         
         // 2. 이전에 트래킹 되고 있던 데이터 삭제
         trackingData.removeStopData()
@@ -234,7 +233,7 @@ extension HomeViewController {
         // 1. UI 업데이트
         showToast(toast: viewManager.toastView, isActive: false)
         uptodateTodayLabelUI()
-        uptodateTrackingBoardUI()
+        updateTrackingBoardUI()
         
         // 2. 컬렉션뷰 초기화
         viewManager.blockCollectionView.reloadData()

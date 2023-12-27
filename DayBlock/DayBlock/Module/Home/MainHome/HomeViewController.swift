@@ -14,6 +14,7 @@ final class HomeViewController: UIViewController {
     let groupData = GroupDataStore.shared
     let blockData = BlockDataStore.shared
     let trackingData = TrackingDataStore.shared
+    let trackingBoardService = TrackingBoardService.shared
     
     // 스크롤 시작 지점 저장 변수
     lazy var startScrollX: CGFloat = 0
@@ -62,7 +63,7 @@ final class HomeViewController: UIViewController {
         
         // UI 업데이트
         uptodateTodayLabelUI()
-        uptodateTrackingBoardUI()
+        updateTrackingBoardUI()
         
         // CollectionView 리로드
         viewManager.blockCollectionView.reloadData()

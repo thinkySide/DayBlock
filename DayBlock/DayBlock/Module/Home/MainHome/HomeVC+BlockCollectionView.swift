@@ -214,7 +214,7 @@ extension HomeViewController: PopupViewControllerDelegate {
         // UI 업데이트
         viewManager.blockCollectionView.reloadData()
         uptodateTodayLabelUI()
-        uptodateTrackingBoardUI()
+        updateTrackingBoardUI()
         
         // 그룹 리스트가 비어있을 시, 트래킹 버튼 비활성화
         let blockList = groupData.focusEntity().blockList?.array as! [Block]
