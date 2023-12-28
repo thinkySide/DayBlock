@@ -46,6 +46,16 @@ final class HomeView: UIView {
         return item
     }()
     
+    lazy var helpBarButtonItem: UIBarButtonItem = {
+        let button = UIButton()
+        button.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        button.setImage(UIImage(named: Icon.help), for: .normal)
+        button.tintColor = Color.contentsBlock
+        let item = UIBarButtonItem(customView: button)
+        item.customView?.isHidden = true
+        return item
+    }()
+    
     let dateLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: Pretendard.semiBold, size: 16)
@@ -152,6 +162,17 @@ final class HomeView: UIView {
         return view
     }()
     
+    let helpBlurView: UIView = {
+        let view = UIView()
+        view.backgroundColor = Color.mainText.withAlphaComponent(0.4)
+        view.alpha = 0
+        return view
+    }()
+    
+    let trackingBoardToolTip = ToolTip(text: "현재 생산 중인 블럭은 깜빡거려요", tipStartX: 136)
+    let longPressToolTip = ToolTip(text: "블럭을 길게 누르면 생산이 완료돼요", tipStartX: 104)
+    let progressBarToolTip = ToolTip(text: "현재 세션의 진행도를 나타내요", tipStartX: 60)
+    
     let tabBarStackView = TabBar(location: .tracking)
     
     // MARK: - Method
@@ -173,6 +194,7 @@ final class HomeView: UIView {
         trackingTimeLabel.isHidden = true
         trackingProgressView.isHidden = true
         trackingStopBarButtonItem.customView?.isHidden = true
+        helpBarButtonItem.customView?.isHidden = true
     }
     
     /// 트래킹 완료 후 종료합니다.
@@ -194,6 +216,7 @@ final class HomeView: UIView {
         trackingTimeLabel.isHidden = true
         trackingProgressView.isHidden = true
         trackingStopBarButtonItem.customView?.isHidden = true
+        helpBarButtonItem.customView?.isHidden = true
     }
     
     @objc func trackingButtonTapped() {
@@ -241,6 +264,7 @@ final class HomeView: UIView {
         trackingTimeLabel.isHidden = false
         trackingProgressView.isHidden = false
         trackingStopBarButtonItem.customView?.isHidden = false
+        helpBarButtonItem.customView?.isHidden = false
         trackingButton.isUserInteractionEnabled = true
     }
     
@@ -291,6 +315,7 @@ final class HomeView: UIView {
         trackingTimeLabel.isHidden = false
         trackingProgressView.isHidden = false
         trackingStopBarButtonItem.customView?.isHidden = false
+        helpBarButtonItem.customView?.isHidden = false
     }
     
     func toggleTrackingButton(_ bool: Bool) {
@@ -309,6 +334,30 @@ final class HomeView: UIView {
     
     func updateCurrentOutputLabel(_ amount: Double) {
         trackingBlock.updateProductivityLabel(to: amount)
+    }
+    
+    /// 도움말 툴팁을 표시합니다.
+    func printHelpToolTip(isActive: Bool) {
+        
+        func toolTipAction(alpha: CGFloat) {
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut) {
+                [self.helpBlurView, self.trackingBoardToolTip, self.longPressToolTip, self.progressBarToolTip].forEach {
+                    $0.alpha = alpha
+                }
+            }
+        }
+        
+        isActive ? toolTipAction(alpha: 1) : toolTipAction(alpha: 0)
+    }
+    
+    /// 도움말 툴팁을 토글합니다.
+    func toggleHelpToolTip() {
+        var value = helpBlurView.alpha == 0 ? CGFloat(1) : CGFloat(0)
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut) {
+            [self.helpBlurView, self.trackingBoardToolTip, self.longPressToolTip, self.progressBarToolTip].forEach {
+                $0.alpha = value
+            }
+        }
     }
     
     override init(frame: CGRect) {
@@ -339,6 +388,10 @@ final class HomeView: UIView {
             trackingButton,
             warningToastView,
             infoToastView,
+            helpBlurView,
+            trackingBoardToolTip,
+            longPressToolTip,
+            progressBarToolTip,
             tabBarStackView,
             testLabel
         ]
@@ -418,6 +471,23 @@ final class HomeView: UIView {
             
             infoToastView.centerXAnchor.constraint(equalTo: centerXAnchor),
             infoToastView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -48),
+            
+            helpBlurView.topAnchor.constraint(equalTo: topAnchor),
+            helpBlurView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            helpBlurView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            helpBlurView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            trackingBoardToolTip.topAnchor.constraint(equalTo: trackingBoard.bottomAnchor, constant: 12),
+            trackingBoardToolTip.trailingAnchor.constraint(equalTo: trackingBoard.trailingAnchor),
+            trackingBoardToolTip.widthAnchor.constraint(equalToConstant: 200),
+            
+            longPressToolTip.topAnchor.constraint(equalTo: trackingBlock.bottomAnchor, constant: 12),
+            longPressToolTip.centerXAnchor.constraint(equalTo: trackingBlock.centerXAnchor),
+            longPressToolTip.widthAnchor.constraint(equalToConstant: 210),
+            
+            progressBarToolTip.topAnchor.constraint(equalTo: trackingProgressView.bottomAnchor, constant: 12),
+            progressBarToolTip.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
+            progressBarToolTip.widthAnchor.constraint(equalToConstant: 180),
             
             testLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             testLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -68),

@@ -48,6 +48,13 @@ final class TrackingBoardService {
         infos[index].isAnimated = isAnimated
     }
     
+    /// 모든 애니메이션을 종료합니다.
+    func stopAllAnimation() {
+        for index in infos.indices {
+            infos[index].isAnimated = false
+        }
+    }
+    
     
     // MARK: - Trackings
     
@@ -61,6 +68,11 @@ final class TrackingBoardService {
         if !trackings.contains(time) {
             trackings.append(time)
         }
+    }
+    
+    /// 마지막 트래킹 요소를 삭제합니다.
+    func removeLastTrackingSecond() {
+        trackings.removeLast()
     }
     
     /// 트래킹 시간 배열을 교체합니다.
@@ -164,7 +176,7 @@ final class TrackingBoardService {
     }
     
     /// 트래킹 시간을 초기화합니다.
-    func resetTrackingSecods() {
+    func resetTrackingSeconds() {
         
         // trackings 배열 순회하며 infos 초기화
         for second in trackings {

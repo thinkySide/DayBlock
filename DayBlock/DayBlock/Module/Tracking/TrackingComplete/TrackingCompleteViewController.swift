@@ -89,6 +89,7 @@ final class TrackingCompleteViewController: UIViewController {
         let block = BlockDataStore.shared.focusEntity()
         let trackingTimes = TrackingBoardService.shared.trackingSeconds
         TrackingBoardService.shared.updateTrackingBoard(to: Date(), block: block, trackingTimes: trackingTimes)
+        TrackingBoardService.shared.stopAllAnimation()
         viewManager.trackingBoard.updateBoard()
         
         // 전체 생산량
@@ -123,6 +124,7 @@ final class TrackingCompleteViewController: UIViewController {
         let block = BlockDataStore.shared.listInSelectedGroupInBlock(groupName: item.groupName, blockName: item.blockTaskLabel)
         let trackingTimes = item.trackingTimes.map { Int($0.startTime)!  }
         TrackingBoardService.shared.updateTrackingBoard(to: Date(), block: block, trackingTimes: trackingTimes)
+        TrackingBoardService.shared.stopAllAnimation()
         viewManager.trackingBoard.updateBoard()
         
         // total, today, 버튼 숨기기

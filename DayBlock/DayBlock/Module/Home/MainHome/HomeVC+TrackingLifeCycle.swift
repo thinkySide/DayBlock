@@ -176,7 +176,7 @@ extension HomeViewController {
         
         // 1. 트래킹 보드 애니메이션 종료 및 업데이트
         showToast(toast: viewManager.warningToastView, isActive: false)
-        trackingBoardService.resetTrackingSecods()
+        trackingBoardService.resetTrackingSeconds()
         updateTrackingBoardUI()
         
         // 2. 이전에 트래킹 되고 있던 데이터 삭제
@@ -201,7 +201,7 @@ extension HomeViewController {
     ///
     /// - Parameter mode: 현재 트래킹 모드
     ///
-    /// 2번 호출
+    /// 3번째 실행
     func homeView(_ homeView: HomeView, trackingDidFinish mode: HomeView.TrakingMode) {
         
         // 1. UI 업데이트
@@ -219,6 +219,8 @@ extension HomeViewController {
 extension HomeViewController: DayBlockDelegate {
     
     /// 트래킹 모드 완료 후 (LongPressGesture) 호출되는 Delegate 메서드입니다.
+    ///
+    /// 첫번째 실행
     ///
     /// - Parameter taskLabel: 트래킹 완료된 작업 이름
     func dayBlock(_ dayBlock: DayBlock, trackingComplete taskLabel: String?) {
@@ -244,11 +246,10 @@ extension HomeViewController: DayBlockDelegate {
         // 4. 심볼 애니메이션 종료
         stopSFSymbolAnimation(viewManager.trackingBlock.icon)
         
+        // 5. 마지막 트래킹 보드 데이터 삭제
+        // TrackingBoardService.shared.removeLastTrackingSecond()
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            
-            // 5. 트래킹 보드 애니메이션 종료 및 전환
-            self.trackingBoardService.updateTrackingBoard(to: Date())
-            self.updateTrackingBoardUI()
             
             // 6. 트래커 초기화
             self.resetTracker()
@@ -260,7 +261,7 @@ extension HomeViewController: DayBlockDelegate {
 extension HomeViewController: TrackingCompleteViewControllerDelegate {
     
     /// 트래킹 완료 화면에서 확인 버튼 탭 시 호출되는 Delegate 메서드입니다.
-    /// 1번 호출 : trackingDidFinish 메서드 호출
+    /// 두번째 실행 : trackingDidFinish 메서드 호출
     func trackingCompleteVC(backToHomeButtonTapped trackingCompleteVC: TrackingCompleteViewController) {
         viewManager.finishTrackingMode()
     }

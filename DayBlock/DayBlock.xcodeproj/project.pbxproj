@@ -155,6 +155,8 @@
 		07B49C472A95E66D006D1011 /* TrackingCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49C462A95E66D006D1011 /* TrackingCompleteView.swift */; };
 		07B592122AC4126C0046ABFC /* DispatchWorkItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B592112AC4126C0046ABFC /* DispatchWorkItem.swift */; };
 		07B592142AC42B7D0046ABFC /* UIImageView++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B592132AC42B7D0046ABFC /* UIImageView++.swift */; };
+		07C044112B3D9855005A816A /* HomeVC+HelpTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C044102B3D9855005A816A /* HomeVC+HelpTracking.swift */; };
+		07C044132B3D9F7E005A816A /* ToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C044122B3D9F7E005A816A /* ToolTip.swift */; };
 		07C0BDAF2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDAE2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift */; };
 		07C0BDB42ABC452600D5E779 /* TrackingDate+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDB02ABC452600D5E779 /* TrackingDate+CoreDataClass.swift */; };
 		07C0BDB52ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDB12ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift */; };
@@ -323,6 +325,8 @@
 		07B49C462A95E66D006D1011 /* TrackingCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingCompleteView.swift; sourceTree = "<group>"; };
 		07B592112AC4126C0046ABFC /* DispatchWorkItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchWorkItem.swift; sourceTree = "<group>"; };
 		07B592132AC42B7D0046ABFC /* UIImageView++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView++.swift"; sourceTree = "<group>"; };
+		07C044102B3D9855005A816A /* HomeVC+HelpTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+HelpTracking.swift"; sourceTree = "<group>"; };
+		07C044122B3D9F7E005A816A /* ToolTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolTip.swift; sourceTree = "<group>"; };
 		07C0BDAE2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+CoreDataTest.swift"; sourceTree = "<group>"; };
 		07C0BDB02ABC452600D5E779 /* TrackingDate+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingDate+CoreDataClass.swift"; sourceTree = "<group>"; };
 		07C0BDB12ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingDate+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -710,6 +714,7 @@
 				07967D022ACA606000BB45B5 /* HomeVC+TrackingLifeCycle.swift */,
 				07D1F5272B3BEE6F00BFE90E /* HomeVC+Relaunch.swift */,
 				07C0BDAE2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift */,
+				07C044102B3D9855005A816A /* HomeVC+HelpTracking.swift */,
 				0749D7292ABACAD3004DF368 /* HomeVC+CustomDelegate.swift */,
 				0749D7272AB9E832004DF368 /* HomeVC+Notification.swift */,
 				0749D71B2AB84198004DF368 /* HomeVC+BlockCollectionView.swift */,
@@ -787,6 +792,7 @@
 				0719648729DC5066009CA1A4 /* TabBar.swift */,
 				07FAF98A2AE0E7AD003BD30B /* SectionBar.swift */,
 				07B49BD32A8F23FF006D1011 /* ToastMessage.swift */,
+				07C044122B3D9F7E005A816A /* ToolTip.swift */,
 				07454E0E29EBE50500B3458D /* BottomModal.swift */,
 				07B1F8CE2B2C367400E98382 /* PageNumbers.swift */,
 			);
@@ -1129,6 +1135,7 @@
 				07FAF9892AE0E6DB003BD30B /* CalendarView.swift in Sources */,
 				07967D002AC9A1D300BB45B5 /* TrackingTime+CoreDataClass.swift in Sources */,
 				07EB771929F53855000BD87E /* ColorManager.swift in Sources */,
+				07C044132B3D9F7E005A816A /* ToolTip.swift in Sources */,
 				0749D7262AB9E456004DF368 /* HomeVC+SelectGroupHalfModal.swift in Sources */,
 				0719648E29DF044C009CA1A4 /* GroupSelectButton.swift in Sources */,
 				071E3ABD2AC166B2000C346F /* BlockDataStore.swift in Sources */,
@@ -1140,6 +1147,7 @@
 				07B49BD42A8F23FF006D1011 /* ToastMessage.swift in Sources */,
 				07B49BC42A88EBA3006D1011 /* MenuPopup.swift in Sources */,
 				07B49BC82A8DD84D006D1011 /* ManageGroupViewController.swift in Sources */,
+				07C044112B3D9855005A816A /* HomeVC+HelpTracking.swift in Sources */,
 				07AE45D12AF38ABE00125316 /* UIDate++.swift in Sources */,
 				07B04BAD2ADD500800580711 /* Block+CoreDataProperties.swift in Sources */,
 				07B04BAC2ADD500800580711 /* Block+CoreDataClass.swift in Sources */,

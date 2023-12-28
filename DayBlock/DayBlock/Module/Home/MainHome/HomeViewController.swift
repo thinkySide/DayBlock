@@ -98,8 +98,9 @@ final class HomeViewController: UIViewController {
     /// NavigationBar Item을 설정합니다.
     private func setupNavigationItem() {
         configureBackButton()
+        let helpBarButtomItem = viewManager.helpBarButtonItem
         let trackingStopBarButtomItem = viewManager.trackingStopBarButtonItem
-        navigationItem.rightBarButtonItem = trackingStopBarButtomItem
+        navigationItem.rightBarButtonItems = [trackingStopBarButtomItem, helpBarButtomItem]
     }
     
     /// Custom Delegate를 위임받습니다.
@@ -116,10 +117,20 @@ final class HomeViewController: UIViewController {
     
     /// 제스처를 연결하고 설정합니다.
     private func setupGestrue() {
+        
+        let superViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(superViewTapped))
+        view.addGestureRecognizer(superViewTapGesture)
+        
         addTapGesture(
             viewManager.groupSelectButton,
             target: self,
             action: #selector(groupSelectButtonTapped)
+        )
+        
+        addTapGesture(
+            viewManager.helpBarButtonItem,
+            target: self,
+            action: #selector(helpBarButtonItemTapped)
         )
         
         addTapGesture(

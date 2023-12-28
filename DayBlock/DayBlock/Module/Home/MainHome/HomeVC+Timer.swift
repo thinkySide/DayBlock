@@ -76,6 +76,7 @@ extension HomeViewController {
     
     /// 트래킹 중단 BarButtonItem Tap 이벤트 메서드입니다.
     @objc func trackingStopBarButtonItemTapped(_ sender: UIGestureRecognizer) {
+        viewManager.printHelpToolTip(isActive: false)
         presentStopTrackingPopup()
     }
     

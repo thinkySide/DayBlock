@@ -24,3 +24,4 @@ disabled_rules:
     - vertical_whitespace # 의미없는 공백 줄 제한
     - legacy_constructor # 레거시 코드 제한
     - function_parameter_count # 함수 파라미터 개수 제한
+    - void_function_in_ternary
