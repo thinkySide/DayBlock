@@ -32,6 +32,9 @@ final class UserDefaultsItem {
         
         // 날짜
         static let lastAccessDate = "lastAccessDate"
+        
+        // 트래킹 데이터
+        static let trackingSeconds = "trackingSeconds"
     }
     
     // MARK: - Get UserDefaults
@@ -74,6 +77,11 @@ final class UserDefaultsItem {
     /// 마지막 접속 날짜를 저장하는 변수
     var lastAccessDate: Date {
         UserDefaults.standard.object(forKey: UserDefaultsKey.lastAccessDate) as? Date ?? Date()
+    }
+    
+    /// 마지막으로 트래킹 중이던 시간 초 데이터를 받아옵니다.
+    var trackingSeconds: [Int] {
+        UserDefaults.standard.object(forKey: UserDefaultsKey.trackingSeconds) as? [Int] ?? []
     }
     
     // MARK: - Set UserDefaults
@@ -121,5 +129,10 @@ final class UserDefaultsItem {
     /// 마지막으로 접속했던 날짜를 저장합니다.
     func setLastAccessDate(to date: Date) {
         UserDefaults.standard.set(date, forKey: UserDefaultsKey.lastAccessDate)
+    }
+    
+    /// 마지막으로 접속했던 날짜를 저장합니다.
+    func setTrackingSeconds(to seconds: [Int]) {
+        UserDefaults.standard.set(seconds, forKey: UserDefaultsKey.trackingSeconds)
     }
 }

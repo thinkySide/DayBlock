@@ -86,9 +86,8 @@ final class TrackingCompleteViewController: UIViewController {
         viewManager.mainSummaryLabel.text = String(trackingData.focusTrackingBlockCount())
         
         // 트래킹 보드
-        let color = groupData.focusColor()
-        print("trackingData.finishTrackingBlocks(): \(trackingData.finishTrackingBlocks())")
-        viewManager.trackingBoard.trackingCompleteAndFill(trackingData.finishTrackingBlocks(), color: [color])
+        TrackingBoardService.shared.updateTrackingBoard(to: Date())
+        viewManager.trackingBoard.updateBoard()
         
         // 전체 생산량
         viewManager.totalValue.text = trackingData.totalOutput(blockData.focusEntity())
@@ -98,7 +97,7 @@ final class TrackingCompleteViewController: UIViewController {
     }
     
     /// 캘린더 모드에서의 UI를 설정합니다.
-    func setupCalendarMode(icon: String, color: Int, taskLabel: String, currentDate: String, trackingTime: String, output: String, trackingBlocks: [String]) {
+    func setupCalendarMode(icon: String, color: Int, taskLabel: String, currentDate: String, trackingTime: String, output: String) {
         
         let color = UIColor(rgb: color)
         
@@ -121,7 +120,7 @@ final class TrackingCompleteViewController: UIViewController {
         viewManager.mainSummaryLabel.text = output
         
         // 트래킹 보드
-        viewManager.trackingBoard.trackingCompleteAndFill(trackingBlocks, color: [color])
+        viewManager.trackingBoard.updateBoard()
         
         // total, today, 버튼 숨기기
         [viewManager.totalValue, viewManager.totalLabel,

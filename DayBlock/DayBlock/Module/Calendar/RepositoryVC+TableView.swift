@@ -96,20 +96,13 @@ extension RepositoryViewController: UITableViewDelegate {
         // 캘린더 모드 세팅
         let item = repositoryManager.dayItems[indexPath.row]
         
-        var trackingBlocks: [String] = []
-        for time in item.trackingTimes {
-            let blockTime = TrackingDataStore.shared.secondToTrackingBlockTimeFormat(second: time.startTime)
-            trackingBlocks.append(blockTime)
-        }
-        
         trackingCompleteVC.setupCalendarMode(
             icon: item.blockIcon,
             color: item.groupColor,
             taskLabel: item.blockTaskLabel,
             currentDate: calendarManager.fullKoreanDateFormat(from: repositoryManager.currentDate),
             trackingTime: repositoryManager.trackingTimeString(to: indexPath.row),
-            output: repositoryManager.outputPerTracking(to: indexPath.row),
-            trackingBlocks: trackingBlocks)
+            output: repositoryManager.outputPerTracking(to: indexPath.row))
         
         // TrackingCompleteView에 들어간다고 변수 업데이트
         isCompleteViewTapped = true

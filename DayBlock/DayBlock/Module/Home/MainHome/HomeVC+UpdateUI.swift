@@ -25,15 +25,16 @@ extension HomeViewController {
     func updateTrackingBoardUI() {
         
         // 테스트 데이터셋
-         TrackingBoardService.shared.updateColor(to: 300, color: Color.testBlue)
-         TrackingBoardService.shared.updateAnimated(to: 300, isAnimated: true)
-         TrackingBoardService.shared.updateColor(to: 5400, color: Color.testPink)
-        TrackingBoardService.shared.updateAnimated(to: 5400, isAnimated: true)
-         TrackingBoardService.shared.updateColor(to: 7300, color: Color.testGreen)
-        TrackingBoardService.shared.updateAnimated(to: 7300, isAnimated: true)
-         TrackingBoardService.shared.updateColor(to: 9100, color: Color.testYellow)
-         TrackingBoardService.shared.updateAnimated(to: 9100, isAnimated: true)
+        // TrackingBoardService.shared.updateColor(to: 300, color: Color.testBlue)
+        // TrackingBoardService.shared.updateAnimated(to: 300, isAnimated: true)
+        // TrackingBoardService.shared.updateColor(to: 5400, color: Color.testPink)
+        // TrackingBoardService.shared.updateAnimated(to: 5400, isAnimated: true)
+        // TrackingBoardService.shared.updateColor(to: 7300, color: Color.testGreen)
+        // TrackingBoardService.shared.updateAnimated(to: 7300, isAnimated: true)
+        // TrackingBoardService.shared.updateColor(to: 9100, color: Color.testYellow)
+        // TrackingBoardService.shared.updateAnimated(to: 9100, isAnimated: true)
         
+        trackingBoardService.updateTrackingBoard(to: Date())
         viewManager.trackingBoard.updateBoard()
     }
 }

@@ -63,40 +63,11 @@ extension HomeViewController {
         let color = groupData.focusEntity().color.uicolor
         trackingBoardService.updateAllInfo(time: todaySecond, color: color, isAnimated: true)
         updateTrackingBoardUI()
-        
-        // 4. 트래킹 보드를 위한 배열 업데이트
-        // trackingData.appendCurrentTimeInTrackingBlocks()
-        
-        // 5. 리프레쉬
-        // viewManager.trackingBoard.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
     }
     
     /// 일시정지 시간을 계산합니다.
     @objc func pausedEverySecond() {
         timerManager.pausedTime += 1
-    }
-    
-    /// 테스트용 트래킹
-    func testTracking() {
-        
-        // 1. trackingTime 코어데이터 업데이트
-        trackingData.appendDataInProgress()
-        
-        // 2-1. 현재 트래킹 시간 초기화
-        timerManager.currentTrackingSecond = 0
-        
-        // 2-2. 일시정지 시간 초기화
-        timerManager.pausedTime = 0
-        
-        // 3. 생산한 전체 블럭 업데이트
-        timerManager.totalBlockCount += 0.5
-        viewManager.updateCurrentOutputLabel(timerManager.totalBlockCount)
-        
-        // 4. 트래킹 보드를 위한 배열 업데이트
-        trackingData.testAppendForBackground()
-        
-        // 5. 리프레쉬
-        viewManager.trackingBoard.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
     }
 }
 
@@ -115,7 +86,7 @@ extension HomeViewController {
         viewManager.trackingBlock.update(group: groupData.list()[groupIndex], block: blockData.list()[blockIndex])
         
         // 3. 트래킹 보드 애니메이션 시작
-        updateTrackingBoard(isPaused: false)
+        updateTrackingBoardUI()
         
         // 4. SFSymbol 애니메이션 시작
         startSFSymbolBounceAnimation(viewManager.trackingBlock.icon)
@@ -214,9 +185,6 @@ extension HomeViewController {
         // 3. 트래커 초기화
         resetTracker()
         
-        // 4. 트래킹 블럭 초기화
-        trackingData.resetTrackingBlocks()
-        
         // 5. UserDefaults 트래킹 모드 확인용 변수 업데이트
         UserDefaultsItem.shared.setIsTracking(to: false)
         UserDefaultsItem.shared.setIsPaused(to: false)
@@ -278,14 +246,12 @@ extension HomeViewController: DayBlockDelegate {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             
-            // 5. 트래킹 보드 애니메이션 종료
-            self.viewManager.trackingBoard.stopTrackingAnimation(self.trackingData.trackingBlocks())
+            // 5. 트래킹 보드 애니메이션 종료 및 전환
+            self.trackingBoardService.updateTrackingBoard(to: Date())
+            self.updateTrackingBoardUI()
             
             // 6. 트래커 초기화
             self.resetTracker()
-            
-            // 7. 트래킹 블럭 초기화
-            self.trackingData.resetTrackingBlocks()
         }
     }
 }

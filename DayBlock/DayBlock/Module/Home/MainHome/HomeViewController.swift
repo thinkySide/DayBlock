@@ -106,7 +106,6 @@ final class HomeViewController: UIViewController {
     private func setupDelegate() {
         viewManager.delegate = self
         viewManager.trackingBlock.delegate = self
-        viewManager.trackingBoard.delegate = self
     }
     
     /// 기본 UI 설정을 설정합니다.

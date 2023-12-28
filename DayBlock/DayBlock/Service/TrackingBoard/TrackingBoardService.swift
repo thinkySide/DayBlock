@@ -63,6 +63,58 @@ final class TrackingBoardService {
         }
     }
     
+    /// 트래킹 시간 배열을 교체합니다.
+    func replaceTrackingSeconds(to times: [Int]) {
+        trackings = times
+    }
+    
+    /// 지정한 날짜에 맞게 트래킹 보드 데이터를 업데이트합니다.
+    func updateTrackingBoard(to date: Date) {
+        
+        // MARK: - 1. 코어 데이터 받아오기
+        // 1. 그룹 반복
+        for group in GroupDataStore.shared.list() {
+            guard let blockList = group.blockList?.array as? [Block] else {
+                fatalError("블럭 리스트 반환 실패")
+            }
+            
+            // 2. 블럭 반복
+            for block in blockList {
+                guard let dateList = block.trackingDateList?.array as? [TrackingDate] else {
+                    fatalError("날짜 리스트 반환 실패")
+                }
+                
+                // 지정한 날짜 리스트
+                let todayDateList = dateList.filter {
+                    $0.year == TrackingDataStore.shared.formatter("yyyy", to: date) &&
+                    $0.month == TrackingDataStore.shared.formatter("MM", to: date) &&
+                    $0.day == TrackingDataStore.shared.formatter("dd", to: date)
+                }
+                
+                // 3. 날짜 반복
+                for date in todayDateList {
+                    guard let timeList = date.trackingTimeList?.array as? [TrackingTime] else {
+                        fatalError("시간 리스트 반환 실패")
+                    }
+                    
+                    // 4. 시간 반복
+                    for time in timeList {
+                        guard let _ = time.endTime,
+                              let startTime = Int(time.startTime) else { break }
+                        print("updateTrackingBoard: \(startTime)초 추가")
+                        updateColor(to: startTime, color: group.color.uicolor)
+                    }
+                }
+            }
+        }
+        
+        // MARK: - 2. trackingSeconds 업데이트하기
+        for second in trackingSeconds {
+            self.updateColor(to: second, color: GroupDataStore.shared.focusColor())
+            self.updateAnimated(to: second, isAnimated: true)
+        }
+    }
+    
     /// 모든 데이터셋을 초기화합니다.
     func resetAllData() {
         

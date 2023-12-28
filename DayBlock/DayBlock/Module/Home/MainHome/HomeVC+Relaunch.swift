@@ -26,6 +26,10 @@ extension HomeViewController {
                 
                 // 마지막 트래킹 시간 + 흐른 시간
                 trackingTimeResult = lastTrackingTime + timeElapsed
+                
+                // 트래킹 보드 저장된 값으로 업데이트
+                print("저장된 값!: \(UserDefaultsItem.shared.trackingSeconds)")
+                trackingBoardService.replaceTrackingSeconds(to: UserDefaultsItem.shared.trackingSeconds)
             }
             
             // 하루가 지났는가? -> O
@@ -59,9 +63,6 @@ extension HomeViewController {
         
         // APP 종료되어있을 동안 생성된 블럭 코어데이터 추가
         appendDataBetweenAppExit()
-        
-        // 트래킹 보드 새롭게 업데이트
-        updateTrackingBoardAfterAppRestart()
         
         // 트래킹 모드 최종 시작
         viewManager.trackingRestartForDisconnect()
@@ -103,16 +104,5 @@ extension HomeViewController {
                 trackingData.appendDataBetweenAppExit()
             }
         }
-    }
-    
-    /// APP이 재시작 이후 트래킹 보드를 새롭게 업데이트합니다.
-    private func updateTrackingBoardAfterAppRestart() {
-        
-        // 추가된 데이터로 트래킹 보드 리스트 업데이트
-        trackingData.regenerationTrackingBlocks() // 원래 코드
-        // trackingData.testAppendForDisconnect() // 테스트 코드
-        
-        // 트래킹 보드 애니메이션 업데이트
-        viewManager.trackingBoard.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
     }
 }

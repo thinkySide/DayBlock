@@ -44,9 +44,6 @@ final class TrackingDataStore {
         
         fatalError("Error: trackingTimeList Entity 반환 실패")
     }
-    
-    /// 현재 트래킹 되고 있는 블럭
-    var currentTrackingBlocks: [String] = []
 }
 
 // MARK: - New Tracking Method
@@ -539,31 +536,12 @@ extension TrackingDataStore {
         // 2. 일시정시 시간 초기화
         TimerManager.shared.pausedTime = 0
         
-        // MARK: - 실제 동작 코드
-        // 3. 트래킹 보드 블럭 리스트 추가
-        let focusBlock = initialStartTime / targetSecond
-        let hour = String(focusBlock / 2)
-        let minute = focusBlock % 2 == 0 ? "00" : "30"
-        let time = "\(hour):\(minute)"
-        
-        // 3-1. 중복 블럭 거르고 추가하기
-        if !currentTrackingBlocks.contains(time) {
-            currentTrackingBlocks.append(time)
-        }
-        
-        // MARK: - 테스트 코드
-//        // 몇번째 트래킹 블럭 활성화 할지 결정하기
-//        let count = Int(TimerManager.shared.totalBlock / 0.5)
-//        if !currentTrackingBlocks.contains(testTrackingBoardDatas[count]) {
-//            currentTrackingBlocks.append(testTrackingBoardDatas[count])
-//        }
-        
-        // 4. 새로운 세션 시작
+        // 3. 새로운 세션 시작
         let trackingTime = TrackingTime(context: context)
         trackingTime.startTime = String(endTime)
         focusDate().addToTrackingTimeList(trackingTime)
         
-        // 5. 코어데이터 저장
+        // 4. 코어데이터 저장
         groupData.saveContext()
     }
     
@@ -626,142 +604,6 @@ extension TrackingDataStore {
         if let safeList = blockData.focusEntity().trackingDateList {
             blockData.focusEntity().removeFromTrackingDateList(at: safeList.count - 1)
             groupData.saveContext()
-        }
-    }
-}
-
-// MARK: - Tracking Board Blocks Method
-extension TrackingDataStore {
-    
-    /// 현재 트래킹 되고 있는 블럭 리스트를 반환합니다.
-    func trackingBlocks() -> [String] {
-        return currentTrackingBlocks
-    }
-    
-    /// 트래킹 완료된 시점의 블럭 리스트를 반환합니다
-    func finishTrackingBlocks() -> [String] {
-        var blocks = currentTrackingBlocks
-        blocks.removeLast()
-        return blocks
-    }
-    
-    /// 주어진 초 문자열을 트래킹 블럭을 돌릴 수 있는 문자열로 포맷해 반환합니다.
-    func secondToTrackingBlockTimeFormat(second: String) -> String {
-        
-        if let second = Int(second) {
-            let focusBlock = second / targetSecond
-            let hour = String(focusBlock / 2)
-            let minute = focusBlock % 2 == 0 ? "00" : "30"
-            let time = "\(hour):\(minute)"
-            return time
-        }
-        
-        fatalError("잘못된 초 문자열 삽입: \(#function)")
-    }
-    
-    /// 현재 시간에 맞는 블럭을 트래킹 블럭리스트에 추가합니다.
-    ///
-    /// 트래킹이 시작될 때 1번 호출,
-    /// 블럭 0.5개가 생산될 때마다 1번씩 호출
-    func appendCurrentTimeInTrackingBlocks() {
-        let focusBlock = todaySecondsToInt() / targetSecond
-        let hour = String(focusBlock / 2)
-        
-        let minute = focusBlock % 2 == 0 ? "00" : "30"
-        let time = "\(hour):\(minute)"
-        
-        // 중복 블럭 거르기
-        if !currentTrackingBlocks.contains(time) {
-            currentTrackingBlocks.append(time)
-        }
-        
-        print("트래킹 데이터 추가: \(time)")
-    }
-    
-    /// 온보딩 용 트래킹 블럭을 생성 및 추가합니다.
-    func appendCurrentTimeInTrackingBlocksForOnboarding() {
-        
-        // 만약 현재 시간의 30분 전이 전일이라면 마지막 트래킹 블럭 추가
-        if todaySecondsToInt() < 1800 {
-            print("30분 전이 전일입니다.")
-            
-            // 2개 추가(기존 트래킹 메서드는 마지막 시간 삭제하기 때문)
-            for _ in 1...2 {
-                currentTrackingBlocks.append("23:30")
-            }
-            return
-        }
-        
-        print("30분 전이 금일입니다.")
-        let focusBlock = (todaySecondsToInt() - targetSecond) / targetSecond
-        let hour = String(focusBlock / 2)
-        
-        let minute = focusBlock % 2 == 0 ? "00" : "30"
-        let time = "\(hour):\(minute)"
-        
-        // 2개 추가(기존 트래킹 메서드는 마지막 시간 삭제하기 때문)
-        for _ in 1...2 {
-            currentTrackingBlocks.append(time)
-        }
-    }
-    
-    /// 앱이 종료된 후, 새로 시작할 때 focusDate를 이용해 새로운 currentTrackingBlocks 배열을 생성합니다.
-    func regenerationTrackingBlocks() {
-        
-        // 1. 시간 리스트 반환
-        guard let timeList = focusDate().trackingTimeList?.array as? [TrackingTime] else {
-            fatalError("시간 리스트 반환 실패")
-        }
-        
-        // 2. 시간 리스트만큼 반복하며 최종 트래킹 보드 업데이트
-        for time in timeList {
-            
-            let targetNumber = Int(time.startTime)! / targetSecond
-            var hour = ""
-            var minute = ""
-            
-            // 만약 10보다 작다면 앞에 0 붙이기
-            if (targetNumber / 2) < 10 { hour = "\(targetNumber / 2)" }
-            else { hour = "\(targetNumber / 2)" }
-            
-            // 분 계산
-            if targetNumber % 2 == 0 { minute = "00" }
-            else { minute = "30" }
-            
-            let time = "\(hour):\(minute)"
-            print("현재 생성한 시간: \(time)")
-            
-            if !currentTrackingBlocks.contains(time) {
-                currentTrackingBlocks.append(time)
-            }
-        }
-    }
-    
-    /// 현재 트래킹 되고 있는 블럭 리스트를 초기화합니다.
-    func resetTrackingBlocks() {
-        currentTrackingBlocks.removeAll()
-        print("트래킹 블럭 리셋: \(currentTrackingBlocks)")
-    }
-}
-
-// MARK: - Test Method
-extension TrackingDataStore {
-    
-    /// 테스트 변수 추가
-    func testAppendForBackground() {
-        
-        // 몇번째 트래킹 블럭 활성화 할지 결정하기
-        let count = Int(TimerManager.shared.totalBlockCount / 0.5)
-        
-        if !currentTrackingBlocks.contains(testTrackingBoardDatas[count]) {
-            currentTrackingBlocks.append(testTrackingBoardDatas[count])
-        }
-    }
-    
-    func testAppendForDisconnect() {
-        
-        for index in 0..<focusTimeList.count where !currentTrackingBlocks.contains(testTrackingBoardDatas[index]) {
-            currentTrackingBlocks.append(testTrackingBoardDatas[index])
         }
     }
 }

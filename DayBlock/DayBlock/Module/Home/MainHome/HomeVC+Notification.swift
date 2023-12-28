@@ -55,15 +55,13 @@ extension HomeViewController {
     
     /// 온보딩 모드를 종료합니다.
     @objc private func finishOnboarding(_ notification: Notification) {
-        trackingData.resetTrackingBlocks()
-        viewManager.trackingBoard.resetAllBlocks()
         dismiss(animated: true)
     }
     
     /// 백그라운드 모드로 진입 후 트래킹 모드를 재시작 합니다.
     @objc private func restartTrackingMode(_ notification: Notification) {
         
-        // 2. 트래킹 모드 진행 중일 시 실행
+        // 1. 트래킹 모드 진행 중일 시 실행
         if UserDefaultsItem.shared.isTracking && !UserDefaultsItem.shared.isPaused {
             
             print("트래킹 모드 재실행\n")
@@ -98,10 +96,11 @@ extension HomeViewController {
                 
                 // 5. 생산 블럭량 라벨 업데이트
                 viewManager.updateCurrentOutputLabel(timerManager.totalBlockCount)
-                
-                // 6. 트래킹 보드 애니메이션 업데이트
-                viewManager.trackingBoard.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
             }
+            
+            // 6. 트래킹 보드 업데이트
+            trackingBoardService.updateTrackingBoard(to: Date())
+            updateTrackingBoardUI()
             
             // 7. 타이머 및 프로그레스 바 UI 업데이트
             viewManager.updateTracking(time: timerManager.format, progress: timerManager.progressPercent())

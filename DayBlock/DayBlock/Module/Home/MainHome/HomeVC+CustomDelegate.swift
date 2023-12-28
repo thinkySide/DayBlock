@@ -87,15 +87,3 @@ extension HomeViewController: CreateBlockViewControllerDelegate {
         updateTrackingBoardUI()
     }
 }
-
-// MARK: - TrackingBoardDelegate
-extension HomeViewController: TrackingBoardDelegate {
-    func trackingBoard(animationWillRefresh trackingBoard: TrackingBoard) {
-        
-        trackingBoard.pauseTrackingAnimation(trackingData.trackingBlocks(), isPaused: true)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.updateTrackingBoard(isPaused: false)
-        }
-    }
-}

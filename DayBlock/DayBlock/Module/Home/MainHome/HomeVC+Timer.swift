@@ -58,17 +58,6 @@ extension HomeViewController {
     }
 }
 
-// MARK: - Tracking Board
-extension HomeViewController {
-    
-    /// 트래킹 보드를 업데이트하고 애니메이션을 실행합니다.
-    func updateTrackingBoard(isPaused: Bool) {
-        let currentBlocks = trackingData.trackingBlocks()
-        let currentColor = groupData.focusColor()
-        viewManager.trackingBoard.updateTrackingAnimation(currentBlocks, color: currentColor, isPaused: isPaused)
-    }
-}
-
 // MARK: - Tracking Complete Method
 extension HomeViewController {
     

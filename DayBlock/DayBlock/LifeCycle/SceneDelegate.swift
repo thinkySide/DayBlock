@@ -98,6 +98,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // 5. 일시정지 시간 저장
         let pausedSecond = TimerManager.shared.pausedTime
         UserDefaultsItem.shared.setPausedSecond(to: pausedSecond)
+        
+        // 6. 트래킹 시간 배열 저장
+        let trackingSeconds = TrackingBoardService.shared.trackingSeconds
+        UserDefaultsItem.shared.setTrackingSeconds(to: trackingSeconds)
     }
 }
 
