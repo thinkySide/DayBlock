@@ -22,15 +22,6 @@ final class HomeView: UIView {
     
     // MARK: - Component
     
-    let testLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: Pretendard.semiBold, size: 16)
-        label.textColor = Color.subText
-        label.textAlignment = .center
-        label.numberOfLines = 4
-        return label
-    }()
-    
     let groupSelectButton: GroupSelectButton = {
         let group = GroupSelectButton()
         return group
@@ -123,7 +114,7 @@ final class HomeView: UIView {
         return label
     }()
     
-    private let trackingTimeLabel: UILabel = {
+    let trackingTimeLabel: UILabel = {
         let label = UILabel()
         label.text = "00:00:00"
         label.font = UIFont(name: Poppins.bold, size: 36)
@@ -141,7 +132,7 @@ final class HomeView: UIView {
         return progress
     }()
     
-    private lazy var trackingButton: UIButton = {
+    lazy var trackingButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: Icon.trackingStart), for: .normal)
         button.addTarget(self, action: #selector(trackingButtonTapped), for: .touchUpInside)
@@ -157,21 +148,10 @@ final class HomeView: UIView {
     
     let infoToastView: ToastMessage = {
         let view = ToastMessage(state: .complete)
-        view.messageLabel.text = "하루가 지나 새로운 트래킹 세션이 시작되었어요"
+        view.messageLabel.text = "하루가 지나 트래킹이 새롭게 시작되었어요"
         view.alpha = 0
         return view
     }()
-    
-    let helpBlurView: UIView = {
-        let view = UIView()
-        view.backgroundColor = Color.mainText.withAlphaComponent(0.4)
-        view.alpha = 0
-        return view
-    }()
-    
-    let trackingBoardToolTip = ToolTip(text: "현재 생산 중인 블럭은 깜빡거려요", tipStartX: 136)
-    let longPressToolTip = ToolTip(text: "블럭을 길게 누르면 생산이 완료돼요", tipStartX: 104)
-    let progressBarToolTip = ToolTip(text: "현재 세션의 진행도를 나타내요", tipStartX: 60)
     
     let tabBarStackView = TabBar(location: .tracking)
     
@@ -336,30 +316,6 @@ final class HomeView: UIView {
         trackingBlock.updateProductivityLabel(to: amount)
     }
     
-    /// 도움말 툴팁을 표시합니다.
-    func printHelpToolTip(isActive: Bool) {
-        
-        func toolTipAction(alpha: CGFloat) {
-            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut) {
-                [self.helpBlurView, self.trackingBoardToolTip, self.longPressToolTip, self.progressBarToolTip].forEach {
-                    $0.alpha = alpha
-                }
-            }
-        }
-        
-        isActive ? toolTipAction(alpha: 1) : toolTipAction(alpha: 0)
-    }
-    
-    /// 도움말 툴팁을 토글합니다.
-    func toggleHelpToolTip() {
-        var value = helpBlurView.alpha == 0 ? CGFloat(1) : CGFloat(0)
-        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut) {
-            [self.helpBlurView, self.trackingBoardToolTip, self.longPressToolTip, self.progressBarToolTip].forEach {
-                $0.alpha = value
-            }
-        }
-    }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupInitial()
@@ -388,12 +344,7 @@ final class HomeView: UIView {
             trackingButton,
             warningToastView,
             infoToastView,
-            helpBlurView,
-            trackingBoardToolTip,
-            longPressToolTip,
-            progressBarToolTip,
-            tabBarStackView,
-            testLabel
+            tabBarStackView
         ]
             .forEach {
                 /// 1. addSubView(component)
@@ -471,26 +422,6 @@ final class HomeView: UIView {
             
             infoToastView.centerXAnchor.constraint(equalTo: centerXAnchor),
             infoToastView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -48),
-            
-            helpBlurView.topAnchor.constraint(equalTo: topAnchor),
-            helpBlurView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            helpBlurView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            helpBlurView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            
-            trackingBoardToolTip.topAnchor.constraint(equalTo: trackingBoard.bottomAnchor, constant: 12),
-            trackingBoardToolTip.trailingAnchor.constraint(equalTo: trackingBoard.trailingAnchor),
-            trackingBoardToolTip.widthAnchor.constraint(equalToConstant: 200),
-            
-            longPressToolTip.topAnchor.constraint(equalTo: trackingBlock.bottomAnchor, constant: 12),
-            longPressToolTip.centerXAnchor.constraint(equalTo: trackingBlock.centerXAnchor),
-            longPressToolTip.widthAnchor.constraint(equalToConstant: 210),
-            
-            progressBarToolTip.topAnchor.constraint(equalTo: trackingProgressView.bottomAnchor, constant: 12),
-            progressBarToolTip.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
-            progressBarToolTip.widthAnchor.constraint(equalToConstant: 180),
-            
-            testLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            testLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -68),
             
             /// tabBarStackView
             tabBarStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),

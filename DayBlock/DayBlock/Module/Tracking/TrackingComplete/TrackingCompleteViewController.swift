@@ -86,11 +86,18 @@ final class TrackingCompleteViewController: UIViewController {
         viewManager.mainSummaryLabel.text = String(trackingData.focusTrackingBlockCount())
         
         // 트래킹 보드
-        let block = BlockDataStore.shared.focusEntity()
-        let trackingTimes = TrackingBoardService.shared.trackingSeconds
-        TrackingBoardService.shared.updateTrackingBoard(to: Date(), block: block, trackingTimes: trackingTimes)
-        TrackingBoardService.shared.stopAllAnimation()
-        viewManager.trackingBoard.updateBoard()
+        if mode == .tracking {
+            let block = BlockDataStore.shared.focusEntity()
+            let trackingTimes = TrackingBoardService.shared.trackingSeconds
+            TrackingBoardService.shared.updateTrackingBoard(to: Date(), block: block, trackingTimes: trackingTimes)
+            TrackingBoardService.shared.stopAllAnimation()
+            viewManager.trackingBoard.updateBoard()
+        }
+        
+        else if mode == .onboarding {
+            TrackingBoardService.shared.updateTrackingBoard(to: Date())
+            viewManager.trackingBoard.updateBoard()
+        }
         
         // 전체 생산량
         viewManager.totalValue.text = trackingData.totalOutput(blockData.focusEntity())

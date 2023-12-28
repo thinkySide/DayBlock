@@ -157,6 +157,7 @@
 		07B592142AC42B7D0046ABFC /* UIImageView++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B592132AC42B7D0046ABFC /* UIImageView++.swift */; };
 		07C044112B3D9855005A816A /* HomeVC+HelpTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C044102B3D9855005A816A /* HomeVC+HelpTracking.swift */; };
 		07C044132B3D9F7E005A816A /* ToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C044122B3D9F7E005A816A /* ToolTip.swift */; };
+		07C044152B3DB765005A816A /* HomeToolTipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C044142B3DB765005A816A /* HomeToolTipViewController.swift */; };
 		07C0BDAF2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDAE2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift */; };
 		07C0BDB42ABC452600D5E779 /* TrackingDate+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDB02ABC452600D5E779 /* TrackingDate+CoreDataClass.swift */; };
 		07C0BDB52ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDB12ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift */; };
@@ -327,6 +328,7 @@
 		07B592132AC42B7D0046ABFC /* UIImageView++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView++.swift"; sourceTree = "<group>"; };
 		07C044102B3D9855005A816A /* HomeVC+HelpTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+HelpTracking.swift"; sourceTree = "<group>"; };
 		07C044122B3D9F7E005A816A /* ToolTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolTip.swift; sourceTree = "<group>"; };
+		07C044142B3DB765005A816A /* HomeToolTipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeToolTipViewController.swift; sourceTree = "<group>"; };
 		07C0BDAE2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+CoreDataTest.swift"; sourceTree = "<group>"; };
 		07C0BDB02ABC452600D5E779 /* TrackingDate+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingDate+CoreDataClass.swift"; sourceTree = "<group>"; };
 		07C0BDB12ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingDate+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -710,6 +712,7 @@
 			children = (
 				078C50D029D726FE00F239BA /* HomeView.swift */,
 				078C50B929D7152F00F239BA /* HomeViewController.swift */,
+				07C044142B3DB765005A816A /* HomeToolTipViewController.swift */,
 				07D1F4AA2B36FA5800BFE90E /* HomeVC+UpdateUI.swift */,
 				07967D022ACA606000BB45B5 /* HomeVC+TrackingLifeCycle.swift */,
 				07D1F5272B3BEE6F00BFE90E /* HomeVC+Relaunch.swift */,
@@ -1129,6 +1132,7 @@
 				07174A182B1F4C6500B7EC69 /* RepositoryVC+TableView.swift in Sources */,
 				076E955B2B317041005A8D46 /* OpenLicenseDataStore.swift in Sources */,
 				0713019E2B205791008A2A8D /* SmallButton.swift in Sources */,
+				07C044152B3DB765005A816A /* HomeToolTipViewController.swift in Sources */,
 				07B1F8BE2B2C23DA00E98382 /* StartView.swift in Sources */,
 				07446E452B2ACDD60002E9EF /* Vibration.swift in Sources */,
 				07B592122AC4126C0046ABFC /* DispatchWorkItem.swift in Sources */,

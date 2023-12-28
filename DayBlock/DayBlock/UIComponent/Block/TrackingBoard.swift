@@ -80,6 +80,9 @@ final class TrackingBoard: UIView {
         // 48개의 블럭 순회
         for (index, item) in TrackingBoardService.shared.infoItems.enumerated() {
             
+            // 애니메이션 아닌 블럭은 일시정지 X
+            if !item.isAnimated { continue }
+            
             // 블럭 지정
             let block = blocks[index / 2]
             

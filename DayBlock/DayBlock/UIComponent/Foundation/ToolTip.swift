@@ -23,7 +23,7 @@ final class ToolTip: UIView {
         super.init(frame: .zero)
         
         // 기본값 숨기기
-        self.alpha = 0
+        self.alpha = 1
         
         // 배경색 지정
         self.backgroundColor = .white

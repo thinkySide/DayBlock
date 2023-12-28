@@ -118,9 +118,6 @@ final class HomeViewController: UIViewController {
     /// 제스처를 연결하고 설정합니다.
     private func setupGestrue() {
         
-        let superViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(superViewTapped))
-        view.addGestureRecognizer(superViewTapGesture)
-        
         addTapGesture(
             viewManager.groupSelectButton,
             target: self,

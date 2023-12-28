@@ -110,20 +110,20 @@ final class TrackingBoardBlock: UIView {
             $0.alpha = 1
         }
         
-        // 2. 빈 블럭일 경우 설정
-        if color == Color.entireBlock {
-            secondHalf.backgroundColor = color
-            paint = .none
-            return
-        }
-        
         // 3. 이미 첫번째 반쪽이 채워져있다면, mixed로 전환
         if paint == .firstHalf {
             
-            // 3-1. 상태 업데이트
+            // 3-1. 빈 블럭일 경우 설정
+            if color == Color.entireBlock {
+                mixedSecondHalf.backgroundColor = color
+                paint = .none
+                return
+            }
+            
+            // 3-2. 상태 업데이트
             paint = .mixed
             
-            // 3-2. 만약 일시정지 상태라면, 색 전환
+            // 3-3. 만약 일시정지 상태라면, 색 전환
             if isPaused {
                 let pausedColor = UIColor(rgb: 0xB0B3BB)
                 [mixedFirstHalf, mixedSecondHalf].forEach {
@@ -134,13 +134,13 @@ final class TrackingBoardBlock: UIView {
                 return
             }
             
-            // 3-3. 색상 업데이트
+            // 3-4. 색상 업데이트
             let firstColor = firstHalf.backgroundColor
             mixedFirstHalf.backgroundColor = firstColor
             mixedSecondHalf.backgroundColor = color
             firstHalf.backgroundColor = .none
             
-            // 3-4. 애니메이션 업데이트
+            // 3-5. 애니메이션 업데이트
             if isAnimated {
                 startAlphaAnimation(to: mixedSecondHalf)
                 
@@ -154,10 +154,17 @@ final class TrackingBoardBlock: UIView {
         // 4. 첫번째 반쪽이 비워져있다면, secondHalf로 전환
         else {
             
-            // 4-1. 상태값 업데이트
+            // 4-1. 빈 블럭일 경우 설정
+            if color == Color.entireBlock {
+                secondHalf.backgroundColor = color
+                paint = .none
+                return
+            }
+            
+            // 4-2. 상태값 업데이트
             paint = .secondHalf
             
-            // 4-2. 만약 일시정지 상태라면, 색 전환
+            // 4-3. 만약 일시정지 상태라면, 색 전환
             if isPaused {
                 let pausedColor = UIColor(rgb: 0xB0B3BB)
                 secondHalf.layer.removeAllAnimations()
@@ -166,10 +173,10 @@ final class TrackingBoardBlock: UIView {
                 return
             }
             
-            // 4-3. 색상 업데이트
+            // 4-4. 색상 업데이트
             secondHalf.backgroundColor = color
             
-            // 4-4. 애니메이션 업데이트
+            // 4-5. 애니메이션 업데이트
             if isAnimated { startAlphaAnimation(to: secondHalf) }
         }
     }

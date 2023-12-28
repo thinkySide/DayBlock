@@ -68,6 +68,7 @@ final class TrackingBoardService {
         if !trackings.contains(time) {
             trackings.append(time)
         }
+        print("트래킹 시간을 추가합니다. \(time) -> \(trackings)")
     }
     
     /// 마지막 트래킹 요소를 삭제합니다.
@@ -157,7 +158,6 @@ final class TrackingBoardService {
                 
                 // 트래킹 타임에 포함되어 있을 때만 컬러 업데이트
                 if trackingTimes.contains(startTime) {
-                    print("updateTrackingBoard: \(startTime)초 추가")
                     let color = block.superGroup.color
                     updateColor(to: startTime, color: color.uicolor)
                 }
@@ -180,6 +180,7 @@ final class TrackingBoardService {
         
         // trackings 배열 순회하며 infos 초기화
         for second in trackings {
+            print("\(second) 초기화")
             self.updateColor(to: second, color: Color.entireBlock)
             self.updateAnimated(to: second, isAnimated: false)
         }
