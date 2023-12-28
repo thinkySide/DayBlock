@@ -83,9 +83,6 @@ extension RepositoryViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let currentDate = repositoryManager.currentDate
-        print("\(TrackingDataStore.shared.formatter("yyyy.MM.dd", to: currentDate)) : \(TrackingDataStore.shared.dateAllOutput(to: currentDate))")
-        
         // 선택 비활성화
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -97,9 +94,7 @@ extension RepositoryViewController: UITableViewDelegate {
         let item = repositoryManager.dayItems[indexPath.row]
         
         trackingCompleteVC.setupCalendarMode(
-            icon: item.blockIcon,
-            color: item.groupColor,
-            taskLabel: item.blockTaskLabel,
+            item: item,
             currentDate: calendarManager.fullKoreanDateFormat(from: repositoryManager.currentDate),
             trackingTime: repositoryManager.trackingTimeString(to: indexPath.row),
             output: repositoryManager.outputPerTracking(to: indexPath.row))

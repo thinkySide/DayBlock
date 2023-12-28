@@ -128,6 +128,19 @@ extension BlockDataStore {
         return []
     }
     
+    /// 지정한 그룹명과 일치하는 블럭 리스트를 반환합니다.
+    ///
+    /// - Parameter groupName: 지정할 그룹명
+    func listInSelectedGroupInBlock(groupName: String, blockName: String) -> Block {
+        for group in groupData.list() where group.name == groupName {
+            if let blockList = group.blockList?.array as? [Block] {
+                return blockList.filter { $0.taskLabel == blockName }[0]
+            }
+        }
+        
+        fatalError("그룹명에 일치하는 블럭 리스트가 없습니다.")
+    }
+    
     // MARK: - 3. UPDATE
     
     /// 블럭 수정 완료 후 블럭 엔티티를 업데이트합니다.

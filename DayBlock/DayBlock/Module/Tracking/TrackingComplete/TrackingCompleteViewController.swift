@@ -86,7 +86,9 @@ final class TrackingCompleteViewController: UIViewController {
         viewManager.mainSummaryLabel.text = String(trackingData.focusTrackingBlockCount())
         
         // 트래킹 보드
-        TrackingBoardService.shared.updateTrackingBoard(to: Date())
+        let block = BlockDataStore.shared.focusEntity()
+        let trackingTimes = TrackingBoardService.shared.trackingSeconds
+        TrackingBoardService.shared.updateTrackingBoard(to: Date(), block: block, trackingTimes: trackingTimes)
         viewManager.trackingBoard.updateBoard()
         
         // 전체 생산량
@@ -97,29 +99,30 @@ final class TrackingCompleteViewController: UIViewController {
     }
     
     /// 캘린더 모드에서의 UI를 설정합니다.
-    func setupCalendarMode(icon: String, color: Int, taskLabel: String, currentDate: String, trackingTime: String, output: String) {
-        
-        let color = UIColor(rgb: color)
+    func setupCalendarMode(item: RepositoryItem, currentDate: String, trackingTime: String, output: String) {
         
         // AutoLayout
         viewManager.topConstraint.constant = 96
         
         // 아이콘
-        viewManager.iconBlock.backgroundColor = color
-        viewManager.iconBlock.symbol.image = UIImage(systemName: icon)
+        viewManager.iconBlock.backgroundColor = item.groupColor.uicolor
+        viewManager.iconBlock.symbol.image = UIImage(systemName: item.blockIcon)
         
         // 작업명
-        viewManager.taskLabel.text = taskLabel
+        viewManager.taskLabel.text = item.blockTaskLabel
         
         // 날짜 및 시간 라벨
          viewManager.dateLabel.text = currentDate
         viewManager.timeLabel.text = trackingTime
         
         // 생산량 라벨
-        viewManager.plusSummaryLabel.textColor = color
+        viewManager.plusSummaryLabel.textColor = item.groupColor.uicolor
         viewManager.mainSummaryLabel.text = output
         
         // 트래킹 보드
+        let block = BlockDataStore.shared.listInSelectedGroupInBlock(groupName: item.groupName, blockName: item.blockTaskLabel)
+        let trackingTimes = item.trackingTimes.map { Int($0.startTime)!  }
+        TrackingBoardService.shared.updateTrackingBoard(to: Date(), block: block, trackingTimes: trackingTimes)
         viewManager.trackingBoard.updateBoard()
         
         // total, today, 버튼 숨기기

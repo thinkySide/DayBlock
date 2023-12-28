@@ -115,6 +115,44 @@ final class TrackingBoardService {
         }
     }
     
+    /// 지정한 날짜와 블럭에 맞게 트래킹 데이터를 업데이트합니다.
+    func updateTrackingBoard(to date: Date, block: Block, trackingTimes: [Int]) {
+        
+        // 데이터 리셋
+        resetAllData()
+        
+        guard let dateList = block.trackingDateList?.array as? [TrackingDate] else {
+            fatalError("TrackingDate 반환에 실패했습니다.")
+        }
+        
+        // 지정한 날짜 리스트
+        let todayDateList = dateList.filter {
+            $0.year == TrackingDataStore.shared.formatter("yyyy", to: date) &&
+            $0.month == TrackingDataStore.shared.formatter("MM", to: date) &&
+            $0.day == TrackingDataStore.shared.formatter("dd", to: date)
+        }
+        
+        // 날짜 반복
+        for date in todayDateList {
+            guard let timeList = date.trackingTimeList?.array as? [TrackingTime] else {
+                fatalError("시간 리스트 반환 실패")
+            }
+            
+            // 4. 시간 반복
+            for time in timeList {
+                guard let _ = time.endTime,
+                      let startTime = Int(time.startTime) else { break }
+                
+                // 트래킹 타임에 포함되어 있을 때만 컬러 업데이트
+                if trackingTimes.contains(startTime) {
+                    print("updateTrackingBoard: \(startTime)초 추가")
+                    let color = block.superGroup.color
+                    updateColor(to: startTime, color: color.uicolor)
+                }
+            }
+        }
+    }
+    
     /// 모든 데이터셋을 초기화합니다.
     func resetAllData() {
         
