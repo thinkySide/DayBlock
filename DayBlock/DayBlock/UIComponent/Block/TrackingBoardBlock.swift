@@ -19,7 +19,7 @@ final class TrackingBoardBlock: UIView {
     var isFirstHalfAnimate = false
     
     /// 다음 블럭 애니메이션을 대기하고 있는 상태 확인용 변수
-    // var isRefresh = false
+    var isRefresh = false
     
     /// 블럭 색칠 상태
     enum Paint {
@@ -75,6 +75,10 @@ final class TrackingBoardBlock: UIView {
     /// 첫번째 반쪽 블럭을 업데이트합니다.
     func updateFirstBlock(color: UIColor, isAnimated: Bool, isPaused: Bool) {
         
+        // 기존 애니메이션 삭제
+        firstHalf.layer.removeAllAnimations()
+        firstHalf.alpha = 1
+        
         // 비워져있는 블럭으로 설정
         if color == Color.entireBlock {
             paint = .none
@@ -108,6 +112,12 @@ final class TrackingBoardBlock: UIView {
     
     /// 두번째 반쪽 블럭을 업데이트합니다.
     func updateSecondBlock(color: UIColor, isAnimated: Bool, isPaused: Bool) {
+        
+        // 기존 애니메이션 삭제
+        [secondHalf, mixedFirstHalf, mixedSecondHalf].forEach {
+            $0.layer.removeAllAnimations()
+            $0.alpha = 1
+        }
         
         // 비워져있는 블럭으로 설정
         if color == Color.entireBlock {

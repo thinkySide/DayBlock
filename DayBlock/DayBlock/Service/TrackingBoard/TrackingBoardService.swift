@@ -63,12 +63,23 @@ final class TrackingBoardService {
         }
     }
     
+    /// 모든 데이터셋을 초기화합니다.
+    func resetAllData() {
+        
+        // infos 초기화
+        infos = Array(repeating: TrackingBoardBlockInfo(), count: 48)
+        
+        // trackings 초기화
+        trackings.removeAll()
+    }
+    
     /// 트래킹 시간을 초기화합니다.
     func resetTrackingSecods() {
         
-        // 트래킹 시간초 배열 순회
-        for second in trackingSeconds {
-            updateAllInfo(time: second, color: Color.entireBlock, isAnimated: false)
+        // trackings 배열 순회하며 infos 초기화
+        for second in trackings {
+            self.updateColor(to: second, color: Color.entireBlock)
+            self.updateAnimated(to: second, isAnimated: false)
         }
         
         // 전체 초기화

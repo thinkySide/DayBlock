@@ -138,9 +138,16 @@ final class HomeView: UIView {
         return button
     }()
     
-    let toastView: ToastMessage = {
+    let warningToastView: ToastMessage = {
         let view = ToastMessage(state: .warning)
         view.messageLabel.text = "블럭 0.5개 이상 생산 시 등록이 가능해요"
+        view.alpha = 0
+        return view
+    }()
+    
+    let infoToastView: ToastMessage = {
+        let view = ToastMessage(state: .complete)
+        view.messageLabel.text = "하루가 지나 새로운 트래킹 세션이 시작되었어요"
         view.alpha = 0
         return view
     }()
@@ -300,7 +307,7 @@ final class HomeView: UIView {
         trackingProgressView.setProgress(progress, animated: true)
     }
     
-    func updateCurrentProductivityLabel(_ amount: Double) {
+    func updateCurrentOutputLabel(_ amount: Double) {
         trackingBlock.updateProductivityLabel(to: amount)
     }
     
@@ -330,7 +337,8 @@ final class HomeView: UIView {
             trackingTimeLabel,
             trackingProgressView,
             trackingButton,
-            toastView,
+            warningToastView,
+            infoToastView,
             tabBarStackView,
             testLabel
         ]
@@ -405,8 +413,11 @@ final class HomeView: UIView {
             trackingButton.widthAnchor.constraint(equalToConstant: 64),
             trackingButton.heightAnchor.constraint(equalToConstant: 64),
             
-            toastView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            toastView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -48),
+            warningToastView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            warningToastView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -48),
+            
+            infoToastView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            infoToastView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -48),
             
             testLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             testLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -68),

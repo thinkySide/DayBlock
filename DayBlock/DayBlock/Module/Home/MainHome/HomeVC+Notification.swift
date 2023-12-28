@@ -97,7 +97,7 @@ extension HomeViewController {
                 }
                 
                 // 5. 생산 블럭량 라벨 업데이트
-                viewManager.updateCurrentProductivityLabel(timerManager.totalBlockCount)
+                viewManager.updateCurrentOutputLabel(timerManager.totalBlockCount)
                 
                 // 6. 트래킹 보드 애니메이션 업데이트
                 viewManager.trackingBoard.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())

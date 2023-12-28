@@ -17,7 +17,6 @@ extension HomeViewController {
         
         // 0.5개가 생산될 때마다 호출
         if timerManager.totalTrackingSecond % trackingData.targetSecond == 0 {
-            // testTracking()
             produceBlock()
         }
         
@@ -41,11 +40,13 @@ extension HomeViewController {
         
         // 3. 생산한 전체 블럭
         timerManager.totalBlockCount += 0.5
-        viewManager.updateCurrentProductivityLabel(timerManager.totalBlockCount)
+        viewManager.updateCurrentOutputLabel(timerManager.totalBlockCount)
         
         // 만약 날짜가 넘어갔다면, 새로운 날짜 세션으로 재시작.
         if trackingData.focusDate().day != Date().dayString {
-            print("날짜 넘어감.")
+            
+            // 하루 지남 토스트 출력
+            showToast(toast: viewManager.infoToastView, isActive: true)
             
             // 기존 트래킹 데이터 저장
             trackingData.finishData()
@@ -54,15 +55,20 @@ extension HomeViewController {
             trackingData.createStartData()
             
             // 원래 트래킹 되고 있던 블럭들 초기화
-            trackingData.resetTrackingBlocks()
-            viewManager.trackingBoard.resetAllBlocks()
+            trackingBoardService.resetAllData()
         }
         
+        // 트래킹 보드 업데이트
+        let todaySecond = trackingData.todaySecondsToInt()
+        let color = groupData.focusEntity().color.uicolor
+        trackingBoardService.updateAllInfo(time: todaySecond, color: color, isAnimated: true)
+        updateTrackingBoardUI()
+        
         // 4. 트래킹 보드를 위한 배열 업데이트
-        trackingData.appendCurrentTimeInTrackingBlocks()
+        // trackingData.appendCurrentTimeInTrackingBlocks()
         
         // 5. 리프레쉬
-        viewManager.trackingBoard.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
+        // viewManager.trackingBoard.refreshAnimation(trackingData.trackingBlocks(), color: groupData.focusColor())
     }
     
     /// 일시정지 시간을 계산합니다.
@@ -84,7 +90,7 @@ extension HomeViewController {
         
         // 3. 생산한 전체 블럭 업데이트
         timerManager.totalBlockCount += 0.5
-        viewManager.updateCurrentProductivityLabel(timerManager.totalBlockCount)
+        viewManager.updateCurrentOutputLabel(timerManager.totalBlockCount)
         
         // 4. 트래킹 보드를 위한 배열 업데이트
         trackingData.testAppendForBackground()
@@ -198,7 +204,7 @@ extension HomeViewController {
     func homeView(_ homeView: HomeView, trackingDidStop mode: HomeView.TrakingMode) {
         
         // 1. 트래킹 보드 애니메이션 종료 및 업데이트
-        showToast(toast: viewManager.toastView, isActive: false)
+        showToast(toast: viewManager.warningToastView, isActive: false)
         trackingBoardService.resetTrackingSecods()
         updateTrackingBoardUI()
         
@@ -231,7 +237,7 @@ extension HomeViewController {
     func homeView(_ homeView: HomeView, trackingDidFinish mode: HomeView.TrakingMode) {
         
         // 1. UI 업데이트
-        showToast(toast: viewManager.toastView, isActive: false)
+        showToast(toast: viewManager.warningToastView, isActive: false)
         uptodateTodayLabelUI()
         updateTrackingBoardUI()
         
@@ -251,7 +257,7 @@ extension HomeViewController: DayBlockDelegate {
         
         // 0. 아직 블럭이 생성되지 않았다면, 메서드
         guard timerManager.totalTrackingSecond > trackingData.targetSecond else {
-            showToast(toast: viewManager.toastView, isActive: true)
+            showToast(toast: viewManager.warningToastView, isActive: true)
             Vibration.error.vibrate()
             return
         }

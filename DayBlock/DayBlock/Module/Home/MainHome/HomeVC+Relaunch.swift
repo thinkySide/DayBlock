@@ -72,7 +72,7 @@ extension HomeViewController {
         
         // 총 블럭 개수 및 UI 업데이트
         timerManager.totalBlockCount = Double(result / trackingData.targetSecond) * 0.5
-        viewManager.updateCurrentProductivityLabel(timerManager.totalBlockCount)
+        viewManager.updateCurrentOutputLabel(timerManager.totalBlockCount)
         
         // 총 트래킹 시간 업데이트
         timerManager.totalTrackingSecond = result
