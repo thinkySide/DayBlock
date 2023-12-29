@@ -594,6 +594,8 @@ extension TrackingDataStore {
     /// 트래킹을 종료함과 동시에 데이터를 저장합니다.
     func finishData() {
         
+        print("로그 확인: \(focusDate())")
+        
         // 현재 세션 종료(삭제)
         focusDate().removeFromTrackingTimeList(focusTime())
         

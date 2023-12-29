@@ -161,15 +161,15 @@ final class TrackingBoardBlock: UIView {
             if isPaused {
                 let pausedColor = UIColor(rgb: 0xB0B3BB)
                 
+                secondHalf.layer.removeAllAnimations()
+                secondHalf.backgroundColor = pausedColor
+                secondHalf.alpha = 1
+                
                 // mixedFirstHalf가 이미 칠해져 있다면
-                if mixedFirstHalf.backgroundColor == Color.entireBlock {
+                if mixedFirstHalf.backgroundColor != .none {
                     mixedSecondHalf.layer.removeAllAnimations()
                     mixedSecondHalf.backgroundColor = pausedColor
                     mixedSecondHalf.alpha = 1
-                } else {
-                    secondHalf.layer.removeAllAnimations()
-                    secondHalf.backgroundColor = pausedColor
-                    secondHalf.alpha = 1
                 }
                 
                 return
