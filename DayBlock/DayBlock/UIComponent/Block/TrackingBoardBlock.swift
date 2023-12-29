@@ -20,14 +20,6 @@ final class TrackingBoardBlock: UIView {
         case mixed
     }
     
-    /// 전체 색칠 상태
-    let full: UIView = {
-        let view = UIView()
-        view.clipsToBounds = true
-        view.alpha = 0
-        return view
-    }()
-    
     /// 00~29 까지의 첫번째 반쪽 색칠 상태
     let firstHalf: UIView = {
         let view = UIView()
@@ -168,9 +160,18 @@ final class TrackingBoardBlock: UIView {
             // 4-3. 만약 일시정지 상태라면, 색 전환
             if isPaused {
                 let pausedColor = UIColor(rgb: 0xB0B3BB)
-                secondHalf.layer.removeAllAnimations()
-                secondHalf.backgroundColor = pausedColor
-                secondHalf.alpha = 1
+                
+                // mixedFirstHalf가 이미 칠해져 있다면
+                if mixedFirstHalf.backgroundColor == Color.entireBlock {
+                    mixedSecondHalf.layer.removeAllAnimations()
+                    mixedSecondHalf.backgroundColor = pausedColor
+                    mixedSecondHalf.alpha = 1
+                } else {
+                    secondHalf.layer.removeAllAnimations()
+                    secondHalf.backgroundColor = pausedColor
+                    secondHalf.alpha = 1
+                }
+                
                 return
             }
             
@@ -182,6 +183,8 @@ final class TrackingBoardBlock: UIView {
         }
     }
     
+    // MARK: - Helper
+    
     /// Alpha 애니메이션을 시작합니다.
     private func startAlphaAnimation(to view: UIView) {
         
@@ -191,6 +194,14 @@ final class TrackingBoardBlock: UIView {
         UIView.animate(withDuration: 1.0, delay: 0, options: options, animations: {
             view.alpha = 1.0
         }, completion: nil)
+    }
+    
+    /// 블럭을 초기 상태로 리셋합니다.
+    func reset() {
+        paint = .none
+        [firstHalf, secondHalf, mixedFirstHalf, mixedSecondHalf].forEach {
+            $0.backgroundColor = .none
+        }
     }
     
     
@@ -204,7 +215,7 @@ final class TrackingBoardBlock: UIView {
         self.backgroundColor = Color.entireBlock
         
         /// AddSubView & resizingMask
-        [full, firstHalf, secondHalf, mixedFirstHalf, mixedSecondHalf]
+        [firstHalf, secondHalf, mixedFirstHalf, mixedSecondHalf]
             .forEach {
                 addSubview($0)
                 $0.translatesAutoresizingMaskIntoConstraints = false
@@ -216,12 +227,6 @@ final class TrackingBoardBlock: UIView {
             // self(paintBlock)
             self.widthAnchor.constraint(equalToConstant: size),
             self.heightAnchor.constraint(equalToConstant: size),
-            
-            // full
-            full.topAnchor.constraint(equalTo: topAnchor),
-            full.bottomAnchor.constraint(equalTo: bottomAnchor),
-            full.leadingAnchor.constraint(equalTo: leadingAnchor),
-            full.trailingAnchor.constraint(equalTo: trailingAnchor),
             
             // firstHalf
             firstHalf.topAnchor.constraint(equalTo: topAnchor),
@@ -260,7 +265,6 @@ final class TrackingBoardBlock: UIView {
         let cornerRadius = self.frame.height / 4
         self.clipsToBounds = true
         self.layer.cornerRadius = cornerRadius
-        full.layer.cornerRadius = cornerRadius
         firstHalf.layer.cornerRadius = cornerRadius
         secondHalf.layer.cornerRadius = cornerRadius
         mixedFirstHalf.layer.cornerRadius = cornerRadius

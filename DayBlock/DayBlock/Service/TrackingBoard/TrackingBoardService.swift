@@ -55,6 +55,11 @@ final class TrackingBoardService {
         }
     }
     
+    /// 트래킹 아이템 배열을 초기화합니다.
+    func resetInfoItems() {
+        infos = Array(repeating: TrackingBoardBlockInfo(), count: 48)
+    }
+    
     
     // MARK: - Trackings
     
@@ -85,6 +90,10 @@ final class TrackingBoardService {
     func updateTrackingBoard(to date: Date) {
         
         // MARK: - 1. 코어 데이터 받아오기
+        
+        // 모든 데이터 초기화
+        resetInfoItems()
+        
         // 1. 그룹 반복
         for group in GroupDataStore.shared.list() {
             guard let blockList = group.blockList?.array as? [Block] else {
@@ -114,7 +123,6 @@ final class TrackingBoardService {
                     for time in timeList {
                         guard let _ = time.endTime,
                               let startTime = Int(time.startTime) else { break }
-                        // print("updateTrackingBoard: \(startTime)초 추가")
                         updateColor(to: startTime, color: group.color.uicolor)
                     }
                 }

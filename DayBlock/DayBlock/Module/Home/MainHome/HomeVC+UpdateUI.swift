@@ -36,5 +36,6 @@ extension HomeViewController {
         
         trackingBoardService.updateTrackingBoard(to: Date())
         viewManager.trackingBoard.updateBoard()
+        viewManager.testLabel.text = "\(trackingBoardService.trackingSeconds)"
     }
 }

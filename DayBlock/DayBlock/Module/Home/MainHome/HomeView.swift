@@ -155,6 +155,14 @@ final class HomeView: UIView {
     
     let tabBarStackView = TabBar(location: .tracking)
     
+    let testLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: Poppins.bold, size: 13)
+        label.textColor = Color.mainText
+        label.textAlignment = .center
+        return label
+    }()
+    
     // MARK: - Method
     
     /// 트래킹 모드를 중단합니다.
@@ -344,7 +352,8 @@ final class HomeView: UIView {
             trackingButton,
             warningToastView,
             infoToastView,
-            tabBarStackView
+            tabBarStackView,
+            testLabel
         ]
             .forEach {
                 /// 1. addSubView(component)
@@ -422,6 +431,9 @@ final class HomeView: UIView {
             
             infoToastView.centerXAnchor.constraint(equalTo: centerXAnchor),
             infoToastView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -48),
+            
+            testLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            testLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             /// tabBarStackView
             tabBarStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),

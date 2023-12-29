@@ -56,6 +56,8 @@ final class TrackingBoard: UIView {
     /// 이미 칠해져야 할 데이터 + 애니메이션 중인 데이터
     func updateBoard() {
         
+        resetBoard()
+        
         // 48개의 블럭 순회
         for (index, item) in TrackingBoardService.shared.infoItems.enumerated() {
             
@@ -95,6 +97,13 @@ final class TrackingBoard: UIView {
             else if index % 2 == 1 {
                 block.updateSecondBlock(color: item.color, isAnimated: item.isAnimated, isPaused: true)
             }
+        }
+    }
+    
+    /// 트래킹 보드를 초기 상태로 리셋합니다.
+    func resetBoard() {
+        for block in blocks {
+            block.reset()
         }
     }
     
