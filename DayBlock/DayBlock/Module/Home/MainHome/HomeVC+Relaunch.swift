@@ -7,66 +7,88 @@
 
 import UIKit
 
+// MARK: - Exit App
 extension HomeViewController {
     
     /// APP 종료 후, 트래킹 모드를 다시 설정하는 메서드입니다.
     func setTrackingModeAfterAppRestart() {
         let lastTrackingTime = UserDefaultsItem.shared.trackingSecondBeforeAppTermination
-        let dayElapsed = trackingData.calculateElapsedDaySinceAppExit
-        let timeElapsed = trackingData.calculateElapsedTimeSinceAppExit
-        var trackingTimeResult = 0
         
-        // MARK: - 트래킹 진행중
-        if !UserDefaultsItem.shared.isPaused {
-            print("트래킹 진행중")
-            
-            // 하루가 지났는가? -> X
-            if dayElapsed == 0 {
-                print("하루 안지났음.")
-                
-                // 마지막 트래킹 시간 + 흐른 시간
-                trackingTimeResult = lastTrackingTime + timeElapsed
-                
-                // 트래킹 보드 저장된 값으로 업데이트
-                print("저장된 값!: \(UserDefaultsItem.shared.trackingSeconds)")
-                trackingBoardService.replaceTrackingSeconds(to: UserDefaultsItem.shared.trackingSeconds)
-            }
-            
-            // 하루가 지났는가? -> O
-            else if dayElapsed > 0 {
-                print("\(dayElapsed)일 지났음.")
-                
-                
-            }
-        }
-        
-        // MARK: - 트래킹 일시정지
-        else if UserDefaultsItem.shared.isPaused {
+        // MARK: - 일시정지 되었을 경우
+        guard !UserDefaultsItem.shared.isPaused else {
             print("트래킹 일시정지")
             
-            // 일시정지되었다면 마지막 트래킹 시간 그대로 사용
-            trackingTimeResult = lastTrackingTime
+            // 일시정지되었다면 마지막 트래킹 시간 그대로 업데이트
+            updateTrackingTimeResultAfterAppRestart(result: lastTrackingTime)
             
-            // 하루가 지났는가? -> X
-            if dayElapsed == 0 {
-                print("하루 안지났음.")
-            }
+            // 트래킹 보드 저장된 값으로 업데이트
+            print("저장된 값!: \(UserDefaultsItem.shared.trackingSeconds)")
+            trackingBoardService.replaceTrackingSeconds(to: UserDefaultsItem.shared.trackingSeconds)
             
-            // 하루가 지났는가? -> O
-            else if dayElapsed > 0 {
-                print("\(dayElapsed)일 지났음.")
-            }
+            // 트래킹 모드 시작
+            viewManager.trackingRestartForDisconnect()
+            return
         }
         
-        // 최종 TimeManager 업데이트
-        updateTrackingTimeResultAfterAppRestart(result: trackingTimeResult)
         
-        // APP 종료되어있을 동안 생성된 블럭 코어데이터 추가
-        appendDataBetweenAppExit()
+        // MARK: - 트래킹 진행 중인 경우
+        
+        print("트래킹 진행 중")
+        let dayElapsed = trackingData.calculateElapsedDaySinceAppExit
+        let timeElapsed = trackingData.calculateElapsedTimeSinceAppExit
+        let currentTrackingSecond = timerManager.currentTrackingSecond
+        
+        // 마지막 트래킹 시간 + 흐른 시간으로 트래킹 시간 업데이트
+        updateTrackingTimeResultAfterAppRestart(result: lastTrackingTime + timeElapsed)
+        
+        // 트래킹 보드 업데이트
+        trackingBoardService.replaceTrackingSeconds(to: UserDefaultsItem.shared.trackingSeconds)
+        
+        
+        // MARK: - 블럭이 생산되지 않은 경우
+        // 현재 초(ex: 252) + 지난 시간(ex: 500)
+        // 이 값이 1800 이상이라면, 블럭이 0.5개 이상 생성된 것.
+        let countSecond = Int(currentTrackingSecond) + timeElapsed
+        guard countSecond >= trackingData.targetSecond else {
+            print("블럭이 생산되지 않았음.")
+            viewManager.trackingRestartForDisconnect()
+            return
+        }
+        
+        
+        // MARK: - 블럭이 생산된 경우
+        let blockCount = countSecond / trackingData.targetSecond
+        print("블럭이 \(blockCount)개 생산되었음.")
+        
+        // 앱 종료 동안 생성되었던 데이터 생성
+        for _ in 1...blockCount {
+            
+            // 그동안 트래킹 되었던 데이터 추가
+            trackingData.appendDataBetweenBackground()
+            
+            // 트래킹 보드의 trackings에 데이터 추가
+            let second = Int(trackingData.focusTime().startTime)!
+            trackingBoardService.appendTrackingSecond(to: second)
+        }
+        
+        // MARK: - 트래킹 중 하루 지났을 경우
+        if dayElapsed > 0 {
+            print("\(dayElapsed)일 지났음.")
+            
+            // 트래킹 보드 전부 초기화
+            trackingBoardService.resetAllData()
+            
+            // 현재의 focusDate의 startTime으로 현재 세션 업데이트
+            for time in trackingData.focusTimeList {
+                trackingBoardService.appendTrackingSecond(to: Int(time.startTime)!)
+            }
+        }
         
         // 트래킹 모드 최종 시작
         viewManager.trackingRestartForDisconnect()
     }
+    
+    // MARK: - Helper
     
     /// APP 재시작 후 트래킹 시간을 계산해 TimeManager를 업데이트합니다.
     private func updateTrackingTimeResultAfterAppRestart(result: Int) {
@@ -83,26 +105,85 @@ extension HomeViewController {
         timerManager.currentTrackingSecond = Float(currentTime)
         viewManager.updateTracking(time: timerManager.format, progress: timerManager.progressPercent())
     }
+}
+
+// MARK: - Background
+extension HomeViewController {
     
-    /// APP이 종료되어 있을 동안 생성된 블럭 데이터를 추가합니다.
-    private func appendDataBetweenAppExit() {
+    /// background 에서 foreground로 진입 후 트래킹 모드를 재시작 합니다.
+    @objc func didEnterForeground(_ notification: Notification) {
         
-        // 1. TrakcingTime 리스트 받아오기
-        let timeList = trackingData.focusDate().trackingTimeList?.array as! [TrackingTime]
+        // 트래킹 모드 + 일시정지가 아닐 때 해당 메서드 실행
+        guard UserDefaultsItem.shared.isTracking && !UserDefaultsItem.shared.isPaused else { return }
+        print(#function)
         
-        // 2. endTime이 존재하는 데이터의 개수만 받아오기(이미 완성된 데이터)
-        let completeDatas = timeList.filter { $0.endTime != nil }.count
+        // 1. 시간 업데이트
+        updateTimerSinceBackground(notification)
         
-        // 3. 생성해야할 블럭 개수 카운트
-        let count = timeList.count - completeDatas
-        
-        print("[전체 개수: \(timeList.count)] - [endTime이 존재하는 개수: \(completeDatas)] = \(count)")
-        
-        // 4. 생성해야 할 개수만큼 데이터 생성
-        if timerManager.totalBlockCount > 0 {
-            for _ in 1...count {
-                trackingData.appendDataBetweenAppExit()
+        // MARK: - 백그라운드에 있을 동안 블럭이 생산된 경우
+        if timerManager.currentTrackingSecond > Float(trackingData.targetSecond) {
+            
+            // 현재 트래킹 세션 초 업데이트
+            let count = timerManager.currentTrackingSecond / Float(trackingData.targetSecond)
+            timerManager.currentTrackingSecond -= Float(trackingData.targetSecond) * count
+            
+            print("백그라운드에 있을 동안 블럭이 \(count)개 생산되었음.")
+            
+            // 백그라운드 데이터 생성
+            for _ in 1...Int(count) {
+                
+                // 지금까지 몇개의 블럭이 생산되었는지 추가
+                timerManager.totalBlockCount += 0.5
+                
+                // 그동안 트래킹 되었던 데이터 추가
+                trackingData.appendDataBetweenBackground()
+                
+                // 트래킹 보드의 trackings에 데이터 추가
+                let second = Int(trackingData.focusTime().startTime)!
+                trackingBoardService.appendTrackingSecond(to: second)
             }
+            
+            // MARK: - 백그라운드에 있을 동안 하루가 지난 경우
+            let dayElapsed = trackingData.calculateElapsedDaySinceAppExit
+            if dayElapsed > 0 {
+                print("백그라운드에 있을 동안 \(dayElapsed)일이 지났음.")
+                
+                // 트래킹 보드 전부 초기화
+                trackingBoardService.resetAllData()
+                
+                // 현재의 focusDate의 startTime으로 현재 세션 업데이트
+                for time in trackingData.focusTimeList {
+                    trackingBoardService.appendTrackingSecond(to: Int(time.startTime)!)
+                }
+            }
+            
+            // 생산 블럭량 라벨 업데이트
+            viewManager.updateCurrentOutputLabel(timerManager.totalBlockCount)
         }
+        
+        // 트래킹 보드 업데이트
+        trackingBoardService.updateTrackingBoard(to: Date())
+        updateTrackingBoardUI()
+        
+        // 타이머 및 프로그레스 바 UI 업데이트
+        viewManager.updateTracking(time: timerManager.format, progress: timerManager.progressPercent())
+    }
+    
+    // MARK: - Helper
+    
+    /// Background에 나가있었던 시간을 계산 후 타이머를 업데이트합니다.
+    private func updateTimerSinceBackground(_ notification: Notification) {
+        
+        // 타이머 재시작
+        timerManager.trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingEverySecond), userInfo: nil, repeats: true)
+        
+        // 시간 확인
+        let latestTime = notification.userInfo?["time"] as? Int ?? 0 // 마지막 todaySeconds와 같음.
+        let currentTime = trackingData.todaySecondsToInt()
+        let elapsedTime = currentTime - latestTime
+        
+        // 시간 업데이트
+        timerManager.totalTrackingSecond += elapsedTime
+        timerManager.currentTrackingSecond += Float(elapsedTime)
     }
 }

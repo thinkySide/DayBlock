@@ -63,7 +63,9 @@ final class HomeViewController: UIViewController {
         
         // UI 업데이트
         uptodateTodayLabelUI()
-        updateTrackingBoardUI()
+        if !UserDefaultsItem.shared.isPaused {
+            updateTrackingBoardUI()
+        }
         
         // CollectionView 리로드
         viewManager.blockCollectionView.reloadData()

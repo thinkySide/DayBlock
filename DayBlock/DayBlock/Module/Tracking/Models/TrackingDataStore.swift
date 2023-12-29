@@ -522,37 +522,42 @@ extension TrackingDataStore {
         groupData.saveContext()
     }
     
-    /// 백그라운드에 나가있을 동안 생성된 블럭을 코어데이터에 추가합니다.
-    ///
-    /// 마지막으로 백그라운은드로 진입한 시점 (00:00분 기준 경과 초)
+//    /// 백그라운드에 나가있을 동안 생성된 블럭을 코어데이터에 추가합니다.
+//    ///
+//    /// 마지막으로 백그라운은드로 진입한 시점 (00:00분 기준 경과 초)
+//    func appendDataBetweenBackground() {
+//        
+//        // 1. 트래킹 마무리 시간 업데이트
+//        let initialStartTime = Int(focusTime().startTime)!
+//        print("initialStartTime: \(initialStartTime)")
+//        let pausedTime = TimerManager.shared.pausedTime
+//        let endTime = initialStartTime + targetSecond + pausedTime
+//        focusTime().endTime = String(endTime)
+//        
+//        // 2. 일시정시 시간 초기화
+//        TimerManager.shared.pausedTime = 0
+//        
+//        // 3. 새로운 세션 시작
+//        let trackingTime = TrackingTime(context: context)
+//        trackingTime.startTime = String(endTime)
+//        focusDate().addToTrackingTimeList(trackingTime)
+//        
+//        // 4. 코어데이터 저장
+//        groupData.saveContext()
+//    }
+    
+    /// 앱이 종료되어있을 동안 추가된 트래킹 데이터를 추가합니다.
     func appendDataBetweenBackground() {
         
-        // 1. 트래킹 마무리 시간 업데이트
+        // 1. 현재 트래킹 중인 세션의 마지막 시간 = 시작 시간 + 한 세션의 시간 + 일시정지 시간
         let initialStartTime = Int(focusTime().startTime)!
+        print("initialStartTime: \(initialStartTime)")
         let pausedTime = TimerManager.shared.pausedTime
         let endTime = initialStartTime + targetSecond + pausedTime
         focusTime().endTime = String(endTime)
         
-        // 2. 일시정시 시간 초기화
+        // 일시정지 시간 초기화
         TimerManager.shared.pausedTime = 0
-        
-        // 3. 새로운 세션 시작
-        let trackingTime = TrackingTime(context: context)
-        trackingTime.startTime = String(endTime)
-        focusDate().addToTrackingTimeList(trackingTime)
-        
-        // 4. 코어데이터 저장
-        groupData.saveContext()
-    }
-    
-    /// 앱이 종료되어있을 동안 추가된 트래킹 데이터를 추가합니다.
-    func appendDataBetweenAppExit() {
-        
-        // 1. 현재 트래킹 중인 세션의 마지막 시간 = 시작 시간 + 한 세션의 시간
-        let initialStartTime = Int(focusTime().startTime)!
-        print("initialStartTime: \(initialStartTime)")
-        let endTime = initialStartTime + targetSecond
-        focusTime().endTime = String(endTime)
         
         // 2-1. 앱이 종료되어있을 동안, 하루가 지나지 않음.
         if endTime <= 86400 {

@@ -115,6 +115,7 @@ final class TrackingBoardBlock: UIView {
             
             // 3-1. 빈 블럭일 경우 설정
             if color == Color.entireBlock {
+                mixedFirstHalf.alpha = 0
                 mixedSecondHalf.backgroundColor = color
                 paint = .none
                 return

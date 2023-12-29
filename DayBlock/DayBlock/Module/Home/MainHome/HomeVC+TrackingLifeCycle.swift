@@ -61,6 +61,7 @@ extension HomeViewController {
         // 트래킹 보드 업데이트
         let todaySecond = trackingData.todaySecondsToInt()
         let color = groupData.focusEntity().color.uicolor
+        trackingBoardService.appendTrackingSecond(to: todaySecond)
         trackingBoardService.updateAllInfo(time: todaySecond, color: color, isAnimated: true)
         updateTrackingBoardUI()
     }
@@ -85,13 +86,16 @@ extension HomeViewController {
         let blockIndex = UserDefaultsItem.shared.blockIndex
         viewManager.trackingBlock.update(group: groupData.list()[groupIndex], block: blockData.list()[blockIndex])
         
-        // 3. 트래킹 보드 애니메이션 시작
+        // 3. 총 생산량 라벨 업데이트
+        viewManager.updateCurrentOutputLabel(timerManager.totalBlockCount)
+        
+        // 4. 트래킹 보드 애니메이션 시작
         updateTrackingBoardUI()
         
-        // 4. SFSymbol 애니메이션 시작
+        // 5. SFSymbol 애니메이션 시작
         startSFSymbolBounceAnimation(viewManager.trackingBlock.icon)
         
-        // 5. 화면 꺼짐 방지
+        // 6. 화면 꺼짐 방지
         isScreenCanSleep(false)
     }
     

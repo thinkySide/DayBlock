@@ -114,7 +114,7 @@ final class TrackingBoardService {
                     for time in timeList {
                         guard let _ = time.endTime,
                               let startTime = Int(time.startTime) else { break }
-                        print("updateTrackingBoard: \(startTime)초 추가")
+                        // print("updateTrackingBoard: \(startTime)초 추가")
                         updateColor(to: startTime, color: group.color.uicolor)
                     }
                 }

@@ -58,6 +58,7 @@ final class TrackingCompleteViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        TrackingBoardService.shared.resetAllData()
     }
     
     // MARK: - Setup Method
@@ -85,7 +86,7 @@ final class TrackingCompleteViewController: UIViewController {
         viewManager.plusSummaryLabel.textColor = groupData.focusColor()
         viewManager.mainSummaryLabel.text = String(trackingData.focusTrackingBlockCount())
         
-        // 트래킹 보드
+        // 트래킹 보드: 트래킹 모드
         if mode == .tracking {
             let block = BlockDataStore.shared.focusEntity()
             let trackingTimes = TrackingBoardService.shared.trackingSeconds
@@ -94,8 +95,15 @@ final class TrackingCompleteViewController: UIViewController {
             viewManager.trackingBoard.updateBoard()
         }
         
+        // 트래킹 보드: 온보딩 모드
         else if mode == .onboarding {
-            TrackingBoardService.shared.updateTrackingBoard(to: Date())
+            
+            // 만약 30분 전이 어제라면
+            if TrackingDataStore.shared.todaySecondsToInt() < 1800 {
+                TrackingBoardService.shared.updateTrackingBoard(to: Date().previousDay(from: Date()))
+            } else {
+                TrackingBoardService.shared.updateTrackingBoard(to: Date())
+            }
             viewManager.trackingBoard.updateBoard()
         }
         
@@ -120,7 +128,7 @@ final class TrackingCompleteViewController: UIViewController {
         viewManager.taskLabel.text = item.blockTaskLabel
         
         // 날짜 및 시간 라벨
-         viewManager.dateLabel.text = currentDate
+        viewManager.dateLabel.text = currentDate
         viewManager.timeLabel.text = trackingTime
         
         // 생산량 라벨
@@ -130,7 +138,7 @@ final class TrackingCompleteViewController: UIViewController {
         // 트래킹 보드
         let block = BlockDataStore.shared.listInSelectedGroupInBlock(groupName: item.groupName, blockName: item.blockTaskLabel)
         let trackingTimes = item.trackingTimes.map { Int($0.startTime)!  }
-        TrackingBoardService.shared.updateTrackingBoard(to: Date(), block: block, trackingTimes: trackingTimes)
+        TrackingBoardService.shared.updateTrackingBoard(to: RepositoryManager.shared.currentDate, block: block, trackingTimes: trackingTimes)
         TrackingBoardService.shared.stopAllAnimation()
         viewManager.trackingBoard.updateBoard()
         
