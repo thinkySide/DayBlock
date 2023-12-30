@@ -250,9 +250,6 @@ extension HomeViewController: DayBlockDelegate {
         // 4. 심볼 애니메이션 종료
         stopSFSymbolAnimation(viewManager.trackingBlock.icon)
         
-        // 5. 마지막 트래킹 보드 데이터 삭제
-        // TrackingBoardService.shared.removeLastTrackingSecond()
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             
             // 6. 트래커 초기화

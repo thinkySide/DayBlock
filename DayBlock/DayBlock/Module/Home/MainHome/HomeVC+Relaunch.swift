@@ -36,7 +36,6 @@ extension HomeViewController {
         print("트래킹 진행 중")
         let dayElapsed = trackingData.calculateElapsedDaySinceAppExit
         let timeElapsed = trackingData.calculateElapsedTimeSinceAppExit
-        let currentTrackingSecond = timerManager.currentTrackingSecond
         
         // 마지막 트래킹 시간 + 흐른 시간으로 트래킹 시간 업데이트
         updateTrackingTimeResultAfterAppRestart(result: lastTrackingTime + timeElapsed)
@@ -48,7 +47,10 @@ extension HomeViewController {
         // MARK: - 블럭이 생산되지 않은 경우
         // 현재 초(ex: 252) + 지난 시간(ex: 500)
         // 이 값이 1800 이상이라면, 블럭이 0.5개 이상 생성된 것.
-        let countSecond = Int(currentTrackingSecond) + timeElapsed
+        let currentTrackingSecond = Int(timerManager.currentTrackingSecond)
+        let countSecond = currentTrackingSecond + timeElapsed
+        print("currentTrackingSecond: \(Int(currentTrackingSecond))")
+        print("countSecond: \(countSecond)")
         guard countSecond >= trackingData.targetSecond else {
             print("블럭이 생산되지 않았음.")
             viewManager.trackingRestartForDisconnect()
@@ -117,20 +119,25 @@ extension HomeViewController {
         guard UserDefaultsItem.shared.isTracking && !UserDefaultsItem.shared.isPaused else { return }
         print(#function)
         
-        // 1. 시간 업데이트
+        // 1. 타이머 업데이트
         updateTimerSinceBackground(notification)
         
         // MARK: - 백그라운드에 있을 동안 블럭이 생산된 경우
-        if timerManager.currentTrackingSecond > Float(trackingData.targetSecond) {
+        // 3500 >= 1800
+        if timerManager.currentTrackingSecond >= Float(trackingData.targetSecond) {
             
             // 현재 트래킹 세션 초 업데이트
-            let count = timerManager.currentTrackingSecond / Float(trackingData.targetSecond)
-            timerManager.currentTrackingSecond -= Float(trackingData.targetSecond) * count
+            // 3500 / 1800 = 1
+            let count = Int(timerManager.currentTrackingSecond) / trackingData.targetSecond
+            
+            // 3500 = 3500 - 1800 * 1
+            timerManager.currentTrackingSecond -= Float(trackingData.targetSecond) * Float(count)
+            print("블럭이 생산되어 currentTrackingSecond 업데이트: \(timerManager.currentTrackingSecond)")
             
             print("백그라운드에 있을 동안 블럭이 \(count)개 생산되었음.")
             
             // 백그라운드 데이터 생성
-            for _ in 1...Int(count) {
+            for _ in 1...count {
                 
                 // 지금까지 몇개의 블럭이 생산되었는지 추가
                 timerManager.totalBlockCount += 0.5
@@ -185,5 +192,8 @@ extension HomeViewController {
         // 시간 업데이트
         timerManager.totalTrackingSecond += elapsedTime
         timerManager.currentTrackingSecond += Float(elapsedTime)
+        
+        print("백그라운드 복귀 후 총 트래킹 시간: \(timerManager.totalTrackingSecond)")
+        print("백그라운드 복귀 후 현재 트래킹 시간: \(timerManager.currentTrackingSecond)")
     }
 }

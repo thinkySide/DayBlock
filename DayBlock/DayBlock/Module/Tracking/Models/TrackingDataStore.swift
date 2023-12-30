@@ -137,6 +137,7 @@ extension TrackingDataStore {
     /// 현재 포커스된(트래킹 중인) 시간 데이터를 반환합니다.
     /// ⚠️ 트래킹 시간 데이터의 가장 마지막 데이터를 트래킹 중인 것으로 간주
     func focusTime() -> TrackingTime {
+        
         if let lastTime = focusTimeList.last {
             return lastTime
         }
@@ -179,6 +180,15 @@ extension TrackingDataStore {
         let endTime = secondsToTime(focusTime().endTime)
         
         return "\(startTime) ~ \(endTime)"
+    }
+    
+    /// 포커스 된 날짜를 Date 타입으로 변환해 반환합니다.
+    private func focusDateToDate() -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateString = "\(focusDate().year)-\(focusDate().month)-\(focusDate().day)"
+        let date = dateFormatter.date(from: dateString)
+        return date!
     }
     
     /// 포커스된(트래킹 완료) 블럭의 개수를 반환합니다.
@@ -522,36 +532,11 @@ extension TrackingDataStore {
         groupData.saveContext()
     }
     
-//    /// 백그라운드에 나가있을 동안 생성된 블럭을 코어데이터에 추가합니다.
-//    ///
-//    /// 마지막으로 백그라운은드로 진입한 시점 (00:00분 기준 경과 초)
-//    func appendDataBetweenBackground() {
-//        
-//        // 1. 트래킹 마무리 시간 업데이트
-//        let initialStartTime = Int(focusTime().startTime)!
-//        print("initialStartTime: \(initialStartTime)")
-//        let pausedTime = TimerManager.shared.pausedTime
-//        let endTime = initialStartTime + targetSecond + pausedTime
-//        focusTime().endTime = String(endTime)
-//        
-//        // 2. 일시정시 시간 초기화
-//        TimerManager.shared.pausedTime = 0
-//        
-//        // 3. 새로운 세션 시작
-//        let trackingTime = TrackingTime(context: context)
-//        trackingTime.startTime = String(endTime)
-//        focusDate().addToTrackingTimeList(trackingTime)
-//        
-//        // 4. 코어데이터 저장
-//        groupData.saveContext()
-//    }
-    
     /// 앱이 종료되어있을 동안 추가된 트래킹 데이터를 추가합니다.
     func appendDataBetweenBackground() {
         
         // 1. 현재 트래킹 중인 세션의 마지막 시간 = 시작 시간 + 한 세션의 시간 + 일시정지 시간
         let initialStartTime = Int(focusTime().startTime)!
-        print("initialStartTime: \(initialStartTime)")
         let pausedTime = TimerManager.shared.pausedTime
         let endTime = initialStartTime + targetSecond + pausedTime
         focusTime().endTime = String(endTime)
@@ -560,26 +545,32 @@ extension TrackingDataStore {
         TimerManager.shared.pausedTime = 0
         
         // 2-1. 앱이 종료되어있을 동안, 하루가 지나지 않음.
-        if endTime <= 86400 {
+        if endTime < 86400 {
             print("endTime: \(endTime), 하루가 지나지 않음.")
             let trackingTime = TrackingTime(context: context)
             trackingTime.startTime = String(endTime)
             focusDate().addToTrackingTimeList(trackingTime)
         }
         
-        // 2-2. 만약 endTime이 86400(하루의 끝) 보다 크다면,
+        // 2-2. 만약 endTime이 86400(하루의 끝) 이상이라면,
         // 앱이 종료되어있을 동안, 하루가 지난 것으로 설정.
         else {
-            print("endTime: \(endTime), 하루가 지남. 새로운 endTime: \(86400 - endTime)")
+            print("endTime: \(endTime), 하루가 지남. 새로운 endTime: \(endTime - 86400)")
             
+            // 원래 포커스 날짜의 다음 날짜로 생성
+            let nextDate = Date().nextDay(from: focusDateToDate())
+            
+            // Date 생성
             let newTrackingDate = TrackingDate(context: context)
-            newTrackingDate.year = formatter("yyyy")
-            newTrackingDate.month = formatter("MM")
-            newTrackingDate.day = formatter("dd")
-            newTrackingDate.dayOfWeek = formatter("E")
+            newTrackingDate.year = formatter("yyyy", to: nextDate)
+            newTrackingDate.month = formatter("MM", to: nextDate)
+            newTrackingDate.day = formatter("dd", to: nextDate)
+            newTrackingDate.dayOfWeek = formatter("E", to: nextDate)
+            print("다음 날짜로 생성: \(formatter("yyyy-MM-dd", to: nextDate))")
             
+            // Time 생성
             let trackingTime = TrackingTime(context: context)
-            let newStartTime = String(86400 - endTime)
+            let newStartTime = String(endTime - 86400)
             print("newStartTime: \(newStartTime)")
             trackingTime.startTime = newStartTime
             
@@ -593,8 +584,6 @@ extension TrackingDataStore {
     
     /// 트래킹을 종료함과 동시에 데이터를 저장합니다.
     func finishData() {
-        
-        print("로그 확인: \(focusDate())")
         
         // 현재 세션 종료(삭제)
         focusDate().removeFromTrackingTimeList(focusTime())

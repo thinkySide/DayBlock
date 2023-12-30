@@ -23,6 +23,12 @@ extension Date {
         return calendar.date(byAdding: .day, value: -1, to: date)!
     }
     
+    /// 지정한 날의 다음 Date를 반환합니다.
+    func nextDay(from date: Date) -> Date {
+        let calendar = Calendar(identifier: .gregorian)
+        return calendar.date(byAdding: .day, value: +1, to: date)!
+    }
+    
     /// 지정한 날의 마지막 Date를 반환합니다.
     func lastDayOfMonth(from date: Date) -> Date {
         let formatter = DateFormatter()
