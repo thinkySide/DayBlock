@@ -45,11 +45,14 @@ extension HomeViewController {
         
         
         // MARK: - 블럭이 생산되지 않은 경우
-        // 현재 초(ex: 252) + 지난 시간(ex: 500)
-        // 이 값이 1800 이상이라면, 블럭이 0.5개 이상 생성된 것.
-        let currentTrackingSecond = Int(timerManager.currentTrackingSecond)
-        let countSecond = currentTrackingSecond + timeElapsed
-        print("currentTrackingSecond: \(Int(currentTrackingSecond))")
+        
+        // APP 종료 전 마지막 시간 계산
+        var lastCurrentSecond = lastTrackingTime
+        while lastCurrentSecond > trackingData.targetSecond {
+            lastCurrentSecond -= trackingData.targetSecond
+        }
+        
+        let countSecond = lastCurrentSecond + timeElapsed
         print("countSecond: \(countSecond)")
         guard countSecond >= trackingData.targetSecond else {
             print("블럭이 생산되지 않았음.")
@@ -114,6 +117,9 @@ extension HomeViewController {
     
     /// background 에서 foreground로 진입 후 트래킹 모드를 재시작 합니다.
     @objc func didEnterForeground(_ notification: Notification) {
+        
+        // 0. 날짜 라벨 업데이트
+        updateDateLabel()
         
         // 트래킹 모드 + 일시정지가 아닐 때 해당 메서드 실행
         guard UserDefaultsItem.shared.isTracking && !UserDefaultsItem.shared.isPaused else { return }

@@ -29,6 +29,8 @@ extension HomeViewController {
     /// 블럭 0.5개 생산 시 실행되는 트래킹 메서드입니다.
     func produceBlock() {
         
+        print("블럭 0.5개를 생성합니다.")
+        
         // 1. trackingTime 코어데이터 업데이트
         trackingData.appendDataInProgress()
         
