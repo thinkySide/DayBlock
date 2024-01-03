@@ -138,6 +138,7 @@ final class TrackingCompleteViewController: UIViewController {
         // 트래킹 보드
         let block = BlockDataStore.shared.listInSelectedGroupInBlock(groupName: item.groupName, blockName: item.blockTaskLabel)
         let trackingTimes = item.trackingTimes.map { Int($0.startTime)!  }
+        print("trackingTimes: \(trackingTimes)")
         TrackingBoardService.shared.updateTrackingBoard(to: RepositoryManager.shared.currentDate, block: block, trackingTimes: trackingTimes)
         TrackingBoardService.shared.stopAllAnimation()
         viewManager.trackingBoard.updateBoard()

@@ -41,7 +41,7 @@ final class FormTextField: UIView {
     lazy var textField: DisablePasteTextField = {
         let field = DisablePasteTextField()
         field.placeholder = "블럭 쌓기"
-        field.font = .systemFont(ofSize: 18, weight: .bold)
+        field.font = UIFont(name: Pretendard.semiBold, size: 18)
         field.textColor = Color.mainText
         field.autocorrectionType = .no
         field.autocapitalizationType = .none

@@ -45,13 +45,6 @@ final class ColorManager {
        0xD19D01,
        0xA67B01,
         
-        /// Yellowish-Green
-        0xEAF28F,
-        0xE4EF65,
-        0xD9EC37,
-        0xC3D117,
-        0x9BA50E,
-        
         /// Green
         0xB1DD8B,
         0x96D35F,

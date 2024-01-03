@@ -38,7 +38,7 @@ final class TrackingDataStore {
         
         guard !focusDateList.isEmpty else { return [] }
         
-        if let entity = focusDateList.last?.trackingTimeList?.array as? [TrackingTime] {
+        if let entity = focusDate().trackingTimeList?.array as? [TrackingTime] {
             return entity
         }
         
@@ -183,12 +183,19 @@ extension TrackingDataStore {
     }
     
     /// 포커스 된 날짜를 Date 타입으로 변환해 반환합니다.
-    private func focusDateToDate() -> Date {
+    func focusDateToDate() -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let dateString = "\(focusDate().year)-\(focusDate().month)-\(focusDate().day)"
         let date = dateFormatter.date(from: dateString)
         return date!
+    }
+    
+    /// a날짜와 b날짜가 동일한지 확인 후 반환합니다.
+    ///
+    /// 연, 월, 일만을 비교합니다.
+    func isSameDate(aDate: Date, bDate: Date) -> Bool {
+        return formatter("yyyy-MM-dd", to: aDate) == formatter("yyyy-MM-dd", to: bDate) ? true : false
     }
     
     /// 포커스된(트래킹 완료) 블럭의 개수를 반환합니다.
@@ -555,7 +562,8 @@ extension TrackingDataStore {
         // 2-2. 만약 endTime이 86400(하루의 끝) 이상이라면,
         // 앱이 종료되어있을 동안, 하루가 지난 것으로 설정.
         else {
-            print("endTime: \(endTime), 하루가 지남. 새로운 endTime: \(endTime - 86400)")
+            let newEndTime = endTime - 86400
+            print("endTime: \(endTime), 하루가 지남. 새로운 endTime: \(newEndTime)")
             
             // 원래 포커스 날짜의 다음 날짜로 생성
             let nextDate = Date().nextDay(from: focusDateToDate())
@@ -570,7 +578,7 @@ extension TrackingDataStore {
             
             // Time 생성
             let trackingTime = TrackingTime(context: context)
-            let newStartTime = String(endTime - 86400)
+            let newStartTime = String(newEndTime)
             print("newStartTime: \(newStartTime)")
             trackingTime.startTime = newStartTime
             

@@ -86,7 +86,7 @@ extension HomeViewController {
         popup.modalPresentationStyle = .overCurrentContext
         popup.modalTransitionStyle = .crossDissolve
         popup.deletePopupView.mainLabel.text = "블럭 생산을 중단할까요?"
-        popup.deletePopupView.subLabel.text = "지금까지 생산한 블럭이 모두 사라져요."
+        popup.deletePopupView.subLabel.text = "지금까지 생산한 블럭이 모두 사라져요"
         confirmButton.setTitle("중단할래요", for: .normal)
         confirmButton.addTarget(self, action: #selector(trackingStopPopupConfirmButtonTapped), for: .touchUpInside)
         self.present(popup, animated: true)

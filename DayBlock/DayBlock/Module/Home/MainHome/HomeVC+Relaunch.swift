@@ -79,6 +79,7 @@ extension HomeViewController {
         // MARK: - 트래킹 중 하루 지났을 경우
         if dayElapsed > 0 {
             print("\(dayElapsed)일 지났음.")
+            showToast(toast: viewManager.testToastView, isActive: true)
             
             // 트래킹 보드 전부 초기화
             trackingBoardService.resetAllData()
@@ -160,6 +161,7 @@ extension HomeViewController {
             let dayElapsed = trackingData.calculateElapsedDaySinceAppExit
             if dayElapsed > 0 {
                 print("백그라운드에 있을 동안 \(dayElapsed)일이 지났음.")
+                showToast(toast: viewManager.testToastView, isActive: true)
                 
                 // 트래킹 보드 전부 초기화
                 trackingBoardService.resetAllData()
@@ -192,8 +194,17 @@ extension HomeViewController {
         
         // 시간 확인
         let latestTime = notification.userInfo?["time"] as? Int ?? 0 // 마지막 todaySeconds와 같음.
-        let currentTime = trackingData.todaySecondsToInt()
-        let elapsedTime = currentTime - latestTime
+        let todaySeconds = trackingData.todaySecondsToInt()
+        var elapsedTime = 0
+        
+        // 백그라운드에 있을 동안 날짜가 지났는지 확인.
+        if trackingData.isSameDate(aDate: trackingData.focusDateToDate(), bDate: Date()) {
+            print("백그라운드에 있을 동안 날짜가 지나지 않았음. \(elapsedTime)초 지남.")
+            elapsedTime = todaySeconds - latestTime
+        } else {
+            elapsedTime = 86400 - latestTime + todaySeconds
+            print("백그라운드에 있을 동안 날짜가 지났음. \(elapsedTime)초 지남.")
+        }
         
         // 시간 업데이트
         timerManager.totalTrackingSecond += elapsedTime

@@ -18,6 +18,9 @@ extension HomeViewController: UIScrollViewDelegate {
         
         // 멀티 터치 비활성화
         scrollView.isUserInteractionEnabled = false
+        
+        // 트래킹 버튼 비활성화
+        viewManager.trackingButton.isUserInteractionEnabled = false
     }
     
     /// 스크롤이 끝난 후 호출되는 Delegate 메서드입니다.
@@ -69,5 +72,8 @@ extension HomeViewController: UIScrollViewDelegate {
         }
         
         blockData.updateFocusIndex(to: blockIndex)
+        
+        // 트래킹 버튼 활성화
+        viewManager.trackingButton.isUserInteractionEnabled = true
     }
 }
