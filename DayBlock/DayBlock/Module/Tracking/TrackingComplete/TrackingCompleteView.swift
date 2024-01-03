@@ -9,6 +9,36 @@ import UIKit
 
 final class TrackingCompleteView: UIView {
     
+    // MARK: - Menu
+    let backgroundView: UIView = {
+        let view = UIView()
+        view.alpha = 0
+        view.backgroundColor = .none
+        view.isUserInteractionEnabled = true
+        return view
+    }()
+    
+    lazy var menuBarButtonItem: UIBarButtonItem = {
+        let item = UIBarButtonItem()
+        item.image = UIImage(systemName: "ellipsis")
+        item.tintColor = Color.mainText
+        return item
+    }()
+    
+    let customMenu: Menu = {
+        let menu = Menu(frame: .zero, number: .two)
+        menu.firstItem.title.text = "그룹 생성"
+        let firstIcon = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
+        menu.firstItem.icon.image = UIImage(systemName: "plus")
+        
+        menu.secondItem.title.text = "그룹 편집"
+        let secondIcon = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
+        menu.secondItem.icon.image = UIImage(systemName: "pencil")
+        
+        menu.alpha = 0
+        return menu
+    }()
+    
     // MARK: - Properties
     
     let backToHomeButton: ActionButton = {
@@ -188,6 +218,19 @@ final class TrackingCompleteView: UIView {
         return label
     }()
     
+    // MARK: - Menu Method
+    
+    /// 메뉴 아이템을 토글합니다.
+    func toggleMenu() {
+        let alpha: CGFloat = customMenu.alpha == 1 ? 0 : 1
+        UIView.animate(withDuration: 0.2) {
+            self.customMenu.alpha = alpha
+            self.backgroundView.alpha = alpha
+        }
+    }
+    
+    // MARK: - Animation Method
+    
     /// 원 애니메이션을 시작합니다.
     func circleAnimation() {
         
@@ -278,7 +321,7 @@ final class TrackingCompleteView: UIView {
     // MARK: - Auto Layout Method
     
     private func setupAddView() {
-        [titleStackView,
+        [backgroundView, customMenu, titleStackView,
          dashedSeparator,
          dateLabel, timeLabel,
          summaryLabel,
@@ -302,6 +345,16 @@ final class TrackingCompleteView: UIView {
         topConstraint.isActive = true
         
         NSLayoutConstraint.activate([
+            
+            // backgroundView
+            backgroundView.topAnchor.constraint(equalTo: topAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            // customMenu
+            customMenu.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: -8),
+            customMenu.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
             
             // titleStackView
             titleStackView.centerXAnchor.constraint(equalTo: centerXAnchor),

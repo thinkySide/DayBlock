@@ -165,6 +165,8 @@
 		07D1F4AD2B37ECEA00BFE90E /* PushNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D1F4AC2B37ECEA00BFE90E /* PushNotificationService.swift */; };
 		07D1F5282B3BEE6F00BFE90E /* HomeVC+Relaunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D1F5272B3BEE6F00BFE90E /* HomeVC+Relaunch.swift */; };
 		07D1F52A2B3BF0CC00BFE90E /* UserDefaultsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D1F5292B3BF0CC00BFE90E /* UserDefaultsItem.swift */; };
+		07D9E4CA2B4544E1005340F3 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D9E4C92B4544E1005340F3 /* Menu.swift */; };
+		07D9E4CC2B454505005340F3 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D9E4CB2B454505005340F3 /* MenuItem.swift */; };
 		07DD3E932AB022ED002D128F /* SimpleIconBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DD3E922AB022ED002D128F /* SimpleIconBlock.swift */; };
 		07DD3E952AB02BE3002D128F /* DashedSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DD3E942AB02BE3002D128F /* DashedSeparator.swift */; };
 		07EB771729F5335F000BD87E /* SelectColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB771629F5335F000BD87E /* SelectColorCollectionViewCell.swift */; };
@@ -336,6 +338,8 @@
 		07D1F4AC2B37ECEA00BFE90E /* PushNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationService.swift; sourceTree = "<group>"; };
 		07D1F5272B3BEE6F00BFE90E /* HomeVC+Relaunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+Relaunch.swift"; sourceTree = "<group>"; };
 		07D1F5292B3BF0CC00BFE90E /* UserDefaultsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsItem.swift; sourceTree = "<group>"; };
+		07D9E4C92B4544E1005340F3 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
+		07D9E4CB2B454505005340F3 /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		07DD3E922AB022ED002D128F /* SimpleIconBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleIconBlock.swift; sourceTree = "<group>"; };
 		07DD3E942AB02BE3002D128F /* DashedSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashedSeparator.swift; sourceTree = "<group>"; };
 		07EB771629F5335F000BD87E /* SelectColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectColorCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -796,6 +800,8 @@
 				07FAF98A2AE0E7AD003BD30B /* SectionBar.swift */,
 				07B49BD32A8F23FF006D1011 /* ToastMessage.swift */,
 				07C044122B3D9F7E005A816A /* ToolTip.swift */,
+				07D9E4C92B4544E1005340F3 /* Menu.swift */,
+				07D9E4CB2B454505005340F3 /* MenuItem.swift */,
 				07454E0E29EBE50500B3458D /* BottomModal.swift */,
 				07B1F8CE2B2C367400E98382 /* PageNumbers.swift */,
 			);
@@ -1150,6 +1156,7 @@
 				0719649829E148CA009CA1A4 /* DayBlock.swift in Sources */,
 				07B49BD42A8F23FF006D1011 /* ToastMessage.swift in Sources */,
 				07B49BC42A88EBA3006D1011 /* MenuPopup.swift in Sources */,
+				07D9E4CC2B454505005340F3 /* MenuItem.swift in Sources */,
 				07B49BC82A8DD84D006D1011 /* ManageGroupViewController.swift in Sources */,
 				07C044112B3D9855005A816A /* HomeVC+HelpTracking.swift in Sources */,
 				07AE45D12AF38ABE00125316 /* UIDate++.swift in Sources */,
@@ -1205,6 +1212,7 @@
 				0786305B2B05FFA80092672B /* TimeLineBoard.swift in Sources */,
 				07D1F52A2B3BF0CC00BFE90E /* UserDefaultsItem.swift in Sources */,
 				075A5AE92A81D04B0004F847 /* PopupView.swift in Sources */,
+				07D9E4CA2B4544E1005340F3 /* Menu.swift in Sources */,
 				07B49BCA2A8DD878006D1011 /* ManageGroupView.swift in Sources */,
 				07DD3E952AB02BE3002D128F /* DashedSeparator.swift in Sources */,
 				076E95542B316C7D005A8D46 /* OpenLicenseView.swift in Sources */,

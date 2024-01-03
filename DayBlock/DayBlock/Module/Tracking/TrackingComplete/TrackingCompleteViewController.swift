@@ -124,6 +124,9 @@ final class TrackingCompleteViewController: UIViewController {
     /// 캘린더 모드에서의 UI를 설정합니다.
     func setupCalendarMode(item: RepositoryItem, currentDate: String, trackingTime: String, output: String) {
         
+        // 네비게이션 아이템 추가
+        navigationItem.rightBarButtonItem = viewManager.menuBarButtonItem
+        
         // AutoLayout
         viewManager.topConstraint.constant = 96
         
@@ -157,10 +160,25 @@ final class TrackingCompleteViewController: UIViewController {
     }
     
     private func setupEvent() {
+        let menuBackgroundGesture = UITapGestureRecognizer(target: self, action: #selector(menuBackgroundTapped))
+        viewManager.backgroundView.addGestureRecognizer(menuBackgroundGesture)
+        
+        viewManager.menuBarButtonItem.target = self
+        viewManager.menuBarButtonItem.action = #selector(menuBarButtonItemTapped)
+        
         viewManager.backToHomeButton.addTarget(self, action: #selector(backToHomeButtonTapped), for: .touchUpInside)
     }
     
     // MARK: - Event Method
+    
+    @objc func menuBackgroundTapped() {
+        viewManager.toggleMenu()
+    }
+    
+    /// 메뉴 BarButtonItem을 탭 했을 때 호출되는 메서드입니다.
+    @objc func menuBarButtonItemTapped() {
+        viewManager.toggleMenu()
+    }
     
     /// 홈 화면으로 돌아가기 버튼 탭 시 호출되는 메서드입니다.
     @objc func backToHomeButtonTapped() {

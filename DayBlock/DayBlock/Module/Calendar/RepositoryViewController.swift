@@ -52,17 +52,15 @@ final class RepositoryViewController: UIViewController {
     private func setupNavigation() {
         
         // 네비게이션바의 Appearance를 설정
-        let navigationBarAppearance = UINavigationBarAppearance()
-        navigationBarAppearance.backgroundColor = .white
-        navigationBarAppearance.shadowColor = .clear
-        navigationItem.standardAppearance = navigationBarAppearance
-        navigationItem.scrollEdgeAppearance = navigationBarAppearance
-        navigationController?.setNeedsStatusBarAppearanceUpdate()
+//        let navigationBarAppearance = UINavigationBarAppearance()
+//        navigationBarAppearance.backgroundColor = .white
+//        navigationBarAppearance.shadowColor = .clear
+//        navigationItem.standardAppearance = navigationBarAppearance
+//        navigationItem.scrollEdgeAppearance = navigationBarAppearance
+//        navigationController?.setNeedsStatusBarAppearanceUpdate()
         
         // 뒤로가기 버튼 커스텀
-        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = Color.mainText
-        navigationItem.backBarButtonItem = backBarButtonItem
+        configureBackButton()
     }
     
     private func setupCalendar() {
