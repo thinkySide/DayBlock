@@ -27,8 +27,8 @@ final class UserDefaultsItem {
         
         // 시간 초
         static let trackingSecondBeforeAppTermination = "trackingSecondBeforeAppTermination"
-        static let latestAccessSecond = "latestAccessSecond"
-        static let pausedSecond = "pausedSecond"
+        static let latestAccessSeconds = "latestAccessSecond"
+        static let pausedSeconds = "pausedSecond"
         
         // 날짜
         static let lastAccessDate = "lastAccessDate"
@@ -66,7 +66,7 @@ final class UserDefaultsItem {
     
     /// 마지막으로 접속했던 시간 초를 저장하는 변수
     var lastAccessSecond: Int {
-        UserDefaults.standard.object(forKey: UserDefaultsKey.latestAccessSecond) as? Int ?? 0
+        UserDefaults.standard.object(forKey: UserDefaultsKey.latestAccessSeconds) as? Int ?? 0
     }
     
     /// 앱 종료 전 기존 트래킹 시간 초를 저장하는 변수
@@ -82,6 +82,11 @@ final class UserDefaultsItem {
     /// 마지막으로 트래킹 중이던 시간 초 데이터를 받아옵니다.
     var trackingSeconds: [Int] {
         UserDefaults.standard.object(forKey: UserDefaultsKey.trackingSeconds) as? [Int] ?? []
+    }
+    
+    /// 마지막 일시정지 시간 초 데이터를 받아옵니다.
+    var pausedSeconds: Int {
+        UserDefaults.standard.object(forKey: UserDefaultsKey.pausedSeconds) as? Int ?? 0
     }
     
     // MARK: - Set UserDefaults
@@ -113,7 +118,7 @@ final class UserDefaultsItem {
     
     /// 마지막으로 접속했던 시간 초를 저장합니다.
     func setLastAccessSecond(to second: Int) {
-        UserDefaults.standard.set(second, forKey: UserDefaultsKey.latestAccessSecond)
+        UserDefaults.standard.set(second, forKey: UserDefaultsKey.latestAccessSeconds)
     }
     
     /// 앱 종료 전 트래킹 시간 초를 저장합니다.
@@ -123,7 +128,7 @@ final class UserDefaultsItem {
     
     /// 트래킹이 일시정지 된 시간 초를 젖아합니다.
     func setPausedSecond(to second: Int) {
-        UserDefaults.standard.set(second, forKey: UserDefaultsKey.pausedSecond)
+        UserDefaults.standard.set(second, forKey: UserDefaultsKey.pausedSeconds)
     }
     
     /// 마지막으로 접속했던 날짜를 저장합니다.

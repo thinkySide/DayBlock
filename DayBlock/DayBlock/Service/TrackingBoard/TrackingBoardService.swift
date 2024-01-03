@@ -73,7 +73,6 @@ final class TrackingBoardService {
         if !trackings.contains(time) {
             trackings.append(time)
         }
-        print("트래킹 시간을 추가합니다. \(time) -> \(trackings)")
     }
     
     /// 마지막 트래킹 요소를 삭제합니다.

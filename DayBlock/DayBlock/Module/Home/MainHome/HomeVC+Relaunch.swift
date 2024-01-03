@@ -14,9 +14,21 @@ extension HomeViewController {
     func setTrackingModeAfterAppRestart() {
         let lastTrackingTime = UserDefaultsItem.shared.trackingSecondBeforeAppTermination
         
+        // 일시정시 시간 업데이트
+        print("일시정지 시간 업데이트: \(timerManager.pausedTime) -> \(UserDefaultsItem.shared.pausedSeconds)")
+        timerManager.pausedTime = UserDefaultsItem.shared.pausedSeconds
+        
         // MARK: - 일시정지 되었을 경우
         guard !UserDefaultsItem.shared.isPaused else {
             print("트래킹 일시정지")
+            
+            let originalPausedSecond = UserDefaultsItem.shared.pausedSeconds
+            let elapsedSeconds = trackingData.calculateElapsedTimeSinceAppExit
+            
+            print("기존 일시정지 시간: \(originalPausedSecond)")
+            print("지난시간: \(elapsedSeconds)")
+            timerManager.pausedTime = originalPausedSecond + elapsedSeconds
+            print("업데이트 된 일시정지 시간: \(timerManager.pausedTime)")
             
             // 일시정지되었다면 마지막 트래킹 시간 그대로 업데이트
             updateTrackingTimeResultAfterAppRestart(result: lastTrackingTime)
@@ -121,9 +133,17 @@ extension HomeViewController {
         // 0. 날짜 라벨 업데이트
         updateDateLabel()
         
-        // 트래킹 모드 + 일시정지가 아닐 때 해당 메서드 실행
-        guard UserDefaultsItem.shared.isTracking && !UserDefaultsItem.shared.isPaused else { return }
+        // 트래킹 모드인지 확인
+        guard UserDefaultsItem.shared.isTracking else { return }
         print("백그라운드에서 트래킹 모드로 돌아왔습니다.")
+        
+        // 일시정지 되었었는지 확인
+        guard !UserDefaultsItem.shared.isPaused else {
+            print("백그라운드에서의 일시정지 시간 업데이트")
+            timerManager.pausedTime += trackingData.calculateElapsedTimeSinceAppExit
+            print("업데이트 된 일시정지 시간: \(timerManager.pausedTime)")
+            return
+        }
         
         // 1. 타이머 업데이트
         updateTimerSinceBackground(notification)
@@ -191,8 +211,7 @@ extension HomeViewController {
         timerManager.trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingEverySecond), userInfo: nil, repeats: true)
         
         // 시간 확인
-        let latestTime = notification.userInfo?["time"] as? Int ?? 0 // 마지막 todaySeconds와 같음.
-        var elapsedSeconds = trackingData.calculateElapsedTimeSinceAppExit
+        let elapsedSeconds = trackingData.calculateElapsedTimeSinceAppExit
         print("이만큼 시간이 지났군: \(elapsedSeconds)")
         
         // 시간 업데이트
