@@ -11,6 +11,7 @@ final class Menu: UIView {
     
     /// UIMenu의 개수
     enum Number {
+        case one
         case two
         case three
         case four
@@ -30,28 +31,26 @@ final class Menu: UIView {
     
     init(frame: CGRect, number: Number) {
         super.init(frame: frame)
-        
-        // backgroundColor = UIColor(rgb: 0xF4F5F7)
         backgroundColor = Color.contentsBlock
         
         // CornerRadius
         clipsToBounds = true
         layer.cornerRadius = 20
-//        layer.borderWidth = 1
-//        layer.borderColor = UIColor(rgb: 0xF3F3F3).cgColor
-        
-        // Shadow Effect
-//        layer.borderWidth = 1
-//        layer.borderColor = UIColor(rgb: 0xF3F3F3).cgColor
-//        layer.masksToBounds = false
-//        layer.shadowColor = UIColor(rgb: 0x18274B).cgColor
-//        layer.shadowOffset = CGSize(width: 0, height: 6)
-//        layer.shadowOpacity = 0.1
-//        layer.shadowRadius = 32
+        layer.borderWidth = 1
+        layer.borderColor = UIColor(rgb: 0xF3F3F3).cgColor
         
         [firstItem, secondItem, thirdItem, fourthItem, fifthItem].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         switch number {
+        case .one:
+            addSubview(firstItem)
+            NSLayoutConstraint.activate([
+                firstItem.topAnchor.constraint(equalTo: topAnchor),
+                firstItem.bottomAnchor.constraint(equalTo: bottomAnchor),
+                firstItem.leadingAnchor.constraint(equalTo: leadingAnchor),
+                firstItem.trailingAnchor.constraint(equalTo: trailingAnchor)
+            ])
+            
         case .two:
             [firstItem, secondItem].forEach { addSubview($0) }
             NSLayoutConstraint.activate([

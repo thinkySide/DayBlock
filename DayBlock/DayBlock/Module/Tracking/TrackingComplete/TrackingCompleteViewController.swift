@@ -166,11 +166,15 @@ final class TrackingCompleteViewController: UIViewController {
         viewManager.menuBarButtonItem.target = self
         viewManager.menuBarButtonItem.action = #selector(menuBarButtonItemTapped)
         
+        let deleteTrackingGesture = UITapGestureRecognizer(target: self, action: #selector(deleteTrackingItemTapped))
+        viewManager.customMenu.firstItem.addGestureRecognizer(deleteTrackingGesture)
+        
         viewManager.backToHomeButton.addTarget(self, action: #selector(backToHomeButtonTapped), for: .touchUpInside)
     }
     
     // MARK: - Event Method
     
+    /// 메뉴 배경을 탭 했을 때 호출되는 메서드입니다.
     @objc func menuBackgroundTapped() {
         viewManager.toggleMenu()
     }
@@ -178,6 +182,26 @@ final class TrackingCompleteViewController: UIViewController {
     /// 메뉴 BarButtonItem을 탭 했을 때 호출되는 메서드입니다.
     @objc func menuBarButtonItemTapped() {
         viewManager.toggleMenu()
+    }
+    
+    /// 트래킹 삭제 메뉴 아이템을 탭 했을 때 호출되는 메서드입니다.
+    @objc func deleteTrackingItemTapped() {
+        
+        // 메뉴 닫기
+        viewManager.toggleMenu()
+        
+        // 팝업 출력
+        let deletePopup = PopupViewController()
+        deletePopup.delegate = self
+        deletePopup.modalPresentationStyle = .overCurrentContext
+        deletePopup.modalTransitionStyle = .crossDissolve
+        
+        let popupView = deletePopup.deletePopupView
+        popupView.mainLabel.text = "해당 트래킹 데이터를 삭제할까요?"
+        popupView.subLabel.text = "선택한 기간의 데이터가 삭제돼요"
+        popupView.actionStackView.confirmButton.setTitle("삭제할래요", for: .normal)
+        
+        self.present(deletePopup, animated: true)
     }
     
     /// 홈 화면으로 돌아가기 버튼 탭 시 호출되는 메서드입니다.
@@ -201,5 +225,15 @@ final class TrackingCompleteViewController: UIViewController {
             dismiss(animated: true)
             return
         }
+    }
+}
+
+extension TrackingCompleteViewController: PopupViewControllerDelegate {
+    
+    /// 삭제할래요 팝업 버튼 탭 시 호출되는 메서드입니다.
+    func confirmButtonTapped() {
+        
+        // 이전 화면으로 이동
+        navigationController?.popViewController(animated: true)
     }
 }

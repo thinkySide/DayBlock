@@ -19,7 +19,7 @@ enum Color {
 
     /// Text Color
     static let mainText = UIColor(rgb: 0x323232)
-    static let subText = UIColor(rgb: 0x5B5B5B)
+    static let subText = UIColor(rgb: 0x616161)
     static let subText2 = UIColor(rgb: 0x828282)
     static let countText = UIColor(rgb: 0x676767)
     static let disabledText = UIColor(rgb: 0xB2B5BD)
@@ -33,6 +33,9 @@ enum Color {
     static let seperator2 = UIColor(rgb: 0xDADADA)
     static let addBlockButton = UIColor(rgb: 0xC5C5C5)
     static let cancelButton = UIColor(rgb: 0xF3F3F3)
+    
+    /// EventColor
+    static let danger = UIColor(rgb: 0xD23939)
     
     static let testBlue = UIColor(rgb: 0x1673FF)
     static let testPink = UIColor(rgb: 0xFF16A2)

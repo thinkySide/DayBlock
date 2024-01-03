@@ -142,6 +142,9 @@ final class TrackingBoardBlock: UIView {
                     startAlphaAnimation(to: mixedFirstHalf)
                 }
             }
+            
+            // 트래킹 완료 화면에서 깨지는 현상 수정을 위한 눈속임
+            else { self.backgroundColor = color }
         }
         
         // 4. 첫번째 반쪽이 비워져있다면, secondHalf로 전환
@@ -199,6 +202,7 @@ final class TrackingBoardBlock: UIView {
     /// 블럭을 초기 상태로 리셋합니다.
     func reset() {
         paint = .none
+        self.backgroundColor = Color.entireBlock
         [firstHalf, secondHalf, mixedFirstHalf, mixedSecondHalf].forEach {
             $0.backgroundColor = .none
         }

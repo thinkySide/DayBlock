@@ -188,7 +188,6 @@ final class TrackingBoardService {
         
         // trackings 배열 순회하며 infos 초기화
         for second in trackings {
-            print("\(second) 초기화")
             self.updateColor(to: second, color: Color.entireBlock)
             self.updateAnimated(to: second, isAnimated: false)
         }

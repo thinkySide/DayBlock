@@ -180,13 +180,13 @@ extension HomeViewController {
     /// - Parameter mode: 현재 트래킹 모드
     func homeView(_ homeView: HomeView, trackingDidStop mode: HomeView.TrakingMode) {
         
-        // 1. 트래킹 보드 애니메이션 종료 및 업데이트
+        // 1. 이전에 트래킹 되고 있던 데이터 삭제
+        trackingData.removeStopData()
+        
+        // 2. 트래킹 보드 애니메이션 종료 및 업데이트
         showToast(toast: viewManager.warningToastView, isActive: false)
         trackingBoardService.resetTrackingSeconds()
         updateTrackingBoardUI()
-        
-        // 2. 이전에 트래킹 되고 있던 데이터 삭제
-        trackingData.removeStopData()
         
         // 3. 트래커 초기화
         resetTracker()

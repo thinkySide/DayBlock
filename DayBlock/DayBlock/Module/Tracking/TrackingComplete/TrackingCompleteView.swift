@@ -26,15 +26,10 @@ final class TrackingCompleteView: UIView {
     }()
     
     let customMenu: Menu = {
-        let menu = Menu(frame: .zero, number: .two)
-        menu.firstItem.title.text = "그룹 생성"
+        let menu = Menu(frame: .zero, number: .one)
+        menu.firstItem.title.text = "트래킹 삭제"
         let firstIcon = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
-        menu.firstItem.icon.image = UIImage(systemName: "plus")
-        
-        menu.secondItem.title.text = "그룹 편집"
-        let secondIcon = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
-        menu.secondItem.icon.image = UIImage(systemName: "pencil")
-        
+        menu.firstItem.icon.image = UIImage(systemName: "trash")
         menu.alpha = 0
         return menu
     }()
@@ -223,7 +218,7 @@ final class TrackingCompleteView: UIView {
     /// 메뉴 아이템을 토글합니다.
     func toggleMenu() {
         let alpha: CGFloat = customMenu.alpha == 1 ? 0 : 1
-        UIView.animate(withDuration: 0.2) {
+        UIView.animate(withDuration: 0.15) {
             self.customMenu.alpha = alpha
             self.backgroundView.alpha = alpha
         }

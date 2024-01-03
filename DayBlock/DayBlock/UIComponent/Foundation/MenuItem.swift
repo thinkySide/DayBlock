@@ -14,7 +14,7 @@ final class MenuItem: UIView {
     let title: UILabel = {
         let label = UILabel()
         label.text = "액션"
-        label.font = UIFont(name: Pretendard.semiBold, size: 16)
+        label.font = UIFont(name: Pretendard.semiBold, size: 15)
         label.textColor = Color.mainText
         label.textAlignment = .left
         return label
@@ -23,7 +23,7 @@ final class MenuItem: UIView {
     let icon: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
-        image.tintColor = Color.subText2
+        image.tintColor = Color.subText
         image.image = UIImage(systemName: "bag.fill")
         return image
     }()
@@ -50,7 +50,7 @@ final class MenuItem: UIView {
             // title
             title.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             title.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            title.widthAnchor.constraint(equalToConstant: 68),
+            title.widthAnchor.constraint(equalToConstant: 72),
             
             // icon
             icon.centerYAnchor.constraint(equalTo: title.centerYAnchor),
@@ -61,7 +61,7 @@ final class MenuItem: UIView {
             // seperator
             seperator.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 12),
             seperator.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            seperator.trailingAnchor.constraint(equalTo: trailingAnchor),
+            seperator.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
     

@@ -43,7 +43,7 @@ final class TrackingBoard: UIView {
     lazy var block23 = TrackingBoardBlock(size: blockSize)
     
     lazy var blocks: [TrackingBoardBlock] = [
-        block00, block01, block02, block03, block04, block05, 
+        block00, block01, block02, block03, block04, block05,
         block06, block07, block08, block09, block10, block11,
         block12, block13, block14, block15, block16, block17,
         block18, block19, block20, block21, block22, block23
