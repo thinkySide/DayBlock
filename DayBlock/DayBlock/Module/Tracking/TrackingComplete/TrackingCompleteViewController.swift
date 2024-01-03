@@ -16,6 +16,7 @@ final class TrackingCompleteViewController: UIViewController {
     }
     
     var mode: Mode
+    var item: RepositoryItem?
     weak var delegate: TrackingCompleteViewControllerDelegate?
     
     private let viewManager = TrackingCompleteView()
@@ -124,6 +125,9 @@ final class TrackingCompleteViewController: UIViewController {
     /// 캘린더 모드에서의 UI를 설정합니다.
     func setupCalendarMode(item: RepositoryItem, currentDate: String, trackingTime: String, output: String) {
         
+        // 아이템 저장
+        self.item = item
+        
         // 네비게이션 아이템 추가
         navigationItem.rightBarButtonItem = viewManager.menuBarButtonItem
         
@@ -146,10 +150,10 @@ final class TrackingCompleteViewController: UIViewController {
         viewManager.mainSummaryLabel.text = output
         
         // 트래킹 보드
+        let trackingTimes = item.trackingTimes.map { Int($0.startTime)! }
         let block = BlockDataStore.shared.listInSelectedGroupInBlock(groupName: item.groupName, blockName: item.blockTaskLabel)
-        let trackingTimes = item.trackingTimes.map { Int($0.startTime)!  }
-        print("trackingTimes: \(trackingTimes)")
-        TrackingBoardService.shared.updateTrackingBoard(to: RepositoryManager.shared.currentDate, block: block, trackingTimes: trackingTimes)
+        let currentDate = RepositoryManager.shared.currentDate
+        TrackingBoardService.shared.updateTrackingBoard(to: currentDate, block: block, trackingTimes: trackingTimes)
         TrackingBoardService.shared.stopAllAnimation()
         viewManager.trackingBoard.updateBoard()
         
@@ -197,7 +201,7 @@ final class TrackingCompleteViewController: UIViewController {
         deletePopup.modalTransitionStyle = .crossDissolve
         
         let popupView = deletePopup.deletePopupView
-        popupView.mainLabel.text = "해당 트래킹 데이터를 삭제할까요?"
+        popupView.mainLabel.text = "트래킹 데이터를 삭제할까요?"
         popupView.subLabel.text = "선택한 기간의 데이터가 삭제돼요"
         popupView.actionStackView.confirmButton.setTitle("삭제할래요", for: .normal)
         
@@ -209,7 +213,7 @@ final class TrackingCompleteViewController: UIViewController {
         
         // 트래킹 모드
         if mode == .tracking {
-            delegate?.trackingCompleteVC(backToHomeButtonTapped: self)
+            delegate?.trackingCompleteVC!(backToHomeButtonTapped: self)
             dismiss(animated: true)
             return
         }
@@ -228,10 +232,18 @@ final class TrackingCompleteViewController: UIViewController {
     }
 }
 
+// MARK: - PopupViewControllerDelegate
 extension TrackingCompleteViewController: PopupViewControllerDelegate {
     
     /// 삭제할래요 팝업 버튼 탭 시 호출되는 메서드입니다.
     func confirmButtonTapped() {
+        
+        // 트래킹 데이터 삭제
+        guard let item = self.item else { return }
+        trackingData.removeTrackingDate(to: item)
+        
+        // 데이터 리로드를 위한 Delegate 호출
+        delegate?.trackingCompleteVC!(didTrackingDataRemoved: self)
         
         // 이전 화면으로 이동
         navigationController?.popViewController(animated: true)

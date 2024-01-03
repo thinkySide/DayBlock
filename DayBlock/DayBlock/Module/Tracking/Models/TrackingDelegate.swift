@@ -7,6 +7,7 @@
 
 import Foundation
 
-protocol TrackingCompleteViewControllerDelegate: AnyObject {
-    func trackingCompleteVC(backToHomeButtonTapped trackingCompleteVC: TrackingCompleteViewController)
+@objc protocol TrackingCompleteViewControllerDelegate: AnyObject {
+    @objc optional func trackingCompleteVC(backToHomeButtonTapped trackingCompleteVC: TrackingCompleteViewController)
+    @objc optional func trackingCompleteVC(didTrackingDataRemoved trackingCompleteVC: TrackingCompleteViewController)
 }

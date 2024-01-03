@@ -89,6 +89,7 @@ extension RepositoryViewController: UITableViewDelegate {
         // TrackingCompleteVC로 Push
         let trackingCompleteVC = TrackingCompleteViewController(mode: .calendar)
         trackingCompleteVC.hidesBottomBarWhenPushed = true
+        trackingCompleteVC.delegate = self
         
         // 캘린더 모드 세팅
         let item = repositoryManager.dayItems[indexPath.row]
@@ -102,5 +103,14 @@ extension RepositoryViewController: UITableViewDelegate {
         // TrackingCompleteView에 들어간다고 변수 업데이트
         isCompleteViewTapped = true
         navigationController?.pushViewController(trackingCompleteVC, animated: true)
+    }
+}
+
+// MARK: - TrackingCompleteViewControllerDelegate
+extension RepositoryViewController: TrackingCompleteViewControllerDelegate {
+    
+    /// 트래킹 데이터 삭제 후 호출되는 Delegate 메서드입니다.
+    func trackingCompleteVC(didTrackingDataRemoved trackingCompleteVC: TrackingCompleteViewController) {
+        updateRepositoryView(date: repositoryManager.currentDate)
     }
 }

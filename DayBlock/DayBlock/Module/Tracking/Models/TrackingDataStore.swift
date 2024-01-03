@@ -622,4 +622,11 @@ extension TrackingDataStore {
             groupData.saveContext()
         }
     }
+    
+    /// RepositoryItem을 이용해 TrackingDate를 삭제합니다.
+    func removeTrackingDate(to item: RepositoryItem) {
+        let block = item.trackingDate.superBlock
+        block.removeFromTrackingDateList(item.trackingDate)
+        groupData.saveContext()
+    }
 }
