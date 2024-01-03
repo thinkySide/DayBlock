@@ -36,7 +36,6 @@ final class SelectGroupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupDelegate()
-        setupGesture()
         setupNavigation()
         setupSelectedCell()
     }
@@ -61,23 +60,6 @@ final class SelectGroupViewController: UIViewController {
         viewManager.groupTableView.delegate = self
         viewManager.groupTableView.register(ManageGroupTableViewCell.self, forCellReuseIdentifier: Cell.groupSelect)
         viewManager.groupTableView.register(SelectGroupTableViewFooter.self, forHeaderFooterViewReuseIdentifier: SelectGroupTableViewFooter.footerID)
-    }
-    
-    func setupGesture() {
-        viewManager.actionStackView.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
-        viewManager.actionStackView.cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
-        // viewManager.menuButton.addTarget(self, action: #selector(menuButtonTapped), for: .touchUpInside)
-        
-        // Menu Gesture
-        // let createGroupGesture = UITapGestureRecognizer(target: self, action: #selector(createGroupMenuTapped))
-        // viewManager.customUIMenu.firstItem.addGestureRecognizer(createGroupGesture)
-        //
-        // let editGroupGesture = UITapGestureRecognizer(target: self, action: #selector(editGroupMenuTapped))
-        // viewManager.customUIMenu.secondItem.addGestureRecognizer(editGroupGesture)
-        
-        // Menu Background Gesture
-        // let backgroundGesture = UITapGestureRecognizer(target: self, action: #selector(backgroundTapped))
-        // viewManager.backgroundView.addGestureRecognizer(backgroundGesture)
     }
     
     private func setupNavigation() {
@@ -118,70 +100,6 @@ final class SelectGroupViewController: UIViewController {
         let tableView = viewManager.groupTableView
         tableView.selectRow(at: indexPath, animated: true, scrollPosition: .top)
     }
-    
-    // MARK: - Method
-    
-    @objc func confirmButtonTapped() {
-        
-        guard let indexPath = viewManager.groupTableView.indexPathForSelectedRow else { return }
-        let group = groupData.list()[indexPath.row]
-        
-        // 현재 선택된 indexPath 값으로 블럭 정보 업데이트
-        blockData.updateRemote(group: group)
-        blockData.remoteIndex = indexPath.row
-        
-        // delegate
-        delegate?.switchHomeGroup?(index: indexPath.row)
-        delegate?.updateGroup?()
-        dismiss(animated: true)
-    }
-    
-    @objc func cancelButtonTapped() {
-        dismiss(animated: true)
-    }
-    
-    // CustomUIMenu를 애니메이션과 함께 출력합니다.
-    // @objc func menuButtonTapped() {
-    //     UIView.animate(withDuration: 0.2) {
-    //         let menu = self.viewManager.customUIMenu
-    //         let background = self.viewManager.backgroundView
-    //         menu.alpha = menu.alpha == 1 ? 0 : 1
-    //         background.alpha = background.alpha == 1 ? 0 : 1
-    //     }
-    // }
-    
-    // CustomUIMenu 활성화시 같이 표시되는 투명한 View Tap Event 메서드입니다.
-    // @objc func backgroundTapped() {
-    //     menuButtonTapped()
-    // }
-    
-    // @objc func createGroupMenuTapped() {
-    //     let createGroupVC = CreateGroupViewController()
-    //     createGroupVC.delegate = self
-    //
-    //     // Present 세팅
-    //     createGroupVC.setupBackButton()
-    //     createGroupVC.screenMode = .present
-    //
-    //     let navController = UINavigationController(rootViewController: createGroupVC)
-    //     navController.modalPresentationStyle = .overFullScreen
-    //     present(navController, animated: true)
-    //
-    //     // 다시 메뉴 가리기
-    //     menuButtonTapped()
-    // }
-    
-    // @objc func editGroupMenuTapped() {
-    //     let editGroupVC = ManageGroupViewController()
-    //     editGroupVC.delegate = self
-    //
-    //     // 다시 메뉴 가리기
-    //     menuButtonTapped()
-    //     dismiss(animated: true) {
-    //         // 관리소 탭바 전환 델리게이트 메서드 호출
-    //         self.delegate?.switchManageGroupTabBar?()
-    //     }
-    // }
 }
 
 // MARK: - UITableView
@@ -201,6 +119,19 @@ extension SelectGroupViewController: UITableViewDataSource, UITableViewDelegate 
         cell.countLabel.text = "+\(blockData.listInSelectedGroup(at: indexPath.row).count)"
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let group = groupData.list()[indexPath.row]
+        
+        // 현재 선택된 indexPath 값으로 블럭 정보 업데이트
+        blockData.updateRemote(group: group)
+        blockData.remoteIndex = indexPath.row
+        
+        // delegate
+        delegate?.switchHomeGroup?(index: indexPath.row)
+        delegate?.updateGroup?()
+        dismiss(animated: true)
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

@@ -11,15 +11,6 @@ final class SelectGroupView: UIView {
     
     // MARK: - Component
     
-    // private let title: UILabel = {
-    //     let label = UILabel()
-    //     label.text = "그룹 선택"
-    //     label.font = UIFont(name: Pretendard.semiBold, size: 16)
-    //     label.textColor = Color.mainText
-    //     label.textAlignment = .center
-    //     return label
-    // }()
-    
     let groupTableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.backgroundColor = .white
@@ -27,41 +18,6 @@ final class SelectGroupView: UIView {
         table.showsVerticalScrollIndicator = true
         return table
     }()
-    
-    let actionStackView: ActionButtonSet = {
-        let stack = ActionButtonSet()
-        return stack
-    }()
-    
-    // lazy var menuButton: UIButton = {
-    //     let button = UIButton()
-    //     let icon = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)
-    //     button.setImage(UIImage(systemName: "ellipsis", withConfiguration: icon), for: .normal)
-    //     button.tintColor = Color.mainText
-    //     return button
-    // }()
-    
-    /// Background 터치 활성화를 위한 뷰
-    let backgroundView: UIView = {
-        let view = UIView()
-        view.alpha = 0
-        view.backgroundColor = .none
-        return view
-    }()
-    
-    // let customUIMenu: MenuPopup = {
-    //     let menu = MenuPopup(frame: .zero, number: .two)
-    //     menu.firstItem.title.text = "그룹 생성"
-    //     let firstIcon = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
-    //     menu.firstItem.icon.image = UIImage(systemName: "plus")
-    //
-    //     menu.secondItem.title.text = "그룹 편집"
-    //     let secondIcon = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
-    //     menu.secondItem.icon.image = UIImage(systemName: "pencil")
-    //
-    //     menu.alpha = 0
-    //     return menu
-    // }()
     
     // MARK: - Initial
     override init(frame: CGRect) {
@@ -77,60 +33,28 @@ final class SelectGroupView: UIView {
     
     // MARK: - Method
     
-    func setupInitial() {
+    private func setupInitial() {
         backgroundColor = .white
         
-        /// CornerRadius
+        // CornerRadius
         self.clipsToBounds = true
         self.layer.cornerRadius = 30
     }
     
-    func setupAddSubView() {
-        [groupTableView, actionStackView, backgroundView]
+    private func setupAddSubView() {
+        [groupTableView]
             .forEach {
-                /// 1. addSubView(component)
                 addSubview($0)
-                
-                /// 2. translatesAutoresizingMaskIntoConstraints = false
                 $0.translatesAutoresizingMaskIntoConstraints = false
             }
     }
     
-    func setupConstraints() {
-        
-        /// 3. NSLayoutConstraint.activate
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
-            
-            // title
-            // title.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            // title.centerXAnchor.constraint(equalTo: centerXAnchor),
-            
-            // addButton
-            // menuButton.centerYAnchor.constraint(equalTo: title.centerYAnchor),
-            // menuButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
-            // menuButton.widthAnchor.constraint(equalToConstant: 40),
-            // menuButton.heightAnchor.constraint(equalTo: menuButton.widthAnchor),
-            
-            // groupTableView
             groupTableView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-            groupTableView.bottomAnchor.constraint(equalTo: actionStackView.topAnchor, constant: -4),
+            groupTableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
             groupTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            groupTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            
-            // actionStackView
-            actionStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            actionStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
-            actionStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
-            
-            // backgroundView
-            backgroundView.topAnchor.constraint(equalTo: groupTableView.topAnchor),
-            backgroundView.bottomAnchor.constraint(equalTo: actionStackView.topAnchor),
-            backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor)
-            
-            // customUIMenu
-            // customUIMenu.topAnchor.constraint(equalTo: menuButton.bottomAnchor, constant: 0),
-            // customUIMenu.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12)
+            groupTableView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
 }
