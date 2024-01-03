@@ -192,16 +192,7 @@ extension HomeViewController {
         
         // 시간 확인
         let latestTime = notification.userInfo?["time"] as? Int ?? 0 // 마지막 todaySeconds와 같음.
-        var elapsedSeconds = 0
-        
-        // 하루가 지난 케이스
-        if latestTime >= trackingData.todaySecondsToInt() {
-            print("하루가 지났군, latestTime: \(latestTime) >= todaySeconds: \(trackingData.todaySecondsToInt())")
-            elapsedSeconds = 86400 - latestTime + trackingData.todaySecondsToInt()
-        } else {
-            print("하루가 안지났군, latestTime: \(latestTime) < todaySeconds: \(trackingData.todaySecondsToInt())")
-            elapsedSeconds = trackingData.todaySecondsToInt() - latestTime
-        }
+        var elapsedSeconds = trackingData.calculateElapsedTimeSinceAppExit
         print("이만큼 시간이 지났군: \(elapsedSeconds)")
         
         // 시간 업데이트

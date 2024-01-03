@@ -62,7 +62,7 @@ extension TrackingDataStore {
     /// 앱이 종료되어있을 동안 시간이 얼마나 흘렀는지 구하고 반환합니다.
     var calculateElapsedTimeSinceAppExit: Int {
         let lastAccess = UserDefaultsItem.shared.lastAccessDate
-        let timeInterval = Date().timeIntervalSince(lastAccess)
+        let timeInterval = Date().timeIntervalSince1970 - lastAccess.timeIntervalSince1970
         return Int(timeInterval)
     }
 }
