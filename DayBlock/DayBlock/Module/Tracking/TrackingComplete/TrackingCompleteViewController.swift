@@ -89,8 +89,15 @@ final class TrackingCompleteViewController: UIViewController {
         // 트래킹 보드: 트래킹 모드
         if mode == .tracking {
             let block = BlockDataStore.shared.focusEntity()
+            
+            // 트래킹 보드 업데이트
+            let timeList = trackingData.focusDate().trackingTimeList?.array as! [TrackingTime]
+            for time in timeList {
+                TrackingBoardService.shared.appendTrackingSecond(to: Int(time.startTime)!)
+            }
+            
             let trackingTimes = TrackingBoardService.shared.trackingSeconds
-            TrackingBoardService.shared.updateTrackingBoard(to: Date(), block: block, trackingTimes: trackingTimes)
+            TrackingBoardService.shared.updateTrackingBoard(to: trackingData.focusDateToDate(), block: block, trackingTimes: trackingTimes)
             TrackingBoardService.shared.stopAllAnimation()
             viewManager.trackingBoard.updateBoard()
         }

@@ -79,7 +79,6 @@ extension HomeViewController {
         // MARK: - 트래킹 중 하루 지났을 경우
         if dayElapsed > 0 {
             print("\(dayElapsed)일 지났음.")
-            showToast(toast: viewManager.testToastView, isActive: true)
             
             // 트래킹 보드 전부 초기화
             trackingBoardService.resetAllData()
@@ -124,7 +123,7 @@ extension HomeViewController {
         
         // 트래킹 모드 + 일시정지가 아닐 때 해당 메서드 실행
         guard UserDefaultsItem.shared.isTracking && !UserDefaultsItem.shared.isPaused else { return }
-        print(#function)
+        print("백그라운드에서 트래킹 모드로 돌아왔습니다.")
         
         // 1. 타이머 업데이트
         updateTimerSinceBackground(notification)
@@ -161,7 +160,6 @@ extension HomeViewController {
             let dayElapsed = trackingData.calculateElapsedDaySinceAppExit
             if dayElapsed > 0 {
                 print("백그라운드에 있을 동안 \(dayElapsed)일이 지났음.")
-                showToast(toast: viewManager.testToastView, isActive: true)
                 
                 // 트래킹 보드 전부 초기화
                 trackingBoardService.resetAllData()
@@ -194,21 +192,21 @@ extension HomeViewController {
         
         // 시간 확인
         let latestTime = notification.userInfo?["time"] as? Int ?? 0 // 마지막 todaySeconds와 같음.
-        let todaySeconds = trackingData.todaySecondsToInt()
-        var elapsedTime = 0
+        var elapsedSeconds = 0
         
-        // 백그라운드에 있을 동안 날짜가 지났는지 확인.
-        if trackingData.isSameDate(aDate: trackingData.focusDateToDate(), bDate: Date()) {
-            print("백그라운드에 있을 동안 날짜가 지나지 않았음. \(elapsedTime)초 지남.")
-            elapsedTime = todaySeconds - latestTime
+        // 하루가 지난 케이스
+        if latestTime >= trackingData.todaySecondsToInt() {
+            print("하루가 지났군, latestTime: \(latestTime) >= todaySeconds: \(trackingData.todaySecondsToInt())")
+            elapsedSeconds = 86400 - latestTime + trackingData.todaySecondsToInt()
         } else {
-            elapsedTime = 86400 - latestTime + todaySeconds
-            print("백그라운드에 있을 동안 날짜가 지났음. \(elapsedTime)초 지남.")
+            print("하루가 안지났군, latestTime: \(latestTime) < todaySeconds: \(trackingData.todaySecondsToInt())")
+            elapsedSeconds = trackingData.todaySecondsToInt() - latestTime
         }
+        print("이만큼 시간이 지났군: \(elapsedSeconds)")
         
         // 시간 업데이트
-        timerManager.totalTrackingSecond += elapsedTime
-        timerManager.currentTrackingSecond += Float(elapsedTime)
+        timerManager.totalTrackingSecond += elapsedSeconds
+        timerManager.currentTrackingSecond += Float(elapsedSeconds)
         
         print("백그라운드 복귀 후 총 트래킹 시간: \(timerManager.totalTrackingSecond)")
         print("백그라운드 복귀 후 현재 트래킹 시간: \(timerManager.currentTrackingSecond)")

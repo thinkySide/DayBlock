@@ -153,13 +153,6 @@ final class HomeView: UIView {
         return view
     }()
     
-    let testToastView: ToastMessage = {
-        let view = ToastMessage(state: .complete)
-        view.messageLabel.text = "백그라운드 중 하루가 지났습니다"
-        view.alpha = 0
-        return view
-    }()
-    
     let tabBarStackView = TabBar(location: .tracking)
     
     let testLabel: UILabel = {
@@ -167,7 +160,7 @@ final class HomeView: UIView {
         label.font = UIFont(name: Poppins.bold, size: 13)
         label.textColor = Color.mainText
         label.textAlignment = .center
-        label.alpha = 1
+        label.alpha = 0
         return label
     }()
     
@@ -360,7 +353,6 @@ final class HomeView: UIView {
             trackingButton,
             warningToastView,
             infoToastView,
-            testToastView,
             tabBarStackView,
             testLabel
         ]
@@ -440,9 +432,6 @@ final class HomeView: UIView {
             
             infoToastView.centerXAnchor.constraint(equalTo: centerXAnchor),
             infoToastView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -48),
-            
-            testToastView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            testToastView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -48),
             
             testLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             testLabel.centerXAnchor.constraint(equalTo: centerXAnchor),

@@ -565,6 +565,9 @@ extension TrackingDataStore {
             let newEndTime = endTime - 86400
             print("endTime: \(endTime), 하루가 지남. 새로운 endTime: \(newEndTime)")
             
+            // 트래킹 보드 초기화
+            TrackingBoardService.shared.resetAllData()
+            
             // 원래 포커스 날짜의 다음 날짜로 생성
             let nextDate = Date().nextDay(from: focusDateToDate())
             
@@ -597,6 +600,13 @@ extension TrackingDataStore {
         
         // 현재 세션 종료(삭제)
         focusDate().removeFromTrackingTimeList(focusTime())
+        
+        // 마지막 트래킹 시간이 전일인지 체크
+        let focusTimeList = focusDate().trackingTimeList?.array as! [TrackingTime]
+        if focusTimeList.isEmpty {
+            print("현재 세션 삭제로 인해 focusDate가 비었습니다.")
+            blockData.focusEntity().removeFromTrackingDateList(focusDate())
+        }
         
         // 마지막 트래킹 종료 시간 업데이트
         focusTime().endTime = todaySecondsToString()

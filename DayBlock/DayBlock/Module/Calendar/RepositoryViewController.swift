@@ -38,6 +38,7 @@ final class RepositoryViewController: UIViewController {
         // 만약 TrackingCompleteViewController 호출 된 후 불리는 상황이라면 조기 종료
         if isCompleteViewTapped { return }
         updateRepositoryView(date: repositoryManager.currentDate)
+        calendarView.calendar.select(repositoryManager.currentDate, scrollToDate: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
