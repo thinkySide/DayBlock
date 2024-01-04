@@ -563,7 +563,7 @@ extension TrackingDataStore {
         // 앱이 종료되어있을 동안, 하루가 지난 것으로 설정.
         else {
             let newEndTime = endTime - 86400
-            print("endTime: \(endTime), 하루가 지남. 새로운 endTime: \(newEndTime)")
+            print("endTime: \(endTime), 하루가 지남. -> \(newEndTime)")
             
             // 트래킹 보드 초기화
             TrackingBoardService.shared.resetAllData()
@@ -582,7 +582,6 @@ extension TrackingDataStore {
             // Time 생성
             let trackingTime = TrackingTime(context: context)
             let newStartTime = String(newEndTime)
-            print("newStartTime: \(newStartTime)")
             trackingTime.startTime = newStartTime
             
             newTrackingDate.addToTrackingTimeList(trackingTime)

@@ -25,7 +25,6 @@ final class OnboardingViewController: UIViewController {
         let pageViewController = viewManager.pageViewController
         guard let viewController = pageViewController.viewControllers?.first else { return 0 }
         let index = pages.firstIndex(of: viewController) ?? 0
-        print(index)
         return index
     }
     

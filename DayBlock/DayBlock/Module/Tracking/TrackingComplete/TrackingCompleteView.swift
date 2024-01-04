@@ -228,9 +228,6 @@ final class TrackingCompleteView: UIView {
     
     /// 원 애니메이션을 시작합니다.
     func circleAnimation() {
-        
-        print(#function)
-        
         // cornerRadius
         animationCircle.layer.cornerRadius = animationCircle.frame.width / 2
         
@@ -249,9 +246,6 @@ final class TrackingCompleteView: UIView {
     
     /// 체크 애니메이션을 실행합니다.
     func checkAnimation() {
-        
-        print(#function)
-        
         UIView.animate(withDuration: 0.5, delay: 0.0) {
             self.checkSymbol.alpha = 1
             self.checkLabel.alpha = 1
@@ -268,9 +262,6 @@ final class TrackingCompleteView: UIView {
     
     /// 블럭 생산 완료 애니메이션 종료 후 호출되는 메서드입니다.
     func animationEnd() {
-        
-        print(#function)
-        
         UIView.animate(withDuration: 0.3) {
             self.completeAnimation()
         }

@@ -135,11 +135,9 @@ extension HomeViewController {
         
         // 트래킹 모드인지 확인
         guard UserDefaultsItem.shared.isTracking else { return }
-        print("백그라운드에서 트래킹 모드로 돌아왔습니다.")
         
         // 일시정지 되었었는지 확인
         guard !UserDefaultsItem.shared.isPaused else {
-            print("백그라운드에서의 일시정지 시간 업데이트")
             timerManager.pausedTime += trackingData.calculateElapsedTimeSinceAppExit
             print("업데이트 된 일시정지 시간: \(timerManager.pausedTime)")
             return
@@ -158,7 +156,6 @@ extension HomeViewController {
             
             // 3500 = 3500 - 1800 * 1
             timerManager.currentTrackingSecond -= Float(trackingData.targetSecond) * Float(count)
-            print("블럭이 생산되어 currentTrackingSecond 업데이트: \(timerManager.currentTrackingSecond)")
             
             print("백그라운드에 있을 동안 블럭이 \(count)개 생산되었음.")
             
@@ -212,13 +209,10 @@ extension HomeViewController {
         
         // 시간 확인
         let elapsedSeconds = trackingData.calculateElapsedTimeSinceAppExit
-        print("이만큼 시간이 지났군: \(elapsedSeconds)")
+        print("백그라운드에서 지난 시간: \(elapsedSeconds)")
         
         // 시간 업데이트
         timerManager.totalTrackingSecond += elapsedSeconds
         timerManager.currentTrackingSecond += Float(elapsedSeconds)
-        
-        print("백그라운드 복귀 후 총 트래킹 시간: \(timerManager.totalTrackingSecond)")
-        print("백그라운드 복귀 후 현재 트래킹 시간: \(timerManager.currentTrackingSecond)")
     }
 }

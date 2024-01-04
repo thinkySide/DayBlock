@@ -266,8 +266,6 @@ final class HomeView: UIView {
         else if trackingMode == .pause { trackingMode = .restart }
         else if trackingMode == .restart { trackingMode = .pause }
         
-        print("현재 트래킹 모드: \(trackingMode)")
-        
         // Tracking 모드 설정
         switch trackingMode {
         case .start:
@@ -386,7 +384,7 @@ final class HomeView: UIView {
             productivityLabel.heightAnchor.constraint(equalToConstant: 24),
             
             /// groupSelectButton
-            groupSelectButton.topAnchor.constraint(equalTo: productivityLabel.bottomAnchor, constant: 24),
+            groupSelectButton.topAnchor.constraint(equalTo: productivityLabel.bottomAnchor, constant: 32),
             groupSelectButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             /// outputBlockPreview

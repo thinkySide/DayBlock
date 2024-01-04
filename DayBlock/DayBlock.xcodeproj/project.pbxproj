@@ -88,6 +88,7 @@
 		077E80F52AE1659B004CDB8F /* ManageBlockTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077E80F42AE1659B004CDB8F /* ManageBlockTableViewFooter.swift */; };
 		07817F0B2A0A05DE00D024F6 /* IconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07817F0A2A0A05DE00D024F6 /* IconManager.swift */; };
 		07817F0D2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07817F0C2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift */; };
+		0782BF662B46939000555A0C /* OptionSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0782BF652B46939000555A0C /* OptionSelector.swift */; };
 		07849BEE2B2976B2009BF4A8 /* SettingViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07849BED2B2976B2009BF4A8 /* SettingViewTableViewCell.swift */; };
 		07849BF02B297929009BF4A8 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07849BEF2B297929009BF4A8 /* MyPageView.swift */; };
 		07849BF22B297BD5009BF4A8 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07849BF12B297BD5009BF4A8 /* SettingView.swift */; };
@@ -259,6 +260,7 @@
 		077E80F42AE1659B004CDB8F /* ManageBlockTableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBlockTableViewFooter.swift; sourceTree = "<group>"; };
 		07817F0A2A0A05DE00D024F6 /* IconManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconManager.swift; sourceTree = "<group>"; };
 		07817F0C2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIconCollectionViewCell.swift; sourceTree = "<group>"; };
+		0782BF652B46939000555A0C /* OptionSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionSelector.swift; sourceTree = "<group>"; };
 		07849BED2B2976B2009BF4A8 /* SettingViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewTableViewCell.swift; sourceTree = "<group>"; };
 		07849BEF2B297929009BF4A8 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		07849BF12B297BD5009BF4A8 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
@@ -800,6 +802,7 @@
 				07C044122B3D9F7E005A816A /* ToolTip.swift */,
 				07D9E4C92B4544E1005340F3 /* Menu.swift */,
 				07D9E4CB2B454505005340F3 /* MenuItem.swift */,
+				0782BF652B46939000555A0C /* OptionSelector.swift */,
 				07454E0E29EBE50500B3458D /* BottomModal.swift */,
 				07B1F8CE2B2C367400E98382 /* PageNumbers.swift */,
 			);
@@ -1132,6 +1135,7 @@
 				07B49BC62A88EC14006D1011 /* MenuPopupItem.swift in Sources */,
 				07454DE729EA94EB00B3458D /* DisablePasteTextField.swift in Sources */,
 				07B1F8CD2B2C349600E98382 /* OnboardingView.swift in Sources */,
+				0782BF662B46939000555A0C /* OptionSelector.swift in Sources */,
 				07174A182B1F4C6500B7EC69 /* RepositoryVC+TableView.swift in Sources */,
 				076E955B2B317041005A8D46 /* OpenLicenseDataStore.swift in Sources */,
 				0713019E2B205791008A2A8D /* SmallButton.swift in Sources */,

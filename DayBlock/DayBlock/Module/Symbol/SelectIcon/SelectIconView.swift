@@ -14,11 +14,13 @@ final class SelectIconView: UIView {
     private let title: UILabel = {
         let label = UILabel()
         label.text = "아이콘 선택"
-        label.font = UIFont(name: Pretendard.semiBold, size: 16)
+        label.font = UIFont(name: Pretendard.semiBold, size: 18)
         label.textColor = Color.mainText
         label.textAlignment = .center
         return label
     }()
+    
+    let optionSelector = OptionSelector()
     
     let iconCollectionView: UICollectionView = {
         let layout = UICollectionViewLayout()
@@ -49,7 +51,7 @@ final class SelectIconView: UIView {
     }
     
     func setupAddSubView() {
-        [title, iconCollectionView]
+        [title, optionSelector, iconCollectionView]
             .forEach {
                 addSubview($0)
                 $0.translatesAutoresizingMaskIntoConstraints = false
@@ -60,11 +62,15 @@ final class SelectIconView: UIView {
         NSLayoutConstraint.activate([
             
             // title
-            title.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            title.topAnchor.constraint(equalTo: topAnchor, constant: 24),
             title.centerXAnchor.constraint(equalTo: centerXAnchor),
             
+            // optionSelector
+            optionSelector.centerYAnchor.constraint(equalTo: title.centerYAnchor),
+            optionSelector.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
+            
             // iconCollectionView
-            iconCollectionView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 16),
+            iconCollectionView.topAnchor.constraint(equalTo: optionSelector.bottomAnchor, constant: 16),
             iconCollectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
             iconCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
             iconCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4)

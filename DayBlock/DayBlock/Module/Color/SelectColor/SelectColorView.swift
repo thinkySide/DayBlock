@@ -14,7 +14,7 @@ final class SelectColorView: UIView {
     private let title: UILabel = {
         let label = UILabel()
         label.text = "색상 선택"
-        label.font = UIFont(name: Pretendard.semiBold, size: 16)
+        label.font = UIFont(name: Pretendard.semiBold, size: 18)
         label.textColor = Color.mainText
         label.textAlignment = .center
         return label
@@ -61,7 +61,7 @@ final class SelectColorView: UIView {
         NSLayoutConstraint.activate([
             
             // title
-            title.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            title.topAnchor.constraint(equalTo: topAnchor, constant: 24),
             title.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             // colorCollectionView
