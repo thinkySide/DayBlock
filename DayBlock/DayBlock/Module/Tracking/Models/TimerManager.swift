@@ -26,7 +26,7 @@ final class TimerManager {
     var trackingTimer: Timer?
     
     /// 일시정지 타이머
-    var pausedTimer: Timer!
+    var pausedTimer: Timer?
 
     /// 타이머 전체 시간
     var totalTrackingSecond = 0

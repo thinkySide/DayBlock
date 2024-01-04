@@ -26,11 +26,6 @@ final class SelectColorView: UIView {
         return collection
     }()
     
-    let actionStackView: ActionButtonSet = {
-        let stack = ActionButtonSet()
-        return stack
-    }()
-    
     // MARK: - Initial
     
     override init(frame: CGRect) {
@@ -49,41 +44,31 @@ final class SelectColorView: UIView {
     func setupInitial() {
         backgroundColor = .white
         
-        /// CornerRadius
+        // CornerRadius
         self.clipsToBounds = true
         self.layer.cornerRadius = 30
     }
     
     func setupAddSubView() {
-        [title, colorCollectionView, actionStackView]
+        [title, colorCollectionView]
             .forEach {
-                /// 1. addSubView(component)
                 addSubview($0)
-                
-                /// 2. translatesAutoresizingMaskIntoConstraints = false
                 $0.translatesAutoresizingMaskIntoConstraints = false
             }
     }
     
     func setupConstraints() {
-        
-        /// 3. NSLayoutConstraint.activate
         NSLayoutConstraint.activate([
             
-            /// title
+            // title
             title.topAnchor.constraint(equalTo: topAnchor, constant: 20),
             title.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            /// colorCollectionView
+            // colorCollectionView
             colorCollectionView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 8),
-            colorCollectionView.bottomAnchor.constraint(equalTo: actionStackView.topAnchor, constant: -16),
+            colorCollectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
             colorCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
-            colorCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4),
-            
-            /// actionStackView
-            actionStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            actionStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
-            actionStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin)
+            colorCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4)
         ])
     }
 }

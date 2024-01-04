@@ -163,7 +163,7 @@ extension HomeViewController {
         timerManager.trackingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingEverySecond), userInfo: nil, repeats: true)
         
         // 1-2. 일시정지 타이머 정지
-        timerManager.pausedTimer.invalidate()
+        timerManager.pausedTimer?.invalidate()
         
         // 2. UserDefaults 트래킹 일시정지 확인용 변수 업데이트
         UserDefaultsItem.shared.setIsPaused(to: false)

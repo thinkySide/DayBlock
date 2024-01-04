@@ -28,7 +28,6 @@ final class SelectColorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
-        setupAddTarget()
     }
     
     override func viewDidLayoutSubviews() {
@@ -49,12 +48,6 @@ final class SelectColorViewController: UIViewController {
         collectionView.collectionViewLayout = viewManager.createCompositionalLayout()
     }
     
-    private func setupAddTarget() {
-        let action = viewManager.actionStackView
-        action.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
-        action.cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
-    }
-    
     private func setupSelectedCell() {
         
         // 스크롤이 아직 되지 않았다면, 초깃값 설정
@@ -64,23 +57,6 @@ final class SelectColorViewController: UIViewController {
             let collectionView = self.viewManager.colorCollectionView
             collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
         }
-    }
-    
-    // MARK: - Custom Method
-    
-    @objc func confirmButtonTapped() {
-        guard let indexPath = viewManager.colorCollectionView.indexPathsForSelectedItems else { return }
-        let itemIndex = indexPath[0].item
-        colorManager.updateCurrentIndex(to: itemIndex)
-        groupData.updateRemote(color: colorManager.getSelectColor())
-        
-        // delegate
-        delegate?.updateColor()
-        dismiss(animated: true)
-    }
-    
-    @objc func cancelButtonTapped() {
-        dismiss(animated: true)
     }
 }
 
@@ -96,5 +72,15 @@ extension SelectColorViewController: UICollectionViewDataSource, UICollectionVie
             withReuseIdentifier: Cell.colorSelect, for: indexPath) as! SelectColorCollectionViewCell
         cell.color.backgroundColor = colorManager.getColorList()[indexPath.item]
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let itemIndex = indexPath.item
+        colorManager.updateCurrentIndex(to: itemIndex)
+        groupData.updateRemote(color: colorManager.getSelectColor())
+        
+        // delegate
+        delegate?.updateColor()
+        dismiss(animated: true)
     }
 }
