@@ -89,6 +89,7 @@
 		07817F0B2A0A05DE00D024F6 /* IconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07817F0A2A0A05DE00D024F6 /* IconManager.swift */; };
 		07817F0D2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07817F0C2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift */; };
 		0782BF662B46939000555A0C /* OptionSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0782BF652B46939000555A0C /* OptionSelector.swift */; };
+		0782BF682B46A14C00555A0C /* IconSectionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0782BF672B46A14C00555A0C /* IconSectionBar.swift */; };
 		07849BEE2B2976B2009BF4A8 /* SettingViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07849BED2B2976B2009BF4A8 /* SettingViewTableViewCell.swift */; };
 		07849BF02B297929009BF4A8 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07849BEF2B297929009BF4A8 /* MyPageView.swift */; };
 		07849BF22B297BD5009BF4A8 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07849BF12B297BD5009BF4A8 /* SettingView.swift */; };
@@ -261,6 +262,7 @@
 		07817F0A2A0A05DE00D024F6 /* IconManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconManager.swift; sourceTree = "<group>"; };
 		07817F0C2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIconCollectionViewCell.swift; sourceTree = "<group>"; };
 		0782BF652B46939000555A0C /* OptionSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionSelector.swift; sourceTree = "<group>"; };
+		0782BF672B46A14C00555A0C /* IconSectionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSectionBar.swift; sourceTree = "<group>"; };
 		07849BED2B2976B2009BF4A8 /* SettingViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewTableViewCell.swift; sourceTree = "<group>"; };
 		07849BEF2B297929009BF4A8 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		07849BF12B297BD5009BF4A8 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
@@ -798,6 +800,7 @@
 			children = (
 				0719648729DC5066009CA1A4 /* TabBar.swift */,
 				07FAF98A2AE0E7AD003BD30B /* SectionBar.swift */,
+				0782BF672B46A14C00555A0C /* IconSectionBar.swift */,
 				07B49BD32A8F23FF006D1011 /* ToastMessage.swift */,
 				07C044122B3D9F7E005A816A /* ToolTip.swift */,
 				07D9E4C92B4544E1005340F3 /* Menu.swift */,
@@ -1221,6 +1224,7 @@
 				0770803429E797E100D66900 /* SelectIconViewController.swift in Sources */,
 				07B1F8BB2B2C23A500E98382 /* StartViewController.swift in Sources */,
 				07446E3F2B2A7E650002E9EF /* NotificationName++.swift in Sources */,
+				0782BF682B46A14C00555A0C /* IconSectionBar.swift in Sources */,
 				07967D012AC9A1D300BB45B5 /* TrackingTime+CoreDataProperties.swift in Sources */,
 				07454DE329EA6CEE00B3458D /* UIViewController++.swift in Sources */,
 				0756BE882AF8DAB4009CBE46 /* RepositoryView.swift in Sources */,

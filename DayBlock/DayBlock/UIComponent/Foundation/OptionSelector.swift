@@ -13,7 +13,7 @@ final class OptionSelector: UIButton {
     let title: UILabel = {
         let label = UILabel()
         label.text = "전체"
-        label.font = UIFont(name: Pretendard.semiBold, size: 15)
+        label.font = UIFont(name: Pretendard.semiBold, size: 14)
         label.textColor = Color.mainText
         label.textAlignment = .right
         return label
@@ -45,7 +45,7 @@ final class OptionSelector: UIButton {
             title.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             
             arrow.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 1),
-            arrow.leadingAnchor.constraint(equalTo: title.trailingAnchor, constant: 4),
+            arrow.leadingAnchor.constraint(equalTo: title.trailingAnchor, constant: 2),
             arrow.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             arrow.widthAnchor.constraint(equalToConstant: 20),
             arrow.heightAnchor.constraint(equalToConstant: 20)

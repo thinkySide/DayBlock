@@ -70,6 +70,7 @@ final class SelectGroupViewController: UIViewController {
         nbAppearance.configureWithOpaqueBackground()
         nbAppearance.backgroundColor = .white
         nbAppearance.shadowColor = .clear
+        nbAppearance.titleTextAttributes = [.font: UIFont(name: Pretendard.semiBold, size: 16)!]
         navigationController?.navigationBar.standardAppearance = nbAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = nbAppearance
         

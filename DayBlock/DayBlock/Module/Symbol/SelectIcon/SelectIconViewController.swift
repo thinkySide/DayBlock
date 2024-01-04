@@ -29,6 +29,7 @@ final class SelectIconViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
+        setupEvent()
     }
     
     override func viewDidLayoutSubviews() {
@@ -54,6 +55,48 @@ final class SelectIconViewController: UIViewController {
             let collectionView = viewManager.iconCollectionView
             collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
         }
+    }
+    
+    private func setupEvent() {
+        let iconSectionBar = viewManager.iconSectionBar
+        iconSectionBar.firstSection.addTarget(self, action: #selector(firstSectionTapped), for: .touchUpInside)
+        iconSectionBar.secondSection.addTarget(self, action: #selector(secondSectionTapped), for: .touchUpInside)
+        iconSectionBar.thirdSection.addTarget(self, action: #selector(thirdSectionTapped), for: .touchUpInside)
+        iconSectionBar.fourthSection.addTarget(self, action: #selector(fourthSectionTapped), for: .touchUpInside)
+        iconSectionBar.fifthSection.addTarget(self, action: #selector(fifthSectionTapped), for: .touchUpInside)
+        iconSectionBar.sixthSection.addTarget(self, action: #selector(sixthSectionTapped), for: .touchUpInside)
+    }
+    
+    // MARK: - Section Event
+    
+    /// 첫번째 섹션, "전체"를 탭했을 때 호출되는 메서드입니다.
+    @objc func firstSectionTapped() {
+        viewManager.iconSectionBar.active(.first)
+    }
+    
+    /// 두번째 섹션, "사물"를 탭했을 때 호출되는 메서드입니다.
+    @objc func secondSectionTapped() {
+        viewManager.iconSectionBar.active(.second)
+    }
+    
+    /// 세번째 섹션, "자연"를 탭했을 때 호출되는 메서드입니다.
+    @objc func thirdSectionTapped() {
+        viewManager.iconSectionBar.active(.third)
+    }
+    
+    /// 네번째 섹션, "건강"를 탭했을 때 호출되는 메서드입니다.
+    @objc func fourthSectionTapped() {
+        viewManager.iconSectionBar.active(.fourth)
+    }
+    
+    /// 다섯번째 섹션, "운동"를 탭했을 때 호출되는 메서드입니다.
+    @objc func fifthSectionTapped() {
+        viewManager.iconSectionBar.active(.fifth)
+    }
+    
+    /// 여섯번째 섹션, "교통"를 탭했을 때 호출되는 메서드입니다.
+    @objc func sixthSectionTapped() {
+        viewManager.iconSectionBar.active(.sixth)
     }
 }
 

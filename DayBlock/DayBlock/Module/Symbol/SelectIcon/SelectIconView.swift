@@ -14,19 +14,45 @@ final class SelectIconView: UIView {
     private let title: UILabel = {
         let label = UILabel()
         label.text = "아이콘 선택"
-        label.font = UIFont(name: Pretendard.semiBold, size: 18)
+        label.font = UIFont(name: Pretendard.semiBold, size: 16)
         label.textColor = Color.mainText
         label.textAlignment = .center
         return label
     }()
     
-    let optionSelector = OptionSelector()
+    let iconSectionBar = IconSectionBar()
     
     let iconCollectionView: UICollectionView = {
         let layout = UICollectionViewLayout()
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         // collection.backgroundColor = .red
         return collection
+    }()
+    
+    // MARK: - Menu
+    
+    let backgroundView: UIView = {
+        let view = UIView()
+        view.alpha = 0
+        view.backgroundColor = .none
+        view.isUserInteractionEnabled = true
+        return view
+    }()
+    
+    lazy var menuBarButtonItem: UIBarButtonItem = {
+        let item = UIBarButtonItem()
+        item.image = UIImage(systemName: "ellipsis")
+        item.tintColor = Color.mainText
+        return item
+    }()
+    
+    let customMenu: Menu = {
+        let menu = Menu(frame: .zero, number: .five)
+        menu.firstItem.title.text = "트래킹 삭제"
+        let firstIcon = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
+        menu.firstItem.icon.image = UIImage(systemName: "trash")
+        menu.alpha = 1
+        return menu
     }()
     
     // MARK: - Initial
@@ -51,7 +77,7 @@ final class SelectIconView: UIView {
     }
     
     func setupAddSubView() {
-        [title, optionSelector, iconCollectionView]
+        [title, iconSectionBar, iconCollectionView]
             .forEach {
                 addSubview($0)
                 $0.translatesAutoresizingMaskIntoConstraints = false
@@ -62,16 +88,17 @@ final class SelectIconView: UIView {
         NSLayoutConstraint.activate([
             
             // title
-            title.topAnchor.constraint(equalTo: topAnchor, constant: 24),
+            title.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             title.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            // optionSelector
-            optionSelector.centerYAnchor.constraint(equalTo: title.centerYAnchor),
-            optionSelector.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
+            // iconSectionBar
+            iconSectionBar.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 4),
+            iconSectionBar.leadingAnchor.constraint(equalTo: leadingAnchor),
+            iconSectionBar.trailingAnchor.constraint(equalTo: trailingAnchor),
             
             // iconCollectionView
-            iconCollectionView.topAnchor.constraint(equalTo: optionSelector.bottomAnchor, constant: 16),
-            iconCollectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            iconCollectionView.topAnchor.constraint(equalTo: iconSectionBar.bottomAnchor, constant: 2),
+            iconCollectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -8),
             iconCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
             iconCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4)
         ])
