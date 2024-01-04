@@ -56,7 +56,6 @@ final class SelectIconViewController: UIViewController {
     private func setupSelectedCell() {
         if !isScrolled {
             isScrolled = true
-            let selectedIndex = symbolManager.selectedIndex()
             let indexPath = IndexPath(item: symbolManager.selectedIndex(), section: 0)
             let collectionView = viewManager.iconCollectionView
             collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
@@ -82,7 +81,10 @@ final class SelectIconViewController: UIViewController {
         collectionView.reloadData()
         
         // 만약 선택값이 음수이고, 현재 아이콘 리스트 보다 큰 인덱스라면 현재 셀 선택하지 않기
-        guard selectedIndex >= 0 && selectedIndex < symbolManager.currentList().count else { return }
+        guard selectedIndex >= 0 && selectedIndex < symbolManager.currentList().count else {
+            collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+            return
+        }
         collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
     }
     

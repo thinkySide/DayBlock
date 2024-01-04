@@ -100,7 +100,7 @@ final class DeveloperInfoView: UIView {
         label.textAlignment = .left
         label.numberOfLines = 0
         label.text = """
-        안녕하세요, DayBlock 개발자 thinkySide입니다. 우리에겐 하루에 24개의 블럭이 주어집니다. 모두 똑같이 생긴 빈 블럭이죠. 이 블럭을 우린 천천히, 조금씩 쌓아나갑니다.
+        최적의 사용자 경험을 제공하기 위해, 근거있는 개발과 디자인을 지향합니다.
         """
         
         label.asFontColor(targetString: "",

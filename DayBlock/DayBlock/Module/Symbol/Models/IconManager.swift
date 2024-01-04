@@ -73,7 +73,6 @@ final class IconManager {
             selectedIndex = index - objectlist().count - natureList().count - fitnessList().count - furnitureList().count
         }
         
-        print("선택 인덱스: \(selectedIndex)")
         return selectedIndex
     }
     
