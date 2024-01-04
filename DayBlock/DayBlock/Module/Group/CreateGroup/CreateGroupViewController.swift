@@ -18,6 +18,9 @@ final class CreateGroupViewController: UIViewController {
     private let groupData = GroupDataStore.shared
     private let blockData = BlockDataStore.shared
     
+    // 저장할 컬러인덱스
+    private var colorIndex = 22
+    
     /// Present화면인지, Navigation인지 확인
     
     enum ScreenMode {
@@ -189,8 +192,7 @@ extension CreateGroupViewController: FormSelectButtonDelegate {
             selectColorVC.transitioningDelegate = customBottomModalDelegate
         }
         
-        // 컬러 인덱스 초기화(38번 블루)
-        ColorManager.shared.updateCurrentIndex(to: 38)
+        ColorManager.shared.updateCurrentIndex(to: colorIndex)
         
         present(selectColorVC, animated: true)
     }
@@ -199,8 +201,9 @@ extension CreateGroupViewController: FormSelectButtonDelegate {
 // MARK: - SelectColorViewControllerDelegate
 
 extension CreateGroupViewController: SelectColorViewControllerDelegate {
-    func updateColor() {
+    func updateColor(index: Int) {
         let selectedColor = groupData.remote().color
         viewManager.colorSelect.selectColor.backgroundColor = UIColor(rgb: selectedColor)
+        self.colorIndex = index
     }
 }

@@ -202,7 +202,7 @@ extension EditGroupViewController: FormSelectButtonDelegate {
 // MARK: - SelectColorViewControllerDelegate
 
 extension EditGroupViewController: SelectColorViewControllerDelegate {
-    func updateColor() {
+    func updateColor(index: Int) {
         let selectedColor = groupData.remote().color
         viewManager.colorSelect.selectColor.backgroundColor = UIColor(rgb: selectedColor)
     }

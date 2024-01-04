@@ -53,7 +53,7 @@ final class SelectColorViewController: UIViewController {
         // 스크롤이 아직 되지 않았다면, 초깃값 설정
         if !isScrolled {
             isScrolled = true
-            let indexPath = IndexPath(item: self.colorManager.getCurrentIndex(), section: 0)
+            let indexPath = IndexPath(item: colorManager.getCurrentIndex(), section: 0)
             let collectionView = self.viewManager.colorCollectionView
             collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
         }
@@ -80,7 +80,7 @@ extension SelectColorViewController: UICollectionViewDataSource, UICollectionVie
         groupData.updateRemote(color: colorManager.getSelectColor())
         
         // delegate
-        delegate?.updateColor()
+        delegate?.updateColor(index: indexPath.item)
         dismiss(animated: true)
     }
 }
