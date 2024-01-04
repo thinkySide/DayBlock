@@ -27,11 +27,6 @@ final class SelectIconView: UIView {
         return collection
     }()
     
-    let actionStackView: ActionButtonSet = {
-        let stack = ActionButtonSet()
-        return stack
-    }()
-    
     // MARK: - Initial
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -54,35 +49,25 @@ final class SelectIconView: UIView {
     }
     
     func setupAddSubView() {
-        [title, iconCollectionView, actionStackView]
+        [title, iconCollectionView]
             .forEach {
-                /// 1. addSubView(component)
                 addSubview($0)
-                
-                /// 2. translatesAutoresizingMaskIntoConstraints = false
                 $0.translatesAutoresizingMaskIntoConstraints = false
             }
     }
     
     func setupConstraints() {
-        
-        /// 3. NSLayoutConstraint.activate
         NSLayoutConstraint.activate([
             
-            /// title
+            // title
             title.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             title.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            /// iconCollectionView
+            // iconCollectionView
             iconCollectionView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 16),
-            iconCollectionView.bottomAnchor.constraint(equalTo: actionStackView.topAnchor, constant: -8),
+            iconCollectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
             iconCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
-            iconCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4),
-            
-            /// actionStackView
-            actionStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            actionStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
-            actionStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin)
+            iconCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4)
         ])
     }
 }

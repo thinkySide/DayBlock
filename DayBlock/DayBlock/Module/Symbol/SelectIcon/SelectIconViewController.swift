@@ -28,7 +28,6 @@ final class SelectIconViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupDelegate()
         setupCollectionView()
     }
     
@@ -38,11 +37,6 @@ final class SelectIconViewController: UIViewController {
     }
     
     // MARK: - Initial Method
-    
-    private func setupDelegate() {
-        viewManager.actionStackView.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
-        viewManager.actionStackView.cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
-    }
     
     private func setupCollectionView() {
         let collectionView = viewManager.iconCollectionView
@@ -61,24 +55,6 @@ final class SelectIconViewController: UIViewController {
             collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
         }
     }
-    
-    // MARK: - Custom Method
-    
-    @objc func confirmButtonTapped() {
-        guard let indexPath = viewManager.iconCollectionView.indexPathsForSelectedItems else { return }
-        let itemIndex = indexPath[0].item
-        symbolManager.updateSelectedIndex(to: itemIndex)
-        
-        blockData.updateRemoteBlock(icon: symbolManager.selected())
-        
-        /// delegate
-        delegate?.updateIcon()
-        dismiss(animated: true)
-    }
-    
-    @objc func cancelButtonTapped() {
-        dismiss(animated: true)
-    }
 }
 
 // MARK: - UICollectionView
@@ -95,5 +71,16 @@ extension SelectIconViewController: UICollectionViewDataSource, UICollectionView
         cell.icon.image = UIImage(systemName: icon)
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let itemIndex = indexPath.item
+        symbolManager.updateSelectedIndex(to: itemIndex)
+        
+        blockData.updateRemoteBlock(icon: symbolManager.selected())
+        
+        /// delegate
+        delegate?.updateIcon()
+        dismiss(animated: true)
     }
 }
