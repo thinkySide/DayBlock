@@ -5,6 +5,57 @@
 //  Created by 김민준 on 12/18/23.
 //
 
+let objectSymbols = [
+    "pencil",
+    "eraser.fill",
+    "trash.fill"
+]
+
+let natureSymbols = [
+    "hare.fill",
+    "tortoise.fill",
+    "dog.fill",
+    "cat.fill",
+    "lizard.fill",
+    "bird.fill",
+    "ant.fill",
+    "ladybug.fill",
+    "fish.fill",
+    "pawprint.fill",
+    "leaf.fill",
+    "camera.macro",
+    "tree.fill",
+    "carrot.fill",
+    "fossil.shell.fill"
+]
+
+let fitnessSymbols = [
+    "figure.walk",
+    "figure.run",
+]
+
+let furnitureSymbols = [
+    "house.fill",
+    "lightbulb.fill",
+]
+
+let trafficSymbols = [
+    "airplane",
+    "car.fill",
+    "bus.fill",
+    "cablecar.fill",
+    "lightrail.fill",
+    "ferry.fill",
+    "sailboat.fill",
+    "truck.box.fill",
+    "bicycle",
+    "scooter",
+]
+
+
+
+
+
 let symbols = [
     
     // 기본 블럭

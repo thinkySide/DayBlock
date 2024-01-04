@@ -38,13 +38,13 @@ final class IconSectionBar: UIView {
     
     let fourthSection: IconSection = {
         let section = IconSection(state: .inActive)
-        section.label.text = "건강"
+        section.label.text = "운동"
         return section
     }()
     
     let fifthSection: IconSection = {
         let section = IconSection(state: .inActive)
-        section.label.text = "운동"
+        section.label.text = "가구"
         return section
     }()
     
