@@ -50,7 +50,7 @@ final class IconSectionBar: UIView {
     
     let sixthSection: IconSection = {
         let section = IconSection(state: .inActive)
-        section.label.text = "교통"
+        section.label.text = "기타"
         return section
     }()
     

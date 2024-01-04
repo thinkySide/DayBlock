@@ -14,7 +14,7 @@ final class IconManager {
     static let shared = IconManager()
     private init() {
         // icons = symbols
-        icons = [objectSymbols, natureSymbols, fitnessSymbols, furnitureSymbols, trafficSymbols]
+        icons = [objectSymbols, natureSymbols, fitnessSymbols, furnitureSymbols, etcSymbols]
     }
 
     /// 현재 아이콘의 인덱스 값
@@ -68,8 +68,8 @@ final class IconManager {
             selectedIndex = index - objectlist().count - natureList().count - fitnessList().count
         }
         
-        // 6. 교통 기호 리스트일 경우
-        else if currents == trafficList() {
+        // 6. 기타 기호 리스트일 경우
+        else if currents == etcList() {
             selectedIndex = index - objectlist().count - natureList().count - fitnessList().count - furnitureList().count
         }
         
@@ -104,8 +104,8 @@ final class IconManager {
         return icons[3]
     }
     
-    /// 교통 아이콘 리스트를 반환합니다.
-    func trafficList() -> [String] {
+    /// 기타 아이콘 리스트를 반환합니다.
+    func etcList() -> [String] {
         return icons[4]
     }
     
@@ -136,9 +136,9 @@ final class IconManager {
         currents = furnitureList()
     }
     
-    /// 사용 중인 리스트를 교통 리스트로 업데이트합니다.
+    /// 사용 중인 리스트를 기타 리스트로 업데이트합니다.
     func updateCurrentListToTraffic() {
-        currents = trafficList()
+        currents = etcList()
     }
     
     // MARK: - Index Upate
@@ -173,8 +173,8 @@ final class IconManager {
             self.index = objectlist().count + natureList().count + fitnessList().count + index
         }
         
-        // 6. 교통 기호 리스트일 경우
-        else if currents == trafficList() {
+        // 6. 기타 기호 리스트일 경우
+        else if currents == etcList() {
             self.index = objectlist().count + natureList().count + fitnessList().count + furnitureList().count + index
         }
     }

@@ -6,40 +6,119 @@
 //
 
 let objectSymbols = [
+    
+    // 블럭
+    "batteryblock.fill",
+    
+    // 공부
     "pencil",
     "eraser.fill",
-    "trash.fill"
-]
-
-let natureSymbols = [
-    "hare.fill",
-    "tortoise.fill",
-    "dog.fill",
-    "cat.fill",
-    "lizard.fill",
-    "bird.fill",
-    "ant.fill",
-    "ladybug.fill",
-    "fish.fill",
-    "pawprint.fill",
-    "leaf.fill",
-    "camera.macro",
-    "tree.fill",
-    "carrot.fill",
-    "fossil.shell.fill"
-]
-
-let fitnessSymbols = [
-    "figure.walk",
-    "figure.run",
-]
-
-let furnitureSymbols = [
-    "house.fill",
-    "lightbulb.fill",
-]
-
-let trafficSymbols = [
+    "archivebox.fill",
+    "list.clipboard.fill",
+    "note.text",
+    "calendar",
+    "book.closed.fill",
+    "text.book.closed.fill",
+    "character.book.closed.fill",
+    "books.vertical.fill",
+    "menucard.fill",
+    "greetingcard.fill",
+    "magazine.fill",
+    "newspaper.fill",
+    "scroll.fill",
+    "bookmark.fill",
+    "graduationcap.fill",
+    "ruler.fill",
+    "backpack.fill",
+    
+    // 음식
+    "mug.fill",
+    "wineglass.fill",
+    "fork.knife",
+    "takeoutbag.and.cup.and.straw.fill",
+    "waterbottle.fill",
+    "birthday.cake.fill",
+    
+    // 엔터테이먼트
+    "teddybear.fill",
+    "gift.fill",
+    "theatermasks.fill",
+    "theatermask.and.paintbrush.fill",
+    "puzzlepiece.extension.fill",
+    "puzzlepiece.fill",
+    
+    // 일반 도구
+    "beach.umbrella.fill",
+    "trash.fill",
+    "gym.bag.fill",
+    "megaphone.fill",
+    "horn.fill",
+    "flashlight.off.fill",
+    "camera.fill",
+    "scissors",
+    "paintbrush.fill",
+    "paintbrush.pointed.fill",
+    "paintpalette.fill",
+    "watch.analog",
+    "key.horizontal.fill",
+    "pin.fill",
+    "map.fill",
+    "stroller.fill",
+    "arcade.stick.console.fill",
+    "gamecontroller.fill",
+    "alarm.fill",
+    "stopwatch.fill",
+    "timer.circle.fill",
+    "binoculars.fill",
+    
+    // 공구
+    "wrench.adjustable.fill",
+    "hammer.fill",
+    "screwdriver.fill",
+    "eyedropper.halffull",
+    
+    // 쇼핑
+    "bag.fill",
+    "basket.fill",
+    "handbag.fill",
+    "briefcase.fill",
+    "case.fill",
+    "suitcase.fill",
+    "suitcase.rolling.fill",
+    "creditcard.fill",
+    
+    // 의류
+    "crown.fill",
+    "tshirt.fill",
+    "shoe.fill",
+    "sunglasses.fill",
+    "comb.fill",
+    
+    // 공
+    "soccerball",
+    "baseball.fill",
+    "basketball.fill",
+    "football.fill",
+    "hockey.puck.fill",
+    "cricket.ball.fill",
+    "tennisball.fill",
+    "volleyball.fill",
+    
+    // 운동 도구
+    "tennis.racket",
+    "skateboard.fill",
+    "skis.fill",
+    "snowboard.fill",
+    "surfboard.fill",
+    
+    // 음악
+    "radio.fill",
+    "headphones",
+    "radio.fill",
+    "pianokeys.inverse",
+    "guitars.fill",
+    
+    // 교통
     "airplane",
     "car.fill",
     "bus.fill",
@@ -50,138 +129,200 @@ let trafficSymbols = [
     "truck.box.fill",
     "bicycle",
     "scooter",
-]
-
-
-
-
-
-let symbols = [
-    
-    // 기본 블럭
-    "batteryblock.fill",
-    
-    // 통신
-    "mic.fill",
-    "ellipsis.message.fill",
-    "phone.fill",
-    "video.fill",
-    "envelope.fill",
-    
-    // 날씨
-    "sun.max.fill",
-    "moon.fill",
-    "sparkles",
-    "cloud.fill",
-    
-    // 지도
-    "map.fill",
-    "car.fill",
-    "bus.fill",
-    "tram.fill",
     "fuelpump.fill",
-    "binoculars.fill",
     
-    // 사물 및 도구
-    "pencil",
-    "eraser.fill",
-    "trash.fill",
+    // 건강
+    "medical.thermometer.fill",
+    "bandage.fill",
+    "syringe.fill",
+    "facemask.fill",
+    "pill.fill",
+    "cross.vial.fill",
+    
+    // 실험
+    "flask.fill",
+    "testtube.2",
+    
+    // 컴퓨터
     "folder.fill",
-    "paperplane.fill",
     "tray.fill",
     "externaldrive.fill",
     "archivebox.fill",
-    "doc.fill",
-    "list.clipboard.fill",
-    "calendar",
-    "book.fill",
-    "books.vertical.fill",
-    "text.book.closed.fill",
-    "menucard.fill",
-    "magazine.fill",
-    "newspaper.fill",
-    "bookmark.fill",
-    "graduationcap.fill",
-    "ruler.fill",
-    "backpack.fill",
-    "studentdesk",
-    "soccerball",
-    "baseball.fill",
-    "basketball.fill",
-    "football.fill",
-    "hockey.puck.fill",
-    "tennisball.fill",
-    "volleyball.fill",
-    "skateboard.fill",
-    "skis.fill",
-    "snowboard.fill",
-    "surfboard.fill",
-    "gym.bag.fill",
-    "trophy.fill",
-    "medal.fill",
-    "beach.umbrella.fill",
-    "umbrella.fill",
-    "megaphone.fill",
+    "printer.fill",
+    "scanner.fill",
+    
+    // 깃발
+    "flag.fill",
     "flag.checkered",
+    "flag.2.crossed.fill",
     "flag.checkered.2.crossed",
-    "bell.fill",
-    "tag.fill",
-    "flashlight.off.fill",
-    "camera.fill",
-    "gearshape.fill",
-    "scissors",
-    "bag.fill",
-    "cart.fill",
-    "basket.fill",
-    "creditcard.fill",
-    "wallet.pass.fill",
+    
+    // 주사위
     "die.face.1.fill",
     "die.face.2.fill",
     "die.face.3.fill",
     "die.face.4.fill",
     "die.face.5.fill",
     "die.face.6.fill",
-    "pianokeys.inverse",
-    "paintbrush.fill",
-    "paintbrush.pointed.fill",
-    "level.fill",
-    "wrench.adjustable.fill",
-    "hammer.fill",
-    "screwdriver.fill",
-    "eyedropper.halffull",
-    "scroll.fill",
-    "printer.fill",
-    "scanner.fill",
-    "handbag.fill",
-    "briefcase.fill",
-    "suitcase.rolling.fill",
-    "theatermasks.fill",
-    "theatermask.and.paintbrush.fill",
-    "puzzlepiece.extension.fill",
-    "lightbulb.max.fill",
-    "fan.fill",
-    "fan.desk.fill",
-    "fan.ceiling.fill",
-    "lamp.desk.fill",
-    "lamp.ceiling.fill",
-    "light.recessed.fill",
-    "light.cylindrical.ceiling.fill",
-    "chandelier.fill",
-    "poweroutlet.strip.fill",
-    "powercord.fill",
-    "web.camera.fill",
-    "video.doorbell.fill",
+    
+    // 기타
+    "paperplane.fill",
+    "bell.fill",
+    "tag.fill",
+    "trophy.fill",
+    "medal.fill",
+    "gearshape.fill",
+    "cube.fill",
+]
+
+let natureSymbols = [
+    
+    // 날씨
+    "globe.americas.fill",
+    "sun.max.fill",
+    "moon.fill",
+    "moon.stars.fill",
+    "sparkles",
+    "cloud.fill",
+    "cloud.rain.fill",
+    "cloud.bolt.rain.fill",
+    "cloud.snow.fill",
+    "cloud.sun.fill",
+    "drop.fill",
+    "flame.fill",
+    "bolt.fill",
+    "mountain.2.fill",
+    
+    // 동물
+    "hare.fill",
+    "tortoise.fill",
+    "dog.fill",
+    "cat.fill",
+    "lizard.fill",
+    "bird.fill",
+    "fish.fill",
+    
+    // 곤충
+    "ant.fill",
+    "ladybug.fill",
+    
+    // 기타
+    "pawprint.fill",
+    "leaf.fill",
+    "camera.macro",
+    "tree.fill",
+    "carrot.fill",
+    "fossil.shell.fill"
+]
+
+let fitnessSymbols = [
+    
+    // 맨몸 운동
+    "figure.walk",
+    "figure.run",
+    "figure.cooldown",
+    "figure.core.training",
+    "figure.cross.training",
+    "figure.dance",
+    "figure.flexibility",
+    "figure.strengthtraining.functional",
+    "figure.gymnastics",
+    "figure.highintensity.intervaltraining",
+    "figure.jumprope",
+    "figure.martial.arts",
+    "figure.mind.and.body",
+    "figure.mixed.cardio",
+    "figure.pilates",
+    "figure.rolling",
+    "figure.rower",
+    "figure.socialdance",
+    "figure.stairs",
+    "figure.step.training",
+    "figure.taichi",
+    "figure.wrestling",
+    "figure.yoga",
+    
+    // 격투 종목
+    "figure.boxing",
+    "figure.fencing",
+    "figure.kickboxing",
+    
+    // 하계 종목
+    "figure.equestrian.sports",
+    "figure.pool.swim",
+    "figure.open.water.swim",
+    "figure.sailing",
+    "figure.water.fitness",
+    "figure.waterpolo",
+    
+    
+    // 동계 종목
+    "figure.skiing.crosscountry",
+    "figure.skiing.downhill",
+    "figure.skating",
+    "figure.snowboarding",
+    "figure.surfing",
+    
+    // 기타 종목
+    "figure.archery",
+    "figure.barre",
+    "figure.climbing",
+    "figure.fishing",
+    "figure.hiking",
+    "figure.hunting",
+    "figure.outdoor.cycle",
+    "figure.play",
+    "figure.track.and.field",
+    "figure.strengthtraining.traditional",
+    
+    // 구기 종목
+    "figure.american.football",
+    "figure.australian.football",
+    "figure.badminton",
+    "figure.baseball",
+    "figure.basketball",
+    "figure.bowling",
+    "figure.cricket",
+    "figure.curling",
+    "figure.disc.sports",
+    "figure.elliptical",
+    "figure.golf",
+    "figure.handball",
+    "figure.hockey",
+    "figure.pickleball",
+    "figure.racquetball",
+    "figure.rugby",
+    "figure.soccer",
+    "figure.softball",
+    "figure.squash",
+    "figure.table.tennis",
+    "figure.tennis",
+    "figure.volleyball"
+]
+
+let furnitureSymbols = [
+    
+    // 집 아이콘
+    "house.fill",
+    "house.and.flag.fill",
+    "tent.fill",
+    
+    // 문 & 차운
+    "door.left.hand.closed",
     "entry.lever.keypad.fill",
+    "curtains.closed",
+    
+    // 에어컨 및 건조기
+    "dehumidifier.fill",
+    "humidifier.fill",
+    "air.purifier.fill",
+    "air.conditioner.horizontal.fill",
+    
+    // 물
+    "sprinkler.and.droplets.fill",
     "spigot.fill",
-    "shower.fill",
-    "bathtub.fill",
-    "hifireceiver.fill",
-    "videoprojector.fill",
-    "party.popper.fill",
-    "balloon.fill",
-    "fireworks",
-    "frying.pan.fill",
-    "popcorn.fill",
+    
+    // 가구
     "bed.double.fill",
     "sofa.fill",
     "chair.lounge.fill",
@@ -190,93 +331,87 @@ let symbols = [
     "fireplace.fill",
     "washer.fill",
     "dryer.fill",
+    "studentdesk",
+    
+    // 요리
+    "oven.fill",
     "cooktop.fill",
-    "microwave.fill",
+    
+    // 선풍기
+    "fan.fill",
+    "fan.desk.fill",
+    "fan.ceiling.fill",
     "refrigerator.fill",
+    
+    // 화장실
+    "shower.fill",
+    "shower.handheld.fill",
+    "bathtub.fill",
     "sink.fill",
     "toilet.fill",
-    "tent.fill",
-    "signpost.right.fill",
-    "building.fill",
-    "lock.fill",
-    "key.fill",
-    "pin.fill",
-    "headphones",
-    "radio.fill",
-    "guitars.fill",
-    "sailboat.fill",
-    "stroller.fill",
-    "fuelpump.fill",
-    "horn.fill",
-    "bandage.fill",
-    "syringe.fill",
-    "facemask.fill",
-    "pills.fill",
-    "flask.fill",
-    "cross.vial.fill",
-    "teddybear.fill",
-    "tree.fill",
-    "crown.fill",
-    "tshirt.fill",
-    "shoe.fill",
-    "movieclapper.fill",
-    "comb.fill",
-    "sunglasses.fill",
-    "shippingbox.fill",
-    "clock.fill",
-    "arcade.stick.console.fill",
-    "gamecontroller.fill",
-    "paintpalette.fill",
-    "cup.and.saucer.fill",
-    "mug.fill",
-    "takeoutbag.and.cup.and.straw.fill",
-    "wineglass.fill",
-    "waterbottle.fill",
-    "birthday.cake.fill",
-    "carrot.fill",
-    "fork.knife",
-    "sdcard.fill",
-    "globe.desk.fill",
-    "fossil.shell.fill",
-    "gift.fill",
-    "binoculars.fill",
     
-    // 교통
-    "airplane",
+    // 조명
+    "lightbulb.fill",
+    "lamp.desk.fill",
+    "lamp.floor.fill",
+    "lamp.ceiling.fill",
+    "light.recessed.fill",
+    "chandelier.fill",
+    "light.beacon.max.fill",
+    "av.remote.fill"
+]
+ 
+let etcSymbols = [
     
-    // 피트니스
-    "figure.walk",
-    "figure.run",
-    "figure.american.football",
-    "figure.archery",
-    "figure.australian.football",
-    "figure.badminton",
-    "figure.barre",
-    "figure.baseball",
-    "figure.basketball",
-    "figure.bowling",
-    "figure.boxing",
-    "figure.climbing",
-    "figure.cricket",
-    "figure.skiing.crosscountry",
-    "figure.cross.training",
-    "figure.skiing.downhill",
-    "figure.fencing",
-    "figure.golf",
-    "figure.hand.cycling",
-    "figure.handball",
-    "figure.hiking",
-    "figure.hockey",
-    "figure.hunting",
-    "figure.jumprope",
-    "figure.kickboxing",
-    "figure.mind.and.body",
-    "figure.outdoor.cycle",
-    "figure.skating",
-    "figure.soccer",
-    "figure.socialdance",
-    "figure.pool.swim",
-    "figure.squash",
-    "figure.tennis",
-    "figure.strengthtraining.traditional"
+    // 일반 기호
+    "questionmark.circle.fill",
+    "exclamationmark.circle.fill",
+    "wonsign.circle.fill",
+    "dollarsign.circle.fill",
+    "eurosign.circle.fill",
+    "centsign.circle.fill",
+    "yensign.circle.fill",
+    "sterlingsign.circle.fill",
+    "francsign.circle.fill",
+    "kipsign.circle.fill",
+    
+    // 영어
+    "a.circle.fill",
+    "b.circle.fill",
+    "c.circle.fill",
+    "d.circle.fill",
+    "e.circle.fill",
+    "f.circle.fill",
+    "g.circle.fill",
+    "h.circle.fill",
+    "i.circle.fill",
+    "j.circle.fill",
+    "k.circle.fill",
+    "l.circle.fill",
+    "m.circle.fill",
+    "n.circle.fill",
+    "o.circle.fill",
+    "p.circle.fill",
+    "q.circle.fill",
+    "r.circle.fill",
+    "s.circle.fill",
+    "t.circle.fill",
+    "u.circle.fill",
+    "v.circle.fill",
+    "w.circle.fill",
+    "x.circle.fill",
+    "y.circle.fill",
+    "z.circle.fill",
+    
+    // 숫자
+    "0.circle.fill",
+    "1.circle.fill",
+    "2.circle.fill",
+    "3.circle.fill",
+    "4.circle.fill",
+    "5.circle.fill",
+    "6.circle.fill",
+    "7.circle.fill",
+    "8.circle.fill",
+    "9.circle.fill"
 ]
