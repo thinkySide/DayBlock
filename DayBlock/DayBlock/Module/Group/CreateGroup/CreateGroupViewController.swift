@@ -19,7 +19,7 @@ final class CreateGroupViewController: UIViewController {
     private let blockData = BlockDataStore.shared
     
     // 저장할 컬러인덱스
-    private var colorIndex = 22
+    private var colorIndex = 4
     
     /// Present화면인지, Navigation인지 확인
     

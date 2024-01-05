@@ -322,7 +322,7 @@ extension GroupDataStore {
     
     /// 리모트 그룹을 기본값으로 초기화합니다.
     func resetRemote() {
-        remoteObject = RemoteGroup(name: "", color: 0x76BB40, list: [])
+        remoteObject = RemoteGroup(name: "", color: 0x323232, list: [])
     }
 }
 

@@ -79,7 +79,7 @@ final class FormSelectButton: UIView {
     
     let selectColor: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(rgb: 0x76BB40)
+        view.backgroundColor = Color.mainText
         view.clipsToBounds = true
         return view
     }()

@@ -137,21 +137,14 @@ extension ManageGroupViewController: UITableViewDataSource, UITableViewDelegate 
         // 셀 클릭 시, 바로 비활성화되는 애니메이션 추가
         tableView.deselectRow(at: indexPath, animated: true)
         
-        // 첫번째 그룹(그룹없음) 클릭 시, 수정 불가 안내
-        if indexPath.row == 0 {
-            Vibration.error.vibrate()
-            showToast(toast: viewManager.toastView, isActive: true)
-            return
-        }
-        
         // 현재 편집중인 그룹 인덱스 업데이트
         groupData.updateEditIndex(to: indexPath.row)
         
-        // 토스트 비활성화
-        showToast(toast: viewManager.toastView, isActive: false)
+        // 첫번째 그룹(기본 그룹) 필터
+        let isDefaultGroup = indexPath.row == 0 ? true : false
         
         // EditGroupDetailViewController로 Push
-        let editGroupDetailVC = EditGroupViewController()
+        let editGroupDetailVC = EditGroupViewController(isDefaultGroup: isDefaultGroup)
         editGroupDetailVC.delegate = self
         editGroupDetailVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(editGroupDetailVC, animated: true)

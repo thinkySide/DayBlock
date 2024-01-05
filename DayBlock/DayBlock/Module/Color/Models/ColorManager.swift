@@ -13,9 +13,16 @@ final class ColorManager {
     static let shared = ColorManager()
     private init() {}
     
-    private var currentIndex = 22 // 기본값 GREEN
+    private var currentIndex = 4 // 기본값 Black
     
     private let colorList: [Int] = [
+        
+        // Black
+        0xAAAAAA,
+        0x808080,
+        0x616161,
+        0x484848,
+        0x323232,
         
         /// Pink
         0xEE719E,

@@ -21,6 +21,20 @@ final class EditGroupViewController: UIViewController {
     /// 기존 그룹명 저장용
     private var initialGroupName = ""
     
+    /// 기본 그룹인지 확인용
+    private var isDefaultGroup: Bool
+    
+    // MARK: - LifeCycle
+    
+    init(isDefaultGroup: Bool) {
+        self.isDefaultGroup = isDefaultGroup
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
+    
     override func loadView() {
         view = viewManager
     }
@@ -55,6 +69,11 @@ final class EditGroupViewController: UIViewController {
         viewManager.colorSelect.selectColor.backgroundColor = UIColor(rgb: group[currentIndex].color)
         
         initialGroupName = "\(group[currentIndex].name)"
+        
+        // 기본 그룹은 삭제 버튼 숨기기
+        if isDefaultGroup {
+            viewManager.deleteButton.alpha = 0
+        }
     }
     
     private func setupNavigation() {
