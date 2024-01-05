@@ -20,11 +20,11 @@ final class SummaryTableViewCell: UITableViewCell {
         label.textAlignment = .left
         label.text = "독서하기"
         return label
-    }()
+    }()	
     
     let timeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: Poppins.semiBold, size: 13)
+        label.font = UIFont(name: Poppins.semiBold, size: 	13)
         label.textColor = Color.subText2
         label.textAlignment = .left
         label.text = "00:00-00:00"

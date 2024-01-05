@@ -11,11 +11,20 @@ extension RepositoryViewController {
     
     /// 테이블 뷰 기본 설정 메서드입니다.
     func setupTableView() {
-        let tableView = viewManager.summaryView.tableView
+        let tableView = viewManager.timeLineView.tableView
         tableView.register(SummaryTableViewCell.self, forCellReuseIdentifier: SummaryTableViewCell.id)
         tableView.dataSource = self
         tableView.delegate = self
         updateTableViewHeight()
+    }
+    
+    /// 점유율 및 전체 생산량 라벨을 업데이트합니다.
+    func setupShareTotalValue(date: Date) {
+        let totalValue = TrackingDataStore.shared.dateAllOutput(to: date)
+        let shareValue = Int(round(Double(totalValue)! / 0.5 * 100 / 48))
+        timeLineView.shareTotalInfo.totalValue.text = "+\(totalValue)"
+        timeLineView.shareTotalInfo.shareValue.text = "\(shareValue)%"
+        
     }
     
     /// 날짜가 변경됨에 따라 달력 뷰(컬렉션뷰) 및 테이블 뷰를 업데이트 합니다.
@@ -28,9 +37,12 @@ extension RepositoryViewController {
         // 선택된 날짜 기준 업데이트
         let dateString = calendarManager.fullDateFormat(from: date)
         repositoryManager.filterSelectedDate(dateString)
-        viewManager.summaryView.tableView.reloadData()
+        viewManager.timeLineView.tableView.reloadData()
         viewManager.calendarView.calendar.reloadData()
         updateTableViewHeight()
+        
+        // 점유율 및 전체 라벨 업데이트
+        setupShareTotalValue(date: date)
         
         // 만약 해당하는 날짜에 블럭이 없다면 라벨 출력
         var alpha: CGFloat = 0
@@ -40,7 +52,7 @@ extension RepositoryViewController {
     
     /// 테이블 뷰의 높이를 구하는 메서드입니다.
     private func calculateTableViewHeight() -> CGFloat {
-        let tableView = viewManager.summaryView.tableView
+        let tableView = viewManager.timeLineView.tableView
         let cellCount = CGFloat(repositoryManager.dayItems.count)
         
         // 만약 0개라면
@@ -52,7 +64,7 @@ extension RepositoryViewController {
     
     /// 테이블 뷰의 높이를 업데이트 하는 메서드입니다.
     private func updateTableViewHeight() {
-        let summaryView = viewManager.summaryView
+        let summaryView = viewManager.timeLineView
         summaryView.heightConstraint.constant = calculateTableViewHeight()
     }
 }
@@ -111,6 +123,7 @@ extension RepositoryViewController: TrackingCompleteViewControllerDelegate {
     
     /// 트래킹 데이터 삭제 후 호출되는 Delegate 메서드입니다.
     func trackingCompleteVC(didTrackingDataRemoved trackingCompleteVC: TrackingCompleteViewController) {
-        updateRepositoryView(date: repositoryManager.currentDate)
+        let currentDate = repositoryManager.currentDate
+        updateRepositoryView(date: currentDate)
     }
 }

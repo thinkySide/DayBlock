@@ -2,24 +2,39 @@
 //  TimeLineView.swift
 //  DayBlock
 //
-//  Created by 김민준 on 11/16/23.
+//  Created by 김민준 on 12/5/23.
 //
 
 import UIKit
 
 final class TimeLineView: UIView {
     
+    var heightConstraint: NSLayoutConstraint!
+    
     let headerLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: Pretendard.bold, size: 20)
+        label.font = UIFont(name: Pretendard.bold, size: 18)
         label.textColor = Color.mainText
         label.textAlignment = .left
         label.text = "타임라인"
         return label
     }()
     
-    let blockBoard = TimeLineBoard(blockSpace: 30, lineSpace: 10)
+    let separator = DashedSeparator(frame: .zero)
     
+    let shareTotalInfo = ShareTotalInfo()
+    
+    let tableView: UITableView = {
+        let table = UITableView(frame: .zero)
+        table.separatorStyle = .none
+        table.showsVerticalScrollIndicator = false
+        table.backgroundColor = .white
+        table.rowHeight = 56
+        table.isScrollEnabled = false
+        return table
+    }()
+    
+    // MARK: - 기본 메서드
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -33,19 +48,33 @@ final class TimeLineView: UIView {
     private func setupUI() {
         backgroundColor = .white
         
-        [headerLabel, blockBoard].forEach {
+        [headerLabel, separator, shareTotalInfo, tableView].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
         NSLayoutConstraint.activate([
-            self.bottomAnchor.constraint(equalTo: blockBoard.bottomAnchor, constant: 24),
             
-            headerLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            headerLabel.leadingAnchor.constraint(equalTo: blockBoard.time00.leadingAnchor),
+            // 여기서 TimeLineView의 높이값이 TableView에 따라 유동적으로 결정되어야 한다..
+            self.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),
             
-            blockBoard.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 16),
-            blockBoard.centerXAnchor.constraint(equalTo: centerXAnchor)
+            headerLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            headerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            
+            separator.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 16),
+            separator.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            separator.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            
+            shareTotalInfo.centerYAnchor.constraint(equalTo: headerLabel.centerYAnchor),
+            shareTotalInfo.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            
+            tableView.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 16),
+            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+        
+        // TableView 높이
+        heightConstraint = tableView.heightAnchor.constraint(equalToConstant: 1000)
+        heightConstraint.isActive = true
     }
 }

@@ -22,7 +22,7 @@ final class RepositoryView: UIView {
     }()
     
     let calendarView = CalendarView()
-    let summaryView = SummaryView()
+    let timeLineView = TimeLineView()
     
     let noTrackingLabelView: UIView = {
         let view = UIView()
@@ -43,8 +43,6 @@ final class RepositoryView: UIView {
         label.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         return view
     }()
-    
-    // let timeLineView = TimeLineView() // 일정상 다음 업데이트로
     
     let tabBarStackView = TabBar(location: .calendar)
     
@@ -75,7 +73,7 @@ final class RepositoryView: UIView {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         
         // 3. 실제 내용 추가
-        [calendarView, summaryView, noTrackingLabelView].forEach {
+        [calendarView, timeLineView, noTrackingLabelView].forEach {
             contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -93,17 +91,17 @@ final class RepositoryView: UIView {
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            contentView.bottomAnchor.constraint(equalTo: summaryView.bottomAnchor),
+            contentView.bottomAnchor.constraint(equalTo: timeLineView.bottomAnchor),
             
             calendarView.topAnchor.constraint(equalTo: contentView.topAnchor),
             calendarView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             calendarView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
-            summaryView.topAnchor.constraint(equalTo: calendarView.bottomAnchor, constant: 12),
-            summaryView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            summaryView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            timeLineView.topAnchor.constraint(equalTo: calendarView.bottomAnchor, constant: 12),
+            timeLineView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            timeLineView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
-            noTrackingLabelView.topAnchor.constraint(equalTo: summaryView.topAnchor),
+            noTrackingLabelView.topAnchor.constraint(equalTo: timeLineView.separator.bottomAnchor),
             noTrackingLabelView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             noTrackingLabelView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             noTrackingLabelView.bottomAnchor.constraint(equalTo: tabBarStackView.bottomAnchor),

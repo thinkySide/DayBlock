@@ -12,6 +12,7 @@ final class RepositoryViewController: UIViewController {
     
     let viewManager = RepositoryView()
     lazy var calendarView = viewManager.calendarView
+    lazy var timeLineView = viewManager.timeLineView
     let calendarManager = CalendarManager.shared
     let groupDataManager = GroupDataStore.shared
     let repositoryManager = RepositoryManager.shared
@@ -30,6 +31,7 @@ final class RepositoryViewController: UIViewController {
         setupCalendar()
         setupTableView()
         setupEvent()
+        setupShareTotalValue(date: Date())
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,8 +39,9 @@ final class RepositoryViewController: UIViewController {
         
         // 만약 TrackingCompleteViewController 호출 된 후 불리는 상황이라면 조기 종료
         if isCompleteViewTapped { return }
-        updateRepositoryView(date: repositoryManager.currentDate)
-        calendarView.calendar.select(repositoryManager.currentDate, scrollToDate: true)
+        let currentDate = repositoryManager.currentDate
+        updateRepositoryView(date: currentDate)
+        calendarView.calendar.select(currentDate, scrollToDate: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -84,19 +87,9 @@ final class RepositoryViewController: UIViewController {
         calendarView.todayButton.addTarget(self, action: #selector(todayButtonTapped), for: .touchUpInside)
         calendarView.previousButton.addTarget(self, action: #selector(previousButtonTapped), for: .touchUpInside)
         calendarView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
-        
-        // 테스트용 이벤트
-        let testGesture = UITapGestureRecognizer(target: self, action: #selector(test))
-        viewManager.summaryView.headerLabel.addGestureRecognizer(testGesture)
-        viewManager.summaryView.headerLabel.isUserInteractionEnabled = true
     }
     
     // MARK: - Event Method
-    
-    /// 코어데이터 테스트용 메서드
-    @objc func test() {
-        groupDataManager.printCoreData()
-    }
     
     /// today 버튼 탭 시 호출되는 메서드입니다.
     @objc private func todayButtonTapped() {
@@ -123,7 +116,7 @@ final class RepositoryViewController: UIViewController {
         let endDate = Date().lastDayOfMonth(from: previousDate)
         calendarView.calendar.select(endDate, scrollToDate: true)
         
-        // SummaryView 업데이트
+        // TimeLineView 업데이트
         repositoryManager.currentDate = endDate
         updateRepositoryView(date: endDate)
     }
@@ -141,7 +134,7 @@ final class RepositoryViewController: UIViewController {
         let startDate = Date().firstDayOfMonth(from: nextDate)
         calendarView.calendar.select(startDate, scrollToDate: true)
         
-        // SummaryView 업데이트
+        // TimeLineView 업데이트
         repositoryManager.currentDate = startDate
         updateRepositoryView(date: startDate)
     }
@@ -183,6 +176,8 @@ extension RepositoryViewController: FSCalendarDataSource & FSCalendarDelegate {
     
     /// FSCalendar의 셀이 터치되었을 때 호출되는 메서드입니다.
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        
+        Vibration.selection.vibrate()
         
         // 1. 현재 날짜 업데이트
         repositoryManager.currentDate = date
