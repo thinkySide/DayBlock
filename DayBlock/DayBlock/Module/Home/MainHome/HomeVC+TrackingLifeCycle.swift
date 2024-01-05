@@ -88,6 +88,10 @@ extension HomeViewController {
         let blockIndex = UserDefaultsItem.shared.blockIndex
         viewManager.trackingBlock.update(group: groupData.list()[groupIndex], block: blockData.list()[blockIndex])
         
+        // 블럭 인덱스 업데이트
+        self.blockIndex = blockIndex
+        blockData.updateFocusIndex(to: blockIndex)
+        
         // 3. 총 생산량 라벨 업데이트
         viewManager.updateCurrentOutputLabel(timerManager.totalBlockCount)
         

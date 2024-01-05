@@ -145,6 +145,9 @@ extension CreateGroupViewController: CreateGroupViewDelegate {
         
         guard let groupName = viewManager.groupLabelTextField.textField.text else { return }
         
+        // 키보드 내리기
+        view.endEditing(true)
+        
         // 리모트 그룹 업데이트
         groupData.updateRemote(name: groupName)
         

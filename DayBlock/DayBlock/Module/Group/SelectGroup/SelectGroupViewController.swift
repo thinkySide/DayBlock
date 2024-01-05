@@ -123,9 +123,9 @@ extension SelectGroupViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let group = groupData.list()[indexPath.row]
         
         // 현재 선택된 indexPath 값으로 블럭 정보 업데이트
+        let group = groupData.list()[indexPath.row]
         blockData.updateRemote(group: group)
         blockData.remoteIndex = indexPath.row
         
@@ -187,9 +187,17 @@ extension SelectGroupViewController: UITableViewDataSource, UITableViewDelegate 
 
 extension SelectGroupViewController: CreateGroupViewControllerDelegate {
     func updateGroupList() {
+        
+        // 현재 선택된 indexPath 값으로 블럭 정보 업데이트
         let lastIndex = groupData.list().count - 1
-        viewManager.groupTableView.reloadData()
-        viewManager.groupTableView.selectRow(at: IndexPath(row: lastIndex, section: 0), animated: false, scrollPosition: .bottom)
+        let group = groupData.list()[lastIndex]
+        blockData.updateRemote(group: group)
+        blockData.remoteIndex = lastIndex
+        
+        // delegate
+        delegate?.switchHomeGroup?(index: lastIndex)
+        delegate?.updateGroup?()
+        dismiss(animated: true)
     }
 }
 

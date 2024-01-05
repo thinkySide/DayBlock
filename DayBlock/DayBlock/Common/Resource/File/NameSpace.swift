@@ -10,7 +10,7 @@ import UIKit
 // MARK: - Noti
 
 enum Version {
-    static let current = "0.1.3"
+    static let current = "0.1.4"
 }
 
 // MARK: - Colors
