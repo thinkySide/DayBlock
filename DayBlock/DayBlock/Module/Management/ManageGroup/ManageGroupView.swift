@@ -45,7 +45,7 @@ final class ManageGroupView: UIView {
     
     let toastView: ToastMessage = {
         let view = ToastMessage(state: .warning)
-        view.messageLabel.text = "기본 그룹은 수정할 수 없어요"
+        view.messageLabel.text = "기본 그룹의 위치는 수정할 수 없어요"
         view.alpha = 0
         return view
     }()

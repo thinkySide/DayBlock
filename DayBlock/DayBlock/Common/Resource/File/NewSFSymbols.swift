@@ -172,7 +172,7 @@ let objectSymbols = [
     "trophy.fill",
     "medal.fill",
     "gearshape.fill",
-    "cube.fill",
+    "cube.fill"
 ]
 
 let natureSymbols = [

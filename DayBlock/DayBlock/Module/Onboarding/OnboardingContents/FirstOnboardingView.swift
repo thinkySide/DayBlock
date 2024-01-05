@@ -28,6 +28,7 @@ final class FirstOnboardingView: UIView {
     private let image: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: OnboardingImage.first)
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
@@ -62,10 +63,11 @@ final class FirstOnboardingView: UIView {
             mainLabel.topAnchor.constraint(equalTo: topAnchor, constant: 24),
             mainLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            image.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 32),
-            image.centerXAnchor.constraint(equalTo: centerXAnchor),
+            image.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 0),
+            image.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+            image.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
             
-            subLabel.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 226),
+            subLabel.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 0),
             subLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }

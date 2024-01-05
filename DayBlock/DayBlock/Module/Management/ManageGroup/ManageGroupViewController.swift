@@ -257,8 +257,7 @@ extension ManageGroupViewController: UITableViewDragDelegate {
     
     /// 실제 셀이 드래그 & 드롭 되었을 때 실행될 메서드
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        print("\(sourceIndexPath.row) -> \(destinationIndexPath.row)")
-        
+
         // 만약 첫번째 그룹을 이동시키려 한다면 실행 취소
         if sourceIndexPath.row == 0 || destinationIndexPath.row == 0 {
             showToast(toast: viewManager.toastView, isActive: true)
