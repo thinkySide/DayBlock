@@ -42,7 +42,6 @@
 		0736AC5A2B2A6CCD00D90AB2 /* ResetDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0736AC592B2A6CCD00D90AB2 /* ResetDataView.swift */; };
 		0736AC5C2B2A70B100D90AB2 /* UILabel++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0736AC5B2B2A70B100D90AB2 /* UILabel++.swift */; };
 		073EBFEE2AB6C7B80031F6AB /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 073EBFED2AB6C7B80031F6AB /* .swiftlint.yml */; };
-		073EBFF02AB6D4D40031F6AB /* SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EBFEF2AB6D4D40031F6AB /* SFSymbols.swift */; };
 		07446E3F2B2A7E650002E9EF /* NotificationName++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07446E3E2B2A7E650002E9EF /* NotificationName++.swift */; };
 		07446E412B2A9FA70002E9EF /* MyPageVC+EmailContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07446E402B2A9FA70002E9EF /* MyPageVC+EmailContact.swift */; };
 		07446E452B2ACDD60002E9EF /* Vibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07446E442B2ACDD60002E9EF /* Vibration.swift */; };
@@ -176,7 +175,7 @@
 		07FAF9872AE0DE70003BD30B /* ManageBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FAF9862AE0DE70003BD30B /* ManageBlockView.swift */; };
 		07FAF9892AE0E6DB003BD30B /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FAF9882AE0E6DB003BD30B /* CalendarView.swift */; };
 		07FAF98B2AE0E7AD003BD30B /* SectionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FAF98A2AE0E7AD003BD30B /* SectionBar.swift */; };
-		07FB58A92B3024BC00850AFB /* NewSFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FB58A82B3024BC00850AFB /* NewSFSymbols.swift */; };
+		07FB58A92B3024BC00850AFB /* SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FB58A82B3024BC00850AFB /* SFSymbols.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -215,7 +214,6 @@
 		0736AC592B2A6CCD00D90AB2 /* ResetDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetDataView.swift; sourceTree = "<group>"; };
 		0736AC5B2B2A70B100D90AB2 /* UILabel++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel++.swift"; sourceTree = "<group>"; };
 		073EBFED2AB6C7B80031F6AB /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		073EBFEF2AB6D4D40031F6AB /* SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbols.swift; sourceTree = "<group>"; };
 		07446E3E2B2A7E650002E9EF /* NotificationName++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName++.swift"; sourceTree = "<group>"; };
 		07446E402B2A9FA70002E9EF /* MyPageVC+EmailContact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyPageVC+EmailContact.swift"; sourceTree = "<group>"; };
 		07446E442B2ACDD60002E9EF /* Vibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vibration.swift; sourceTree = "<group>"; };
@@ -351,7 +349,7 @@
 		07FAF9862AE0DE70003BD30B /* ManageBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBlockView.swift; sourceTree = "<group>"; };
 		07FAF9882AE0E6DB003BD30B /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		07FAF98A2AE0E7AD003BD30B /* SectionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionBar.swift; sourceTree = "<group>"; };
-		07FB58A82B3024BC00850AFB /* NewSFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSFSymbols.swift; sourceTree = "<group>"; };
+		07FB58A82B3024BC00850AFB /* SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbols.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -818,8 +816,7 @@
 			isa = PBXGroup;
 			children = (
 				078C50E729D72D2900F239BA /* NameSpace.swift */,
-				073EBFEF2AB6D4D40031F6AB /* SFSymbols.swift */,
-				07FB58A82B3024BC00850AFB /* NewSFSymbols.swift */,
+				07FB58A82B3024BC00850AFB /* SFSymbols.swift */,
 			);
 			path = File;
 			sourceTree = "<group>";
@@ -1210,7 +1207,6 @@
 				07454E1329EC138E00B3458D /* ManageGroupTableViewCell.swift in Sources */,
 				076E95592B316F43005A8D46 /* OpenLicenseTableViewCell.swift in Sources */,
 				07454E1129EBFDF200B3458D /* ActionButton.swift in Sources */,
-				073EBFF02AB6D4D40031F6AB /* SFSymbols.swift in Sources */,
 				07AE45CD2AF0F66A00125316 /* CalendarManager.swift in Sources */,
 				0770803629E7981300D66900 /* SelectIconView.swift in Sources */,
 				078C50EE29D72F9D00F239BA /* UIColor++.swift in Sources */,
@@ -1252,7 +1248,7 @@
 				077E80F52AE1659B004CDB8F /* ManageBlockTableViewFooter.swift in Sources */,
 				07B1F8CF2B2C367400E98382 /* PageNumbers.swift in Sources */,
 				0749D71E2AB97862004DF368 /* HomeVC+ScrollView.swift in Sources */,
-				07FB58A92B3024BC00850AFB /* NewSFSymbols.swift in Sources */,
+				07FB58A92B3024BC00850AFB /* SFSymbols.swift in Sources */,
 				0736905F2AC2D41400A42187 /* TrackingDataStore.swift in Sources */,
 				076E95572B316C96005A8D46 /* OpenLicenseViewController.swift in Sources */,
 				0749D7222AB9E3D7004DF368 /* HomeVC+LongPressGesture.swift in Sources */,
