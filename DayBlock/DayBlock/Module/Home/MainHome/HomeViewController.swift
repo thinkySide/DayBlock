@@ -50,6 +50,8 @@ final class HomeViewController: UIViewController {
         setupGestrue()
         setupTrackingMode()
         setupOnboarding()
+        
+        print("현재 디바이스 사이즈: \(UIScreen.main.deviceHeight)")
     }
     
     override func viewWillAppear(_ animated: Bool) {

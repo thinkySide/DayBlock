@@ -61,6 +61,7 @@
 		0749D7282AB9E832004DF368 /* HomeVC+Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749D7272AB9E832004DF368 /* HomeVC+Notification.swift */; };
 		0749D72A2ABACAD3004DF368 /* HomeVC+CustomDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749D7292ABACAD3004DF368 /* HomeVC+CustomDelegate.swift */; };
 		0749D72D2ABAD7E9004DF368 /* HomeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749D72C2ABAD7E9004DF368 /* HomeDelegate.swift */; };
+		074F1EAA2B47D6D100E04D0F /* UIScreen++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074F1EA92B47D6D100E04D0F /* UIScreen++.swift */; };
 		0756BE882AF8DAB4009CBE46 /* RepositoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0756BE872AF8DAB4009CBE46 /* RepositoryView.swift */; };
 		075A5AE92A81D04B0004F847 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5AE82A81D04B0004F847 /* PopupView.swift */; };
 		075A5AEB2A81DCDD0004F847 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5AEA2A81DCDD0004F847 /* PopupViewController.swift */; };
@@ -233,6 +234,7 @@
 		0749D7272AB9E832004DF368 /* HomeVC+Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+Notification.swift"; sourceTree = "<group>"; };
 		0749D7292ABACAD3004DF368 /* HomeVC+CustomDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+CustomDelegate.swift"; sourceTree = "<group>"; };
 		0749D72C2ABAD7E9004DF368 /* HomeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDelegate.swift; sourceTree = "<group>"; };
+		074F1EA92B47D6D100E04D0F /* UIScreen++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen++.swift"; sourceTree = "<group>"; };
 		0756BE872AF8DAB4009CBE46 /* RepositoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryView.swift; sourceTree = "<group>"; };
 		075A5AE82A81D04B0004F847 /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
 		075A5AEA2A81DCDD0004F847 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
@@ -947,6 +949,7 @@
 			isa = PBXGroup;
 			children = (
 				0710ACFF2B3C827D00BAEAD4 /* Int++.swift */,
+				074F1EA92B47D6D100E04D0F /* UIScreen++.swift */,
 				078C50ED29D72F9D00F239BA /* UIColor++.swift */,
 				0771983E29E2F4D10021088A /* UIButton++.swift */,
 				07454DE229EA6CEE00B3458D /* UIViewController++.swift */,
@@ -1153,6 +1156,7 @@
 				0749D7262AB9E456004DF368 /* HomeVC+SelectGroupHalfModal.swift in Sources */,
 				0719648E29DF044C009CA1A4 /* GroupSelectButton.swift in Sources */,
 				071E3ABD2AC166B2000C346F /* BlockDataStore.swift in Sources */,
+				074F1EAA2B47D6D100E04D0F /* UIScreen++.swift in Sources */,
 				077A663629ED2ABA00D99C68 /* CreateGroupView.swift in Sources */,
 				07817F0B2A0A05DE00D024F6 /* IconManager.swift in Sources */,
 				07454E1529EC170600B3458D /* Separator.swift in Sources */,

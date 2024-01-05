@@ -155,15 +155,6 @@ final class HomeView: UIView {
     
     let tabBarStackView = TabBar(location: .tracking)
     
-    let testLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: Poppins.bold, size: 13)
-        label.textColor = Color.mainText
-        label.textAlignment = .center
-        label.alpha = 0
-        return label
-    }()
-    
     // MARK: - Method
     
     /// 트래킹 모드를 중단합니다.
@@ -351,79 +342,111 @@ final class HomeView: UIView {
             trackingButton,
             warningToastView,
             infoToastView,
-            tabBarStackView,
-            testLabel
+            tabBarStackView
         ]
             .forEach {
-                /// 1. addSubView(component)
                 addSubview($0)
-                
-                /// 2. translatesAutoresizingMaskIntoConstraints = false
                 $0.translatesAutoresizingMaskIntoConstraints = false
             }
     }
     
     func setupConstraints() {
         
-        /// 3. isActive = true
+        // 기기별 사이즈 대응을 위한 분기
+        let deviceHeight = UIScreen.main.deviceHeight
+        
+        // small 사이즈
+        if deviceHeight == .small {
+            NSLayoutConstraint.activate([
+                groupSelectButton.topAnchor.constraint(equalTo: productivityLabel.bottomAnchor, constant: 16),
+                groupSelectButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+                
+                trackingBlock.topAnchor.constraint(equalTo: productivityLabel.bottomAnchor, constant: 16),
+                trackingBlock.centerXAnchor.constraint(equalTo: centerXAnchor),
+                
+                trackingButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -24),
+                trackingButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+                trackingButton.widthAnchor.constraint(equalToConstant: 56),
+                trackingButton.heightAnchor.constraint(equalToConstant: 56)
+            ])
+        }
+        
+        // middle 사이즈
+        else if deviceHeight == .middle {
+            NSLayoutConstraint.activate([
+                groupSelectButton.topAnchor.constraint(equalTo: productivityLabel.bottomAnchor, constant: 32),
+                groupSelectButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+                
+                trackingBlock.topAnchor.constraint(equalTo: productivityLabel.bottomAnchor, constant: 32),
+                trackingBlock.centerXAnchor.constraint(equalTo: centerXAnchor),
+                
+                trackingButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -48),
+                trackingButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+                trackingButton.widthAnchor.constraint(equalToConstant: 64),
+                trackingButton.heightAnchor.constraint(equalToConstant: 64)
+            ])
+        }
+        
+        // large 사이즈
+        else if deviceHeight == .large {
+            NSLayoutConstraint.activate([
+                groupSelectButton.topAnchor.constraint(equalTo: productivityLabel.bottomAnchor, constant: 56),
+                groupSelectButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+                
+                trackingBlock.topAnchor.constraint(equalTo: productivityLabel.bottomAnchor, constant: 56),
+                trackingBlock.centerXAnchor.constraint(equalTo: centerXAnchor),
+                
+                trackingButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -88),
+                trackingButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+                trackingButton.widthAnchor.constraint(equalToConstant: 72),
+                trackingButton.heightAnchor.constraint(equalToConstant: 72)
+            ])
+        }
+        
         NSLayoutConstraint.activate([
             
-            /// dateLabel
+            // dateLabel
             dateLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0),
-            dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin+2), /// 시각 보정
+            dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin+2), // 시각 보정
             dateLabel.heightAnchor.constraint(equalToConstant: 18),
             
-            /// timeLabel
+            // timeLabel
             timeLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 5),
             timeLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin-2), // 시각 보정
             timeLabel.heightAnchor.constraint(equalToConstant: timeLabel.font.pointSize),
             
-            /// productivityLabel
+            // productivityLabel
             productivityLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 3),
-            productivityLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin+2), /// 시각 보정
+            productivityLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin+2), // 시각 보정
             productivityLabel.heightAnchor.constraint(equalToConstant: 24),
             
-            /// groupSelectButton
-            groupSelectButton.topAnchor.constraint(equalTo: productivityLabel.bottomAnchor, constant: 32),
-            groupSelectButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            
-            /// outputBlockPreview
+            // outputBlockPreview
             trackingBoard.centerYAnchor.constraint(equalTo: timeLabel.centerYAnchor),
             trackingBoard.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
             trackingBoard.widthAnchor.constraint(equalToConstant: 128),
             trackingBoard.heightAnchor.constraint(equalToConstant: 84),
             
-            /// blockCollectionView
+            // blockCollectionView
             blockCollectionView.topAnchor.constraint(equalTo: groupSelectButton.bottomAnchor, constant: 12),
             blockCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             blockCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             blockCollectionView.heightAnchor.constraint(equalToConstant: Size.blockSize.height),
             
-            /// trackingBlock
-            trackingBlock.topAnchor.constraint(equalTo: productivityLabel.bottomAnchor, constant: 32),
-            trackingBlock.centerXAnchor.constraint(equalTo: centerXAnchor),
-            
-            /// messageLabel
+            // messageLabel
             messageLabel.topAnchor.constraint(equalTo: blockCollectionView.bottomAnchor),
             messageLabel.bottomAnchor.constraint(equalTo: trackingButton.topAnchor),
             messageLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            /// trackingTimeLabel
+            // trackingTimeLabel
             trackingTimeLabel.topAnchor.constraint(equalTo: trackingBlock.bottomAnchor),
             trackingTimeLabel.bottomAnchor.constraint(equalTo: trackingButton.topAnchor),
             trackingTimeLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            /// trackingProgressView
+            // trackingProgressView
             trackingProgressView.centerYAnchor.constraint(equalTo: trackingButton.centerYAnchor),
             trackingProgressView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: -4),
             trackingProgressView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 4),
             trackingProgressView.heightAnchor.constraint(equalToConstant: 10),
-            
-            /// trackingButton
-            trackingButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -48),
-            trackingButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            trackingButton.widthAnchor.constraint(equalToConstant: 64),
-            trackingButton.heightAnchor.constraint(equalToConstant: 64),
             
             warningToastView.centerXAnchor.constraint(equalTo: centerXAnchor),
             warningToastView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -48),
@@ -431,10 +454,7 @@ final class HomeView: UIView {
             infoToastView.centerXAnchor.constraint(equalTo: centerXAnchor),
             infoToastView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -48),
             
-            testLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
-            testLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            
-            /// tabBarStackView
+            // tabBarStackView
             tabBarStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             tabBarStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tabBarStackView.trailingAnchor.constraint(equalTo: trailingAnchor),

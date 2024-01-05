@@ -67,15 +67,35 @@ final class FourthOnboardingView: UIView {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
-        NSLayoutConstraint.activate([
-            mainLabel.topAnchor.constraint(equalTo: topAnchor, constant: 24),
-            mainLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            
-            trackingBlock.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 20),
-            trackingBlock.centerXAnchor.constraint(equalTo: centerXAnchor),
-            
-            subLabel.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 226),
-            subLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
-        ])
+        // 기기별 사이즈 대응을 위한 분기
+        let deviceHeight = UIScreen.main.deviceHeight
+        
+        // middle 사이즈
+        if deviceHeight == .middle || deviceHeight == .small {
+            NSLayoutConstraint.activate([
+                mainLabel.topAnchor.constraint(equalTo: topAnchor, constant: 24),
+                mainLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+                
+                trackingBlock.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 38),
+                trackingBlock.centerXAnchor.constraint(equalTo: centerXAnchor),
+                
+                subLabel.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 256),
+                subLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+            ])
+        }
+        
+        // large 사이즈
+        else if deviceHeight == .large {
+            NSLayoutConstraint.activate([
+                mainLabel.topAnchor.constraint(equalTo: topAnchor, constant: 32),
+                mainLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+                
+                trackingBlock.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 52),
+                trackingBlock.centerXAnchor.constraint(equalTo: centerXAnchor),
+                
+                subLabel.topAnchor.constraint(equalTo: trackingBlock.bottomAnchor, constant: 52),
+                subLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+            ])
+        }
     }
 }

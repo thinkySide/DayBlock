@@ -132,7 +132,15 @@ final class TrackingCompleteViewController: UIViewController {
         navigationItem.rightBarButtonItem = viewManager.menuBarButtonItem
         
         // AutoLayout
-        viewManager.topConstraint.constant = 96
+        let deviceHeight = UIScreen.main.deviceHeight
+        var topConstant: CGFloat = 0
+        switch deviceHeight {
+        case .small: topConstant = 72
+        case .middle: topConstant = 96
+        case .large: topConstant = 168
+        }
+
+        viewManager.topConstraint.constant = topConstant
         
         // 아이콘
         viewManager.iconBlock.backgroundColor = item.groupColor.uicolor

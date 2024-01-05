@@ -44,11 +44,29 @@ final class OnboardingView: UIView {
         pageControlView.addSubview(pageNumbers)
         pageNumbers.translatesAutoresizingMaskIntoConstraints = false
         
+        // 기기별 사이즈 대응을 위한 분기
+        let deviceHeight = UIScreen.main.deviceHeight
+        
+        // small 사이즈
+        if deviceHeight == .small {
+            pageControlView.heightAnchor.constraint(equalToConstant: 170).isActive = true
+        }
+        
+        // middle 사이즈
+        else if deviceHeight == .middle {
+            pageControlView.heightAnchor.constraint(equalToConstant: 240).isActive = true
+        }
+        
+        // large 사이즈
+        else if deviceHeight == .large {
+            pageControlView.heightAnchor.constraint(equalToConstant: 288).isActive = true
+        }
+        
+        // 공통
         NSLayoutConstraint.activate([
             pageControlView.topAnchor.constraint(equalTo: topAnchor),
             pageControlView.leadingAnchor.constraint(equalTo: leadingAnchor),
             pageControlView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            pageControlView.heightAnchor.constraint(equalToConstant: 240),
             
             pageNumbers.bottomAnchor.constraint(equalTo: pageControlView.bottomAnchor, constant: 0),
             pageNumbers.centerXAnchor.constraint(equalTo: pageControlView.centerXAnchor),

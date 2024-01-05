@@ -327,7 +327,42 @@ final class TrackingCompleteView: UIView {
     
     private func setupConstraints() {
         
-        topConstraint = titleStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 72)
+        // 기기별 사이즈 대응을 위한 분기
+        let deviceHeight = UIScreen.main.deviceHeight
+        
+        // small 사이즈
+        if deviceHeight == .small {
+            topConstraint = titleStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 32)
+            
+            NSLayoutConstraint.activate([
+                backToHomeButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
+                backToHomeButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
+                backToHomeButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -32)
+            ])
+        }
+        
+        // middle 사이즈
+        if deviceHeight == .middle {
+            topConstraint = titleStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 72)
+            
+            NSLayoutConstraint.activate([
+                backToHomeButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
+                backToHomeButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
+                backToHomeButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -56)
+            ])
+        }
+        
+        // large 사이즈
+        else if deviceHeight == .large {
+            topConstraint = titleStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 144)
+            
+            NSLayoutConstraint.activate([
+                backToHomeButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
+                backToHomeButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
+                backToHomeButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -56)
+            ])
+        }
+        
         topConstraint.isActive = true
         
         NSLayoutConstraint.activate([
@@ -387,11 +422,6 @@ final class TrackingCompleteView: UIView {
             // todayLabel
             todayLabel.topAnchor.constraint(equalTo: todayValue.bottomAnchor),
             todayLabel.centerXAnchor.constraint(equalTo: todayValue.centerXAnchor),
-            
-            // backToHomeButton
-            backToHomeButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
-            backToHomeButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
-            backToHomeButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -56),
             
             // animationCircle
             animationCircle.centerXAnchor.constraint(equalTo: centerXAnchor),

@@ -64,6 +64,18 @@ final class HomeToolTipViewController: UIViewController {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
+        // 기기별 사이즈 대응을 위한 분기
+        let deviceHeight = UIScreen.main.deviceHeight
+        
+        switch deviceHeight {
+        case .small:
+            progressBarToolTip.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -80).isActive = true
+        case .middle:
+            progressBarToolTip.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -112).isActive = true
+        case .large:
+            progressBarToolTip.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -156).isActive = true
+        }
+        
         NSLayoutConstraint.activate([
             trackingBoardToolTip.topAnchor.constraint(equalTo: viewManager.trackingBoard.bottomAnchor, constant: 12),
             trackingBoardToolTip.trailingAnchor.constraint(equalTo: viewManager.trackingBoard.trailingAnchor),
@@ -73,7 +85,6 @@ final class HomeToolTipViewController: UIViewController {
             longPressToolTip.centerXAnchor.constraint(equalTo: viewManager.trackingBlock.centerXAnchor),
             longPressToolTip.widthAnchor.constraint(equalToConstant: 210),
             
-            progressBarToolTip.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -112),
             progressBarToolTip.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
             progressBarToolTip.widthAnchor.constraint(equalToConstant: 180)
         ])

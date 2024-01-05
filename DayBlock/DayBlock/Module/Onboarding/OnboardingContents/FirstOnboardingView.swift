@@ -59,16 +59,37 @@ final class FirstOnboardingView: UIView {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
-        NSLayoutConstraint.activate([
-            mainLabel.topAnchor.constraint(equalTo: topAnchor, constant: 24),
-            mainLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            
-            image.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 0),
-            image.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            image.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
-            
-            subLabel.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 0),
-            subLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
-        ])
+        // 기기별 사이즈 대응을 위한 분기
+        let deviceHeight = UIScreen.main.deviceHeight
+        
+        // middle 사이즈
+        if deviceHeight == .middle || deviceHeight == .small {
+            NSLayoutConstraint.activate([
+                mainLabel.topAnchor.constraint(equalTo: topAnchor, constant: 24),
+                mainLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+                
+                image.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 0),
+                image.leadingAnchor.constraint(equalTo: leadingAnchor),
+                image.trailingAnchor.constraint(equalTo: trailingAnchor),
+                
+                subLabel.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 0),
+                subLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+            ])
+        }
+        
+        // large 사이즈
+        else if deviceHeight == .large {
+            NSLayoutConstraint.activate([
+                mainLabel.topAnchor.constraint(equalTo: topAnchor, constant: 32),
+                mainLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+                
+                image.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 16),
+                image.leadingAnchor.constraint(equalTo: leadingAnchor),
+                image.trailingAnchor.constraint(equalTo: trailingAnchor),
+                
+                subLabel.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 16),
+                subLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+            ])
+        }
     }
 }
