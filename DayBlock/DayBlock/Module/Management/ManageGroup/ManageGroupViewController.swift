@@ -125,6 +125,9 @@ extension ManageGroupViewController: UITableViewDataSource, UITableViewDelegate 
         cell.groupLabel.text = groupList[indexPath.row].name
         cell.countLabel.text = "+\(blockData.listInSelectedGroup(at: indexPath.row).count)"
         
+        // 기본 그룹 설정
+        if indexPath.row == 0 { cell.defaultGroupLabel.alpha = 1 }
+        
         // 셀 커스텀
         cell.checkMark.alpha = 0
         cell.chevron.isHidden = false

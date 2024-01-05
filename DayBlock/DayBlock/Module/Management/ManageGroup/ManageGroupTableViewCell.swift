@@ -36,12 +36,6 @@ final class ManageGroupTableViewCell: UITableViewCell {
         return label
     }()
     
-//    private let seperator: Seperator = {
-//        let line = Seperator()
-//        line.alpha = 0
-//        return line
-//    }()
-    
     let checkMark: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(systemName: "checkmark.circle.fill")
@@ -60,11 +54,28 @@ final class ManageGroupTableViewCell: UITableViewCell {
         return image
     }()
     
+    let defaultGroupLabel: UILabel = {
+        let label = UILabel()
+        label.text = "기본 그룹"
+        label.font = UIFont(name: Pretendard.semiBold, size: 13)
+        label.textColor = Color.mainText
+        label.backgroundColor = Color.contentsBlock
+        label.textAlignment = .center
+        label.clipsToBounds = true
+        label.layer.cornerRadius = 16
+        label.alpha = 0
+        return label
+    }()
+    
     // MARK: - Initial
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         checkMark.isHidden = selected ? false : true
+    }
+    
+    override func prepareForReuse() {
+        defaultGroupLabel.alpha = 0
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -90,7 +101,7 @@ final class ManageGroupTableViewCell: UITableViewCell {
         
         /// addSubView & translatesAutoresizingMaskIntoConstraints
         [
-            color, groupLabel, countLabel, checkMark, chevron
+            color, groupLabel, countLabel, checkMark, chevron, defaultGroupLabel
         ]
             .forEach {
                 addSubview($0)
@@ -124,7 +135,13 @@ final class ManageGroupTableViewCell: UITableViewCell {
             chevron.centerYAnchor.constraint(equalTo: centerYAnchor),
             chevron.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
             chevron.widthAnchor.constraint(equalToConstant: 24),
-            chevron.heightAnchor.constraint(equalTo: chevron.widthAnchor)
+            chevron.heightAnchor.constraint(equalTo: chevron.widthAnchor),
+            
+            // defaultGroupLabel
+            defaultGroupLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            defaultGroupLabel.leadingAnchor.constraint(equalTo: countLabel.trailingAnchor, constant: 8),
+            defaultGroupLabel.widthAnchor.constraint(equalToConstant: 72),
+            defaultGroupLabel.heightAnchor.constraint(equalToConstant: 28)
         ])
     }
     
