@@ -26,7 +26,7 @@ final class ToastMessage: UIView {
     let messageLabel: UILabel = {
         let label = UILabel()
         label.text = "토스트 메시지를 작성하세요."
-        label.font = UIFont(name: Pretendard.semiBold, size: 17)
+        label.font = UIFont(name: Pretendard.semiBold, size: 15)
         label.textColor = .white
         label.textAlignment = .left
         return label

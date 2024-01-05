@@ -153,6 +153,13 @@ final class HomeView: UIView {
         return view
     }()
     
+    let pausedToastView: ToastMessage = {
+        let view = ToastMessage(state: .warning)
+        view.messageLabel.text = "일시정지 후 12시간이 지나 트래킹이 종료되었어요"
+        view.alpha = 0
+        return view
+    }()
+    
     let tabBarStackView = TabBar(location: .tracking)
     
     // MARK: - Method
@@ -342,6 +349,7 @@ final class HomeView: UIView {
             trackingButton,
             warningToastView,
             infoToastView,
+            pausedToastView,
             tabBarStackView
         ]
             .forEach {
@@ -453,6 +461,9 @@ final class HomeView: UIView {
             
             infoToastView.centerXAnchor.constraint(equalTo: centerXAnchor),
             infoToastView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -48),
+            
+            pausedToastView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            pausedToastView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 24),
             
             // tabBarStackView
             tabBarStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),

@@ -62,5 +62,6 @@ extension TimerManager {
         totalTrackingSecond = 0
         currentTrackingSecond = 0
         totalBlockCount = 0
+        pausedTime = 0
     }
 }

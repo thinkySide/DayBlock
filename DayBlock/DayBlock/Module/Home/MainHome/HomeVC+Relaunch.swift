@@ -25,6 +25,12 @@ extension HomeViewController {
             let originalPausedSecond = UserDefaultsItem.shared.pausedSeconds
             let elapsedSeconds = trackingData.calculateElapsedTimeSinceAppExit
             
+            // 만약 일시정지 된지 12시간이 지났다면, 트래킹 종료
+            if elapsedSeconds >= 43200 {
+                stopTracking()
+                return
+            }
+            
             print("기존 일시정지 시간: \(originalPausedSecond)")
             print("지난시간: \(elapsedSeconds)")
             timerManager.pausedTime = originalPausedSecond + elapsedSeconds
@@ -39,6 +45,7 @@ extension HomeViewController {
             
             // 트래킹 모드 시작
             viewManager.trackingRestartForDisconnect()
+            viewManager.trackingButtonTapped()
             return
         }
         
@@ -122,6 +129,27 @@ extension HomeViewController {
         timerManager.currentTrackingSecond = Float(currentTime)
         viewManager.updateTracking(time: timerManager.format, progress: timerManager.progressPercent())
     }
+    
+    /// 일시정지 시간이 12시간이 지나 트래킹을 종료합니다.
+    private func stopTracking() {
+        
+        // 1. 이전에 트래킹 되고 있던 데이터 삭제
+        trackingData.removeStopData()
+        
+        // 2. 트래커 초기화
+        resetTracker()
+        
+        // 3. UserDefaults 트래킹 모드 확인용 변수 업데이트
+        UserDefaultsItem.shared.setIsTracking(to: false)
+        UserDefaultsItem.shared.setIsPaused(to: false)
+        
+        // 4. 토스트 출력
+        showToast(toast: viewManager.pausedToastView, isActive: true)
+        
+        // 5. 컬렉션뷰 초기화
+        viewManager.blockCollectionView.reloadData()
+        viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: blockIndex, section: 0), at: .left, animated: true)
+    }
 }
 
 // MARK: - Background
@@ -138,8 +166,16 @@ extension HomeViewController {
         
         // 일시정지 되었었는지 확인
         guard !UserDefaultsItem.shared.isPaused else {
-            timerManager.pausedTime += trackingData.calculateElapsedTimeSinceAppExit
+            let elapsedSeconds = trackingData.calculateElapsedTimeSinceAppExit
+            timerManager.pausedTime += elapsedSeconds
             print("업데이트 된 일시정지 시간: \(timerManager.pausedTime)")
+            
+            // 만약 일시정지 된지 12시간이 지났다면, 트래킹 종료
+            if elapsedSeconds >= 43200 {
+                viewManager.stopTrackingMode()
+                showToast(toast: viewManager.pausedToastView, isActive: true)
+            }
+            
             return
         }
         

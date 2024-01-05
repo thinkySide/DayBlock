@@ -86,11 +86,7 @@ final class HomeViewController: UIViewController {
         
         // 트래킹 모드 O
         if UserDefaultsItem.shared.isTracking {
-            
             setTrackingModeAfterAppRestart()
-            
-            // 일시정지 상태
-            if UserDefaultsItem.shared.isPaused { viewManager.trackingButtonTapped() }
         }
         
         // 트래킹 모드 X
