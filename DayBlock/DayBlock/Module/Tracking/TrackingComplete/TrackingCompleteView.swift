@@ -253,13 +253,18 @@ final class TrackingCompleteView: UIView {
             self.checkSymbol.alpha = 1
             self.checkLabel.alpha = 1
         } completion: { _ in
-            if #available(iOS 17.0, *) {
-                self.checkSymbol.addSymbolEffect(.bounce, options: .speed(1.3).nonRepeating) { _ in
-                    DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                        self.animationEnd()
-                    }
+            
+            func animationAfterSeconds() {
+                DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                    self.animationEnd()
                 }
             }
+            
+            // 심볼 이펙트 있는 버전
+            if #available(iOS 17.0, *) { self.checkSymbol.addSymbolEffect(.bounce) { _ in animationAfterSeconds() }}
+            
+            // 심볼 이펙트 없는 버전
+            else { animationAfterSeconds() }
         }
     }
     

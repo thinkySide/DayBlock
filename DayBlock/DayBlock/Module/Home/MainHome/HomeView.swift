@@ -43,7 +43,6 @@ final class HomeView: UIView {
         button.setImage(UIImage(named: Icon.help), for: .normal)
         button.tintColor = Color.contentsBlock
         let item = UIBarButtonItem(customView: button)
-        item.customView?.isHidden = true
         return item
     }()
     
@@ -181,7 +180,6 @@ final class HomeView: UIView {
         trackingTimeLabel.isHidden = true
         trackingProgressView.isHidden = true
         trackingStopBarButtonItem.customView?.isHidden = true
-        helpBarButtonItem.customView?.isHidden = true
     }
     
     /// 트래킹 완료 후 종료합니다.
@@ -203,7 +201,6 @@ final class HomeView: UIView {
         trackingTimeLabel.isHidden = true
         trackingProgressView.isHidden = true
         trackingStopBarButtonItem.customView?.isHidden = true
-        helpBarButtonItem.customView?.isHidden = true
     }
     
     @objc func trackingButtonTapped() {
@@ -251,7 +248,6 @@ final class HomeView: UIView {
         trackingTimeLabel.isHidden = false
         trackingProgressView.isHidden = false
         trackingStopBarButtonItem.customView?.isHidden = false
-        helpBarButtonItem.customView?.isHidden = false
         trackingButton.isUserInteractionEnabled = true
     }
     
@@ -300,7 +296,6 @@ final class HomeView: UIView {
         trackingTimeLabel.isHidden = false
         trackingProgressView.isHidden = false
         trackingStopBarButtonItem.customView?.isHidden = false
-        helpBarButtonItem.customView?.isHidden = false
     }
     
     func toggleTrackingButton(_ bool: Bool) {

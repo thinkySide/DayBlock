@@ -35,6 +35,10 @@ final class UserDefaultsItem {
         
         // 트래킹 데이터
         static let trackingSeconds = "trackingSeconds"
+        
+        // 툴팁 최초 실행용
+        static let isHomeFirst = "isHomeFirst"
+        static let isTrackingFirst = "isTrackingFirst"
     }
     
     // MARK: - Get UserDefaults
@@ -89,6 +93,16 @@ final class UserDefaultsItem {
         UserDefaults.standard.object(forKey: UserDefaultsKey.pausedSeconds) as? Int ?? 0
     }
     
+    /// 홈 화면이 처음 실행되었는지 확인합니다.
+    var isHomeFirst: Bool {
+        UserDefaults.standard.object(forKey: UserDefaultsKey.isHomeFirst) as? Bool ?? true
+    }
+    
+    /// 트래킹이 처음 실행되었는지 확인합니다.
+    var isTrackingFirst: Bool {
+        UserDefaults.standard.object(forKey: UserDefaultsKey.isTrackingFirst) as? Bool ?? true
+    }
+    
     // MARK: - Set UserDefaults
     
     /// 그룹 인덱스를 저장합니다.
@@ -139,5 +153,15 @@ final class UserDefaultsItem {
     /// 마지막으로 접속했던 날짜를 저장합니다.
     func setTrackingSeconds(to seconds: [Int]) {
         UserDefaults.standard.set(seconds, forKey: UserDefaultsKey.trackingSeconds)
+    }
+    
+    /// 홈 화면이 최초로 실행되었는지 확인하는 변수를 저장합니다.
+    func setIsHomeFirst(to bool: Bool) {
+        UserDefaults.standard.set(bool, forKey: UserDefaultsKey.isHomeFirst)
+    }
+    
+    /// 트래킹이 최초로 실행되었는지 확인하는 변수를 저장합니다.
+    func setIsTrackingFirst(to bool: Bool) {
+        UserDefaults.standard.set(bool, forKey: UserDefaultsKey.isTrackingFirst)
     }
 }

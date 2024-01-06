@@ -99,7 +99,10 @@ extension HomeViewController {
         // 5. SFSymbol 애니메이션 시작
         startSFSymbolBounceAnimation(viewManager.trackingBlock.icon)
         
-        // 6. 화면 꺼짐 방지
+        // 6. 도움말 아이템 토글
+        toggleToolTipNavigationItem(isTrackingMode: true)
+        
+        // 7. 화면 꺼짐 방지
         isScreenCanSleep(false)
     }
     
@@ -131,7 +134,18 @@ extension HomeViewController {
         // 6. SFSymbol 애니메이션 시작
         startSFSymbolBounceAnimation(viewManager.trackingBlock.icon)
         
-        // 7. 화면 꺼짐 방지
+        // 7. 도움말 아이템 토글
+        toggleToolTipNavigationItem(isTrackingMode: true)
+        
+        // 8. 첫 도움말 출력 결정
+        if UserDefaultsItem.shared.isTrackingFirst {
+            DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                self.helpBarButtonItemTapped()
+                UserDefaultsItem.shared.setIsTrackingFirst(to: false)
+            }
+        }
+        
+        // 9. 화면 꺼짐 방지
         isScreenCanSleep(false)
     }
     
@@ -203,6 +217,9 @@ extension HomeViewController {
         // 7. 컬렉션뷰 초기화
         viewManager.blockCollectionView.reloadData()
         viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: blockIndex, section: 0), at: .left, animated: true)
+        
+        // 8. 도움말 아이템 토글
+        toggleToolTipNavigationItem(isTrackingMode: false)
     }
     
     /// 트래킹 완료 화면에서 확인 버튼 탭 시 호출되는 Delegate 메서드입니다.
@@ -220,6 +237,9 @@ extension HomeViewController {
         // 2. 컬렉션뷰 초기화
         viewManager.blockCollectionView.reloadData()
         viewManager.blockCollectionView.scrollToItem(at: IndexPath(item: blockIndex, section: 0), at: .left, animated: true)
+        
+        // 3. 도움말 아이템 토글
+        toggleToolTipNavigationItem(isTrackingMode: false)
     }
 }
 

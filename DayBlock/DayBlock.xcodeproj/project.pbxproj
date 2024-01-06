@@ -87,6 +87,7 @@
 		077E80F12AE13E0B004CDB8F /* ManageBlockTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077E80F02AE13E0B004CDB8F /* ManageBlockTableViewHeader.swift */; };
 		077E80F32AE141CA004CDB8F /* ManageBlockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077E80F22AE141CA004CDB8F /* ManageBlockTableViewCell.swift */; };
 		077E80F52AE1659B004CDB8F /* ManageBlockTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077E80F42AE1659B004CDB8F /* ManageBlockTableViewFooter.swift */; };
+		07806B7E2B49943300398586 /* HomeMainToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07806B7D2B49943300398586 /* HomeMainToolTip.swift */; };
 		07817F0B2A0A05DE00D024F6 /* IconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07817F0A2A0A05DE00D024F6 /* IconManager.swift */; };
 		07817F0D2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07817F0C2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift */; };
 		0782BF662B46939000555A0C /* OptionSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0782BF652B46939000555A0C /* OptionSelector.swift */; };
@@ -155,9 +156,9 @@
 		07B49C452A95E5BD006D1011 /* TrackingCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49C442A95E5BD006D1011 /* TrackingCompleteViewController.swift */; };
 		07B49C472A95E66D006D1011 /* TrackingCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49C462A95E66D006D1011 /* TrackingCompleteView.swift */; };
 		07B592122AC4126C0046ABFC /* DispatchWorkItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B592112AC4126C0046ABFC /* DispatchWorkItem.swift */; };
-		07C044112B3D9855005A816A /* HomeVC+HelpTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C044102B3D9855005A816A /* HomeVC+HelpTracking.swift */; };
+		07C044112B3D9855005A816A /* HomeVC+ToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C044102B3D9855005A816A /* HomeVC+ToolTip.swift */; };
 		07C044132B3D9F7E005A816A /* ToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C044122B3D9F7E005A816A /* ToolTip.swift */; };
-		07C044152B3DB765005A816A /* HomeToolTipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C044142B3DB765005A816A /* HomeToolTipViewController.swift */; };
+		07C044152B3DB765005A816A /* HomeTrackingToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C044142B3DB765005A816A /* HomeTrackingToolTip.swift */; };
 		07C0BDB42ABC452600D5E779 /* TrackingDate+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDB02ABC452600D5E779 /* TrackingDate+CoreDataClass.swift */; };
 		07C0BDB52ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDB12ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift */; };
 		07D1F4AB2B36FA5800BFE90E /* HomeVC+UpdateUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D1F4AA2B36FA5800BFE90E /* HomeVC+UpdateUI.swift */; };
@@ -257,6 +258,7 @@
 		077E80F02AE13E0B004CDB8F /* ManageBlockTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBlockTableViewHeader.swift; sourceTree = "<group>"; };
 		077E80F22AE141CA004CDB8F /* ManageBlockTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBlockTableViewCell.swift; sourceTree = "<group>"; };
 		077E80F42AE1659B004CDB8F /* ManageBlockTableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBlockTableViewFooter.swift; sourceTree = "<group>"; };
+		07806B7D2B49943300398586 /* HomeMainToolTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMainToolTip.swift; sourceTree = "<group>"; };
 		07817F0A2A0A05DE00D024F6 /* IconManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconManager.swift; sourceTree = "<group>"; };
 		07817F0C2A0A18BB00D024F6 /* SelectIconCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIconCollectionViewCell.swift; sourceTree = "<group>"; };
 		0782BF652B46939000555A0C /* OptionSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionSelector.swift; sourceTree = "<group>"; };
@@ -326,9 +328,9 @@
 		07B49C442A95E5BD006D1011 /* TrackingCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingCompleteViewController.swift; sourceTree = "<group>"; };
 		07B49C462A95E66D006D1011 /* TrackingCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingCompleteView.swift; sourceTree = "<group>"; };
 		07B592112AC4126C0046ABFC /* DispatchWorkItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchWorkItem.swift; sourceTree = "<group>"; };
-		07C044102B3D9855005A816A /* HomeVC+HelpTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+HelpTracking.swift"; sourceTree = "<group>"; };
+		07C044102B3D9855005A816A /* HomeVC+ToolTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+ToolTip.swift"; sourceTree = "<group>"; };
 		07C044122B3D9F7E005A816A /* ToolTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolTip.swift; sourceTree = "<group>"; };
-		07C044142B3DB765005A816A /* HomeToolTipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeToolTipViewController.swift; sourceTree = "<group>"; };
+		07C044142B3DB765005A816A /* HomeTrackingToolTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTrackingToolTip.swift; sourceTree = "<group>"; };
 		07C0BDB02ABC452600D5E779 /* TrackingDate+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingDate+CoreDataClass.swift"; sourceTree = "<group>"; };
 		07C0BDB12ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingDate+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		07D1F4AA2B36FA5800BFE90E /* HomeVC+UpdateUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+UpdateUI.swift"; sourceTree = "<group>"; };
@@ -489,6 +491,7 @@
 			children = (
 				0749D72E2ABADA47004DF368 /* Models */,
 				076248BC2AB2F727000A8664 /* MainHome */,
+				07806B7C2B49940D00398586 /* ToolTip */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -713,11 +716,9 @@
 			children = (
 				078C50D029D726FE00F239BA /* HomeView.swift */,
 				078C50B929D7152F00F239BA /* HomeViewController.swift */,
-				07C044142B3DB765005A816A /* HomeToolTipViewController.swift */,
 				07D1F4AA2B36FA5800BFE90E /* HomeVC+UpdateUI.swift */,
 				07967D022ACA606000BB45B5 /* HomeVC+TrackingLifeCycle.swift */,
 				07D1F5272B3BEE6F00BFE90E /* HomeVC+Relaunch.swift */,
-				07C044102B3D9855005A816A /* HomeVC+HelpTracking.swift */,
 				0749D7292ABACAD3004DF368 /* HomeVC+CustomDelegate.swift */,
 				0749D7272AB9E832004DF368 /* HomeVC+Notification.swift */,
 				0749D71B2AB84198004DF368 /* HomeVC+BlockCollectionView.swift */,
@@ -843,6 +844,16 @@
 				077E80F22AE141CA004CDB8F /* ManageBlockTableViewCell.swift */,
 			);
 			path = ManageBlock;
+			sourceTree = "<group>";
+		};
+		07806B7C2B49940D00398586 /* ToolTip */ = {
+			isa = PBXGroup;
+			children = (
+				07C044102B3D9855005A816A /* HomeVC+ToolTip.swift */,
+				07806B7D2B49943300398586 /* HomeMainToolTip.swift */,
+				07C044142B3DB765005A816A /* HomeTrackingToolTip.swift */,
+			);
+			path = ToolTip;
 			sourceTree = "<group>";
 		};
 		078C50A929D7152F00F239BA = {
@@ -1134,7 +1145,7 @@
 				07174A182B1F4C6500B7EC69 /* RepositoryVC+TableView.swift in Sources */,
 				076E955B2B317041005A8D46 /* OpenLicenseDataStore.swift in Sources */,
 				0713019E2B205791008A2A8D /* SmallButton.swift in Sources */,
-				07C044152B3DB765005A816A /* HomeToolTipViewController.swift in Sources */,
+				07C044152B3DB765005A816A /* HomeTrackingToolTip.swift in Sources */,
 				07B1F8BE2B2C23DA00E98382 /* StartView.swift in Sources */,
 				07446E452B2ACDD60002E9EF /* Vibration.swift in Sources */,
 				07B592122AC4126C0046ABFC /* DispatchWorkItem.swift in Sources */,
@@ -1155,7 +1166,7 @@
 				07B49BC42A88EBA3006D1011 /* MenuPopup.swift in Sources */,
 				07D9E4CC2B454505005340F3 /* MenuItem.swift in Sources */,
 				07B49BC82A8DD84D006D1011 /* ManageGroupViewController.swift in Sources */,
-				07C044112B3D9855005A816A /* HomeVC+HelpTracking.swift in Sources */,
+				07C044112B3D9855005A816A /* HomeVC+ToolTip.swift in Sources */,
 				07AE45D12AF38ABE00125316 /* UIDate++.swift in Sources */,
 				07B04BAD2ADD500800580711 /* Block+CoreDataProperties.swift in Sources */,
 				07B04BAC2ADD500800580711 /* Block+CoreDataClass.swift in Sources */,
@@ -1212,6 +1223,7 @@
 				0719648129DAF38A009CA1A4 /* RemoteBlock.swift in Sources */,
 				0770803429E797E100D66900 /* SelectIconViewController.swift in Sources */,
 				07B1F8BB2B2C23A500E98382 /* StartViewController.swift in Sources */,
+				07806B7E2B49943300398586 /* HomeMainToolTip.swift in Sources */,
 				07446E3F2B2A7E650002E9EF /* NotificationName++.swift in Sources */,
 				0782BF682B46A14C00555A0C /* IconSectionBar.swift in Sources */,
 				07967D012AC9A1D300BB45B5 /* TrackingTime+CoreDataProperties.swift in Sources */,

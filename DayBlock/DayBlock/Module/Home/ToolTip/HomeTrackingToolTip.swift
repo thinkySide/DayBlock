@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class HomeToolTipViewController: UIViewController {
+final class HomeTrackingToolTipViewController: UIViewController {
     
     let viewManager = HomeView()
     let trackingBoardToolTip = ToolTip(text: "현재 생산 중인 블럭은 깜빡거려요", tipStartX: 136)

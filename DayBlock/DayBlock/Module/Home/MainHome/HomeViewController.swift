@@ -49,6 +49,7 @@ final class HomeViewController: UIViewController {
         setupUI()
         setupGestrue()
         setupTrackingMode()
+        setupFirstToolTip()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -96,8 +97,7 @@ final class HomeViewController: UIViewController {
     private func setupNavigationItem() {
         configureBackButton()
         let helpBarButtomItem = viewManager.helpBarButtonItem
-        let trackingStopBarButtomItem = viewManager.trackingStopBarButtonItem
-        navigationItem.rightBarButtonItems = [trackingStopBarButtomItem, helpBarButtomItem]
+        navigationItem.rightBarButtonItem = helpBarButtomItem
     }
     
     /// Custom Delegate를 위임받습니다.
