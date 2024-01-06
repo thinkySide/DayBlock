@@ -91,11 +91,9 @@ final class FormTextField: UIView {
     func isWarningLabelEnabled(_ bool: Bool) {
         if bool {
             warningLabel.alpha = 1
-            // textFieldBackgroundView.layer.borderWidth = 2
         }
         else {
             warningLabel.alpha = 0
-            // textFieldBackgroundView.layer.borderWidth = 0
         }
     }
      

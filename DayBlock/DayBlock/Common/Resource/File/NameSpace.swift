@@ -10,7 +10,7 @@ import UIKit
 // MARK: - Noti
 
 enum Version {
-    static let current = "0.1.5"
+    static let current = "0.1.6"
 }
 
 // MARK: - Colors
@@ -37,10 +37,10 @@ enum Color {
     /// EventColor
     static let danger = UIColor(rgb: 0xD23939)
     
-    static let testBlue = UIColor(rgb: 0x1673FF)
-    static let testPink = UIColor(rgb: 0xFF16A2)
-    static let testGreen = UIColor(rgb: 0x43D662)
-    static let testYellow = UIColor(rgb: 0xFFA216)
+    static let defaultBlue = UIColor(rgb: 0x1673FF)
+    static let defaultPink = UIColor(rgb: 0xFF16A2)
+    static let defaultGreen = UIColor(rgb: 0x43D662)
+    static let defaultYellow = UIColor(rgb: 0xFFA216)
 }
 
 // MARK: - Fonts

@@ -118,7 +118,6 @@ final class RepositoryManager {
               let endTime = trackingTimes.last?.endTime else {
             
             return "00:00-00:00"
-            // fatalError("트래킹 시간 반환에 실패했습니다.")
         }
         
         // 실제 시간으로 변환

@@ -62,7 +62,7 @@ final class FormSelectButton: UIView {
     
     let selectLabel: UILabel = {
         let label = UILabel()
-        label.text = "자기계발" // ⛳️
+        label.text = "자기계발"
         label.font = UIFont(name: Pretendard.semiBold, size: 17)
         label.textColor = Color.mainText
         label.textAlignment = .right

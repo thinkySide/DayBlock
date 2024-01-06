@@ -22,7 +22,7 @@ extension RepositoryViewController {
     func setupShareTotalValue(date: Date) {
         let totalValue = TrackingDataStore.shared.dateAllOutput(to: date)
         let shareValue = Int(round(Double(totalValue)! / 0.5 * 100 / 48))
-        timeLineView.shareTotalInfo.totalValue.text = "+\(totalValue)"
+        timeLineView.shareTotalInfo.totalValue.text = "\(totalValue)"
         timeLineView.shareTotalInfo.shareValue.text = "\(shareValue)%"
         
     }

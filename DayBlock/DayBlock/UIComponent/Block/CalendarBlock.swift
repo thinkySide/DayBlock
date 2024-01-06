@@ -27,7 +27,7 @@ final class CalendarBlock: UIView {
     let fiveBlock = FiveBlock(size: 24)
     
     init(state: CalendarCellState, colors: [UIColor] = [
-        Color.testBlue, Color.testPink, Color.testGreen, Color.testYellow, .systemPurple
+        Color.defaultBlue, Color.defaultPink, Color.defaultGreen, Color.defaultYellow, .systemPurple
     ]) {
         super.init(frame: .zero)
         setupAutoLayout()
@@ -129,7 +129,7 @@ final class CalendarBlock: UIView {
     final class OneBlock: UIView {
         let block: UIView = {
             let view = UIView()
-            view.backgroundColor = Color.testBlue
+            view.backgroundColor = Color.defaultBlue
             view.clipsToBounds = true
             view.layer.cornerRadius = 7
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -162,7 +162,7 @@ final class CalendarBlock: UIView {
         
         let firstBlock: UIView = {
             let view = UIView()
-            view.backgroundColor = Color.testBlue
+            view.backgroundColor = Color.defaultBlue
             view.clipsToBounds = true
             view.layer.cornerRadius = 5
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -171,7 +171,7 @@ final class CalendarBlock: UIView {
         
         let secondBlock: UIView = {
             let view = UIView()
-            view.backgroundColor = Color.testPink
+            view.backgroundColor = Color.defaultPink
             view.clipsToBounds = true
             view.layer.cornerRadius = 5
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -211,7 +211,7 @@ final class CalendarBlock: UIView {
         
         let firstBlock: UIView = {
             let view = UIView()
-            view.backgroundColor = Color.testBlue
+            view.backgroundColor = Color.defaultBlue
             view.clipsToBounds = true
             view.layer.cornerRadius = 5
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -220,7 +220,7 @@ final class CalendarBlock: UIView {
         
         let secondBlock: UIView = {
             let view = UIView()
-            view.backgroundColor = Color.testPink
+            view.backgroundColor = Color.defaultPink
             view.clipsToBounds = true
             view.layer.cornerRadius = 4
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -229,7 +229,7 @@ final class CalendarBlock: UIView {
         
         let thirdBlock: UIView = {
             let view = UIView()
-            view.backgroundColor = Color.testGreen
+            view.backgroundColor = Color.defaultGreen
             view.clipsToBounds = true
             view.layer.cornerRadius = 4
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -275,7 +275,7 @@ final class CalendarBlock: UIView {
         
         let firstBlock: UIView = {
             let view = UIView()
-            view.backgroundColor = Color.testBlue
+            view.backgroundColor = Color.defaultBlue
             view.clipsToBounds = true
             view.layer.cornerRadius = 4
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -284,7 +284,7 @@ final class CalendarBlock: UIView {
         
         let secondBlock: UIView = {
             let view = UIView()
-            view.backgroundColor = Color.testPink
+            view.backgroundColor = Color.defaultPink
             view.clipsToBounds = true
             view.layer.cornerRadius = 4
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -293,7 +293,7 @@ final class CalendarBlock: UIView {
         
         let thirdBlock: UIView = {
             let view = UIView()
-            view.backgroundColor = Color.testGreen
+            view.backgroundColor = Color.defaultGreen
             view.clipsToBounds = true
             view.layer.cornerRadius = 4
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -302,7 +302,7 @@ final class CalendarBlock: UIView {
         
         let fourthBlock: UIView = {
             let view = UIView()
-            view.backgroundColor = Color.testYellow
+            view.backgroundColor = Color.defaultYellow
             view.clipsToBounds = true
             view.layer.cornerRadius = 4
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -354,7 +354,7 @@ final class CalendarBlock: UIView {
         
         let firstBlock: UIView = {
             let view = UIView()
-            view.backgroundColor = Color.testBlue
+            view.backgroundColor = Color.defaultBlue
             view.clipsToBounds = true
             view.layer.cornerRadius = 4
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -363,7 +363,7 @@ final class CalendarBlock: UIView {
         
         let secondBlock: UIView = {
             let view = UIView()
-            view.backgroundColor = Color.testPink
+            view.backgroundColor = Color.defaultPink
             view.clipsToBounds = true
             view.layer.cornerRadius = 4
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -372,7 +372,7 @@ final class CalendarBlock: UIView {
         
         let thirdBlock: UIView = {
             let view = UIView()
-            view.backgroundColor = Color.testGreen
+            view.backgroundColor = Color.defaultGreen
             view.clipsToBounds = true
             view.layer.cornerRadius = 4
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -381,7 +381,7 @@ final class CalendarBlock: UIView {
         
         let fourthBlock: UIView = {
             let view = UIView()
-            view.backgroundColor = Color.testYellow
+            view.backgroundColor = Color.defaultYellow
             view.clipsToBounds = true
             view.layer.cornerRadius = 4
             view.translatesAutoresizingMaskIntoConstraints = false

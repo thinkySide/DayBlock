@@ -13,7 +13,6 @@ final class SimpleIconBlock: UIView {
     
     let symbol: UIImageView = {
         let image = UIImageView()
-        // image.image = UIImage(systemName: "book.closed.fill")
         image.contentMode = .scaleAspectFit
         image.tintColor = .white
         return image

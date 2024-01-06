@@ -29,11 +29,5 @@ final class FirstOnboardingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupEvent()
-    }
-    
-    // MARK: - Setup Method
-    private func setupEvent() {
-        
     }
 }

@@ -110,7 +110,6 @@ extension BlockDataStore {
             return blockList.sorted { $0.order < $1.order }
         }
         
-        print("\(#function): 인덱스에 일치하는 블럭 리스트가 없습니다.")
         return []
     }
     
@@ -124,7 +123,6 @@ extension BlockDataStore {
             }
         }
         
-        print("\(#function): 그룹명에 일치하는 블럭 리스트가 없습니다.")
         return []
     }
     
@@ -249,7 +247,6 @@ extension BlockDataStore {
         
         // 3-1. 만약 그룹 내 블럭 이동이라면
         if source.section == destination.section {
-            print("같은 그룹으로 이동")
             
             for block in destinationList {
                 
@@ -273,7 +270,6 @@ extension BlockDataStore {
         
         // 3-2. 만약 그룹 외 블럭 이동이라면
         else if source.section != destination.section {
-            print("다른 그룹으로 이동")
             
             // 그룹 이동에 따른 인덱스 조정
             for block in sourceList where source.row < block.order {

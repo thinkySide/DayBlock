@@ -13,13 +13,6 @@ final class CreateGroupView: UIView {
     
     // MARK: - Component
     
-//    lazy var backBarButtonItem: UIBarButtonItem = {
-//        let configuration = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
-//        let item = UIBarButtonItem(image: UIImage(systemName: "xmark")?.withConfiguration(configuration), style: .plain, target: self, action: #selector(backBarButtonItemTapped))
-//        item.tintColor = Color.mainText
-//        return item
-//    }()
-    
     lazy var groupLabelTextField: FormTextField = {
         let form = FormTextField()
         form.formLabel.text = "그룹명"
@@ -85,26 +78,20 @@ final class CreateGroupView: UIView {
     func setupAddSubView() {
         [groupLabelTextField, selectFormStackView]
             .forEach {
-                
-                /// 1. addSubView(component)
                 addSubview($0)
-                
-                /// 2. translatesAutoresizingMaskIntoConstraints = false
                 $0.translatesAutoresizingMaskIntoConstraints = false
             }
     }
     
     func setupConstraints() {
-        
-        /// 3. NSLayoutConstraint.activate
         NSLayoutConstraint.activate([
             
-            /// groupLabel
+            // groupLabel
             groupLabelTextField.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
             groupLabelTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             groupLabelTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
             
-            /// selectFormStackView
+            // selectFormStackView
             selectFormStackView.topAnchor.constraint(equalTo: groupLabelTextField.bottomAnchor, constant: 8),
             selectFormStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
             selectFormStackView.trailingAnchor.constraint(equalTo: trailingAnchor)

@@ -100,7 +100,7 @@ final class DeveloperInfoView: UIView {
         label.textAlignment = .left
         label.numberOfLines = 0
         label.text = """
-        최적의 사용자 경험을 제공하기 위해, 근거있는 개발과 디자인을 지향합니다.
+        우리 모두는 하루를 다양한 시간으로 채워가고 있어요. 그중 기록하고 싶은 시간들을 블럭으로 만들고 쌓아가다 보면 노력과 열정의 흔적을 데이블럭에서 확인할 수 있을 거에요.
         """
         
         label.asFontColor(targetString: "",

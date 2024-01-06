@@ -12,7 +12,6 @@ final class ManageBlockTableViewHeader: UITableViewHeaderFooterView {
     
     let spacer: UIView = {
         let view = UIView()
-        // view.backgroundColor = UIColor(rgb: 0xF2F2F7)
         view.backgroundColor = .white
         view.alpha = 0
         return view

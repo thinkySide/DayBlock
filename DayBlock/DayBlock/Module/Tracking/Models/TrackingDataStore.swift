@@ -117,13 +117,6 @@ extension TrackingDataStore {
 // MARK: - READ Method
 extension TrackingDataStore {
     
-    /// 현재 트래킹 데이터를 출력합니다.
-    func printData() {
-        if let lastTime = focusTimeList.last {
-            print("\(lastTime.startTime) ~ \(String(describing: lastTime.endTime))")
-        }
-    }
-    
     /// 현재 포커스된(트래킹 중인) 날짜 데이터를 반환합니다.
     /// ⚠️ 트래킹 날짜 데이터의 가장 마지막 데이터를 트래킹 중인 것으로 간주
     func focusDate() -> TrackingDate {
@@ -382,8 +375,6 @@ extension TrackingDataStore {
             return (first[0], first[1]) < (second[0], second[1])
         }
         
-        print(sorted)
-        
         return sorted
     }
     
@@ -484,7 +475,6 @@ extension TrackingDataStore {
         
         // 30분 전이 오늘일 경우
         if todaySecondsToInt() >= 1800 {
-            print("트래킹 시작일이 금일입니다.")
             
             // 날짜 데이터 생성
             newTrackingDate.year = formatter("yyyy")
@@ -504,7 +494,6 @@ extension TrackingDataStore {
         
         // 30분 전이 어제일 경우
         else if todaySecondsToInt() < 1800 {
-            print("트래킹 시작일이 전일입니다.")
             
             // 날짜 데이터 생성
             let previousDate = Date().previousDay(from: Date())
@@ -553,7 +542,6 @@ extension TrackingDataStore {
         
         // 2-1. 앱이 종료되어있을 동안, 하루가 지나지 않음.
         if endTime < 86400 {
-            print("endTime: \(endTime), 하루가 지나지 않음.")
             let trackingTime = TrackingTime(context: context)
             trackingTime.startTime = String(endTime)
             focusDate().addToTrackingTimeList(trackingTime)
@@ -563,7 +551,6 @@ extension TrackingDataStore {
         // 앱이 종료되어있을 동안, 하루가 지난 것으로 설정.
         else {
             let newEndTime = endTime - 86400
-            print("endTime: \(endTime), 하루가 지남. -> \(newEndTime)")
             
             // 트래킹 보드 초기화
             TrackingBoardService.shared.resetAllData()
@@ -577,7 +564,6 @@ extension TrackingDataStore {
             newTrackingDate.month = formatter("MM", to: nextDate)
             newTrackingDate.day = formatter("dd", to: nextDate)
             newTrackingDate.dayOfWeek = formatter("E", to: nextDate)
-            print("다음 날짜로 생성: \(formatter("yyyy-MM-dd", to: nextDate))")
             
             // Time 생성
             let trackingTime = TrackingTime(context: context)
@@ -595,15 +581,12 @@ extension TrackingDataStore {
     /// 트래킹을 종료함과 동시에 데이터를 저장합니다.
     func finishData() {
         
-        print("최종 트래킹 데이터 저장")
-        
         // 현재 세션 종료(삭제)
         focusDate().removeFromTrackingTimeList(focusTime())
         
         // 마지막 트래킹 시간이 전일인지 체크
         let focusTimeList = focusDate().trackingTimeList?.array as! [TrackingTime]
         if focusTimeList.isEmpty {
-            print("현재 세션 삭제로 인해 focusDate가 비었습니다.")
             blockData.focusEntity().removeFromTrackingDateList(focusDate())
         }
         

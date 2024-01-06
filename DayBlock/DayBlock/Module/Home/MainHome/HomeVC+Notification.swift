@@ -12,14 +12,6 @@ extension HomeViewController {
     /// Notification Observer를 추가합니다.
     func setupNotification() {
         
-        // 온보딩 종료 observer
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(finishOnboarding),
-            name: .finishOnboarding,
-            object: nil
-        )
-        
         // 마지막 트래킹 시간 추적 observer
         NotificationCenter.default.addObserver(
             self,
@@ -52,13 +44,6 @@ extension HomeViewController {
             object: nil
         )
     }
-    
-    /// 온보딩 모드를 종료합니다.
-    @objc private func finishOnboarding(_ notification: Notification) {
-        dismiss(animated: true)
-    }
-    
-    
     
     /// 블럭 편집 Noti를 받았을 때 블럭을 편집 후 리로드합니다.
     /// - Post : EditGroupViewController

@@ -58,6 +58,10 @@ extension FourthOnboardingViewController: DayBlockDelegate {
     /// LongPressGesutre 이후 호출되는 메서드입니다.
     func dayBlock(_ dayBlock: DayBlock, trackingComplete taskLabel: String?) {
         
+        // 코어데이터 패치
+        GroupDataStore.shared.saveContext()
+        GroupDataStore.shared.initDefaultGroup()
+        
         // 트래킹 코어데이터 저장
         trackingData.createOnboardingData()
         

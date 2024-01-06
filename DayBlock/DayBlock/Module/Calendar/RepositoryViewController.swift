@@ -53,16 +53,6 @@ final class RepositoryViewController: UIViewController {
     
     // MARK: - Setup Method
     private func setupNavigation() {
-        
-        // 네비게이션바의 Appearance를 설정
-//        let navigationBarAppearance = UINavigationBarAppearance()
-//        navigationBarAppearance.backgroundColor = .white
-//        navigationBarAppearance.shadowColor = .clear
-//        navigationItem.standardAppearance = navigationBarAppearance
-//        navigationItem.scrollEdgeAppearance = navigationBarAppearance
-//        navigationController?.setNeedsStatusBarAppearanceUpdate()
-        
-        // 뒤로가기 버튼 커스텀
         configureBackButton()
     }
     

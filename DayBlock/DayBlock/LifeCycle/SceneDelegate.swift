@@ -20,6 +20,61 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
+        // 첫 실행인지 확인
+        if UserDefaultsItem.shared.isFirstLaunch {
+            window?.rootViewController = StartViewController()
+        } else {
+            changeRootViewControllerToHome()
+        }
+        
+        window?.makeKeyAndVisible()
+    }
+
+    func sceneWillEnterForeground(_ scene: UIScene) {
+        
+        // 마지막 접속 시간 Notification 전달
+        NotificationCenter.default.post(
+            name: .latestAccess,
+            object: nil,
+            userInfo: ["time" : UserDefaultsItem.shared.lastAccessSecond])
+    }
+
+    func sceneDidEnterBackground(_ scene: UIScene) {
+        
+        // 1. 타이머 정지
+        TimerManager.shared.trackingTimer?.invalidate()
+        TimerManager.shared.pausedTimer?.invalidate()
+        
+        // 2. 코어데이터 저장
+        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+        
+        // 3. 나가는 시점 저장
+        let lastAccessSecond = TrackingDataStore.shared.todaySecondsToInt()
+        UserDefaultsItem.shared.setLastAccessSecond(to: lastAccessSecond)
+        
+        // 테스트: 나가는 시점의 Date 저장
+        let lastAccessDate = Date()
+        UserDefaultsItem.shared.setLastAccessDate(to: lastAccessDate)
+        
+        // 4. trackingSecond 저장
+        let trackingSecond = TimerManager.shared.totalTrackingSecond
+        UserDefaultsItem.shared.setTrackingSecondBeforeAppTermination(to: trackingSecond)
+        
+        // 5. 일시정지 시간 저장
+        let pausedSecond = TimerManager.shared.pausedTime
+        UserDefaultsItem.shared.setPausedSecond(to: pausedSecond)
+        
+        // 6. 트래킹 시간 배열 저장
+        let trackingSeconds = TrackingBoardService.shared.trackingSeconds
+        UserDefaultsItem.shared.setTrackingSeconds(to: trackingSeconds)
+    }
+    
+    // MARK: - Change Root View
+    
+    /// HomeViewController로 루트뷰를 변경합니다.
+    func changeRootViewControllerToHome() {
+        guard let window = self.window else { return }
+        
         // UINavigation 추가
         let homeNavigationController = UINavigationController(rootViewController: HomeViewController())
         let calendarNavigationController = UINavigationController(rootViewController: RepositoryViewController())
@@ -62,47 +117,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }
         }
         
-        window?.rootViewController = tabBarController
-        window?.makeKeyAndVisible()
-    }
-
-    func sceneWillEnterForeground(_ scene: UIScene) {
+        window.rootViewController = tabBarController
         
-        // 마지막 접속 시간 Notification 전달
-        NotificationCenter.default.post(
-            name: .latestAccess,
-            object: nil,
-            userInfo: ["time" : UserDefaultsItem.shared.lastAccessSecond])
-    }
-
-    func sceneDidEnterBackground(_ scene: UIScene) {
-        
-        // 1. 타이머 정지
-        TimerManager.shared.trackingTimer?.invalidate()
-        TimerManager.shared.pausedTimer?.invalidate()
-        
-        // 2. 코어데이터 저장
-        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
-        
-        // 3. 나가는 시점 저장
-        let lastAccessSecond = TrackingDataStore.shared.todaySecondsToInt()
-        UserDefaultsItem.shared.setLastAccessSecond(to: lastAccessSecond)
-        
-        // 테스트: 나가는 시점의 Date 저장
-        let lastAccessDate = Date()
-        UserDefaultsItem.shared.setLastAccessDate(to: lastAccessDate)
-        
-        // 4. trackingSecond 저장
-        let trackingSecond = TimerManager.shared.totalTrackingSecond
-        UserDefaultsItem.shared.setTrackingSecondBeforeAppTermination(to: trackingSecond)
-        
-        // 5. 일시정지 시간 저장
-        let pausedSecond = TimerManager.shared.pausedTime
-        UserDefaultsItem.shared.setPausedSecond(to: pausedSecond)
-        
-        // 6. 트래킹 시간 배열 저장
-        let trackingSeconds = TrackingBoardService.shared.trackingSeconds
-        UserDefaultsItem.shared.setTrackingSeconds(to: trackingSeconds)
+        // 부드러운 전환을 위한 효과 추가
+        UIView.transition(with: window, duration: 0.2, options: [.transitionCrossDissolve], animations: nil, completion: nil)
     }
 }
 

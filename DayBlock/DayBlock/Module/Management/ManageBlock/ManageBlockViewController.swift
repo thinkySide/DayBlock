@@ -25,27 +25,6 @@ final class ManageBlockViewController: UIViewController {
         setupGesture()
         setupNavigation()
         setupTableView()
-        
-        viewManager.testButton.addTarget(self, action: #selector(test), for: .touchUpInside)
-    }
-    
-    @objc func test() {
-        let groupList = groupData.list()
-        for group in groupList {
-            
-            print("[\(group.name) Group]")
-            print("• color: \(group.color)")
-            print("")
-            
-            if let blockList = group.blockList?.array as? [Block] {
-                for block in blockList {
-                    print("   [\(block.taskLabel) Block]")
-                    print("   • order: \(block.order)")
-                    print("")
-                }
-            }
-            print("------------------------------------------\n")
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -251,7 +230,6 @@ extension ManageBlockViewController: UITableViewDataSource, UITableViewDelegate 
 // MARK: - UITableViewDragDelegate
 extension ManageBlockViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        print(#function)
         let itemProvider = NSItemProvider()
         return [UIDragItem(itemProvider: itemProvider)]
     }
@@ -295,7 +273,5 @@ extension ManageBlockViewController: UITableViewDropDelegate {
     }
     
     /// App이나 View 간의 드래그 앤 드롭 발생시 호출되는 메서드
-    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
-        print(#function)
-    }
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {}
 }

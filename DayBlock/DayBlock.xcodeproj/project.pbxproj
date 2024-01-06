@@ -155,15 +155,12 @@
 		07B49C452A95E5BD006D1011 /* TrackingCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49C442A95E5BD006D1011 /* TrackingCompleteViewController.swift */; };
 		07B49C472A95E66D006D1011 /* TrackingCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B49C462A95E66D006D1011 /* TrackingCompleteView.swift */; };
 		07B592122AC4126C0046ABFC /* DispatchWorkItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B592112AC4126C0046ABFC /* DispatchWorkItem.swift */; };
-		07B592142AC42B7D0046ABFC /* UIImageView++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B592132AC42B7D0046ABFC /* UIImageView++.swift */; };
 		07C044112B3D9855005A816A /* HomeVC+HelpTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C044102B3D9855005A816A /* HomeVC+HelpTracking.swift */; };
 		07C044132B3D9F7E005A816A /* ToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C044122B3D9F7E005A816A /* ToolTip.swift */; };
 		07C044152B3DB765005A816A /* HomeToolTipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C044142B3DB765005A816A /* HomeToolTipViewController.swift */; };
-		07C0BDAF2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDAE2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift */; };
 		07C0BDB42ABC452600D5E779 /* TrackingDate+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDB02ABC452600D5E779 /* TrackingDate+CoreDataClass.swift */; };
 		07C0BDB52ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDB12ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift */; };
 		07D1F4AB2B36FA5800BFE90E /* HomeVC+UpdateUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D1F4AA2B36FA5800BFE90E /* HomeVC+UpdateUI.swift */; };
-		07D1F4AD2B37ECEA00BFE90E /* PushNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D1F4AC2B37ECEA00BFE90E /* PushNotificationService.swift */; };
 		07D1F5282B3BEE6F00BFE90E /* HomeVC+Relaunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D1F5272B3BEE6F00BFE90E /* HomeVC+Relaunch.swift */; };
 		07D1F52A2B3BF0CC00BFE90E /* UserDefaultsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D1F5292B3BF0CC00BFE90E /* UserDefaultsItem.swift */; };
 		07D9E4CA2B4544E1005340F3 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D9E4C92B4544E1005340F3 /* Menu.swift */; };
@@ -329,15 +326,12 @@
 		07B49C442A95E5BD006D1011 /* TrackingCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingCompleteViewController.swift; sourceTree = "<group>"; };
 		07B49C462A95E66D006D1011 /* TrackingCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingCompleteView.swift; sourceTree = "<group>"; };
 		07B592112AC4126C0046ABFC /* DispatchWorkItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchWorkItem.swift; sourceTree = "<group>"; };
-		07B592132AC42B7D0046ABFC /* UIImageView++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView++.swift"; sourceTree = "<group>"; };
 		07C044102B3D9855005A816A /* HomeVC+HelpTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+HelpTracking.swift"; sourceTree = "<group>"; };
 		07C044122B3D9F7E005A816A /* ToolTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolTip.swift; sourceTree = "<group>"; };
 		07C044142B3DB765005A816A /* HomeToolTipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeToolTipViewController.swift; sourceTree = "<group>"; };
-		07C0BDAE2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+CoreDataTest.swift"; sourceTree = "<group>"; };
 		07C0BDB02ABC452600D5E779 /* TrackingDate+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingDate+CoreDataClass.swift"; sourceTree = "<group>"; };
 		07C0BDB12ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingDate+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		07D1F4AA2B36FA5800BFE90E /* HomeVC+UpdateUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+UpdateUI.swift"; sourceTree = "<group>"; };
-		07D1F4AC2B37ECEA00BFE90E /* PushNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationService.swift; sourceTree = "<group>"; };
 		07D1F5272B3BEE6F00BFE90E /* HomeVC+Relaunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+Relaunch.swift"; sourceTree = "<group>"; };
 		07D1F5292B3BF0CC00BFE90E /* UserDefaultsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsItem.swift; sourceTree = "<group>"; };
 		07D9E4C92B4544E1005340F3 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
@@ -697,6 +691,7 @@
 		076248BA2AB2F66C000A8664 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				07FB58A82B3024BC00850AFB /* SFSymbols.swift */,
 				07817F0A2A0A05DE00D024F6 /* IconManager.swift */,
 				076248CE2AB30319000A8664 /* IconDelegate.swift */,
 			);
@@ -722,7 +717,6 @@
 				07D1F4AA2B36FA5800BFE90E /* HomeVC+UpdateUI.swift */,
 				07967D022ACA606000BB45B5 /* HomeVC+TrackingLifeCycle.swift */,
 				07D1F5272B3BEE6F00BFE90E /* HomeVC+Relaunch.swift */,
-				07C0BDAE2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift */,
 				07C044102B3D9855005A816A /* HomeVC+HelpTracking.swift */,
 				0749D7292ABACAD3004DF368 /* HomeVC+CustomDelegate.swift */,
 				0749D7272AB9E832004DF368 /* HomeVC+Notification.swift */,
@@ -816,7 +810,6 @@
 			isa = PBXGroup;
 			children = (
 				078C50E729D72D2900F239BA /* NameSpace.swift */,
-				07FB58A82B3024BC00850AFB /* SFSymbols.swift */,
 			);
 			path = File;
 			sourceTree = "<group>";
@@ -950,7 +943,6 @@
 				078C50ED29D72F9D00F239BA /* UIColor++.swift */,
 				0771983E29E2F4D10021088A /* UIButton++.swift */,
 				07454DE229EA6CEE00B3458D /* UIViewController++.swift */,
-				07B592132AC42B7D0046ABFC /* UIImageView++.swift */,
 				07AE45D02AF38ABE00125316 /* UIDate++.swift */,
 				0736AC5B2B2A70B100D90AB2 /* UILabel++.swift */,
 				07446E3E2B2A7E650002E9EF /* NotificationName++.swift */,
@@ -989,7 +981,6 @@
 			isa = PBXGroup;
 			children = (
 				07B592112AC4126C0046ABFC /* DispatchWorkItem.swift */,
-				07D1F4AC2B37ECEA00BFE90E /* PushNotificationService.swift */,
 				07446E442B2ACDD60002E9EF /* Vibration.swift */,
 				07D1F5292B3BF0CC00BFE90E /* UserDefaultsItem.swift */,
 				0710ACE02B3C3DB300BAEAD4 /* TrackingBoard */,
@@ -1179,7 +1170,6 @@
 				07967CF92AC95EE100BB45B5 /* TrackingDelegate.swift in Sources */,
 				078C50F629D9BBB200F239BA /* ManageBlockViewController.swift in Sources */,
 				07D1F4AB2B36FA5800BFE90E /* HomeVC+UpdateUI.swift in Sources */,
-				07C0BDAF2ABC17C200D5E779 /* HomeVC+CoreDataTest.swift in Sources */,
 				071E3ABB2AC15EF1000C346F /* GroupDataStore.swift in Sources */,
 				0771983F29E2F4D10021088A /* UIButton++.swift in Sources */,
 				07B1F8C82B2C31B600E98382 /* OnboardingViewController.swift in Sources */,
@@ -1194,7 +1184,6 @@
 				07B1F8C42B2C2B8E00E98382 /* SecondOnboardingView.swift in Sources */,
 				0736AC5A2B2A6CCD00D90AB2 /* ResetDataView.swift in Sources */,
 				07B1F8D52B2C4C9000E98382 /* FourthOnboardingView.swift in Sources */,
-				07B592142AC42B7D0046ABFC /* UIImageView++.swift in Sources */,
 				0749D72D2ABAD7E9004DF368 /* HomeDelegate.swift in Sources */,
 				07849BF22B297BD5009BF4A8 /* SettingView.swift in Sources */,
 				078C50D129D726FE00F239BA /* HomeView.swift in Sources */,
@@ -1241,7 +1230,6 @@
 				070A90292B283FDD00BBD147 /* MyPageViewController.swift in Sources */,
 				076248C92AB301C9000A8664 /* BlockDelegate.swift in Sources */,
 				075A5AEB2A81DCDD0004F847 /* PopupViewController.swift in Sources */,
-				07D1F4AD2B37ECEA00BFE90E /* PushNotificationService.swift in Sources */,
 				0736AC5C2B2A70B100D90AB2 /* UILabel++.swift in Sources */,
 				0719649429E0692E009CA1A4 /* FormTextField.swift in Sources */,
 				07B04BAE2ADD500800580711 /* Group+CoreDataClass.swift in Sources */,
@@ -1422,13 +1410,16 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.5;
+				MARKETING_VERSION = 0.1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.thinkyside.DayBlock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1457,13 +1448,16 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.5;
+				MARKETING_VERSION = 0.1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.thinkyside.DayBlock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

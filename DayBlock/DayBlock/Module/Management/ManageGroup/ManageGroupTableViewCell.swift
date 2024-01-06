@@ -20,7 +20,7 @@ final class ManageGroupTableViewCell: UITableViewCell {
     
     let groupLabel: UILabel = {
         let label = UILabel()
-        label.text = "그룹 없음" // ⛳️
+        label.text = "그룹 없음"
         label.font = UIFont(name: Pretendard.semiBold, size: 16)
         label.textColor = Color.mainText
         label.textAlignment = .left
@@ -29,7 +29,7 @@ final class ManageGroupTableViewCell: UITableViewCell {
     
     let countLabel: UILabel = {
         let label = UILabel()
-        label.text = "+7" // ⛳️
+        label.text = "+7"
         label.font = UIFont(name: Pretendard.medium, size: 15)
         label.textColor = Color.countText
         label.textAlignment = .left

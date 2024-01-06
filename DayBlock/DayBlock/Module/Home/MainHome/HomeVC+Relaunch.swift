@@ -15,13 +15,10 @@ extension HomeViewController {
         let lastTrackingTime = UserDefaultsItem.shared.trackingSecondBeforeAppTermination
         
         // 일시정시 시간 업데이트
-        print("일시정지 시간 업데이트: \(timerManager.pausedTime) -> \(UserDefaultsItem.shared.pausedSeconds)")
         timerManager.pausedTime = UserDefaultsItem.shared.pausedSeconds
         
         // MARK: - 일시정지 되었을 경우
         guard !UserDefaultsItem.shared.isPaused else {
-            print("트래킹 일시정지")
-            
             let originalPausedSecond = UserDefaultsItem.shared.pausedSeconds
             let elapsedSeconds = trackingData.calculateElapsedTimeSinceAppExit
             
@@ -31,16 +28,12 @@ extension HomeViewController {
                 return
             }
             
-            print("기존 일시정지 시간: \(originalPausedSecond)")
-            print("지난시간: \(elapsedSeconds)")
             timerManager.pausedTime = originalPausedSecond + elapsedSeconds
-            print("업데이트 된 일시정지 시간: \(timerManager.pausedTime)")
             
             // 일시정지되었다면 마지막 트래킹 시간 그대로 업데이트
             updateTrackingTimeResultAfterAppRestart(result: lastTrackingTime)
             
             // 트래킹 보드 저장된 값으로 업데이트
-            print("저장된 값!: \(UserDefaultsItem.shared.trackingSeconds)")
             trackingBoardService.replaceTrackingSeconds(to: UserDefaultsItem.shared.trackingSeconds)
             
             // 트래킹 모드 시작
@@ -52,7 +45,6 @@ extension HomeViewController {
         
         // MARK: - 트래킹 진행 중인 경우
         
-        print("트래킹 진행 중")
         let dayElapsed = trackingData.calculateElapsedDaySinceAppExit
         let timeElapsed = trackingData.calculateElapsedTimeSinceAppExit
         
@@ -72,9 +64,7 @@ extension HomeViewController {
         }
         
         let countSecond = lastCurrentSecond + timeElapsed
-        print("countSecond: \(countSecond)")
         guard countSecond >= trackingData.targetSecond else {
-            print("블럭이 생산되지 않았음.")
             viewManager.trackingRestartForDisconnect()
             return
         }
@@ -82,7 +72,6 @@ extension HomeViewController {
         
         // MARK: - 블럭이 생산된 경우
         let blockCount = countSecond / trackingData.targetSecond
-        print("블럭이 \(blockCount)개 생산되었음.")
         
         // 앱 종료 동안 생성되었던 데이터 생성
         for _ in 1...blockCount {
@@ -97,7 +86,6 @@ extension HomeViewController {
         
         // MARK: - 트래킹 중 하루 지났을 경우
         if dayElapsed > 0 {
-            print("\(dayElapsed)일 지났음.")
             
             // 트래킹 보드 전부 초기화
             trackingBoardService.resetAllData()
@@ -168,7 +156,6 @@ extension HomeViewController {
         guard !UserDefaultsItem.shared.isPaused else {
             let elapsedSeconds = trackingData.calculateElapsedTimeSinceAppExit
             timerManager.pausedTime += elapsedSeconds
-            print("업데이트 된 일시정지 시간: \(timerManager.pausedTime)")
             
             // 만약 일시정지 된지 12시간이 지났다면, 트래킹 종료
             if elapsedSeconds >= 43200 {
@@ -193,8 +180,6 @@ extension HomeViewController {
             // 3500 = 3500 - 1800 * 1
             timerManager.currentTrackingSecond -= Float(trackingData.targetSecond) * Float(count)
             
-            print("백그라운드에 있을 동안 블럭이 \(count)개 생산되었음.")
-            
             // 백그라운드 데이터 생성
             for _ in 1...count {
                 
@@ -212,7 +197,6 @@ extension HomeViewController {
             // MARK: - 백그라운드에 있을 동안 하루가 지난 경우
             let dayElapsed = trackingData.calculateElapsedDaySinceAppExit
             if dayElapsed > 0 {
-                print("백그라운드에 있을 동안 \(dayElapsed)일이 지났음.")
                 
                 // 트래킹 보드 전부 초기화
                 trackingBoardService.resetAllData()
@@ -245,7 +229,6 @@ extension HomeViewController {
         
         // 시간 확인
         let elapsedSeconds = trackingData.calculateElapsedTimeSinceAppExit
-        print("백그라운드에서 지난 시간: \(elapsedSeconds)")
         
         // 시간 업데이트
         timerManager.totalTrackingSecond += elapsedSeconds

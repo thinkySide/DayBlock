@@ -25,7 +25,6 @@ final class SelectIconView: UIView {
     let iconCollectionView: UICollectionView = {
         let layout = UICollectionViewLayout()
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        // collection.backgroundColor = .red
         return collection
     }()
     

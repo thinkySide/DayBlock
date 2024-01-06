@@ -58,7 +58,6 @@ extension HomeViewController: UICollectionViewDataSource {
         // 셀 생성
         guard let cell = viewManager.blockCollectionView.dequeueReusableCell(
             withReuseIdentifier: Cell.block, for: indexPath) as? HomeBlockCollectionViewCell else {
-            print("HomeBlockCollectionViewCell 생성에 실패했습니다.")
             return UICollectionViewCell()
         }
         
@@ -122,16 +121,10 @@ extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         // 셀 생성
-        guard let cell = collectionView.cellForItem(at: indexPath) as? HomeBlockCollectionViewCell else {
-            print("HomeBlockCollectionViewCell 생성에 실패했습니다.")
-            return
-        }
+        guard let cell = collectionView.cellForItem(at: indexPath) as? HomeBlockCollectionViewCell else { return }
         
         // 현재 포커스 되어있는 블럭만 활성화
-        if indexPath.item != blockData.focusIndex() {
-            print("현재 포커스 되어 있지 않은 블럭은 선택할 수 없습니다.")
-            return
-        }
+        if indexPath.item != blockData.focusIndex() { return }
         
         // 블럭 토글 이벤트
         if cell.blockIcon.alpha == 0 { cell.reverseDirection(.front) }

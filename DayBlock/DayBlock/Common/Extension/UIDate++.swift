@@ -40,7 +40,6 @@ extension Date {
         let start = formatter.date(from: "\(dateString)-01")!
         let end = calendar.date(byAdding: .month, value: +1, to: start)!
         let result = calendar.date(byAdding: .day, value: -1, to: end)!
-        // print("result: \(formatter.string(from: result))")
         return result
     }
     
@@ -52,7 +51,6 @@ extension Date {
         dateString.removeLast(3)
         
         let start = formatter.date(from: "\(dateString)-01")!
-        print("result: \(formatter.string(from: start))")
         return start
     }
 }

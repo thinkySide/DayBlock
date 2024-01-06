@@ -112,7 +112,7 @@ final class TrackingCompleteView: UIView {
         let label = UILabel()
         label.text = "+"
         label.font = UIFont(name: Poppins.bold, size: 24)
-        label.textColor = Color.testBlue
+        label.textColor = Color.defaultBlue
         label.textAlignment = .left
         return label
     }()
@@ -144,7 +144,7 @@ final class TrackingCompleteView: UIView {
     
     let totalValue: UILabel = {
         let label = UILabel()
-        label.text = "0.0" // ⛳️
+        label.text = "0.0"
         label.font = UIFont(name: Poppins.bold, size: 20)
         label.textColor = Color.mainText
         label.textAlignment = .center
@@ -168,7 +168,7 @@ final class TrackingCompleteView: UIView {
     
     let todayValue: UILabel = {
         let label = UILabel()
-        label.text = "0.0" // ⛳️
+        label.text = "0.0"
         label.font = UIFont(name: Poppins.bold, size: 20)
         label.textColor = Color.mainText
         label.textAlignment = .center
@@ -228,6 +228,7 @@ final class TrackingCompleteView: UIView {
     
     /// 원 애니메이션을 시작합니다.
     func circleAnimation() {
+        
         // cornerRadius
         animationCircle.layer.cornerRadius = animationCircle.frame.width / 2
         
@@ -235,12 +236,14 @@ final class TrackingCompleteView: UIView {
         animationCircle.layer.zPosition = -1
         
         // 커지는 애니메이션
-        UIView.animate(withDuration: 0.8, delay: 0.0, options: [.curveEaseInOut]) {
-            
-            self.animationCircle.transform = CGAffineTransform(scaleX: 1000, y: 1000)
-            self.animationCircle.center = self.center
-        } completion: { _ in
-            self.checkAnimation()
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.8, delay: 0.0, options: [.curveEaseInOut]) {
+                
+                self.animationCircle.transform = CGAffineTransform(scaleX: 1000, y: 1000)
+                self.animationCircle.center = self.center
+            } completion: { _ in
+                self.checkAnimation()
+            }
         }
     }
     

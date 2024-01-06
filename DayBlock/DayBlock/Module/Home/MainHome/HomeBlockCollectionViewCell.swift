@@ -26,14 +26,14 @@ final class HomeBlockCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "+"
         label.font = UIFont(name: Poppins.bold, size: 18)
-        label.textColor = UIColor(rgb: 0x0076FF) // ⛳️
+        label.textColor = UIColor(rgb: 0x0076FF)
         label.textAlignment = .left
         return label
     }()
     
     let totalProductivityLabel: UILabel = {
         let label = UILabel()
-        label.text = "72.5" // ⛳️
+        label.text = "72.5"
         label.font = UIFont(name: Poppins.bold, size: 18)
         label.textColor = Color.mainText
         label.textAlignment = .left
@@ -42,7 +42,7 @@ final class HomeBlockCollectionViewCell: UICollectionViewCell {
     
     let blockColorTag: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(rgb: 0x0076FF) // ⛳️
+        view.backgroundColor = UIColor(rgb: 0x0076FF)
         view.clipsToBounds = true
         view.layer.cornerRadius = 9
         
@@ -54,7 +54,7 @@ final class HomeBlockCollectionViewCell: UICollectionViewCell {
     
     let blockIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(systemName: "book.closed.fill") // ⛳️
+        image.image = UIImage(systemName: "book.closed.fill")
         image.contentMode = .scaleAspectFit
         image.tintColor = Color.mainText
         return image
@@ -62,7 +62,7 @@ final class HomeBlockCollectionViewCell: UICollectionViewCell {
     
     let blockLabel: UILabel = {
         let label = UILabel()
-        label.text = "SwiftUI 강의" // ⛳️
+        label.text = "SwiftUI 강의"
         label.font = UIFont(name: Pretendard.bold, size: 17)
         label.textColor = Color.mainText
         label.textAlignment = .center
@@ -74,7 +74,7 @@ final class HomeBlockCollectionViewCell: UICollectionViewCell {
     
     let backTotalValue: UILabel = {
         let label = UILabel()
-        label.text = "0.0" // ⛳️
+        label.text = "0.0"
         label.font = UIFont(name: Poppins.bold, size: 20)
         label.textColor = Color.mainText
         label.textAlignment = .center
@@ -101,7 +101,7 @@ final class HomeBlockCollectionViewCell: UICollectionViewCell {
     
     let backTodayValue: UILabel = {
         let label = UILabel()
-        label.text = "0.0" // ⛳️
+        label.text = "0.0"
         label.font = UIFont(name: Poppins.bold, size: 20)
         label.textColor = Color.mainText
         label.textAlignment = .center
@@ -121,7 +121,7 @@ final class HomeBlockCollectionViewCell: UICollectionViewCell {
     
     lazy var backTrashIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(systemName: "trash.circle.fill") // ⛳️
+        image.image = UIImage(systemName: "trash.circle.fill")
         image.contentMode = .scaleAspectFit
         image.tintColor = UIColor(rgb: 0xD23939)
         image.alpha = 0
@@ -135,7 +135,7 @@ final class HomeBlockCollectionViewCell: UICollectionViewCell {
     
     lazy var backEditIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(systemName: "pencil.circle.fill") // ⛳️
+        image.image = UIImage(systemName: "pencil.circle.fill")
         image.contentMode = .scaleAspectFit
         image.tintColor = UIColor(rgb: 0x525252)
         image.alpha = 0

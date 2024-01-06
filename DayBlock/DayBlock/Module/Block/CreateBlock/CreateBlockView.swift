@@ -23,7 +23,7 @@ final class CreateBlockView: UIView {
     
     private let blockPreviewColorTag: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemBlue // ⛳️
+        view.backgroundColor = .systemBlue
         view.clipsToBounds = true
         view.layer.cornerRadius = 9
         
@@ -42,7 +42,7 @@ final class CreateBlockView: UIView {
     
     private let blockTaskLabel: UILabel = {
         let label = UILabel()
-        label.text = "블럭 쌓기" // ⛳️
+        label.text = "블럭 쌓기"
         label.font = UIFont(name: Pretendard.bold, size: 17)
         label.textColor = Color.mainText
         label.textAlignment = .center

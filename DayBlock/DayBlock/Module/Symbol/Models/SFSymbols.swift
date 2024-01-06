@@ -47,6 +47,7 @@ let objectSymbols = [
     "theatermask.and.paintbrush.fill",
     "puzzlepiece.extension.fill",
     "puzzlepiece.fill",
+    "party.popper.fill",
     
     // 일반 도구
     "beach.umbrella.fill",

@@ -31,7 +31,7 @@ final class BottomModal: UIPresentationController {
         backgroundView = UIView(frame: .zero)
         backgroundView?.backgroundColor = .black
         
-        /// 상위 생성자 호출
+        // 상위 생성자 호출
         super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
         
         tap = UITapGestureRecognizer(target: self, action: #selector(dismissController))
@@ -39,8 +39,8 @@ final class BottomModal: UIPresentationController {
         backgroundView?.isUserInteractionEnabled = true
         backgroundView?.addGestureRecognizer(tap)
     }
-    
-    /// present 할 프레임 설정
+
+    // present 할 프레임 설정
     override var frameOfPresentedViewInContainerView: CGRect {
         let screenBounds = UIScreen.main.bounds
         let origin = CGPoint(x: .zero, y: screenBounds.height * 0.4)
@@ -48,12 +48,12 @@ final class BottomModal: UIPresentationController {
         return CGRect(origin: origin, size: size)
     }
     
-    /// dismiss 메서드
+    // dismiss 메서드
     @objc func dismissController(gesture: UITapGestureRecognizer) {
         presentingViewController.dismiss(animated: true)
     }
     
-    /// present 실행 준비
+    // present 실행 준비
     override func presentationTransitionWillBegin() {
         guard let view = backgroundView,
               let containerBound = containerView?.bounds else { return }
@@ -70,7 +70,7 @@ final class BottomModal: UIPresentationController {
         coordinator.animate { _ in view.alpha = 0.4 }
     }
     
-    /// dismiss 실행 준비
+    // dismiss 실행 준비
     override func dismissalTransitionWillBegin() {
         guard let blurView = backgroundView else { return }
         guard let coordinator = presentedViewController.transitionCoordinator else {

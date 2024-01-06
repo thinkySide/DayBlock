@@ -46,7 +46,7 @@ extension GroupDataStore {
             try context.save()
             fetchRequestEntity()
         } catch {
-            print(error.localizedDescription)
+            fatalError(error.localizedDescription)
         }
     }
     
@@ -60,7 +60,7 @@ extension GroupDataStore {
         do {
             entities = try context.fetch(fetchReQuest)
         } catch {
-            print(error.localizedDescription)
+            fatalError(error.localizedDescription)
         }
     }
     
@@ -77,7 +77,7 @@ extension GroupDataStore {
             
             // 기본 블럭 생성
             let newBlock = Block(context: context)
-            newBlock.taskLabel = "첫번째 블럭 만들기"
+            newBlock.taskLabel = "튜토리얼 블럭"
             newBlock.todayOutput = 0.0
             newBlock.icon = "party.popper.fill"
             newBlock.order = 0
@@ -112,20 +112,17 @@ extension GroupDataStore {
         // 2. 코어데이터에서 해당 날짜와 일치하는 데이터 반환
         for group in entities {
             guard let blockList = group.blockList?.array as? [Block] else {
-                print("블럭 리스트 반환 실패")
                 return []
             }
             
             for block in blockList {
                 guard let trackingDateList = block.trackingDateList?.array as? [TrackingDate] else {
-                    print("트래킹 날짜 리스트 반환 실패")
                     return []
                 }
                 
                 for trackingDate in trackingDateList {
                     if trackingDate.year == year && trackingDate.month == month {
                         guard let trackingTimeList = trackingDate.trackingTimeList?.array as? [TrackingTime] else {
-                            print("트래킹 시간 리스트 반환 실패")
                             return []
                         }
                         
@@ -145,47 +142,6 @@ extension GroupDataStore {
         }
         
         return items
-    }
-    
-    /// 전체 코어데이터를 프린트합니다.
-    func printCoreData() {
-        
-        // 1. 그룹 엔티티
-        for group in entities {
-            print("[\(group.name)] 그룹")
-            
-            // 2. 블럭 엔티티
-            guard let blockList = group.blockList?.array as? [Block] else {
-                print("블럭 엔티티 반환 실패")
-                return
-            }
-            
-            for block in blockList {
-                print("  ㄴ[\(block.taskLabel)] 블럭")
-                
-                // 3. 트래킹 날짜 엔티티
-                guard let trackingDateList = block.trackingDateList?.array as? [TrackingDate] else {
-                    print("트래킹 날짜 엔티티 반환 실패")
-                    return
-                }
-                
-                for trackingDate in trackingDateList {
-                    print("    ㄴ\(trackingDate.year)년 \(trackingDate.month)월 \(trackingDate.day)일(\(trackingDate.dayOfWeek))")
-                    
-                    // 4. 트래킹 시간 엔티티
-                    guard let trackingTimeList = trackingDate.trackingTimeList?.array as? [TrackingTime] else {
-                        print("트래킹 시간 엔티티 반환 실패")
-                        return
-                    }
-                    
-                    for trackingTime in trackingTimeList {
-                        print("      ㄴ\(trackingTime.startTime)~\(String(describing: trackingTime.endTime))")
-                    }
-                }
-            }
-            
-            print("\n----------------------------------\n")
-        }
     }
 }
 

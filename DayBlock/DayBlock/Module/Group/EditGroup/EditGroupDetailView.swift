@@ -56,7 +56,6 @@ final class EditGroupDetailView: UIView {
     // MARK: - Event Method
     
     @objc func createBarButtonItemTapped() {
-        print(#function)
         delegate?.editGroup()
     }
     

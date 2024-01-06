@@ -39,10 +39,7 @@ final class DeveloperInfoViewController: UIViewController {
         
         // 인터넷 창 열기
         guard let urlString = viewManager.githubValue.text,
-              let url = URL(string: urlString) else {
-            print("URL 로드에 실패했습니다.")
-            return
-        }
+              let url = URL(string: urlString) else { return }
         
         UIApplication.shared.open(url)
     }

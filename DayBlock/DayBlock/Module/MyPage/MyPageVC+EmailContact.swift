@@ -32,7 +32,6 @@ extension MyPageViewController: MFMailComposeViewControllerDelegate {
             emailVC.setMessageBody(mailBody, isHTML: false)
             present(emailVC, animated: true)
         } else {
-            print("메시지 앱 사용 불가")
             showToast(toast: viewManager.invalidMailToastView, isActive: true)
             Vibration.error.vibrate()
         }

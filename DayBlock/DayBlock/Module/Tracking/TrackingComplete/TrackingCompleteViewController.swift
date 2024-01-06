@@ -113,6 +113,9 @@ final class TrackingCompleteViewController: UIViewController {
                 TrackingBoardService.shared.updateTrackingBoard(to: Date())
             }
             viewManager.trackingBoard.updateBoard()
+            
+            // 버튼 라벨 업데이트
+            viewManager.backToHomeButton.setTitle("데이블럭 시작하기", for: .normal)
         }
         
         // 전체 생산량
@@ -228,7 +231,11 @@ final class TrackingCompleteViewController: UIViewController {
         
         // 온보딩 모드
         if mode == .onboarding {
-            NotificationCenter.default.post(name: .finishOnboarding, object: self, userInfo: nil)
+            dismiss(animated: true)
+            
+            // 루트 뷰 컨트롤러 변경
+            let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+            sceneDelegate?.changeRootViewControllerToHome()
             return
         }
         

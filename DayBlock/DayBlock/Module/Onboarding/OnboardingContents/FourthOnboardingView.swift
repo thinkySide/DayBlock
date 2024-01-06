@@ -30,7 +30,7 @@ final class FourthOnboardingView: UIView {
         block.colorTag.backgroundColor = Color.mainText
         block.plus.textColor = Color.mainText
         block.outputLabel.text = "0.5"
-        block.taskLabel.text = "첫번째 블럭 만들기"
+        block.taskLabel.text = "튜토리얼 블럭"
         block.icon.image = UIImage(systemName: "party.popper.fill")
         block.backgroundColor = Color.mainText.withAlphaComponent(0.2)
         return block
@@ -38,15 +38,25 @@ final class FourthOnboardingView: UIView {
     
     let subLabel: UILabel = {
         let label = UILabel()
-        let text = "“블럭을 길게 눌러 첫 생산을 완료해요”"
+        let text = "“블럭을 길-게 눌러 첫 생산을 완료해요”"
         label.font = UIFont(name: Pretendard.medium, size: 15)
         label.textColor = UIColor(rgb: 0x828282)
         label.textAlignment = .center
         label.text = text
         
-        label.asFontColor(targetString: "블럭을 길게 눌러",
+        label.asFontColor(targetString: "블럭을 길-게 눌러",
                           font: UIFont(name: Pretendard.bold, size: 15),
                           color: UIColor(rgb: 0x323232), lineSpacing: 0, alignment: .center)
+        return label
+    }()
+    
+    let tutorialLabel: UILabel = {
+        let label = UILabel()
+        let text = "* 튜토리얼을 위해 30분짜리 블럭을 미리 생산해뒀어요!"
+        label.font = UIFont(name: Pretendard.medium, size: 13)
+        label.textColor = UIColor(rgb: 0xAAAAAA)
+        label.textAlignment = .center
+        label.text = text
         return label
     }()
     
@@ -62,7 +72,7 @@ final class FourthOnboardingView: UIView {
     }
     
     private func setupAutoLayout() {
-        [mainLabel, trackingBlock, subLabel].forEach {
+        [mainLabel, trackingBlock, subLabel, tutorialLabel].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -80,7 +90,10 @@ final class FourthOnboardingView: UIView {
                 trackingBlock.centerXAnchor.constraint(equalTo: centerXAnchor),
                 
                 subLabel.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 256),
-                subLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+                subLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+                
+                tutorialLabel.topAnchor.constraint(equalTo: subLabel.bottomAnchor, constant: 12),
+                tutorialLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
             ])
         }
         
@@ -94,7 +107,10 @@ final class FourthOnboardingView: UIView {
                 trackingBlock.centerXAnchor.constraint(equalTo: centerXAnchor),
                 
                 subLabel.topAnchor.constraint(equalTo: trackingBlock.bottomAnchor, constant: 52),
-                subLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+                subLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+                
+                tutorialLabel.topAnchor.constraint(equalTo: subLabel.bottomAnchor, constant: 12),
+                tutorialLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
             ])
         }
     }

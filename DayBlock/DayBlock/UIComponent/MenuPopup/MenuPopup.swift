@@ -30,7 +30,6 @@ final class MenuPopup: UIView {
     init(frame: CGRect, number: Number) {
         super.init(frame: frame)
         
-        // backgroundColor = UIColor(rgb: 0xF4F5F7)
         backgroundColor = .white
         
         // CornerRadius

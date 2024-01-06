@@ -66,12 +66,6 @@ final class ManageGroupViewController: UIViewController {
         navigationController?.navigationBar
             .titleTextAttributes = [.font: UIFont(name: Pretendard.semiBold, size: 16)!]
         
-        // Dismiss 버튼
-        // navigationItem.leftBarButtonItem = viewManager.backBarButtonItem
-        
-        // 그룹 추가 버튼
-        // navigationItem.rightBarButtonItem = viewManager.addBarButtonItem
-        
         // 뒤로가기 버튼(다음 화면)
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         backBarButtonItem.tintColor = Color.mainText

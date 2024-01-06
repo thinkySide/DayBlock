@@ -58,10 +58,7 @@ extension OpenLicenseViewController: UITableViewDataSource & UITableViewDelegate
         tableView.deselectRow(at: indexPath, animated: true)
         
         // 인터넷 창 열기
-        guard let url = openLicenseData.fetchURL(to: indexPath.row) else {
-            print("URL 로드에 실패했습니다.")
-            return
-        }
+        guard let url = openLicenseData.fetchURL(to: indexPath.row) else { return }
         
         UIApplication.shared.open(url)
     }
