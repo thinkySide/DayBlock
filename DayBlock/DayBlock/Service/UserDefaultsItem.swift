@@ -39,6 +39,7 @@ final class UserDefaultsItem {
         // 툴팁 최초 실행용
         static let isHomeFirst = "isHomeFirst"
         static let isTrackingFirst = "isTrackingFirst"
+        static let isCalendarFirst = "isCalendarFirst"
     }
     
     // MARK: - Get UserDefaults
@@ -103,6 +104,11 @@ final class UserDefaultsItem {
         UserDefaults.standard.object(forKey: UserDefaultsKey.isTrackingFirst) as? Bool ?? true
     }
     
+    /// 트래킹이 처음 실행되었는지 확인합니다.
+    var isCalendarFirst: Bool {
+        UserDefaults.standard.object(forKey: UserDefaultsKey.isCalendarFirst) as? Bool ?? true
+    }
+    
     // MARK: - Set UserDefaults
     
     /// 그룹 인덱스를 저장합니다.
@@ -163,5 +169,10 @@ final class UserDefaultsItem {
     /// 트래킹이 최초로 실행되었는지 확인하는 변수를 저장합니다.
     func setIsTrackingFirst(to bool: Bool) {
         UserDefaults.standard.set(bool, forKey: UserDefaultsKey.isTrackingFirst)
+    }
+    
+    /// 트래킹이 최초로 실행되었는지 확인하는 변수를 저장합니다.
+    func setIsCalendarFirst(to bool: Bool) {
+        UserDefaults.standard.set(bool, forKey: UserDefaultsKey.isCalendarFirst)
     }
 }

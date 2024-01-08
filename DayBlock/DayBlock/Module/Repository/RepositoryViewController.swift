@@ -20,6 +20,9 @@ final class RepositoryViewController: UIViewController {
     /// TrackingCompleteView 호출했는지 안했는지 분기 처리용 변수
     var isCompleteViewTapped = false
     
+    /// 기본 스크롤 저장값
+    lazy var initialScrollYOffset = viewManager.scrollView.contentOffset.y
+    
     // MARK: - ViewController LifeCycle
     override func loadView() {
         view = viewManager
@@ -29,9 +32,11 @@ final class RepositoryViewController: UIViewController {
         super.viewDidLoad()
         setupNavigation()
         setupCalendar()
+        setupDelegate()
         setupTableView()
         setupEvent()
         setupShareTotalValue(date: Date())
+        setupFirstToolTip()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,6 +59,20 @@ final class RepositoryViewController: UIViewController {
     // MARK: - Setup Method
     private func setupNavigation() {
         configureBackButton()
+        navigationItem.rightBarButtonItem = viewManager.helpBarButtonItem
+        
+        // 네비게이션바의 Appearance를 설정
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.configureWithTransparentBackground()
+        navigationController?.navigationBar.tintColor = .white
+        navigationItem.scrollEdgeAppearance = navigationBarAppearance
+        navigationItem.standardAppearance = navigationBarAppearance
+        navigationItem.compactAppearance = navigationBarAppearance
+        navigationController?.setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    private func setupDelegate() {
+        viewManager.scrollView.delegate = self
     }
     
     private func setupCalendar() {
@@ -74,12 +93,35 @@ final class RepositoryViewController: UIViewController {
     }
     
     private func setupEvent() {
+        addTapGesture(
+            viewManager.helpBarButtonItem,
+            target: self,
+            action: #selector(helpBarButtonItemTapped)
+        )
+        
         calendarView.todayButton.addTarget(self, action: #selector(todayButtonTapped), for: .touchUpInside)
         calendarView.previousButton.addTarget(self, action: #selector(previousButtonTapped), for: .touchUpInside)
         calendarView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
     
+    private func setupFirstToolTip() {
+        if UserDefaultsItem.shared.isCalendarFirst {
+            DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                self.helpBarButtonItemTapped()
+                UserDefaultsItem.shared.setIsCalendarFirst(to: false)
+            }
+        }
+    }
+    
     // MARK: - Event Method
+    
+    /// 도움말 BarButtonItem을 탭했을 때 호출되는 메서드입니다.
+    @objc func helpBarButtonItemTapped() {
+        let toolTipVC = UINavigationController(rootViewController: RepositoryToolTipViewController())
+        toolTipVC.modalPresentationStyle = .overFullScreen
+        toolTipVC.modalTransitionStyle = .crossDissolve
+        present(toolTipVC, animated: true)
+    }
     
     /// today 버튼 탭 시 호출되는 메서드입니다.
     @objc private func todayButtonTapped() {
@@ -182,5 +224,17 @@ extension RepositoryViewController: FSCalendarDataSource & FSCalendarDelegate {
             calendar.heightAnchor.constraint(equalToConstant: bounds.height)
         ])
         self.viewManager.layoutIfNeeded()
+    }
+}
+
+// MARK: - ScrollViewDelegate
+extension RepositoryViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        // 기본 Y값보다 커지면 helpBarButtonItem 숨기기
+        let alphaValue: CGFloat = scrollView.contentOffset.y > initialScrollYOffset ? 0 : 1
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
+            self.viewManager.helpBarButtonItem.customView?.alpha = alphaValue
+        }
     }
 }

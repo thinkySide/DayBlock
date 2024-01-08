@@ -9,6 +9,11 @@ import UIKit
 
 final class ToolTip: UIView {
     
+    enum TipDirection {
+        case top
+        case bottom
+    }
+    
     let label: UILabel = {
         let label = UILabel()
         label.text = "툴팁입니다"
@@ -19,7 +24,7 @@ final class ToolTip: UIView {
         return label
     }()
     
-    init(text: String, tipStartX: CGFloat) {
+    init(text: String, tipDirection: TipDirection = .top, tipStartX: CGFloat) {
         super.init(frame: .zero)
         
         // 기본값 숨기기
@@ -37,10 +42,19 @@ final class ToolTip: UIView {
         let tipWidthCenter = tipWidth / 2.0
         let endXWidth = tipStartX + tipWidth
         
-        path.move(to: CGPoint(x: tipStartX, y: 0))
-        path.addLine(to: CGPoint(x: tipStartX + tipWidthCenter, y: -tipHeight))
-        path.addLine(to: CGPoint(x: endXWidth, y: 0))
-        path.addLine(to: CGPoint(x: 0, y: 0))
+        if tipDirection == .top {
+            path.move(to: CGPoint(x: tipStartX, y: 0))
+            path.addLine(to: CGPoint(x: tipStartX + tipWidthCenter, y: -tipHeight))
+            path.addLine(to: CGPoint(x: endXWidth, y: 0))
+            path.addLine(to: CGPoint(x: 0, y: 0))
+        }
+        
+        else if tipDirection == .bottom {
+            path.move(to: CGPoint(x: tipStartX, y: 30))
+            path.addLine(to: CGPoint(x: tipStartX + tipWidthCenter, y: 30 + tipHeight))
+            path.addLine(to: CGPoint(x: endXWidth, y: 30))
+            path.addLine(to: CGPoint(x: 0, y: 0))
+        }
         
         let shape = CAShapeLayer()
         shape.path = path
@@ -54,8 +68,8 @@ final class ToolTip: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            self.heightAnchor.constraint(equalToConstant: 30),
+            label.centerYAnchor.constraint(equalTo: centerYAnchor),
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
         ])

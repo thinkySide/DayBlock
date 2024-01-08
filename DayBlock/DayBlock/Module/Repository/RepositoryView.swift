@@ -21,6 +21,15 @@ final class RepositoryView: UIView {
         return view
     }()
     
+    let helpBarButtonItem: UIBarButtonItem = {
+        let button = UIButton()
+        button.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        button.setImage(UIImage(named: Icon.help), for: .normal)
+        button.tintColor = Color.contentsBlock
+        let item = UIBarButtonItem(customView: button)
+        return item
+    }()
+    
     let calendarView = CalendarView()
     let timeLineView = TimeLineView()
     

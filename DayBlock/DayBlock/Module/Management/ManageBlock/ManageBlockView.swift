@@ -20,7 +20,6 @@ final class ManageBlockView: UIView {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.separatorStyle = .none
         tableView.backgroundColor = .white
-        tableView.showsVerticalScrollIndicator = false
         return tableView
     }()
     

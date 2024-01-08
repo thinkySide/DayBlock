@@ -24,7 +24,6 @@ extension RepositoryViewController {
         let shareValue = Int(round(Double(totalValue)! / 0.5 * 100 / 48))
         timeLineView.shareTotalInfo.totalValue.text = "\(totalValue)"
         timeLineView.shareTotalInfo.shareValue.text = "\(shareValue)%"
-        
     }
     
     /// 날짜가 변경됨에 따라 달력 뷰(컬렉션뷰) 및 테이블 뷰를 업데이트 합니다.

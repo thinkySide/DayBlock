@@ -116,7 +116,6 @@ let objectSymbols = [
     // 음악
     "radio.fill",
     "headphones",
-    "radio.fill",
     "pianokeys.inverse",
     "guitars.fill",
     
@@ -375,7 +374,6 @@ let etcSymbols = [
     "suit.diamond.fill",
     "suit.spade.fill",
     "star.fill",
-    "suit.club.fill",
     "staroflife.fill",
     "shield.fill",
     

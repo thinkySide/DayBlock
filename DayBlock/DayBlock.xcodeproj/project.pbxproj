@@ -161,6 +161,7 @@
 		07C044152B3DB765005A816A /* HomeTrackingToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C044142B3DB765005A816A /* HomeTrackingToolTip.swift */; };
 		07C0BDB42ABC452600D5E779 /* TrackingDate+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDB02ABC452600D5E779 /* TrackingDate+CoreDataClass.swift */; };
 		07C0BDB52ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDB12ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift */; };
+		07C295C52B49AAB000EE6BF1 /* RepositoryToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C295C42B49AAB000EE6BF1 /* RepositoryToolTip.swift */; };
 		07D1F4AB2B36FA5800BFE90E /* HomeVC+UpdateUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D1F4AA2B36FA5800BFE90E /* HomeVC+UpdateUI.swift */; };
 		07D1F5282B3BEE6F00BFE90E /* HomeVC+Relaunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D1F5272B3BEE6F00BFE90E /* HomeVC+Relaunch.swift */; };
 		07D1F52A2B3BF0CC00BFE90E /* UserDefaultsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D1F5292B3BF0CC00BFE90E /* UserDefaultsItem.swift */; };
@@ -333,6 +334,7 @@
 		07C044142B3DB765005A816A /* HomeTrackingToolTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTrackingToolTip.swift; sourceTree = "<group>"; };
 		07C0BDB02ABC452600D5E779 /* TrackingDate+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingDate+CoreDataClass.swift"; sourceTree = "<group>"; };
 		07C0BDB12ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingDate+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		07C295C42B49AAB000EE6BF1 /* RepositoryToolTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryToolTip.swift; sourceTree = "<group>"; };
 		07D1F4AA2B36FA5800BFE90E /* HomeVC+UpdateUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+UpdateUI.swift"; sourceTree = "<group>"; };
 		07D1F5272B3BEE6F00BFE90E /* HomeVC+Relaunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+Relaunch.swift"; sourceTree = "<group>"; };
 		07D1F5292B3BF0CC00BFE90E /* UserDefaultsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsItem.swift; sourceTree = "<group>"; };
@@ -552,7 +554,7 @@
 			path = Management;
 			sourceTree = "<group>";
 		};
-		076248AA2AB2DB2A000A8664 /* Calendar */ = {
+		076248AA2AB2DB2A000A8664 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
 				0775E30C2B1F22EF00CC594D /* RepositoryItem.swift */,
@@ -560,9 +562,10 @@
 				0756BE872AF8DAB4009CBE46 /* RepositoryView.swift */,
 				078C50F729D9BBFE00F239BA /* RepositoryViewController.swift */,
 				07174A172B1F4C6500B7EC69 /* RepositoryVC+TableView.swift */,
+				07C295C42B49AAB000EE6BF1 /* RepositoryToolTip.swift */,
 				0756BE862AF8DA8D009CBE46 /* Calendar */,
 			);
-			path = Calendar;
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		076248AC2AB2DC1E000A8664 /* Button */ = {
@@ -742,7 +745,7 @@
 				076248A62AB2DA3D000A8664 /* Color */,
 				076248A72AB2DA63000A8664 /* Symbol */,
 				076248A92AB2DB0F000A8664 /* Management */,
-				076248AA2AB2DB2A000A8664 /* Calendar */,
+				076248AA2AB2DB2A000A8664 /* Repository */,
 				070A902A2B283FE800BBD147 /* MyPage */,
 				0736AC512B298FDB00D90AB2 /* Setting */,
 			);
@@ -1124,6 +1127,7 @@
 				0775E30D2B1F22EF00CC594D /* RepositoryItem.swift in Sources */,
 				07454E0F29EBE50500B3458D /* BottomModal.swift in Sources */,
 				078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */,
+				07C295C52B49AAB000EE6BF1 /* RepositoryToolTip.swift in Sources */,
 				0736AC552B299D6E00D90AB2 /* InfoCellView.swift in Sources */,
 				0710AD002B3C827D00BAEAD4 /* Int++.swift in Sources */,
 				0710ACDF2B3C3C6000BAEAD4 /* TrackingBoardBlockInfo.swift in Sources */,

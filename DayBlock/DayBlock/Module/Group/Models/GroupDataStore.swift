@@ -25,7 +25,7 @@ final class GroupDataStore {
     private var entities: [Group] = []
     
     /// 리모트 그룹 (그룹 생성, 편집 용도의 객체)
-    private var remoteObject = RemoteGroup(name: "", color: 0x76BB40, list: [])
+    private var remoteObject = RemoteGroup(name: "", color: 0x323232, list: [])
     
     /// 현재 포커스된 그룹 인덱스
     private var focusIndexValue = 0
