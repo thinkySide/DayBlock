@@ -2,12 +2,13 @@
 //  TrackingDate+CoreDataProperties.swift
 //  DayBlock
 //
-//  Created by 김민준 on 2023/09/21.
+//  Created by 김민준 on 1/8/24.
 //
 //
 
 import Foundation
 import CoreData
+
 
 extension TrackingDate {
 
@@ -15,10 +16,11 @@ extension TrackingDate {
         return NSFetchRequest<TrackingDate>(entityName: "TrackingDate")
     }
 
-    @NSManaged public var year: String
-    @NSManaged public var month: String
     @NSManaged public var day: String
     @NSManaged public var dayOfWeek: String
+    @NSManaged public var month: String
+    @NSManaged public var year: String
+    @NSManaged public var memo: String?
     @NSManaged public var superBlock: Block
     @NSManaged public var trackingTimeList: NSOrderedSet?
 
@@ -59,6 +61,4 @@ extension TrackingDate {
 
 }
 
-extension TrackingDate: Identifiable {
-
-}
+extension TrackingDate: Identifiable {}

@@ -44,6 +44,7 @@ final class TrackingCompleteViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupEvent()
+        setupKeyboard()
         
         // 캘린더 모드라면 바로 정보 표시
         if mode == .calendar {
@@ -60,6 +61,7 @@ final class TrackingCompleteViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         TrackingBoardService.shared.resetAllData()
+        view.endEditing(true)
     }
     
     // MARK: - Setup Method
@@ -69,12 +71,18 @@ final class TrackingCompleteViewController: UIViewController {
         // 캘린더 모드라면 해당 UI 업데이트 사용 X
         if mode == .calendar { return }
         
+        // 네비게이션 아이템 설정
+        navigationItem.rightBarButtonItem = viewManager.finishBarButtonItem
+        
         // 애니메이션 컬러
         viewManager.animationCircle.backgroundColor = groupData.focusColor()
         
         // 아이콘
         viewManager.iconBlock.backgroundColor = groupData.focusColor()
         viewManager.iconBlock.symbol.image = UIImage(systemName: blockData.focusEntity().icon)
+        
+        // 그룹명
+        viewManager.groupLabel.text = groupData.focusEntity().name
         
         // 작업명
         viewManager.taskLabel.text = blockData.focusEntity().taskLabel
@@ -113,16 +121,7 @@ final class TrackingCompleteViewController: UIViewController {
                 TrackingBoardService.shared.updateTrackingBoard(to: Date())
             }
             viewManager.trackingBoard.updateBoard()
-            
-            // 버튼 라벨 업데이트
-            viewManager.backToHomeButton.setTitle("데이블럭 시작하기", for: .normal)
         }
-        
-        // 전체 생산량
-        viewManager.totalValue.text = trackingData.totalOutput(blockData.focusEntity())
-        
-        // 오늘 생산량
-        viewManager.todayValue.text = trackingData.todayOutput(blockData.focusEntity())
     }
     
     /// 캘린더 모드에서의 UI를 설정합니다.
@@ -134,20 +133,12 @@ final class TrackingCompleteViewController: UIViewController {
         // 네비게이션 아이템 추가
         navigationItem.rightBarButtonItem = viewManager.menuBarButtonItem
         
-        // AutoLayout
-        let deviceHeight = UIScreen.main.deviceHeight
-        var topConstant: CGFloat = 0
-        switch deviceHeight {
-        case .small: topConstant = 72
-        case .middle: topConstant = 96
-        case .large: topConstant = 168
-        }
-
-        viewManager.topConstraint.constant = topConstant
-        
         // 아이콘
         viewManager.iconBlock.backgroundColor = item.groupColor.uicolor
         viewManager.iconBlock.symbol.image = UIImage(systemName: item.blockIcon)
+        
+        // 그룹 라벨
+        viewManager.groupLabel.text = item.groupName
         
         // 작업명
         viewManager.taskLabel.text = item.blockTaskLabel
@@ -168,10 +159,11 @@ final class TrackingCompleteViewController: UIViewController {
         TrackingBoardService.shared.stopAllAnimation()
         viewManager.trackingBoard.updateBoard()
         
-        // total, today, 버튼 숨기기
-        [viewManager.totalValue, viewManager.totalLabel,
-         viewManager.todayValue, viewManager.todayLabel,
-         viewManager.bottomSeparator, viewManager.backToHomeButton].forEach { $0.isHidden = true }
+        // 메모
+        let memoTextView = viewManager.memoTextView
+        if !memoTextView.text.isEmpty { viewManager.memoPlaceHolder.alpha = 0 }
+        memoTextView.isEditable = false
+        memoTextView.text = item.memo
     }
     
     private func setupEvent() {
@@ -181,10 +173,24 @@ final class TrackingCompleteViewController: UIViewController {
         viewManager.menuBarButtonItem.target = self
         viewManager.menuBarButtonItem.action = #selector(menuBarButtonItemTapped)
         
-        let deleteTrackingGesture = UITapGestureRecognizer(target: self, action: #selector(deleteTrackingItemTapped))
-        viewManager.customMenu.firstItem.addGestureRecognizer(deleteTrackingGesture)
+        viewManager.finishBarButtonItem.target = self
+        viewManager.finishBarButtonItem.action = #selector(finishBarButtonItemTapped)
         
-        viewManager.backToHomeButton.addTarget(self, action: #selector(backToHomeButtonTapped), for: .touchUpInside)
+        viewManager.saveBarButtonItem.target = self
+        viewManager.saveBarButtonItem.action = #selector(saveBarButtonItemTapped)
+        
+        let editMemoGesture = UITapGestureRecognizer(target: self, action: #selector(editMemoItemTapped))
+        viewManager.customMenu.firstItem.addGestureRecognizer(editMemoGesture)
+        
+        let deleteTrackingGesture = UITapGestureRecognizer(target: self, action: #selector(deleteTrackingItemTapped))
+        viewManager.customMenu.secondItem.addGestureRecognizer(deleteTrackingGesture)
+    }
+    
+    private func setupKeyboard() {
+        addHideKeyboardGesture()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+
     }
     
     // MARK: - Event Method
@@ -197,6 +203,66 @@ final class TrackingCompleteViewController: UIViewController {
     /// 메뉴 BarButtonItem을 탭 했을 때 호출되는 메서드입니다.
     @objc func menuBarButtonItemTapped() {
         viewManager.toggleMenu()
+    }
+    
+    /// 트래킹 완료 BarButtonItem을 탭 했을 때 호출되는 메서드입니다.
+    @objc func finishBarButtonItemTapped() {
+        
+        // 키보드 내리기
+        view.endEditing(true)
+        
+        // 메모 코어데이터 저장
+        trackingData.focusDate().memo = viewManager.memoTextView.text
+        GroupDataStore.shared.saveContext()
+        
+        // 트래킹 모드
+        if mode == .tracking {
+            delegate?.trackingCompleteVC!(backToHomeButtonTapped: self)
+            dismiss(animated: true)
+            return
+        }
+        
+        // 온보딩 모드
+        else if mode == .onboarding {
+            dismiss(animated: true)
+            
+            // 루트 뷰 컨트롤러 변경
+            let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+            sceneDelegate?.changeRootViewControllerToHome()
+            return
+        }
+    }
+    
+    /// 메모 저장 BarButtonItem을 탭 했을 때 호출되는 메서드입니다.
+    @objc func saveBarButtonItemTapped() {
+        
+        // 키보드 내리기
+        view.endEditing(true)
+        
+        // TextView 편집 불가 설정
+        viewManager.memoTextView.isEditable = false
+        
+        // 메뉴 아이템 변경
+        navigationItem.rightBarButtonItem = viewManager.menuBarButtonItem
+        
+        // 코어데이터 저장
+        
+    }
+    
+    /// 메모 편집 메뉴 아이템을 탭 했을 때 호출되는 메서드입니다.
+    @objc func editMemoItemTapped() {
+        
+        // 메뉴 닫기
+        viewManager.toggleMenu()
+        
+        // 텍스트뷰 메모 편집 허용
+        viewManager.memoTextView.isEditable = true
+        
+        // 키보드 올라오기
+        viewManager.memoTextView.becomeFirstResponder()
+        
+        // 바 버튼 아이템 변경
+        navigationItem.rightBarButtonItem = viewManager.saveBarButtonItem
     }
     
     /// 트래킹 삭제 메뉴 아이템을 탭 했을 때 호출되는 메서드입니다.
@@ -218,32 +284,34 @@ final class TrackingCompleteViewController: UIViewController {
         
         self.present(deletePopup, animated: true)
     }
+}
+
+// MARK: - Keyboard
+extension TrackingCompleteViewController {
+
+    /// 키보드가 숨겨질 때 호출되는 메서드입니다.
+    @objc func keyboardWillHide(_ sender: Notification) {
+        viewManager.configurePlaceholder()
+        if view.frame.origin.y != 0 {
+            view.frame.origin.y = 0
+        }
+    }
     
-    /// 홈 화면으로 돌아가기 버튼 탭 시 호출되는 메서드입니다.
-    @objc func backToHomeButtonTapped() {
+    /// 키보드가 변경될 때 호출되는 메서드입니다.
+    @objc func keyboardWillChange(_ sender: Notification) {
         
-        // 트래킹 모드
-        if mode == .tracking {
-            delegate?.trackingCompleteVC!(backToHomeButtonTapped: self)
-            dismiss(animated: true)
-            return
-        }
+        // 키보드 프레임
+        guard let keyboardFrame = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         
-        // 온보딩 모드
-        if mode == .onboarding {
-            dismiss(animated: true)
-            
-            // 루트 뷰 컨트롤러 변경
-            let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
-            sceneDelegate?.changeRootViewControllerToHome()
-            return
-        }
+        // 키보드값 초기화
+        view.frame.origin.y = 0
         
-        // 캘린더 모드
-        if mode == .calendar {
-            dismiss(animated: true)
-            return
-        }
+        // 키보드값 다시 돌리기
+        let keyboardHeight = keyboardFrame.cgRectValue.height
+        view.frame.origin.y -= keyboardHeight
+        
+        // Placeholder 가리기
+        viewManager.memoPlaceHolder.alpha = 0
     }
 }
 

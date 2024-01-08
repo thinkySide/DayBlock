@@ -14,6 +14,8 @@ struct RepositoryItem {
     let blockTaskLabel: String
     let blockIcon: String
     
+    let memo: String?
+    
     let trackingDate: TrackingDate
     let trackingTimes: [TrackingTime]
 }

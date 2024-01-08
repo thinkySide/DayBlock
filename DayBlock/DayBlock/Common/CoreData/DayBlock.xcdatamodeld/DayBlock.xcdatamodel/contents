@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22222" systemVersion="23A344" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23C71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Block" representedClassName="Block" syncable="YES">
         <attribute name="icon" optional="YES" attributeType="String"/>
         <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -17,6 +17,7 @@
     <entity name="TrackingDate" representedClassName="TrackingDate" syncable="YES">
         <attribute name="day" optional="YES" attributeType="String"/>
         <attribute name="dayOfWeek" optional="YES" attributeType="String"/>
+        <attribute name="memo" optional="YES" attributeType="String"/>
         <attribute name="month" optional="YES" attributeType="String"/>
         <attribute name="year" optional="YES" attributeType="String"/>
         <relationship name="superBlock" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Block" inverseName="trackingDateList" inverseEntity="Block"/>

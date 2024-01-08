@@ -63,6 +63,8 @@
 		074F1EAA2B47D6D100E04D0F /* UIScreen++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074F1EA92B47D6D100E04D0F /* UIScreen++.swift */; };
 		074F1EAC2B48347600E04D0F /* ShareTotalInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074F1EAB2B48347600E04D0F /* ShareTotalInfo.swift */; };
 		0756BE882AF8DAB4009CBE46 /* RepositoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0756BE872AF8DAB4009CBE46 /* RepositoryView.swift */; };
+		0758FC082B4BC8360058C653 /* TrackingDate+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0758FC062B4BC8360058C653 /* TrackingDate+CoreDataClass.swift */; };
+		0758FC092B4BC8360058C653 /* TrackingDate+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0758FC072B4BC8360058C653 /* TrackingDate+CoreDataProperties.swift */; };
 		075A5AE92A81D04B0004F847 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5AE82A81D04B0004F847 /* PopupView.swift */; };
 		075A5AEB2A81DCDD0004F847 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A5AEA2A81DCDD0004F847 /* PopupViewController.swift */; };
 		076248C92AB301C9000A8664 /* BlockDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076248C82AB301C9000A8664 /* BlockDelegate.swift */; };
@@ -159,8 +161,6 @@
 		07C044112B3D9855005A816A /* HomeVC+ToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C044102B3D9855005A816A /* HomeVC+ToolTip.swift */; };
 		07C044132B3D9F7E005A816A /* ToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C044122B3D9F7E005A816A /* ToolTip.swift */; };
 		07C044152B3DB765005A816A /* HomeTrackingToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C044142B3DB765005A816A /* HomeTrackingToolTip.swift */; };
-		07C0BDB42ABC452600D5E779 /* TrackingDate+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDB02ABC452600D5E779 /* TrackingDate+CoreDataClass.swift */; };
-		07C0BDB52ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0BDB12ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift */; };
 		07C295C52B49AAB000EE6BF1 /* RepositoryToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C295C42B49AAB000EE6BF1 /* RepositoryToolTip.swift */; };
 		07D1F4AB2B36FA5800BFE90E /* HomeVC+UpdateUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D1F4AA2B36FA5800BFE90E /* HomeVC+UpdateUI.swift */; };
 		07D1F5282B3BEE6F00BFE90E /* HomeVC+Relaunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D1F5272B3BEE6F00BFE90E /* HomeVC+Relaunch.swift */; };
@@ -234,6 +234,8 @@
 		074F1EA92B47D6D100E04D0F /* UIScreen++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen++.swift"; sourceTree = "<group>"; };
 		074F1EAB2B48347600E04D0F /* ShareTotalInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareTotalInfo.swift; sourceTree = "<group>"; };
 		0756BE872AF8DAB4009CBE46 /* RepositoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryView.swift; sourceTree = "<group>"; };
+		0758FC062B4BC8360058C653 /* TrackingDate+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingDate+CoreDataClass.swift"; sourceTree = "<group>"; };
+		0758FC072B4BC8360058C653 /* TrackingDate+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingDate+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		075A5AE82A81D04B0004F847 /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
 		075A5AEA2A81DCDD0004F847 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		076248C82AB301C9000A8664 /* BlockDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockDelegate.swift; sourceTree = "<group>"; };
@@ -332,8 +334,6 @@
 		07C044102B3D9855005A816A /* HomeVC+ToolTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+ToolTip.swift"; sourceTree = "<group>"; };
 		07C044122B3D9F7E005A816A /* ToolTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolTip.swift; sourceTree = "<group>"; };
 		07C044142B3DB765005A816A /* HomeTrackingToolTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTrackingToolTip.swift; sourceTree = "<group>"; };
-		07C0BDB02ABC452600D5E779 /* TrackingDate+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingDate+CoreDataClass.swift"; sourceTree = "<group>"; };
-		07C0BDB12ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingDate+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		07C295C42B49AAB000EE6BF1 /* RepositoryToolTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryToolTip.swift; sourceTree = "<group>"; };
 		07D1F4AA2B36FA5800BFE90E /* HomeVC+UpdateUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+UpdateUI.swift"; sourceTree = "<group>"; };
 		07D1F5272B3BEE6F00BFE90E /* HomeVC+Relaunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+Relaunch.swift"; sourceTree = "<group>"; };
@@ -452,8 +452,8 @@
 				07B04BAB2ADD500800580711 /* Group+CoreDataProperties.swift */,
 				07B04BA82ADD500800580711 /* Block+CoreDataClass.swift */,
 				07B04BA92ADD500800580711 /* Block+CoreDataProperties.swift */,
-				07C0BDB02ABC452600D5E779 /* TrackingDate+CoreDataClass.swift */,
-				07C0BDB12ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift */,
+				0758FC062B4BC8360058C653 /* TrackingDate+CoreDataClass.swift */,
+				0758FC072B4BC8360058C653 /* TrackingDate+CoreDataProperties.swift */,
 				07967CFE2AC9A1D300BB45B5 /* TrackingTime+CoreDataClass.swift */,
 				07967CFF2AC9A1D300BB45B5 /* TrackingTime+CoreDataProperties.swift */,
 			);
@@ -1123,7 +1123,6 @@
 				0705F40B2B317F1100127336 /* DeveloperInfoView.swift in Sources */,
 				07B1F8D32B2C4A5B00E98382 /* ThirdOnboardingViewController.swift in Sources */,
 				0719649229E04FD8009CA1A4 /* CreateBlockView.swift in Sources */,
-				07C0BDB52ABC452600D5E779 /* TrackingDate+CoreDataProperties.swift in Sources */,
 				0775E30D2B1F22EF00CC594D /* RepositoryItem.swift in Sources */,
 				07454E0F29EBE50500B3458D /* BottomModal.swift in Sources */,
 				078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */,
@@ -1135,7 +1134,6 @@
 				074F1EAC2B48347600E04D0F /* ShareTotalInfo.swift in Sources */,
 				0770803A29E7989B00D66900 /* SelectColorViewController.swift in Sources */,
 				0770803829E7988100D66900 /* SelectColorView.swift in Sources */,
-				07C0BDB42ABC452600D5E779 /* TrackingDate+CoreDataClass.swift in Sources */,
 				07B1F8C02B2C2B0C00E98382 /* FirstOnboardingViewController.swift in Sources */,
 				077A663429ED2AB000D99C68 /* CreateGroupViewController.swift in Sources */,
 				0710ACE42B3C537200BAEAD4 /* TrackingBoardService.swift in Sources */,
@@ -1235,6 +1233,7 @@
 				0756BE882AF8DAB4009CBE46 /* RepositoryView.swift in Sources */,
 				07174A1A2B1F4D0200B7EC69 /* SummaryTableViewCell.swift in Sources */,
 				078630592B05FA650092672B /* TimeLineBlock.swift in Sources */,
+				0758FC082B4BC8360058C653 /* TrackingDate+CoreDataClass.swift in Sources */,
 				07D1F5282B3BEE6F00BFE90E /* HomeVC+Relaunch.swift in Sources */,
 				07174A1C2B1F6A6000B7EC69 /* RepositoryManager.swift in Sources */,
 				0719648829DC5066009CA1A4 /* TabBar.swift in Sources */,
@@ -1252,6 +1251,7 @@
 				077E80F52AE1659B004CDB8F /* ManageBlockTableViewFooter.swift in Sources */,
 				07B1F8CF2B2C367400E98382 /* PageNumbers.swift in Sources */,
 				0749D71E2AB97862004DF368 /* HomeVC+ScrollView.swift in Sources */,
+				0758FC092B4BC8360058C653 /* TrackingDate+CoreDataProperties.swift in Sources */,
 				07FB58A92B3024BC00850AFB /* SFSymbols.swift in Sources */,
 				0736905F2AC2D41400A42187 /* TrackingDataStore.swift in Sources */,
 				076E95572B316C96005A8D46 /* OpenLicenseViewController.swift in Sources */,

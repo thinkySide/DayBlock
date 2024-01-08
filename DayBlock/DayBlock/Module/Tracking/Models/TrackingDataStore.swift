@@ -143,6 +143,11 @@ extension TrackingDataStore {
         return "\(focusDate().year)년 \(focusDate().month)월 \(focusDate().day)일 \(focusDate().dayOfWeek)요일"
     }
     
+    
+    func updateMemo(to: TrackingDate) {
+        
+    }
+    
     /// 초 단위를 시간 문자열로 변환해 반환합니다.
     func secondsToTime(_ time: String?) -> String {
         if let time = time,

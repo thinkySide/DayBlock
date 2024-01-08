@@ -25,36 +25,55 @@ final class TrackingCompleteView: UIView {
         return item
     }()
     
+    lazy var finishBarButtonItem: UIBarButtonItem = {
+        let item = UIBarButtonItem()
+        item.title = "완료"
+        item.style = .plain
+        let font = UIFont(name: Pretendard.semiBold, size: 17)
+        let attributes = [NSAttributedString.Key.font: font]
+        item.setTitleTextAttributes(attributes as [NSAttributedString.Key: Any], for: .normal)
+        item.setTitleTextAttributes(attributes as [NSAttributedString.Key: Any], for: .disabled)
+        item.tintColor = Color.mainText
+        item.customView?.alpha = 0
+        return item
+    }()
+    
+    lazy var saveBarButtonItem: UIBarButtonItem = {
+        let item = UIBarButtonItem()
+        item.title = "저장"
+        item.style = .plain
+        let font = UIFont(name: Pretendard.semiBold, size: 17)
+        let attributes = [NSAttributedString.Key.font: font]
+        item.setTitleTextAttributes(attributes as [NSAttributedString.Key: Any], for: .normal)
+        item.setTitleTextAttributes(attributes as [NSAttributedString.Key: Any], for: .disabled)
+        item.tintColor = Color.mainText
+        return item
+    }()
+    
     let customMenu: Menu = {
-        let menu = Menu(frame: .zero, number: .one)
-        menu.firstItem.title.text = "트래킹 삭제"
-        let firstIcon = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
-        menu.firstItem.icon.image = UIImage(systemName: "trash")
+        let menu = Menu(frame: .zero, number: .two)
+        menu.firstItem.title.text = "메모 편집"
+        menu.firstItem.icon.image = UIImage(systemName: "square.and.pencil")
+        menu.secondItem.title.text = "트래킹 삭제"
+        menu.secondItem.icon.image = UIImage(systemName: "trash")
         menu.alpha = 0
         return menu
     }()
     
     // MARK: - Properties
     
-    let backToHomeButton: ActionButton = {
-        let button = ActionButton(frame: .zero, mode: .confirm)
-        button.setTitle("홈 화면으로 돌아가기", for: .normal)
-        return button
-    }()
-    
-    lazy var titleStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [
-            iconBlock, taskLabel])
-        stack.axis = .horizontal
-        stack.distribution = .fill
-        stack.alignment = .fill
-        stack.spacing = 16
-        return stack
-    }()
-    
     let iconBlock: SimpleIconBlock = {
         let icon = SimpleIconBlock(size: 44)
         return icon
+    }()
+    
+    let groupLabel: UILabel = {
+        let label = UILabel()
+        label.text = "그룹 라벨"
+        label.font = UIFont(name: Pretendard.semiBold, size: 15)
+        label.textColor = UIColor(rgb: 0x616161)
+        label.textAlignment = .center
+        return label
     }()
     
     let taskLabel: UILabel = {
@@ -62,8 +81,7 @@ final class TrackingCompleteView: UIView {
         label.text = "Swift 공부"
         label.font = UIFont(name: Pretendard.bold, size: 20)
         label.textColor = Color.mainText
-        label.textAlignment = .left
-        label.numberOfLines = 2
+        label.textAlignment = .center
         return label
     }()
     
@@ -140,48 +158,25 @@ final class TrackingCompleteView: UIView {
         return preview
     }()
     
-    // MARK: - bottom Component
-    
-    let totalValue: UILabel = {
+    let memoPlaceHolder: UILabel = {
         let label = UILabel()
-        label.text = "0.0"
-        label.font = UIFont(name: Poppins.bold, size: 20)
-        label.textColor = Color.mainText
+        label.text = "어떤 생산성을 발휘했는지 메모로 작성해봐요"
         label.textAlignment = .center
+        label.font = UIFont(name: Pretendard.semiBold, size: 15)
+        label.textColor = UIColor(rgb: 0xAAAAAA)
         return label
     }()
     
-    let totalLabel: UILabel = {
-        let label = UILabel()
-        label.text = "total"
-        label.font = UIFont(name: Poppins.bold, size: 14)
-        label.textColor = Color.subText2
-        label.textAlignment = .center
-        return label
-    }()
-    
-    let bottomSeparator: UIView = {
-        let line = UIView()
-        line.backgroundColor = Color.seperator2
-        return line
-    }()
-    
-    let todayValue: UILabel = {
-        let label = UILabel()
-        label.text = "0.0"
-        label.font = UIFont(name: Poppins.bold, size: 20)
-        label.textColor = Color.mainText
-        label.textAlignment = .center
-        return label
-    }()
-    
-    let todayLabel: UILabel = {
-        let label = UILabel()
-        label.text = "today"
-        label.font = UIFont(name: Poppins.bold, size: 14)
-        label.textColor = Color.subText2
-        label.textAlignment = .center
-        return label
+    let memoTextView: UITextView = {
+        let textView = UITextView()
+        textView.isEditable = true
+        textView.isScrollEnabled = true
+        textView.textContainerInset = UIEdgeInsets(top: 16, left: 24, bottom: 56, right: 24)
+        textView.backgroundColor = Color.contentsBlock
+        textView.font = UIFont(name: Pretendard.semiBold, size: 15)
+        textView.textColor = UIColor(rgb: 0x616161)
+        textView.textAlignment = .center
+        return textView
     }()
     
     // MARK: - Animation Component
@@ -222,6 +217,14 @@ final class TrackingCompleteView: UIView {
             self.customMenu.alpha = alpha
             self.backgroundView.alpha = alpha
         }
+    }
+    
+    // MARK: - Placeholder Method
+    
+    /// TextView 상태에 따라 플레이스홀더를 업데이트합니다.
+    func configurePlaceholder() {
+        let alphaValue: CGFloat = memoTextView.text.isEmpty ? 1 : 0
+        memoPlaceHolder.alpha = alphaValue
     }
     
     // MARK: - Animation Method
@@ -282,19 +285,19 @@ final class TrackingCompleteView: UIView {
         
         // 활성화
         [
-            titleStackView,
+            iconBlock,
+            groupLabel,
+            taskLabel,
             dashedSeparator,
             dateLabel,
             timeLabel,
             summaryLabel,
             trackingBoard,
-            totalValue,
-            totalLabel,
-            bottomSeparator,
-            todayValue,
-            todayLabel,
-            backToHomeButton
+            memoTextView
         ].forEach { $0.alpha = 1 }
+        
+        configurePlaceholder()
+        finishBarButtonItem.customView?.alpha = 1
     }
     
     // MARK: - Initial Method
@@ -315,13 +318,14 @@ final class TrackingCompleteView: UIView {
     // MARK: - Auto Layout Method
     
     private func setupAddView() {
-        [backgroundView, customMenu, titleStackView,
+        [backgroundView,
+         iconBlock, groupLabel, taskLabel,
          dashedSeparator,
          dateLabel, timeLabel,
          summaryLabel,
          trackingBoard,
-         totalValue, totalLabel, bottomSeparator, todayValue, todayLabel,
-         backToHomeButton].forEach {
+         memoTextView, memoPlaceHolder,
+         customMenu].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
             $0.alpha = 0
@@ -335,44 +339,6 @@ final class TrackingCompleteView: UIView {
     
     private func setupConstraints() {
         
-        // 기기별 사이즈 대응을 위한 분기
-        let deviceHeight = UIScreen.main.deviceHeight
-        
-        // small 사이즈
-        if deviceHeight == .small {
-            topConstraint = titleStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 32)
-            
-            NSLayoutConstraint.activate([
-                backToHomeButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
-                backToHomeButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
-                backToHomeButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -32)
-            ])
-        }
-        
-        // middle 사이즈
-        if deviceHeight == .middle {
-            topConstraint = titleStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 72)
-            
-            NSLayoutConstraint.activate([
-                backToHomeButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
-                backToHomeButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
-                backToHomeButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -56)
-            ])
-        }
-        
-        // large 사이즈
-        else if deviceHeight == .large {
-            topConstraint = titleStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 144)
-            
-            NSLayoutConstraint.activate([
-                backToHomeButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.margin),
-                backToHomeButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.margin),
-                backToHomeButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -56)
-            ])
-        }
-        
-        topConstraint.isActive = true
-        
         NSLayoutConstraint.activate([
             
             // backgroundView
@@ -385,11 +351,20 @@ final class TrackingCompleteView: UIView {
             customMenu.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: -8),
             customMenu.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
             
-            // titleStackView
-            titleStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            // iconBlock
+            iconBlock.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 32),
+            iconBlock.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            // groupLabel
+            groupLabel.topAnchor.constraint(equalTo: iconBlock.bottomAnchor, constant: 16),
+            groupLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            // taskLabel
+            taskLabel.topAnchor.constraint(equalTo: groupLabel.bottomAnchor, constant: 2),
+            taskLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             // dashedSeparator
-            dashedSeparator.topAnchor.constraint(equalTo: titleStackView.bottomAnchor, constant: 32),
+            dashedSeparator.topAnchor.constraint(equalTo: taskLabel.bottomAnchor, constant: 32),
             dashedSeparator.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 86),
             dashedSeparator.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -86),
             
@@ -402,34 +377,22 @@ final class TrackingCompleteView: UIView {
             timeLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             // summaryLabel
-            summaryLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 44),
+            summaryLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 32),
             summaryLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            // blockPreview
+            // trackingBoard
             trackingBoard.topAnchor.constraint(equalTo: summaryLabel.bottomAnchor, constant: 8),
             trackingBoard.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            // totalValue
-            totalValue.topAnchor.constraint(equalTo: trackingBoard.bottomAnchor, constant: 44),
-            totalValue.trailingAnchor.constraint(equalTo: bottomSeparator.leadingAnchor, constant: -18),
+            // memoPlaceHolder
+            memoPlaceHolder.topAnchor.constraint(equalTo: memoTextView.topAnchor, constant: 24),
+            memoPlaceHolder.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            // totalLabel
-            totalLabel.topAnchor.constraint(equalTo: totalValue.bottomAnchor),
-            totalLabel.centerXAnchor.constraint(equalTo: totalValue.centerXAnchor),
-            
-            // bottomSeparator
-            bottomSeparator.topAnchor.constraint(equalTo: trackingBoard.bottomAnchor, constant: 60),
-            bottomSeparator.centerXAnchor.constraint(equalTo: centerXAnchor),
-            bottomSeparator.widthAnchor.constraint(equalToConstant: 2),
-            bottomSeparator.heightAnchor.constraint(equalToConstant: 20),
-            
-            // todayValue
-            todayValue.topAnchor.constraint(equalTo: trackingBoard.bottomAnchor, constant: 44),
-            todayValue.leadingAnchor.constraint(equalTo: bottomSeparator.leadingAnchor, constant: 18),
-            
-            // todayLabel
-            todayLabel.topAnchor.constraint(equalTo: todayValue.bottomAnchor),
-            todayLabel.centerXAnchor.constraint(equalTo: todayValue.centerXAnchor),
+            // memoTextField
+            memoTextView.topAnchor.constraint(equalTo: trackingBoard.bottomAnchor, constant: 56),
+            memoTextView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            memoTextView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            memoTextView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
             // animationCircle
             animationCircle.centerXAnchor.constraint(equalTo: centerXAnchor),

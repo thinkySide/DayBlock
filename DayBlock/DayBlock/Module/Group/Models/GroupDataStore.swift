@@ -131,6 +131,7 @@ extension GroupDataStore {
                             groupColor: group.color,
                             blockTaskLabel: block.taskLabel,
                             blockIcon: block.icon,
+                            memo: trackingDate.memo,
                             trackingDate: trackingDate,
                             trackingTimes: trackingTimeList
                         )
