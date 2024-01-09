@@ -29,9 +29,9 @@ final class ManageGroupView: UIView {
     
     let sectionBar: SectionBar = {
         let sectionBar = SectionBar()
-        sectionBar.firstSection.label.text = "블럭 관리"
-        sectionBar.secondSection.label.text = "그룹 관리"
-        sectionBar.active(.second)
+        sectionBar.firstSection.label.text = "그룹 관리"
+        sectionBar.secondSection.label.text = "블럭 관리"
+        sectionBar.active(.first)
         return sectionBar
     }()
     

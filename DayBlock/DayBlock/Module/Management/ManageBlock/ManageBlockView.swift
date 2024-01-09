@@ -11,8 +11,9 @@ final class ManageBlockView: UIView {
     
     let sectionBar: SectionBar = {
         let sectionBar = SectionBar()
-        sectionBar.firstSection.label.text = "블럭 관리"
-        sectionBar.secondSection.label.text = "그룹 관리"
+        sectionBar.firstSection.label.text = "그룹 관리"
+        sectionBar.secondSection.label.text = "블럭 관리"
+        sectionBar.active(.second)
         return sectionBar
     }()
     

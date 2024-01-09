@@ -78,7 +78,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // UINavigation 추가
         let homeNavigationController = UINavigationController(rootViewController: HomeViewController())
         let calendarNavigationController = UINavigationController(rootViewController: RepositoryViewController())
-        let manageBlockViewController = UINavigationController(rootViewController: ManageBlockViewController())
+        let manageBlockViewController = UINavigationController(rootViewController: ManageGroupViewController())
         let myPageViewController = UINavigationController(rootViewController: MyPageViewController())
         
         // UITabBarController 추가
