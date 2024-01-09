@@ -25,14 +25,7 @@ final class SummaryInfoIcon: UIView {
         return imageView
     }()
     
-    let valueLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: Poppins.semiBold, size: 16)
-        label.textColor = UIColor(rgb: 0x545454)
-        label.textAlignment = .center
-        label.text = "72.5"
-        return label
-    }()
+    let valueLabel = ValueLabel()
     
     let tagLabel: UILabel = {
         let label = UILabel()

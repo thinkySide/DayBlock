@@ -43,7 +43,9 @@ final class RepositoryViewController: UIViewController {
         super.viewWillAppear(animated)
         
         // 만약 TrackingCompleteViewController 호출 된 후 불리는 상황이라면 조기 종료
+        // NavigationBar 오류 수정을 위함
         if isCompleteViewTapped { return }
+        
         let currentDate = repositoryManager.currentDate
         updateRepositoryView(date: currentDate)
         calendarView.calendar.select(currentDate, scrollToDate: true)

@@ -96,7 +96,7 @@ final class DeveloperInfoView: UIView {
     private let explanationLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: Pretendard.semiBold, size: 14)
-        label.textColor = Color.mainText
+        label.textColor = UIColor(rgb: 0x616161)
         label.textAlignment = .left
         label.numberOfLines = 0
         label.text = """
@@ -105,7 +105,7 @@ final class DeveloperInfoView: UIView {
         
         label.asFontColor(targetString: "",
                           font: UIFont(name: Pretendard.semiBold, size: 14),
-                          color: .black, lineSpacing: 6, alignment: .left)
+                          color: UIColor(rgb: 0xAAAAAA), lineSpacing: 8, alignment: .left)
         return label
     }()
     

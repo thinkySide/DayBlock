@@ -22,6 +22,7 @@ final class TotalTodayBurningView: UIView {
     let totalInfoIcon: SummaryInfoIcon = {
         let icon = SummaryInfoIcon()
         icon.tagLabel.text = "total"
+        icon.valueLabel.unit.text = "개"
         icon.updateColor(UIColor(rgb: 0x4C73FD))
         return icon
     }()
@@ -29,6 +30,7 @@ final class TotalTodayBurningView: UIView {
     let todayInfoIcon: SummaryInfoIcon = {
         let icon = SummaryInfoIcon()
         icon.tagLabel.text = "today"
+        icon.valueLabel.unit.text = "개"
         icon.icon.image = UIImage(systemName: "gauge.with.needle.fill")
         icon.updateColor(UIColor(rgb: 0x2EBB55))
         return icon
@@ -37,6 +39,7 @@ final class TotalTodayBurningView: UIView {
     let burningInfoIcon: SummaryInfoIcon = {
         let icon = SummaryInfoIcon()
         icon.tagLabel.text = "burning"
+        icon.valueLabel.unit.text = "일"
         icon.icon.image = UIImage(systemName: "flame.fill")
         icon.updateColor(UIColor(rgb: 0xFD4C4C))
         return icon

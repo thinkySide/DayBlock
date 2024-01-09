@@ -34,9 +34,15 @@ final class MyPageViewController: UIViewController {
         
         /// 지금까지 생산한 총 생산량 + 오늘의 생산량 + 연속일
         let totalTodayBurningView = viewManager.totalTodayBurningView
-        totalTodayBurningView.totalInfoIcon.valueLabel.text = trackingData.totalOutput()
-        totalTodayBurningView.todayInfoIcon.valueLabel.text = trackingData.todayAllOutput()
-        totalTodayBurningView.burningInfoIcon.valueLabel.text = trackingData.burningCount()
+        
+        let totalOutput = trackingData.totalOutput()
+        totalTodayBurningView.totalInfoIcon.valueLabel.value.text = totalOutput
+        
+        let todayOutput = trackingData.todayAllOutput()
+        totalTodayBurningView.todayInfoIcon.valueLabel.value.text = todayOutput
+        
+        let burningCount = trackingData.burningCount()
+        totalTodayBurningView.burningInfoIcon.valueLabel.value.text = burningCount
     }
     
     private func setupTableView() {

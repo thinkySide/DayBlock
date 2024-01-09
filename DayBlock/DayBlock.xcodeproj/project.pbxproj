@@ -162,6 +162,7 @@
 		07C044132B3D9F7E005A816A /* ToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C044122B3D9F7E005A816A /* ToolTip.swift */; };
 		07C044152B3DB765005A816A /* HomeTrackingToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C044142B3DB765005A816A /* HomeTrackingToolTip.swift */; };
 		07C295C52B49AAB000EE6BF1 /* RepositoryToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C295C42B49AAB000EE6BF1 /* RepositoryToolTip.swift */; };
+		07C4A7182B4D3788004237B6 /* ValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C4A7172B4D3788004237B6 /* ValueLabel.swift */; };
 		07D1F4AB2B36FA5800BFE90E /* HomeVC+UpdateUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D1F4AA2B36FA5800BFE90E /* HomeVC+UpdateUI.swift */; };
 		07D1F5282B3BEE6F00BFE90E /* HomeVC+Relaunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D1F5272B3BEE6F00BFE90E /* HomeVC+Relaunch.swift */; };
 		07D1F52A2B3BF0CC00BFE90E /* UserDefaultsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D1F5292B3BF0CC00BFE90E /* UserDefaultsItem.swift */; };
@@ -335,6 +336,7 @@
 		07C044122B3D9F7E005A816A /* ToolTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolTip.swift; sourceTree = "<group>"; };
 		07C044142B3DB765005A816A /* HomeTrackingToolTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTrackingToolTip.swift; sourceTree = "<group>"; };
 		07C295C42B49AAB000EE6BF1 /* RepositoryToolTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryToolTip.swift; sourceTree = "<group>"; };
+		07C4A7172B4D3788004237B6 /* ValueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueLabel.swift; sourceTree = "<group>"; };
 		07D1F4AA2B36FA5800BFE90E /* HomeVC+UpdateUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+UpdateUI.swift"; sourceTree = "<group>"; };
 		07D1F5272B3BEE6F00BFE90E /* HomeVC+Relaunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+Relaunch.swift"; sourceTree = "<group>"; };
 		07D1F5292B3BF0CC00BFE90E /* UserDefaultsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsItem.swift; sourceTree = "<group>"; };
@@ -386,6 +388,7 @@
 		070A902F2B28429600BBD147 /* Info */ = {
 			isa = PBXGroup;
 			children = (
+				07C4A7172B4D3788004237B6 /* ValueLabel.swift */,
 				070A902D2B28429000BBD147 /* SummaryInfoIcon.swift */,
 				0736AC542B299D6E00D90AB2 /* InfoCellView.swift */,
 				074F1EAB2B48347600E04D0F /* ShareTotalInfo.swift */,
@@ -1223,6 +1226,7 @@
 				07DD3E952AB02BE3002D128F /* DashedSeparator.swift in Sources */,
 				076E95542B316C7D005A8D46 /* OpenLicenseView.swift in Sources */,
 				0719648129DAF38A009CA1A4 /* RemoteBlock.swift in Sources */,
+				07C4A7182B4D3788004237B6 /* ValueLabel.swift in Sources */,
 				0770803429E797E100D66900 /* SelectIconViewController.swift in Sources */,
 				07B1F8BB2B2C23A500E98382 /* StartViewController.swift in Sources */,
 				07806B7E2B49943300398586 /* HomeMainToolTip.swift in Sources */,

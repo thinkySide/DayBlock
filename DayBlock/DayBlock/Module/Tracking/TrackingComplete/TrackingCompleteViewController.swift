@@ -239,14 +239,21 @@ final class TrackingCompleteViewController: UIViewController {
         // 키보드 내리기
         view.endEditing(true)
         
+        // 코어데이터 저장
+        guard let item = self.item else { return }
+        trackingData.updateMemo(trackingDate: item.trackingDate, trackingTimes: item.trackingTimes, memo: viewManager.memoTextView.text)
+        
+        // CalendarView 델리게이트 호출
+        delegate?.trackingCompleteVC?(didTrackingMemoEdited: self)
+        
         // TextView 편집 불가 설정
         viewManager.memoTextView.isEditable = false
         
         // 메뉴 아이템 변경
         navigationItem.rightBarButtonItem = viewManager.menuBarButtonItem
         
-        // 코어데이터 저장
-        
+        // 완료 토스트 출력
+        showToast(toast: viewManager.memoEditCompleteToastView, isActive: true)
     }
     
     /// 메모 편집 메뉴 아이템을 탭 했을 때 호출되는 메서드입니다.

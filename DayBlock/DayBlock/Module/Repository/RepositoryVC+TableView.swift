@@ -35,6 +35,7 @@ extension RepositoryViewController {
         
         // 선택된 날짜 기준 업데이트
         let dateString = calendarManager.fullDateFormat(from: date)
+        print("선택된 날짜: \(dateString)")
         repositoryManager.filterSelectedDate(dateString)
         viewManager.timeLineView.tableView.reloadData()
         viewManager.calendarView.calendar.reloadData()
@@ -122,6 +123,12 @@ extension RepositoryViewController: TrackingCompleteViewControllerDelegate {
     
     /// 트래킹 데이터 삭제 후 호출되는 Delegate 메서드입니다.
     func trackingCompleteVC(didTrackingDataRemoved trackingCompleteVC: TrackingCompleteViewController) {
+        let currentDate = repositoryManager.currentDate
+        updateRepositoryView(date: currentDate)
+    }
+    
+    /// 트래킹 메모가 수정된 후 호출되는 Delegate 메서드입니다.
+    func trackingCompleteVC(didTrackingMemoEdited trackingCompleteVC: TrackingCompleteViewController) {
         let currentDate = repositoryManager.currentDate
         updateRepositoryView(date: currentDate)
     }

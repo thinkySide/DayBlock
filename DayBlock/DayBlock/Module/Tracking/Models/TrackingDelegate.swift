@@ -10,4 +10,5 @@ import Foundation
 @objc protocol TrackingCompleteViewControllerDelegate: AnyObject {
     @objc optional func trackingCompleteVC(backToHomeButtonTapped trackingCompleteVC: TrackingCompleteViewController)
     @objc optional func trackingCompleteVC(didTrackingDataRemoved trackingCompleteVC: TrackingCompleteViewController)
+    @objc optional func trackingCompleteVC(didTrackingMemoEdited trackingCompleteVC: TrackingCompleteViewController)
 }

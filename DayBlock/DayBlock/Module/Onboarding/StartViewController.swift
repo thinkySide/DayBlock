@@ -28,6 +28,7 @@ final class StartViewController: UIViewController {
     
     // MARK: - Event Method
     @objc func startButtonTapped() {
+        Vibration.selection.vibrate()
         let onboardingVC = OnboardingViewController(mode: .onboarding)
         onboardingVC.modalPresentationStyle = .fullScreen
         present(onboardingVC, animated: true)

@@ -43,7 +43,7 @@ final class RepositoryManager {
     
     // MARK: - 캘린더 관련 메서드
     
-    /// 현재 날짜 기준의 items를 필터링하여 반환합니다.
+    /// 현재 날짜 기준의 items를 필터링하여 dayItems에 넣습니다.
     func filterSelectedDate(_ dateString: String) {
         
         let fullDate = dateString.components(separatedBy: ".")

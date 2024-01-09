@@ -162,7 +162,7 @@ final class TrackingCompleteView: UIView {
         let label = UILabel()
         label.text = "어떤 생산성을 발휘했는지 메모로 작성해봐요"
         label.textAlignment = .center
-        label.font = UIFont(name: Pretendard.semiBold, size: 15)
+        label.font = UIFont(name: Pretendard.semiBold, size: 16)
         label.textColor = UIColor(rgb: 0xAAAAAA)
         return label
     }()
@@ -170,10 +170,11 @@ final class TrackingCompleteView: UIView {
     let memoTextView: UITextView = {
         let textView = UITextView()
         textView.isEditable = true
+        textView.isSelectable = false
         textView.isScrollEnabled = true
         textView.textContainerInset = UIEdgeInsets(top: 16, left: 24, bottom: 56, right: 24)
         textView.backgroundColor = Color.contentsBlock
-        textView.font = UIFont(name: Pretendard.semiBold, size: 15)
+        textView.font = UIFont(name: Pretendard.semiBold, size: 16)
         textView.textColor = UIColor(rgb: 0x616161)
         textView.textAlignment = .center
         return textView
@@ -206,6 +207,13 @@ final class TrackingCompleteView: UIView {
         label.textAlignment = .center
         label.alpha = 0
         return label
+    }()
+    
+    let memoEditCompleteToastView: ToastMessage = {
+        let view = ToastMessage(state: .complete)
+        view.messageLabel.text = "메모가 저장되었어요"
+        view.alpha = 0
+        return view
     }()
     
     // MARK: - Menu Method
@@ -325,7 +333,7 @@ final class TrackingCompleteView: UIView {
          summaryLabel,
          trackingBoard,
          memoTextView, memoPlaceHolder,
-         customMenu].forEach {
+         customMenu, memoEditCompleteToastView].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
             $0.alpha = 0
@@ -408,7 +416,11 @@ final class TrackingCompleteView: UIView {
             
             // checkLabel
             checkLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            checkLabel.topAnchor.constraint(equalTo: checkSymbol.bottomAnchor, constant: 20)
+            checkLabel.topAnchor.constraint(equalTo: checkSymbol.bottomAnchor, constant: 20),
+            
+            // memoEditCompleteToastView
+            memoEditCompleteToastView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            memoEditCompleteToastView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -48)
         ])
     }
 }

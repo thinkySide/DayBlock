@@ -143,9 +143,49 @@ extension TrackingDataStore {
         return "\(focusDate().year)년 \(focusDate().month)월 \(focusDate().day)일 \(focusDate().dayOfWeek)요일"
     }
     
-    
-    func updateMemo(to: TrackingDate) {
+    /// 캘린더 TrackingCompleteViewController의 메모값을 받아 업데이트합니다.
+    func updateMemo(trackingDate: TrackingDate, trackingTimes: [TrackingTime], memo: String) {
         
+        print("찾을 날짜: \(trackingDate.day)일")
+        
+        for time in trackingTimes {
+            print("찾을 시간대: \(time.startTime)")
+        }
+        
+        // 1. 그룹 반복
+        for group in groupData.list() {
+            guard let blockList = group.blockList?.array as? [Block] else {
+                fatalError("블럭 리스트 반환 실패")
+            }
+            
+            // 2. 블럭 반복
+            for block in blockList {
+                guard let dateList = block.trackingDateList?.array as? [TrackingDate] else {
+                    fatalError("날짜 리스트 반환 실패")
+                }
+                
+                // 3. 날짜 반복
+                for date in dateList {
+                    guard let timeList = date.trackingTimeList?.array as? [TrackingTime] else {
+                        fatalError("시간 리스트 반환 실패")
+                    }
+                    
+                    // 필터로 Date값 반환
+                    let targetDateList = dateList.filter { _ in
+                        date == trackingDate && trackingTimes == timeList
+                    }
+                    
+                    // 타겟 날짜가 있다면 해당 날짜의 모든 메모 업데이트 후 메서드 종료
+                    if !targetDateList.isEmpty {
+                        for targetDate in targetDateList {
+                            targetDate.memo = memo
+                        }
+                        groupData.saveContext()
+                        return
+                    }
+                }
+            }
+        }
     }
     
     /// 초 단위를 시간 문자열로 변환해 반환합니다.
