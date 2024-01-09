@@ -18,14 +18,14 @@ final class TrackingCompleteView: UIView {
         return view
     }()
     
-    lazy var menuBarButtonItem: UIBarButtonItem = {
+    let menuBarButtonItem: UIBarButtonItem = {
         let item = UIBarButtonItem()
         item.image = UIImage(systemName: "ellipsis")
         item.tintColor = Color.mainText
         return item
     }()
     
-    lazy var finishBarButtonItem: UIBarButtonItem = {
+    let finishBarButtonItem: UIBarButtonItem = {
         let item = UIBarButtonItem()
         item.title = "완료"
         item.style = .plain
@@ -162,7 +162,7 @@ final class TrackingCompleteView: UIView {
         let label = UILabel()
         label.text = "어떤 생산성을 발휘했는지 메모로 작성해봐요"
         label.textAlignment = .center
-        label.font = UIFont(name: Pretendard.semiBold, size: 16)
+        label.font = UIFont(name: Pretendard.semiBold, size: 15)
         label.textColor = UIColor(rgb: 0xAAAAAA)
         return label
     }()
@@ -174,6 +174,29 @@ final class TrackingCompleteView: UIView {
         textView.isScrollEnabled = true
         textView.textContainerInset = UIEdgeInsets(top: 16, left: 24, bottom: 56, right: 24)
         textView.backgroundColor = Color.contentsBlock
+        
+        // attributedText
+        let attributedText = NSMutableAttributedString(string: "문단 초기화")
+        let range = NSRange(location: 0, length: attributedText.length)
+        
+        // 폰트 설정
+        let font = UIFont(name: Pretendard.semiBold, size: 15)
+        let textColor = UIColor(rgb: 0x616161)
+        attributedText.addAttributes([
+            .font: font as Any,
+            .foregroundColor: textColor as Any
+        ], range: range)
+        
+        // 문단 설정
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 8
+        paragraphStyle.alignment = .center
+        attributedText.addAttribute(.paragraphStyle, value: paragraphStyle, range: range)
+        textView.attributedText = attributedText
+        
+        // 텍스트 초기화
+        textView.text = ""
+        
         return textView
     }()
     
@@ -225,27 +248,6 @@ final class TrackingCompleteView: UIView {
     }
     
     // MARK: - TextView & Placeholder Method
-    
-    func updateMemo(to memo: String?) {
-        guard let memo = memo else { return }
-        let attributedText = NSMutableAttributedString(string: memo)
-        let range = NSRange(location: 0, length: attributedText.length)
-        
-        // 폰트 설정
-        let font = UIFont(name: Pretendard.semiBold, size: 15)
-        let textColor = UIColor(rgb: 0x616161)
-        attributedText.addAttributes([
-            .font: font as Any,
-            .foregroundColor: textColor as Any
-        ], range: range)
-        
-        // 문단 설정
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 8
-        paragraphStyle.alignment = .center
-        attributedText.addAttribute(.paragraphStyle, value: paragraphStyle, range: range)
-        memoTextView.attributedText = attributedText
-    }
     
     /// TextView 상태에 따라 플레이스홀더를 업데이트합니다.
     func configurePlaceholder() {
@@ -322,8 +324,9 @@ final class TrackingCompleteView: UIView {
             memoTextView
         ].forEach { $0.alpha = 1 }
         
-        configurePlaceholder()
         finishBarButtonItem.isHidden = false
+        
+        configurePlaceholder()
     }
     
     // MARK: - Initial Method

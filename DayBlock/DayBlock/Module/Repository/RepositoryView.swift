@@ -92,7 +92,7 @@ final class RepositoryView: UIView {
         tabBarStackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: topAnchor),
+            scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: tabBarStackView.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -110,7 +110,7 @@ final class RepositoryView: UIView {
             timeLineView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             timeLineView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
-            noTrackingLabelView.topAnchor.constraint(equalTo: timeLineView.separator.bottomAnchor),
+            noTrackingLabelView.topAnchor.constraint(equalTo: timeLineView.headerLabel.bottomAnchor),
             noTrackingLabelView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             noTrackingLabelView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             noTrackingLabelView.bottomAnchor.constraint(equalTo: tabBarStackView.bottomAnchor),

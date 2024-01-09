@@ -35,7 +35,6 @@ extension RepositoryViewController {
         
         // 선택된 날짜 기준 업데이트
         let dateString = calendarManager.fullDateFormat(from: date)
-        print("선택된 날짜: \(dateString)")
         repositoryManager.filterSelectedDate(dateString)
         viewManager.timeLineView.tableView.reloadData()
         viewManager.calendarView.calendar.reloadData()

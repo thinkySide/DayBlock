@@ -20,8 +20,6 @@ final class TimeLineView: UIView {
         return label
     }()
     
-    let separator = DashedSeparator(frame: .zero)
-    
     let shareTotalInfo = ShareTotalInfo()
     
     let tableView: UITableView = {
@@ -48,7 +46,7 @@ final class TimeLineView: UIView {
     private func setupUI() {
         backgroundColor = .white
         
-        [headerLabel, separator, shareTotalInfo, tableView].forEach {
+        [headerLabel, shareTotalInfo, tableView].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -61,14 +59,10 @@ final class TimeLineView: UIView {
             headerLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
             headerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             
-            separator.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 16),
-            separator.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            separator.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            
             shareTotalInfo.centerYAnchor.constraint(equalTo: headerLabel.centerYAnchor),
             shareTotalInfo.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             
-            tableView.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 16),
+            tableView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 16),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])

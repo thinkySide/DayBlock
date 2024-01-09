@@ -232,7 +232,7 @@ extension RepositoryViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         // 기본 Y값보다 커지면 helpBarButtonItem 숨기기
-        let alphaValue: CGFloat = scrollView.contentOffset.y > initialScrollYOffset ? 0 : 1
+        let alphaValue: CGFloat = scrollView.contentOffset.y > 0 ? 0 : 1
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
             self.viewManager.helpBarButtonItem.customView?.alpha = alphaValue
         }

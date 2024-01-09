@@ -123,11 +123,11 @@ final class TrackingCompleteViewController: UIViewController {
             viewManager.trackingBoard.updateBoard()
             
             // 튜토리얼 블럭 메모
-            viewManager.updateMemo(to: """
+            viewManager.memoTextView.text = """
             튜토리얼을 위해
             데이블럭이 미리 생산해둔
-            30분짜리 블럭이에요 🥳
-            """)
+            30분짜리 블럭이에요! 🥳
+            """
         }
     }
     
@@ -170,7 +170,7 @@ final class TrackingCompleteViewController: UIViewController {
         let memoTextView = viewManager.memoTextView
         if !memoTextView.text.isEmpty { viewManager.memoPlaceHolder.alpha = 0 }
         memoTextView.isEditable = false
-        viewManager.updateMemo(to: item.memo)
+        memoTextView.text = item.memo
     }
     
     private func setupEvent() {
@@ -219,7 +219,11 @@ final class TrackingCompleteViewController: UIViewController {
         view.endEditing(true)
         
         // 메모 코어데이터 저장
-        trackingData.focusDate().memo = viewManager.memoTextView.text
+        if let memoText = viewManager.memoTextView.text {
+            trackingData.updateMemo(trackingDate: trackingData.focusDate(),
+                                    trackingTimes: trackingData.focusTimeList, memo: memoText)
+        }
+        
         GroupDataStore.shared.saveContext()
         
         // 트래킹 모드
