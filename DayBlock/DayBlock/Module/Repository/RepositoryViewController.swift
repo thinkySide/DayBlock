@@ -109,7 +109,7 @@ final class RepositoryViewController: UIViewController {
     private func setupFirstToolTip() {
         if UserDefaultsItem.shared.isCalendarFirst {
             self.helpBarButtonItemTapped()
-            // UserDefaultsItem.shared.setIsCalendarFirst(to: false)
+            UserDefaultsItem.shared.setIsCalendarFirst(to: false)
         }
     }
     

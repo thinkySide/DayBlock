@@ -20,7 +20,7 @@ final class ValueLabel: UIStackView {
     
     let unit: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: Pretendard.extraBold, size: 14)
+        label.font = UIFont(name: Pretendard.extraBold, size: 13)
         label.textColor = UIColor(rgb: 0x545454)
         label.text = "개"
         label.textAlignment = .center

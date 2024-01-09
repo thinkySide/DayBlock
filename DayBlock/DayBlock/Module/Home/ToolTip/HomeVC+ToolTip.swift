@@ -13,7 +13,7 @@ extension HomeViewController {
     func setupFirstToolTip() {
         if UserDefaultsItem.shared.isHomeFirst {
             self.helpBarButtonItemTapped()
-            // UserDefaultsItem.shared.setIsHomeFirst(to: false)
+            UserDefaultsItem.shared.setIsHomeFirst(to: false)
         }
     }
     

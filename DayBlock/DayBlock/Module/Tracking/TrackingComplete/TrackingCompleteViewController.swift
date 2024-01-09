@@ -95,7 +95,7 @@ final class TrackingCompleteViewController: UIViewController {
         viewManager.plusSummaryLabel.textColor = groupData.focusColor()
         viewManager.mainSummaryLabel.text = String(trackingData.focusTrackingBlockCount())
         
-        // 트래킹 보드: 트래킹 모드
+        // 트래킹 모드
         if mode == .tracking {
             let block = BlockDataStore.shared.focusEntity()
             
@@ -111,7 +111,7 @@ final class TrackingCompleteViewController: UIViewController {
             viewManager.trackingBoard.updateBoard()
         }
         
-        // 트래킹 보드: 온보딩 모드
+        // 온보딩 모드
         else if mode == .onboarding {
             
             // 만약 30분 전이 어제라면
@@ -121,6 +121,13 @@ final class TrackingCompleteViewController: UIViewController {
                 TrackingBoardService.shared.updateTrackingBoard(to: Date())
             }
             viewManager.trackingBoard.updateBoard()
+            
+            // 튜토리얼 블럭 메모
+            viewManager.updateMemo(to: """
+            튜토리얼을 위해
+            데이블럭이 미리 생산해둔
+            30분짜리 블럭이에요 🥳
+            """)
         }
     }
     
@@ -163,7 +170,7 @@ final class TrackingCompleteViewController: UIViewController {
         let memoTextView = viewManager.memoTextView
         if !memoTextView.text.isEmpty { viewManager.memoPlaceHolder.alpha = 0 }
         memoTextView.isEditable = false
-        memoTextView.text = item.memo
+        viewManager.updateMemo(to: item.memo)
     }
     
     private func setupEvent() {

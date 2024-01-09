@@ -18,7 +18,6 @@ final class SelectGroupViewController: UIViewController {
     // MARK: - Variable
     
     private let viewManager = SelectGroupView()
-    private let customBottomModalDelegate = BottomModalDelegate()
     weak var delegate: SelectGroupViewControllerDelegate?
     
     private let groupData = GroupDataStore.shared

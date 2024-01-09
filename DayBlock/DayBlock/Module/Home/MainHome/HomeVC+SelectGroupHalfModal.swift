@@ -29,12 +29,6 @@ extension HomeViewController: SelectGroupViewControllerDelegate {
             sheet.preferredCornerRadius = 30
         }
         
-        else {
-            let customBottomModalDelegate = BottomModalDelegate()
-            navigationController.modalPresentationStyle = .custom
-            navigationController.transitioningDelegate = customBottomModalDelegate
-        }
-        
         present(navigationController, animated: true)
     }
     

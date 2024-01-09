@@ -34,6 +34,7 @@ final class TrackingCompleteView: UIView {
         item.setTitleTextAttributes(attributes as [NSAttributedString.Key: Any], for: .normal)
         item.setTitleTextAttributes(attributes as [NSAttributedString.Key: Any], for: .disabled)
         item.tintColor = Color.mainText
+        item.isHidden = true
         return item
     }()
     
@@ -173,9 +174,6 @@ final class TrackingCompleteView: UIView {
         textView.isScrollEnabled = true
         textView.textContainerInset = UIEdgeInsets(top: 16, left: 24, bottom: 56, right: 24)
         textView.backgroundColor = Color.contentsBlock
-        textView.font = UIFont(name: Pretendard.semiBold, size: 16)
-        textView.textColor = UIColor(rgb: 0x616161)
-        textView.textAlignment = .center
         return textView
     }()
     
@@ -226,7 +224,28 @@ final class TrackingCompleteView: UIView {
         }
     }
     
-    // MARK: - Placeholder Method
+    // MARK: - TextView & Placeholder Method
+    
+    func updateMemo(to memo: String?) {
+        guard let memo = memo else { return }
+        let attributedText = NSMutableAttributedString(string: memo)
+        let range = NSRange(location: 0, length: attributedText.length)
+        
+        // 폰트 설정
+        let font = UIFont(name: Pretendard.semiBold, size: 15)
+        let textColor = UIColor(rgb: 0x616161)
+        attributedText.addAttributes([
+            .font: font as Any,
+            .foregroundColor: textColor as Any
+        ], range: range)
+        
+        // 문단 설정
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 8
+        paragraphStyle.alignment = .center
+        attributedText.addAttribute(.paragraphStyle, value: paragraphStyle, range: range)
+        memoTextView.attributedText = attributedText
+    }
     
     /// TextView 상태에 따라 플레이스홀더를 업데이트합니다.
     func configurePlaceholder() {
@@ -304,7 +323,7 @@ final class TrackingCompleteView: UIView {
         ].forEach { $0.alpha = 1 }
         
         configurePlaceholder()
-        finishBarButtonItem.customView?.alpha = 1
+        finishBarButtonItem.isHidden = false
     }
     
     // MARK: - Initial Method
