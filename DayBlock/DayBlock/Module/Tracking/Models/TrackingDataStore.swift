@@ -159,14 +159,12 @@ extension TrackingDataStore {
                 }
                 
                 // 3. 날짜 반복
-                for date in dateList {
-                    guard let timeList = date.trackingTimeList?.array as? [TrackingTime] else {
-                        fatalError("시간 리스트 반환 실패")
-                    }
+                for _ in dateList {
                     
                     // 필터로 Date값 반환
-                    let targetDateList = dateList.filter { _ in
-                        date == trackingDate && trackingTimes == timeList
+                    let targetDateList = dateList.filter {
+                        $0 == trackingDate &&
+                        $0.trackingTimeList?.array as! [TrackingTime] == trackingTimes
                     }
                     
                     // 타겟 날짜가 있다면 해당 날짜의 모든 메모 업데이트 후 메서드 종료
