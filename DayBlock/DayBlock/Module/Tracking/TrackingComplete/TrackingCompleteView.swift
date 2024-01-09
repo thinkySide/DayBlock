@@ -34,7 +34,6 @@ final class TrackingCompleteView: UIView {
         item.setTitleTextAttributes(attributes as [NSAttributedString.Key: Any], for: .normal)
         item.setTitleTextAttributes(attributes as [NSAttributedString.Key: Any], for: .disabled)
         item.tintColor = Color.mainText
-        item.customView?.alpha = 0
         return item
     }()
     
@@ -170,7 +169,7 @@ final class TrackingCompleteView: UIView {
     let memoTextView: UITextView = {
         let textView = UITextView()
         textView.isEditable = true
-        textView.isSelectable = false
+        textView.isSelectable = true
         textView.isScrollEnabled = true
         textView.textContainerInset = UIEdgeInsets(top: 16, left: 24, bottom: 56, right: 24)
         textView.backgroundColor = Color.contentsBlock

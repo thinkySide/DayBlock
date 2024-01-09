@@ -12,10 +12,8 @@ extension HomeViewController {
     /// 첫 실행 툴팁을 설정합니다.
     func setupFirstToolTip() {
         if UserDefaultsItem.shared.isHomeFirst {
-            DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                self.helpBarButtonItemTapped()
-                UserDefaultsItem.shared.setIsHomeFirst(to: false)
-            }
+            self.helpBarButtonItemTapped()
+            // UserDefaultsItem.shared.setIsHomeFirst(to: false)
         }
     }
     

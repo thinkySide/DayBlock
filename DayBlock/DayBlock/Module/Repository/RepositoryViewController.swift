@@ -108,10 +108,8 @@ final class RepositoryViewController: UIViewController {
     
     private func setupFirstToolTip() {
         if UserDefaultsItem.shared.isCalendarFirst {
-            DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                self.helpBarButtonItemTapped()
-                UserDefaultsItem.shared.setIsCalendarFirst(to: false)
-            }
+            self.helpBarButtonItemTapped()
+            // UserDefaultsItem.shared.setIsCalendarFirst(to: false)
         }
     }
     

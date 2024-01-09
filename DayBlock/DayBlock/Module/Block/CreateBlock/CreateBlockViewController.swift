@@ -20,7 +20,6 @@ final class CreateBlockViewController: UIViewController {
     // MARK: - Variable
     
     private let viewManager = CreateBlockView()
-    private let customBottomModalDelegate = BottomModalDelegate()
     weak var delegate: CreateBlockViewControllerDelegate?
     
     private let groupData = GroupDataStore.shared
@@ -343,16 +342,11 @@ extension CreateBlockViewController: FormSelectButtonDelegate {
         // 그룹 선택 모드 변경
         selectGroupVC.mode = .create
         
-        if #available(iOS 15.0, *) {
-            if let sheet = navigationController.sheetPresentationController {
-                sheet.detents = [.medium()]
-                sheet.prefersGrabberVisible = true
-                sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-                sheet.preferredCornerRadius = 30
-            }
-        } else {
-            navigationController.modalPresentationStyle = .custom
-            navigationController.transitioningDelegate = customBottomModalDelegate
+        if let sheet = navigationController.sheetPresentationController {
+            sheet.detents = [.medium()]
+            sheet.prefersGrabberVisible = true
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            sheet.preferredCornerRadius = 30
         }
         
         present(navigationController, animated: true)
@@ -366,18 +360,12 @@ extension CreateBlockViewController: FormSelectButtonDelegate {
         /// present
         let selectIconVC = SelectIconViewController()
         selectIconVC.delegate = self
+        selectIconVC.modalPresentationStyle = .pageSheet
         
-        // Half-Modal 설정
-        if #available(iOS 15.0, *) {
-            selectIconVC.modalPresentationStyle = .pageSheet
-            if let sheet = selectIconVC.sheetPresentationController {
-                sheet.detents = [.medium()]
-                sheet.prefersGrabberVisible = true
-                sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-            }
-        } else {
-            selectIconVC.modalPresentationStyle = .custom
-            selectIconVC.transitioningDelegate = customBottomModalDelegate
+        if let sheet = selectIconVC.sheetPresentationController {
+            sheet.detents = [.medium()]
+            sheet.prefersGrabberVisible = true
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
         }
         
         IconManager.shared.updateSelectedIndex(as: blockData.remote().list[0].icon)

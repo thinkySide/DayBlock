@@ -146,12 +146,6 @@ extension TrackingDataStore {
     /// 캘린더 TrackingCompleteViewController의 메모값을 받아 업데이트합니다.
     func updateMemo(trackingDate: TrackingDate, trackingTimes: [TrackingTime], memo: String) {
         
-        print("찾을 날짜: \(trackingDate.day)일")
-        
-        for time in trackingTimes {
-            print("찾을 시간대: \(time.startTime)")
-        }
-        
         // 1. 그룹 반복
         for group in groupData.list() {
             guard let blockList = group.blockList?.array as? [Block] else {

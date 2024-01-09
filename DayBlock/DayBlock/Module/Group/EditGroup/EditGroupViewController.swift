@@ -13,7 +13,6 @@ final class EditGroupViewController: UIViewController {
     
     private let viewManager = EditGroupDetailView()
     private let colorManager = ColorManager.shared
-    private let customBottomModalDelegate = BottomModalDelegate()
     
     private let groupData = GroupDataStore.shared
     private let blockData = BlockDataStore.shared
@@ -196,18 +195,13 @@ extension EditGroupViewController: FormSelectButtonDelegate {
         // present
         let selectColorVC = SelectColorViewController()
         selectColorVC.delegate = self
+        selectColorVC.modalPresentationStyle = .pageSheet
         
         // Half-Modal 설정
-        if #available(iOS 15.0, *) {
-            selectColorVC.modalPresentationStyle = .pageSheet
-            if let sheet = selectColorVC.sheetPresentationController {
-                sheet.detents = [.medium()]
-                sheet.prefersGrabberVisible = true
-                sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-            }
-        } else {
-            selectColorVC.modalPresentationStyle = .custom
-            selectColorVC.transitioningDelegate = customBottomModalDelegate
+        if let sheet = selectColorVC.sheetPresentationController {
+            sheet.detents = [.medium()]
+            sheet.prefersGrabberVisible = true
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
         }
         
         // 컬러 업데이트

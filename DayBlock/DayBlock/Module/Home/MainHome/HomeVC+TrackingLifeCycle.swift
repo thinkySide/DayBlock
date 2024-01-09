@@ -139,10 +139,8 @@ extension HomeViewController {
         
         // 8. 첫 도움말 출력 결정
         if UserDefaultsItem.shared.isTrackingFirst {
-            DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                self.helpBarButtonItemTapped()
-                UserDefaultsItem.shared.setIsTrackingFirst(to: false)
-            }
+            self.helpBarButtonItemTapped()
+            // UserDefaultsItem.shared.setIsTrackingFirst(to: false)
         }
         
         // 9. 화면 꺼짐 방지

@@ -47,7 +47,6 @@
 		07446E452B2ACDD60002E9EF /* Vibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07446E442B2ACDD60002E9EF /* Vibration.swift */; };
 		07454DE329EA6CEE00B3458D /* UIViewController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454DE229EA6CEE00B3458D /* UIViewController++.swift */; };
 		07454DE729EA94EB00B3458D /* DisablePasteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454DE629EA94EB00B3458D /* DisablePasteTextField.swift */; };
-		07454E0F29EBE50500B3458D /* BottomModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E0E29EBE50500B3458D /* BottomModal.swift */; };
 		07454E1129EBFDF200B3458D /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1029EBFDF200B3458D /* ActionButton.swift */; };
 		07454E1329EC138E00B3458D /* ManageGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1229EC138E00B3458D /* ManageGroupTableViewCell.swift */; };
 		07454E1529EC170600B3458D /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07454E1429EC170600B3458D /* Separator.swift */; };
@@ -219,7 +218,6 @@
 		07446E442B2ACDD60002E9EF /* Vibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vibration.swift; sourceTree = "<group>"; };
 		07454DE229EA6CEE00B3458D /* UIViewController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController++.swift"; sourceTree = "<group>"; };
 		07454DE629EA94EB00B3458D /* DisablePasteTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisablePasteTextField.swift; sourceTree = "<group>"; };
-		07454E0E29EBE50500B3458D /* BottomModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomModal.swift; sourceTree = "<group>"; };
 		07454E1029EBFDF200B3458D /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		07454E1229EC138E00B3458D /* ManageGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageGroupTableViewCell.swift; sourceTree = "<group>"; };
 		07454E1429EC170600B3458D /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
@@ -807,7 +805,6 @@
 				07D9E4C92B4544E1005340F3 /* Menu.swift */,
 				07D9E4CB2B454505005340F3 /* MenuItem.swift */,
 				0782BF652B46939000555A0C /* OptionSelector.swift */,
-				07454E0E29EBE50500B3458D /* BottomModal.swift */,
 				07B1F8CE2B2C367400E98382 /* PageNumbers.swift */,
 			);
 			path = Foundation;
@@ -1127,7 +1124,6 @@
 				07B1F8D32B2C4A5B00E98382 /* ThirdOnboardingViewController.swift in Sources */,
 				0719649229E04FD8009CA1A4 /* CreateBlockView.swift in Sources */,
 				0775E30D2B1F22EF00CC594D /* RepositoryItem.swift in Sources */,
-				07454E0F29EBE50500B3458D /* BottomModal.swift in Sources */,
 				078C50B629D7152F00F239BA /* AppDelegate.swift in Sources */,
 				07C295C52B49AAB000EE6BF1 /* RepositoryToolTip.swift in Sources */,
 				0736AC552B299D6E00D90AB2 /* InfoCellView.swift in Sources */,
@@ -1425,7 +1421,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1463,7 +1459,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

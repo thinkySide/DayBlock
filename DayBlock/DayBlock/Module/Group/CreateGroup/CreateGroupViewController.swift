@@ -12,7 +12,6 @@ final class CreateGroupViewController: UIViewController {
     // MARK: - Variable
     
     private let viewManager = CreateGroupView()
-    private let customBottomModalDelegate = BottomModalDelegate()
     weak var delegate: CreateGroupViewControllerDelegate?
     
     private let groupData = GroupDataStore.shared
@@ -48,16 +47,13 @@ final class CreateGroupViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         
-        // 전체 화면 모드로 변경
-        if #available(iOS 15.0, *) {
-            guard let sheet = navigationController?.sheetPresentationController else {
-                return
-            }
-            
-            sheet.animateChanges {
-                sheet.detents = [.large()]
-                sheet.selectedDetentIdentifier = .large
-            }
+        guard let sheet = navigationController?.sheetPresentationController else {
+            return
+        }
+        
+        sheet.animateChanges {
+            sheet.detents = [.large()]
+            sheet.selectedDetentIdentifier = .large
         }
     }
     
@@ -184,15 +180,10 @@ extension CreateGroupViewController: FormSelectButtonDelegate {
         selectColorVC.delegate = self
         
         // Half-Modal 설정
-        if #available(iOS 15.0, *) {
-            if let sheet = selectColorVC.sheetPresentationController {
-                sheet.detents = [.medium()]
-                sheet.prefersGrabberVisible = true
-                sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-            }
-        } else {
-            selectColorVC.modalPresentationStyle = .custom
-            selectColorVC.transitioningDelegate = customBottomModalDelegate
+        if let sheet = selectColorVC.sheetPresentationController {
+            sheet.detents = [.medium()]
+            sheet.prefersGrabberVisible = true
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
         }
         
         ColorManager.shared.updateCurrentIndex(to: colorIndex)

@@ -44,12 +44,10 @@ final class SelectGroupViewController: UIViewController {
         super.viewDidAppear(animated)
         
         // 뒤로 갈 때 다시 HalfModal로 전환
-        if #available(iOS 15.0, *) {
-            guard let sheet = navigationController?.sheetPresentationController else { return }
-            sheet.animateChanges {
-                sheet.detents = [.medium()]
-                sheet.selectedDetentIdentifier = .medium
-            }
+        guard let sheet = navigationController?.sheetPresentationController else { return }
+        sheet.animateChanges {
+            sheet.detents = [.medium()]
+            sheet.selectedDetentIdentifier = .medium
         }
     }
     
