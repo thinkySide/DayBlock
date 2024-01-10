@@ -18,6 +18,16 @@ final class TrackingCompleteView: UIView {
         return view
     }()
     
+    let helpBarButtonItem: UIBarButtonItem = {
+        let button = UIButton()
+        button.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        button.setImage(UIImage(named: Icon.help), for: .normal)
+        button.tintColor = Color.contentsBlock
+        let item = UIBarButtonItem(customView: button)
+        item.customView?.alpha = 0
+        return item
+    }()
+    
     let menuBarButtonItem: UIBarButtonItem = {
         let item = UIBarButtonItem()
         item.image = UIImage(systemName: "ellipsis")
@@ -85,7 +95,7 @@ final class TrackingCompleteView: UIView {
         return label
     }()
     
-    private let dashedSeparator = DashedSeparator(frame: .zero)
+    let dashedSeparator = DashedSeparator(frame: .zero)
     
     let dateLabel: UILabel = {
         let label = UILabel()
@@ -288,6 +298,9 @@ final class TrackingCompleteView: UIView {
             func animationAfterSeconds() {
                 DispatchQueue.main.asyncAfter(deadline: .now()+1) {
                     self.animationEnd()
+                    
+                    // 온보딩 트래킹 툴팁 출력용 Noti
+                    NotificationCenter.default.post(name: .onboardingTrackingCompleteToolTip, object: self, userInfo: nil)
                 }
             }
             
@@ -324,6 +337,7 @@ final class TrackingCompleteView: UIView {
             memoTextView
         ].forEach { $0.alpha = 1 }
         
+        helpBarButtonItem.customView?.alpha = 1
         finishBarButtonItem.isHidden = false
         
         configurePlaceholder()
@@ -368,6 +382,25 @@ final class TrackingCompleteView: UIView {
     
     private func setupConstraints() {
         
+        // 기기별 사이즈 대응을 위한 분기
+        let deviceHeight = UIScreen.main.deviceHeight
+        
+        if deviceHeight == .small {
+            memoTextView.textContainerInset = UIEdgeInsets(top: 16, left: 24, bottom: 16, right: 24)
+            iconBlock.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+            memoTextView.topAnchor.constraint(equalTo: trackingBoard.bottomAnchor, constant: 32).isActive = true
+        } 
+        
+        else if deviceHeight == .middle {
+            iconBlock.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 32).isActive = true
+            memoTextView.topAnchor.constraint(equalTo: trackingBoard.bottomAnchor, constant: 56).isActive = true
+        }
+        
+        else if deviceHeight == .large {
+            iconBlock.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 64).isActive = true
+            memoTextView.topAnchor.constraint(equalTo: trackingBoard.bottomAnchor, constant: 64).isActive = true
+        }
+        
         NSLayoutConstraint.activate([
             
             // backgroundView
@@ -381,7 +414,6 @@ final class TrackingCompleteView: UIView {
             customMenu.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
             
             // iconBlock
-            iconBlock.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 32),
             iconBlock.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             // groupLabel
@@ -418,7 +450,6 @@ final class TrackingCompleteView: UIView {
             memoPlaceHolder.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             // memoTextField
-            memoTextView.topAnchor.constraint(equalTo: trackingBoard.bottomAnchor, constant: 56),
             memoTextView.leadingAnchor.constraint(equalTo: leadingAnchor),
             memoTextView.trailingAnchor.constraint(equalTo: trailingAnchor),
             memoTextView.bottomAnchor.constraint(equalTo: bottomAnchor),

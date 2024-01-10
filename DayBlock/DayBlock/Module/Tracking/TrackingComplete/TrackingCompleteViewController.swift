@@ -45,6 +45,7 @@ final class TrackingCompleteViewController: UIViewController {
         setupUI()
         setupEvent()
         setupKeyboard()
+        setupNotification()
         
         // 캘린더 모드라면 바로 정보 표시
         if mode == .calendar {
@@ -72,7 +73,7 @@ final class TrackingCompleteViewController: UIViewController {
         if mode == .calendar { return }
         
         // 네비게이션 아이템 설정
-        navigationItem.rightBarButtonItem = viewManager.finishBarButtonItem
+        navigationItem.rightBarButtonItems = [viewManager.finishBarButtonItem, viewManager.helpBarButtonItem]
         
         // 애니메이션 컬러
         viewManager.animationCircle.backgroundColor = groupData.focusColor()
@@ -138,7 +139,8 @@ final class TrackingCompleteViewController: UIViewController {
         self.item = item
         
         // 네비게이션 아이템 추가
-        navigationItem.rightBarButtonItem = viewManager.menuBarButtonItem
+        viewManager.helpBarButtonItem.customView?.alpha = 1
+        navigationItem.rightBarButtonItems = [viewManager.menuBarButtonItem, viewManager.helpBarButtonItem]
         
         // 아이콘
         viewManager.iconBlock.backgroundColor = item.groupColor.uicolor
@@ -177,6 +179,8 @@ final class TrackingCompleteViewController: UIViewController {
         let menuBackgroundGesture = UITapGestureRecognizer(target: self, action: #selector(menuBackgroundTapped))
         viewManager.backgroundView.addGestureRecognizer(menuBackgroundGesture)
         
+        addTapGesture(viewManager.helpBarButtonItem, target: self, action: #selector(helpBarButtonItemTapped))
+        
         viewManager.menuBarButtonItem.target = self
         viewManager.menuBarButtonItem.action = #selector(menuBarButtonItemTapped)
         
@@ -200,11 +204,28 @@ final class TrackingCompleteViewController: UIViewController {
 
     }
     
+    private func setupNotification() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(onboardingTrackingCompleteToolTip),
+            name: .onboardingTrackingCompleteToolTip,
+            object: nil
+        )
+    }
+    
     // MARK: - Event Method
     
     /// 메뉴 배경을 탭 했을 때 호출되는 메서드입니다.
     @objc func menuBackgroundTapped() {
         viewManager.toggleMenu()
+    }
+    
+    /// 도움말 BarButtonItem을 탭 했을 때 호출되는 메서드입니다.
+    @objc func helpBarButtonItemTapped() {
+        let toolTipVC = UINavigationController(rootViewController: TrackingCompleteToolTip())
+        toolTipVC.modalPresentationStyle = .overFullScreen
+        toolTipVC.modalTransitionStyle = .crossDissolve
+        present(toolTipVC, animated: true)
     }
     
     /// 메뉴 BarButtonItem을 탭 했을 때 호출되는 메서드입니다.
@@ -301,6 +322,13 @@ final class TrackingCompleteViewController: UIViewController {
         popupView.actionStackView.confirmButton.setTitle("삭제할래요", for: .normal)
         
         self.present(deletePopup, animated: true)
+    }
+    
+    /// 온보딩 트래킹 완료 애니메이션 종료 후 호출되는 Notification 메서드입니다.
+    @objc func onboardingTrackingCompleteToolTip(_ notification: Notification) {
+        if mode == .onboarding {
+            helpBarButtonItemTapped()
+        }
     }
 }
 

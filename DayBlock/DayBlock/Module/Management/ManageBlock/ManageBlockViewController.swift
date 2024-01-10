@@ -123,7 +123,9 @@ extension ManageBlockViewController: UITableViewDataSource, UITableViewDelegate 
         
         header.layoutMargins = UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40)
         
-        header.groupLabel.text = "\(groupData.list()[section].name)"
+        let data = groupData.list()[section]
+        header.groupColor.backgroundColor = data.color.uicolor
+        header.groupLabel.text = "\(data.name)"
         return header
     }
     
@@ -144,7 +146,7 @@ extension ManageBlockViewController: UITableViewDataSource, UITableViewDelegate 
     
     /// Header 높이 값 설정 메서드
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 56
+        return 48
     }
     
     /// Footer 높이 값 설정 메서드

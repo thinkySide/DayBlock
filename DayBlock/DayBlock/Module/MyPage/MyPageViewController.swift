@@ -60,9 +60,16 @@ final class MyPageViewController: UIViewController {
     }
     
     private func setupNavigation() {
-        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = Color.mainText
-        navigationItem.backBarButtonItem = backBarButtonItem
+        configureBackButton()
+        
+        // 네비게이션바의 Appearance를 설정
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.configureWithTransparentBackground()
+        navigationController?.navigationBar.tintColor = .white
+        navigationItem.scrollEdgeAppearance = navigationBarAppearance
+        navigationItem.standardAppearance = navigationBarAppearance
+        navigationItem.compactAppearance = navigationBarAppearance
+        navigationController?.setNeedsStatusBarAppearanceUpdate()
     }
 }
 

@@ -169,6 +169,7 @@
 		07D9E4CC2B454505005340F3 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D9E4CB2B454505005340F3 /* MenuItem.swift */; };
 		07DD3E932AB022ED002D128F /* SimpleIconBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DD3E922AB022ED002D128F /* SimpleIconBlock.swift */; };
 		07DD3E952AB02BE3002D128F /* DashedSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DD3E942AB02BE3002D128F /* DashedSeparator.swift */; };
+		07E1216C2B4E51DE009C93FE /* TrackingCompleteToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E1216B2B4E51DE009C93FE /* TrackingCompleteToolTip.swift */; };
 		07EB771729F5335F000BD87E /* SelectColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB771629F5335F000BD87E /* SelectColorCollectionViewCell.swift */; };
 		07EB771929F53855000BD87E /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB771829F53855000BD87E /* ColorManager.swift */; };
 		07FAF9872AE0DE70003BD30B /* ManageBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FAF9862AE0DE70003BD30B /* ManageBlockView.swift */; };
@@ -342,6 +343,7 @@
 		07D9E4CB2B454505005340F3 /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		07DD3E922AB022ED002D128F /* SimpleIconBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleIconBlock.swift; sourceTree = "<group>"; };
 		07DD3E942AB02BE3002D128F /* DashedSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashedSeparator.swift; sourceTree = "<group>"; };
+		07E1216B2B4E51DE009C93FE /* TrackingCompleteToolTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingCompleteToolTip.swift; sourceTree = "<group>"; };
 		07EB771629F5335F000BD87E /* SelectColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		07EB771829F53855000BD87E /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 		07FAF9862AE0DE70003BD30B /* ManageBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBlockView.swift; sourceTree = "<group>"; };
@@ -672,6 +674,7 @@
 			children = (
 				07B49C462A95E66D006D1011 /* TrackingCompleteView.swift */,
 				07B49C442A95E5BD006D1011 /* TrackingCompleteViewController.swift */,
+				07E1216B2B4E51DE009C93FE /* TrackingCompleteToolTip.swift */,
 			);
 			path = TrackingComplete;
 			sourceTree = "<group>";
@@ -1224,6 +1227,7 @@
 				0719648129DAF38A009CA1A4 /* RemoteBlock.swift in Sources */,
 				07C4A7182B4D3788004237B6 /* ValueLabel.swift in Sources */,
 				0770803429E797E100D66900 /* SelectIconViewController.swift in Sources */,
+				07E1216C2B4E51DE009C93FE /* TrackingCompleteToolTip.swift in Sources */,
 				07B1F8BB2B2C23A500E98382 /* StartViewController.swift in Sources */,
 				07806B7E2B49943300398586 /* HomeMainToolTip.swift in Sources */,
 				07446E3F2B2A7E650002E9EF /* NotificationName++.swift in Sources */,

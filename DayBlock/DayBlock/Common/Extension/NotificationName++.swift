@@ -9,6 +9,7 @@ import Foundation
 
 extension Notification.Name {
     static let latestAccess = NSNotification.Name("latestAccess")
+    static let onboardingTrackingCompleteToolTip = NSNotification.Name("onboardingTrackingCompleteToolTip")
     static let reloadForDeleteBlock = NSNotification.Name("reloadForDeleteBlock")
     static let reloadForUpdateBlock = NSNotification.Name("reloadForUpdateBlock")
     static let updateCreateBlockUI = NSNotification.Name("updateCreateBlockUI")

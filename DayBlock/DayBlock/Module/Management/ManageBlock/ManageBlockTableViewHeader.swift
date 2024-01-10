@@ -10,16 +10,17 @@ import UIKit
 final class ManageBlockTableViewHeader: UITableViewHeaderFooterView {
     static let headerID = "ManageBlockTableViewHeader"
     
-    let spacer: UIView = {
+    let groupColor: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
-        view.alpha = 0
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 5
+        view.backgroundColor = .black
         return view
     }()
     
     let groupLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: Pretendard.bold, size: 18)
+        label.font = UIFont(name: Pretendard.bold, size: 17)
         label.textColor = Color.mainText
         label.textAlignment = .left
         label.text = "그룹명"
@@ -30,18 +31,20 @@ final class ManageBlockTableViewHeader: UITableViewHeaderFooterView {
         super.init(reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .white
         
-        contentView.addSubview(spacer)
+        contentView.addSubview(groupColor)
         contentView.addSubview(groupLabel)
-        spacer.translatesAutoresizingMaskIntoConstraints = false
+        
+        groupColor.translatesAutoresizingMaskIntoConstraints = false
         groupLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            spacer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            spacer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            spacer.heightAnchor.constraint(equalToConstant: 8),
+            groupColor.centerYAnchor.constraint(equalTo: groupLabel.centerYAnchor),
+            groupColor.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 22),
+            groupColor.widthAnchor.constraint(equalToConstant: 16),
+            groupColor.heightAnchor.constraint(equalToConstant: 16),
             
-            groupLabel.topAnchor.constraint(equalTo: spacer.bottomAnchor, constant: 20),
-            groupLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20)
+            groupLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            groupLabel.leadingAnchor.constraint(equalTo: groupColor.trailingAnchor, constant: 6)
         ])
     }
     

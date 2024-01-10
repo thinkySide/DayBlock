@@ -27,7 +27,7 @@ final class HomeView: UIView {
         return group
     }()
     
-    lazy var trackingStopBarButtonItem: UIBarButtonItem = {
+    let trackingStopBarButtonItem: UIBarButtonItem = {
         let button = UIButton()
         button.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         button.setImage(UIImage(named: Icon.trackingStop), for: .normal)
@@ -37,7 +37,7 @@ final class HomeView: UIView {
         return item
     }()
     
-    lazy var helpBarButtonItem: UIBarButtonItem = {
+    let helpBarButtonItem: UIBarButtonItem = {
         let button = UIButton()
         button.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         button.setImage(UIImage(named: Icon.help), for: .normal)
