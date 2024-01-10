@@ -283,6 +283,7 @@ final class TrackingCompleteViewController: UIViewController {
         
         // 메뉴 아이템 변경
         navigationItem.rightBarButtonItem = viewManager.menuBarButtonItem
+        viewManager.helpBarButtonItem.isHidden = false
         
         // 완료 토스트 출력
         showToast(toast: viewManager.memoEditCompleteToastView, isActive: true)
@@ -302,6 +303,7 @@ final class TrackingCompleteViewController: UIViewController {
         
         // 바 버튼 아이템 변경
         navigationItem.rightBarButtonItem = viewManager.saveBarButtonItem
+        viewManager.helpBarButtonItem.isHidden = true
     }
     
     /// 트래킹 삭제 메뉴 아이템을 탭 했을 때 호출되는 메서드입니다.
