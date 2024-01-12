@@ -8,7 +8,7 @@ DayBlock 데이블럭과 함께해요!
 그중 기록하고 싶은 시간들을 블럭으로 만들고 쌓아가다 보면   
 노력과 열정의 흔적을 데이블럭에서 확인할 수 있을 거에요.   
 
-[APP Store 링크](https://apps.apple.com/us/app/dayblock-%EB%8D%B0%EC%9D%B4%EB%B8%94%EB%9F%AD/id6474824210)
+[APP Store 링크](https://apps.apple.com/us/app/dayblock-%EB%8D%B0%EC%9D%B4%EB%B8%94%EB%9F%AD/id6474824210)   
 [Figma 디자인 링크](https://www.figma.com/file/1W0dsnAboHaLJt829E4ZwI/DayBlock-%EB%8D%B0%EC%9D%B4%EB%B8%94%EB%9F%AD?type=design&node-id=0%3A1&mode=design&t=ZbIwzUuW5BItmx6t-1)
 
 <br>
@@ -52,6 +52,8 @@ DayBlock 데이블럭과 함께해요!
 앞으로의 계획은 우선 사용자 피드백을 받아 버그 수정 및 UX를 개선하려 합니다. (수많은 트래킹, 블럭, 그룹 관리를 위한 테스트를 해봤지만 언제나 버그는 존재했기에,,!) 이와 함께 조금씩 모듈화 및 RxSwift를 이용한 MVVM 패턴으로 리팩토링을 진행할 계획입니다. 물론 네트워킹, BM 도입 등 기능 추가도 정말 하고 싶지만,, 근본적인 제 기능을 다 했을 때 건드리는 게 옳다고 생각하기에 시간을 두고 천천히 한 걸음씩 나아가려 합니다.
 
 마지막으로 느낀 점을 종합 정리해 보자면, 정말 옛날부터 하고 싶었던 "내 생각을 구체화시켜 서비스로 출시해 보겠다"라는 뜻을 이뤄 감회가 새롭습니다. 이게 제 개발 인생의 시작점이자 밑거름이 된다 생각하고 성장해나가고 싶습니다. 감사합니다!
+
+![image](https://github.com/thinkySide/DayBlock/assets/113565086/7905becc-219f-4d73-8e77-532672ab9896)
 
 ---
 
