@@ -34,7 +34,10 @@ final class MyPageView: UIView {
     
     let invalidMailToastView: ToastMessage = {
         let view = ToastMessage(state: .warning)
-        view.messageLabel.text = "메일 전송을 위해 'Mail' 앱 연동이 필요해요"
+        view.messageLabel.text = """
+        'Mail' 앱 연동이 확인되지 않아, 문의 메일 주소
+        eunlyuing@gmail.com을 클립보드에 복사했어요
+        """
         view.alpha = 0
         return view
     }()

@@ -12,10 +12,13 @@ extension MyPageViewController: MFMailComposeViewControllerDelegate {
     
     /// 이메일 문의 셀 버튼 탭 시 호출되는 메서드입니다.
     func emailContactCellTapped() {
+        
+        let contactEmail = "eunlyuing@gmail.com"
+        
         if MFMailComposeViewController.canSendMail() {
             let emailVC = MFMailComposeViewController()
             emailVC.mailComposeDelegate = self
-            emailVC.setToRecipients(["eunlyuing@gmail.com"])
+            emailVC.setToRecipients([contactEmail])
             emailVC.setSubject("[DayBlock] 이메일 문의")
             
             let mailBody = """
@@ -31,7 +34,14 @@ extension MyPageViewController: MFMailComposeViewControllerDelegate {
             
             emailVC.setMessageBody(mailBody, isHTML: false)
             present(emailVC, animated: true)
-        } else {
+        } 
+        
+        // 메일 앱 연동 되어있지 않을 시
+        else {
+            
+            // 이메일 주소 클립보드 복사하기
+            UIPasteboard.general.string = contactEmail
+            
             showToast(toast: viewManager.invalidMailToastView, isActive: true)
             Vibration.error.vibrate()
         }

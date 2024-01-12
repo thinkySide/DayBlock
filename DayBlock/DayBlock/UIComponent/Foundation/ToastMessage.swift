@@ -28,7 +28,8 @@ final class ToastMessage: UIView {
         label.text = "토스트 메시지를 작성하세요."
         label.font = UIFont(name: Pretendard.semiBold, size: 15)
         label.textColor = .white
-        label.textAlignment = .left
+        label.numberOfLines = 0
+        label.asLineSpacing(targetString: "토스트 메시지를 작성하세요.", lineSpacing: 2, alignment: .left)
         return label
     }()
 
