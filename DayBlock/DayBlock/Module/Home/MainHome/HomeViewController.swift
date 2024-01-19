@@ -62,6 +62,7 @@ final class HomeViewController: UIViewController {
         configureTrackingButton()
         
         // UI 업데이트
+        updateGroupSelectButton()
         uptodateTodayLabelUI()
         if !UserDefaultsItem.shared.isPaused {
             updateTrackingBoardUI()

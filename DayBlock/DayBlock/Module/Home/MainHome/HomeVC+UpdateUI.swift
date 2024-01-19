@@ -16,6 +16,12 @@ extension HomeViewController {
         viewManager.toggleTrackingButton(bool)
     }
     
+    /// groupSelectButton을 최신화합니다.
+    func updateGroupSelectButton() {
+        viewManager.groupSelectButton.color.backgroundColor = groupData.focusColor()
+        viewManager.groupSelectButton.label.text = groupData.focusEntity().name
+    }
+    
     /// today 라벨을 최신화합니다.
     func uptodateTodayLabelUI() {
         viewManager.productivityLabel.text = "today +\(trackingData.todayAllOutput())"

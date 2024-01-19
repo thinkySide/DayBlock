@@ -39,8 +39,7 @@ extension HomeViewController: SelectGroupViewControllerDelegate {
         
         // 1. 현재 그룹 정보 및 UI 업데이트
         groupData.updateFocusIndex(to: index)
-        viewManager.groupSelectButton.color.backgroundColor = groupData.focusColor()
-        viewManager.groupSelectButton.label.text = groupData.focusEntity().name
+        updateGroupSelectButton()
         viewManager.blockCollectionView.reloadData()
         
         // 2. 스크롤 위치 0번으로 초기화
