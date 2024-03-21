@@ -84,7 +84,7 @@ final class CreateBlockViewController: UIViewController {
         viewManager.taskLabelTextField.countLabel.text = "\(taskLabel.count)/18"
         viewManager.createBarButtonItem.isEnabled = true
         
-        // 편집 중인 블럭명 저장
+        // 편집 중인 블럭명 저장하기
         originalBlockName = taskLabel
     }
     
