@@ -219,14 +219,15 @@ init메서드에 print문을 찍으며 오류를 잡아냈습니다.
 - **ContentsBlock 커스텀 생성자 사용**   
 ContentsBlock을 컴포넌트화 하기 위해 .middle, .large 사이즈로 나눠 생성할 수 있도록 했습니다.   
 기존 UIView의 생성자를 재정의해서 사용하는 것이 아닌, 커스텀 생성자를 만들어 구현했습니다.   
-[문제 해결 기록 : 유동적인 사이즈의 컴포넌트 생성하기](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/27.md)
+[문제 해결 기록 : 유동적인 사이즈의 컴포넌트 생성하기](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/27.%20%EC%9C%A0%EB%8F%99%EC%A0%81%EC%9D%B8%20%EC%82%AC%EC%9D%B4%EC%A6%88%EC%9D%98%20%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%20%EC%83%9D%EC%84%B1%ED%95%98%EA%B8%B0.md)
+
 
 - **HomeViewDelegate 생성**    
 트래킹 모드 진입 시, TabBarController를 숨기기 위해 커스텀 Delegate 패턴을 활용해 구현했습니다.
 
 - **TrackingMode 사이즈 조정**   
 trackingTimeLabel을 trackingBlock과 trackingButton 가운데에 배치하기 위해 제약조건을 업데이트했습니다.   
-[문제 해결 기록 : 두개 View 사이 정가운데에 View 배치하기](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/28.md)
+[문제 해결 기록 : 두개 View 사이 정가운데에 View 배치하기](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/28.%20%EB%91%90%EA%B0%9C%20View%20%EC%82%AC%EC%9D%B4%20%EC%A0%95%EA%B0%80%EC%9A%B4%EB%8D%B0%EC%97%90%20View%20%EB%B0%B0%EC%B9%98%ED%95%98%EA%B8%B0.md)
 
 **+ 프로젝트 기간 점검**   
 환경 셋팅, MVC 패턴 구성, 메인화면 레이아웃 잡기 목표를 가지고 계획했던 23.04.09 기준 진행상황은 예정보다 약 20% 정도 더 진행되었습니다. 트래킹, 블럭 추가 화면의 디자인이 거의 마무리되었기 때문에 남는 시간은 CoreData 관련 공부, 리팩토링에 집중할 계획입니다.
@@ -267,7 +268,7 @@ TrackingMode 진입 시 해당 블럭의 인덱스로 접근하는 기능을 추
 - **GroupSelectBarButtonItem 위치 변경**   
 가운데 위치하고 있던 `groupSelectBarButtonItem`의 위치를 왼쪽 정렬했습니다.   
 그 과정에서 시각 보정을 위해 왼쪽 `layoutMargin` 속성을 사용했습니다.   
-[문제 해결 기록 : UIStackView에 ContentsInset 주기](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/30.md)
+[문제 해결 기록 : UIStackView에 ContentsInset 주기](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/30.%20UIStackView%EC%97%90%20ContentsInset%20%EC%A3%BC%EA%B8%B0.md)
 
 - **블럭 추가화면 작업명 TextField 글자수 제한 로직 추가**   
 `UITextFieldDelegate`의 `shouldChangeCharactersIn` 메서드를 사용해 글자수 제한 로직을 추가했습니다.
@@ -351,7 +352,7 @@ iOS 15.0 부터 지원하는 기능이기 때문에 해당 방법을 선택했�
 ### **Day 52 - 23.04.21**
 
 - **CreateGroup ConfirmBarButtonItem 커스텀**   
-[문제 해결 기록 : UIBarButtonItem의 title font 커스텀하기](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/34.md)
+[문제 해결 기록 : UIBarButtonItem의 title font 커스텀하기](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/34.%20UIBarButtonItem%EC%9D%98%20title%20font%20%EC%BB%A4%EC%8A%A4%ED%85%80%ED%95%98%EA%B8%B0.md)
 
 - **그룹 전환 기능 추가**   
 현재 CreateBlockView와 HomeView와 공유하며 사용하고 있기 때문에 클래스 내 분기처리가 필요합니다.
@@ -450,7 +451,7 @@ TrackingButton 활성화 문제로 그룹 전환 시 0번째 인덱스로 전환
 - **CoreData 구현**   
 핵심 비즈니스 로직인 `Group`, `Block` 데이터를 저장하기 위한 CoreData를 구현하였습니다. 처음 구현해보는 기능이었기에 시행착오가 꽤나 길어졌지만, 관계형 설정을 통해 해결했습니다. 우선 기본적인 데이터를 읽고(READ) 생성하는(CREATE) 기능만을 구현해두었고, 추후 수정과 삭제 기능을 추가할 예정입니다.
 
-    [문제 해결 기록 : CoreData 저장이 안되는 문제](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/46.md)
+    [문제 해결 기록 : CoreData 저장이 안되는 문제](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/46.%20CoreData%20%EC%A0%80%EC%9E%A5%EC%9D%B4%20%EC%95%88%EB%90%98%EB%8A%94%20%EB%AC%B8%EC%A0%9C.md)
 
 <img width="300" src="https://github.com/thinkySide/DayBlock/assets/113565086/3bf10332-7d94-4034-8348-d8ccd58ce9fd">
 
@@ -522,7 +523,7 @@ Group 생성, 편집, 삭제 기능 화면으로의 이동을 위한 CustomUIMen
 - **CollectionView 스크롤 문제 해결**   
 Select는 되지만, Scroll이 되지 않았던 문제를 해결했습니다. View 업데이트와 관련된 이슈로 `viewDidLayoutSubviews` 메서드를 이용해 해결했습니다.
 
-    [문제 해결 기록 : UICollectionView 선택된 item으로 스크롤이 안되는 문제](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/35.md)
+    [문제 해결 기록 : UICollectionView 선택된 item으로 스크롤이 안되는 문제](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/35.%20UICollectionView%20%EC%84%A0%ED%83%9D%EB%90%9C%20item%EC%9C%BC%EB%A1%9C%20%EC%8A%A4%ED%81%AC%EB%A1%A4%EC%9D%B4%20%EC%95%88%EB%90%98%EB%8A%94%20%EB%AC%B8%EC%A0%9C.md)
 
 - 그룹 편집 시, UI 업데이트 되지 않던 문제 수정   
 NotificationCenter를 활용해 그룹이 업데이트 되는 시점에 맞춰 HomeViewController의 UI를 업데이트 해주었습니다.
@@ -538,7 +539,7 @@ NotificationCenter를 활용해 그룹이 업데이트 되는 시점에 맞춰 H
 - **TrackingBlock LongPressGesture 애니메이션 추가**   
 트래킹이 끝나고 지금까지 생산한 블럭을 저장하는 이벤트인 `LongPressGesture Animation`을 추가했습니다. 하지만 처음 사용하는 사용자에게 해당 이벤트는 직관적이지 않다고 판단해 초기 온보딩 진행 및 안내 버튼을 추가할 예정입니다.
 
-    [문제 해결 기록 : LongPress Animation 만들기](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/50.md)
+    [문제 해결 기록 : LongPress Animation 만들기](https://github.com/thinkySide/Cheat-Sheet/blob/main/Solution/50.%20LongPress%20Animation%20%EB%A7%8C%EB%93%A4%EA%B8%B0.md)
 
 - 그룹 수정 시 블럭 생성 UI 화면 업데이트가 되지 않는 버그 수정   
 `NotificationCenter`를 활용해 블럭 생성 화면에서 UI 업데이트가 되지 않는 버그를 수정했습니다.
