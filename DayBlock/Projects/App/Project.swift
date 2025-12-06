@@ -17,10 +17,7 @@ let project = Project(
                     ],
                 ]
             ),
-            buildableFolders: [
-                "Sources",
-                "Resources",
-            ],
+            buildableFolders: ["Sources"],
             dependencies: [],
             settings: .shared
         )
