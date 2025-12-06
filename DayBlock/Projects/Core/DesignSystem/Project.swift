@@ -15,5 +15,8 @@ let project = Project(
             ],
             settings: .shared
         )
+    ],
+    resourceSynthesizers: [
+        .assets()
     ]
 )
