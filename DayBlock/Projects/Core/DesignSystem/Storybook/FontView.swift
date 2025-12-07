@@ -41,6 +41,7 @@ struct FontView: View {
 }
 
 #Preview {
-    DesignSystemFontFamily.registerAllCustomFonts()
-    return FontView()
+    DesignSystemPreview {
+        FontView()
+    }
 }

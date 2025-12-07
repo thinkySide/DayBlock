@@ -31,5 +31,7 @@ struct MainView: View {
 }
 
 #Preview {
-    MainView()
+    DesignSystemPreview {
+        MainView()
+    }
 }
