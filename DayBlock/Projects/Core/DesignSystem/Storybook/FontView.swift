@@ -13,7 +13,7 @@ struct FontView: View {
     @State private var textSize: CGFloat = 20
     
     var body: some View {
-        ScrollView {
+        ZStack(alignment: .bottom) {
             VStack(alignment: .leading, spacing: textSize) {
                 Text("Pretendard/Regular")
                     .brandFont(.pretendard(.regular), textSize)
@@ -34,9 +34,20 @@ struct FontView: View {
                 
                 Text("Poppins/Bold")
                     .brandFont(.poppins(.bold), textSize)
+                
+                Spacer()
             }
-            .padding()
+            
+            VStack(spacing: 4) {
+                Text("\(Int(textSize))")
+                    .brandFont(.poppins(.semiBold), 16)
+                    .foregroundStyle(.blue)
+                
+                Slider(value: $textSize, in: 8...32, step: 1)
+                    .frame(width: 160)
+            }
         }
+        .padding()
     }
 }
 
