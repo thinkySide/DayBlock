@@ -14,9 +14,22 @@ let project = Project(
                 "Resources"
             ],
             settings: .shared
+        ),
+        .target(
+            name: "Storybook",
+            destinations: .iOS,
+            product: .app,
+            bundleId: "com.thinkyside.DayBlock.Storybook",
+            infoPlist: .extendingDefault(with: ["UILaunchScreen": [:]]),
+            buildableFolders: ["Storybook"],
+            dependencies: [
+                .target(name: "DesignSystem")
+            ],
+            settings: .shared
         )
     ],
     resourceSynthesizers: [
-        .assets()
+        .assets(),
+        .fonts()
     ]
 )
