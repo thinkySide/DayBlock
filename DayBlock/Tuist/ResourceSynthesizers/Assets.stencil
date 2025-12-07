@@ -4,7 +4,7 @@
 // swiftformat:disable all
 // Generated using tuist — https://github.com/tuist/tuist
 
-{% if catalogs %}
+{% if catalogs and param.name == "DesignSystem" %}
 {% set enumName %}DesignSystem{% endset %}
 {% set arResourceGroupType %}{{param.name}}ARResourceGroup{% endset %}
 {% set colorType %}{{param.name}}Colors{% endset %}
