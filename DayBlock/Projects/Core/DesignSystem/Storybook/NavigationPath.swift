@@ -9,6 +9,7 @@ import Foundation
 
 enum Path: String, Identifiable, CaseIterable {
     case font
+    case color
 }
 
 // MARK: - Helper

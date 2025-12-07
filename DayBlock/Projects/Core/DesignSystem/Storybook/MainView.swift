@@ -17,11 +17,12 @@ struct MainView: View {
             List(Path.allCases) { path in
                 NavigationLink(path.title, value: path)
             }
-            .navigationTitle("Storybook")
+            .navigationTitle("DayBlock Storybook")
             .navigationDestination(for: Path.self) { path in
                 Group {
                     switch path {
                     case .font: FontView()
+                    case .color: ColorView()
                     }
                 }
                 .navigationTitle(path.title)
