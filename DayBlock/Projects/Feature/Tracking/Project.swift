@@ -24,6 +24,7 @@ let project = Project(
                         "UIColorName": "",
                         "UIImageName": "",
                     ],
+                    "CFBundleDisplayName": "🛠️Tracking",
                 ]
             ),
             buildableFolders: ["Demo"],
