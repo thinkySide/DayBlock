@@ -1,0 +1,65 @@
+//
+//  MainTrackingView.swift
+//  Tracking
+//
+//  Created by 김민준 on 12/8/25.
+//
+
+import SwiftUI
+import DesignSystem
+import ComposableArchitecture
+
+public struct MainTrackingView: View {
+    
+    public init() {
+        
+    }
+    
+    public var body: some View {
+        VStack(spacing: 0) {
+            Header()
+            
+            Spacer()
+        }
+        .padding(.horizontal, 20)
+    }
+}
+
+// MARK: - Header
+extension MainTrackingView {
+    
+    @ViewBuilder
+    private func Header() -> some View {
+        HStack {
+            DateTimeInfo()
+            
+            Spacer()
+        }
+    }
+    
+    @ViewBuilder
+    private func DateTimeInfo() -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Text("1월 2일 화요일")
+                .brandFont(.pretendard(.semiBold), 16)
+                .foregroundStyle(DesignSystem.Colors.gray616161.swiftUIColor)
+                .padding(.leading, 4)
+            
+            Text("08:25")
+                .brandFont(.poppins(.bold), 56)
+                .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+                .padding(.top, -8)
+            
+            Text("today +0.5")
+                .brandFont(.poppins(.bold), 23)
+                .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+                .padding(.leading, 4)
+                .padding(.top, -12)
+        }
+    }
+}
+
+// MARK: - Preview
+#Preview {
+    MainTrackingView()
+}
