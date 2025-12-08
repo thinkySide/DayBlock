@@ -10,7 +10,9 @@ let project = Project(
             product: .framework,
             bundleId: "com.thinkyside.DayBlock.Tracking",
             buildableFolders: ["Sources"],
-            dependencies: [],
+            dependencies: [
+                .TCA
+            ],
             settings: .shared
         ),
         .target(
