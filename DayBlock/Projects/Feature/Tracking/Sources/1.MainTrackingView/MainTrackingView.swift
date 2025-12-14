@@ -20,6 +20,9 @@ public struct MainTrackingView: View {
             Header()
                 .padding(.horizontal, 20)
             
+            GroupPicker()
+                .padding(.top, 32)
+            
             Spacer()
         }
     }
@@ -62,6 +65,27 @@ extension MainTrackingView {
                 .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
                 .padding(.leading, 4)
                 .padding(.top, -12)
+        }
+    }
+    
+    @ViewBuilder
+    private func GroupPicker() -> some View {
+        Button {
+            
+        } label: {
+            HStack(spacing: 6) {
+                RoundedRectangle(cornerRadius: 4)
+                    .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+                    .frame(width: 16, height: 16)
+                
+                Text("기본 그룹")
+                    .brandFont(.pretendard(.bold), 16)
+                    .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+                
+                DesignSystem.Icons.iconArrowDown.swiftUIImage
+                    .resizable()
+                    .frame(width: 20, height: 20)
+            }
         }
     }
 }
