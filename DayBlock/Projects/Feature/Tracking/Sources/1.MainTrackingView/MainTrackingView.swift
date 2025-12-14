@@ -27,6 +27,25 @@ public struct MainTrackingView: View {
                 .padding(.top, 16)
             
             Spacer()
+                .frame(maxHeight: 48)
+            
+            Text("오늘 하루는 어떤 블럭으로\n채우고 계신가요?")
+                .brandFont(.pretendard(.semiBold), 15)
+                .foregroundStyle(DesignSystem.Colors.gray616161.swiftUIColor)
+                .multilineTextAlignment(.center)
+                .lineSpacing(2)
+            
+            Spacer()
+                .frame(maxHeight: 48)
+            
+            TrackingButton(
+                state: .play,
+                tapAction: {
+                    
+                }
+            )
+            
+            Spacer()
         }
     }
 }
@@ -114,6 +133,7 @@ private struct BlockCarousel: View {
             .scrollIndicators(.hidden)
             .safeAreaPadding(.horizontal, (geometry.size.width - cellSize) / 2)
         }
+        .frame(height: cellSize)
     }
 
     @ViewBuilder
