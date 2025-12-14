@@ -7,25 +7,30 @@
 
 import SwiftUI
 
-public struct TrackingBoardBlock: View {
-    
-    public enum State {
+public struct TrackingBoardBlock: View, Identifiable {
+
+    public enum State: Equatable {
         case none
         case firstHalf(Color)
         case secondHalf(Color)
         case full(Color)
         case mixed(firstHalf: Color, secondHalf: Color)
     }
-    
+
+    public var id: Int { index }
+
+    let index: Int
     let state: State
     let size: CGFloat
     let cornerRadius: CGFloat
     
     public init(
+        index: Int,
         state: State,
         size: CGFloat,
         cornerRadius: CGFloat
     ) {
+        self.index = index
         self.state = state
         self.size = size
         self.cornerRadius = cornerRadius
@@ -72,5 +77,27 @@ public struct TrackingBoardBlock: View {
         }
         .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
         .frame(width: size, height: size)
+    }
+}
+
+// MARK: - State Equtable
+extension TrackingBoardBlock.State {
+    
+    public static func == (
+        lhs: TrackingBoardBlock.State,
+        rhs: TrackingBoardBlock.State
+    ) -> Bool {
+        switch (lhs, rhs) {
+        case (.none, .none):
+            return true
+        case (.firstHalf(let lhsColor), .firstHalf(let rhsColor)),
+             (.secondHalf(let lhsColor), .secondHalf(let rhsColor)),
+             (.full(let lhsColor), .full(let rhsColor)):
+            return lhsColor == rhsColor
+        case (.mixed(let lhsFirst, let lhsSecond), .mixed(let rhsFirst, let rhsSecond)):
+            return lhsFirst == rhsFirst && lhsSecond == rhsSecond
+        default:
+            return false
+        }
     }
 }

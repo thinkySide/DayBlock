@@ -34,6 +34,13 @@ extension MainTrackingView {
             DateTimeInfo()
             
             Spacer()
+            
+            TrackingBoard(
+                activeBlocks: [:],
+                blockSize: 18,
+                blockCornerRadius: 4.5,
+                spacing: 4
+            )
         }
     }
     
