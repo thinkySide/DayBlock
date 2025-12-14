@@ -23,6 +23,9 @@ public struct MainTrackingView: View {
             GroupPicker()
                 .padding(.top, 32)
             
+            BlockCarousel()
+                .padding(.top, 16)
+            
             Spacer()
         }
     }
@@ -87,6 +90,37 @@ extension MainTrackingView {
                     .frame(width: 20, height: 20)
             }
         }
+    }
+}
+
+// MARK: - BlockCarousel
+private struct BlockCarousel: View {
+
+    private let cellSize: CGFloat = 180
+
+    var body: some View {
+        GeometryReader { geometry in
+            ScrollView(.horizontal) {
+                HStack(spacing: 24) {
+                    BlockCell()
+                    BlockCell()
+                    BlockCell()
+                    BlockCell()
+                    BlockCell()
+                }
+                .scrollTargetLayout()
+            }
+            .scrollTargetBehavior(.viewAligned)
+            .scrollIndicators(.hidden)
+            .safeAreaPadding(.horizontal, (geometry.size.width - cellSize) / 2)
+        }
+    }
+
+    @ViewBuilder
+    private func BlockCell() -> some View {
+        DesignSystem.Colors.grayF4F5F7.swiftUIColor
+            .frame(width: cellSize, height: cellSize)
+            .clipShape(RoundedRectangle(cornerRadius: 26))
     }
 }
 
