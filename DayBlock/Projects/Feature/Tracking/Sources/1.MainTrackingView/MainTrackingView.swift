@@ -104,7 +104,7 @@ extension MainTrackingView {
                     .brandFont(.pretendard(.bold), 16)
                     .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
                 
-                DesignSystem.Icons.iconArrowDown.swiftUIImage
+                DesignSystem.Icons.arrowDown.swiftUIImage
                     .resizable()
                     .frame(width: 20, height: 20)
             }

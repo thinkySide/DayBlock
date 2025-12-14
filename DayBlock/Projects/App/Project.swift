@@ -22,7 +22,10 @@ let project = Project(
                 "Sources",
                 "Resources"
             ],
-            dependencies: [],
+            dependencies: [
+                .project(target: "DesignSystem", path: "../Core/DesignSystem"),
+                .project(target: "Tracking", path: "../Feature/Tracking")
+            ],
             settings: .shared
         )
     ]
