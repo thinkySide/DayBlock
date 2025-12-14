@@ -11,17 +11,17 @@ import ComposableArchitecture
 
 public struct MainTrackingView: View {
     
-    public init() {
-        
-    }
+    public init() { }
     
     public var body: some View {
         VStack(spacing: 0) {
+            NavigationBar()
+            
             Header()
+                .padding(.horizontal, 20)
             
             Spacer()
         }
-        .padding(.horizontal, 20)
     }
 }
 

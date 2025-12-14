@@ -11,7 +11,8 @@ let project = Project(
             bundleId: "com.thinkyside.DayBlock.Tracking",
             buildableFolders: ["Sources"],
             dependencies: [
-                .TCA
+                .TCA,
+                .project(target: "DesignSystem", path: "../../Core/DesignSystem")
             ],
             settings: .shared
         ),
