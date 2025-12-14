@@ -28,6 +28,8 @@ extension Path {
 // MARK: - ComponentsPath
 enum ComponentsPath: String, Identifiable, CaseIterable {
     case navigationBar
+    case trackingBoard
+    case trackingBoardBlock
 }
 
 // MARK: - ComponentsPath Helper
