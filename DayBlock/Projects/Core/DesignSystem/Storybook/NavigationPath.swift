@@ -10,10 +10,28 @@ import Foundation
 enum Path: String, Identifiable, CaseIterable {
     case font
     case color
+    case components
 }
 
-// MARK: - Helper
+// MARK: - Path Helper
 extension Path {
+    var id: String {
+        self.rawValue
+    }
+    
+    var title: String {
+        let text = self.rawValue
+        return text.prefix(1).uppercased() + text.dropFirst()
+    }
+}
+
+// MARK: - ComponentsPath
+enum ComponentsPath: String, Identifiable, CaseIterable {
+    case navigationBar
+}
+
+// MARK: - ComponentsPath Helper
+extension ComponentsPath {
     var id: String {
         self.rawValue
     }
