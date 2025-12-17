@@ -121,11 +121,21 @@ private struct BlockCarousel: View {
         GeometryReader { geometry in
             ScrollView(.horizontal) {
                 HStack(spacing: 24) {
-                    BlockCell()
-                    BlockCell()
-                    BlockCell()
-                    BlockCell()
-                    BlockCell()
+                    DayBlock(
+                        title: "첫번째 블럭",
+                        amount: 1.5,
+                        symbol: .party_popper_fill,
+                        color: .blue,
+                        state: .medium
+                    )
+                    
+                    DayBlock(
+                        title: "두번째 블럭두번째 블럭두번째 블럭두번째 블럭두번째 블럭",
+                        amount: 1.5,
+                        symbol: .pause_fill,
+                        color: .blue,
+                        state: .medium
+                    )
                 }
                 .scrollTargetLayout()
             }
@@ -134,13 +144,6 @@ private struct BlockCarousel: View {
             .safeAreaPadding(.horizontal, (geometry.size.width - cellSize) / 2)
         }
         .frame(height: cellSize)
-    }
-
-    @ViewBuilder
-    private func BlockCell() -> some View {
-        DesignSystem.Colors.grayF4F5F7.swiftUIColor
-            .frame(width: cellSize, height: cellSize)
-            .clipShape(RoundedRectangle(cornerRadius: 26))
     }
 }
 

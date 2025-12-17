@@ -10,6 +10,7 @@ import Foundation
 public enum Symbol: String {
     case play_fill
     case pause_fill
+    case party_popper_fill
 }
 
 // MARK: - Helper
