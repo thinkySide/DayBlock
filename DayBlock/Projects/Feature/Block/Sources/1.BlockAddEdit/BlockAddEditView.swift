@@ -29,6 +29,19 @@ public struct BlockAddEditView: View {
             )
             .padding(.top, 12)
             
+            LabelTextField(
+                text: .constant(""),
+                label: "작업명",
+                placeholder: "블럭 쌓기",
+                accessory: {
+                    Text("0/16")
+                        .brandFont(.pretendard(.semiBold), 14)
+                        .foregroundStyle(DesignSystem.Colors.grayAAAAAA.swiftUIColor)
+                }
+            )
+            .padding(.top, 32)
+            .padding(.horizontal, 20)
+            
             Spacer()
         }
         .navigationBarTitleDisplayMode(.inline)
