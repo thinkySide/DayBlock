@@ -17,7 +17,7 @@ public struct BlockAddEditFeature {
     }
 
     public enum Action {
-        case dismiss
+        
     }
 
     public init() {}
@@ -25,8 +25,7 @@ public struct BlockAddEditFeature {
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .dismiss:
-                return .none
+
             }
         }
     }

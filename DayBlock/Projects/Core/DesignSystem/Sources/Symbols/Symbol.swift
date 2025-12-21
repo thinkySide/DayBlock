@@ -14,6 +14,7 @@ public enum Symbol: String {
     case plus_circle_fill
     case trash_fill
     case pencil
+    case batteryblock_fill
 }
 
 // MARK: - Helper
