@@ -16,7 +16,7 @@ struct MainView: View {
     var body: some View {
         TabView(selection: $tab) {
             Tab(value: MainTab.tracking) {
-                MainTrackingView()
+                TrackingCarouselView()
             } label: {
                 Label {
                     Text("트래킹")

@@ -11,7 +11,7 @@ struct TrackingDemoApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MainTrackingView()
+            TrackingCarouselView()
         }
     }
 }

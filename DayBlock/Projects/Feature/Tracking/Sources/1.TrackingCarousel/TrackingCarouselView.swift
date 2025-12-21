@@ -1,5 +1,5 @@
 //
-//  MainTrackingView.swift
+//  TrackingCarouselView.swift
 //  Tracking
 //
 //  Created by 김민준 on 12/8/25.
@@ -9,7 +9,7 @@ import SwiftUI
 import DesignSystem
 import ComposableArchitecture
 
-public struct MainTrackingView: View {
+public struct TrackingCarouselView: View {
     
     public init() { }
     
@@ -51,7 +51,7 @@ public struct MainTrackingView: View {
 }
 
 // MARK: - Header
-extension MainTrackingView {
+extension TrackingCarouselView {
     
     @ViewBuilder
     private func Header() -> some View {
@@ -153,5 +153,5 @@ private struct BlockCarousel: View {
 
 // MARK: - Preview
 #Preview {
-    MainTrackingView()
+    TrackingCarouselView()
 }
