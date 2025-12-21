@@ -23,6 +23,7 @@ let project = Project(
                 "Resources"
             ],
             dependencies: [
+                .TCA,
                 .project(target: "DesignSystem", path: "../Core/DesignSystem"),
                 .project(target: "Tracking", path: "../Feature/Tracking")
             ],

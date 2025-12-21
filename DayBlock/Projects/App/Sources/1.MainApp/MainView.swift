@@ -8,15 +8,23 @@
 import SwiftUI
 import DesignSystem
 import Tracking
+import ComposableArchitecture
 
 struct MainView: View {
-    
-    @State private var tab: MainTab = .tracking
-    
+
+    @Bindable var store: StoreOf<MainAppFeature>
+
     var body: some View {
-        TabView(selection: $tab) {
+        TabView(selection: $store.selectedTab) {
             Tab(value: MainTab.tracking) {
-                TrackingCarouselView()
+                TrackingCarouselView(
+                    store: .init(
+                        initialState: store.trackingState,
+                        reducer: {
+                            TrackingCarouselFeature()
+                        }
+                    )
+                )
             } label: {
                 Label {
                     Text("트래킹")
@@ -57,8 +65,4 @@ struct MainView: View {
         }
         .tint(DesignSystem.Colors.gray323232.swiftUIColor)
     }
-}
-
-#Preview {
-    MainView()
 }

@@ -1,9 +1,14 @@
 import SwiftUI
 import Tracking
 import DesignSystem
+import ComposableArchitecture
 
 @main
 struct TrackingDemoApp: App {
+    
+    let store = Store(initialState: .init()) {
+        TrackingCarouselFeature()
+    }
     
     init() {
         DesignSystemFontFamily.registerAllCustomFonts()
@@ -11,7 +16,7 @@ struct TrackingDemoApp: App {
     
     var body: some Scene {
         WindowGroup {
-            TrackingCarouselView()
+            TrackingCarouselView(store: store)
         }
     }
 }

@@ -8,12 +8,29 @@
 import SwiftUI
 import DesignSystem
 import ComposableArchitecture
+import Block
 
 public struct TrackingCarouselView: View {
-    
-    public init() { }
-    
+
+    @Bindable public var store: StoreOf<TrackingCarouselFeature>
+
+    public init(store: StoreOf<TrackingCarouselFeature>) {
+        self.store = store
+    }
+
     public var body: some View {
+        NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
+            contentView
+        } destination: { store in
+            switch store.case {
+            case let .blockAddEdit(store):
+                BlockAddEditView(store: store)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var contentView: some View {
         VStack(spacing: 0) {
             NavigationBar()
             
@@ -22,8 +39,8 @@ public struct TrackingCarouselView: View {
             
             GroupPicker()
                 .padding(.top, 32)
-            
-            BlockCarousel()
+
+            BlockCarousel(store: store)
                 .padding(.top, 16)
             
             Spacer()
@@ -115,6 +132,7 @@ extension TrackingCarouselView {
 // MARK: - BlockCarousel
 private struct BlockCarousel: View {
 
+    let store: StoreOf<TrackingCarouselFeature>
     private let cellSize: CGFloat = 180
 
     var body: some View {
@@ -139,7 +157,11 @@ private struct BlockCarousel: View {
                         state: .back
                     )
                     
-                    CarouselAddBlock()
+                    CarouselAddBlock(
+                        onTap: {
+                            store.send(.onTapAddBlock)
+                        }
+                    )
                 }
                 .scrollTargetLayout()
             }
@@ -149,9 +171,4 @@ private struct BlockCarousel: View {
         }
         .frame(height: cellSize)
     }
-}
-
-// MARK: - Preview
-#Preview {
-    TrackingCarouselView()
 }
