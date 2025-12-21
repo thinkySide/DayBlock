@@ -15,54 +15,38 @@ struct MainView: View {
     @Bindable var store: StoreOf<MainAppFeature>
 
     var body: some View {
-        TabView(selection: $store.selectedTab) {
-            Tab(value: MainTab.tracking) {
+        Group {
+            switch store.selectedTab {
+            case .tracking:
                 TrackingCarouselView(
-                    store: .init(
-                        initialState: store.trackingState,
-                        reducer: {
-                            TrackingCarouselFeature()
-                        }
-                    )
+                    store: store.scope(state: \.trackingState, action: \.tracking)
                 )
-            } label: {
-                Label {
-                    Text("트래킹")
-                } icon: {
-                    DesignSystem.Icons.tabTracking.swiftUIImage
-                }
-            }
-            
-            Tab(value: MainTab.calendar) {
-                EmptyView()
-            } label: {
-                Label {
-                    Text("캘린더")
-                } icon: {
-                    DesignSystem.Icons.tabCalendar.swiftUIImage
-                }
-            }
-            
-            Tab(value: MainTab.repository) {
-                EmptyView()
-            } label: {
-                Label {
-                    Text("관리소")
-                } icon: {
-                    DesignSystem.Icons.tabRepository.swiftUIImage
-                }
-            }
-            
-            Tab(value: MainTab.myInfo) {
-                EmptyView()
-            } label: {
-                Label {
-                    Text("내정보")
-                } icon: {
-                    DesignSystem.Icons.tabMyinfo.swiftUIImage
-                }
+
+            case .calendar:
+                ScrollView {}
+
+            case .repository:
+                ScrollView {}
+
+            case .myInfo:
+                ScrollView {}
             }
         }
-        .tint(DesignSystem.Colors.gray323232.swiftUIColor)
+        .overlay(alignment: .bottom) {
+            if isTabBarVisible {
+                MainTabBar(selectedTab: $store.selectedTab)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+            }
+        }
+        .animation(.spring(response: 0.3, dampingFraction: 0.8), value: isTabBarVisible)
+    }
+}
+
+// MARK: - Helper
+extension MainView {
+    
+    /// TabBar가 표시되는 조건을 반환합니다.
+    private var isTabBarVisible: Bool {
+        store.trackingState.path.isEmpty
     }
 }

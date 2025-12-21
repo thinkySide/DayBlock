@@ -19,13 +19,20 @@ struct MainAppFeature {
 
     enum Action: BindableAction {
         case binding(BindingAction<State>)
+        case tracking(TrackingCarouselFeature.Action)
     }
 
     var body: some ReducerOf<Self> {
         BindingReducer()
+        Scope(state: \.trackingState, action: \.tracking) {
+            TrackingCarouselFeature()
+        }
         Reduce { state, action in
             switch action {
             case .binding:
+                return .none
+
+            case .tracking:
                 return .none
             }
         }

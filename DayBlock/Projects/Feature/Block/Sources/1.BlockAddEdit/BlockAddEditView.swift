@@ -19,6 +19,5 @@ public struct BlockAddEditView: View {
 
     public var body: some View {
         Text("BlockAddEditView")
-            .toolbarVisibility(.hidden, for: .tabBar)
     }
 }
