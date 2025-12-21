@@ -121,23 +121,25 @@ private struct BlockCarousel: View {
         GeometryReader { geometry in
             ScrollView(.horizontal) {
                 HStack(spacing: 24) {
-                    DayBlock(
+                    CarouselDayBlock(
                         title: "첫번째 블럭",
-                        amount: 1.5,
+                        totalAmount: 3.0,
+                        todayAmount: 1.5,
                         symbol: .party_popper_fill,
                         color: .blue,
-                        state: .medium
+                        state: .front
                     )
                     
-                    DayBlock(
+                    CarouselDayBlock(
                         title: "두번째 블럭두번째 블럭두번째 블럭두번째 블럭두번째 블럭",
-                        amount: 1.5,
+                        totalAmount: 153.0,
+                        todayAmount: 1.5,
                         symbol: .pause_fill,
                         color: .blue,
-                        state: .medium
+                        state: .back
                     )
                     
-                    AddBlockCell()
+                    CarouselAddBlock()
                 }
                 .scrollTargetLayout()
             }
@@ -146,20 +148,6 @@ private struct BlockCarousel: View {
             .safeAreaPadding(.horizontal, (geometry.size.width - cellSize) / 2)
         }
         .frame(height: cellSize)
-    }
-    
-    @ViewBuilder private func AddBlockCell() -> some View {
-        RoundedRectangle(cornerRadius: 26)
-            .strokeBorder(style: StrokeStyle(lineWidth: 4, dash: [6, 6]))
-            .foregroundStyle(DesignSystem.Colors.grayE8E8E8.swiftUIColor)
-            .frame(width: 180, height: 180)
-            .overlay(
-                SFSymbol(
-                    symbol: .plus_circle_fill,
-                    size: 48,
-                    color: DesignSystem.Colors.grayC5C5C5.swiftUIColor
-                )
-            )
     }
 }
 

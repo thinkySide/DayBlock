@@ -12,6 +12,8 @@ public enum Symbol: String {
     case pause_fill
     case party_popper_fill
     case plus_circle_fill
+    case trash_fill
+    case pencil
 }
 
 // MARK: - Helper
