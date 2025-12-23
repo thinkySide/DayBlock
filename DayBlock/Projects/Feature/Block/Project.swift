@@ -13,7 +13,8 @@ let project = Project(
             dependencies: [
                 .TCA,
                 .project(target: "DesignSystem", path: "../../Core/DesignSystem"),
-                .project(target: "Domain", path: "../../Core/Domain")
+                .project(target: "Domain", path: "../../Core/Domain"),
+                .project(target: "Util", path: "../../Shared")
             ],
             settings: .shared
         )

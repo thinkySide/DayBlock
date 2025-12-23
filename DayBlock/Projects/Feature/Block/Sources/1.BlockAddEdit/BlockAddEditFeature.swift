@@ -8,6 +8,7 @@
 import Foundation
 import ComposableArchitecture
 import Domain
+import Util
 
 @Reducer
 public struct BlockAddEditFeature {
@@ -21,8 +22,22 @@ public struct BlockAddEditFeature {
         }
     }
 
-    public enum Action {
+    public enum Action: TCAFeatureAction {
+        public enum ViewAction {
+            
+        }
         
+        public enum InnerAction {
+            
+        }
+        
+        public enum DelegateAction {
+            
+        }
+        
+        case view(ViewAction)
+        case inner(InnerAction)
+        case delegate(DelegateAction)
     }
 
     public init() {}
