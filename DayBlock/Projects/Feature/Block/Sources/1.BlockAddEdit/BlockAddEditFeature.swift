@@ -20,44 +20,61 @@ public struct BlockAddEditFeature {
 
     @ObservableState
     public struct State: Equatable {
+        let nameTextLimit: Int = 16
+        let initialBlock: Block
+        
         var mode: Mode
-        var block: Block
+        var editingBlock: Block
+        var nameText: String
         
         public init(
             mode: Mode
         ) {
             self.mode = mode
             switch mode {
-            case .add: block = Block.defaultValue
-            case .edit(let selectedBlock): block = selectedBlock
+            case .add:
+                initialBlock = Block.defaultValue
+                editingBlock = Block.defaultValue
+                nameText = ""
+            case .edit(let selectedBlock):
+                initialBlock = selectedBlock
+                editingBlock = selectedBlock
+                nameText = selectedBlock.name
             }
         }
     }
 
-    public enum Action: TCAFeatureAction {
+    public enum Action: TCAFeatureAction, BindableAction {
         public enum ViewAction {
             
         }
-        
+
         public enum InnerAction {
-            
+
         }
-        
+
         public enum DelegateAction {
             
         }
-        
+
         case view(ViewAction)
         case inner(InnerAction)
         case delegate(DelegateAction)
+        case binding(BindingAction<State>)
     }
 
     public init() {}
 
     public var body: some ReducerOf<Self> {
+        BindingReducer()
         Reduce { state, action in
             switch action {
-
+            case .binding(\.nameText):
+                state.editingBlock.name = state.nameText
+                return .none
+                
+            default:
+                return .none
             }
         }
     }

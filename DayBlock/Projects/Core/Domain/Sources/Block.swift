@@ -10,13 +10,13 @@ import Foundation
 public struct Block: Equatable {
     
     /// 블럭 이름
-    public let name: String
+    public var name: String
     
     /// Symbol 이름
-    public let symbol: String
+    public var symbol: String
     
     /// 생산량
-    public let output: Double
+    public var output: Double
     
     public init(
         name: String,

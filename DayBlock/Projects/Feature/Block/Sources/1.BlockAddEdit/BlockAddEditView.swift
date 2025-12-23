@@ -11,7 +11,7 @@ import ComposableArchitecture
 
 public struct BlockAddEditView: View {
 
-    public let store: StoreOf<BlockAddEditFeature>
+    @Bindable var store: StoreOf<BlockAddEditFeature>
 
     public init(store: StoreOf<BlockAddEditFeature>) {
         self.store = store
@@ -20,21 +20,21 @@ public struct BlockAddEditView: View {
     public var body: some View {
         VStack(spacing: 0) {
             CarouselDayBlock(
-                title: store.block.name,
-                totalAmount: store.block.output,
-                todayAmount: 0,
-                symbol: store.block.symbol,
+                title: blockTitle,
+                totalAmount: store.initialBlock.output,
+                todayAmount: store.initialBlock.output,
+                symbol: store.editingBlock.symbol,
                 color: DesignSystem.Colors.gray323232.swiftUIColor,
                 state: .front
             )
             .padding(.top, 12)
             
             LabelTextField(
-                text: .constant(""),
+                text: $store.nameText,
                 label: "작업명",
-                placeholder: "블럭 쌓기",
+                placeholder: store.initialBlock.name,
                 accessory: {
-                    Text("0/16")
+                    Text("\(store.nameText.count)/\(store.nameTextLimit)")
                         .brandFont(.pretendard(.semiBold), 14)
                         .foregroundStyle(DesignSystem.Colors.grayAAAAAA.swiftUIColor)
                 }
@@ -100,5 +100,18 @@ public struct BlockAddEditView: View {
         }
         .brandFont(.pretendard(.bold), 15)
         .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+    }
+}
+
+// MARK: - Helper
+extension BlockAddEditView {
+    
+    /// 캐러셀 블럭에 표시 될 이름을 반환합니다.
+    private var blockTitle: String {
+        if store.nameText.isEmpty {
+            return store.initialBlock.name
+        } else {
+            return store.editingBlock.name
+        }
     }
 }
