@@ -10,6 +10,7 @@ import SwiftUI
 public struct LabelTextField<Accessory: View>: View {
     
     @Binding var text: String
+    @FocusState.Binding var isTextFieldFocused: Bool
     
     let label: String
     let placeholder: String
@@ -17,11 +18,13 @@ public struct LabelTextField<Accessory: View>: View {
     
     public init(
         text: Binding<String>,
+        isTextFieldFocused: FocusState<Bool>.Binding,
         label: String,
         placeholder: String,
         @ViewBuilder accessory: (() -> Accessory) = { EmptyView() }
     ) {
         self._text = text
+        self._isTextFieldFocused = isTextFieldFocused
         self.label = label
         self.placeholder = placeholder
         self.accessory = accessory()
@@ -36,6 +39,7 @@ public struct LabelTextField<Accessory: View>: View {
             
             HStack {
                 TextField(placeholder, text: $text)
+                    .focused($isTextFieldFocused)
                     .brandFont(.pretendard(.semiBold), 18)
                     .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
                     .padding(.leading, 16)

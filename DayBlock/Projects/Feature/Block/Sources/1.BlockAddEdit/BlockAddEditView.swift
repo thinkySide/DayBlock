@@ -11,7 +11,8 @@ import ComposableArchitecture
 
 public struct BlockAddEditView: View {
 
-    @Bindable var store: StoreOf<BlockAddEditFeature>
+    @Bindable private var store: StoreOf<BlockAddEditFeature>
+    @FocusState private var isNameTextFieldFocused: Bool
 
     public init(store: StoreOf<BlockAddEditFeature>) {
         self.store = store
@@ -31,6 +32,7 @@ public struct BlockAddEditView: View {
             
             LabelTextField(
                 text: $store.nameText,
+                isTextFieldFocused: $isNameTextFieldFocused,
                 label: "작업명",
                 placeholder: store.initialBlock.name,
                 accessory: {
@@ -78,6 +80,7 @@ public struct BlockAddEditView: View {
             Spacer()
         }
         .navigationBarTitleDisplayMode(.inline)
+        .background(DesignSystem.Colors.grayFFFFFF.swiftUIColor)
         .toolbar {
             ToolbarItem(placement: .principal) {
                 NavigationTitle()
@@ -86,6 +89,9 @@ public struct BlockAddEditView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 ConfirmButton()
             }
+        }
+        .onTapGesture {
+            isNameTextFieldFocused = false
         }
     }
     
