@@ -45,7 +45,15 @@ public struct BlockAddEditView: View {
             LabelSelection(
                 label: "그룹",
                 accessory: {
-                    
+                    HStack(spacing: 8) {
+                        RoundedRectangle(cornerRadius: 4)
+                            .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+                            .frame(width: 16, height: 16)
+                        
+                        Text("기본 그룹")
+                            .brandFont(.pretendard(.bold), 17)
+                            .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+                    }
                 }
             )
             .padding(.top, 24)
@@ -54,7 +62,11 @@ public struct BlockAddEditView: View {
             LabelSelection(
                 label: "아이콘",
                 accessory: {
-                    
+                    SFSymbol(
+                        symbol: .batteryblock_fill,
+                        size: 24,
+                        color: DesignSystem.Colors.gray323232.swiftUIColor
+                    )
                 }
             )
             .padding(.top, 24)
