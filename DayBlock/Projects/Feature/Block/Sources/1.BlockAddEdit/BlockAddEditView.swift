@@ -42,6 +42,24 @@ public struct BlockAddEditView: View {
             .padding(.top, 32)
             .padding(.horizontal, 20)
             
+            LabelSelection(
+                label: "그룹",
+                accessory: {
+                    
+                }
+            )
+            .padding(.top, 24)
+            .padding(.leading, 20)
+            
+            LabelSelection(
+                label: "아이콘",
+                accessory: {
+                    
+                }
+            )
+            .padding(.top, 24)
+            .padding(.leading, 20)
+            
             Spacer()
         }
         .navigationBarTitleDisplayMode(.inline)
