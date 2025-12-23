@@ -7,13 +7,18 @@
 
 import Foundation
 import ComposableArchitecture
+import Domain
 
 @Reducer
 public struct BlockAddEditFeature {
 
     @ObservableState
     public struct State: Equatable {
-        public init() {}
+        var selectedBlock: Block
+        
+        public init(selectedBlock: Block) {
+            self.selectedBlock = selectedBlock
+        }
     }
 
     public enum Action {

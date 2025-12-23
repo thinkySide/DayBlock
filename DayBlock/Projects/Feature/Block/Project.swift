@@ -12,7 +12,8 @@ let project = Project(
             buildableFolders: ["Sources"],
             dependencies: [
                 .TCA,
-                .project(target: "DesignSystem", path: "../../Core/DesignSystem")
+                .project(target: "DesignSystem", path: "../../Core/DesignSystem"),
+                .project(target: "Domain", path: "../../Core/Domain")
             ],
             settings: .shared
         )

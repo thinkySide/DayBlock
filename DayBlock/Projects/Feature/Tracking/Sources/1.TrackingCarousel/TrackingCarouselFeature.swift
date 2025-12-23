@@ -7,6 +7,7 @@
 
 import Foundation
 import ComposableArchitecture
+import Domain
 import Block
 
 @Reducer
@@ -36,7 +37,9 @@ public struct TrackingCarouselFeature {
         Reduce { state, action in
             switch action {
             case .onTapAddBlock:
-                state.path.append(.blockAddEdit(BlockAddEditFeature.State()))
+                let selectedBlock = Block(name: "테스트", symbol: "batteryblock.fill", output: 1.5)
+                let blockAddEditState = BlockAddEditFeature.State(selectedBlock: selectedBlock)
+                state.path.append(.blockAddEdit(blockAddEditState))
                 return .none
 
             case .path:
