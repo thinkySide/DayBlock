@@ -41,6 +41,9 @@ public struct BlockAddEditView: View {
             )
             .padding(.top, 32)
             .padding(.horizontal, 20)
+            .onChange(of: store.nameText) { _, value in
+                store.send(.view(.typeNameText(value)))
+            }
             
             LabelSelection(
                 label: "그룹",

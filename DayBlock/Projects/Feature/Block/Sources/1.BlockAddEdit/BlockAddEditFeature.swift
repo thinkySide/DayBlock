@@ -46,7 +46,7 @@ public struct BlockAddEditFeature {
 
     public enum Action: TCAFeatureAction, BindableAction {
         public enum ViewAction {
-            
+            case typeNameText(String)
         }
 
         public enum InnerAction {
@@ -69,9 +69,13 @@ public struct BlockAddEditFeature {
         BindingReducer()
         Reduce { state, action in
             switch action {
-            case .binding(\.nameText):
-                state.editingBlock.name = state.nameText
-                return .none
+            case .view(let viewAction):
+                switch viewAction {
+                case .typeNameText(let text):
+                    state.nameText = text.slice(to: state.nameTextLimit)
+                    state.editingBlock.name = state.nameText
+                    return .none
+                }
                 
             default:
                 return .none
