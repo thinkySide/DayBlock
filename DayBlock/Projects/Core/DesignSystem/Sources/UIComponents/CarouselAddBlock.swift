@@ -25,7 +25,7 @@ public struct CarouselAddBlock: View {
                 .frame(width: 180, height: 180)
                 .overlay(
                     SFSymbol(
-                        symbol: .plus_circle_fill,
+                        symbol: Symbol.plus_circle_fill.symbolName,
                         size: 48,
                         color: DesignSystem.Colors.grayC5C5C5.swiftUIColor
                     )

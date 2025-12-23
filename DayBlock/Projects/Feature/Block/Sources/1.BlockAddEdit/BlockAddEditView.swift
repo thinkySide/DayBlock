@@ -20,10 +20,10 @@ public struct BlockAddEditView: View {
     public var body: some View {
         VStack(spacing: 0) {
             CarouselDayBlock(
-                title: "블럭 쌓기",
-                totalAmount: 0,
+                title: store.block.name,
+                totalAmount: store.block.output,
                 todayAmount: 0,
-                symbol: .batteryblock_fill,
+                symbol: store.block.symbol,
                 color: DesignSystem.Colors.gray323232.swiftUIColor,
                 state: .front
             )
@@ -63,7 +63,7 @@ public struct BlockAddEditView: View {
                 label: "아이콘",
                 accessory: {
                     SFSymbol(
-                        symbol: .batteryblock_fill,
+                        symbol: Symbol.batteryblock_fill.symbolName,
                         size: 24,
                         color: DesignSystem.Colors.gray323232.swiftUIColor
                     )

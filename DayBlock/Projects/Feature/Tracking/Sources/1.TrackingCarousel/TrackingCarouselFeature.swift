@@ -37,8 +37,7 @@ public struct TrackingCarouselFeature {
         Reduce { state, action in
             switch action {
             case .onTapAddBlock:
-                let selectedBlock = Block(name: "테스트", symbol: "batteryblock.fill", output: 1.5)
-                let blockAddEditState = BlockAddEditFeature.State(selectedBlock: selectedBlock)
+                let blockAddEditState = BlockAddEditFeature.State(mode: .add)
                 state.path.append(.blockAddEdit(blockAddEditState))
                 return .none
 

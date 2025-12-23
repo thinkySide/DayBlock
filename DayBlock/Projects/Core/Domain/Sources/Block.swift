@@ -28,3 +28,16 @@ public struct Block: Equatable {
         self.output = output
     }
 }
+
+// MARK: - Helper
+extension Block {
+    
+    /// 기본 블럭을 반환합니다.
+    public static var defaultValue: Block {
+        Block(
+            name: "블럭 쌓기",
+            symbol: "batteryblock.fill",
+            output: 0
+        )
+    }
+}

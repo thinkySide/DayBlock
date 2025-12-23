@@ -17,7 +17,7 @@ public struct CarouselDayBlock: View {
     let title: String
     let totalAmount: Double
     let todayAmount: Double
-    let symbol: Symbol
+    let symbol: String
     let color: Color
     let state: State
     
@@ -25,7 +25,7 @@ public struct CarouselDayBlock: View {
         title: String,
         totalAmount: Double,
         todayAmount: Double,
-        symbol: Symbol,
+        symbol: String,
         color: Color,
         state: State
     ) {
@@ -178,7 +178,7 @@ extension CarouselDayBlock {
                 .foregroundStyle(DesignSystem.Colors.eventDestructive.swiftUIColor)
                 .overlay(
                     SFSymbol(
-                        symbol: .trash_fill,
+                        symbol: Symbol.trash_fill.symbolName,
                         size: 32,
                         color: DesignSystem.Colors.grayF4F5F7.swiftUIColor
                     )
@@ -196,7 +196,7 @@ extension CarouselDayBlock {
                 .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
                 .overlay(
                     SFSymbol(
-                        symbol: .pencil,
+                        symbol: Symbol.pencil.symbolName,
                         size: 32,
                         color: DesignSystem.Colors.grayF4F5F7.swiftUIColor
                     )

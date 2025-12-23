@@ -143,7 +143,7 @@ private struct BlockCarousel: View {
                         title: "첫번째 블럭",
                         totalAmount: 3.0,
                         todayAmount: 1.5,
-                        symbol: .party_popper_fill,
+                        symbol: Symbol.party_popper_fill.symbolName,
                         color: .blue,
                         state: .front
                     )
@@ -152,7 +152,7 @@ private struct BlockCarousel: View {
                         title: "두번째 블럭두번째 블럭두번째 블럭두번째 블럭두번째 블럭",
                         totalAmount: 153.0,
                         todayAmount: 1.5,
-                        symbol: .pause_fill,
+                        symbol: Symbol.pause_fill.symbolName,
                         color: .blue,
                         state: .back
                     )

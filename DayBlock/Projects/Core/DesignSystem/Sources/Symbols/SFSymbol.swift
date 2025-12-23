@@ -9,12 +9,12 @@ import SwiftUI
 
 public struct SFSymbol: View {
     
-    let symbol: Symbol
+    let symbol: String
     let size: CGFloat
     let color: Color
     
     public init(
-        symbol: Symbol,
+        symbol: String,
         size: CGFloat,
         color: Color
     ) {
@@ -24,7 +24,7 @@ public struct SFSymbol: View {
     }
     
     public var body: some View {
-        Image(systemName: symbol.symbolName)
+        Image(systemName: symbol)
             .resizable()
             .aspectRatio(contentMode: .fit)
             .frame(width: size, height: size)

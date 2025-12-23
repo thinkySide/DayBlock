@@ -12,13 +12,25 @@ import Util
 
 @Reducer
 public struct BlockAddEditFeature {
+    
+    public enum Mode: Equatable {
+        case add
+        case edit(selectedBlock: Block)
+    }
 
     @ObservableState
     public struct State: Equatable {
-        var selectedBlock: Block
+        var mode: Mode
+        var block: Block
         
-        public init(selectedBlock: Block) {
-            self.selectedBlock = selectedBlock
+        public init(
+            mode: Mode
+        ) {
+            self.mode = mode
+            switch mode {
+            case .add: block = Block.defaultValue
+            case .edit(let selectedBlock): block = selectedBlock
+            }
         }
     }
 

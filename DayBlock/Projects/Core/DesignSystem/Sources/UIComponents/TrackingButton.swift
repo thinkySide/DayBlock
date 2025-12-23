@@ -34,7 +34,8 @@ public struct TrackingButton: View {
                 .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
                 .overlay(
                     SFSymbol(
-                        symbol: state == .play ? .play_fill : .pause_fill,
+                        symbol: state == .play
+                        ? Symbol.play_fill.symbolName : Symbol.pause_fill.symbolName,
                         size: 24,
                         color: DesignSystem.Colors.grayFFFFFF.swiftUIColor
                     )
