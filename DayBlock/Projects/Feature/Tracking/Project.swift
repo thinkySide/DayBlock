@@ -16,7 +16,7 @@ let project = Project(
                 .project(target: "Domain", path: "../../Core/Domain"),
                 .project(target: "PersistentData", path: "../../Core/Data"),
                 .project(target: "Util", path: "../../Shared"),
-                .project(target: "Block", path: "../Block")
+                .project(target: "Editor", path: "../Editor")
             ],
             settings: .shared
         ),

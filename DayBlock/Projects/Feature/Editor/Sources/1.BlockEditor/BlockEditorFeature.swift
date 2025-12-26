@@ -1,6 +1,6 @@
 //
-//  BlockAddEditFeature.swift
-//  Block
+//  BlockEditorFeature.swift
+//  Editor
 //
 //  Created by 김민준 on 12/21/25.
 //
@@ -11,7 +11,7 @@ import Domain
 import Util
 
 @Reducer
-public struct BlockAddEditFeature {
+public struct BlockEditorFeature {
     
     public enum Mode: Equatable {
         case add

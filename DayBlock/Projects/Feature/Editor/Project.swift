@@ -2,13 +2,13 @@ import ProjectDescription
 import ProjectDescriptionHelpers
 
 let project = Project(
-    name: "Block",
+    name: "Editor",
     targets: [
         .target(
-            name: "Block",
+            name: "Editor",
             destinations: .iOS,
             product: .framework,
-            bundleId: "com.thinkyside.DayBlock.Block",
+            bundleId: "com.thinkyside.DayBlock.Editor",
             buildableFolders: ["Sources"],
             dependencies: [
                 .TCA,

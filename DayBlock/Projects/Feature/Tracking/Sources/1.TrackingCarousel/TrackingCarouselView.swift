@@ -8,7 +8,7 @@
 import SwiftUI
 import DesignSystem
 import ComposableArchitecture
-import Block
+import Editor
 
 public struct TrackingCarouselView: View {
 
@@ -23,8 +23,8 @@ public struct TrackingCarouselView: View {
             contentView
         } destination: { store in
             switch store.case {
-            case let .blockAddEdit(store):
-                BlockAddEditView(store: store)
+            case let .blockEditor(store):
+                BlockEditorView(store: store)
             }
         }
     }

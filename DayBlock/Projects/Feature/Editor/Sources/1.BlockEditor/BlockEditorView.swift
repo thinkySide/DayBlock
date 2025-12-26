@@ -1,6 +1,6 @@
 //
-//  BlockAddEditView.swift
-//  Block
+//  BlockEditorView.swift
+//  Editor
 //
 //  Created by 김민준 on 12/21/25.
 //
@@ -10,12 +10,12 @@ import DesignSystem
 import ComposableArchitecture
 import Util
 
-public struct BlockAddEditView: View {
+public struct BlockEditorView: View {
 
-    @Bindable private var store: StoreOf<BlockAddEditFeature>
+    @Bindable private var store: StoreOf<BlockEditorFeature>
     @FocusState private var isNameTextFieldFocused: Bool
 
-    public init(store: StoreOf<BlockAddEditFeature>) {
+    public init(store: StoreOf<BlockEditorFeature>) {
         self.store = store
     }
 
@@ -115,7 +115,7 @@ public struct BlockAddEditView: View {
 }
 
 // MARK: - Helper
-extension BlockAddEditView {
+extension BlockEditorView {
     
     /// 캐러셀 블럭에 표시 될 이름을 반환합니다.
     private var blockTitle: String {

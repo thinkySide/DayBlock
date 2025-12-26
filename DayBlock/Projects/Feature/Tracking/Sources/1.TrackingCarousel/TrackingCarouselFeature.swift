@@ -8,14 +8,14 @@
 import Foundation
 import ComposableArchitecture
 import Domain
-import Block
+import Editor
 
 @Reducer
 public struct TrackingCarouselFeature {
     
     @Reducer
     public enum Path {
-        case blockAddEdit(BlockAddEditFeature)
+        case blockEditor(BlockEditorFeature)
     }
 
     @ObservableState
@@ -37,8 +37,8 @@ public struct TrackingCarouselFeature {
         Reduce { state, action in
             switch action {
             case .onTapAddBlock:
-                let blockAddEditState = BlockAddEditFeature.State(mode: .add)
-                state.path.append(.blockAddEdit(blockAddEditState))
+                let blockEditorState = BlockEditorFeature.State(mode: .add)
+                state.path.append(.blockEditor(blockEditorState))
                 return .none
 
             case .path:
