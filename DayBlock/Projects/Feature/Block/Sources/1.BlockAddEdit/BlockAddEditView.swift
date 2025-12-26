@@ -25,7 +25,7 @@ public struct BlockAddEditView: View {
                 title: blockTitle,
                 totalAmount: store.initialBlock.output,
                 todayAmount: store.initialBlock.output,
-                symbol: store.editingBlock.symbol,
+                symbol: IconPalette.toIcon(from: store.editingBlock.iconIndex),
                 color: DesignSystem.Colors.gray323232.swiftUIColor,
                 state: .front
             )
@@ -69,7 +69,7 @@ public struct BlockAddEditView: View {
                 label: "아이콘",
                 accessory: {
                     SFSymbol(
-                        symbol: Symbol.batteryblock_fill.symbolName,
+                        symbol: IconPalette.toIcon(from: store.editingBlock.iconIndex),
                         size: 24,
                         color: DesignSystem.Colors.gray323232.swiftUIColor
                     )

@@ -12,19 +12,19 @@ public struct Block: Equatable {
     /// 블럭 이름
     public var name: String
     
-    /// Symbol 이름
-    public var symbol: String
+    /// 아이콘 인덱스
+    public var iconIndex: Int
     
     /// 생산량
     public var output: Double
     
     public init(
         name: String,
-        symbol: String,
+        iconIndex: Int,
         output: Double
     ) {
         self.name = name
-        self.symbol = symbol
+        self.iconIndex = iconIndex
         self.output = output
     }
 }
@@ -36,7 +36,7 @@ extension Block {
     public static var defaultValue: Block {
         Block(
             name: "블럭 쌓기",
-            symbol: "batteryblock.fill",
+            iconIndex: 0,
             output: 0
         )
     }

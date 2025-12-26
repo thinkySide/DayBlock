@@ -5,46 +5,37 @@
 //  Created by 김민준 on 12/26/25.
 //
 
-import SwiftUI
+import Foundation
 
 public enum IconPalette {
     
     /// 아이콘 인덱스에 일치하는 아이콘 이미지를 반환합니다.
-    public static func toIcon(from index: Int) -> Image {
+    public static func toIcon(from index: Int) -> String {
         guard index < icons.count else { return icons[0] }
         return icons[index]
     }
     
     /// 선택 가능한 아이콘 팔레트 배열을 반환합니다.
-    public static let icons: [Image] = objectIcons
+    public static let icons: [String] = objectIcons
     + natureIcons
     + fitnessIcons
     + furnitureIcons
     + etcIcons
     
     /// 사물 아이콘 팔레트 배열을 반환합니다.
-    public static let objectIcons = objectSymbols.map { Self.toImage($0) }
+    public static let objectIcons = objectSymbols
     
     /// 자연 아이콘 팔레트 배열을 반환합니다.
-    public static let natureIcons = natureSymbols.map { Self.toImage($0) }
+    public static let natureIcons = natureSymbols
     
     /// 운동 아이콘 팔레트 배열을 반환합니다.
-    public static let fitnessIcons = fitnessSymbols.map { Self.toImage($0) }
+    public static let fitnessIcons = fitnessSymbols
     
     /// 가구 아이콘 팔레트 배열을 반환합니다.
-    public static let furnitureIcons = furnitureSymbols.map { Self.toImage($0) }
+    public static let furnitureIcons = furnitureSymbols
     
     /// 기타 아이콘 팔레트 배열을 반환합니다.
-    public static let etcIcons = etcSymbols.map { Self.toImage($0) }
-}
-
-// MARK: - Helper
-extension IconPalette {
-    
-    /// SFSymbol 문자열을 이미지로 변환합니다.
-    static func toImage(_ symbolString: String) -> Image {
-        Image(systemName: symbolString)
-    }
+    public static let etcIcons = etcSymbols
 }
 
 // MARK: - SFSymbol String
