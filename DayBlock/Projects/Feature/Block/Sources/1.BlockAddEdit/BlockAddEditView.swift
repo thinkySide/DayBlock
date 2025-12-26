@@ -56,7 +56,7 @@ public struct BlockAddEditView: View {
                             .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
                             .frame(width: 16, height: 16)
                         
-                        Text("기본 그룹")
+                        Text(store.selectedBlockGroup.name)
                             .brandFont(.pretendard(.bold), 17)
                             .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
                     }
@@ -107,7 +107,7 @@ public struct BlockAddEditView: View {
     @ViewBuilder
     private func ConfirmButton() -> some View {
         Button("완료") {
-            
+            store.send(.view(.onTapConfirmButton))
         }
         .brandFont(.pretendard(.bold), 15)
         .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)

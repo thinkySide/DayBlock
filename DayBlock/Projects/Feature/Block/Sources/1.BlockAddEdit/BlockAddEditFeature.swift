@@ -15,7 +15,7 @@ public struct BlockAddEditFeature {
     
     public enum Mode: Equatable {
         case add
-        case edit(selectedBlock: Block)
+        case edit(selectedBlock: Block, selectedBlockGroup: BlockGroup)
     }
 
     @ObservableState
@@ -26,6 +26,7 @@ public struct BlockAddEditFeature {
         var mode: Mode
         var editingBlock: Block
         var nameText: String
+        var selectedBlockGroup: BlockGroup
         
         public init(
             mode: Mode
@@ -36,10 +37,12 @@ public struct BlockAddEditFeature {
                 initialBlock = Block.defaultValue
                 editingBlock = Block.defaultValue
                 nameText = ""
-            case .edit(let selectedBlock):
+                selectedBlockGroup = BlockGroup.defaultValue
+            case .edit(let selectedBlock, let blockGroup):
                 initialBlock = selectedBlock
                 editingBlock = selectedBlock
                 nameText = selectedBlock.name
+                selectedBlockGroup = blockGroup
             }
         }
     }
@@ -47,6 +50,7 @@ public struct BlockAddEditFeature {
     public enum Action: TCAFeatureAction, BindableAction {
         public enum ViewAction {
             case typeNameText(String)
+            case onTapConfirmButton
         }
 
         public enum InnerAction {
@@ -74,6 +78,9 @@ public struct BlockAddEditFeature {
                 case .typeNameText(let text):
                     state.nameText = text.slice(to: state.nameTextLimit)
                     state.editingBlock.name = state.nameText
+                    return .none
+                    
+                case .onTapConfirmButton:
                     return .none
                 }
                 
