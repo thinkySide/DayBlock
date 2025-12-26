@@ -22,12 +22,14 @@ public struct BlockEditorFeature {
     public struct State: Equatable {
         let nameTextLimit: Int = 16
         let initialBlock: Block
-        
+
         var mode: Mode
         var editingBlock: Block
         var nameText: String
         var selectedBlockGroup: BlockGroup
-        
+
+        @Presents var iconSelect: IconSelectFeature.State?
+
         public init(
             mode: Mode
         ) {
@@ -51,6 +53,8 @@ public struct BlockEditorFeature {
         public enum ViewAction {
             case typeNameText(String)
             case onTapConfirmButton
+            case onTapGroupSelection
+            case onTapIconSelection
         }
 
         public enum InnerAction {
@@ -58,13 +62,14 @@ public struct BlockEditorFeature {
         }
 
         public enum DelegateAction {
-            
+
         }
 
         case view(ViewAction)
         case inner(InnerAction)
         case delegate(DelegateAction)
         case binding(BindingAction<State>)
+        case iconSelect(PresentationAction<IconSelectFeature.Action>)
     }
 
     public init() {}
@@ -79,14 +84,28 @@ public struct BlockEditorFeature {
                     state.nameText = text.slice(to: state.nameTextLimit)
                     state.editingBlock.name = state.nameText
                     return .none
-                    
+
+                case .onTapGroupSelection:
+                    return .none
+
+                case .onTapIconSelection:
+                    let selectedIconIndex = state.editingBlock.iconIndex
+                    state.iconSelect = .init(selectedIconIndex: selectedIconIndex)
+                    return .none
+
                 case .onTapConfirmButton:
                     return .none
                 }
-                
+
+            case .iconSelect:
+                return .none
+
             default:
                 return .none
             }
+        }
+        .ifLet(\.$iconSelect, action: \.iconSelect) {
+            IconSelectFeature()
         }
     }
 }

@@ -60,6 +60,9 @@ public struct BlockEditorView: View {
                             .brandFont(.pretendard(.bold), 17)
                             .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
                     }
+                },
+                onTap: {
+                    store.send(.view(.onTapGroupSelection))
                 }
             )
             .padding(.top, 24)
@@ -73,6 +76,9 @@ public struct BlockEditorView: View {
                         size: 24,
                         color: DesignSystem.Colors.gray323232.swiftUIColor
                     )
+                },
+                onTap: {
+                    store.send(.view(.onTapIconSelection))
                 }
             )
             .padding(.top, 24)
@@ -94,6 +100,16 @@ public struct BlockEditorView: View {
         }
         .onTapGesture {
             isNameTextFieldFocused = false
+        }
+        .sheet(
+            item: $store.scope(
+                state: \.iconSelect,
+                action: \.iconSelect
+            )
+        ) { store in
+            IconSelectView(store: store)
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
         }
     }
     
