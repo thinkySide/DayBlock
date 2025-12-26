@@ -11,7 +11,9 @@ public enum ColorPalette {
     
     /// 컬러 인덱스에 일치하는 컬러를 반환합니다.
     public static func toColor(from index: Int) -> Color {
-        guard index < colors.count else { return colors[0] }
+        guard index < colors.count else {
+            return DesignSystem.ColorPalette.grayscaleBlock5.swiftUIColor
+        }
         return colors[index]
     }
     
