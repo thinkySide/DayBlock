@@ -8,6 +8,7 @@
 import SwiftUI
 import DesignSystem
 import ComposableArchitecture
+import Util
 
 public struct BlockAddEditView: View {
 
@@ -88,6 +89,7 @@ public struct BlockAddEditView: View {
 
             ToolbarItem(placement: .topBarTrailing) {
                 ConfirmButton()
+                    .disabledToolBarItem(store.nameText.isEmpty)
             }
         }
         .onTapGesture {
