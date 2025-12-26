@@ -53,7 +53,7 @@ public struct BlockAddEditView: View {
                 accessory: {
                     HStack(spacing: 8) {
                         RoundedRectangle(cornerRadius: 4)
-                            .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+                            .foregroundStyle(ColorPalette.toColor(from: store.selectedBlockGroup.colorIndex))
                             .frame(width: 16, height: 16)
                         
                         Text(store.selectedBlockGroup.name)

@@ -31,7 +31,7 @@ extension BlockGroup {
     public static var defaultValue: BlockGroup {
         BlockGroup(
             name: "기본 그룹",
-            colorIndex: 0
+            colorIndex: 4
         )
     }
 }
