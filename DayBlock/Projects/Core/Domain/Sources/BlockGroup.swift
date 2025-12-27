@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-public struct BlockGroup: Equatable {
+public struct BlockGroup: Identifiable, Equatable {
+    
+    public var id: String { name }
     
     /// 그룹 이름
     public var name: String

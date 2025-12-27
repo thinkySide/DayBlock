@@ -15,6 +15,11 @@ public struct GroupSelectFeature {
     @ObservableState
     public struct State: Equatable {
         var selectedGroup: BlockGroup
+        var groupList: IdentifiedArrayOf<BlockGroup> = [
+            .defaultValue,
+            .init(name: "운동", colorIndex: 13),
+            .init(name: "공부", colorIndex: 27)
+        ]
         
         public init(
             selectedGroup: BlockGroup
@@ -25,7 +30,8 @@ public struct GroupSelectFeature {
 
     public enum Action: TCAFeatureAction {
         public enum ViewAction {
-            
+            case onTapGroup(BlockGroup)
+            case onTapAddGroup
         }
 
         public enum InnerAction {
@@ -33,7 +39,7 @@ public struct GroupSelectFeature {
         }
 
         public enum DelegateAction {
-            
+            case didSelectGroup(BlockGroup)
         }
 
         case view(ViewAction)
@@ -47,7 +53,15 @@ public struct GroupSelectFeature {
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            
+            case .view(let viewAction):
+                switch viewAction {
+                case .onTapGroup(let group):
+                    state.selectedGroup = group
+                    return .send(.delegate(.didSelectGroup(group)))
+
+                case .onTapAddGroup:
+                    return .none
+                }
                 
             default:
                 return .none
@@ -55,4 +69,3 @@ public struct GroupSelectFeature {
         }
     }
 }
-

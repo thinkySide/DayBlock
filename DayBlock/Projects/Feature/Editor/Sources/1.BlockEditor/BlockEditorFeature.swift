@@ -26,7 +26,7 @@ public struct BlockEditorFeature {
         var mode: Mode
         var editingBlock: Block
         var nameText: String
-        var selectedBlockGroup: BlockGroup
+        var selectedGroup: BlockGroup
 
         @Presents var groupSelect: GroupSelectFeature.State?
         @Presents var iconSelect: IconSelectFeature.State?
@@ -40,12 +40,12 @@ public struct BlockEditorFeature {
                 initialBlock = Block.defaultValue
                 editingBlock = Block.defaultValue
                 nameText = ""
-                selectedBlockGroup = BlockGroup.defaultValue
+                selectedGroup = BlockGroup.defaultValue
             case .edit(let selectedBlock, let blockGroup):
                 initialBlock = selectedBlock
                 editingBlock = selectedBlock
                 nameText = selectedBlock.name
-                selectedBlockGroup = blockGroup
+                selectedGroup = blockGroup
             }
         }
     }
@@ -88,7 +88,7 @@ public struct BlockEditorFeature {
                     return .none
 
                 case .onTapGroupSelection:
-                    let selectedGroup = state.selectedBlockGroup
+                    let selectedGroup = state.selectedGroup
                     state.groupSelect = .init(selectedGroup: selectedGroup)
                     return .none
 
@@ -101,9 +101,14 @@ public struct BlockEditorFeature {
                     return .send(.delegate(.didConfirm(state.editingBlock)))
                 }
 
-            case .iconSelect(.presented(.delegate(.didSelectIcon(let selectedIconIndex)))):
-                state.editingBlock.iconIndex = selectedIconIndex
+            case .iconSelect(.presented(.delegate(.didSelectIcon(let iconIndex)))):
+                state.editingBlock.iconIndex = iconIndex
                 state.iconSelect = nil
+                return .none
+                
+            case .groupSelect(.presented(.delegate(.didSelectGroup(let group)))):
+                state.selectedGroup = group
+                state.groupSelect = nil
                 return .none
 
             default:

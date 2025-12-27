@@ -26,7 +26,7 @@ public struct BlockEditorView: View {
                 totalAmount: store.initialBlock.output,
                 todayAmount: store.initialBlock.output,
                 symbol: IconPalette.toIcon(from: store.editingBlock.iconIndex),
-                color: DesignSystem.Colors.gray323232.swiftUIColor,
+                color: ColorPalette.toColor(from: store.selectedGroup.colorIndex),
                 state: .front
             )
             .padding(.top, 12)
@@ -53,10 +53,10 @@ public struct BlockEditorView: View {
                 accessory: {
                     HStack(spacing: 8) {
                         RoundedRectangle(cornerRadius: 4)
-                            .foregroundStyle(ColorPalette.toColor(from: store.selectedBlockGroup.colorIndex))
+                            .foregroundStyle(ColorPalette.toColor(from: store.selectedGroup.colorIndex))
                             .frame(width: 16, height: 16)
                         
-                        Text(store.selectedBlockGroup.name)
+                        Text(store.selectedGroup.name)
                             .brandFont(.pretendard(.bold), 17)
                             .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
                     }
