@@ -62,7 +62,7 @@ public struct BlockEditorFeature {
         }
 
         public enum DelegateAction {
-
+            case didConfirm(Block)
         }
 
         case view(ViewAction)
@@ -94,7 +94,7 @@ public struct BlockEditorFeature {
                     return .none
 
                 case .onTapConfirmButton:
-                    return .none
+                    return .send(.delegate(.didConfirm(state.editingBlock)))
                 }
 
             case .iconSelect(.presented(.delegate(.didSelectIcon(let selectedIconIndex)))):

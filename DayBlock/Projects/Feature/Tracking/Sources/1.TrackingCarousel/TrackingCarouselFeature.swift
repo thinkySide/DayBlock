@@ -9,6 +9,7 @@ import Foundation
 import ComposableArchitecture
 import Domain
 import Editor
+import Util
 
 @Reducer
 public struct TrackingCarouselFeature {
@@ -41,8 +42,16 @@ public struct TrackingCarouselFeature {
                 state.path.append(.blockEditor(blockEditorState))
                 return .none
 
-            case .path:
-                return .none
+            case .path(let stackAction):
+                switch stackAction {
+                case let .element(id: _, action: .blockEditor(.delegate(.didConfirm(block)))):
+                    state.path.removeAll()
+                    Debug.log("\(block)")
+                    return .none
+                    
+                default:
+                    return .none
+                }
             }
         }
         .forEach(\.path, action: \.path)
