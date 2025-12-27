@@ -28,6 +28,7 @@ public struct BlockEditorFeature {
         var nameText: String
         var selectedBlockGroup: BlockGroup
 
+        @Presents var groupSelect: GroupSelectFeature.State?
         @Presents var iconSelect: IconSelectFeature.State?
 
         public init(
@@ -69,6 +70,7 @@ public struct BlockEditorFeature {
         case inner(InnerAction)
         case delegate(DelegateAction)
         case binding(BindingAction<State>)
+        case groupSelect(PresentationAction<GroupSelectFeature.Action>)
         case iconSelect(PresentationAction<IconSelectFeature.Action>)
     }
 
@@ -86,6 +88,8 @@ public struct BlockEditorFeature {
                     return .none
 
                 case .onTapGroupSelection:
+                    let selectedGroup = state.selectedBlockGroup
+                    state.groupSelect = .init(selectedGroup: selectedGroup)
                     return .none
 
                 case .onTapIconSelection:
@@ -105,6 +109,9 @@ public struct BlockEditorFeature {
             default:
                 return .none
             }
+        }
+        .ifLet(\.$groupSelect, action: \.groupSelect) {
+            GroupSelectFeature()
         }
         .ifLet(\.$iconSelect, action: \.iconSelect) {
             IconSelectFeature()

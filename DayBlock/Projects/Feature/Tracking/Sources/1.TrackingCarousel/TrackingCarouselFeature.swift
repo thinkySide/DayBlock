@@ -46,7 +46,6 @@ public struct TrackingCarouselFeature {
                 switch stackAction {
                 case let .element(id: _, action: .blockEditor(.delegate(.didConfirm(block)))):
                     state.path.removeAll()
-                    Debug.log("\(block)")
                     return .none
                     
                 default:

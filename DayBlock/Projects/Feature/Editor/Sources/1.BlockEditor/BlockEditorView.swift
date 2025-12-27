@@ -103,6 +103,16 @@ public struct BlockEditorView: View {
         }
         .sheet(
             item: $store.scope(
+                state: \.groupSelect,
+                action: \.groupSelect
+            )
+        ) { store in
+            GroupSelectView(store: store)
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
+        }
+        .sheet(
+            item: $store.scope(
                 state: \.iconSelect,
                 action: \.iconSelect
             )
