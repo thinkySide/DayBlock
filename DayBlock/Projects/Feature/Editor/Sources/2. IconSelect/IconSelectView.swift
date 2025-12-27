@@ -69,13 +69,18 @@ public struct IconSelectView: View {
     @ViewBuilder
     private func IconScrollView() -> some View {
         let columns = Array(repeating: GridItem(.flexible(), spacing: 0), count: 5)
-        ScrollView {
-            LazyVGrid(columns: columns, spacing: 0) {
-                ForEach(iconList(from: store.selectedIconGroup), id: \.self) { iconName in
-                    IconCell(iconName: iconName)
+        ScrollViewReader { proxy in
+            ScrollView {
+                LazyVGrid(columns: columns, spacing: 0) {
+                    ForEach(iconList(from: store.selectedIconGroup), id: \.self) { iconName in
+                        IconCell(iconName: iconName)
+                    }
                 }
+                .padding(16)
             }
-            .padding(16)
+            .onAppear {
+                scrollToSelectedIcon(proxy: proxy)
+            }
         }
     }
 
@@ -96,6 +101,7 @@ public struct IconSelectView: View {
             Image(systemName: iconName)
                 .font(.system(size: 28))
                 .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+                .symbolEffect(.bounce, options: .repeating, isActive: isSelected)
         }
         .frame(width: 64, height: 64)
         .onTapGesture {
@@ -129,5 +135,11 @@ extension IconSelectView {
         case .furniture: IconPalette.furnitureIcons
         case .etc: IconPalette.etcIcons
         }
+    }
+
+    /// 선택된 아이콘으로 스크롤합니다.
+    private func scrollToSelectedIcon(proxy: ScrollViewProxy) {
+        let selectedIconName = IconPalette.toIcon(from: store.selectedIconIndex)
+        proxy.scrollTo(selectedIconName, anchor: .center)
     }
 }

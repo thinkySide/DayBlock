@@ -186,7 +186,6 @@ extension IconPalette {
         "folder.fill",
         "tray.fill",
         "externaldrive.fill",
-        "archivebox.fill",
         "printer.fill",
         "scanner.fill",
         "apple.terminal.fill",

@@ -97,7 +97,9 @@ public struct BlockEditorFeature {
                     return .none
                 }
 
-            case .iconSelect:
+            case .iconSelect(.presented(.delegate(.didSelectIcon(let selectedIconIndex)))):
+                state.editingBlock.iconIndex = selectedIconIndex
+                state.iconSelect = nil
                 return .none
 
             default:

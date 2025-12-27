@@ -44,13 +44,12 @@ public struct IconSelectFeature {
         }
 
         public enum DelegateAction {
-            
+            case didSelectIcon(selectedIndex: Int)
         }
 
         case view(ViewAction)
         case inner(InnerAction)
         case delegate(DelegateAction)
-        case binding(BindingAction<State>)
     }
 
     public init() {}
@@ -66,7 +65,7 @@ public struct IconSelectFeature {
 
                 case .onTapIcon(let selectedIndex):
                     state.selectedIconIndex = selectedIndex
-                    return .none
+                    return .send(.delegate(.didSelectIcon(selectedIndex: selectedIndex)))
                 }
                 
             default:
