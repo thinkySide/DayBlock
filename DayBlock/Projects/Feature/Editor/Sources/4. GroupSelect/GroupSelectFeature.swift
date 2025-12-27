@@ -21,6 +21,8 @@ public struct GroupSelectFeature {
             .init(name: "공부", colorIndex: 27)
         ]
         
+        @Presents var groupEditor: GroupEditorFeature.State?
+        
         public init(
             selectedGroup: BlockGroup
         ) {
@@ -46,6 +48,7 @@ public struct GroupSelectFeature {
         case inner(InnerAction)
         case delegate(DelegateAction)
         case binding(BindingAction<State>)
+        case groupEditor(PresentationAction<GroupEditorFeature.Action>)
     }
 
     public init() {}
@@ -60,12 +63,16 @@ public struct GroupSelectFeature {
                     return .send(.delegate(.didSelectGroup(group)))
 
                 case .onTapAddGroup:
+                    state.groupEditor = .init(mode: .add)
                     return .none
                 }
                 
             default:
                 return .none
             }
+        }
+        .ifLet(\.$groupEditor, action: \.groupEditor) {
+            GroupEditorFeature()
         }
     }
 }

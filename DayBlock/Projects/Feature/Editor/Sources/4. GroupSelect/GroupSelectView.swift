@@ -12,7 +12,7 @@ import Domain
 
 public struct GroupSelectView: View {
     
-    private var store: StoreOf<GroupSelectFeature>
+    @Bindable private var store: StoreOf<GroupSelectFeature>
 
     public init(store: StoreOf<GroupSelectFeature>) {
         self.store = store
@@ -23,6 +23,16 @@ public struct GroupSelectView: View {
             NavigationBar(title: "그룹 선택")
             
             GroupScrollView()
+        }
+        .sheet(
+            item: $store.scope(
+                state: \.groupEditor,
+                action: \.groupEditor
+            )
+        ) { store in
+            GroupEditorView(store: store)
+                .presentationDetents([.large])
+                .presentationDragIndicator(.visible)
         }
     }
     
