@@ -11,10 +11,20 @@ import Util
 
 @Reducer
 public struct IconSelectFeature {
+    
+    public enum IconGroup {
+        case all
+        case object
+        case nature
+        case fitness
+        case furniture
+        case etc
+    }
 
     @ObservableState
     public struct State: Equatable {
         var selectedIconIndex: Int
+        var selectedIconGroup: IconGroup = .all
         
         public init(
             selectedIconIndex: Int
@@ -25,7 +35,8 @@ public struct IconSelectFeature {
 
     public enum Action: TCAFeatureAction {
         public enum ViewAction {
-            
+            case onTapIconGroup(selectedIconGroup: IconGroup)
+            case onTapIcon(selectedIndex: Int)
         }
 
         public enum InnerAction {
@@ -47,7 +58,16 @@ public struct IconSelectFeature {
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            
+            case .view(let viewAction):
+                switch viewAction {
+                case .onTapIconGroup(let selectedIconGroup):
+                    state.selectedIconGroup = selectedIconGroup
+                    return .none
+
+                case .onTapIcon(let selectedIndex):
+                    state.selectedIconIndex = selectedIndex
+                    return .none
+                }
                 
             default:
                 return .none
