@@ -5,7 +5,7 @@
 //  Created by 김민준 on 12/21/25.
 //
 
-import Foundation
+import SwiftUI
 import ComposableArchitecture
 import Domain
 import Util
@@ -27,6 +27,7 @@ public struct BlockEditorFeature {
         var editingBlock: Block
         var nameText: String
         var selectedGroup: BlockGroup
+        var sheetDetent: PresentationDetent = .medium
 
         @Presents var groupSelect: GroupSelectFeature.State?
         @Presents var iconSelect: IconSelectFeature.State?
@@ -60,7 +61,7 @@ public struct BlockEditorFeature {
         }
 
         public enum InnerAction {
-
+            case updateSheetDetent(PresentationDetent)
         }
 
         public enum DelegateAction {
@@ -105,15 +106,40 @@ public struct BlockEditorFeature {
                 case .onTapConfirmButton:
                     return .send(.delegate(.didConfirm(state.editingBlock)))
                 }
+                
+            case .inner(let innerAction):
+                switch innerAction {
+                case .updateSheetDetent(let sheetDetent):
+                    state.sheetDetent = sheetDetent
+                    return .none
+                }
 
             case .iconSelect(.presented(.delegate(.didSelectIcon(let iconIndex)))):
                 state.editingBlock.iconIndex = iconIndex
                 state.iconSelect = nil
+                state.sheetDetent = .medium
                 return .none
                 
             case .groupSelect(.presented(.delegate(.didSelectGroup(let group)))):
                 state.selectedGroup = group
                 state.groupSelect = nil
+                state.sheetDetent = .medium
+                return .none
+                
+            case .groupSelect(.presented(.delegate(.didSelectAddGroup))):
+                return updateSheetDetent(.large)
+                
+            case .groupSelect(.presented(.groupEditor(.presented(.delegate(.didPop))))):
+                return updateSheetDetent(.medium)
+
+            case .groupSelect(.dismiss):
+                state.groupSelect = nil
+                state.sheetDetent = .medium
+                return .none
+
+            case .iconSelect(.dismiss):
+                state.iconSelect = nil
+                state.sheetDetent = .medium
                 return .none
 
             default:
@@ -125,6 +151,18 @@ public struct BlockEditorFeature {
         }
         .ifLet(\.$iconSelect, action: \.iconSelect) {
             IconSelectFeature()
+        }
+    }
+}
+
+// MARK: - Shared Effect
+extension BlockEditorFeature {
+    
+    /// 자연스러운 애니메이션을 위해 딜레이 후 SheetDetent를 업데이트합니다.
+    private func updateSheetDetent(_ sheetDetent: PresentationDetent) -> Effect<Action> {
+        .run { send in
+            try await Task.sleep(for: .seconds(0.4))
+            await send(.inner(.updateSheetDetent(sheetDetent)))
         }
     }
 }

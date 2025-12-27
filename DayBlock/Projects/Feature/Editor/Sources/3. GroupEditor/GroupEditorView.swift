@@ -40,7 +40,7 @@ public struct GroupEditorView: View {
                 text: $store.nameText,
                 isTextFieldFocused: $isNameTextFieldFocused,
                 label: "그룹명",
-                placeholder: store.initialGroup.name,
+                placeholder: groupNameTextFieldPlaceholder,
                 accessory: {
                     Text("\(store.nameText.count)/\(store.nameTextLimit)")
                         .brandFont(.pretendard(.semiBold), 14)
@@ -86,6 +86,14 @@ extension GroupEditorView {
         switch store.mode {
         case .add: "새 그룹 생성"
         case .edit: "그룹 편집"
+        }
+    }
+    
+    /// 그룹 이름 텍스트필드의 placeholder 값을 반환합니다.
+    private var groupNameTextFieldPlaceholder: String {
+        switch store.mode {
+        case .add: "ex) 시험 공부, 피트니스"
+        case .edit: store.initialGroup.name
         }
     }
 }

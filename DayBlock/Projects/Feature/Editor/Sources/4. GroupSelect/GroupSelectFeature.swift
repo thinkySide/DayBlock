@@ -42,6 +42,7 @@ public struct GroupSelectFeature {
 
         public enum DelegateAction {
             case didSelectGroup(BlockGroup)
+            case didSelectAddGroup
         }
 
         case view(ViewAction)
@@ -63,13 +64,17 @@ public struct GroupSelectFeature {
 
                 case .onTapAddGroup:
                     state.groupEditor = .init(mode: .add)
-                    return .none
+                    return .send(.delegate(.didSelectAddGroup))
                 }
                 
             case .groupEditor(.presented(.delegate(.didPop))):
                 state.groupEditor = nil
                 return .none
-                
+
+            case .groupEditor(.dismiss):
+                state.groupEditor = nil
+                return .none
+
             default:
                 return .none
             }

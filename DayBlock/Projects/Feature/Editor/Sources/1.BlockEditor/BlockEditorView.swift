@@ -111,9 +111,9 @@ public struct BlockEditorView: View {
                 state: \.groupSelect,
                 action: \.groupSelect
             )
-        ) { store in
-            GroupSelectView(store: store)
-                .presentationDetents([.medium, .large])
+        ) { childStore in
+            GroupSelectView(store: childStore)
+                .presentationDetents([.medium, .large], selection: $store.sheetDetent)
                 .presentationDragIndicator(.visible)
         }
         .sheet(
@@ -121,9 +121,9 @@ public struct BlockEditorView: View {
                 state: \.iconSelect,
                 action: \.iconSelect
             )
-        ) { store in
-            IconSelectView(store: store)
-                .presentationDetents([.medium, .large])
+        ) { childStore in
+            IconSelectView(store: childStore)
+                .presentationDetents([.medium, .large], selection: $store.sheetDetent)
                 .presentationDragIndicator(.visible)
         }
     }
