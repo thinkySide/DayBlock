@@ -35,6 +35,7 @@ public struct GroupEditorFeature {
     public enum Action: TCAFeatureAction, BindableAction {
         public enum ViewAction {
             case typeNameText(String)
+            case onTapBackButton
             case onTapConfirmButton
         }
 
@@ -43,7 +44,7 @@ public struct GroupEditorFeature {
         }
 
         public enum DelegateAction {
-            
+            case didPop
         }
 
         case view(ViewAction)
@@ -63,6 +64,9 @@ public struct GroupEditorFeature {
                 case .typeNameText(let text):
                     state.nameText = text.slice(to: state.nameTextLimit)
                     return .none
+                    
+                case .onTapBackButton:
+                    return .send(.delegate(.didPop))
                     
                 case .onTapConfirmButton:
                     return .none

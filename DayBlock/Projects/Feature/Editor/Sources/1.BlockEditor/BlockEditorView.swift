@@ -21,6 +21,21 @@ public struct BlockEditorView: View {
 
     public var body: some View {
         VStack(spacing: 0) {
+            NavigationBar(
+                title: "블럭 생성",
+                leadingView: {
+                    NavigationBarButton(.back) {
+                        store.send(.view(.onTapBackButton))
+                    }
+                },
+                trailingView: {
+                    NavigationBarButton(.text("확인")) {
+                        store.send(.view(.onTapConfirmButton))
+                    }
+                    .disabledToolBarItem(store.nameText.isEmpty)
+                }
+            )
+            
             CarouselDayBlock(
                 title: blockTitle,
                 totalAmount: store.initialBlock.output,
@@ -86,18 +101,8 @@ public struct BlockEditorView: View {
             
             Spacer()
         }
-        .navigationBarTitleDisplayMode(.inline)
+        .toolbarVisibility(.hidden, for: .navigationBar)
         .background(DesignSystem.Colors.grayFFFFFF.swiftUIColor)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                NavigationTitle()
-            }
-
-            ToolbarItem(placement: .topBarTrailing) {
-                ConfirmButton()
-                    .disabledToolBarItem(store.nameText.isEmpty)
-            }
-        }
         .onTapGesture {
             isNameTextFieldFocused = false
         }
@@ -121,22 +126,6 @@ public struct BlockEditorView: View {
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
         }
-    }
-    
-    @ViewBuilder
-    private func NavigationTitle() -> some View {
-        Text("블럭 생성")
-            .brandFont(.pretendard(.bold), 15)
-            .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
-    }
-    
-    @ViewBuilder
-    private func ConfirmButton() -> some View {
-        Button("확인") {
-            store.send(.view(.onTapConfirmButton))
-        }
-        .brandFont(.pretendard(.bold), 15)
-        .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
     }
 }
 

@@ -19,7 +19,7 @@ public struct IconSelectView: View {
     
     public var body: some View {
         VStack(spacing: 0) {
-            NavigationBar(title: "아이콘 선택")
+            NavigationBar(title: "아이콘 선택", isSheet: true)
             
             IconGroupTab()
             

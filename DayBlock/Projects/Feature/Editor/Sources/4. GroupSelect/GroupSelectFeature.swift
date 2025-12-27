@@ -66,6 +66,10 @@ public struct GroupSelectFeature {
                     return .none
                 }
                 
+            case .groupEditor(.presented(.delegate(.didPop))):
+                state.groupEditor = nil
+                return .none
+                
             default:
                 return .none
             }

@@ -20,6 +20,22 @@ public struct GroupEditorView: View {
     
     public var body: some View {
         VStack(spacing: 0) {
+            NavigationBar(
+                title: navigationTitle,
+                isSheet: true,
+                leadingView: {
+                    NavigationBarButton(.back) {
+                        store.send(.view(.onTapBackButton))
+                    }
+                },
+                trailingView: {
+                    NavigationBarButton(.text("확인")) {
+                        store.send(.view(.onTapConfirmButton))
+                    }
+                    .disabledToolBarItem(store.nameText.isEmpty)
+                }
+            )
+            
             LabelTextField(
                 text: $store.nameText,
                 isTextFieldFocused: $isNameTextFieldFocused,
@@ -31,7 +47,7 @@ public struct GroupEditorView: View {
                         .foregroundStyle(DesignSystem.Colors.grayAAAAAA.swiftUIColor)
                 }
             )
-            .padding(.top, 12)
+            .padding(.top, 32)
             .padding(.horizontal, 20)
             .onChange(of: store.nameText) { _, value in
                 store.send(.view(.typeNameText(value)))
@@ -39,16 +55,7 @@ public struct GroupEditorView: View {
             
             Spacer()
         }
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                NavigationTitle()
-            }
-
-            ToolbarItem(placement: .topBarTrailing) {
-                ConfirmButton()
-                    .disabledToolBarItem(store.nameText.isEmpty)
-            }
-        }
+        .toolbarVisibility(.hidden, for: .navigationBar)
         .onTapGesture {
             isNameTextFieldFocused = false
         }

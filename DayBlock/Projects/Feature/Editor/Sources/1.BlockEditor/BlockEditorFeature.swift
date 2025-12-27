@@ -53,6 +53,7 @@ public struct BlockEditorFeature {
     public enum Action: TCAFeatureAction, BindableAction {
         public enum ViewAction {
             case typeNameText(String)
+            case onTapBackButton
             case onTapConfirmButton
             case onTapGroupSelection
             case onTapIconSelection
@@ -63,6 +64,7 @@ public struct BlockEditorFeature {
         }
 
         public enum DelegateAction {
+            case didPop
             case didConfirm(Block)
         }
 
@@ -82,6 +84,9 @@ public struct BlockEditorFeature {
             switch action {
             case .view(let viewAction):
                 switch viewAction {
+                case .onTapBackButton:
+                    return .send(.delegate(.didPop))
+                    
                 case .typeNameText(let text):
                     state.nameText = text.slice(to: state.nameTextLimit)
                     state.editingBlock.name = state.nameText

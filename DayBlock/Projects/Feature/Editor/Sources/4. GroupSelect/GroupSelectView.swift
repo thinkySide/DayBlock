@@ -19,20 +19,21 @@ public struct GroupSelectView: View {
     }
     
     public var body: some View {
-        VStack(spacing: 0) {
-            NavigationBar(title: "그룹 선택")
-            
-            GroupScrollView()
-        }
-        .sheet(
-            item: $store.scope(
-                state: \.groupEditor,
-                action: \.groupEditor
-            )
-        ) { store in
-            GroupEditorView(store: store)
-                .presentationDetents([.large])
-                .presentationDragIndicator(.visible)
+        NavigationStack {
+            VStack(spacing: 0) {
+                NavigationBar(title: "그룹 선택", isSheet: true)
+
+                GroupScrollView()
+                    .padding(.top, 18)
+            }
+            .navigationDestination(
+                item: $store.scope(
+                    state: \.groupEditor,
+                    action: \.groupEditor
+                )
+            ) { store in
+                GroupEditorView(store: store)
+            }
         }
     }
     
