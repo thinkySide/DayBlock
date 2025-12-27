@@ -19,7 +19,11 @@ public struct GroupEditorFeature {
 
     @ObservableState
     public struct State: Equatable {
+        let nameTextLimit: Int = 8
+        let initialGroup: BlockGroup = .defaultValue
+        
         var mode: Mode
+        var nameText: String = ""
         
         public init(
             mode: Mode
@@ -28,9 +32,10 @@ public struct GroupEditorFeature {
         }
     }
 
-    public enum Action: TCAFeatureAction {
+    public enum Action: TCAFeatureAction, BindableAction {
         public enum ViewAction {
-            
+            case typeNameText(String)
+            case onTapConfirmButton
         }
 
         public enum InnerAction {
@@ -50,10 +55,18 @@ public struct GroupEditorFeature {
     public init() {}
 
     public var body: some ReducerOf<Self> {
+        BindingReducer()
         Reduce { state, action in
             switch action {
-            
-                
+            case .view(let viewAction):
+                switch viewAction {
+                case .typeNameText(let text):
+                    state.nameText = text.slice(to: state.nameTextLimit)
+                    return .none
+                    
+                case .onTapConfirmButton:
+                    return .none
+                }
             default:
                 return .none
             }

@@ -47,7 +47,6 @@ public struct GroupSelectFeature {
         case view(ViewAction)
         case inner(InnerAction)
         case delegate(DelegateAction)
-        case binding(BindingAction<State>)
         case groupEditor(PresentationAction<GroupEditorFeature.Action>)
     }
 

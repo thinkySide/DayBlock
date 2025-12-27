@@ -132,7 +132,7 @@ public struct BlockEditorView: View {
     
     @ViewBuilder
     private func ConfirmButton() -> some View {
-        Button("완료") {
+        Button("확인") {
             store.send(.view(.onTapConfirmButton))
         }
         .brandFont(.pretendard(.bold), 15)
