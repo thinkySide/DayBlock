@@ -63,7 +63,7 @@ public struct GroupEditorFeature {
 
         public enum DelegateAction {
             case didPop
-            case didConfirm
+            case didConfirm(BlockGroup)
         }
 
         case view(ViewAction)
@@ -98,7 +98,7 @@ public struct GroupEditorFeature {
                     let group = state.editingGroup
                     return .run { send in
                         await swiftDataRepository.createGroup(group)
-                        await send(.delegate(.didConfirm))
+                        await send(.delegate(.didConfirm(group)))
                     }
                     
                 case .onTapColorSelection:

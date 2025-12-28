@@ -88,8 +88,9 @@ public struct GroupSelectFeature {
                 state.groupEditor = nil
                 return .none
                 
-            case .groupEditor(.presented(.delegate(.didConfirm))):
+            case .groupEditor(.presented(.delegate(.didConfirm(let group)))):
                 state.groupEditor = nil
+                state.selectedGroup = group
                 return refreshGroupList()
 
             case .groupEditor(.dismiss):

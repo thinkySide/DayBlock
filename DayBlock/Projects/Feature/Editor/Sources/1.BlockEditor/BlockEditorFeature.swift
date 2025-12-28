@@ -155,7 +155,8 @@ public struct BlockEditorFeature {
             case .groupSelect(.presented(.groupEditor(.presented(.delegate(.didPop))))):
                 return updateSheetDetent(.medium)
                 
-            case .groupSelect(.presented(.groupEditor(.presented(.delegate(.didConfirm))))):
+            case .groupSelect(.presented(.groupEditor(.presented(.delegate(.didConfirm(let group)))))):
+                state.selectedGroup = group
                 return updateSheetDetent(.medium)
 
             case .groupSelect(.dismiss):
