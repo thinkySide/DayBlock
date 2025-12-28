@@ -15,7 +15,7 @@ public struct GroupEditorFeature {
     
     public enum Mode: Equatable {
         case add
-        case edit
+        case edit(BlockGroup)
     }
 
     @ObservableState
@@ -33,14 +33,25 @@ public struct GroupEditorFeature {
             mode: Mode
         ) {
             self.mode = mode
-            self.initialGroup = .init(id: .init(), name: "임시 블럭", colorIndex: 0)
-            self.editingGroup = .init(id: .init(), name: "임시 블럭", colorIndex: 0)
+
+            switch mode {
+            case .add:
+                @Dependency(\.uuid) var uuid
+                let newGroup = BlockGroup(id: uuid(), name: "", colorIndex: 4)
+                self.initialGroup = newGroup
+                self.editingGroup = newGroup
+                
+            case .edit(let group):
+                self.initialGroup = group
+                self.editingGroup = group
+            }
         }
     }
 
     public enum Action: TCAFeatureAction, BindableAction {
         public enum ViewAction {
             case typeNameText(String)
+            case onAppear
             case onTapBackButton
             case onTapConfirmButton
             case onTapColorSelection
@@ -72,6 +83,9 @@ public struct GroupEditorFeature {
             switch action {
             case .view(let viewAction):
                 switch viewAction {
+                case .onAppear:
+                    return .none
+                    
                 case .typeNameText(let text):
                     state.nameText = text.slice(to: state.nameTextLimit)
                     state.editingGroup.name = state.nameText

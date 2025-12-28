@@ -10,7 +10,7 @@ import SwiftUI
 public struct BlockGroup: Identifiable, Equatable {
     
     /// 그룹 Id
-    public var id: UUID
+    public let id: UUID
     
     /// 그룹 이름
     public var name: String

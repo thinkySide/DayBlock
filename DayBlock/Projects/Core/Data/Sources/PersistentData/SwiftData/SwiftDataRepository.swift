@@ -41,6 +41,7 @@ extension SwiftDataRepository: DependencyKey {
             createGroup: { group in
                 do {
                     let swiftDataGroup = BlockGroupSwiftData(
+                        id: group.id,
                         name: group.name,
                         colorIndex: group.colorIndex,
                         blockList: []
@@ -61,7 +62,9 @@ extension SwiftDataRepository: DependencyKey {
                     }.value
                     
                     if groupList.isEmpty {
+                        @Dependency(\.uuid) var uuid
                         let defaultGroup = BlockGroupSwiftData(
+                            id: uuid(),
                             name: "기본 그룹",
                             colorIndex: 4,
                             blockList: []
@@ -94,7 +97,9 @@ extension SwiftDataRepository: DependencyKey {
                         return try modelContext.fetch(descriptor)
                     }.value
                     if groupList.isEmpty {
+                        @Dependency(\.uuid) var uuid
                         let defaultGroup = BlockGroupSwiftData(
+                            id: uuid(),
                             name: "기본 그룹",
                             colorIndex: 4,
                             blockList: []

@@ -48,7 +48,8 @@ public struct BlockEditorFeature {
                 initialBlock = defaultBlock
                 editingBlock = defaultBlock
                 nameText = ""
-                selectedGroup = .init(id: .init(), name: "임시 블럭", colorIndex: 0)
+                selectedGroup = .init(id: .init(), name: "", colorIndex: 4)
+
             case .edit(let selectedBlock, let blockGroup):
                 initialBlock = selectedBlock
                 editingBlock = selectedBlock
@@ -61,6 +62,7 @@ public struct BlockEditorFeature {
     public enum Action: TCAFeatureAction, BindableAction {
         public enum ViewAction {
             case typeNameText(String)
+            case onAppear
             case onTapBackButton
             case onTapConfirmButton
             case onTapGroupSelection
@@ -68,6 +70,7 @@ public struct BlockEditorFeature {
         }
 
         public enum InnerAction {
+            case setDefaultGroup(BlockGroup)
             case updateSheetDetent(PresentationDetent)
         }
 
@@ -85,6 +88,8 @@ public struct BlockEditorFeature {
     }
 
     public init() {}
+    
+    @Dependency(\.swiftDataRepository) private var swiftDataRepository
 
     public var body: some ReducerOf<Self> {
         BindingReducer()
@@ -92,6 +97,13 @@ public struct BlockEditorFeature {
             switch action {
             case .view(let viewAction):
                 switch viewAction {
+                case .onAppear:
+                    if state.mode == .add {
+                        return fetchDefaultGroup()
+                    } else {
+                        return .none
+                    }
+                    
                 case .onTapBackButton:
                     return .send(.delegate(.didPop))
                     
@@ -116,6 +128,10 @@ public struct BlockEditorFeature {
                 
             case .inner(let innerAction):
                 switch innerAction {
+                case .setDefaultGroup(let group):
+                    state.selectedGroup = group
+                    return .none
+                    
                 case .updateSheetDetent(let sheetDetent):
                     state.sheetDetent = sheetDetent
                     return .none
@@ -137,6 +153,9 @@ public struct BlockEditorFeature {
                 return updateSheetDetent(.large)
                 
             case .groupSelect(.presented(.groupEditor(.presented(.delegate(.didPop))))):
+                return updateSheetDetent(.medium)
+                
+            case .groupSelect(.presented(.groupEditor(.presented(.delegate(.didConfirm))))):
                 return updateSheetDetent(.medium)
 
             case .groupSelect(.dismiss):
@@ -164,6 +183,14 @@ public struct BlockEditorFeature {
 
 // MARK: - Shared Effect
 extension BlockEditorFeature {
+    
+    /// 기본 그룹을 반환합니다.
+    private func fetchDefaultGroup() -> Effect<Action> {
+        .run { send in
+            let defaultGroup = await swiftDataRepository.fetchDefaultGroup()
+            await send(.inner(.setDefaultGroup(defaultGroup)))
+        }
+    }
     
     /// 자연스러운 애니메이션을 위해 딜레이 후 SheetDetent를 업데이트합니다.
     private func updateSheetDetent(_ sheetDetent: PresentationDetent) -> Effect<Action> {

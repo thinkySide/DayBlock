@@ -70,6 +70,9 @@ public struct GroupEditorView: View {
             Spacer()
         }
         .toolbarVisibility(.hidden, for: .navigationBar)
+        .onAppear {
+            store.send(.view(.onAppear))
+        }
         .onTapGesture {
             isNameTextFieldFocused = false
         }

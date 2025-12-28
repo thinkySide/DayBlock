@@ -24,7 +24,7 @@ final class BlockSwiftData: Identifiable, Sendable {
     var group: BlockGroupSwiftData
     
     init(
-        id: UUID = UUID(),
+        id: UUID,
         name: String,
         output: Double,
         iconIndex: Int,

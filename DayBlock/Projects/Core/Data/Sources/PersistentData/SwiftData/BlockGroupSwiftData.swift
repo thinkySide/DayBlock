@@ -23,7 +23,7 @@ final class BlockGroupSwiftData: Identifiable, Sendable {
     var blockList: [BlockSwiftData]
     
     public init(
-        id: UUID = UUID(),
+        id: UUID,
         name: String,
         colorIndex: Int,
         blockList: [BlockSwiftData]

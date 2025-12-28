@@ -103,6 +103,9 @@ public struct BlockEditorView: View {
         }
         .toolbarVisibility(.hidden, for: .navigationBar)
         .background(DesignSystem.Colors.grayFFFFFF.swiftUIColor)
+        .onAppear {
+            store.send(.view(.onAppear))
+        }
         .onTapGesture {
             isNameTextFieldFocused = false
         }
