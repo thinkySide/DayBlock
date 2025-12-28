@@ -24,6 +24,9 @@ public struct GroupEditorFeature {
         
         var mode: Mode
         var nameText: String = ""
+        var editingGroup: BlockGroup = .defaultValue
+        
+        @Presents var colorSelect: ColorSelectFeature.State?
         
         public init(
             mode: Mode
@@ -37,6 +40,7 @@ public struct GroupEditorFeature {
             case typeNameText(String)
             case onTapBackButton
             case onTapConfirmButton
+            case onTapColorSelection
         }
 
         public enum InnerAction {
@@ -51,6 +55,7 @@ public struct GroupEditorFeature {
         case inner(InnerAction)
         case delegate(DelegateAction)
         case binding(BindingAction<State>)
+        case colorSelect(PresentationAction<ColorSelectFeature.Action>)
     }
 
     public init() {}
@@ -70,10 +75,24 @@ public struct GroupEditorFeature {
                     
                 case .onTapConfirmButton:
                     return .none
+                    
+                case .onTapColorSelection:
+                    let colorIndex = state.editingGroup.colorIndex
+                    state.colorSelect = .init(selectedColorIndex: colorIndex)
+                    return .none
                 }
+                
+            case .colorSelect(.presented(.delegate(.didSelectColor(let selectedIndex)))):
+                state.editingGroup.colorIndex = selectedIndex
+                state.colorSelect = nil
+                return .none
+                
             default:
                 return .none
             }
+        }
+        .ifLet(\.$colorSelect, action: \.colorSelect) {
+            ColorSelectFeature()
         }
     }
 }
