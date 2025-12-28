@@ -42,7 +42,7 @@ public struct GroupSelectFeature {
         }
 
         public enum InnerAction {
-
+            case setGroupList(IdentifiedArrayOf<GroupListViewItem>)
         }
 
         public enum DelegateAction {
@@ -66,8 +66,7 @@ public struct GroupSelectFeature {
             case .view(let viewAction):
                 switch viewAction {
                 case .onAppear:
-                    state.groupList = fetchGroupListViewItems()
-                    return .none
+                    return refreshGroupList()
                     
                 case .onTapGroup(let group):
                     state.selectedGroup = group
@@ -78,9 +77,20 @@ public struct GroupSelectFeature {
                     return .send(.delegate(.didSelectAddGroup))
                 }
                 
+            case .inner(let innerAction):
+                switch innerAction {
+                case .setGroupList(let groupList):
+                    state.groupList = groupList
+                    return .none
+                }
+                
             case .groupEditor(.presented(.delegate(.didPop))):
                 state.groupEditor = nil
                 return .none
+                
+            case .groupEditor(.presented(.delegate(.didConfirm))):
+                state.groupEditor = nil
+                return refreshGroupList()
 
             case .groupEditor(.dismiss):
                 state.groupEditor = nil
@@ -96,18 +106,34 @@ public struct GroupSelectFeature {
     }
 }
 
+// MARK: - Shared Effect
+extension GroupSelectFeature {
+    
+    /// 그룹 리스트를 리프레쉬 합니다.
+    private func refreshGroupList() -> Effect<Action> {
+        .run { send in
+            let viewItems = await fetchGroupListViewItems()
+            await send(.inner(.setGroupList(viewItems)))
+        }
+    }
+}
+
 // MARK: - Helper
 extension GroupSelectFeature {
     
     /// 전체 GroupList ViewItem 배열을 반환합니다.
-    private func fetchGroupListViewItems() -> IdentifiedArrayOf<GroupListViewItem> {
-        let domainGroupList = swiftDataRepository.fetchGroupList()
-        let groupList = domainGroupList.map {
-            let blockList = swiftDataRepository.fetchBlockList(groupId: $0.id)
-            return GroupListViewItem(
-                group: $0,
+    private func fetchGroupListViewItems() async -> IdentifiedArrayOf<GroupListViewItem> {
+        let domainGroupList = await swiftDataRepository.fetchGroupList()
+        var groupListViewItem = IdentifiedArrayOf<GroupListViewItem>()
+        
+        for group in domainGroupList {
+            let blockList = await swiftDataRepository.fetchBlockList(groupId: group.id)
+            let viewItem = GroupListViewItem(
+                group: group,
                 blockCount: blockList.count)
+            groupListViewItem.append(viewItem)
         }
-        return .init(uniqueElements: groupList)
+        
+        return groupListViewItem
     }
 }

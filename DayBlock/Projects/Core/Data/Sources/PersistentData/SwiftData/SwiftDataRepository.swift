@@ -15,59 +15,68 @@ import Util
 @DependencyClient
 public struct SwiftDataRepository {
 
-    public var createGroup: @Sendable (BlockGroup) -> Void
-    public var fetchDefaultGroup: @Sendable () -> BlockGroup = { .init(id: .init(), name: "", colorIndex: 0) }
-    public var fetchGroupList: @Sendable () -> [BlockGroup] = { [] }
-    public var updateGroup: @Sendable (_ groupId: UUID, BlockGroup) -> Void
-    public var deleteGroup: @Sendable (_ groupId: UUID) -> Void
+    public var createGroup: @Sendable (BlockGroup) async -> Void
+    public var fetchDefaultGroup: @Sendable () async -> BlockGroup = { .init(id: .init(), name: "", colorIndex: 0) }
+    public var fetchGroupList: @Sendable () async -> [BlockGroup] = { [] }
+    public var updateGroup: @Sendable (_ groupId: UUID, BlockGroup) async -> Void
+    public var deleteGroup: @Sendable (_ groupId: UUID) async -> Void
 
-    public var createBlock: @Sendable (_ groupId: UUID, Block) -> Void
-    public var fetchBlockList: @Sendable (_ groupId: UUID) -> [Block] = { _ in [] }
-    public var updateBlock: @Sendable (_ blockId: UUID, Block) -> Void
-    public var deleteBlock: @Sendable (_ blockId: UUID) -> Void
+    public var createBlock: @Sendable (_ groupId: UUID, Block) async -> Void
+    public var fetchBlockList: @Sendable (_ groupId: UUID) async -> [Block] = { _ in [] }
+    public var updateBlock: @Sendable (_ blockId: UUID, Block) async -> Void
+    public var deleteBlock: @Sendable (_ blockId: UUID) async -> Void
 }
 
 // MARK: - DependencyKey
 extension SwiftDataRepository: DependencyKey {
+    
+    @MainActor
+    static let modelContext: ModelContext = {
+        @Dependency(\.modelContainer) var modelContainer
+        return modelContainer.mainContext
+    }()
 
     public static var liveValue: SwiftDataRepository {
         SwiftDataRepository(
             createGroup: { group in
-                @Dependency(\.modelContext) var modelContext
-                let swiftDataGroup = BlockGroupSwiftData(
-                    name: group.name,
-                    colorIndex: group.colorIndex,
-                    blockList: []
-                )
-                modelContext.insert(swiftDataGroup)
                 do {
-                    try modelContext.save()
+                    let swiftDataGroup = BlockGroupSwiftData(
+                        name: group.name,
+                        colorIndex: group.colorIndex,
+                        blockList: []
+                    )
+                    try await MainActor.run {
+                        modelContext.insert(swiftDataGroup)
+                        try modelContext.save()
+                    }
                 } catch {
                     Debug.log("SwiftData ModelContext 에러: \(error)")
                 }
             },
             fetchDefaultGroup: {
-                @Dependency(\.modelContext) var modelContext
-                let descriptor = FetchDescriptor<BlockGroupSwiftData>()
                 do {
-                    var groups = try modelContext.fetch(descriptor)
-
-                    // 그룹이 비어있으면 기본 그룹 생성
-                    if groups.isEmpty {
+                    let descriptor = FetchDescriptor<BlockGroupSwiftData>()
+                    var groupList = try await Task { @MainActor in
+                        return try modelContext.fetch(descriptor)
+                    }.value
+                    
+                    if groupList.isEmpty {
                         let defaultGroup = BlockGroupSwiftData(
                             name: "기본 그룹",
                             colorIndex: 4,
                             blockList: []
                         )
-                        modelContext.insert(defaultGroup)
-                        try modelContext.save()
-                        groups = [defaultGroup]
+                        
+                        try await MainActor.run {
+                            modelContext.insert(defaultGroup)
+                            try modelContext.save()
+                        }
+                        
+                        groupList = [defaultGroup]
                     }
-
-                    guard let firstGroup = groups.first else {
+                    guard let firstGroup = groupList.first else {
                         return BlockGroup(id: .init(), name: "기본 그룹", colorIndex: 4)
                     }
-
                     return BlockGroup(
                         id: firstGroup.id,
                         name: firstGroup.name,
@@ -79,22 +88,25 @@ extension SwiftDataRepository: DependencyKey {
                 }
             },
             fetchGroupList: {
-                @Dependency(\.modelContext) var modelContext
-                let descriptor = FetchDescriptor<BlockGroupSwiftData>()
                 do {
-                    var groups = try modelContext.fetch(descriptor)
-                    if groups.isEmpty {
+                    let descriptor = FetchDescriptor<BlockGroupSwiftData>()
+                    var groupList = try await Task { @MainActor in
+                        return try modelContext.fetch(descriptor)
+                    }.value
+                    if groupList.isEmpty {
                         let defaultGroup = BlockGroupSwiftData(
                             name: "기본 그룹",
                             colorIndex: 4,
                             blockList: []
                         )
-                        modelContext.insert(defaultGroup)
-                        try modelContext.save()
-                        groups = [defaultGroup]
+                        try await MainActor.run {
+                            modelContext.insert(defaultGroup)
+                            try modelContext.save()
+                        }
+                        groupList = [defaultGroup]
                     }
 
-                    return groups.map { swiftData in
+                    return groupList.map { swiftData in
                         BlockGroup(
                             id: swiftData.id,
                             name: swiftData.name,
@@ -107,43 +119,59 @@ extension SwiftDataRepository: DependencyKey {
                 }
             },
             updateGroup: { id, group in
-                @Dependency(\.modelContext) var modelContext
-                let descriptor = FetchDescriptor<BlockGroupSwiftData>(
-                    predicate: #Predicate { $0.id == id }
-                )
                 do {
-                    guard let existingGroup = try modelContext.fetch(descriptor).first else {
+                    let descriptor = FetchDescriptor<BlockGroupSwiftData>(
+                        predicate: #Predicate { $0.id == id }
+                    )
+                    let targetGroup = try await Task { @MainActor in
+                        try modelContext.fetch(descriptor).first
+                    }.value
+                    
+                    guard let targetGroup else {
                         throw PersistentDataError.notFound
                     }
-                    existingGroup.name = group.name
-                    existingGroup.colorIndex = group.colorIndex
-                    try modelContext.save()
+                    targetGroup.name = group.name
+                    targetGroup.colorIndex = group.colorIndex
+                    try await MainActor.run {
+                        try modelContext.save()
+                    }
                 } catch {
                     Debug.log("SwiftData ModelContext 에러: \(error)")
                 }
             },
             deleteGroup: { id in
-                @Dependency(\.modelContext) var modelContext
-                let descriptor = FetchDescriptor<BlockGroupSwiftData>(
-                    predicate: #Predicate { $0.id == id }
-                )
                 do {
-                    guard let groupToDelete = try modelContext.fetch(descriptor).first else {
+                    let descriptor = FetchDescriptor<BlockGroupSwiftData>(
+                        predicate: #Predicate { $0.id == id }
+                    )
+                    
+                    let targetGroup = try await Task { @MainActor in
+                        try modelContext.fetch(descriptor).first
+                    }.value
+                    
+                    guard let targetGroup else {
                         throw PersistentDataError.notFound
                     }
-                    modelContext.delete(groupToDelete)
-                    try modelContext.save()
+
+                    try await MainActor.run {
+                        modelContext.delete(targetGroup)
+                        try modelContext.save()
+                    }
                 } catch {
                     Debug.log("SwiftData ModelContext 에러: \(error)")
                 }
             },
             createBlock: { groupId, block in
-                @Dependency(\.modelContext) var modelContext
-                let groupDescriptor = FetchDescriptor<BlockGroupSwiftData>(
-                    predicate: #Predicate { $0.id == groupId }
-                )
                 do {
-                    guard let group = try modelContext.fetch(groupDescriptor).first else {
+                    let groupDescriptor = FetchDescriptor<BlockGroupSwiftData>(
+                        predicate: #Predicate { $0.id == groupId }
+                    )
+                    
+                    let targetGroup = try await Task { @MainActor in
+                        try modelContext.fetch(groupDescriptor).first
+                    }.value
+                    
+                    guard let targetGroup else {
                         throw PersistentDataError.notFound
                     }
 
@@ -152,22 +180,28 @@ extension SwiftDataRepository: DependencyKey {
                         name: block.name,
                         output: block.output,
                         iconIndex: block.iconIndex,
-                        group: group
+                        group: targetGroup
                     )
-                    modelContext.insert(swiftDataBlock)
-                    try modelContext.save()
+                    
+                    try await MainActor.run {
+                        modelContext.insert(swiftDataBlock)
+                        try modelContext.save()
+                    }
                 } catch {
                     Debug.log("SwiftData ModelContext 에러: \(error)")
                 }
             },
             fetchBlockList: { groupId in
-                @Dependency(\.modelContext) var modelContext
-                let descriptor = FetchDescriptor<BlockSwiftData>(
-                    predicate: #Predicate { $0.group.id == groupId }
-                )
                 do {
-                    let blocks = try modelContext.fetch(descriptor)
-                    return blocks.map { swiftData in
+                    let descriptor = FetchDescriptor<BlockSwiftData>(
+                        predicate: #Predicate { $0.group.id == groupId }
+                    )
+                    
+                    let blockList = try await Task { @MainActor in
+                        try modelContext.fetch(descriptor)
+                    }.value
+
+                    return blockList.map { swiftData in
                         Block(
                             id: swiftData.id,
                             name: swiftData.name,
@@ -181,33 +215,48 @@ extension SwiftDataRepository: DependencyKey {
                 }
             },
             updateBlock: { id, block in
-                @Dependency(\.modelContext) var modelContext
-                let descriptor = FetchDescriptor<BlockSwiftData>(
-                    predicate: #Predicate { $0.id == id }
-                )
                 do {
-                    guard let existingBlock = try modelContext.fetch(descriptor).first else {
+                    let descriptor = FetchDescriptor<BlockSwiftData>(
+                        predicate: #Predicate { $0.id == id }
+                    )
+                    
+                    let targetBlock = try await Task { @MainActor in
+                        try modelContext.fetch(descriptor).first
+                    }.value
+
+                    guard let targetBlock else {
                         throw PersistentDataError.notFound
                     }
-                    existingBlock.name = block.name
-                    existingBlock.iconIndex = block.iconIndex
-                    existingBlock.output = block.output
-                    try modelContext.save()
+
+                    targetBlock.name = block.name
+                    targetBlock.iconIndex = block.iconIndex
+                    targetBlock.output = block.output
+                    
+                    try await MainActor.run {
+                        try modelContext.save()
+                    }
                 } catch {
                     Debug.log("SwiftData ModelContext 에러: \(error)")
                 }
             },
             deleteBlock: { id in
-                @Dependency(\.modelContext) var modelContext
-                let descriptor = FetchDescriptor<BlockSwiftData>(
-                    predicate: #Predicate { $0.id == id }
-                )
                 do {
-                    guard let blockToDelete = try modelContext.fetch(descriptor).first else {
+                    let descriptor = FetchDescriptor<BlockSwiftData>(
+                        predicate: #Predicate { $0.id == id }
+                    )
+                    
+                    let targetBlock = try await Task { @MainActor in
+                        try modelContext.fetch(descriptor).first
+                    }.value
+                    
+                    guard let targetBlock else {
                         throw PersistentDataError.notFound
                     }
-                    modelContext.delete(blockToDelete)
-                    try modelContext.save()
+                    
+                    try await MainActor.run {
+                        modelContext.delete(targetBlock)
+                        try modelContext.save()
+                    }
                 } catch {
                     Debug.log("SwiftData ModelContext 에러: \(error)")
                 }

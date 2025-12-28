@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class BlockGroupSwiftData: Identifiable {
+final class BlockGroupSwiftData: Identifiable, Sendable {
     
     @Attribute(.unique)
     var id: UUID

@@ -9,18 +9,18 @@ import SwiftData
 import Dependencies
 
 private enum ModelContainerKey: DependencyKey {
-    
+
     static let liveValue: ModelContainer = {
         let schema = Schema([
             BlockGroupSwiftData.self,
             BlockSwiftData.self
         ])
-        
+
         let modelConfiguration = ModelConfiguration(
             schema: schema,
             isStoredInMemoryOnly: true
         )
-        
+
         do {
             let container = try ModelContainer(
                 for: schema,
@@ -38,9 +38,5 @@ extension DependencyValues {
     public var modelContainer: ModelContainer {
         get { self[ModelContainerKey.self] }
         set { self[ModelContainerKey.self] = newValue }
-    }
-
-    public var modelContext: ModelContext {
-        ModelContext(modelContainer)
     }
 }

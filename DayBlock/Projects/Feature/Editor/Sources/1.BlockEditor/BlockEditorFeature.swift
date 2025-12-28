@@ -36,7 +36,6 @@ public struct BlockEditorFeature {
             mode: Mode
         ) {
             @Dependency(\.uuid) var uuid
-            @Dependency(\.swiftDataRepository) var swiftDataRepository
             self.mode = mode
             let defaultBlock = Block(
                 id: uuid(),
@@ -49,7 +48,7 @@ public struct BlockEditorFeature {
                 initialBlock = defaultBlock
                 editingBlock = defaultBlock
                 nameText = ""
-                selectedGroup = swiftDataRepository.fetchDefaultGroup()
+                selectedGroup = .init(id: .init(), name: "임시 블럭", colorIndex: 0)
             case .edit(let selectedBlock, let blockGroup):
                 initialBlock = selectedBlock
                 editingBlock = selectedBlock

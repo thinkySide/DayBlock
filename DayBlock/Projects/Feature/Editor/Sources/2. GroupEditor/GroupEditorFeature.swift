@@ -5,6 +5,7 @@
 //  Created by 김민준 on 12/27/25.
 //
 
+import Foundation
 import ComposableArchitecture
 import Domain
 import Util
@@ -31,11 +32,9 @@ public struct GroupEditorFeature {
         public init(
             mode: Mode
         ) {
-            @Dependency(\.swiftDataRepository) var swiftDataRepository
-            let defaultGroup = swiftDataRepository.fetchDefaultGroup()
             self.mode = mode
-            self.initialGroup = defaultGroup
-            self.editingGroup = defaultGroup
+            self.initialGroup = .init(id: .init(), name: "임시 블럭", colorIndex: 0)
+            self.editingGroup = .init(id: .init(), name: "임시 블럭", colorIndex: 0)
         }
     }
 
@@ -53,6 +52,7 @@ public struct GroupEditorFeature {
 
         public enum DelegateAction {
             case didPop
+            case didConfirm
         }
 
         case view(ViewAction)
@@ -82,8 +82,10 @@ public struct GroupEditorFeature {
                     
                 case .onTapConfirmButton:
                     let group = state.editingGroup
-                    swiftDataRepository.createGroup(group)
-                    return .none
+                    return .run { send in
+                        await swiftDataRepository.createGroup(group)
+                        await send(.delegate(.didConfirm))
+                    }
                     
                 case .onTapColorSelection:
                     let colorIndex = state.editingGroup.colorIndex
