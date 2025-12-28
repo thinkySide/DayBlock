@@ -7,7 +7,10 @@
 
 import Foundation
 
-public struct Block: Equatable {
+public struct Block: Identifiable, Equatable {
+    
+    /// 블럭 ID
+    public let id = UUID()
     
     /// 블럭 이름
     public var name: String
