@@ -15,13 +15,16 @@ public struct TrackingButton: View {
     }
     
     let state: State
+    let isDisabled: Bool
     let tapAction: () -> Void
 
     public init(
         state: State,
+        isDisabled: Bool,
         tapAction: @escaping () -> Void
     ) {
         self.state = state
+        self.isDisabled = isDisabled
         self.tapAction = tapAction
     }
     
@@ -31,7 +34,9 @@ public struct TrackingButton: View {
         } label: {
             Circle()
                 .frame(width: 64, height: 64)
-                .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+                .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor.opacity(
+                    isDisabled ? 0.4 : 1
+                ))
                 .overlay(
                     SFSymbol(
                         symbol: state == .play
@@ -42,5 +47,6 @@ public struct TrackingButton: View {
                     .padding(.leading, state == .play ? 6 : 0)
                 )
         }
+        .disabled(isDisabled)
     }
 }

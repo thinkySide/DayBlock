@@ -8,6 +8,7 @@
 import SwiftUI
 import DesignSystem
 import ComposableArchitecture
+import Domain
 import Editor
 
 public struct TrackingCarouselView: View {
@@ -57,6 +58,7 @@ public struct TrackingCarouselView: View {
             
             TrackingButton(
                 state: .play,
+                isDisabled: store.focusedBlock == nil,
                 tapAction: {
                     
                 }
@@ -64,8 +66,8 @@ public struct TrackingCarouselView: View {
             
             Spacer()
         }
-        .onAppear {
-            store.send(.view(.onAppear))
+        .onLoad {
+            store.send(.view(.onLoad))
         }
         .sheet(
             item: $store.scope(
@@ -146,6 +148,8 @@ extension TrackingCarouselView {
 // MARK: - BlockCarousel
 private struct BlockCarousel: View {
 
+    @State private var scrollIndex: Int?
+
     let store: StoreOf<TrackingCarouselFeature>
     private let cellSize: CGFloat = 180
 
@@ -153,7 +157,8 @@ private struct BlockCarousel: View {
         GeometryReader { geometry in
             ScrollView(.horizontal) {
                 HStack(spacing: 24) {
-                    ForEach(store.blockList) { block in
+                    ForEach(store.blockList.indices, id: \.self) { index in
+                        let block = store.blockList[index]
                         CarouselDayBlock(
                             title: block.name,
                             totalAmount: block.output,
@@ -162,11 +167,31 @@ private struct BlockCarousel: View {
                             color: ColorPalette.toColor(from: store.selectedGroup.colorIndex),
                             state: .front
                         )
+                        .containerRelativeFrame(.horizontal, count: 1, spacing: 24)
+                        .background(
+                            GeometryReader { itemGeometry in
+                                Color.clear
+                                    .preference(
+                                        key: CarouselOffsetPreferenceKey.self,
+                                        value: [index: itemGeometry.frame(in: .global).midX]
+                                    )
+                            }
+                        )
                     }
-                    
+
                     CarouselAddBlock(
                         onTap: {
                             store.send(.view(.onTapAddBlock))
+                        }
+                    )
+                    .containerRelativeFrame(.horizontal, count: 1, spacing: 24)
+                    .background(
+                        GeometryReader { itemGeometry in
+                            Color.clear
+                                .preference(
+                                    key: CarouselOffsetPreferenceKey.self,
+                                    value: [store.blockList.count: itemGeometry.frame(in: .global).midX]
+                                )
                         }
                     )
                 }
@@ -175,7 +200,41 @@ private struct BlockCarousel: View {
             .scrollTargetBehavior(.viewAligned)
             .scrollIndicators(.hidden)
             .safeAreaPadding(.horizontal, (geometry.size.width - cellSize) / 2)
+            .onPreferenceChange(CarouselOffsetPreferenceKey.self) { positions in
+                updateFocusedBlock(geometry, positions)
+            }
         }
         .frame(height: cellSize)
+    }
+}
+
+// MARK: - Helper
+extension BlockCarousel {
+    
+    /// Scroll 포지션 값에 따라 Focus 된 블럭을 업데이트합니다.
+    private func updateFocusedBlock(
+        _ geometry: GeometryProxy,
+        _ positions: [Int: CGFloat]
+    ) {
+        let screenCenter = geometry.size.width / 2
+        let closestIndex = positions.min { abs($0.value - screenCenter) < abs($1.value - screenCenter) }?.key
+        if let index = closestIndex, index != scrollIndex {
+            scrollIndex = index
+            if index < store.blockList.count {
+                let focusedBlock = store.blockList[index]
+                store.send(.view(.scrollingCarousel(focusedBlock: focusedBlock)))
+            } else {
+                store.send(.view(.scrollingCarousel(focusedBlock: nil)))
+            }
+        }
+    }
+}
+
+// MARK: - Preference Key
+private struct CarouselOffsetPreferenceKey: PreferenceKey {
+    static var defaultValue: [Int: CGFloat] = [:]
+
+    static func reduce(value: inout [Int: CGFloat], nextValue: () -> [Int: CGFloat]) {
+        value.merge(nextValue()) { _, new in new }
     }
 }

@@ -15,7 +15,7 @@ public struct BlockEditorFeature {
     
     public enum Mode: Equatable {
         case add
-        case edit(selectedBlock: Block, selectedBlockGroup: BlockGroup)
+        case edit(selectedBlock: Block)
     }
 
     @ObservableState
@@ -33,10 +33,12 @@ public struct BlockEditorFeature {
         @Presents var iconSelect: IconSelectFeature.State?
 
         public init(
-            mode: Mode
+            mode: Mode,
+            selectedGroup: BlockGroup
         ) {
             @Dependency(\.uuid) var uuid
             self.mode = mode
+            self.selectedGroup = selectedGroup
             let defaultBlock = Block(
                 id: uuid(),
                 name: "블럭 쌓기",
@@ -48,13 +50,11 @@ public struct BlockEditorFeature {
                 initialBlock = defaultBlock
                 editingBlock = defaultBlock
                 nameText = ""
-                selectedGroup = .init(id: .init(), name: "", colorIndex: 4)
 
-            case .edit(let selectedBlock, let blockGroup):
+            case .edit(let selectedBlock):
                 initialBlock = selectedBlock
                 editingBlock = selectedBlock
                 nameText = selectedBlock.name
-                selectedGroup = blockGroup
             }
         }
     }
@@ -76,7 +76,7 @@ public struct BlockEditorFeature {
 
         public enum DelegateAction {
             case didPop
-            case didConfirm(Block)
+            case didConfirm(Block, BlockGroup)
         }
 
         case view(ViewAction)
@@ -98,11 +98,7 @@ public struct BlockEditorFeature {
             case .view(let viewAction):
                 switch viewAction {
                 case .onAppear:
-                    if state.mode == .add {
-                        return fetchDefaultGroup()
-                    } else {
-                        return .none
-                    }
+                    return .none
                     
                 case .onTapBackButton:
                     return .send(.delegate(.didPop))
@@ -124,10 +120,10 @@ public struct BlockEditorFeature {
 
                 case .onTapConfirmButton:
                     return .run { [state] send in
-                        let targetGroupId = state.selectedGroup.id
+                        let targetGroup = state.selectedGroup
                         let targetBlock = state.editingBlock
-                        await swiftDataRepository.createBlock(targetGroupId, targetBlock)
-                        await send(.delegate(.didConfirm(targetBlock)))
+                        await swiftDataRepository.createBlock(targetGroup.id, targetBlock)
+                        await send(.delegate(.didConfirm(targetBlock, targetGroup)))
                     }
                 }
                 
@@ -189,14 +185,6 @@ public struct BlockEditorFeature {
 
 // MARK: - Shared Effect
 extension BlockEditorFeature {
-    
-    /// 기본 그룹을 반환합니다.
-    private func fetchDefaultGroup() -> Effect<Action> {
-        .run { send in
-            let defaultGroup = await swiftDataRepository.fetchDefaultGroup()
-            await send(.inner(.setDefaultGroup(defaultGroup)))
-        }
-    }
     
     /// 자연스러운 애니메이션을 위해 딜레이 후 SheetDetent를 업데이트합니다.
     private func updateSheetDetent(_ sheetDetent: PresentationDetent) -> Effect<Action> {

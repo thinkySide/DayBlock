@@ -23,19 +23,21 @@ public struct TrackingCarouselFeature {
     public struct State: Equatable {
         var blockList: IdentifiedArrayOf<Block> = []
         var selectedGroup: BlockGroup = .init(id: .init(), name: "", colorIndex: 4)
+        var focusedBlock: Block?
         var sheetDetent: PresentationDetent = .medium
-        
+
         var path = StackState<Path.State>()
         @Presents var groupSelect: GroupSelectFeature.State?
 
-        public init() {}
+        public init() { }
     }
 
     public enum Action: TCAFeatureAction, BindableAction {
         public enum ViewAction {
-            case onAppear
+            case onLoad
             case onTapGroupSelect
             case onTapAddBlock
+            case scrollingCarousel(focusedBlock: Block?)
         }
         
         public enum InnerAction {
@@ -66,7 +68,7 @@ public struct TrackingCarouselFeature {
             switch action {
             case .view(let viewAction):
                 switch viewAction {
-                case .onAppear:
+                case .onLoad:
                     return .concatenate(
                         fetchSelectedGroup(),
                         refreshBlockList(from: state.selectedGroup.id)
@@ -78,8 +80,15 @@ public struct TrackingCarouselFeature {
                     return .none
                     
                 case .onTapAddBlock:
-                    let blockEditorState = BlockEditorFeature.State(mode: .add)
+                    let blockEditorState = BlockEditorFeature.State(
+                        mode: .add,
+                        selectedGroup: state.selectedGroup
+                    )
                     state.path.append(.blockEditor(blockEditorState))
+                    return .none
+                    
+                case .scrollingCarousel(let focusedBlock):
+                    state.focusedBlock = focusedBlock
                     return .none
                 }
                 
@@ -88,11 +97,11 @@ public struct TrackingCarouselFeature {
                 case .setSelectedGroup(let group):
                     state.selectedGroup = group
                     return .none
-                    
+
                 case .setBlockList(let blockList):
                     state.blockList = blockList
                     return .none
-                    
+
                 case .updateSheetDetent(let sheetDetent):
                     state.sheetDetent = sheetDetent
                     return .none
@@ -104,10 +113,11 @@ public struct TrackingCarouselFeature {
                     state.path.removeAll()
                     return .none
                     
-                case let .element(id: _, action: .blockEditor(.delegate(.didConfirm(block)))):
+                case let .element(id: _, action: .blockEditor(.delegate(.didConfirm(block, group)))):
                     state.path.removeAll()
+                    state.focusedBlock = block
+                    state.selectedGroup = group
                     return .concatenate(
-                        fetchSelectedGroup(),
                         refreshBlockList(from: state.selectedGroup.id)
                     )
                     
@@ -119,7 +129,7 @@ public struct TrackingCarouselFeature {
                 state.selectedGroup = group
                 state.groupSelect = nil
                 state.sheetDetent = .medium
-                return .none
+                return refreshBlockList(from: group.id)
                 
             case .groupSelect(.presented(.delegate(.didSelectAddGroup))):
                 return updateSheetDetent(.large)
@@ -129,7 +139,10 @@ public struct TrackingCarouselFeature {
                 
             case .groupSelect(.presented(.groupEditor(.presented(.delegate(.didConfirm(let group)))))):
                 state.selectedGroup = group
-                return updateSheetDetent(.medium)
+                return .merge(
+                    updateSheetDetent(.medium),
+                    refreshBlockList(from: group.id)
+                )
                 
             case .groupSelect(.dismiss):
                 state.groupSelect = nil

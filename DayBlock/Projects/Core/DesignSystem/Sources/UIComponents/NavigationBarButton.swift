@@ -45,18 +45,6 @@ public struct NavigationBarButton: View {
             }
             .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
         }
-        .modifier(NavigationBarButtonStyleViewModifier())
-    }
-}
-
-// MARK: - ButtonStyle Helper
-struct NavigationBarButtonStyleViewModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        if #available(iOS 26.0, *) {
-            content
-                .buttonStyle(GlassButtonStyle())
-        } else {
-            content
-        }
+        .glassButtonStyle()
     }
 }
