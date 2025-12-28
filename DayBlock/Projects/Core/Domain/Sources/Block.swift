@@ -10,7 +10,7 @@ import Foundation
 public struct Block: Identifiable, Equatable {
     
     /// 블럭 ID
-    public let id = UUID()
+    public let id: UUID
     
     /// 블럭 이름
     public var name: String
@@ -22,25 +22,14 @@ public struct Block: Identifiable, Equatable {
     public var output: Double
     
     public init(
+        id: UUID,
         name: String,
         iconIndex: Int,
         output: Double
     ) {
+        self.id = id
         self.name = name
         self.iconIndex = iconIndex
         self.output = output
-    }
-}
-
-// MARK: - Helper
-extension Block {
-    
-    /// 기본 블럭을 반환합니다.
-    public static var defaultValue: Block {
-        Block(
-            name: "블럭 쌓기",
-            iconIndex: 0,
-            output: 0
-        )
     }
 }

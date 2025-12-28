@@ -20,18 +20,22 @@ public struct GroupEditorFeature {
     @ObservableState
     public struct State: Equatable {
         let nameTextLimit: Int = 8
-        let initialGroup: BlockGroup = .defaultValue
+        let initialGroup: BlockGroup
         
         var mode: Mode
         var nameText: String = ""
-        var editingGroup: BlockGroup = .defaultValue
+        var editingGroup: BlockGroup
         
         @Presents var colorSelect: ColorSelectFeature.State?
         
         public init(
             mode: Mode
         ) {
+            @Dependency(\.swiftDataRepository) var swiftDataRepository
+            let defaultGroup = swiftDataRepository.fetchDefaultGroup()
             self.mode = mode
+            self.initialGroup = defaultGroup
+            self.editingGroup = defaultGroup
         }
     }
 
@@ -57,6 +61,8 @@ public struct GroupEditorFeature {
         case binding(BindingAction<State>)
         case colorSelect(PresentationAction<ColorSelectFeature.Action>)
     }
+    
+    @Dependency(\.swiftDataRepository) private var swiftDataRepository
 
     public init() {}
 
@@ -68,12 +74,15 @@ public struct GroupEditorFeature {
                 switch viewAction {
                 case .typeNameText(let text):
                     state.nameText = text.slice(to: state.nameTextLimit)
+                    state.editingGroup.name = state.nameText
                     return .none
                     
                 case .onTapBackButton:
                     return .send(.delegate(.didPop))
                     
                 case .onTapConfirmButton:
+                    let group = state.editingGroup
+                    swiftDataRepository.createGroup(group)
                     return .none
                     
                 case .onTapColorSelection:

@@ -16,6 +16,7 @@ import Util
 public struct SwiftDataRepository {
 
     public var createGroup: @Sendable (BlockGroup) -> Void
+    public var fetchDefaultGroup: @Sendable () -> BlockGroup = { .init(id: .init(), name: "", colorIndex: 0) }
     public var fetchGroupList: @Sendable () -> [BlockGroup] = { [] }
     public var updateGroup: @Sendable (_ groupId: UUID, BlockGroup) -> Void
     public var deleteGroup: @Sendable (_ groupId: UUID) -> Void
@@ -45,13 +46,57 @@ extension SwiftDataRepository: DependencyKey {
                     Debug.log("SwiftData ModelContext 에러: \(error)")
                 }
             },
+            fetchDefaultGroup: {
+                @Dependency(\.modelContext) var modelContext
+                let descriptor = FetchDescriptor<BlockGroupSwiftData>()
+                do {
+                    var groups = try modelContext.fetch(descriptor)
+
+                    // 그룹이 비어있으면 기본 그룹 생성
+                    if groups.isEmpty {
+                        let defaultGroup = BlockGroupSwiftData(
+                            name: "기본 그룹",
+                            colorIndex: 4,
+                            blockList: []
+                        )
+                        modelContext.insert(defaultGroup)
+                        try modelContext.save()
+                        groups = [defaultGroup]
+                    }
+
+                    guard let firstGroup = groups.first else {
+                        return BlockGroup(id: .init(), name: "기본 그룹", colorIndex: 4)
+                    }
+
+                    return BlockGroup(
+                        id: firstGroup.id,
+                        name: firstGroup.name,
+                        colorIndex: firstGroup.colorIndex
+                    )
+                } catch {
+                    Debug.log("SwiftData ModelContext 에러: \(error)")
+                    return BlockGroup(id: .init(), name: "기본 그룹", colorIndex: 4)
+                }
+            },
             fetchGroupList: {
                 @Dependency(\.modelContext) var modelContext
                 let descriptor = FetchDescriptor<BlockGroupSwiftData>()
                 do {
-                    let groups = try modelContext.fetch(descriptor)
+                    var groups = try modelContext.fetch(descriptor)
+                    if groups.isEmpty {
+                        let defaultGroup = BlockGroupSwiftData(
+                            name: "기본 그룹",
+                            colorIndex: 4,
+                            blockList: []
+                        )
+                        modelContext.insert(defaultGroup)
+                        try modelContext.save()
+                        groups = [defaultGroup]
+                    }
+
                     return groups.map { swiftData in
                         BlockGroup(
+                            id: swiftData.id,
                             name: swiftData.name,
                             colorIndex: swiftData.colorIndex
                         )
@@ -124,6 +169,7 @@ extension SwiftDataRepository: DependencyKey {
                     let blocks = try modelContext.fetch(descriptor)
                     return blocks.map { swiftData in
                         Block(
+                            id: swiftData.id,
                             name: swiftData.name,
                             iconIndex: swiftData.iconIndex,
                             output: swiftData.output

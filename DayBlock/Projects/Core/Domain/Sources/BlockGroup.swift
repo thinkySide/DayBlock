@@ -9,7 +9,8 @@ import SwiftUI
 
 public struct BlockGroup: Identifiable, Equatable {
     
-    public var id: String { name }
+    /// 그룹 Id
+    public var id: UUID
     
     /// 그룹 이름
     public var name: String
@@ -18,22 +19,12 @@ public struct BlockGroup: Identifiable, Equatable {
     public var colorIndex: Int
     
     public init(
+        id: UUID,
         name: String,
         colorIndex: Int
     ) {
+        self.id = id
         self.name = name
         self.colorIndex = colorIndex
-    }
-}
-
-// MARK: - Helper
-extension BlockGroup {
-    
-    /// 기본 그룹을 반환합니다.
-    public static var defaultValue: BlockGroup {
-        BlockGroup(
-            name: "기본 그룹",
-            colorIndex: 4
-        )
     }
 }

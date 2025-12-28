@@ -35,13 +35,21 @@ public struct BlockEditorFeature {
         public init(
             mode: Mode
         ) {
+            @Dependency(\.uuid) var uuid
+            @Dependency(\.swiftDataRepository) var swiftDataRepository
             self.mode = mode
+            let defaultBlock = Block(
+                id: uuid(),
+                name: "블럭 쌓기",
+                iconIndex: 0,
+                output: 0
+            )
             switch mode {
             case .add:
-                initialBlock = Block.defaultValue
-                editingBlock = Block.defaultValue
+                initialBlock = defaultBlock
+                editingBlock = defaultBlock
                 nameText = ""
-                selectedGroup = BlockGroup.defaultValue
+                selectedGroup = swiftDataRepository.fetchDefaultGroup()
             case .edit(let selectedBlock, let blockGroup):
                 initialBlock = selectedBlock
                 editingBlock = selectedBlock
