@@ -12,7 +12,7 @@ import Editor
 
 public struct TrackingCarouselView: View {
 
-    @Bindable public var store: StoreOf<TrackingCarouselFeature>
+    @Bindable private var store: StoreOf<TrackingCarouselFeature>
 
     public init(store: StoreOf<TrackingCarouselFeature>) {
         self.store = store
@@ -67,6 +67,16 @@ public struct TrackingCarouselView: View {
         .onAppear {
             store.send(.view(.onAppear))
         }
+        .sheet(
+            item: $store.scope(
+                state: \.groupSelect,
+                action: \.groupSelect
+            )
+        ) { childStore in
+            GroupSelectView(store: childStore)
+                .presentationDetents([.medium, .large], selection: $store.sheetDetent)
+                .presentationDragIndicator(.visible)
+        }
     }
 }
 
@@ -113,7 +123,7 @@ extension TrackingCarouselView {
     @ViewBuilder
     private func GroupPicker() -> some View {
         Button {
-            
+            store.send(.view(.onTapGroupSelect))
         } label: {
             let group = store.selectedGroup
             HStack(spacing: 6) {

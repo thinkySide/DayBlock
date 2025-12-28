@@ -5,7 +5,7 @@
 //  Created by 김민준 on 12/21/25.
 //
 
-import Foundation
+import SwiftUI
 import ComposableArchitecture
 import Domain
 import Editor
@@ -23,21 +23,25 @@ public struct TrackingCarouselFeature {
     public struct State: Equatable {
         var blockList: IdentifiedArrayOf<Block> = []
         var selectedGroup: BlockGroup = .init(id: .init(), name: "", colorIndex: 4)
+        var sheetDetent: PresentationDetent = .medium
         
-        public var path = StackState<Path.State>()
+        var path = StackState<Path.State>()
+        @Presents var groupSelect: GroupSelectFeature.State?
 
         public init() {}
     }
 
-    public enum Action: TCAFeatureAction {
+    public enum Action: TCAFeatureAction, BindableAction {
         public enum ViewAction {
             case onAppear
+            case onTapGroupSelect
             case onTapAddBlock
         }
         
         public enum InnerAction {
             case setSelectedGroup(BlockGroup)
             case setBlockList(IdentifiedArrayOf<Block>)
+            case updateSheetDetent(PresentationDetent)
         }
         
         public enum DelegateAction {
@@ -47,7 +51,9 @@ public struct TrackingCarouselFeature {
         case view(ViewAction)
         case inner(InnerAction)
         case delegate(DelegateAction)
+        case binding(BindingAction<State>)
         case path(StackActionOf<Path>)
+        case groupSelect(PresentationAction<GroupSelectFeature.Action>)
     }
 
     public init() {}
@@ -55,6 +61,7 @@ public struct TrackingCarouselFeature {
     @Dependency(\.swiftDataRepository) private var swiftDataRepository
 
     public var body: some ReducerOf<Self> {
+        BindingReducer()
         Reduce { state, action in
             switch action {
             case .view(let viewAction):
@@ -64,6 +71,11 @@ public struct TrackingCarouselFeature {
                         fetchSelectedGroup(),
                         refreshBlockList(from: state.selectedGroup.id)
                     )
+                    
+                case .onTapGroupSelect:
+                    let selectedGroup = state.selectedGroup
+                    state.groupSelect = .init(selectedGroup: selectedGroup)
+                    return .none
                     
                 case .onTapAddBlock:
                     let blockEditorState = BlockEditorFeature.State(mode: .add)
@@ -79,6 +91,10 @@ public struct TrackingCarouselFeature {
                     
                 case .setBlockList(let blockList):
                     state.blockList = blockList
+                    return .none
+                    
+                case .updateSheetDetent(let sheetDetent):
+                    state.sheetDetent = sheetDetent
                     return .none
                 }
 
@@ -99,11 +115,35 @@ public struct TrackingCarouselFeature {
                     return .none
                 }
                 
+            case .groupSelect(.presented(.delegate(.didSelectGroup(let group)))):
+                state.selectedGroup = group
+                state.groupSelect = nil
+                state.sheetDetent = .medium
+                return .none
+                
+            case .groupSelect(.presented(.delegate(.didSelectAddGroup))):
+                return updateSheetDetent(.large)
+                
+            case .groupSelect(.presented(.groupEditor(.presented(.delegate(.didPop))))):
+                return updateSheetDetent(.medium)
+                
+            case .groupSelect(.presented(.groupEditor(.presented(.delegate(.didConfirm(let group)))))):
+                state.selectedGroup = group
+                return updateSheetDetent(.medium)
+                
+            case .groupSelect(.dismiss):
+                state.groupSelect = nil
+                state.sheetDetent = .medium
+                return .none
+                
             default:
                 return .none
             }
         }
         .forEach(\.path, action: \.path)
+        .ifLet(\.$groupSelect, action: \.groupSelect) {
+            GroupSelectFeature()
+        }
     }
 }
 
@@ -124,6 +164,14 @@ extension TrackingCarouselFeature {
         .run { send in
             let blockList = await swiftDataRepository.fetchBlockList(groupId: groupId)
             await send(.inner(.setBlockList(.init(uniqueElements: blockList))))
+        }
+    }
+    
+    /// 자연스러운 애니메이션을 위해 딜레이 후 SheetDetent를 업데이트합니다.
+    private func updateSheetDetent(_ sheetDetent: PresentationDetent) -> Effect<Action> {
+        .run { send in
+            try await Task.sleep(for: .seconds(0.4))
+            await send(.inner(.updateSheetDetent(sheetDetent)))
         }
     }
 }
