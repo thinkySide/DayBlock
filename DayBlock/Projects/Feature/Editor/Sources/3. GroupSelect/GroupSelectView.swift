@@ -54,7 +54,8 @@ public struct GroupSelectView: View {
     }
     
     @ViewBuilder
-    private func GroupCell(_ group: BlockGroup) -> some View {
+    private func GroupCell(_ groupListViewItem: GroupSelectFeature.GroupListViewItem) -> some View {
+        let group = groupListViewItem.group
         let isSelected = group == store.selectedGroup
         Button {
             store.send(.view(.onTapGroup(group)))
@@ -68,7 +69,7 @@ public struct GroupSelectView: View {
                     .brandFont(.poppins(.semiBold), 16)
                     .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
                 
-                Text("+7")
+                Text("+\(groupListViewItem.blockCount)")
                     .brandFont(.pretendard(.semiBold), 15)
                     .foregroundStyle(DesignSystem.Colors.gray616161.swiftUIColor)
                 

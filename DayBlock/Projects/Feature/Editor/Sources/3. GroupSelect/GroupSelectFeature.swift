@@ -5,6 +5,7 @@
 //  Created by 김민준 on 12/27/25.
 //
 
+import Foundation
 import ComposableArchitecture
 import Domain
 import PersistentData
@@ -12,11 +13,17 @@ import Util
 
 @Reducer
 public struct GroupSelectFeature {
+    
+    public struct GroupListViewItem: Identifiable, Equatable {
+        public var id: UUID { group.id }
+        public let group: BlockGroup
+        public let blockCount: Int
+    }
 
     @ObservableState
     public struct State: Equatable {
         var selectedGroup: BlockGroup
-        var groupList: IdentifiedArrayOf<BlockGroup> = []
+        var groupList: IdentifiedArrayOf<GroupListViewItem> = []
         
         @Presents var groupEditor: GroupEditorFeature.State?
         
@@ -59,8 +66,7 @@ public struct GroupSelectFeature {
             case .view(let viewAction):
                 switch viewAction {
                 case .onAppear:
-                    let groupList = swiftDataRepository.fetchGroupList()
-                    state.groupList = .init(uniqueElements: groupList)
+                    state.groupList = fetchGroupListViewItems()
                     return .none
                     
                 case .onTapGroup(let group):
@@ -87,5 +93,21 @@ public struct GroupSelectFeature {
         .ifLet(\.$groupEditor, action: \.groupEditor) {
             GroupEditorFeature()
         }
+    }
+}
+
+// MARK: - Helper
+extension GroupSelectFeature {
+    
+    /// 전체 GroupList ViewItem 배열을 반환합니다.
+    private func fetchGroupListViewItems() -> IdentifiedArrayOf<GroupListViewItem> {
+        let domainGroupList = swiftDataRepository.fetchGroupList()
+        let groupList = domainGroupList.map {
+            let blockList = swiftDataRepository.fetchBlockList(groupId: $0.id)
+            return GroupListViewItem(
+                group: $0,
+                blockCount: blockList.count)
+        }
+        return .init(uniqueElements: groupList)
     }
 }
