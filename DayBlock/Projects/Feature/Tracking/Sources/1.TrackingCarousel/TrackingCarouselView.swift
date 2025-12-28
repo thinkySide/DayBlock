@@ -64,6 +64,9 @@ public struct TrackingCarouselView: View {
             
             Spacer()
         }
+        .onAppear {
+            store.send(.view(.onAppear))
+        }
     }
 }
 
@@ -112,12 +115,13 @@ extension TrackingCarouselView {
         Button {
             
         } label: {
+            let group = store.selectedGroup
             HStack(spacing: 6) {
                 RoundedRectangle(cornerRadius: 4)
-                    .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+                    .foregroundStyle(ColorPalette.toColor(from: group.colorIndex))
                     .frame(width: 16, height: 16)
                 
-                Text("기본 그룹")
+                Text(group.name)
                     .brandFont(.pretendard(.bold), 16)
                     .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
                 
@@ -139,27 +143,20 @@ private struct BlockCarousel: View {
         GeometryReader { geometry in
             ScrollView(.horizontal) {
                 HStack(spacing: 24) {
-                    CarouselDayBlock(
-                        title: "첫번째 블럭",
-                        totalAmount: 3.0,
-                        todayAmount: 1.5,
-                        symbol: Symbol.party_popper_fill.symbolName,
-                        color: .blue,
-                        state: .front
-                    )
-                    
-                    CarouselDayBlock(
-                        title: "두번째 블럭두번째 블럭두번째 블럭두번째 블럭두번째 블럭",
-                        totalAmount: 153.0,
-                        todayAmount: 1.5,
-                        symbol: Symbol.pause_fill.symbolName,
-                        color: .blue,
-                        state: .back
-                    )
+                    ForEach(store.blockList) { block in
+                        CarouselDayBlock(
+                            title: block.name,
+                            totalAmount: block.output,
+                            todayAmount: block.output,
+                            symbol: IconPalette.toIcon(from: block.iconIndex),
+                            color: ColorPalette.toColor(from: store.selectedGroup.colorIndex),
+                            state: .front
+                        )
+                    }
                     
                     CarouselAddBlock(
                         onTap: {
-                            store.send(.onTapAddBlock)
+                            store.send(.view(.onTapAddBlock))
                         }
                     )
                 }

@@ -123,7 +123,12 @@ public struct BlockEditorFeature {
                     return .none
 
                 case .onTapConfirmButton:
-                    return .send(.delegate(.didConfirm(state.editingBlock)))
+                    return .run { [state] send in
+                        let targetGroupId = state.selectedGroup.id
+                        let targetBlock = state.editingBlock
+                        await swiftDataRepository.createBlock(targetGroupId, targetBlock)
+                        await send(.delegate(.didConfirm(targetBlock)))
+                    }
                 }
                 
             case .inner(let innerAction):
