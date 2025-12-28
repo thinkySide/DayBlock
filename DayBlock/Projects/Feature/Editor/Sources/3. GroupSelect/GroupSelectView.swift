@@ -35,6 +35,9 @@ public struct GroupSelectView: View {
                 GroupEditorView(store: store)
             }
         }
+        .onAppear {
+            store.send(.view(.onAppear))
+        }
     }
     
     @ViewBuilder

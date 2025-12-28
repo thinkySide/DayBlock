@@ -7,6 +7,7 @@
 
 import ComposableArchitecture
 import Domain
+import PersistentData
 import Util
 
 @Reducer
@@ -15,11 +16,7 @@ public struct GroupSelectFeature {
     @ObservableState
     public struct State: Equatable {
         var selectedGroup: BlockGroup
-        var groupList: IdentifiedArrayOf<BlockGroup> = [
-            .defaultValue,
-            .init(name: "운동", colorIndex: 13),
-            .init(name: "공부", colorIndex: 27)
-        ]
+        var groupList: IdentifiedArrayOf<BlockGroup> = []
         
         @Presents var groupEditor: GroupEditorFeature.State?
         
@@ -32,6 +29,7 @@ public struct GroupSelectFeature {
 
     public enum Action: TCAFeatureAction {
         public enum ViewAction {
+            case onAppear
             case onTapGroup(BlockGroup)
             case onTapAddGroup
         }
@@ -50,6 +48,8 @@ public struct GroupSelectFeature {
         case delegate(DelegateAction)
         case groupEditor(PresentationAction<GroupEditorFeature.Action>)
     }
+    
+    @Dependency(\.swiftDataRepository) private var swiftDataRepository
 
     public init() {}
 
@@ -58,6 +58,11 @@ public struct GroupSelectFeature {
             switch action {
             case .view(let viewAction):
                 switch viewAction {
+                case .onAppear:
+                    let groupList = swiftDataRepository.fetchGroupList()
+                    state.groupList = .init(uniqueElements: groupList)
+                    return .none
+                    
                 case .onTapGroup(let group):
                     state.selectedGroup = group
                     return .send(.delegate(.didSelectGroup(group)))

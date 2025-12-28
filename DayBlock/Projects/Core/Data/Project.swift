@@ -10,6 +10,11 @@ let project = Project(
             product: .framework,
             bundleId: "com.thinkyside.DayBlock.PersistentData",
             buildableFolders: ["Sources/PersistentData"],
+            dependencies: [
+                .project(target: "Domain", path: "../Domain"),
+                .project(target: "Util", path: "../../Shared"),
+                .TCA
+            ],
             settings: .shared
         )
     ]
