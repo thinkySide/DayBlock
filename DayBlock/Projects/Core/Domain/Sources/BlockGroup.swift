@@ -28,3 +28,12 @@ public struct BlockGroup: Identifiable, Equatable, Codable {
         self.colorIndex = colorIndex
     }
 }
+
+// MARK: - Helper
+public extension [BlockGroup] {
+    
+    /// ID와 매칭되는 Group을 반환합니다.
+    func matchGroup(from id: UUID) -> BlockGroup? {
+        self.first { group in group.id == id }
+    }
+}

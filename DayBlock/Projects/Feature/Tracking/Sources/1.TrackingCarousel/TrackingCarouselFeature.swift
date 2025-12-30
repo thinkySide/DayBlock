@@ -119,7 +119,7 @@ public struct TrackingCarouselFeature {
                 switch innerAction {
                 case .setSelectedGroup(let group):
                     state.selectedGroup = group
-                    return .none
+                    return refreshBlockList(from: group.id)
 
                 case .setBlockList(let blockList):
                     state.blockList = blockList
@@ -131,7 +131,6 @@ public struct TrackingCarouselFeature {
 
                 case .setCurrentDate(let date):
                     state.currentDate = date
-                    // Debug.log("\(state.groupSelect)")
                     return .none
                 }
 
@@ -157,7 +156,7 @@ public struct TrackingCarouselFeature {
                 state.selectedGroup = group
                 state.groupSelect = nil
                 state.sheetDetent = .medium
-                userDefaultsService.set(\.selectedGroup, group)
+                userDefaultsService.set(\.selectedGroupId, group.id)
                 return .merge(
                     .cancel(id: CancelID.updateSheetDetent),
                     refreshBlockList(from: group.id)
@@ -200,8 +199,11 @@ extension TrackingCarouselFeature {
     /// 기본 그룹을 반환합니다.
     private func fetchSelectedGroup() -> Effect<Action> {
         .run { send in
-            if let selectedGroup = userDefaultsService.get(\.selectedGroup) {
-                await send(.inner(.setSelectedGroup(selectedGroup)))
+            if let selectedGroupId = userDefaultsService.get(\.selectedGroupId) {
+                let groupList = await swiftDataRepository.fetchGroupList()
+                if let selectedGroup = groupList.matchGroup(from: selectedGroupId) {
+                    await send(.inner(.setSelectedGroup(selectedGroup)))
+                }
             } else {
                 let defaultGroup = await swiftDataRepository.fetchDefaultGroup()
                 await send(.inner(.setSelectedGroup(defaultGroup)))
