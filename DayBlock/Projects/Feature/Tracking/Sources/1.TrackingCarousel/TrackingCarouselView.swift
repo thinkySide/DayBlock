@@ -155,7 +155,13 @@ extension TrackingCarouselView {
 // MARK: - BlockCarousel
 private struct BlockCarousel: View {
 
+    enum ScrollTarget: Hashable {
+        case block(UUID)
+        case addBlock
+    }
+
     @State private var scrollIndex: Int?
+    @State private var scrollPosition: ScrollTarget?
 
     let store: StoreOf<TrackingCarouselFeature>
     private let cellSize: CGFloat = 180
@@ -164,8 +170,7 @@ private struct BlockCarousel: View {
         GeometryReader { geometry in
             ScrollView(.horizontal) {
                 HStack(spacing: 24) {
-                    ForEach(store.blockList.indices, id: \.self) { index in
-                        let block = store.blockList[index]
+                    ForEach(store.blockList) { block in
                         CarouselDayBlock(
                             title: block.name,
                             totalAmount: block.output,
@@ -175,15 +180,7 @@ private struct BlockCarousel: View {
                             state: .front
                         )
                         .containerRelativeFrame(.horizontal, count: 1, spacing: 24)
-                        .background(
-                            GeometryReader { itemGeometry in
-                                Color.clear
-                                    .preference(
-                                        key: CarouselOffsetPreferenceKey.self,
-                                        value: [index: itemGeometry.frame(in: .global).midX]
-                                    )
-                            }
-                        )
+                        .id(ScrollTarget.block(block.id))
                     }
 
                     CarouselAddBlock(
@@ -192,56 +189,41 @@ private struct BlockCarousel: View {
                         }
                     )
                     .containerRelativeFrame(.horizontal, count: 1, spacing: 24)
-                    .background(
-                        GeometryReader { itemGeometry in
-                            Color.clear
-                                .preference(
-                                    key: CarouselOffsetPreferenceKey.self,
-                                    value: [store.blockList.count: itemGeometry.frame(in: .global).midX]
-                                )
-                        }
-                    )
+                    .id(ScrollTarget.addBlock)
                 }
                 .scrollTargetLayout()
             }
+            .scrollPosition(id: $scrollPosition)
             .scrollTargetBehavior(.viewAligned)
             .scrollIndicators(.hidden)
             .safeAreaPadding(.horizontal, (geometry.size.width - cellSize) / 2)
-            .onPreferenceChange(CarouselOffsetPreferenceKey.self) { positions in
-                updateFocusedBlock(geometry, positions)
+            .onChange(of: scrollPosition) { _, newValue in
+                switch newValue {
+                case .block(let blockId):
+                    if let index = store.blockList.firstIndex(where: { $0.id == blockId }),
+                       index != scrollIndex {
+                        scrollIndex = index
+                        let focusedBlock = store.blockList[index]
+                        store.send(.view(.scrollingCarousel(focusedBlock: focusedBlock)))
+                    }
+                case .addBlock:
+                    if scrollIndex != nil {
+                        scrollIndex = nil
+                        store.send(.view(.scrollingCarousel(focusedBlock: nil)))
+                    }
+                case .none:
+                    break
+                }
+            }
+            .onChange(of: store.focusedBlock) { _, newBlock in
+                if let newBlock = newBlock {
+                    let target = ScrollTarget.block(newBlock.id)
+                    if scrollPosition != target {
+                        scrollPosition = target
+                    }
+                }
             }
         }
         .frame(height: cellSize)
-    }
-}
-
-// MARK: - Helper
-extension BlockCarousel {
-    
-    /// Scroll 포지션 값에 따라 Focus 된 블럭을 업데이트합니다.
-    private func updateFocusedBlock(
-        _ geometry: GeometryProxy,
-        _ positions: [Int: CGFloat]
-    ) {
-        let screenCenter = geometry.size.width / 2
-        let closestIndex = positions.min { abs($0.value - screenCenter) < abs($1.value - screenCenter) }?.key
-        if let index = closestIndex, index != scrollIndex {
-            scrollIndex = index
-            if index < store.blockList.count {
-                let focusedBlock = store.blockList[index]
-                store.send(.view(.scrollingCarousel(focusedBlock: focusedBlock)))
-            } else {
-                store.send(.view(.scrollingCarousel(focusedBlock: nil)))
-            }
-        }
-    }
-}
-
-// MARK: - Preference Key
-private struct CarouselOffsetPreferenceKey: PreferenceKey {
-    static var defaultValue: [Int: CGFloat] = [:]
-
-    static func reduce(value: inout [Int: CGFloat], nextValue: () -> [Int: CGFloat]) {
-        value.merge(nextValue()) { _, new in new }
     }
 }

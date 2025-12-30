@@ -86,6 +86,7 @@ public struct TrackingCarouselFeature {
                     return .concatenate(
                         fetchSelectedGroup(),
                         refreshBlockList(from: state.selectedGroup.id),
+                        setInitialFocusedBlock(),
                         startDateClock()
                     )
                     
@@ -112,6 +113,7 @@ public struct TrackingCarouselFeature {
                     
                 case .scrollingCarousel(let focusedBlock):
                     state.focusedBlock = focusedBlock
+                    userDefaultsService.set(\.selectedBlockId, focusedBlock?.id)
                     return .none
                 }
                 
@@ -218,7 +220,31 @@ extension TrackingCarouselFeature {
             await send(.inner(.setBlockList(.init(uniqueElements: blockList))))
         }
     }
-    
+
+    /// 초기 포커스 블럭을 설정합니다.
+    private func setInitialFocusedBlock() -> Effect<Action> {
+        .run {  send in
+            let selectedBlockId = userDefaultsService.get(\.selectedBlockId)
+
+            guard let selectedGroupId = userDefaultsService.get(\.selectedGroupId) else { return }
+            let blockList = await swiftDataRepository.fetchBlockList(groupId: selectedGroupId)
+
+            // selectedBlockId에 해당하는 블럭 찾기, 없으면 첫 번째 블럭 선택
+            let focusedBlock: Block?
+            if let selectedBlockId = selectedBlockId,
+               let block = blockList.first(where: { $0.id == selectedBlockId }) {
+                focusedBlock = block
+            } else {
+                focusedBlock = blockList.first
+            }
+
+            // focusedBlock 설정
+            if let focusedBlock = focusedBlock {
+                await send(.view(.scrollingCarousel(focusedBlock: focusedBlock)))
+            }
+        }
+    }
+
     /// 자연스러운 애니메이션을 위해 딜레이 후 SheetDetent를 업데이트합니다.
     private func updateSheetDetent(_ sheetDetent: PresentationDetent) -> Effect<Action> {
         .run { send in

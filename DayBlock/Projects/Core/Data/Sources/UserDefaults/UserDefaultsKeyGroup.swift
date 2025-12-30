@@ -15,4 +15,9 @@ public struct UserDefaultsKeyGroup {
     public var selectedGroupId: KeyValue<UUID?> {
         .init("selectedGroupId", defaultValue: nil)
     }
+    
+    /// 마지막으로 선택된 블럭의 ID
+    public var selectedBlockId: KeyValue<UUID?> {
+        .init("selectedBlockId", defaultValue: nil)
+    }
 }
