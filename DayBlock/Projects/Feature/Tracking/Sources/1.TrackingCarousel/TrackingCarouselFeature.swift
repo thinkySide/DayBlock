@@ -14,7 +14,7 @@ import Util
 
 @Reducer
 public struct TrackingCarouselFeature {
-    
+
     @Reducer
     public enum Path {
         case blockEditor(BlockEditorFeature)
@@ -37,6 +37,8 @@ public struct TrackingCarouselFeature {
     public enum Action: TCAFeatureAction, BindableAction {
         public enum ViewAction {
             case onLoad
+            case onAppear
+            case onDisappear
             case onTapGroupSelect
             case onTapAddBlock
             case scrollingCarousel(focusedBlock: Block?)
@@ -60,10 +62,17 @@ public struct TrackingCarouselFeature {
         case path(StackActionOf<Path>)
         case groupSelect(PresentationAction<GroupSelectFeature.Action>)
     }
+    
+    @CasePathable
+    enum CancelID {
+        case dateClock
+        case updateSheetDetent
+    }
 
     public init() {}
-    
+
     @Dependency(\.date) private var date
+    @Dependency(\.continuousClock) private var clock
     @Dependency(\.swiftDataRepository) private var swiftDataRepository
     @Dependency(\.userDefaultsService) private var userDefaultsService
 
@@ -77,13 +86,21 @@ public struct TrackingCarouselFeature {
                     return .concatenate(
                         fetchSelectedGroup(),
                         refreshBlockList(from: state.selectedGroup.id),
-                        startDateUpdates()
+                        startDateClock()
                     )
+                    
+                case .onAppear:
+                    Debug.log("onAppear")
+                    return .none
+                    
+                case .onDisappear:
+                    Debug.log("onDisappear")
+                    return .none
                     
                 case .onTapGroupSelect:
                     let selectedGroup = state.selectedGroup
                     state.groupSelect = .init(selectedGroup: selectedGroup)
-                    return .none
+                    return .cancel(id: CancelID.dateClock)
                     
                 case .onTapAddBlock:
                     let blockEditorState = BlockEditorFeature.State(
@@ -114,6 +131,7 @@ public struct TrackingCarouselFeature {
 
                 case .setCurrentDate(let date):
                     state.currentDate = date
+                    // Debug.log("\(state.groupSelect)")
                     return .none
                 }
 
@@ -140,7 +158,10 @@ public struct TrackingCarouselFeature {
                 state.groupSelect = nil
                 state.sheetDetent = .medium
                 userDefaultsService.set(\.selectedGroup, group)
-                return refreshBlockList(from: group.id)
+                return .merge(
+                    .cancel(id: CancelID.updateSheetDetent),
+                    refreshBlockList(from: group.id)
+                )
                 
             case .groupSelect(.presented(.delegate(.didSelectAddGroup))):
                 return updateSheetDetent(.large)
@@ -156,9 +177,11 @@ public struct TrackingCarouselFeature {
                 )
                 
             case .groupSelect(.dismiss):
-                state.groupSelect = nil
                 state.sheetDetent = .medium
-                return .none
+                return .concatenate(
+                    .cancel(id: CancelID.updateSheetDetent),
+                    startDateClock()
+                )
                 
             default:
                 return .none
@@ -197,19 +220,20 @@ extension TrackingCarouselFeature {
     /// 자연스러운 애니메이션을 위해 딜레이 후 SheetDetent를 업데이트합니다.
     private func updateSheetDetent(_ sheetDetent: PresentationDetent) -> Effect<Action> {
         .run { send in
-            try await Task.sleep(for: .seconds(0.4))
+            try await clock.sleep(for: .seconds(0.4))
             await send(.inner(.updateSheetDetent(sheetDetent)))
         }
+        .cancellable(id: CancelID.updateSheetDetent, cancelInFlight: true)
     }
 
     /// 현재 시간을 주기적으로 업데이트합니다.
-    private func startDateUpdates() -> Effect<Action> {
+    private func startDateClock() -> Effect<Action> {
         .run { send in
-            while true {
+            for await _ in self.clock.timer(interval: .seconds(1)) {
                 await send(.inner(.setCurrentDate(date.now)))
-                try await Task.sleep(for: .seconds(1))
             }
         }
+        .cancellable(id: CancelID.dateClock, cancelInFlight: true)
     }
 }
 

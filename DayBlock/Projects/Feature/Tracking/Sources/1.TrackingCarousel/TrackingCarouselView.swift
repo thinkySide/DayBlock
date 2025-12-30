@@ -70,6 +70,12 @@ public struct TrackingCarouselView: View {
         .onLoad {
             store.send(.view(.onLoad))
         }
+        .onAppear {
+            store.send(.view(.onAppear))
+        }
+        .onDisappear {
+            store.send(.view(.onDisappear))
+        }
         .sheet(
             item: $store.scope(
                 state: \.groupSelect,
