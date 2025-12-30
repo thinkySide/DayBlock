@@ -9,6 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 import Domain
 import Editor
+import UserDefaults
 import Util
 
 @Reducer
@@ -64,6 +65,7 @@ public struct TrackingCarouselFeature {
     
     @Dependency(\.date) private var date
     @Dependency(\.swiftDataRepository) private var swiftDataRepository
+    @Dependency(\.userDefaultsService) private var userDefaultsService
 
     public var body: some ReducerOf<Self> {
         BindingReducer()
@@ -137,6 +139,7 @@ public struct TrackingCarouselFeature {
                 state.selectedGroup = group
                 state.groupSelect = nil
                 state.sheetDetent = .medium
+                userDefaultsService.set(\.selectedGroup, group)
                 return refreshBlockList(from: group.id)
                 
             case .groupSelect(.presented(.delegate(.didSelectAddGroup))):
@@ -174,9 +177,12 @@ extension TrackingCarouselFeature {
     /// 기본 그룹을 반환합니다.
     private func fetchSelectedGroup() -> Effect<Action> {
         .run { send in
-            // TODO: 선택한 값 가져오기
-            let selectedGroup = await swiftDataRepository.fetchDefaultGroup()
-            await send(.inner(.setSelectedGroup(selectedGroup)))
+            if let selectedGroup = userDefaultsService.get(\.selectedGroup) {
+                await send(.inner(.setSelectedGroup(selectedGroup)))
+            } else {
+                let defaultGroup = await swiftDataRepository.fetchDefaultGroup()
+                await send(.inner(.setSelectedGroup(defaultGroup)))
+            }
         }
     }
     

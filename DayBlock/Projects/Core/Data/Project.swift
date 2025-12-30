@@ -16,6 +16,19 @@ let project = Project(
                 .TCA
             ],
             settings: .shared
+        ),
+        .target(
+            name: "UserDefaults",
+            destinations: .iOS,
+            product: .framework,
+            bundleId: "com.thinkyside.DayBlock.UserDefaults",
+            buildableFolders: ["Sources/UserDefaults"],
+            dependencies: [
+                .project(target: "Domain", path: "../Domain"),
+                .project(target: "Util", path: "../../Shared"),
+                .TCA
+            ],
+            settings: .shared
         )
     ]
 )

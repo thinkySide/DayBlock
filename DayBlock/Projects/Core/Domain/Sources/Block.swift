@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Block: Identifiable, Equatable {
+public struct Block: Identifiable, Equatable, Codable {
     
     /// 블럭 ID
     public let id: UUID
