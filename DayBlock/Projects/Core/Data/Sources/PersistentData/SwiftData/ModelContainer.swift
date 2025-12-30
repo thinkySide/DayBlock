@@ -18,7 +18,7 @@ private enum ModelContainerKey: DependencyKey {
 
         let modelConfiguration = ModelConfiguration(
             schema: schema,
-            isStoredInMemoryOnly: true
+            isStoredInMemoryOnly: false
         )
 
         do {

@@ -10,6 +10,7 @@ import DesignSystem
 import ComposableArchitecture
 import Domain
 import Editor
+import Util
 
 public struct TrackingCarouselView: View {
 
@@ -104,16 +105,16 @@ extension TrackingCarouselView {
     @ViewBuilder
     private func DateTimeInfo() -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text("1월 2일 화요일")
+            Text(store.currentDate.formattedDateWithWeekday)
                 .brandFont(.pretendard(.semiBold), 16)
                 .foregroundStyle(DesignSystem.Colors.gray616161.swiftUIColor)
                 .padding(.leading, 4)
-            
-            Text("08:25")
+
+            Text(store.currentDate.formattedTime24Hour)
                 .brandFont(.poppins(.bold), 56)
                 .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
                 .padding(.top, -8)
-            
+
             Text("today +0.5")
                 .brandFont(.poppins(.bold), 23)
                 .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)

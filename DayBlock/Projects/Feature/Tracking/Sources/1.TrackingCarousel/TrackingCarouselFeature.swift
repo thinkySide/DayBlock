@@ -25,6 +25,7 @@ public struct TrackingCarouselFeature {
         var selectedGroup: BlockGroup = .init(id: .init(), name: "", colorIndex: 4)
         var focusedBlock: Block?
         var sheetDetent: PresentationDetent = .medium
+        var currentDate: Date = .now
 
         var path = StackState<Path.State>()
         @Presents var groupSelect: GroupSelectFeature.State?
@@ -44,6 +45,7 @@ public struct TrackingCarouselFeature {
             case setSelectedGroup(BlockGroup)
             case setBlockList(IdentifiedArrayOf<Block>)
             case updateSheetDetent(PresentationDetent)
+            case setCurrentDate(Date)
         }
         
         public enum DelegateAction {
@@ -60,6 +62,7 @@ public struct TrackingCarouselFeature {
 
     public init() {}
     
+    @Dependency(\.date) private var date
     @Dependency(\.swiftDataRepository) private var swiftDataRepository
 
     public var body: some ReducerOf<Self> {
@@ -71,7 +74,8 @@ public struct TrackingCarouselFeature {
                 case .onLoad:
                     return .concatenate(
                         fetchSelectedGroup(),
-                        refreshBlockList(from: state.selectedGroup.id)
+                        refreshBlockList(from: state.selectedGroup.id),
+                        startDateUpdates()
                     )
                     
                 case .onTapGroupSelect:
@@ -104,6 +108,10 @@ public struct TrackingCarouselFeature {
 
                 case .updateSheetDetent(let sheetDetent):
                     state.sheetDetent = sheetDetent
+                    return .none
+
+                case .setCurrentDate(let date):
+                    state.currentDate = date
                     return .none
                 }
 
@@ -185,6 +193,16 @@ extension TrackingCarouselFeature {
         .run { send in
             try await Task.sleep(for: .seconds(0.4))
             await send(.inner(.updateSheetDetent(sheetDetent)))
+        }
+    }
+
+    /// 현재 시간을 주기적으로 업데이트합니다.
+    private func startDateUpdates() -> Effect<Action> {
+        .run { send in
+            while true {
+                await send(.inner(.setCurrentDate(date.now)))
+                try await Task.sleep(for: .seconds(1))
+            }
         }
     }
 }
