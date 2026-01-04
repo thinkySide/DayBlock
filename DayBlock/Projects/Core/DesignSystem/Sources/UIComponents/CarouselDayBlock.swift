@@ -21,13 +21,20 @@ public struct CarouselDayBlock: View {
     let color: Color
     let state: State
     
+    let onTapCell: () -> Void
+    let onTapDeleteButton: () -> Void
+    let onTapEditButton: () -> Void
+    
     public init(
         title: String,
         totalAmount: Double,
         todayAmount: Double,
         symbol: String,
         color: Color,
-        state: State
+        state: State,
+        onTapCell: @escaping () -> Void = {},
+        onTapDeleteButton: @escaping () -> Void = {},
+        onTapEditButton: @escaping () -> Void = {}
     ) {
         self.title = title
         self.totalAmount = totalAmount
@@ -35,58 +42,65 @@ public struct CarouselDayBlock: View {
         self.symbol = symbol
         self.color = color
         self.state = state
+        self.onTapCell = onTapCell
+        self.onTapDeleteButton = onTapDeleteButton
+        self.onTapEditButton = onTapEditButton
     }
     
     public var body: some View {
-        switch state {
-        case .front:
-            DesignSystem.Colors.grayF4F5F7.swiftUIColor
-                .frame(width: 180, height: 180)
-                .clipShape(RoundedRectangle(cornerRadius: 26))
-                .overlay(alignment: .topLeading) {
-                    AmountLabel()
-                        .padding(.top, 16)
-                        .padding(.leading, 16)
-                }
-                .overlay(alignment: .topTrailing) {
-                    Tag()
-                        .padding(.trailing, 32)
-                }
-                .overlay(alignment: .top) {
-                    SFSymbol(
-                        symbol: symbol,
-                        size: 52,
-                        color: DesignSystem.Colors.gray323232.swiftUIColor
-                    )
-                    .padding(.top, 52)
-                }
-                .overlay(alignment: .top) {
-                    Text(title)
-                        .brandFont(.pretendard(.bold), 17)
-                        .lineLimit(2)
-                        .multilineTextAlignment(.center)
-                        .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
-                        .frame(maxWidth: 180 - (16 * 2))
-                        .padding(.top, 52 + 52 + 16)
-                }
-            
-        case .back:
-            DesignSystem.Colors.grayF4F5F7.swiftUIColor
-                .frame(width: 180, height: 180)
-                .clipShape(RoundedRectangle(cornerRadius: 26))
-                .overlay(alignment: .top) {
-                    HStack(spacing: 22) {
-                        LeftVStack()
-                        RightVStack()
+        Button {
+            onTapCell()
+        } label: {
+            switch state {
+            case .front:
+                DesignSystem.Colors.grayF4F5F7.swiftUIColor
+                    .frame(width: 180, height: 180)
+                    .clipShape(RoundedRectangle(cornerRadius: 26))
+                    .overlay(alignment: .topLeading) {
+                        AmountLabel()
+                            .padding(.top, 16)
+                            .padding(.leading, 16)
                     }
-                    .padding(.top, 32)
-                }
-                .overlay(alignment: .top) {
-                    Capsule()
-                        .frame(width: 2, height: 22)
-                        .foregroundStyle(DesignSystem.Colors.grayC5C5C5.swiftUIColor)
-                        .padding(.top, 48)
-                }
+                    .overlay(alignment: .topTrailing) {
+                        Tag()
+                            .padding(.trailing, 32)
+                    }
+                    .overlay(alignment: .top) {
+                        SFSymbol(
+                            symbol: symbol,
+                            size: 52,
+                            color: DesignSystem.Colors.gray323232.swiftUIColor
+                        )
+                        .padding(.top, 52)
+                    }
+                    .overlay(alignment: .top) {
+                        Text(title)
+                            .brandFont(.pretendard(.bold), 17)
+                            .lineLimit(2)
+                            .multilineTextAlignment(.center)
+                            .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+                            .frame(maxWidth: 180 - (16 * 2))
+                            .padding(.top, 52 + 52 + 16)
+                    }
+                
+            case .back:
+                DesignSystem.Colors.grayF4F5F7.swiftUIColor
+                    .frame(width: 180, height: 180)
+                    .clipShape(RoundedRectangle(cornerRadius: 26))
+                    .overlay(alignment: .top) {
+                        HStack(spacing: 22) {
+                            LeftVStack()
+                            RightVStack()
+                        }
+                        .padding(.top, 32)
+                    }
+                    .overlay(alignment: .top) {
+                        Capsule()
+                            .frame(width: 2, height: 22)
+                            .foregroundStyle(DesignSystem.Colors.grayC5C5C5.swiftUIColor)
+                            .padding(.top, 48)
+                    }
+            }
         }
     }
 }
@@ -171,7 +185,7 @@ extension CarouselDayBlock {
     @ViewBuilder
     private func DeleteButton() -> some View {
         Button {
-            
+            onTapDeleteButton()
         } label: {
             Circle()
                 .frame(width: 56, height: 56)
@@ -189,7 +203,7 @@ extension CarouselDayBlock {
     @ViewBuilder
     private func EditButton() -> some View {
         Button {
-            
+            onTapEditButton()
         } label: {
             Circle()
                 .frame(width: 56, height: 56)

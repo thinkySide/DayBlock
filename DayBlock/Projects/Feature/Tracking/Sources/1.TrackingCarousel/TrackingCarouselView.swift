@@ -171,7 +171,16 @@ private struct BlockCarousel: View {
                             todayAmount: block.output,
                             symbol: IconPalette.toIcon(from: block.iconIndex),
                             color: ColorPalette.toColor(from: store.selectedGroup.colorIndex),
-                            state: .front
+                            state: store.selectedBlock?.id == block.id ? .back : .front,
+                            onTapCell: {
+                                store.send(.view(.onTapBlock(block)))
+                            },
+                            onTapDeleteButton: {
+                                store.send(.view(.onTapBlockDeleteButton))
+                            },
+                            onTapEditButton: {
+                                store.send(.view(.onTapBlockEditButton))
+                            }
                         )
                         .containerRelativeFrame(.horizontal, count: 1, spacing: 24)
                         .id(FocusedBlock.block(id: block.id))

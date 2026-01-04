@@ -30,6 +30,7 @@ public struct TrackingCarouselFeature {
         var isFirstAppear: Bool = true
         var blockList: IdentifiedArrayOf<Block> = []
         var selectedGroup: BlockGroup = .init(id: .init(), name: "", colorIndex: 4)
+        var selectedBlock: Block?
         var focusedBlock: FocusedBlock?
         var sheetDetent: PresentationDetent = .medium
         var currentDate: Date = .now
@@ -46,6 +47,9 @@ public struct TrackingCarouselFeature {
             case onAppear
             case onDisappear
             case onTapGroupSelect
+            case onTapBlock(Block)
+            case onTapBlockDeleteButton
+            case onTapBlockEditButton
             case onTapAddBlock
             case scrollingCarousel(FocusedBlock?)
         }
@@ -105,6 +109,20 @@ public struct TrackingCarouselFeature {
                     state.groupSelect = .init(selectedGroup: selectedGroup)
                     return .cancel(id: CancelID.dateClock)
                     
+                case .onTapBlock(let block):
+                    if state.selectedBlock == nil {
+                        state.selectedBlock = block
+                    } else {
+                        state.selectedBlock = nil
+                    }
+                    return .none
+                    
+                case .onTapBlockDeleteButton:
+                    return .none
+
+                case .onTapBlockEditButton:
+                    return .none
+                    
                 case .onTapAddBlock:
                     let blockEditorState = BlockEditorFeature.State(
                         mode: .add,
@@ -115,6 +133,7 @@ public struct TrackingCarouselFeature {
                     
                 case .scrollingCarousel(let focusedBlock):
                     state.focusedBlock = focusedBlock
+                    state.selectedBlock = nil
 
                     let focusedBlockId: UUID? = switch focusedBlock {
                     case .block(id: let id): id
