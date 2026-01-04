@@ -59,7 +59,7 @@ public struct TrackingCarouselView: View {
             
             TrackingButton(
                 state: .play,
-                isDisabled: store.focusedBlock == nil,
+                isDisabled: store.focusedBlock == .addBlock || store.focusedBlock == nil,
                 tapAction: {
                     
                 }
@@ -154,16 +154,10 @@ extension TrackingCarouselView {
 
 // MARK: - BlockCarousel
 private struct BlockCarousel: View {
+    
+    typealias FocusedBlock = TrackingCarouselFeature.FocusedBlock
 
-    enum ScrollTarget: Hashable {
-        case block(UUID)
-        case addBlock
-    }
-
-    @State private var scrollIndex: Int?
-    @State private var scrollPosition: ScrollTarget?
-
-    let store: StoreOf<TrackingCarouselFeature>
+    @Bindable var store: StoreOf<TrackingCarouselFeature>
     private let cellSize: CGFloat = 180
 
     var body: some View {
@@ -180,7 +174,7 @@ private struct BlockCarousel: View {
                             state: .front
                         )
                         .containerRelativeFrame(.horizontal, count: 1, spacing: 24)
-                        .id(ScrollTarget.block(block.id))
+                        .id(FocusedBlock.block(id: block.id))
                     }
 
                     CarouselAddBlock(
@@ -189,39 +183,16 @@ private struct BlockCarousel: View {
                         }
                     )
                     .containerRelativeFrame(.horizontal, count: 1, spacing: 24)
-                    .id(ScrollTarget.addBlock)
+                    .id(FocusedBlock.addBlock)
                 }
                 .scrollTargetLayout()
             }
-            .scrollPosition(id: $scrollPosition)
+            .scrollPosition(id: $store.focusedBlock)
             .scrollTargetBehavior(.viewAligned)
             .scrollIndicators(.hidden)
             .safeAreaPadding(.horizontal, (geometry.size.width - cellSize) / 2)
-            .onChange(of: scrollPosition) { _, newValue in
-                switch newValue {
-                case .block(let blockId):
-                    if let index = store.blockList.firstIndex(where: { $0.id == blockId }),
-                       index != scrollIndex {
-                        scrollIndex = index
-                        let focusedBlock = store.blockList[index]
-                        store.send(.view(.scrollingCarousel(focusedBlock: focusedBlock)))
-                    }
-                case .addBlock:
-                    if scrollIndex != nil {
-                        scrollIndex = nil
-                        store.send(.view(.scrollingCarousel(focusedBlock: nil)))
-                    }
-                case .none:
-                    break
-                }
-            }
-            .onChange(of: store.focusedBlock) { _, newBlock in
-                if let newBlock = newBlock {
-                    let target = ScrollTarget.block(newBlock.id)
-                    if scrollPosition != target {
-                        scrollPosition = target
-                    }
-                }
+            .onChange(of: store.focusedBlock) { _, focusedBlock in
+                store.send(.view(.scrollingCarousel(focusedBlock)))
             }
         }
         .frame(height: cellSize)

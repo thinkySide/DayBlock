@@ -19,12 +19,18 @@ public struct TrackingCarouselFeature {
     public enum Path {
         case blockEditor(BlockEditorFeature)
     }
+    
+    public enum FocusedBlock: Hashable, Equatable {
+        case block(id: UUID)
+        case addBlock
+    }
 
     @ObservableState
     public struct State: Equatable {
+        var isFirstAppear: Bool = true
         var blockList: IdentifiedArrayOf<Block> = []
         var selectedGroup: BlockGroup = .init(id: .init(), name: "", colorIndex: 4)
-        var focusedBlock: Block?
+        var focusedBlock: FocusedBlock?
         var sheetDetent: PresentationDetent = .medium
         var currentDate: Date = .now
 
@@ -41,7 +47,7 @@ public struct TrackingCarouselFeature {
             case onDisappear
             case onTapGroupSelect
             case onTapAddBlock
-            case scrollingCarousel(focusedBlock: Block?)
+            case scrollingCarousel(FocusedBlock?)
         }
         
         public enum InnerAction {
@@ -83,19 +89,15 @@ public struct TrackingCarouselFeature {
             case .view(let viewAction):
                 switch viewAction {
                 case .onLoad:
-                    return .concatenate(
-                        fetchSelectedGroup(),
-                        refreshBlockList(from: state.selectedGroup.id),
-                        setInitialFocusedBlock(),
-                        startDateClock()
+                    return .merge(
+                        startDateClock(),
+                        fetchSelectedGroup()
                     )
                     
                 case .onAppear:
-                    Debug.log("onAppear")
                     return .none
                     
                 case .onDisappear:
-                    Debug.log("onDisappear")
                     return .none
                     
                 case .onTapGroupSelect:
@@ -113,7 +115,14 @@ public struct TrackingCarouselFeature {
                     
                 case .scrollingCarousel(let focusedBlock):
                     state.focusedBlock = focusedBlock
-                    userDefaultsService.set(\.selectedBlockId, focusedBlock?.id)
+
+                    let focusedBlockId: UUID? = switch focusedBlock {
+                    case .block(id: let id): id
+                    case .addBlock: nil
+                    default: nil
+                    }
+                    
+                    userDefaultsService.set(\.selectedBlockId, focusedBlockId)
                     return .none
                 }
                 
@@ -125,7 +134,15 @@ public struct TrackingCarouselFeature {
 
                 case .setBlockList(let blockList):
                     state.blockList = blockList
-                    return .none
+                    if state.isFirstAppear {
+                        state.isFirstAppear = false
+                        if let selectedBlockId = userDefaultsService.get(\.selectedBlockId) {
+                            state.focusedBlock = .block(id: selectedBlockId)
+                        } else {
+                            state.focusedBlock = nil
+                        }
+                    }
+                    return setFocusedBlock(state)
 
                 case .updateSheetDetent(let sheetDetent):
                     state.sheetDetent = sheetDetent
@@ -144,7 +161,7 @@ public struct TrackingCarouselFeature {
                     
                 case let .element(id: _, action: .blockEditor(.delegate(.didConfirm(block, group)))):
                     state.path.removeAll()
-                    state.focusedBlock = block
+                    state.focusedBlock = .block(id: block.id)
                     state.selectedGroup = group
                     return .concatenate(
                         refreshBlockList(from: state.selectedGroup.id)
@@ -158,7 +175,13 @@ public struct TrackingCarouselFeature {
                 state.selectedGroup = group
                 state.groupSelect = nil
                 state.sheetDetent = .medium
+                
+                if let firstBlockId = state.blockList.first?.id {
+                    state.focusedBlock = .block(id: firstBlockId)
+                }
+                
                 userDefaultsService.set(\.selectedGroupId, group.id)
+
                 return .merge(
                     .cancel(id: CancelID.updateSheetDetent),
                     refreshBlockList(from: group.id)
@@ -221,26 +244,16 @@ extension TrackingCarouselFeature {
         }
     }
 
-    /// 초기 포커스 블럭을 설정합니다.
-    private func setInitialFocusedBlock() -> Effect<Action> {
-        .run {  send in
-            let selectedBlockId = userDefaultsService.get(\.selectedBlockId)
-
-            guard let selectedGroupId = userDefaultsService.get(\.selectedGroupId) else { return }
-            let blockList = await swiftDataRepository.fetchBlockList(groupId: selectedGroupId)
-
-            // selectedBlockId에 해당하는 블럭 찾기, 없으면 첫 번째 블럭 선택
-            let focusedBlock: Block?
-            if let selectedBlockId = selectedBlockId,
-               let block = blockList.first(where: { $0.id == selectedBlockId }) {
-                focusedBlock = block
-            } else {
-                focusedBlock = blockList.first
-            }
-
-            // focusedBlock 설정
-            if let focusedBlock = focusedBlock {
-                await send(.view(.scrollingCarousel(focusedBlock: focusedBlock)))
+    /// 포커스 블럭을 설정합니다.
+    private func setFocusedBlock(_ state: State) -> Effect<Action> {
+        .run { send in
+            switch state.focusedBlock {
+            case .block(let id):
+                await send(.view(.scrollingCarousel(.block(id: id))))
+            default:
+                if let firstId = state.blockList.first?.id {
+                    await send(.view(.scrollingCarousel(.block(id: firstId))))
+                }
             }
         }
     }
