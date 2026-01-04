@@ -171,7 +171,7 @@ private struct BlockCarousel: View {
                             todayAmount: block.output,
                             symbol: IconPalette.toIcon(from: block.iconIndex),
                             color: ColorPalette.toColor(from: store.selectedGroup.colorIndex),
-                            state: store.selectedBlock?.id == block.id ? .back : .front,
+                            variation: store.selectedBlock?.id == block.id ? .back : .front,
                             onTapCell: {
                                 store.send(.view(.onTapBlock(block)))
                             },
@@ -196,6 +196,7 @@ private struct BlockCarousel: View {
                 }
                 .scrollTargetLayout()
             }
+            .scrollClipDisabled()
             .scrollPosition(id: $store.focusedBlock)
             .scrollTargetBehavior(.viewAligned)
             .scrollIndicators(.hidden)

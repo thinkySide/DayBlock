@@ -42,7 +42,7 @@ public struct BlockEditorView: View {
                 todayAmount: store.initialBlock.output,
                 symbol: IconPalette.toIcon(from: store.editingBlock.iconIndex),
                 color: ColorPalette.toColor(from: store.selectedGroup.colorIndex),
-                state: .front
+                variation: .front
             )
             .padding(.top, 12)
             

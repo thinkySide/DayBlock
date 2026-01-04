@@ -8,22 +8,24 @@
 import SwiftUI
 
 public struct CarouselDayBlock: View {
-    
-    public enum State {
+
+    public enum Variation {
         case front
         case back
     }
-    
+
     let title: String
     let totalAmount: Double
     let todayAmount: Double
     let symbol: String
     let color: Color
-    let state: State
-    
+    let variation: Variation
+
     let onTapCell: () -> Void
     let onTapDeleteButton: () -> Void
     let onTapEditButton: () -> Void
+
+    @State private var rotation: Double = 0
     
     public init(
         title: String,
@@ -31,7 +33,7 @@ public struct CarouselDayBlock: View {
         todayAmount: Double,
         symbol: String,
         color: Color,
-        state: State,
+        variation: Variation,
         onTapCell: @escaping () -> Void = {},
         onTapDeleteButton: @escaping () -> Void = {},
         onTapEditButton: @escaping () -> Void = {}
@@ -41,73 +43,102 @@ public struct CarouselDayBlock: View {
         self.todayAmount = todayAmount
         self.symbol = symbol
         self.color = color
-        self.state = state
+        self.variation = variation
         self.onTapCell = onTapCell
         self.onTapDeleteButton = onTapDeleteButton
         self.onTapEditButton = onTapEditButton
     }
     
     public var body: some View {
-        Button {
+        ZStack {
+            FrontView()
+                .opacity(rotation < 90 ? 1 : 0)
+                .rotation3DEffect(
+                    .degrees(rotation),
+                    axis: (x: 0, y: 1, z: 0)
+                )
+
+            BackView()
+                .opacity(rotation >= 90 ? 1 : 0)
+                .rotation3DEffect(
+                    .degrees(rotation - 180),
+                    axis: (x: 0, y: 1, z: 0)
+                )
+        }
+        .onTapGesture {
             onTapCell()
-        } label: {
-            switch state {
-            case .front:
-                DesignSystem.Colors.grayF4F5F7.swiftUIColor
-                    .frame(width: 180, height: 180)
-                    .clipShape(RoundedRectangle(cornerRadius: 26))
-                    .overlay(alignment: .topLeading) {
-                        AmountLabel()
-                            .padding(.top, 16)
-                            .padding(.leading, 16)
-                    }
-                    .overlay(alignment: .topTrailing) {
-                        Tag()
-                            .padding(.trailing, 32)
-                    }
-                    .overlay(alignment: .top) {
-                        SFSymbol(
-                            symbol: symbol,
-                            size: 52,
-                            color: DesignSystem.Colors.gray323232.swiftUIColor
-                        )
-                        .padding(.top, 52)
-                    }
-                    .overlay(alignment: .top) {
-                        Text(title)
-                            .brandFont(.pretendard(.bold), 17)
-                            .lineLimit(2)
-                            .multilineTextAlignment(.center)
-                            .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
-                            .frame(maxWidth: 180 - (16 * 2))
-                            .padding(.top, 52 + 52 + 16)
-                    }
-                
-            case .back:
-                DesignSystem.Colors.grayF4F5F7.swiftUIColor
-                    .frame(width: 180, height: 180)
-                    .clipShape(RoundedRectangle(cornerRadius: 26))
-                    .overlay(alignment: .top) {
-                        HStack(spacing: 22) {
-                            LeftVStack()
-                            RightVStack()
-                        }
-                        .padding(.top, 32)
-                    }
-                    .overlay(alignment: .top) {
-                        Capsule()
-                            .frame(width: 2, height: 22)
-                            .foregroundStyle(DesignSystem.Colors.grayC5C5C5.swiftUIColor)
-                            .padding(.top, 48)
-                    }
+        }
+        .onAppear {
+            rotation = variation == .back ? 180 : 0
+        }
+        .onChange(of: variation) { _, value in
+            withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
+                rotation = value == .back ? 180 : 0
             }
         }
     }
 }
 
+// MARK: - Views
+extension CarouselDayBlock {
+
+    @ViewBuilder
+    private func FrontView() -> some View {
+        DesignSystem.Colors.grayF4F5F7.swiftUIColor
+            .frame(width: 180, height: 180)
+            .clipShape(RoundedRectangle(cornerRadius: 26))
+            .overlay(alignment: .topLeading) {
+                AmountLabel()
+                    .padding(.top, 16)
+                    .padding(.leading, 16)
+            }
+            .overlay(alignment: .topTrailing) {
+                Tag()
+                    .padding(.trailing, 32)
+            }
+            .overlay(alignment: .top) {
+                SFSymbol(
+                    symbol: symbol,
+                    size: 52,
+                    color: DesignSystem.Colors.gray323232.swiftUIColor
+                )
+                .padding(.top, 52)
+            }
+            .overlay(alignment: .top) {
+                Text(title)
+                    .brandFont(.pretendard(.bold), 17)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.center)
+                    .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+                    .frame(maxWidth: 180 - (16 * 2))
+                    .padding(.top, 52 + 52 + 16)
+            }
+    }
+
+    @ViewBuilder
+    private func BackView() -> some View {
+        DesignSystem.Colors.grayF4F5F7.swiftUIColor
+            .frame(width: 180, height: 180)
+            .clipShape(RoundedRectangle(cornerRadius: 26))
+            .overlay(alignment: .top) {
+                HStack(spacing: 22) {
+                    LeftVStack()
+                    RightVStack()
+                }
+                .padding(.top, 32)
+            }
+            .overlay(alignment: .top) {
+                Capsule()
+                    .frame(width: 2, height: 22)
+                    .foregroundStyle(DesignSystem.Colors.grayC5C5C5.swiftUIColor)
+                    .padding(.top, 48)
+            }
+    }
+}
+
 // MARK: - Front
 extension CarouselDayBlock {
-    
+
     @ViewBuilder
     private func AmountLabel() -> some View {
         HStack(spacing: 0) {
