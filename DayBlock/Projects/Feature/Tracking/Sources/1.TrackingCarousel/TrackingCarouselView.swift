@@ -86,6 +86,25 @@ public struct TrackingCarouselView: View {
                 .presentationDetents([.medium, .large], selection: $store.sheetDetent)
                 .presentationDragIndicator(.visible)
         }
+        .popup(
+            isPresented: .constant(true),
+            title: "블럭을 삭제할까요?",
+            message: "그동안 기록된 블록 정보가 모두 삭제돼요",
+            leftAction: .init(
+                title: "아니오",
+                variation: .secondary,
+                action: {
+                    
+                }
+            ),
+            rightAction: .init(
+                title: "삭제할래요",
+                variation: .destructive,
+                action: {
+                    
+                }
+            )
+        )
     }
 }
 
