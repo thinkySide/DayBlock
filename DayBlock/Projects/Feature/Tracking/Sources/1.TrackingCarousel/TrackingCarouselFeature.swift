@@ -36,6 +36,7 @@ public struct TrackingCarouselFeature {
         var sheetDetent: PresentationDetent = .medium
         var currentDate: Date = .now
         var shouldTriggerFocusHaptic: Bool = true
+        var isPopupPresented: Bool = false
 
         var path = StackState<Path.State>()
         @Presents var groupSelect: GroupSelectFeature.State?
@@ -60,6 +61,7 @@ public struct TrackingCarouselFeature {
             case setBlockList(IdentifiedArrayOf<Block>)
             case setCurrentDate(Date)
             case setFocusedBlock(FocusedBlock?)
+            case completeDeleteBlock
             case updateSheetDetent(PresentationDetent)
         }
         
@@ -67,9 +69,15 @@ public struct TrackingCarouselFeature {
             
         }
         
+        public enum PopupAction {
+            case cancel
+            case deleteBlock
+        }
+        
         case view(ViewAction)
         case inner(InnerAction)
         case delegate(DelegateAction)
+        case popup(PopupAction)
         case binding(BindingAction<State>)
         case path(StackActionOf<Path>)
         case groupSelect(PresentationAction<GroupSelectFeature.Action>)
@@ -121,6 +129,8 @@ public struct TrackingCarouselFeature {
                     return .none
                     
                 case .onTapBlockDeleteButton:
+                    state.isPopupPresented = true
+                    haptic.notification(.warning)
                     return .none
 
                 case .onTapBlockEditButton(let block):
@@ -169,9 +179,27 @@ public struct TrackingCarouselFeature {
                     state.focusedBlock = focusedBlock
                     return .none
                     
+                case .completeDeleteBlock:
+                    state.isPopupPresented = false
+                    return refreshBlockList(from: state.selectedGroup.id)
+                    
                 case .updateSheetDetent(let sheetDetent):
                     state.sheetDetent = sheetDetent
                     return .none
+                }
+                
+            case .popup(let popupAction):
+                switch popupAction {
+                case .cancel:
+                    state.isPopupPresented = false
+                    return .none
+
+                case .deleteBlock:
+                    guard let blockId = state.selectedBlock?.id else { return .none }
+                    return .run { send in
+                        await swiftDataRepository.deleteBlock(blockId: blockId)
+                        await send(.inner(.completeDeleteBlock))
+                    }
                 }
                 
             case .binding(\.focusedBlock):
@@ -206,9 +234,7 @@ public struct TrackingCarouselFeature {
                     state.shouldTriggerFocusHaptic = false
                     state.focusedBlock = .block(id: block.id)
                     state.selectedGroup = group
-                    return .concatenate(
-                        refreshBlockList(from: state.selectedGroup.id)
-                    )
+                    return refreshBlockList(from: state.selectedGroup.id)
                     
                 default:
                     return .none

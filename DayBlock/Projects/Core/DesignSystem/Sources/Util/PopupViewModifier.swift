@@ -60,12 +60,15 @@ public struct PopupViewModifier: ViewModifier {
     public func body(content: Content) -> some View {
         content
             .overlay {
-                if isPresented {
-                    ZStack {
+                ZStack {
+                    if isPresented {
                         Color.black.opacity(0.3)
                             .ignoresSafeArea()
+                            .transition(.opacity)
                             .onTapGesture {
-                                isPresented = false
+                                withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+                                    isPresented = false
+                                }
                             }
 
                         Popup(
@@ -77,15 +80,13 @@ public struct PopupViewModifier: ViewModifier {
                         .background(
                             RoundedRectangle(cornerRadius: 20)
                                 .fill(DesignSystem.Colors.grayFFFFFF.swiftUIColor)
+                                .shadow(color: .black.opacity(0.15), radius: 20, y: 10)
                         )
                         .padding(.horizontal, 32)
-                        .transition(.scale.combined(with: .opacity))
+                        .transition(.scale(scale: 0.8).combined(with: .opacity))
                     }
-                    .animation(
-                        .spring(response: 0.3, dampingFraction: 0.8),
-                        value: isPresented
-                    )
                 }
+                .animation(.spring(response: 0.35, dampingFraction: 0.75), value: isPresented)
             }
     }
 }
