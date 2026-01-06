@@ -179,7 +179,7 @@ private struct BlockCarousel: View {
                                 store.send(.view(.onTapBlockDeleteButton))
                             },
                             onTapEditButton: {
-                                store.send(.view(.onTapBlockEditButton))
+                                store.send(.view(.onTapBlockEditButton(block)))
                             }
                         )
                         .containerRelativeFrame(.horizontal, count: 1, spacing: 24)

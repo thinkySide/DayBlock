@@ -22,7 +22,7 @@ public struct BlockEditorView: View {
     public var body: some View {
         VStack(spacing: 0) {
             NavigationBar(
-                title: "블럭 생성",
+                title: store.mode == .add ? "블럭 생성" : "블럭 편집",
                 leadingView: {
                     NavigationBarButton(.back) {
                         store.send(.view(.onTapBackButton))

@@ -51,7 +51,7 @@ public struct TrackingCarouselFeature {
             case onTapGroupSelect
             case onTapBlock(Block)
             case onTapBlockDeleteButton
-            case onTapBlockEditButton
+            case onTapBlockEditButton(Block)
             case onTapAddBlock
         }
         
@@ -123,7 +123,13 @@ public struct TrackingCarouselFeature {
                 case .onTapBlockDeleteButton:
                     return .none
 
-                case .onTapBlockEditButton:
+                case .onTapBlockEditButton(let block):
+                    let blockEditorState = BlockEditorFeature.State(
+                        mode: .edit(selectedBlock: block),
+                        selectedGroup: state.selectedGroup
+                    )
+                    state.path.append(.blockEditor(blockEditorState))
+                    state.selectedBlock = nil
                     return .none
                     
                 case .onTapAddBlock:
