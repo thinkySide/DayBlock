@@ -25,8 +25,8 @@ public struct CarouselDayBlock: View {
     let onTapDeleteButton: () -> Void
     let onTapEditButton: () -> Void
 
-    @State private var rotation: Double = 0
-    
+    @State private var showingFront: Bool = true
+
     public init(
         title: String,
         totalAmount: Double,
@@ -51,29 +51,29 @@ public struct CarouselDayBlock: View {
     
     public var body: some View {
         ZStack {
-            FrontView()
-                .opacity(rotation < 90 ? 1 : 0)
-                .rotation3DEffect(
-                    .degrees(rotation),
-                    axis: (x: 0, y: 1, z: 0)
-                )
-
-            BackView()
-                .opacity(rotation >= 90 ? 1 : 0)
-                .rotation3DEffect(
-                    .degrees(rotation - 180),
-                    axis: (x: 0, y: 1, z: 0)
-                )
+            if showingFront {
+                FrontView()
+                    .transition(.asymmetric(
+                        insertion: .scale(scale: 0.95).combined(with: .opacity),
+                        removal: .scale(scale: 0.95).combined(with: .opacity)
+                    ))
+            } else {
+                BackView()
+                    .transition(.asymmetric(
+                        insertion: .scale(scale: 0.95).combined(with: .opacity),
+                        removal: .scale(scale: 0.95).combined(with: .opacity)
+                    ))
+            }
         }
         .onTapGesture {
             onTapCell()
         }
         .onAppear {
-            rotation = variation == .back ? 180 : 0
+            showingFront = variation == .front
         }
         .onChange(of: variation) { _, value in
-            withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
-                rotation = value == .back ? 180 : 0
+            withAnimation(.smooth(duration: 0.3)) {
+                showingFront = value == .front
             }
         }
     }
