@@ -32,8 +32,10 @@ public struct TrackingCarouselFeature {
         var selectedGroup: BlockGroup = .init(id: .init(), name: "", colorIndex: 4)
         var selectedBlock: Block?
         var focusedBlock: FocusedBlock?
+        var previousFocusedBlock: FocusedBlock?
         var sheetDetent: PresentationDetent = .medium
         var currentDate: Date = .now
+        var shouldTriggerFocusHaptic: Bool = true
 
         var path = StackState<Path.State>()
         @Presents var groupSelect: GroupSelectFeature.State?
@@ -51,14 +53,14 @@ public struct TrackingCarouselFeature {
             case onTapBlockDeleteButton
             case onTapBlockEditButton
             case onTapAddBlock
-            case scrollingCarousel(FocusedBlock?)
         }
         
         public enum InnerAction {
             case setSelectedGroup(BlockGroup)
             case setBlockList(IdentifiedArrayOf<Block>)
-            case updateSheetDetent(PresentationDetent)
             case setCurrentDate(Date)
+            case setFocusedBlock(FocusedBlock?)
+            case updateSheetDetent(PresentationDetent)
         }
         
         public enum DelegateAction {
@@ -83,6 +85,7 @@ public struct TrackingCarouselFeature {
 
     @Dependency(\.date) private var date
     @Dependency(\.continuousClock) private var clock
+    @Dependency(\.haptic) private var haptic
     @Dependency(\.swiftDataRepository) private var swiftDataRepository
     @Dependency(\.userDefaultsService) private var userDefaultsService
 
@@ -130,19 +133,6 @@ public struct TrackingCarouselFeature {
                     )
                     state.path.append(.blockEditor(blockEditorState))
                     return .none
-                    
-                case .scrollingCarousel(let focusedBlock):
-                    state.focusedBlock = focusedBlock
-                    state.selectedBlock = nil
-
-                    let focusedBlockId: UUID? = switch focusedBlock {
-                    case .block(id: let id): id
-                    case .addBlock: nil
-                    default: nil
-                    }
-                    
-                    userDefaultsService.set(\.selectedBlockId, focusedBlockId)
-                    return .none
                 }
                 
             case .inner(let innerAction):
@@ -153,6 +143,7 @@ public struct TrackingCarouselFeature {
 
                 case .setBlockList(let blockList):
                     state.blockList = blockList
+                    state.shouldTriggerFocusHaptic = false
                     if state.isFirstAppear {
                         state.isFirstAppear = false
                         if let selectedBlockId = userDefaultsService.get(\.selectedBlockId) {
@@ -163,14 +154,40 @@ public struct TrackingCarouselFeature {
                     }
                     return setFocusedBlock(state)
 
-                case .updateSheetDetent(let sheetDetent):
-                    state.sheetDetent = sheetDetent
-                    return .none
-
                 case .setCurrentDate(let date):
                     state.currentDate = date
                     return .none
+                    
+                case .setFocusedBlock(let focusedBlock):
+                    state.shouldTriggerFocusHaptic = false
+                    state.focusedBlock = focusedBlock
+                    return .none
+                    
+                case .updateSheetDetent(let sheetDetent):
+                    state.sheetDetent = sheetDetent
+                    return .none
                 }
+                
+            case .binding(\.focusedBlock):
+                state.selectedBlock = nil
+
+                let focusedBlockId: UUID? = switch state.focusedBlock {
+                case .block(id: let id): id
+                case .addBlock: nil
+                default: nil
+                }
+
+                userDefaultsService.set(\.selectedBlockId, focusedBlockId)
+
+                if state.shouldTriggerFocusHaptic
+                    && state.previousFocusedBlock != state.focusedBlock {
+                    haptic.impact(.soft)
+                }
+
+                state.previousFocusedBlock = state.focusedBlock
+                state.shouldTriggerFocusHaptic = true
+
+                return .none
 
             case .path(let stackAction):
                 switch stackAction {
@@ -180,6 +197,7 @@ public struct TrackingCarouselFeature {
                     
                 case let .element(id: _, action: .blockEditor(.delegate(.didConfirm(block, group)))):
                     state.path.removeAll()
+                    state.shouldTriggerFocusHaptic = false
                     state.focusedBlock = .block(id: block.id)
                     state.selectedGroup = group
                     return .concatenate(
@@ -194,11 +212,12 @@ public struct TrackingCarouselFeature {
                 state.selectedGroup = group
                 state.groupSelect = nil
                 state.sheetDetent = .medium
-                
+
                 if let firstBlockId = state.blockList.first?.id {
+                    state.shouldTriggerFocusHaptic = false
                     state.focusedBlock = .block(id: firstBlockId)
                 }
-                
+
                 userDefaultsService.set(\.selectedGroupId, group.id)
 
                 return .merge(
@@ -268,10 +287,10 @@ extension TrackingCarouselFeature {
         .run { send in
             switch state.focusedBlock {
             case .block(let id):
-                await send(.view(.scrollingCarousel(.block(id: id))))
+                await send(.inner(.setFocusedBlock(.block(id: id))))
             default:
                 if let firstId = state.blockList.first?.id {
-                    await send(.view(.scrollingCarousel(.block(id: firstId))))
+                    await send(.inner(.setFocusedBlock(.block(id: firstId))))
                 }
             }
         }

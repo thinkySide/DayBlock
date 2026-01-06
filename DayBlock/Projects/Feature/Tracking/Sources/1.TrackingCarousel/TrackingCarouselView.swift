@@ -201,9 +201,6 @@ private struct BlockCarousel: View {
             .scrollTargetBehavior(.viewAligned)
             .scrollIndicators(.hidden)
             .safeAreaPadding(.horizontal, (geometry.size.width - cellSize) / 2)
-            .onChange(of: store.focusedBlock) { _, focusedBlock in
-                store.send(.view(.scrollingCarousel(focusedBlock)))
-            }
         }
         .frame(height: cellSize)
     }

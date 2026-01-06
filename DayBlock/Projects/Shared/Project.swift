@@ -9,7 +9,10 @@ let project = Project(
             destinations: .iOS,
             product: .framework,
             bundleId: "com.thinkyside.DayBlock.Util",
-            buildableFolders: ["Sources/Util"],
+            buildableFolders: ["Sources"],
+            dependencies: [
+                .TCA
+            ],
             settings: .shared
         )
     ]
