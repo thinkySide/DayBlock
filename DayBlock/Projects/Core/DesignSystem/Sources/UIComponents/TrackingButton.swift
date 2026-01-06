@@ -48,5 +48,6 @@ public struct TrackingButton: View {
                 )
         }
         .disabled(isDisabled)
+        .buttonStyle(ScaleButtonStyle())
     }
 }

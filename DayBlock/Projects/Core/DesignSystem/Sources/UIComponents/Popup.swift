@@ -102,5 +102,6 @@ public struct Popup: View {
                 .background(popupAction.variation.backgroundColor)
                 .clipShape(RoundedRectangle(cornerRadius: 13))
         }
+        .buttonStyle(ScaleButtonStyle())
     }
 }
