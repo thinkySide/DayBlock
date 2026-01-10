@@ -41,12 +41,12 @@ public struct TrackingDayBlock: View {
             .clipShape(RoundedRectangle(cornerRadius: 36))
             .overlay(alignment: .topLeading) {
                 AmountLabel()
-                    .padding(.top, 16)
-                    .padding(.leading, 16)
+                    .padding(.top, 24)
+                    .padding(.leading, 24)
             }
             .overlay(alignment: .topTrailing) {
                 Tag()
-                    .padding(.trailing, 32)
+                    .padding(.trailing, 40)
             }
             .overlay(alignment: .top) {
                 SFSymbol(

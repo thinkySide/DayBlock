@@ -26,11 +26,11 @@ public struct TrackingView: View {
                     }
                 }
             )
-            
+
             Header()
                 .padding(.top, 16)
                 .padding(.horizontal, 20)
-            
+
             TrackingDayBlock(
                 title: store.trackingBlock.name,
                 totalAmount: store.trackingBlock.output,
@@ -38,20 +38,29 @@ public struct TrackingView: View {
                 symbol: IconPalette.toIcon(from: store.trackingBlock.iconIndex),
                 color: ColorPalette.toColor(from: store.trackingGroup.colorIndex),
                 onTapCell: {
-                    
+
                 }
             )
             .padding(.top, 32)
-            
+
+            Spacer()
+                .frame(maxHeight: 36)
+
+            ElapsedTimeView()
+
             Spacer()
         }
         .background(DesignSystem.Colors.gray0.swiftUIColor)
+        .onAppear {
+            store.send(.view(.onAppear))
+        }
     }
 }
 
+
 // MARK: - SubViews
 extension TrackingView {
-    
+
     @ViewBuilder
     private func Header() -> some View {
         HStack {
@@ -87,5 +96,26 @@ extension TrackingView {
                 .padding(.leading, 4)
                 .padding(.top, -12)
         }
+    }
+
+    @ViewBuilder
+    private func ElapsedTimeView() -> some View {
+        let width: CGFloat = 50
+        HStack(spacing: 0) {
+            Text(String(format: "%02d", Int(store.elapsedTime) / 3600))
+                .frame(width: width)
+                .contentTransition(.numericText())
+            Text(":")
+            Text(String(format: "%02d", Int(store.elapsedTime) / 60 % 60))
+                .frame(width: width)
+                .contentTransition(.numericText())
+            Text(":")
+            Text(String(format: "%02d", Int(store.elapsedTime) % 60))
+                .frame(width: width)
+                .contentTransition(.numericText())
+        }
+        .brandFont(.poppins(.bold), 36)
+        .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+        .animation(.default, value: store.elapsedTime)
     }
 }
