@@ -37,6 +37,7 @@ public struct TrackingCarouselFeature {
         var currentDate: Date = .now
         var shouldTriggerFocusHaptic: Bool = true
         var isPopupPresented: Bool = false
+        var deletedBlockIndex: Int?
 
         var path = StackState<Path.State>()
         @Presents var groupSelect: GroupSelectFeature.State?
@@ -160,6 +161,21 @@ public struct TrackingCarouselFeature {
                 case .setBlockList(let blockList):
                     state.blockList = blockList
                     state.shouldTriggerFocusHaptic = false
+
+                    if let deletedIndex = state.deletedBlockIndex {
+                        state.deletedBlockIndex = nil
+
+                        if deletedIndex > 0 {
+                            let previousBlock = blockList[deletedIndex - 1]
+                            state.focusedBlock = .block(id: previousBlock.id)
+                        } else {
+                            state.focusedBlock = nil
+                        }
+
+                        state.selectedBlock = nil
+                        return .none
+                    }
+
                     if state.isFirstAppear {
                         state.isFirstAppear = false
                         if let selectedBlockId = userDefaultsService.get(\.selectedBlockId) {
@@ -195,7 +211,13 @@ public struct TrackingCarouselFeature {
                     return .none
 
                 case .deleteBlock:
-                    guard let blockId = state.selectedBlock?.id else { return .none }
+                    guard let selectedBlock = state.selectedBlock else { return .none }
+                    let blockId = selectedBlock.id
+
+                    if let index = state.blockList.firstIndex(where: { $0.id == blockId }) {
+                        state.deletedBlockIndex = index
+                    }
+
                     return .run { send in
                         await swiftDataRepository.deleteBlock(blockId: blockId)
                         await send(.inner(.completeDeleteBlock))
