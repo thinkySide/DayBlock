@@ -5,6 +5,7 @@
 //  Created by 김민준 on 1/10/26.
 //
 
+import Foundation
 import ComposableArchitecture
 import Domain
 import Util
@@ -16,6 +17,7 @@ public struct TrackingFeature {
     public struct State: Equatable {
         var trackingGroup: BlockGroup
         var trackingBlock: Block
+        var currentDate: Date = .now
         
         public init(
             trackingGroup: BlockGroup,

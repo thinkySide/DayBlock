@@ -37,6 +37,7 @@ public struct BlockCarouselView: View {
             NavigationBar()
             
             Header()
+                .padding(.top, 16)
                 .padding(.horizontal, 20)
             
             GroupPicker()
