@@ -168,6 +168,8 @@ public struct TrackingCarouselFeature {
                         if deletedIndex > 0 {
                             let previousBlock = blockList[deletedIndex - 1]
                             state.focusedBlock = .block(id: previousBlock.id)
+                        } else if !blockList.isEmpty {
+                            state.focusedBlock = .block(id: blockList[0].id)
                         } else {
                             state.focusedBlock = nil
                         }
