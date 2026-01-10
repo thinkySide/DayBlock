@@ -29,7 +29,7 @@ public struct TrackingFeature {
 
     public enum Action: TCAFeatureAction {
         public enum ViewAction {
-            
+            case onTapDismissButton
         }
 
         public enum InnerAction {
@@ -37,7 +37,7 @@ public struct TrackingFeature {
         }
 
         public enum DelegateAction {
-            
+            case didDismiss
         }
 
         case view(ViewAction)
@@ -50,7 +50,17 @@ public struct TrackingFeature {
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            
+            case .view(let viewAction):
+                switch viewAction {
+                case .onTapDismissButton:
+                    return .send(.delegate(.didDismiss))
+                }
+                
+            case .delegate(let delegateAction):
+                switch delegateAction {
+                case .didDismiss:
+                    return .none
+                }
                 
             default:
                 return .none

@@ -11,6 +11,7 @@ public struct NavigationBarButton: View {
     
     public enum Variation {
         case back
+        case dismiss
         case text(String)
     }
     
@@ -33,6 +34,11 @@ public struct NavigationBarButton: View {
                 switch variation {
                 case .back:
                     DesignSystem.Icons.arrowLeft.swiftUIImage
+                        .resizable()
+                        .frame(width: 32, height: 32)
+                    
+                case .dismiss:
+                    DesignSystem.Icons.dismiss.swiftUIImage
                         .resizable()
                         .frame(width: 32, height: 32)
                     

@@ -40,8 +40,8 @@ public struct BlockCarouselFeature {
         var deletedBlockIndex: Int?
 
         public var path = StackState<Path.State>()
+        var tracking: TrackingFeature.State?
         @Presents var groupSelect: GroupSelectFeature.State?
-        @Presents var tracking: TrackingFeature.State?
 
         public init() { }
     }
@@ -84,7 +84,7 @@ public struct BlockCarouselFeature {
         case binding(BindingAction<State>)
         case path(StackActionOf<Path>)
         case groupSelect(PresentationAction<GroupSelectFeature.Action>)
-        case tracking(PresentationAction<TrackingFeature.Action>)
+        case tracking(TrackingFeature.Action)
     }
     
     @CasePathable
@@ -156,9 +156,14 @@ public struct BlockCarouselFeature {
                     return .none
                     
                 case .onTapTrackingButton:
-                    let block: Block? = switch state.focusedBlock {
-                    case .block(let id): state.blockList.first(where: { $0.id == id })
-                    default: nil
+                    let block: Block?
+                    
+                    switch state.focusedBlock {
+                    case .block(let id):
+                        block = state.blockList.first(where: { $0.id == id })
+                        userDefaultsService.set(\.selectedBlockId, id)
+                    default:
+                        block = nil
                     }
                     
                     guard let block else { return .none }
@@ -312,6 +317,10 @@ public struct BlockCarouselFeature {
                     startDateClock()
                 )
                 
+            case .tracking(.delegate(.didDismiss)):
+                state.tracking = nil
+                return .none
+                
             default:
                 return .none
             }
@@ -320,7 +329,7 @@ public struct BlockCarouselFeature {
         .ifLet(\.$groupSelect, action: \.groupSelect) {
             GroupSelectFeature()
         }
-        .ifLet(\.$tracking, action: \.tracking) {
+        .ifLet(\.tracking, action: \.tracking) {
             TrackingFeature()
         }
     }

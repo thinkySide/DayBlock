@@ -19,7 +19,16 @@ public struct TrackingView: View {
     
     public var body: some View {
         VStack(spacing: 0) {
-            Text("TrackingView")
+            NavigationBar(
+                leadingView: {
+                    NavigationBarButton(.dismiss) {
+                        store.send(.view(.onTapDismissButton))
+                    }
+                }
+            )
+            
+            Spacer()
         }
+        .background(DesignSystem.Colors.gray0.swiftUIColor)
     }
 }

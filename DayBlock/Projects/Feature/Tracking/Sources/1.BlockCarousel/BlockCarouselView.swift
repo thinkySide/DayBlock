@@ -87,15 +87,15 @@ public struct BlockCarouselView: View {
                 .presentationDetents([.medium, .large], selection: $store.sheetDetent)
                 .presentationDragIndicator(.visible)
         }
-        .sheet(
-            item: $store.scope(
-                state: \.tracking,
-                action: \.tracking
-            )
-        ) { childStore in
-            TrackingView(store: childStore)
-                .presentationDetents([.medium, .large], selection: $store.sheetDetent)
-                .presentationDragIndicator(.visible)
+        .overlay {
+            Group {
+                if let childStore = store.scope(state: \.tracking, action: \.tracking) {
+                    TrackingView(store: childStore)
+                        .transition(.opacity)
+                        .zIndex(1)
+                }
+            }
+            .animation(.easeInOut(duration: 0.3), value: store.tracking != nil)
         }
         .popup(
             isPresented: $store.isPopupPresented,
