@@ -18,14 +18,19 @@ public struct BlockGroup: Identifiable, Equatable, Codable {
     /// 그룹 색상 인덱스
     public var colorIndex: Int
     
+    /// 그룹 순서
+    public var order: Int
+    
     public init(
         id: UUID,
         name: String,
-        colorIndex: Int
+        colorIndex: Int,
+        order: Int
     ) {
         self.id = id
         self.name = name
         self.colorIndex = colorIndex
+        self.order = order
     }
 }
 

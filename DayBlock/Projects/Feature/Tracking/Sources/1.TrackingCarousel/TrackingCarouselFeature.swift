@@ -29,7 +29,7 @@ public struct TrackingCarouselFeature {
     public struct State: Equatable {
         var isFirstAppear: Bool = true
         var blockList: IdentifiedArrayOf<Block> = []
-        var selectedGroup: BlockGroup = .init(id: .init(), name: "", colorIndex: 4)
+        var selectedGroup: BlockGroup = .init(id: .init(), name: "", colorIndex: 4, order: 0)
         var selectedBlock: Block?
         var focusedBlock: FocusedBlock?
         var previousFocusedBlock: FocusedBlock?

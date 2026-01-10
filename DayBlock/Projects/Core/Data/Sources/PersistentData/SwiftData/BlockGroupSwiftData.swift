@@ -18,6 +18,8 @@ final class BlockGroupSwiftData: Identifiable, Sendable {
     var name: String
 
     var colorIndex: Int
+    
+    var order: Int
 
     @Relationship(deleteRule: .cascade)
     var blockList: [BlockSwiftData]
@@ -26,11 +28,13 @@ final class BlockGroupSwiftData: Identifiable, Sendable {
         id: UUID,
         name: String,
         colorIndex: Int,
+        order: Int,
         blockList: [BlockSwiftData]
     ) {
         self.id = id
         self.name = name
         self.colorIndex = colorIndex
+        self.order = order
         self.blockList = blockList
     }
 }

@@ -16,7 +16,7 @@ import Util
 public struct SwiftDataRepository {
 
     public var createGroup: @Sendable (BlockGroup) async -> Void
-    public var fetchDefaultGroup: @Sendable () async -> BlockGroup = { .init(id: .init(), name: "", colorIndex: 0) }
+    public var fetchDefaultGroup: @Sendable () async -> BlockGroup = { .init(id: .init(), name: "", colorIndex: 0, order: 0) }
     public var fetchGroupList: @Sendable () async -> [BlockGroup] = { [] }
     public var updateGroup: @Sendable (_ groupId: UUID, BlockGroup) async -> Void
     public var deleteGroup: @Sendable (_ groupId: UUID) async -> Void
@@ -40,10 +40,18 @@ extension SwiftDataRepository: DependencyKey {
         SwiftDataRepository(
             createGroup: { group in
                 do {
+                    let descriptor = FetchDescriptor<BlockGroupSwiftData>()
+                    let existingGroups = try await Task { @MainActor in
+                        try modelContext.fetch(descriptor)
+                    }.value
+
+                    let nextOrder = (existingGroups.map(\.order).max() ?? -1) + 1
+
                     let swiftDataGroup = BlockGroupSwiftData(
                         id: group.id,
                         name: group.name,
                         colorIndex: group.colorIndex,
+                        order: nextOrder,
                         blockList: []
                     )
                     try await MainActor.run {
@@ -60,39 +68,42 @@ extension SwiftDataRepository: DependencyKey {
                     var groupList = try await Task { @MainActor in
                         return try modelContext.fetch(descriptor)
                     }.value
-                    
+
                     if groupList.isEmpty {
                         @Dependency(\.uuid) var uuid
                         let defaultGroup = BlockGroupSwiftData(
                             id: uuid(),
                             name: "기본 그룹",
                             colorIndex: 4,
+                            order: 0,
                             blockList: []
                         )
-                        
+
                         try await MainActor.run {
                             modelContext.insert(defaultGroup)
                             try modelContext.save()
                         }
-                        
+
                         groupList = [defaultGroup]
                     }
                     guard let firstGroup = groupList.first else {
-                        return BlockGroup(id: .init(), name: "기본 그룹", colorIndex: 4)
+                        return BlockGroup(id: .init(), name: "기본 그룹", colorIndex: 4, order: 0)
                     }
                     return BlockGroup(
                         id: firstGroup.id,
                         name: firstGroup.name,
-                        colorIndex: firstGroup.colorIndex
+                        colorIndex: firstGroup.colorIndex,
+                        order: firstGroup.order
                     )
                 } catch {
                     Debug.log("SwiftData ModelContext 에러: \(error)")
-                    return BlockGroup(id: .init(), name: "기본 그룹", colorIndex: 4)
+                    return BlockGroup(id: .init(), name: "기본 그룹", colorIndex: 4, order: 0)
                 }
             },
             fetchGroupList: {
                 do {
-                    let descriptor = FetchDescriptor<BlockGroupSwiftData>()
+                    var descriptor = FetchDescriptor<BlockGroupSwiftData>()
+                    descriptor.sortBy = [SortDescriptor(\.order, order: .forward)]
                     var groupList = try await Task { @MainActor in
                         return try modelContext.fetch(descriptor)
                     }.value
@@ -102,6 +113,7 @@ extension SwiftDataRepository: DependencyKey {
                             id: uuid(),
                             name: "기본 그룹",
                             colorIndex: 4,
+                            order: 0,
                             blockList: []
                         )
                         try await MainActor.run {
@@ -115,7 +127,8 @@ extension SwiftDataRepository: DependencyKey {
                         BlockGroup(
                             id: swiftData.id,
                             name: swiftData.name,
-                            colorIndex: swiftData.colorIndex
+                            colorIndex: swiftData.colorIndex,
+                            order: swiftData.order
                         )
                     }
                 } catch {
@@ -131,12 +144,13 @@ extension SwiftDataRepository: DependencyKey {
                     let targetGroup = try await Task { @MainActor in
                         try modelContext.fetch(descriptor).first
                     }.value
-                    
+
                     guard let targetGroup else {
                         throw PersistentDataError.notFound
                     }
                     targetGroup.name = group.name
                     targetGroup.colorIndex = group.colorIndex
+                    targetGroup.order = group.order
                     try await MainActor.run {
                         try modelContext.save()
                     }
@@ -171,23 +185,35 @@ extension SwiftDataRepository: DependencyKey {
                     let groupDescriptor = FetchDescriptor<BlockGroupSwiftData>(
                         predicate: #Predicate { $0.id == groupId }
                     )
-                    
+
                     let targetGroup = try await Task { @MainActor in
                         try modelContext.fetch(groupDescriptor).first
                     }.value
-                    
+
                     guard let targetGroup else {
                         throw PersistentDataError.notFound
                     }
 
+                    let blockDescriptor = FetchDescriptor<BlockSwiftData>(
+                        predicate: #Predicate { $0.group.id == groupId }
+                    )
+
+                    let existingBlocks = try await Task { @MainActor in
+                        try modelContext.fetch(blockDescriptor)
+                    }.value
+
+                    let nextOrder = (existingBlocks.map(\.order).max() ?? -1) + 1
+
+                    @Dependency(\.uuid) var uuid
                     let swiftDataBlock = BlockSwiftData(
-                        id: UUID(),
+                        id: uuid(),
                         name: block.name,
                         output: block.output,
                         iconIndex: block.iconIndex,
+                        order: nextOrder,
                         group: targetGroup
                     )
-                    
+
                     try await MainActor.run {
                         modelContext.insert(swiftDataBlock)
                         try modelContext.save()
@@ -198,10 +224,11 @@ extension SwiftDataRepository: DependencyKey {
             },
             fetchBlockList: { groupId in
                 do {
-                    let descriptor = FetchDescriptor<BlockSwiftData>(
+                    var descriptor = FetchDescriptor<BlockSwiftData>(
                         predicate: #Predicate { $0.group.id == groupId }
                     )
-                    
+                    descriptor.sortBy = [SortDescriptor(\.order, order: .forward)]
+
                     let blockList = try await Task { @MainActor in
                         try modelContext.fetch(descriptor)
                     }.value
@@ -211,7 +238,8 @@ extension SwiftDataRepository: DependencyKey {
                             id: swiftData.id,
                             name: swiftData.name,
                             iconIndex: swiftData.iconIndex,
-                            output: swiftData.output
+                            output: swiftData.output,
+                            order: swiftData.order
                         )
                     }
                 } catch {
@@ -224,7 +252,7 @@ extension SwiftDataRepository: DependencyKey {
                     let descriptor = FetchDescriptor<BlockSwiftData>(
                         predicate: #Predicate { $0.id == id }
                     )
-                    
+
                     let targetBlock = try await Task { @MainActor in
                         try modelContext.fetch(descriptor).first
                     }.value
@@ -236,7 +264,8 @@ extension SwiftDataRepository: DependencyKey {
                     targetBlock.name = block.name
                     targetBlock.iconIndex = block.iconIndex
                     targetBlock.output = block.output
-                    
+                    targetBlock.order = block.order
+
                     try await MainActor.run {
                         try modelContext.save()
                     }

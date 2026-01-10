@@ -20,6 +20,8 @@ final class BlockSwiftData: Identifiable, Sendable {
     
     var iconIndex: Int
     
+    var order: Int
+    
     @Relationship(inverse: \BlockGroupSwiftData.blockList)
     var group: BlockGroupSwiftData
     
@@ -28,12 +30,14 @@ final class BlockSwiftData: Identifiable, Sendable {
         name: String,
         output: Double,
         iconIndex: Int,
+        order: Int,
         group: BlockGroupSwiftData
     ) {
         self.id = id
         self.name = name
         self.output = output
         self.iconIndex = iconIndex
+        self.order = order
         self.group = group
     }
 }

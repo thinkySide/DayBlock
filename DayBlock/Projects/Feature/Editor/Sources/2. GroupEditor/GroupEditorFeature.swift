@@ -37,7 +37,7 @@ public struct GroupEditorFeature {
             switch mode {
             case .add:
                 @Dependency(\.uuid) var uuid
-                let newGroup = BlockGroup(id: uuid(), name: "", colorIndex: 4)
+                let newGroup = BlockGroup(id: uuid(), name: "", colorIndex: 4, order: 0)
                 self.initialGroup = newGroup
                 self.editingGroup = newGroup
                 

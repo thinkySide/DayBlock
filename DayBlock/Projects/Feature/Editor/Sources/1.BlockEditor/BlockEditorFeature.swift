@@ -43,7 +43,8 @@ public struct BlockEditorFeature {
                 id: uuid(),
                 name: "블럭 쌓기",
                 iconIndex: 0,
-                output: 0
+                output: 0,
+                order: 0
             )
             switch mode {
             case .add:
@@ -133,8 +134,8 @@ public struct BlockEditorFeature {
                                 targetBlock.id,
                                 targetBlock
                             )
-                            await send(.delegate(.didConfirm(targetBlock, targetGroup)))
                         }
+                        await send(.delegate(.didConfirm(targetBlock, targetGroup)))
                     }
                 }
                 

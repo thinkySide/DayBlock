@@ -21,15 +21,20 @@ public struct Block: Identifiable, Equatable, Codable {
     /// 생산량
     public var output: Double
     
+    /// 순서
+    public var order: Int
+    
     public init(
         id: UUID,
         name: String,
         iconIndex: Int,
-        output: Double
+        output: Double,
+        order: Int
     ) {
         self.id = id
         self.name = name
         self.iconIndex = iconIndex
         self.output = output
+        self.order = order
     }
 }
