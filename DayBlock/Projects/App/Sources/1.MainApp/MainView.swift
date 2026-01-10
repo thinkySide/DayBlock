@@ -18,7 +18,7 @@ struct MainView: View {
         Group {
             switch store.selectedTab {
             case .tracking:
-                TrackingCarouselView(
+                BlockCarouselView(
                     store: store.scope(state: \.trackingState, action: \.tracking)
                 )
 

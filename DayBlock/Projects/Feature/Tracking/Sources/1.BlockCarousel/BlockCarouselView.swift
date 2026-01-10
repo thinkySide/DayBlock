@@ -1,5 +1,5 @@
 //
-//  TrackingCarouselView.swift
+//  BlockCarouselView.swift
 //  Tracking
 //
 //  Created by 김민준 on 12/8/25.
@@ -12,11 +12,11 @@ import Domain
 import Editor
 import Util
 
-public struct TrackingCarouselView: View {
+public struct BlockCarouselView: View {
 
-    @Bindable private var store: StoreOf<TrackingCarouselFeature>
+    @Bindable private var store: StoreOf<BlockCarouselFeature>
 
-    public init(store: StoreOf<TrackingCarouselFeature>) {
+    public init(store: StoreOf<BlockCarouselFeature>) {
         self.store = store
     }
 
@@ -110,7 +110,7 @@ public struct TrackingCarouselView: View {
 }
 
 // MARK: - Header
-extension TrackingCarouselView {
+extension BlockCarouselView {
     
     @ViewBuilder
     private func Header() -> some View {
@@ -176,9 +176,9 @@ extension TrackingCarouselView {
 // MARK: - BlockCarousel
 private struct BlockCarousel: View {
     
-    typealias FocusedBlock = TrackingCarouselFeature.FocusedBlock
+    typealias FocusedBlock = BlockCarouselFeature.FocusedBlock
 
-    @Bindable var store: StoreOf<TrackingCarouselFeature>
+    @Bindable var store: StoreOf<BlockCarouselFeature>
     private let cellSize: CGFloat = 180
 
     var body: some View {

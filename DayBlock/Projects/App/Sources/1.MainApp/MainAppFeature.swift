@@ -14,18 +14,18 @@ struct MainAppFeature {
     @ObservableState
     struct State {
         var selectedTab: MainTab = .tracking
-        var trackingState: TrackingCarouselFeature.State = .init()
+        var trackingState: BlockCarouselFeature.State = .init()
     }
 
     enum Action: BindableAction {
         case binding(BindingAction<State>)
-        case tracking(TrackingCarouselFeature.Action)
+        case tracking(BlockCarouselFeature.Action)
     }
 
     var body: some ReducerOf<Self> {
         BindingReducer()
         Scope(state: \.trackingState, action: \.tracking) {
-            TrackingCarouselFeature()
+            BlockCarouselFeature()
         }
         Reduce { state, action in
             switch action {

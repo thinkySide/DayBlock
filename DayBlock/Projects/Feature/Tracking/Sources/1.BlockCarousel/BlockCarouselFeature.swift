@@ -1,5 +1,5 @@
 //
-//  TrackingCarouselFeature.swift
+//  BlockCarouselFeature.swift
 //  Tracking
 //
 //  Created by 김민준 on 12/21/25.
@@ -13,7 +13,7 @@ import UserDefaults
 import Util
 
 @Reducer
-public struct TrackingCarouselFeature {
+public struct BlockCarouselFeature {
 
     @Reducer
     public enum Path {
@@ -39,7 +39,7 @@ public struct TrackingCarouselFeature {
         var isPopupPresented: Bool = false
         var deletedBlockIndex: Int?
 
-        var path = StackState<Path.State>()
+        public var path = StackState<Path.State>()
         @Presents var groupSelect: GroupSelectFeature.State?
 
         public init() { }
@@ -308,7 +308,7 @@ public struct TrackingCarouselFeature {
 }
 
 // MARK: - Shared Effect
-extension TrackingCarouselFeature {
+extension BlockCarouselFeature {
     
     /// 기본 그룹을 반환합니다.
     private func fetchSelectedGroup() -> Effect<Action> {
@@ -376,4 +376,4 @@ extension TrackingCarouselFeature {
 }
 
 // MARK: - Path
-extension TrackingCarouselFeature.Path.State: Equatable {}
+extension BlockCarouselFeature.Path.State: Equatable {}
