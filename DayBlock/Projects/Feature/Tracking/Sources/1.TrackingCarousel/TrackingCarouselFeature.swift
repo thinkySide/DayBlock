@@ -282,6 +282,7 @@ public struct TrackingCarouselFeature {
                 
             case .groupSelect(.presented(.groupEditor(.presented(.delegate(.didConfirm(let group)))))):
                 state.selectedGroup = group
+                userDefaultsService.set(\.selectedGroupId, group.id)
                 return .merge(
                     updateSheetDetent(.medium),
                     refreshBlockList(from: group.id)
@@ -336,10 +337,18 @@ extension TrackingCarouselFeature {
         .run { send in
             switch state.focusedBlock {
             case .block(let id):
-                await send(.inner(.setFocusedBlock(.block(id: id))))
+                if state.blockList.contains(where: { $0.id == id }) {
+                    await send(.inner(.setFocusedBlock(.block(id: id))))
+                } else if let firstId = state.blockList.first?.id {
+                    await send(.inner(.setFocusedBlock(.block(id: firstId))))
+                } else {
+                    await send(.inner(.setFocusedBlock(nil)))
+                }
             default:
                 if let firstId = state.blockList.first?.id {
                     await send(.inner(.setFocusedBlock(.block(id: firstId))))
+                } else {
+                    await send(.inner(.setFocusedBlock(nil)))
                 }
             }
         }
