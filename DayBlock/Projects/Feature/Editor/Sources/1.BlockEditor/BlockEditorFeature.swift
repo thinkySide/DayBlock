@@ -91,7 +91,7 @@ public struct BlockEditorFeature {
 
     public init() {}
     
-    @Dependency(\.swiftDataRepository) private var swiftDataRepository
+    @Dependency(\.blockRepository) private var blockRepository
 
     public var body: some ReducerOf<Self> {
         BindingReducer()
@@ -126,12 +126,12 @@ public struct BlockEditorFeature {
                     return .run { [state] send in
                         switch state.mode {
                         case .add:
-                            await swiftDataRepository.createBlock(
+                            await blockRepository.createBlock(
                                 targetGroup.id,
                                 targetBlock
                             )
                         case .edit:
-                            await swiftDataRepository.updateBlock(
+                            await blockRepository.updateBlock(
                                 targetBlock.id,
                                 targetBlock
                             )

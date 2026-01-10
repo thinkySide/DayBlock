@@ -73,7 +73,7 @@ public struct GroupEditorFeature {
         case colorSelect(PresentationAction<ColorSelectFeature.Action>)
     }
     
-    @Dependency(\.swiftDataRepository) private var swiftDataRepository
+    @Dependency(\.groupRepository) private var groupRepository
 
     public init() {}
 
@@ -97,7 +97,7 @@ public struct GroupEditorFeature {
                 case .onTapConfirmButton:
                     let group = state.editingGroup
                     return .run { send in
-                        await swiftDataRepository.createGroup(group)
+                        await groupRepository.createGroup(group)
                         await send(.delegate(.didConfirm(group)))
                     }
                     

@@ -95,7 +95,8 @@ public struct TrackingCarouselFeature {
     @Dependency(\.date) private var date
     @Dependency(\.continuousClock) private var clock
     @Dependency(\.haptic) private var haptic
-    @Dependency(\.swiftDataRepository) private var swiftDataRepository
+    @Dependency(\.groupRepository) private var groupRepository
+    @Dependency(\.blockRepository) private var blockRepository
     @Dependency(\.userDefaultsService) private var userDefaultsService
 
     public var body: some ReducerOf<Self> {
@@ -221,7 +222,7 @@ public struct TrackingCarouselFeature {
                     }
 
                     return .run { send in
-                        await swiftDataRepository.deleteBlock(blockId: blockId)
+                        await blockRepository.deleteBlock(blockId: blockId)
                         await send(.inner(.completeDeleteBlock))
                     }
                 }
@@ -313,12 +314,12 @@ extension TrackingCarouselFeature {
     private func fetchSelectedGroup() -> Effect<Action> {
         .run { send in
             if let selectedGroupId = userDefaultsService.get(\.selectedGroupId) {
-                let groupList = await swiftDataRepository.fetchGroupList()
+                let groupList = await groupRepository.fetchGroupList()
                 if let selectedGroup = groupList.matchGroup(from: selectedGroupId) {
                     await send(.inner(.setSelectedGroup(selectedGroup)))
                 }
             } else {
-                let defaultGroup = await swiftDataRepository.fetchDefaultGroup()
+                let defaultGroup = await groupRepository.fetchDefaultGroup()
                 await send(.inner(.setSelectedGroup(defaultGroup)))
             }
         }
@@ -327,7 +328,7 @@ extension TrackingCarouselFeature {
     /// 그룹 리스트를 리프레쉬 합니다.
     private func refreshBlockList(from groupId: UUID) -> Effect<Action> {
         .run { send in
-            let blockList = await swiftDataRepository.fetchBlockList(groupId: groupId)
+            let blockList = await blockRepository.fetchBlockList(groupId: groupId)
             await send(.inner(.setBlockList(.init(uniqueElements: blockList))))
         }
     }

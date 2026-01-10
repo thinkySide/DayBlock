@@ -56,7 +56,8 @@ public struct GroupSelectFeature {
         case groupEditor(PresentationAction<GroupEditorFeature.Action>)
     }
     
-    @Dependency(\.swiftDataRepository) private var swiftDataRepository
+    @Dependency(\.groupRepository) private var groupRepository
+    @Dependency(\.blockRepository) private var blockRepository
 
     public init() {}
 
@@ -124,17 +125,17 @@ extension GroupSelectFeature {
     
     /// 전체 GroupList ViewItem 배열을 반환합니다.
     private func fetchGroupListViewItems() async -> IdentifiedArrayOf<GroupListViewItem> {
-        let domainGroupList = await swiftDataRepository.fetchGroupList()
+        let domainGroupList = await groupRepository.fetchGroupList()
         var groupListViewItem = IdentifiedArrayOf<GroupListViewItem>()
-        
+
         for group in domainGroupList {
-            let blockList = await swiftDataRepository.fetchBlockList(groupId: group.id)
+            let blockList = await blockRepository.fetchBlockList(groupId: group.id)
             let viewItem = GroupListViewItem(
                 group: group,
                 blockCount: blockList.count)
             groupListViewItem.append(viewItem)
         }
-        
+
         return groupListViewItem
     }
 }
