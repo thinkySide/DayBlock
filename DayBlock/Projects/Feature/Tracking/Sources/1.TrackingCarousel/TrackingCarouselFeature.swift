@@ -227,14 +227,6 @@ public struct TrackingCarouselFeature {
             case .binding(\.focusedBlock):
                 state.selectedBlock = nil
 
-                let focusedBlockId: UUID? = switch state.focusedBlock {
-                case .block(id: let id): id
-                case .addBlock: nil
-                default: nil
-                }
-
-                userDefaultsService.set(\.selectedBlockId, focusedBlockId)
-
                 if state.shouldTriggerFocusHaptic
                     && state.previousFocusedBlock != state.focusedBlock {
                     haptic.impact(.soft)
@@ -256,6 +248,7 @@ public struct TrackingCarouselFeature {
                     state.shouldTriggerFocusHaptic = false
                     state.focusedBlock = .block(id: block.id)
                     state.selectedGroup = group
+                    userDefaultsService.set(\.selectedBlockId, block.id)
                     return refreshBlockList(from: state.selectedGroup.id)
                     
                 default:

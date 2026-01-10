@@ -204,9 +204,8 @@ extension SwiftDataRepository: DependencyKey {
 
                     let nextOrder = (existingBlocks.map(\.order).max() ?? -1) + 1
 
-                    @Dependency(\.uuid) var uuid
                     let swiftDataBlock = BlockSwiftData(
-                        id: uuid(),
+                        id: block.id,
                         name: block.name,
                         output: block.output,
                         iconIndex: block.iconIndex,
