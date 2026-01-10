@@ -25,6 +25,7 @@ public struct IconSelectView: View {
             
             IconScrollView()
         }
+        .background(DesignSystem.Colors.grayFFFFFF.swiftUIColor)
     }
     
     @ViewBuilder

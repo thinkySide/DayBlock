@@ -23,6 +23,7 @@ public struct ColorSelectView: View {
             
             ColorScrollView()
         }
+        .background(DesignSystem.Colors.grayFFFFFF.swiftUIColor)
     }
     
     @ViewBuilder

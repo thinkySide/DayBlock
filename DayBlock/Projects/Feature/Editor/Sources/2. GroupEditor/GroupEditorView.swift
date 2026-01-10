@@ -69,6 +69,7 @@ public struct GroupEditorView: View {
             
             Spacer()
         }
+        .background(DesignSystem.Colors.grayFFFFFF.swiftUIColor)
         .toolbarVisibility(.hidden, for: .navigationBar)
         .onAppear {
             store.send(.view(.onAppear))

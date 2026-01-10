@@ -26,6 +26,7 @@ public struct GroupSelectView: View {
                 GroupScrollView()
                     .padding(.top, 18)
             }
+            .background(DesignSystem.Colors.grayFFFFFF.swiftUIColor)
             .navigationDestination(
                 item: $store.scope(
                     state: \.groupEditor,

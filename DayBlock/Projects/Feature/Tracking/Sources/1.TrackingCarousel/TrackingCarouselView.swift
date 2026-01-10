@@ -67,6 +67,7 @@ public struct TrackingCarouselView: View {
             
             Spacer()
         }
+        .background(DesignSystem.Colors.grayFFFFFF.swiftUIColor)
         .onLoad {
             store.send(.view(.onLoad))
         }
