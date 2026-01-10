@@ -34,21 +34,21 @@ public struct LabelTextField<Accessory: View>: View {
         VStack(alignment: .leading, spacing: 8) {
             Text(label)
                 .brandFont(.pretendard(.semiBold), 16)
-                .foregroundStyle(DesignSystem.Colors.gray616161.swiftUIColor)
+                .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
                 .padding(.leading, 4)
             
             HStack {
                 TextField(placeholder, text: $text)
                     .focused($isTextFieldFocused)
                     .brandFont(.pretendard(.semiBold), 18)
-                    .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+                    .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
                     .padding(.leading, 16)
                 
                 accessory
                     .padding(.trailing, 16)
             }
             .frame(height: 56)
-            .background(DesignSystem.Colors.grayF4F5F7.swiftUIColor)
+            .background(DesignSystem.Colors.gray100.swiftUIColor)
             .clipShape(RoundedRectangle(cornerRadius: 10))
         }
     }

@@ -26,7 +26,7 @@ public struct GroupSelectView: View {
                 GroupScrollView()
                     .padding(.top, 18)
             }
-            .background(DesignSystem.Colors.grayFFFFFF.swiftUIColor)
+            .background(DesignSystem.Colors.gray0.swiftUIColor)
             .navigationDestination(
                 item: $store.scope(
                     state: \.groupEditor,
@@ -68,11 +68,11 @@ public struct GroupSelectView: View {
                 
                 Text(group.name)
                     .brandFont(.poppins(.semiBold), 16)
-                    .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+                    .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
                 
                 Text("+\(groupListViewItem.blockCount)")
                     .brandFont(.pretendard(.semiBold), 15)
-                    .foregroundStyle(DesignSystem.Colors.gray616161.swiftUIColor)
+                    .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
                 
                 Spacer()
                 
@@ -80,7 +80,7 @@ public struct GroupSelectView: View {
                     SFSymbol(
                         symbol: Symbol.checkmark_circle_fill.symbolName,
                         size: 20,
-                        color: DesignSystem.Colors.gray323232.swiftUIColor
+                        color: DesignSystem.Colors.gray900.swiftUIColor
                     )
                 }
             }
@@ -89,7 +89,7 @@ public struct GroupSelectView: View {
             .contentShape(Rectangle())
             .background(
                 isSelected
-                ? DesignSystem.Colors.grayE8E8E8.swiftUIColor
+                ? DesignSystem.Colors.gray300.swiftUIColor
                 : .clear
             )
         }
@@ -107,7 +107,7 @@ public struct GroupSelectView: View {
                 
                 Text("그룹 추가하기")
                     .brandFont(.pretendard(.semiBold), 15)
-                    .foregroundStyle(DesignSystem.Colors.gray616161.swiftUIColor)
+                    .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
                 
                 Spacer()
             }

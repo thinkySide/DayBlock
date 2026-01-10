@@ -30,7 +30,7 @@ public struct LabelSelection<Accessory: View>: View {
             HStack(spacing: 0) {
                 Text(label)
                     .brandFont(.pretendard(.semiBold), 16)
-                    .foregroundStyle(DesignSystem.Colors.gray616161.swiftUIColor)
+                    .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
                     .padding(.leading, 4)
                 
                 Spacer()
@@ -49,7 +49,7 @@ public struct LabelSelection<Accessory: View>: View {
                 Rectangle()
                     .frame(maxWidth: .infinity)
                     .frame(height: 1)
-                    .foregroundStyle(DesignSystem.Colors.grayE8E8E8.swiftUIColor)
+                    .foregroundStyle(DesignSystem.Colors.gray300.swiftUIColor)
             }
         }
     }

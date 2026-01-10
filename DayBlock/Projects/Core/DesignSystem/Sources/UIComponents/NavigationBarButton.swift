@@ -43,7 +43,7 @@ public struct NavigationBarButton: View {
                         .padding(.horizontal, 4)
                 }
             }
-            .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+            .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
         }
         .glassButtonStyle()
     }

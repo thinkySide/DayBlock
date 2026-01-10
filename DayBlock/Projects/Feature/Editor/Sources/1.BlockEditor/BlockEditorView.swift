@@ -54,7 +54,7 @@ public struct BlockEditorView: View {
                 accessory: {
                     Text("\(store.nameText.count)/\(store.nameTextLimit)")
                         .brandFont(.pretendard(.semiBold), 14)
-                        .foregroundStyle(DesignSystem.Colors.grayAAAAAA.swiftUIColor)
+                        .foregroundStyle(DesignSystem.Colors.gray600.swiftUIColor)
                 }
             )
             .padding(.top, 32)
@@ -73,7 +73,7 @@ public struct BlockEditorView: View {
                         
                         Text(store.selectedGroup.name)
                             .brandFont(.pretendard(.bold), 17)
-                            .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+                            .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
                     }
                 },
                 onTap: {
@@ -89,7 +89,7 @@ public struct BlockEditorView: View {
                     SFSymbol(
                         symbol: IconPalette.toIcon(from: store.editingBlock.iconIndex),
                         size: 24,
-                        color: DesignSystem.Colors.gray323232.swiftUIColor
+                        color: DesignSystem.Colors.gray900.swiftUIColor
                     )
                 },
                 onTap: {
@@ -102,7 +102,7 @@ public struct BlockEditorView: View {
             Spacer()
         }
         .toolbarVisibility(.hidden, for: .navigationBar)
-        .background(DesignSystem.Colors.grayFFFFFF.swiftUIColor)
+        .background(DesignSystem.Colors.gray0.swiftUIColor)
         .onAppear {
             store.send(.view(.onAppear))
         }

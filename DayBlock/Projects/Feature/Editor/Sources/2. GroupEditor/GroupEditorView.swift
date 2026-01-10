@@ -44,7 +44,7 @@ public struct GroupEditorView: View {
                 accessory: {
                     Text("\(store.nameText.count)/\(store.nameTextLimit)")
                         .brandFont(.pretendard(.semiBold), 14)
-                        .foregroundStyle(DesignSystem.Colors.grayAAAAAA.swiftUIColor)
+                        .foregroundStyle(DesignSystem.Colors.gray600.swiftUIColor)
                 }
             )
             .padding(.top, 32)
@@ -69,7 +69,7 @@ public struct GroupEditorView: View {
             
             Spacer()
         }
-        .background(DesignSystem.Colors.grayFFFFFF.swiftUIColor)
+        .background(DesignSystem.Colors.gray0.swiftUIColor)
         .toolbarVisibility(.hidden, for: .navigationBar)
         .onAppear {
             store.send(.view(.onAppear))
@@ -93,7 +93,7 @@ public struct GroupEditorView: View {
     private func NavigationTitle() -> some View {
         Text(navigationTitle)
             .brandFont(.pretendard(.bold), 15)
-            .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+            .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
     }
     
     @ViewBuilder
@@ -102,7 +102,7 @@ public struct GroupEditorView: View {
             store.send(.view(.onTapConfirmButton))
         }
         .brandFont(.pretendard(.bold), 15)
-        .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+        .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
     }
 }
 

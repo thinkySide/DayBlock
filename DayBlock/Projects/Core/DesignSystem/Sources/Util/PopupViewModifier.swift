@@ -79,7 +79,7 @@ public struct PopupViewModifier: ViewModifier {
                         )
                         .background(
                             RoundedRectangle(cornerRadius: 20)
-                                .fill(DesignSystem.Colors.grayFFFFFF.swiftUIColor)
+                                .fill(DesignSystem.Colors.gray0.swiftUIColor)
                                 .shadow(color: .black.opacity(0.15), radius: 20, y: 10)
                         )
                         .padding(.horizontal, 32)

@@ -50,7 +50,7 @@ public struct TrackingCarouselView: View {
             
             Text("오늘 하루는 어떤 블럭으로\n채우고 계신가요?")
                 .brandFont(.pretendard(.semiBold), 15)
-                .foregroundStyle(DesignSystem.Colors.gray616161.swiftUIColor)
+                .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
                 .multilineTextAlignment(.center)
                 .lineSpacing(2)
             
@@ -67,7 +67,7 @@ public struct TrackingCarouselView: View {
             
             Spacer()
         }
-        .background(DesignSystem.Colors.grayFFFFFF.swiftUIColor)
+        .background(DesignSystem.Colors.gray0.swiftUIColor)
         .onLoad {
             store.send(.view(.onLoad))
         }
@@ -133,17 +133,17 @@ extension TrackingCarouselView {
         VStack(alignment: .leading, spacing: 0) {
             Text(store.currentDate.formattedDateWithWeekday)
                 .brandFont(.pretendard(.semiBold), 16)
-                .foregroundStyle(DesignSystem.Colors.gray616161.swiftUIColor)
+                .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
                 .padding(.leading, 4)
 
             Text(store.currentDate.formattedTime24Hour)
                 .brandFont(.poppins(.bold), 56)
-                .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+                .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
                 .padding(.top, -8)
 
             Text("today +0.5")
                 .brandFont(.poppins(.bold), 23)
-                .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+                .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
                 .padding(.leading, 4)
                 .padding(.top, -12)
         }
@@ -162,7 +162,7 @@ extension TrackingCarouselView {
                 
                 Text(group.name)
                     .brandFont(.pretendard(.bold), 16)
-                    .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+                    .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
                 
                 DesignSystem.Icons.arrowDown.swiftUIImage
                     .resizable()

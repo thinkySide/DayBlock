@@ -40,10 +40,10 @@ public struct TrackingBoardBlock: View, Identifiable {
         Group {
             switch state {
             case .none:
-                DesignSystem.Colors.grayE8E8E8.swiftUIColor
+                DesignSystem.Colors.gray300.swiftUIColor
                 
             case .firstHalf(let color):
-                DesignSystem.Colors.grayE8E8E8.swiftUIColor
+                DesignSystem.Colors.gray300.swiftUIColor
                     .overlay(alignment: .leading) {
                         color
                             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
@@ -51,7 +51,7 @@ public struct TrackingBoardBlock: View, Identifiable {
                     }
                 
             case .secondHalf(let color):
-                DesignSystem.Colors.grayE8E8E8.swiftUIColor
+                DesignSystem.Colors.gray300.swiftUIColor
                     .overlay(alignment: .trailing) {
                         color
                             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
@@ -62,7 +62,7 @@ public struct TrackingBoardBlock: View, Identifiable {
                 color
                 
             case .mixed(let firstHalf, let secondHalf):
-                DesignSystem.Colors.grayE8E8E8.swiftUIColor
+                DesignSystem.Colors.gray300.swiftUIColor
                     .overlay(alignment: .leading) {
                         firstHalf
                             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))

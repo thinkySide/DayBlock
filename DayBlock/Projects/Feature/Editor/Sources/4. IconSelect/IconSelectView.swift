@@ -25,7 +25,7 @@ public struct IconSelectView: View {
             
             IconScrollView()
         }
-        .background(DesignSystem.Colors.grayFFFFFF.swiftUIColor)
+        .background(DesignSystem.Colors.gray0.swiftUIColor)
     }
     
     @ViewBuilder
@@ -50,8 +50,8 @@ public struct IconSelectView: View {
                 .brandFont(.pretendard(.semiBold), 14)
                 .foregroundStyle(
                     isSelected
-                    ? DesignSystem.Colors.gray323232.swiftUIColor
-                    : DesignSystem.Colors.grayAAAAAA.swiftUIColor
+                    ? DesignSystem.Colors.gray900.swiftUIColor
+                    : DesignSystem.Colors.gray600.swiftUIColor
                 )
                 .frame(maxWidth: .infinity)
                 .frame(height: 42)
@@ -59,8 +59,8 @@ public struct IconSelectView: View {
                     Rectangle()
                         .fill(
                             isSelected
-                            ? DesignSystem.Colors.gray323232.swiftUIColor
-                            : DesignSystem.Colors.grayC5C5C5.swiftUIColor
+                            ? DesignSystem.Colors.gray900.swiftUIColor
+                            : DesignSystem.Colors.gray500.swiftUIColor
                         )
                         .frame(height: isSelected ? 3 : 1)
                 }
@@ -92,16 +92,16 @@ public struct IconSelectView: View {
         ZStack {
             if isSelected {
                 Circle()
-                    .fill(DesignSystem.Colors.grayE8E8E8.swiftUIColor)
+                    .fill(DesignSystem.Colors.gray300.swiftUIColor)
 
                 Circle()
                     .strokeBorder(style: .init(lineWidth: 3))
-                    .foregroundStyle(DesignSystem.Colors.grayAAAAAA.swiftUIColor)
+                    .foregroundStyle(DesignSystem.Colors.gray600.swiftUIColor)
             }
 
             Image(systemName: iconName)
                 .font(.system(size: 28))
-                .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+                .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
                 .symbolEffect(.bounce, options: .repeating, isActive: isSelected)
         }
         .frame(width: 64, height: 64)

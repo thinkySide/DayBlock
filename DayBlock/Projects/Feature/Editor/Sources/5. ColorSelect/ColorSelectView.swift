@@ -23,7 +23,7 @@ public struct ColorSelectView: View {
             
             ColorScrollView()
         }
-        .background(DesignSystem.Colors.grayFFFFFF.swiftUIColor)
+        .background(DesignSystem.Colors.gray0.swiftUIColor)
     }
     
     @ViewBuilder
@@ -51,11 +51,11 @@ public struct ColorSelectView: View {
         ZStack {
             if isSelected {
                 Circle()
-                    .fill(DesignSystem.Colors.grayE8E8E8.swiftUIColor)
+                    .fill(DesignSystem.Colors.gray300.swiftUIColor)
 
                 Circle()
                     .strokeBorder(style: .init(lineWidth: 3))
-                    .foregroundStyle(DesignSystem.Colors.grayAAAAAA.swiftUIColor)
+                    .foregroundStyle(DesignSystem.Colors.gray600.swiftUIColor)
             }
 
             RoundedRectangle(cornerRadius: 10)

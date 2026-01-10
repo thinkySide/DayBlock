@@ -31,17 +31,17 @@ public struct Popup: View {
             
             var backgroundColor: Color {
                 switch self {
-                case .primary: DesignSystem.Colors.gray323232.swiftUIColor
-                case .secondary: DesignSystem.Colors.grayF4F5F7.swiftUIColor
+                case .primary: DesignSystem.Colors.gray900.swiftUIColor
+                case .secondary: DesignSystem.Colors.gray100.swiftUIColor
                 case .destructive: DesignSystem.Colors.eventDestructive.swiftUIColor
                 }
             }
             
             var textColor: Color {
                 switch self {
-                case .primary: DesignSystem.Colors.grayFFFFFF.swiftUIColor
-                case .secondary: DesignSystem.Colors.gray616161.swiftUIColor
-                case .destructive: DesignSystem.Colors.grayFFFFFF.swiftUIColor
+                case .primary: DesignSystem.Colors.gray0.swiftUIColor
+                case .secondary: DesignSystem.Colors.gray800.swiftUIColor
+                case .destructive: DesignSystem.Colors.gray0.swiftUIColor
                 }
             }
         }
@@ -68,11 +68,11 @@ public struct Popup: View {
         VStack(spacing: 0) {
             Text(title)
                 .brandFont(.pretendard(.bold), 18)
-                .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+                .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
             
             Text(message)
                 .brandFont(.pretendard(.medium), 15)
-                .foregroundStyle(DesignSystem.Colors.gray616161.swiftUIColor)
+                .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
                 .padding(.top, 8)
             
             HStack(spacing: 12) {

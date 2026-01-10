@@ -34,7 +34,7 @@ public struct TrackingButton: View {
         } label: {
             Circle()
                 .frame(width: 64, height: 64)
-                .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor.opacity(
+                .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor.opacity(
                     isDisabled ? 0.4 : 1
                 ))
                 .overlay(
@@ -42,7 +42,7 @@ public struct TrackingButton: View {
                         symbol: state == .play
                         ? Symbol.play_fill.symbolName : Symbol.pause_fill.symbolName,
                         size: 24,
-                        color: DesignSystem.Colors.grayFFFFFF.swiftUIColor
+                        color: DesignSystem.Colors.gray0.swiftUIColor
                     )
                     .padding(.leading, state == .play ? 6 : 0)
                 )

@@ -84,7 +84,7 @@ extension CarouselDayBlock {
 
     @ViewBuilder
     private func FrontView() -> some View {
-        DesignSystem.Colors.grayF4F5F7.swiftUIColor
+        DesignSystem.Colors.gray100.swiftUIColor
             .frame(width: 180, height: 180)
             .clipShape(RoundedRectangle(cornerRadius: 26))
             .overlay(alignment: .topLeading) {
@@ -100,7 +100,7 @@ extension CarouselDayBlock {
                 SFSymbol(
                     symbol: symbol,
                     size: 52,
-                    color: DesignSystem.Colors.gray323232.swiftUIColor
+                    color: DesignSystem.Colors.gray900.swiftUIColor
                 )
                 .padding(.top, 52)
             }
@@ -109,7 +109,7 @@ extension CarouselDayBlock {
                     .brandFont(.pretendard(.bold), 17)
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
-                    .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+                    .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
                     .frame(maxWidth: 180 - (16 * 2))
                     .padding(.top, 52 + 52 + 16)
             }
@@ -117,7 +117,7 @@ extension CarouselDayBlock {
 
     @ViewBuilder
     private func BackView() -> some View {
-        DesignSystem.Colors.grayF4F5F7.swiftUIColor
+        DesignSystem.Colors.gray100.swiftUIColor
             .frame(width: 180, height: 180)
             .clipShape(RoundedRectangle(cornerRadius: 26))
             .overlay(alignment: .top) {
@@ -130,7 +130,7 @@ extension CarouselDayBlock {
             .overlay(alignment: .top) {
                 Capsule()
                     .frame(width: 2, height: 22)
-                    .foregroundStyle(DesignSystem.Colors.grayC5C5C5.swiftUIColor)
+                    .foregroundStyle(DesignSystem.Colors.gray500.swiftUIColor)
                     .padding(.top, 48)
             }
     }
@@ -146,7 +146,7 @@ extension CarouselDayBlock {
                 .foregroundStyle(color)
             
             Text(toLabelString(totalAmount))
-                .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+                .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
         }
         .brandFont(.poppins(.bold), 18)
     }
@@ -192,11 +192,11 @@ extension CarouselDayBlock {
         VStack(spacing: -4) {
             Text(toLabelString(totalAmount))
                 .brandFont(.poppins(.bold), 20)
-                .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+                .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
             
             Text("total")
                 .brandFont(.poppins(.bold), 14)
-                .foregroundStyle(DesignSystem.Colors.gray616161.swiftUIColor)
+                .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
         }
     }
     
@@ -205,11 +205,11 @@ extension CarouselDayBlock {
         VStack(spacing: -4) {
             Text(toLabelString(todayAmount))
                 .brandFont(.poppins(.bold), 20)
-                .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+                .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
             
             Text("today")
                 .brandFont(.poppins(.bold), 14)
-                .foregroundStyle(DesignSystem.Colors.gray616161.swiftUIColor)
+                .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
         }
     }
     
@@ -225,7 +225,7 @@ extension CarouselDayBlock {
                     SFSymbol(
                         symbol: Symbol.trash_fill.symbolName,
                         size: 32,
-                        color: DesignSystem.Colors.grayF4F5F7.swiftUIColor
+                        color: DesignSystem.Colors.gray100.swiftUIColor
                     )
                 )
         }
@@ -238,12 +238,12 @@ extension CarouselDayBlock {
         } label: {
             Circle()
                 .frame(width: 56, height: 56)
-                .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+                .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
                 .overlay(
                     SFSymbol(
                         symbol: Symbol.pencil.symbolName,
                         size: 32,
-                        color: DesignSystem.Colors.grayF4F5F7.swiftUIColor
+                        color: DesignSystem.Colors.gray100.swiftUIColor
                     )
                 )
         }

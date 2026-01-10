@@ -36,17 +36,17 @@ struct ColorView: View {
     }
     
     private let colors: [DesignSystemColors] = [
-        DesignSystem.Colors.gray111111,
-        DesignSystem.Colors.gray323232,
-        DesignSystem.Colors.gray616161,
-        DesignSystem.Colors.gray757575,
-        DesignSystem.Colors.grayAAAAAA,
-        DesignSystem.Colors.grayB2B5BD,
-        DesignSystem.Colors.grayC5C5C5,
-        DesignSystem.Colors.grayE8E8E8,
-        DesignSystem.Colors.grayEEEEEE,
-        DesignSystem.Colors.grayF4F5F7,
-        DesignSystem.Colors.grayFFFFFF
+        DesignSystem.Colors.gray1000,
+        DesignSystem.Colors.gray900,
+        DesignSystem.Colors.gray800,
+        DesignSystem.Colors.gray700,
+        DesignSystem.Colors.gray600,
+        DesignSystem.Colors.gray400,
+        DesignSystem.Colors.gray500,
+        DesignSystem.Colors.gray300,
+        DesignSystem.Colors.gray200,
+        DesignSystem.Colors.gray100,
+        DesignSystem.Colors.gray0
     ]
 }
 

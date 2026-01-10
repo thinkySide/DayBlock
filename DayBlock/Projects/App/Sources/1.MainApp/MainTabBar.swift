@@ -66,16 +66,16 @@ private struct TabBarItem: View {
                     .frame(width: 24, height: 24)
                     .foregroundStyle(
                         isSelected
-                        ? DesignSystem.Colors.gray323232.swiftUIColor
-                        : DesignSystem.Colors.grayC5C5C5.swiftUIColor
+                        ? DesignSystem.Colors.gray900.swiftUIColor
+                        : DesignSystem.Colors.gray500.swiftUIColor
                     )
 
                 Text(label)
                     .brandFont(.pretendard(isSelected ? .bold : .medium), 10)
                     .foregroundStyle(
                         isSelected
-                        ? DesignSystem.Colors.gray323232.swiftUIColor
-                        : DesignSystem.Colors.grayC5C5C5.swiftUIColor
+                        ? DesignSystem.Colors.gray900.swiftUIColor
+                        : DesignSystem.Colors.gray500.swiftUIColor
                     )
             }
             .frame(maxWidth: 72)

@@ -45,7 +45,7 @@ public struct NavigationBar<Leading: View, Center: View, Trailing: View>: View {
                 if let title = title {
                     Text(title)
                         .brandFont(.pretendard(.bold), 15)
-                        .foregroundStyle(DesignSystem.Colors.gray323232.swiftUIColor)
+                        .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
                 } else {
                     centerView
                 }
