@@ -41,6 +41,7 @@ public struct BlockCarouselFeature {
 
         public var path = StackState<Path.State>()
         @Presents var groupSelect: GroupSelectFeature.State?
+        @Presents var tracking: TrackingFeature.State?
 
         public init() { }
     }
@@ -55,6 +56,7 @@ public struct BlockCarouselFeature {
             case onTapBlockDeleteButton
             case onTapBlockEditButton(Block)
             case onTapAddBlock
+            case onTapTrackingButton
         }
         
         public enum InnerAction {
@@ -82,6 +84,7 @@ public struct BlockCarouselFeature {
         case binding(BindingAction<State>)
         case path(StackActionOf<Path>)
         case groupSelect(PresentationAction<GroupSelectFeature.Action>)
+        case tracking(PresentationAction<TrackingFeature.Action>)
     }
     
     @CasePathable
@@ -150,6 +153,19 @@ public struct BlockCarouselFeature {
                         selectedGroup: state.selectedGroup
                     )
                     state.path.append(.blockEditor(blockEditorState))
+                    return .none
+                    
+                case .onTapTrackingButton:
+                    let block: Block? = switch state.focusedBlock {
+                    case .block(let id): state.blockList.first(where: { $0.id == id })
+                    default: nil
+                    }
+                    
+                    guard let block else { return .none }
+                    state.tracking = .init(
+                        trackingGroup: state.selectedGroup,
+                        trackingBlock: block
+                    )
                     return .none
                 }
                 
@@ -303,6 +319,9 @@ public struct BlockCarouselFeature {
         .forEach(\.path, action: \.path)
         .ifLet(\.$groupSelect, action: \.groupSelect) {
             GroupSelectFeature()
+        }
+        .ifLet(\.$tracking, action: \.tracking) {
+            TrackingFeature()
         }
     }
 }

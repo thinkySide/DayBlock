@@ -80,6 +80,7 @@ private struct TabBarItem: View {
             }
             .frame(maxWidth: 72)
         }
+        .buttonStyle(ScaleButtonStyle())
     }
     
     private var isSelected: Bool {

@@ -8,7 +8,7 @@ import SwiftData
 struct TrackingDemoApp: App {
     
     let store = Store(initialState: .init()) {
-        TrackingCarouselFeature()
+        BlockCarouselFeature()
     }
     
     @Dependency(\.modelContainer) private var modelContainer
@@ -19,7 +19,7 @@ struct TrackingDemoApp: App {
     
     var body: some Scene {
         WindowGroup {
-            TrackingCarouselView(store: store)
+            BlockCarouselView(store: store)
         }
         .modelContainer(modelContainer)
     }

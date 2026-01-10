@@ -61,7 +61,7 @@ public struct BlockCarouselView: View {
                 state: .play,
                 isDisabled: store.focusedBlock == .addBlock || store.focusedBlock == nil,
                 tapAction: {
-                    
+                    store.send(.view(.onTapTrackingButton))
                 }
             )
             
@@ -84,6 +84,16 @@ public struct BlockCarouselView: View {
             )
         ) { childStore in
             GroupSelectView(store: childStore)
+                .presentationDetents([.medium, .large], selection: $store.sheetDetent)
+                .presentationDragIndicator(.visible)
+        }
+        .sheet(
+            item: $store.scope(
+                state: \.tracking,
+                action: \.tracking
+            )
+        ) { childStore in
+            TrackingView(store: childStore)
                 .presentationDetents([.medium, .large], selection: $store.sheetDetent)
                 .presentationDragIndicator(.visible)
         }
