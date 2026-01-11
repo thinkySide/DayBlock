@@ -63,7 +63,8 @@ public struct TrackingDayBlock: View {
                 symbol: symbol,
                 size: 68,
                 color: DesignSystem.Colors.gray900.swiftUIColor,
-                isAnimating: !isPaused
+                isAnimating: !isPaused,
+                animationType: .bounce
             )
             .padding(.top, symbolTopPadding)
         }

@@ -20,10 +20,19 @@ public struct IconSelectView: View {
     public var body: some View {
         VStack(spacing: 0) {
             NavigationBar(title: "아이콘 선택", isSheet: true)
-            
+
             IconGroupTab()
-            
-            IconScrollView()
+
+            TabView(selection: Binding(
+                get: { store.selectedIconGroup },
+                set: { store.send(.view(.onTapIconGroup(selectedIconGroup: $0))) }
+            )) {
+                ForEach(IconSelectFeature.IconGroup.allCases, id: \.self) { group in
+                    IconScrollView(iconGroup: group)
+                        .tag(group)
+                }
+            }
+            .tabViewStyle(.page(indexDisplayMode: .never))
         }
         .background(DesignSystem.Colors.gray0.swiftUIColor)
     }
@@ -31,7 +40,6 @@ public struct IconSelectView: View {
     @ViewBuilder
     private func IconGroupTab() -> some View {
         HStack(spacing: 0) {
-            IconGroupCell(.all)
             IconGroupCell(.object)
             IconGroupCell(.nature)
             IconGroupCell(.fitness)
@@ -68,12 +76,12 @@ public struct IconSelectView: View {
     }
     
     @ViewBuilder
-    private func IconScrollView() -> some View {
+    private func IconScrollView(iconGroup: IconSelectFeature.IconGroup) -> some View {
         let columns = Array(repeating: GridItem(.flexible(), spacing: 0), count: 5)
         ScrollViewReader { proxy in
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 0) {
-                    ForEach(iconList(from: store.selectedIconGroup), id: \.self) { iconName in
+                    ForEach(iconList(from: iconGroup), id: \.self) { iconName in
                         IconCell(iconName: iconName)
                     }
                 }
@@ -99,10 +107,13 @@ public struct IconSelectView: View {
                     .foregroundStyle(DesignSystem.Colors.gray600.swiftUIColor)
             }
 
-            Image(systemName: iconName)
-                .font(.system(size: 28))
-                .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
-                .symbolEffect(.bounce, options: .repeating, isActive: isSelected)
+            SFSymbol(
+                symbol: iconName,
+                size: 28,
+                color: DesignSystem.Colors.gray900.swiftUIColor,
+                isAnimating: isSelected,
+                animationType: .pulse
+            )
         }
         .frame(width: 64, height: 64)
         .onTapGesture {
@@ -117,7 +128,6 @@ extension IconSelectView {
     /// 아이콘 그룹 이름을 반환합니다.
     private func iconGroupName(from iconGroup: IconSelectFeature.IconGroup) -> String {
         switch iconGroup {
-        case .all: "전체"
         case .object: "사물"
         case .nature: "자연"
         case .fitness: "운동"
@@ -129,7 +139,6 @@ extension IconSelectView {
     /// 아이콘 그룹에 해당하는 아이콘 배열을 반환합니다.
     private func iconList(from iconGroup: IconSelectFeature.IconGroup) -> [String] {
         switch iconGroup {
-        case .all: IconPalette.icons
         case .object: IconPalette.objectIcons
         case .nature: IconPalette.natureIcons
         case .fitness: IconPalette.fitnessIcons

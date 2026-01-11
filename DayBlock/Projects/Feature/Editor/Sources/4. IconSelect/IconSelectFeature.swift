@@ -8,12 +8,12 @@
 import ComposableArchitecture
 import Domain
 import Util
+import DesignSystem
 
 @Reducer
 public struct IconSelectFeature {
     
-    public enum IconGroup {
-        case all
+    public enum IconGroup: CaseIterable, Hashable {
         case object
         case nature
         case fitness
@@ -24,12 +24,29 @@ public struct IconSelectFeature {
     @ObservableState
     public struct State: Equatable {
         var selectedIconIndex: Int
-        var selectedIconGroup: IconGroup = .all
-        
+        var selectedIconGroup: IconGroup
+
         public init(
             selectedIconIndex: Int
         ) {
             self.selectedIconIndex = selectedIconIndex
+            
+            let objectCount = IconPalette.objectIcons.count
+            let natureCount = IconPalette.natureIcons.count
+            let fitnessCount = IconPalette.fitnessIcons.count
+            let furnitureCount = IconPalette.furnitureIcons.count
+
+            if selectedIconIndex < objectCount {
+                self.selectedIconGroup = .object
+            } else if selectedIconIndex < objectCount + natureCount {
+                self.selectedIconGroup = .nature
+            } else if selectedIconIndex < objectCount + natureCount + fitnessCount {
+                self.selectedIconGroup = .fitness
+            } else if selectedIconIndex < objectCount + natureCount + fitnessCount + furnitureCount {
+                self.selectedIconGroup = .furniture
+            } else {
+                self.selectedIconGroup = .etc
+            }
         }
     }
 
