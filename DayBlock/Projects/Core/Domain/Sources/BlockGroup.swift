@@ -5,7 +5,7 @@
 //  Created by 김민준 on 12/26/25.
 //
 
-import SwiftUI
+import Foundation
 
 public struct BlockGroup: Identifiable, Equatable, Codable {
     

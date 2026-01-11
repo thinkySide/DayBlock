@@ -17,6 +17,8 @@ public struct TrackingFeature {
     public struct State: Equatable {
         var trackingGroup: BlockGroup
         var trackingBlock: Block
+        var trackingTime: TrackingData.Time
+        var completedTrackingTimeList: [TrackingData.Time] = []
         var currentDate: Date = .now
         var elapsedTime: TimeInterval = 0
         var isPaused: Bool = false
@@ -25,9 +27,10 @@ public struct TrackingFeature {
             trackingGroup: BlockGroup,
             trackingBlock: Block
         ) {
+            @Dependency(\.date) var date
             self.trackingGroup = trackingGroup
             self.trackingBlock = trackingBlock
-            Debug.log("group: \(trackingGroup.name), block: \(trackingBlock.name)")
+            self.trackingTime = .init(startDate: date.now, endDate: nil)
         }
     }
 
