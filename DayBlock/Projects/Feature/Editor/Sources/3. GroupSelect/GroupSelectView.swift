@@ -89,7 +89,7 @@ public struct GroupSelectView: View {
             .contentShape(Rectangle())
             .background(
                 isSelected
-                ? DesignSystem.Colors.gray300.swiftUIColor
+                ? DesignSystem.Colors.gray100.swiftUIColor
                 : .clear
             )
         }
