@@ -210,21 +210,10 @@ extension TrackingView {
         color: Color
     ) -> TrackingBoardBlock.Variation {
         switch (existing, new) {
-        case (.firstHalf(let existingColor, let existingTracking), .secondHalf(_, let newTracking)):
-            return .mixed(
-                firstHalf: existingColor,
-                isFirstHalfTracking: existingTracking,
-                secondHalf: color,
-                isSecondHalfTracking: newTracking
-            )
-
-        case (.secondHalf(let existingColor, let existingTracking), .firstHalf(_, let newTracking)):
-            return .mixed(
-                firstHalf: color,
-                isFirstHalfTracking: newTracking,
-                secondHalf: existingColor,
-                isSecondHalfTracking: existingTracking
-            )
+        case (.firstHalf(_, let existingTracking), .secondHalf(_, let newTracking)),
+             (.secondHalf(_, let newTracking), .firstHalf(_, let existingTracking)):
+            let isTracking = existingTracking || newTracking
+            return .full(color, isTracking: isTracking)
 
         default:
             return new
