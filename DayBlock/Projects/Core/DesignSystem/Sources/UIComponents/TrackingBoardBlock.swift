@@ -9,7 +9,7 @@ import SwiftUI
 
 public struct TrackingBoardBlock: View, Identifiable {
 
-    public enum State: Equatable {
+    public enum Variation: Equatable {
         case none
         case firstHalf(Color, isTracking: Bool = false)
         case secondHalf(Color, isTracking: Bool = false)
@@ -25,25 +25,27 @@ public struct TrackingBoardBlock: View, Identifiable {
     public var id: Int { hour }
 
     let hour: Int
-    let state: State
+    let variation: Variation
     let size: CGFloat
     let cornerRadius: CGFloat
-    
+
+    @State private var isAnimating = false
+
     public init(
         hour: Int,
-        state: State,
+        variation: Variation,
         size: CGFloat,
         cornerRadius: CGFloat
     ) {
         self.hour = hour
-        self.state = state
+        self.variation = variation
         self.size = size
         self.cornerRadius = cornerRadius
     }
     
     public var body: some View {
         Group {
-            switch state {
+            switch variation {
             case .none:
                 DesignSystem.Colors.gray300.swiftUIColor
                 
@@ -51,30 +53,35 @@ public struct TrackingBoardBlock: View, Identifiable {
                 DesignSystem.Colors.gray300.swiftUIColor
                     .overlay(alignment: .leading) {
                         color
+                            .opacity(isTracking ? animateOpacity : 1.0)
                             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                             .frame(width: size / 2, height: size)
                     }
-                
+
             case .secondHalf(let color, let isTracking):
                 DesignSystem.Colors.gray300.swiftUIColor
                     .overlay(alignment: .trailing) {
                         color
+                            .opacity(isTracking ? animateOpacity : 1.0)
                             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                             .frame(width: size / 2, height: size)
                     }
-                
+
             case .full(let color, let isTracking):
                 color
-                
+                    .opacity(isTracking ? animateOpacity : 1)
+
             case .mixed(let firstHalf, let isFirstHalfTracking, let secondHalf, let isSecondHalfTracking):
                 DesignSystem.Colors.gray300.swiftUIColor
                     .overlay(alignment: .leading) {
                         firstHalf
+                            .opacity(isFirstHalfTracking ? animateOpacity : 1)
                             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                             .frame(width: size / 2, height: size)
                     }
                     .overlay(alignment: .trailing) {
                         secondHalf
+                            .opacity(isSecondHalfTracking ? animateOpacity : 1)
                             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                             .frame(width: size / 2, height: size)
                     }
@@ -82,15 +89,29 @@ public struct TrackingBoardBlock: View, Identifiable {
         }
         .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
         .frame(width: size, height: size)
+        .onAppear {
+            withAnimation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true)) {
+                isAnimating = true
+            }
+        }
     }
 }
 
-// MARK: - State Equtable
-extension TrackingBoardBlock.State {
+// MARK: - Helper
+extension TrackingBoardBlock {
+    
+    /// 애니메이션용 Opacity를 반환합니다.
+    private var animateOpacity: Double {
+        isAnimating ? 0.1 : 1
+    }
+}
+
+// MARK: - Variation Equtable
+extension TrackingBoardBlock.Variation {
 
     public static func == (
-        lhs: TrackingBoardBlock.State,
-        rhs: TrackingBoardBlock.State
+        lhs: TrackingBoardBlock.Variation,
+        rhs: TrackingBoardBlock.Variation
     ) -> Bool {
         switch (lhs, rhs) {
         case (.none, .none):

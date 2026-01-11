@@ -15,7 +15,7 @@ public struct TrackingBoard: View {
     let spacing: CGFloat
 
     public init(
-        activeBlocks: [Int: TrackingBoardBlock.State],
+        activeBlocks: [Int: TrackingBoardBlock.Variation],
         blockSize: CGFloat,
         blockCornerRadius: CGFloat,
         spacing: CGFloat
@@ -54,7 +54,7 @@ extension TrackingBoard {
 
     /// 활성화된 블럭 상태를 기반으로 전체 블럭 View 배열을 반환합니다.
     private static func generateBlocks(
-        from activeBlocks: [Int: TrackingBoardBlock.State],
+        from activeBlocks: [Int: TrackingBoardBlock.Variation],
         blockSize: CGFloat,
         blockCornerRadius: CGFloat
     ) -> [TrackingBoardBlock] {
@@ -63,7 +63,7 @@ extension TrackingBoard {
             let state = activeBlocks[hour] ?? .none
             let block = TrackingBoardBlock(
                 hour: hour,
-                state: state,
+                variation: state,
                 size: blockSize,
                 cornerRadius: blockCornerRadius
             )

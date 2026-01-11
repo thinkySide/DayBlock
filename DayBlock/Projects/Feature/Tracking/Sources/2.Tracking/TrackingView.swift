@@ -159,10 +159,10 @@ extension TrackingView {
 extension TrackingView {
     
     /// TrackingBoard에 표시할 데이터를 반환합니다.
-    private var activeBlocks: [Int: TrackingBoardBlock.State] {
+    private var activeBlocks: [Int: TrackingBoardBlock.Variation] {
         let color = ColorPalette.toColor(from: store.trackingGroup.colorIndex)
         let trackingBlock = convertTimeToBlocks(time: store.trackingTime, color: color, isTracking: true)
-        let completedBlocks = store.completedTrackingTimeList.reduce(into: [Int: TrackingBoardBlock.State]()) { result, time in
+        let completedBlocks = store.completedTrackingTimeList.reduce(into: [Int: TrackingBoardBlock.Variation]()) { result, time in
             let newBlocks = convertTimeToBlocks(time: time, color: color, isTracking: true)
             result = mergeBlocks(result, newBlocks, color: color)
         }
@@ -174,13 +174,13 @@ extension TrackingView {
         time: TrackingData.Time,
         color: Color,
         isTracking: Bool
-    ) -> [Int: TrackingBoardBlock.State] {
+    ) -> [Int: TrackingBoardBlock.Variation] {
         @Dependency(\.calendar) var calendar
         let components = calendar.dateComponents([.hour, .minute], from: time.startDate)
         guard let hour = components.hour, let minute = components.minute else { return [:] }
 
         let isFirstHalf = minute < 30
-        let state: TrackingBoardBlock.State = isFirstHalf
+        let state: TrackingBoardBlock.Variation = isFirstHalf
             ? .firstHalf(color, isTracking: isTracking)
             : .secondHalf(color, isTracking: isTracking)
 
@@ -189,10 +189,10 @@ extension TrackingView {
 
     /// 두 개의 블럭 딕셔너리를 병합합니다.
     private func mergeBlocks(
-        _ blocks1: [Int: TrackingBoardBlock.State],
-        _ blocks2: [Int: TrackingBoardBlock.State],
+        _ blocks1: [Int: TrackingBoardBlock.Variation],
+        _ blocks2: [Int: TrackingBoardBlock.Variation],
         color: Color
-    ) -> [Int: TrackingBoardBlock.State] {
+    ) -> [Int: TrackingBoardBlock.Variation] {
         blocks2.reduce(into: blocks1) { result, entry in
             let (hour, newState) = entry
             if let existingState = result[hour] {
@@ -205,10 +205,10 @@ extension TrackingView {
 
     /// 두 개의 State를 병합합니다.
     private func mergeStates(
-        _ existing: TrackingBoardBlock.State,
-        _ new: TrackingBoardBlock.State,
+        _ existing: TrackingBoardBlock.Variation,
+        _ new: TrackingBoardBlock.Variation,
         color: Color
-    ) -> TrackingBoardBlock.State {
+    ) -> TrackingBoardBlock.Variation {
         switch (existing, new) {
         case (.firstHalf(let existingColor, let existingTracking), .secondHalf(_, let newTracking)):
             return .mixed(

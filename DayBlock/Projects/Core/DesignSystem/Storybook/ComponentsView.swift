@@ -44,36 +44,48 @@ struct ComponentsView: View {
                         blockCornerRadius: 4.5,
                         spacing: 4
                     )
+                    TrackingBoard(
+                        activeBlocks: [
+                            0: .firstHalf(.red, isTracking: true),
+                            1: .mixed(firstHalf: .blue, secondHalf: .yellow, isSecondHalfTracking: true),
+                            9: .full(.purple, isTracking: true),
+                            12: .secondHalf(.green, isTracking: true),
+                            17: .full(.orange, isTracking: true)
+                        ],
+                        blockSize: 18,
+                        blockCornerRadius: 4.5,
+                        spacing: 4
+                    )
                     
                 case .trackingBoardBlock:
                     HStack {
                         TrackingBoardBlock(
                             hour: 0,
-                            state: .none,
+                            variation: .none,
                             size: 32,
                             cornerRadius: 8
                         )
                         TrackingBoardBlock(
                             hour: 1,
-                            state: .firstHalf(.red),
+                            variation: .firstHalf(.red),
                             size: 32,
                             cornerRadius: 8
                         )
                         TrackingBoardBlock(
                             hour: 2,
-                            state: .secondHalf(.blue),
+                            variation: .secondHalf(.blue),
                             size: 32,
                             cornerRadius: 8
                         )
                         TrackingBoardBlock(
                             hour: 3,
-                            state: .full(.purple),
+                            variation: .full(.purple),
                             size: 32,
                             cornerRadius: 8
                         )
                         TrackingBoardBlock(
                             hour: 4,
-                            state: .mixed(firstHalf: .cyan, secondHalf: .brown),
+                            variation: .mixed(firstHalf: .cyan, secondHalf: .brown),
                             size: 32,
                             cornerRadius: 8
                         )
