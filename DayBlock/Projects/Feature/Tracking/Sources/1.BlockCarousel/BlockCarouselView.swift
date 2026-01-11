@@ -87,14 +87,9 @@ public struct BlockCarouselView: View {
                 .presentationDragIndicator(.visible)
         }
         .overlay {
-            Group {
-                if let childStore = store.scope(state: \.tracking, action: \.tracking) {
-                    TrackingView(store: childStore)
-                        .transition(.opacity)
-                        .zIndex(1)
-                }
+            if let childStore = store.scope(state: \.tracking, action: \.tracking) {
+                TrackingView(store: childStore)
             }
-            // .animation(.easeInOut(duration: 0.3), value: store.tracking != nil)
         }
         .popup(
             isPresented: $store.isPopupPresented,
@@ -132,7 +127,8 @@ extension BlockCarouselView {
                 activeBlocks: [:],
                 blockSize: 18,
                 blockCornerRadius: 4.5,
-                spacing: 4
+                spacing: 4,
+                isPaused: false
             )
         }
     }

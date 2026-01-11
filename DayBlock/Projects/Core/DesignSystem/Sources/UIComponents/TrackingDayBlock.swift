@@ -13,6 +13,7 @@ public struct TrackingDayBlock: View {
     let todayAmount: Double
     let symbol: String
     let color: Color
+    let isPaused: Bool
     let onLongPressComplete: () -> Void
 
     @GestureState private var isPressing = false
@@ -25,12 +26,14 @@ public struct TrackingDayBlock: View {
         todayAmount: Double,
         symbol: String,
         color: Color,
+        isPaused: Bool,
         onLongPressComplete: @escaping () -> Void = {}
     ) {
         self.title = title
         self.todayAmount = todayAmount
         self.symbol = symbol
         self.color = color
+        self.isPaused = isPaused
         self.onLongPressComplete = onLongPressComplete
     }
     
@@ -59,7 +62,8 @@ public struct TrackingDayBlock: View {
             SFSymbol(
                 symbol: symbol,
                 size: 68,
-                color: DesignSystem.Colors.gray900.swiftUIColor
+                color: DesignSystem.Colors.gray900.swiftUIColor,
+                isAnimating: !isPaused
             )
             .padding(.top, symbolTopPadding)
         }

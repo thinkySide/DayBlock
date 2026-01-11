@@ -9,80 +9,86 @@ import SwiftUI
 
 public struct TrackingBoardBlock: View, Identifiable {
 
-    public enum Variation: Equatable {
+    public enum Area: Equatable {
         case none
-        case firstHalf(Color, isTracking: Bool = false)
-        case secondHalf(Color, isTracking: Bool = false)
-        case full(Color, isTracking: Bool = false)
+        case firstHalf(Color, Variation)
+        case secondHalf(Color, Variation)
+        case full(Color, Variation)
         case mixed(
             firstHalf: Color,
-            isFirstHalfTracking: Bool = false,
+            firstHalfState: Variation,
             secondHalf: Color,
-            isSecondHalfTracking: Bool = false
+            secondHalfState: Variation
         )
+        
+        public enum Variation: Equatable {
+            case stored
+            case tracking
+            case paused
+        }
     }
 
     public var id: Int { hour }
 
     let hour: Int
-    let variation: Variation
+    let area: Area
     let size: CGFloat
     let cornerRadius: CGFloat
-    let isTracking: Bool
+    let isAnimating: Bool
 
     public init(
         hour: Int,
-        variation: Variation,
+        area: Area,
         size: CGFloat,
         cornerRadius: CGFloat,
-        isTracking: Bool
+        isAnimating: Bool
     ) {
         self.hour = hour
-        self.variation = variation
+        self.area = area
         self.size = size
         self.cornerRadius = cornerRadius
-        self.isTracking = isTracking
+        self.isAnimating = isAnimating
     }
     
     public var body: some View {
         Group {
-            switch variation {
+            switch area {
             case .none:
                 DesignSystem.Colors.gray300.swiftUIColor
-                
-            case .firstHalf(let color, let isTracking):
+
+            case .firstHalf(let color, let variation):
                 DesignSystem.Colors.gray300.swiftUIColor
                     .overlay(alignment: .leading) {
-                        color
-                            .opacity(isTracking ? animateOpacity : 1)
+                        displayColor(color, for: variation)
+                            .opacity(opacity(for: variation))
                             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                             .frame(width: size / 2, height: size)
                     }
 
-            case .secondHalf(let color, let isTracking):
+            case .secondHalf(let color, let variation):
                 DesignSystem.Colors.gray300.swiftUIColor
                     .overlay(alignment: .trailing) {
-                        color
-                            .opacity(isTracking ? animateOpacity : 1)
+                        displayColor(color, for: variation)
+                            .opacity(opacity(for: variation))
                             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                             .frame(width: size / 2, height: size)
                     }
 
-            case .full(let color, let isTracking):
-                color
-                    .opacity(isTracking ? animateOpacity : 1)
+            case .full(let color, let variation):
+                displayColor(color, for: variation)
+                    .opacity(opacity(for: variation))
 
-            case .mixed(let firstHalf, let isFirstHalfTracking, let secondHalf, let isSecondHalfTracking):
+            case .mixed(let firstHalfColor, let firstHalfState, let secondHalfColor, let secondHalfState):
                 DesignSystem.Colors.gray300.swiftUIColor
                     .overlay(alignment: .leading) {
-                        firstHalf
-                            .opacity(isFirstHalfTracking ? animateOpacity : 1)
+                        displayColor(firstHalfColor, for: firstHalfState)
+                            .opacity(opacity(for: firstHalfState))
                             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                             .frame(width: size / 2, height: size)
                     }
                     .overlay(alignment: .trailing) {
-                        secondHalf
-                            .opacity(isSecondHalfTracking ? animateOpacity : 1)
+                        displayColor(secondHalfColor, for: secondHalfState)
+                            .opacity(opacity(for: secondHalfState))
                             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                             .frame(width: size / 2, height: size)
                     }
@@ -95,19 +101,30 @@ public struct TrackingBoardBlock: View, Identifiable {
 
 // MARK: - Helper
 extension TrackingBoardBlock {
-    
-    /// 애니메이션용 Opacity를 반환합니다.
-    private var animateOpacity: Double {
-        isTracking ? 0.1 : 1
+
+    /// Variation에 따라 표시할 색상을 반환합니다.
+    private func displayColor(_ originalColor: Color, for variation: Area.Variation) -> Color {
+        switch variation {
+        case .paused: DesignSystem.Colors.gray400.swiftUIColor
+        default: originalColor
+        }
+    }
+
+    /// Variation에 따른 Opacity를 반환합니다.
+    private func opacity(for variation: Area.Variation) -> Double {
+        switch variation {
+        case .tracking: isAnimating ? 0.1 : 1.0
+        default: 1
+        }
     }
 }
 
-// MARK: - Variation Equtable
-extension TrackingBoardBlock.Variation {
+// MARK: - Area Equtable
+extension TrackingBoardBlock.Area {
 
     public static func == (
-        lhs: TrackingBoardBlock.Variation,
-        rhs: TrackingBoardBlock.Variation
+        lhs: TrackingBoardBlock.Area,
+        rhs: TrackingBoardBlock.Area
     ) -> Bool {
         switch (lhs, rhs) {
         case (.none, .none):

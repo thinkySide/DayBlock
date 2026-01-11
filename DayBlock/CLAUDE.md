@@ -193,6 +193,29 @@ case .binding(\.value):
     state.shouldTriggerHaptic = true  // Reset for next user interaction
 ```
 
+### Concurrency
+
+**IMPORTANT**: Always use Swift's modern concurrency (Task, async/await) instead of DispatchQueue.
+
+```swift
+// ✅ GOOD: Use Task with async/await
+Task { @MainActor in
+    try? await Task.sleep(for: .milliseconds(100))
+    // Perform work
+}
+
+// ❌ BAD: Don't use DispatchQueue
+DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+    // Perform work
+}
+```
+
+**Task patterns**:
+- Use `@MainActor` annotation for UI updates
+- Use `Task.sleep(for:)` for delays (not `Thread.sleep`)
+- Use `Task.detached` for background work that doesn't need actor context
+- Always handle cancellation with `Task.isCancelled` for long-running operations
+
 ## Code Style
 
 ### File Organization
