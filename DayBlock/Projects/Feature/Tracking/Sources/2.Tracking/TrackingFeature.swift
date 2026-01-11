@@ -15,7 +15,7 @@ public struct TrackingFeature {
 
     @ObservableState
     public struct State: Equatable {
-        let standardTime: TimeInterval = 1800
+        let standardTime: TimeInterval = 5
         var trackingGroup: BlockGroup
         var trackingBlock: Block
         var trackingTime: TrackingData.Time

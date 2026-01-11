@@ -11,26 +11,31 @@ public struct TrackingBoardBlock: View, Identifiable {
 
     public enum State: Equatable {
         case none
-        case firstHalf(Color)
-        case secondHalf(Color)
-        case full(Color)
-        case mixed(firstHalf: Color, secondHalf: Color)
+        case firstHalf(Color, isTracking: Bool = false)
+        case secondHalf(Color, isTracking: Bool = false)
+        case full(Color, isTracking: Bool = false)
+        case mixed(
+            firstHalf: Color,
+            isFirstHalfTracking: Bool = false,
+            secondHalf: Color,
+            isSecondHalfTracking: Bool = false
+        )
     }
 
-    public var id: Int { index }
+    public var id: Int { hour }
 
-    let index: Int
+    let hour: Int
     let state: State
     let size: CGFloat
     let cornerRadius: CGFloat
     
     public init(
-        index: Int,
+        hour: Int,
         state: State,
         size: CGFloat,
         cornerRadius: CGFloat
     ) {
-        self.index = index
+        self.hour = hour
         self.state = state
         self.size = size
         self.cornerRadius = cornerRadius
@@ -42,7 +47,7 @@ public struct TrackingBoardBlock: View, Identifiable {
             case .none:
                 DesignSystem.Colors.gray300.swiftUIColor
                 
-            case .firstHalf(let color):
+            case .firstHalf(let color, let isTracking):
                 DesignSystem.Colors.gray300.swiftUIColor
                     .overlay(alignment: .leading) {
                         color
@@ -50,7 +55,7 @@ public struct TrackingBoardBlock: View, Identifiable {
                             .frame(width: size / 2, height: size)
                     }
                 
-            case .secondHalf(let color):
+            case .secondHalf(let color, let isTracking):
                 DesignSystem.Colors.gray300.swiftUIColor
                     .overlay(alignment: .trailing) {
                         color
@@ -58,10 +63,10 @@ public struct TrackingBoardBlock: View, Identifiable {
                             .frame(width: size / 2, height: size)
                     }
                 
-            case .full(let color):
+            case .full(let color, let isTracking):
                 color
                 
-            case .mixed(let firstHalf, let secondHalf):
+            case .mixed(let firstHalf, let isFirstHalfTracking, let secondHalf, let isSecondHalfTracking):
                 DesignSystem.Colors.gray300.swiftUIColor
                     .overlay(alignment: .leading) {
                         firstHalf
@@ -82,7 +87,7 @@ public struct TrackingBoardBlock: View, Identifiable {
 
 // MARK: - State Equtable
 extension TrackingBoardBlock.State {
-    
+
     public static func == (
         lhs: TrackingBoardBlock.State,
         rhs: TrackingBoardBlock.State
@@ -90,12 +95,23 @@ extension TrackingBoardBlock.State {
         switch (lhs, rhs) {
         case (.none, .none):
             return true
-        case (.firstHalf(let lhsColor), .firstHalf(let rhsColor)),
-             (.secondHalf(let lhsColor), .secondHalf(let rhsColor)),
-             (.full(let lhsColor), .full(let rhsColor)):
-            return lhsColor == rhsColor
-        case (.mixed(let lhsFirst, let lhsSecond), .mixed(let rhsFirst, let rhsSecond)):
-            return lhsFirst == rhsFirst && lhsSecond == rhsSecond
+
+        case (.firstHalf(let lhsColor, let lhsTracking), .firstHalf(let rhsColor, let rhsTracking)):
+            return lhsColor == rhsColor && lhsTracking == rhsTracking
+
+        case (.secondHalf(let lhsColor, let lhsTracking), .secondHalf(let rhsColor, let rhsTracking)):
+            return lhsColor == rhsColor && lhsTracking == rhsTracking
+
+        case (.full(let lhsColor, let lhsTracking), .full(let rhsColor, let rhsTracking)):
+            return lhsColor == rhsColor && lhsTracking == rhsTracking
+
+        case (.mixed(let lhsFirst, let lhsFirstTracking, let lhsSecond, let lhsSecondTracking),
+              .mixed(let rhsFirst, let rhsFirstTracking, let rhsSecond, let rhsSecondTracking)):
+            return lhsFirst == rhsFirst &&
+                   lhsFirstTracking == rhsFirstTracking &&
+                   lhsSecond == rhsSecond &&
+                   lhsSecondTracking == rhsSecondTracking
+
         default:
             return false
         }

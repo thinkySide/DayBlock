@@ -59,10 +59,10 @@ extension TrackingBoard {
         blockCornerRadius: CGFloat
     ) -> [TrackingBoardBlock] {
         var blocks = [TrackingBoardBlock]()
-        for index in 0..<24 {
-            let state = activeBlocks[index] ?? .none
+        for hour in 0..<24 {
+            let state = activeBlocks[hour] ?? .none
             let block = TrackingBoardBlock(
-                index: index,
+                hour: hour,
                 state: state,
                 size: blockSize,
                 cornerRadius: blockCornerRadius
