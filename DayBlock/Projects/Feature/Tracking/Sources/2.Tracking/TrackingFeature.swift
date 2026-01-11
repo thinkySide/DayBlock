@@ -24,6 +24,7 @@ public struct TrackingFeature {
         var totalTime: TimeInterval = 0
         var elapsedTime: TimeInterval = 0
         var isPaused: Bool = false
+        var isPopupPresented: Bool = false
 
         public init(
             trackingGroup: BlockGroup,
@@ -36,7 +37,7 @@ public struct TrackingFeature {
         }
     }
 
-    public enum Action: TCAFeatureAction {
+    public enum Action: TCAFeatureAction, BindableAction {
         public enum ViewAction {
             case onAppear
             case onTapDismissButton
@@ -52,10 +53,17 @@ public struct TrackingFeature {
         public enum DelegateAction {
             case didDismiss
         }
+        
+        public enum PopupAction {
+            case cancel
+            case stopTracking
+        }
 
         case view(ViewAction)
         case inner(InnerAction)
         case delegate(DelegateAction)
+        case popup(PopupAction)
+        case binding(BindingAction<State>)
     }
 
     @CasePathable
@@ -69,6 +77,7 @@ public struct TrackingFeature {
     @Dependency(\.continuousClock) private var clock
 
     public var body: some ReducerOf<Self> {
+        BindingReducer()
         Reduce { state, action in
             switch action {
             case .view(let viewAction):
@@ -78,10 +87,8 @@ public struct TrackingFeature {
                     return startTrackingTimer()
 
                 case .onTapDismissButton:
-                    return .concatenate(
-                        .cancel(id: CancelID.trackingTimer),
-                        .send(.delegate(.didDismiss))
-                    )
+                    state.isPopupPresented = true
+                    return .none
                     
                 case .onTapTrackingButton:
                     state.isPaused.toggle()
@@ -92,7 +99,6 @@ public struct TrackingFeature {
                     }
                     
                 case .onLongPressCompleteTrackingBlock:
-                    Debug.log("완료~")
                     return .none
                 }
 
@@ -121,6 +127,22 @@ public struct TrackingFeature {
                 case .didDismiss:
                     return .none
                 }
+                
+            case .popup(let popupAction):
+                switch popupAction {
+                case .cancel:
+                    state.isPopupPresented = false
+                    return .none
+
+                case .stopTracking:
+                    return .concatenate(
+                        .cancel(id: CancelID.trackingTimer),
+                        .send(.delegate(.didDismiss))
+                    )
+                }
+                
+            default:
+                return .none
             }
         }
     }

@@ -298,6 +298,7 @@ public struct BlockCarouselFeature {
                 )
                 
             case .groupSelect(.presented(.delegate(.didSelectAddGroup))):
+                state.sheetDetent = .medium
                 return updateSheetDetent(.large)
                 
             case .groupSelect(.presented(.groupEditor(.presented(.delegate(.didPop))))):

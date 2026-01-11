@@ -12,7 +12,7 @@ import Domain
 
 public struct TrackingView: View {
     
-    private var store: StoreOf<TrackingFeature>
+    @Bindable private var store: StoreOf<TrackingFeature>
 
     public init(store: StoreOf<TrackingFeature>) {
         self.store = store
@@ -58,6 +58,25 @@ public struct TrackingView: View {
         .onAppear {
             store.send(.view(.onAppear))
         }
+        .popup(
+            isPresented: $store.isPopupPresented,
+            title: "블럭 생산을 중단할까요?",
+            message: "지금까지 생산한 블럭이 모두 사라져요",
+            leftAction: .init(
+                title: "아니오",
+                variation: .secondary,
+                action: {
+                    store.send(.popup(.cancel))
+                }
+            ),
+            rightAction: .init(
+                title: "중단할래요",
+                variation: .destructive,
+                action: {
+                    store.send(.popup(.stopTracking))
+                }
+            )
+        )
     }
 }
 
