@@ -63,31 +63,36 @@ struct ComponentsView: View {
                             hour: 0,
                             variation: .none,
                             size: 32,
-                            cornerRadius: 8
+                            cornerRadius: 8,
+                            isTracking: false
                         )
                         TrackingBoardBlock(
                             hour: 1,
                             variation: .firstHalf(.red),
                             size: 32,
-                            cornerRadius: 8
+                            cornerRadius: 8,
+                            isTracking: false
                         )
                         TrackingBoardBlock(
                             hour: 2,
                             variation: .secondHalf(.blue),
                             size: 32,
-                            cornerRadius: 8
+                            cornerRadius: 8,
+                            isTracking: false
                         )
                         TrackingBoardBlock(
                             hour: 3,
                             variation: .full(.purple),
                             size: 32,
-                            cornerRadius: 8
+                            cornerRadius: 8,
+                            isTracking: false
                         )
                         TrackingBoardBlock(
                             hour: 4,
                             variation: .mixed(firstHalf: .cyan, secondHalf: .brown),
                             size: 32,
-                            cornerRadius: 8
+                            cornerRadius: 8,
+                            isTracking: false
                         )
                     }
                 }

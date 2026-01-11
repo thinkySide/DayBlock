@@ -9,10 +9,12 @@ import SwiftUI
 
 public struct TrackingBoard: View {
 
-    let blocks: [TrackingBoardBlock]
+    let activeBlocks: [Int: TrackingBoardBlock.Variation]
     let blockSize: CGFloat
     let blockCornerRadius: CGFloat
     let spacing: CGFloat
+
+    @State private var isTracking = false
 
     public init(
         activeBlocks: [Int: TrackingBoardBlock.Variation],
@@ -20,16 +22,12 @@ public struct TrackingBoard: View {
         blockCornerRadius: CGFloat,
         spacing: CGFloat
     ) {
+        self.activeBlocks = activeBlocks
         self.blockSize = blockSize
         self.blockCornerRadius = blockCornerRadius
-        self.blocks = Self.generateBlocks(
-            from: activeBlocks,
-            blockSize: blockSize,
-            blockCornerRadius: blockCornerRadius
-        )
         self.spacing = spacing
     }
-    
+
     public var body: some View {
         VStack(spacing: spacing) {
             BlocksRow(0...5)
@@ -37,38 +35,27 @@ public struct TrackingBoard: View {
             BlocksRow(12...17)
             BlocksRow(18...23)
         }
+        .onAppear {
+            withAnimation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true)) {
+                isTracking = true
+            }
+        }
     }
 
     @ViewBuilder
     private func BlocksRow(_ range: ClosedRange<Int>) -> some View {
         HStack(spacing: spacing) {
-            ForEach(blocks[range]) { block in
-                block
+            ForEach(range, id: \.self) { hour in
+                let variation = activeBlocks[hour] ?? .none
+                TrackingBoardBlock(
+                    hour: hour,
+                    variation: variation,
+                    size: blockSize,
+                    cornerRadius: blockCornerRadius,
+                    isTracking: isTracking
+                )
             }
         }
     }
 }
 
-// MARK: - Helper
-extension TrackingBoard {
-
-    /// 활성화된 블럭 상태를 기반으로 전체 블럭 View 배열을 반환합니다.
-    private static func generateBlocks(
-        from activeBlocks: [Int: TrackingBoardBlock.Variation],
-        blockSize: CGFloat,
-        blockCornerRadius: CGFloat
-    ) -> [TrackingBoardBlock] {
-        var blocks = [TrackingBoardBlock]()
-        for hour in 0..<24 {
-            let state = activeBlocks[hour] ?? .none
-            let block = TrackingBoardBlock(
-                hour: hour,
-                variation: state,
-                size: blockSize,
-                cornerRadius: blockCornerRadius
-            )
-            blocks.append(block)
-        }
-        return blocks
-    }
-}

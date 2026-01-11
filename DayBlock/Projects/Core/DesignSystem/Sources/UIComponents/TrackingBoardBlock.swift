@@ -28,19 +28,20 @@ public struct TrackingBoardBlock: View, Identifiable {
     let variation: Variation
     let size: CGFloat
     let cornerRadius: CGFloat
-
-    @State private var isAnimating = false
+    let isTracking: Bool
 
     public init(
         hour: Int,
         variation: Variation,
         size: CGFloat,
-        cornerRadius: CGFloat
+        cornerRadius: CGFloat,
+        isTracking: Bool
     ) {
         self.hour = hour
         self.variation = variation
         self.size = size
         self.cornerRadius = cornerRadius
+        self.isTracking = isTracking
     }
     
     public var body: some View {
@@ -53,7 +54,7 @@ public struct TrackingBoardBlock: View, Identifiable {
                 DesignSystem.Colors.gray300.swiftUIColor
                     .overlay(alignment: .leading) {
                         color
-                            .opacity(isTracking ? animateOpacity : 1.0)
+                            .opacity(isTracking ? animateOpacity : 1)
                             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                             .frame(width: size / 2, height: size)
                     }
@@ -62,7 +63,7 @@ public struct TrackingBoardBlock: View, Identifiable {
                 DesignSystem.Colors.gray300.swiftUIColor
                     .overlay(alignment: .trailing) {
                         color
-                            .opacity(isTracking ? animateOpacity : 1.0)
+                            .opacity(isTracking ? animateOpacity : 1)
                             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                             .frame(width: size / 2, height: size)
                     }
@@ -89,11 +90,6 @@ public struct TrackingBoardBlock: View, Identifiable {
         }
         .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
         .frame(width: size, height: size)
-        .onAppear {
-            withAnimation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true)) {
-                isAnimating = true
-            }
-        }
     }
 }
 
@@ -102,7 +98,7 @@ extension TrackingBoardBlock {
     
     /// 애니메이션용 Opacity를 반환합니다.
     private var animateOpacity: Double {
-        isAnimating ? 0.1 : 1
+        isTracking ? 0.1 : 1
     }
 }
 
