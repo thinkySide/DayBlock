@@ -56,7 +56,6 @@ public struct BlockCarouselView: View {
                 .lineSpacing(2)
             
             Spacer()
-                .frame(maxHeight: 48)
             
             TrackingButton(
                 state: .play,
@@ -65,8 +64,7 @@ public struct BlockCarouselView: View {
                     store.send(.view(.onTapTrackingButton))
                 }
             )
-            
-            Spacer()
+            .padding(.bottom, 124)
         }
         .background(DesignSystem.Colors.gray0.swiftUIColor)
         .onLoad {
@@ -96,7 +94,7 @@ public struct BlockCarouselView: View {
                         .zIndex(1)
                 }
             }
-            .animation(.easeInOut(duration: 0.3), value: store.tracking != nil)
+            // .animation(.easeInOut(duration: 0.3), value: store.tracking != nil)
         }
         .popup(
             isPresented: $store.isPopupPresented,

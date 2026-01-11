@@ -167,6 +167,7 @@ public struct BlockCarouselFeature {
                     }
                     
                     guard let block else { return .none }
+                    haptic.impact(.light)
                     state.tracking = .init(
                         trackingGroup: state.selectedGroup,
                         trackingBlock: block

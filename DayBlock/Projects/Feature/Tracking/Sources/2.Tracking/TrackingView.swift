@@ -49,11 +49,9 @@ public struct TrackingView: View {
             ElapsedTimeCounter()
             
             Spacer()
-                .frame(maxHeight: 36)
             
             ProgressIndicator()
-
-            Spacer()
+                .padding(.bottom, 124)
         }
         .background(DesignSystem.Colors.gray0.swiftUIColor)
         .onAppear {
@@ -106,7 +104,7 @@ extension TrackingView {
     @ViewBuilder
     private func ElapsedTimeCounter() -> some View {
         let width: CGFloat = 50
-        HStack(spacing: 0) {
+        HStack(spacing: -2) {
             Text(String(format: "%02d", Int(store.elapsedTime) / 3600))
                 .frame(width: width)
                 .contentTransition(.numericText())
@@ -126,14 +124,24 @@ extension TrackingView {
     
     @ViewBuilder
     private func ProgressIndicator() -> some View {
-        ProgressView(value: 0.5)
-            .progressViewStyle(
-                CustomProgressViewStyle(
-                    tint: ColorPalette.toColor(from: store.trackingGroup.colorIndex),
-                    background: DesignSystem.Colors.gray0.swiftUIColor,
-                    height: 10
+        ZStack {
+            ProgressView(value: 0.5)
+                .progressViewStyle(
+                    CustomProgressViewStyle(
+                        tint: ColorPalette.toColor(from: store.trackingGroup.colorIndex),
+                        background: DesignSystem.Colors.gray0.swiftUIColor,
+                        height: 10
+                    )
                 )
+                .frame(height: 12)
+            
+            TrackingButton(
+                state: .pause,
+                isDisabled: false, // store.focusedBlock == .addBlock || store.focusedBlock == nil,
+                tapAction: {
+                    // store.send(.view(.onTapTrackingButton))
+                }
             )
-            .frame(height: 12)
+        }
     }
 }
