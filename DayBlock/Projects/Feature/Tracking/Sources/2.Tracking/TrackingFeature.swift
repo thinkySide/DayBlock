@@ -15,6 +15,7 @@ public struct TrackingFeature {
 
     @ObservableState
     public struct State: Equatable {
+        let standardTime: TimeInterval = 1800
         var trackingGroup: BlockGroup
         var trackingBlock: Block
         var trackingTime: TrackingData.Time
@@ -97,6 +98,14 @@ public struct TrackingFeature {
 
                 case .updateElapsedTime:
                     state.elapsedTime += 1
+
+                    if state.elapsedTime >= state.standardTime {
+                        state.trackingTime.endDate = date.now
+                        state.completedTrackingTimeList.append(state.trackingTime)
+                        state.trackingTime = .init(startDate: date.now, endDate: nil)
+                        state.elapsedTime = 0
+                    }
+
                     return .none
                 }
 

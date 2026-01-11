@@ -33,8 +33,7 @@ public struct TrackingView: View {
 
             TrackingDayBlock(
                 title: store.trackingBlock.name,
-                totalAmount: store.trackingBlock.output,
-                todayAmount: store.trackingBlock.output,
+                todayAmount: amount,
                 symbol: IconPalette.toIcon(from: store.trackingBlock.iconIndex),
                 color: ColorPalette.toColor(from: store.trackingGroup.colorIndex),
                 onTapCell: {
@@ -128,8 +127,9 @@ extension TrackingView {
     
     @ViewBuilder
     private func ProgressIndicator() -> some View {
+        let progress = store.elapsedTime / store.standardTime
         ZStack {
-            ProgressView(value: 0.5)
+            ProgressView(value: progress)
                 .progressViewStyle(
                     CustomProgressViewStyle(
                         tint: store.isPaused
@@ -140,6 +140,7 @@ extension TrackingView {
                     )
                 )
                 .frame(height: 12)
+                .animation(.linear(duration: 1), value: progress)
             
             TrackingButton(
                 state: store.isPaused ? .play : .pause,
@@ -149,5 +150,16 @@ extension TrackingView {
                 }
             )
         }
+    }
+}
+
+// MARK: - Helper
+extension TrackingView {
+    
+    /// 현재 생산량을 반환합니다.
+    private var amount: Double {
+        var result: Double = 0
+        store.completedTrackingTimeList.forEach { _ in result += 0.5 }
+        return result
     }
 }

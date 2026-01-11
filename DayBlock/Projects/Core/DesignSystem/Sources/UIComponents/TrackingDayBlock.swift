@@ -10,7 +10,6 @@ import SwiftUI
 public struct TrackingDayBlock: View {
 
     let title: String
-    let totalAmount: Double
     let todayAmount: Double
     let symbol: String
     let color: Color
@@ -18,14 +17,12 @@ public struct TrackingDayBlock: View {
 
     public init(
         title: String,
-        totalAmount: Double,
         todayAmount: Double,
         symbol: String,
         color: Color,
         onTapCell: @escaping () -> Void = {}
     ) {
         self.title = title
-        self.totalAmount = totalAmount
         self.todayAmount = todayAmount
         self.symbol = symbol
         self.color = color
@@ -80,7 +77,7 @@ extension TrackingDayBlock {
             Text("+")
                 .foregroundStyle(color)
             
-            Text(toLabelString(totalAmount))
+            Text(toLabelString(todayAmount))
                 .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
         }
         .brandFont(.poppins(.bold), 24)
