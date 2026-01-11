@@ -21,6 +21,7 @@ public struct TrackingFeature {
         var trackingTime: TrackingData.Time
         var completedTrackingTimeList: [TrackingData.Time] = []
         var currentDate: Date = .now
+        var totalTime: TimeInterval = 0
         var elapsedTime: TimeInterval = 0
         var isPaused: Bool = false
 
@@ -98,6 +99,7 @@ public struct TrackingFeature {
 
                 case .updateElapsedTime:
                     state.elapsedTime += 1
+                    state.totalTime += 1
 
                     if state.elapsedTime >= state.standardTime {
                         state.trackingTime.endDate = date.now

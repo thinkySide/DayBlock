@@ -45,7 +45,7 @@ public struct TrackingView: View {
             Spacer()
                 .frame(maxHeight: 36)
 
-            ElapsedTimeCounter()
+            TotalTimeCounter()
             
             Spacer()
             
@@ -101,18 +101,19 @@ extension TrackingView {
     }
 
     @ViewBuilder
-    private func ElapsedTimeCounter() -> some View {
+    private func TotalTimeCounter() -> some View {
         let width: CGFloat = 50
+        let totalTime = Int(store.totalTime)
         HStack(spacing: -2) {
-            Text(String(format: "%02d", Int(store.elapsedTime) / 3600))
+            Text(String(format: "%02d", totalTime / 3600))
                 .frame(width: width)
                 .contentTransition(.numericText())
             Text(":")
-            Text(String(format: "%02d", Int(store.elapsedTime) / 60 % 60))
+            Text(String(format: "%02d", totalTime / 60 % 60))
                 .frame(width: width)
                 .contentTransition(.numericText())
             Text(":")
-            Text(String(format: "%02d", Int(store.elapsedTime) % 60))
+            Text(String(format: "%02d", totalTime % 60))
                 .frame(width: width)
                 .contentTransition(.numericText())
         }
@@ -122,7 +123,7 @@ extension TrackingView {
             ? DesignSystem.Colors.gray400.swiftUIColor
             : DesignSystem.Colors.gray900.swiftUIColor
         )
-        .animation(.default, value: store.elapsedTime)
+        .animation(.default, value: store.totalTime)
     }
     
     @ViewBuilder
