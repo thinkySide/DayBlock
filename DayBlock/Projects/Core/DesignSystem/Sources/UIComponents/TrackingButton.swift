@@ -45,6 +45,7 @@ public struct TrackingButton: View {
                         color: DesignSystem.Colors.gray0.swiftUIColor
                     )
                     .padding(.leading, state == .play ? 6 : 0)
+                    .animation(nil, value: state)
                 )
         }
         .disabled(isDisabled)

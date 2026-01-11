@@ -19,6 +19,7 @@ public struct TrackingFeature {
         var trackingBlock: Block
         var currentDate: Date = .now
         var elapsedTime: TimeInterval = 0
+        var isPaused: Bool = false
 
         public init(
             trackingGroup: BlockGroup,
@@ -34,6 +35,7 @@ public struct TrackingFeature {
         public enum ViewAction {
             case onAppear
             case onTapDismissButton
+            case onTapTrackingButton
         }
 
         public enum InnerAction {
@@ -74,6 +76,14 @@ public struct TrackingFeature {
                         .cancel(id: CancelID.trackingTimer),
                         .send(.delegate(.didDismiss))
                     )
+                    
+                case .onTapTrackingButton:
+                    state.isPaused.toggle()
+                    if state.isPaused {
+                        return .cancel(id: CancelID.trackingTimer)
+                    } else {
+                        return startTrackingTimer()
+                    }
                 }
 
             case .inner(let innerAction):

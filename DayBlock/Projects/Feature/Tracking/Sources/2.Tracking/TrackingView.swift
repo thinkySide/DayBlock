@@ -118,7 +118,11 @@ extension TrackingView {
                 .contentTransition(.numericText())
         }
         .brandFont(.poppins(.bold), 36)
-        .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+        .foregroundStyle(
+            store.isPaused
+            ? DesignSystem.Colors.gray400.swiftUIColor
+            : DesignSystem.Colors.gray900.swiftUIColor
+        )
         .animation(.default, value: store.elapsedTime)
     }
     
@@ -128,7 +132,9 @@ extension TrackingView {
             ProgressView(value: 0.5)
                 .progressViewStyle(
                     CustomProgressViewStyle(
-                        tint: ColorPalette.toColor(from: store.trackingGroup.colorIndex),
+                        tint: store.isPaused
+                        ? DesignSystem.Colors.gray400.swiftUIColor
+                        : ColorPalette.toColor(from: store.trackingGroup.colorIndex),
                         background: DesignSystem.Colors.gray0.swiftUIColor,
                         height: 10
                     )
@@ -136,10 +142,10 @@ extension TrackingView {
                 .frame(height: 12)
             
             TrackingButton(
-                state: .pause,
-                isDisabled: false, // store.focusedBlock == .addBlock || store.focusedBlock == nil,
+                state: store.isPaused ? .play : .pause,
+                isDisabled: false,
                 tapAction: {
-                    // store.send(.view(.onTapTrackingButton))
+                    store.send(.view(.onTapTrackingButton))
                 }
             )
         }
