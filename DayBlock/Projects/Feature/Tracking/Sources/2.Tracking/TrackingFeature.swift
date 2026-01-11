@@ -15,7 +15,7 @@ public struct TrackingFeature {
 
     @ObservableState
     public struct State: Equatable {
-        let standardTime: TimeInterval = 5
+        let standardTime: TimeInterval = 1800
         var trackingGroup: BlockGroup
         var trackingBlock: Block
         var trackingTime: TrackingData.Time
@@ -41,6 +41,7 @@ public struct TrackingFeature {
             case onAppear
             case onTapDismissButton
             case onTapTrackingButton
+            case onLongPressCompleteTrackingBlock
         }
 
         public enum InnerAction {
@@ -89,6 +90,10 @@ public struct TrackingFeature {
                     } else {
                         return startTrackingTimer()
                     }
+                    
+                case .onLongPressCompleteTrackingBlock:
+                    Debug.log("완료~")
+                    return .none
                 }
 
             case .inner(let innerAction):

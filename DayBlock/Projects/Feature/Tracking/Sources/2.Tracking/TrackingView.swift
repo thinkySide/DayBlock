@@ -37,8 +37,8 @@ public struct TrackingView: View {
                 todayAmount: amount,
                 symbol: IconPalette.toIcon(from: store.trackingBlock.iconIndex),
                 color: ColorPalette.toColor(from: store.trackingGroup.colorIndex),
-                onTapCell: {
-
+                onLongPressComplete: {
+                    store.send(.view(.onLongPressCompleteTrackingBlock))
                 }
             )
             .padding(.top, 32)

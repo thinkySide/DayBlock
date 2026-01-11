@@ -13,58 +13,97 @@ public struct TrackingDayBlock: View {
     let todayAmount: Double
     let symbol: String
     let color: Color
-    let onTapCell: () -> Void
+    let onLongPressComplete: () -> Void
+
+    @GestureState private var isPressing = false
+    @State private var fillWidth: CGFloat = 0
+    @State private var scale: CGFloat = 1.0
+    @State private var pressTask: Task<Void, Never>?
 
     public init(
         title: String,
         todayAmount: Double,
         symbol: String,
         color: Color,
-        onTapCell: @escaping () -> Void = {}
+        onLongPressComplete: @escaping () -> Void = {}
     ) {
         self.title = title
         self.todayAmount = todayAmount
         self.symbol = symbol
         self.color = color
-        self.onTapCell = onTapCell
+        self.onLongPressComplete = onLongPressComplete
     }
     
     public var body: some View {
         let size: CGFloat = 250
         let symbolTopPadding: CGFloat = 72
-        
-        DesignSystem.Colors.gray100.swiftUIColor
-            .frame(width: size, height: size)
-            .clipShape(RoundedRectangle(cornerRadius: 36))
-            .overlay(alignment: .topLeading) {
-                AmountLabel()
-                    .padding(.top, 24)
-                    .padding(.leading, 24)
-            }
-            .overlay(alignment: .topTrailing) {
-                Tag()
-                    .padding(.trailing, 40)
-            }
-            .overlay(alignment: .top) {
-                SFSymbol(
-                    symbol: symbol,
-                    size: 68,
-                    color: DesignSystem.Colors.gray900.swiftUIColor
-                )
-                .padding(.top, symbolTopPadding)
-            }
-            .overlay(alignment: .top) {
-                Text(title)
-                    .brandFont(.pretendard(.bold), 22)
-                    .lineLimit(2)
-                    .multilineTextAlignment(.center)
-                    .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
-                    .frame(maxWidth: size - (16 * 2))
-                    .padding(.top, symbolTopPadding + symbolTopPadding + 16)
-            }
-            .onTapGesture {
-                onTapCell()
-            }
+
+        ZStack(alignment: .leading) {
+            DesignSystem.Colors.gray100.swiftUIColor
+                .frame(width: size, height: size)
+
+            color.opacity(0.2)
+                .frame(width: fillWidth, height: size)
+        }
+        .clipShape(RoundedRectangle(cornerRadius: 36))
+        .overlay(alignment: .topLeading) {
+            AmountLabel()
+                .padding(.top, 24)
+                .padding(.leading, 24)
+        }
+        .overlay(alignment: .topTrailing) {
+            Tag()
+                .padding(.trailing, 40)
+        }
+        .overlay(alignment: .top) {
+            SFSymbol(
+                symbol: symbol,
+                size: 68,
+                color: DesignSystem.Colors.gray900.swiftUIColor
+            )
+            .padding(.top, symbolTopPadding)
+        }
+        .overlay(alignment: .top) {
+            Text(title)
+                .brandFont(.pretendard(.bold), 22)
+                .lineLimit(2)
+                .multilineTextAlignment(.center)
+                .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+                .frame(maxWidth: size - (16 * 2))
+                .padding(.top, symbolTopPadding + symbolTopPadding + 16)
+        }
+        .gesture(
+            DragGesture(minimumDistance: 0)
+                .updating($isPressing) { _, state, _ in
+                    state = true
+                }
+                .onChanged { _ in
+                    if fillWidth < size {
+                        withAnimation(.easeInOut(duration: 0.9)) {
+                            fillWidth = size
+                        }
+                        withAnimation(.bouncy(duration: 0.5)) {
+                            scale = 0.95
+                        }
+                        pressTask?.cancel()
+                        pressTask = Task {
+                            try? await Task.sleep(for: .seconds(0.9))
+                            if !Task.isCancelled {
+                                onLongPressComplete()
+                            }
+                        }
+                    }
+                }
+                .onEnded { _ in
+                    pressTask?.cancel()
+                    pressTask = nil
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        fillWidth = 0
+                        scale = 1.0
+                    }
+                }
+        )
+        .scaleEffect(scale)
     }
 }
 
