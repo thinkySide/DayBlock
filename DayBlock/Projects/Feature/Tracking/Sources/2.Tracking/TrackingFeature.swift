@@ -8,6 +8,7 @@
 import Foundation
 import ComposableArchitecture
 import Domain
+import UserDefaults
 import Util
 
 @Reducer
@@ -28,6 +29,7 @@ public struct TrackingFeature {
         var isPopupPresented: Bool = false
         var isToastPresented: Bool = false
 
+        /// 트래킹 시작하는 생성자
         public init(
             trackingGroup: BlockGroup,
             trackingBlock: Block
@@ -38,6 +40,34 @@ public struct TrackingFeature {
             let nowDate = date.now
             self.trackingTime = .init(startDate: nowDate, endDate: nil)
             self.timerBaseDate = nowDate
+        }
+
+        /// 저장된 세션에서 복원하는 생성자
+        public init(
+            trackingGroup: BlockGroup,
+            trackingBlock: Block,
+            trackingSession: TrackingSessionState
+        ) {
+            @Dependency(\.date) var date
+            self.trackingGroup = trackingGroup
+            self.trackingBlock = trackingBlock
+            self.trackingTime = .init(startDate: trackingSession.trackingStartDate, endDate: nil)
+            self.completedTrackingTimeList = trackingSession.completedTrackingTimeList.map {
+                TrackingData.Time(startDate: $0.startDate, endDate: $0.endDate)
+            }
+            self.isPaused = trackingSession.isPaused
+            self.timerBaseDate = trackingSession.timerBaseDate
+
+            if trackingSession.isPaused {
+                self.elapsedTime = trackingSession.elapsedTime
+            } else {
+                self.elapsedTime = date.now.timeIntervalSince(trackingSession.timerBaseDate)
+            }
+
+            let completedTime = trackingSession.completedTrackingTimeList.reduce(0) { total, time in
+                total + time.endDate.timeIntervalSince(time.startDate)
+            }
+            self.totalTime = self.elapsedTime + completedTime
         }
     }
 
@@ -81,6 +111,7 @@ public struct TrackingFeature {
     @Dependency(\.date) private var date
     @Dependency(\.continuousClock) private var clock
     @Dependency(\.haptic) private var haptic
+    @Dependency(\.userDefaultsService) private var userDefaultsService
 
     public var body: some ReducerOf<Self> {
         BindingReducer()
@@ -89,6 +120,10 @@ public struct TrackingFeature {
             case .view(let viewAction):
                 switch viewAction {
                 case .onAppear:
+                    saveTrackingSession(state)
+                    if state.isPaused {
+                        return .none
+                    }
                     return startTrackingTimer()
 
                 case .onScenePhaseActive:
@@ -103,9 +138,11 @@ public struct TrackingFeature {
                     state.isPaused.toggle()
                     haptic.impact(.light)
                     if state.isPaused {
+                        saveTrackingSession(state)
                         return .cancel(id: CancelID.trackingTimer)
                     } else {
                         state.timerBaseDate = date.now.addingTimeInterval(-state.elapsedTime)
+                        saveTrackingSession(state)
                         return startTrackingTimer()
                     }
                     
@@ -136,6 +173,7 @@ public struct TrackingFeature {
                         state.trackingTime = .init(startDate: date.now, endDate: nil)
                         state.timerBaseDate = date.now
                         state.elapsedTime = 0
+                        saveTrackingSession(state)
                     }
 
                     return .none
@@ -154,6 +192,7 @@ public struct TrackingFeature {
                     return .none
 
                 case .stopTracking:
+                    userDefaultsService.remove(\.trackingSession)
                     return .concatenate(
                         .cancel(id: CancelID.trackingTimer),
                         .send(.delegate(.didDismiss))
@@ -178,5 +217,26 @@ extension TrackingFeature {
             }
         }
         .cancellable(id: CancelID.trackingTimer, cancelInFlight: true)
+    }
+
+    /// 트래킹 세션을 UserDefaults에 저장합니다.
+    private func saveTrackingSession(_ state: State) {
+        let completedTimeList = state.completedTrackingTimeList.compactMap {
+            time -> TrackingSessionState.CompletedTime? in
+            guard let endDate = time.endDate else { return nil }
+            return .init(startDate: time.startDate, endDate: endDate)
+        }
+
+        let session = TrackingSessionState(
+            trackingGroupId: state.trackingGroup.id,
+            trackingBlockId: state.trackingBlock.id,
+            trackingStartDate: state.trackingTime.startDate,
+            timerBaseDate: state.timerBaseDate,
+            elapsedTime: state.elapsedTime,
+            completedTrackingTimeList: completedTimeList,
+            isPaused: state.isPaused
+        )
+
+        userDefaultsService.set(\.trackingSession, session)
     }
 }

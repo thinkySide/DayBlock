@@ -66,6 +66,7 @@ public struct BlockCarouselFeature {
             case setFocusedBlock(FocusedBlock?)
             case completeDeleteBlock
             case updateSheetDetent(PresentationDetent)
+            case restoreTrackingSession(TrackingSessionState)
         }
         
         public enum DelegateAction {
@@ -203,10 +204,18 @@ public struct BlockCarouselFeature {
 
                     if state.isFirstAppear {
                         state.isFirstAppear = false
+                        
                         if let selectedBlockId = userDefaultsService.get(\.selectedBlockId) {
                             state.focusedBlock = .block(id: selectedBlockId)
                         } else {
                             state.focusedBlock = nil
+                        }
+
+                        if let trackingSession = userDefaultsService.get(\.trackingSession) {
+                            return .merge(
+                                setFocusedBlock(state),
+                                .send(.inner(.restoreTrackingSession(trackingSession)))
+                            )
                         }
                     }
                     return setFocusedBlock(state)
@@ -226,6 +235,21 @@ public struct BlockCarouselFeature {
                     
                 case .updateSheetDetent(let sheetDetent):
                     state.sheetDetent = sheetDetent
+                    return .none
+
+                case .restoreTrackingSession(let trackingSession):
+                    guard trackingSession.trackingGroupId == state.selectedGroup.id,
+                          let block = state.blockList.first(where: { $0.id == trackingSession.trackingBlockId })
+                    else {
+                        userDefaultsService.remove(\.trackingSession)
+                        return .none
+                    }
+
+                    state.tracking = .init(
+                        trackingGroup: state.selectedGroup,
+                        trackingBlock: block,
+                        trackingSession: trackingSession
+                    )
                     return .none
                 }
                 
