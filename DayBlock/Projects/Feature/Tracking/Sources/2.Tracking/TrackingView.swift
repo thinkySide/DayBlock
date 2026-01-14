@@ -11,8 +11,9 @@ import DesignSystem
 import Domain
 
 public struct TrackingView: View {
-    
+
     @Bindable private var store: StoreOf<TrackingFeature>
+    @Environment(\.scenePhase) private var scenePhase
 
     public init(store: StoreOf<TrackingFeature>) {
         self.store = store
@@ -57,6 +58,12 @@ public struct TrackingView: View {
         .background(DesignSystem.Colors.gray0.swiftUIColor)
         .onAppear {
             store.send(.view(.onAppear))
+        }
+        .onChange(of: scenePhase) {
+            switch scenePhase {
+            case .active: store.send(.view(.onScenePhaseActive))
+            default: return
+            }
         }
         .popup(
             isPresented: $store.isPopupPresented,

@@ -23,6 +23,7 @@ public struct TrackingFeature {
         var currentDate: Date = .now
         var totalTime: TimeInterval = 0
         var elapsedTime: TimeInterval = 0
+        var timerBaseDate: Date
         var isPaused: Bool = false
         var isPopupPresented: Bool = false
         var isToastPresented: Bool = false
@@ -34,13 +35,16 @@ public struct TrackingFeature {
             @Dependency(\.date) var date
             self.trackingGroup = trackingGroup
             self.trackingBlock = trackingBlock
-            self.trackingTime = .init(startDate: date.now, endDate: nil)
+            let nowDate = date.now
+            self.trackingTime = .init(startDate: nowDate, endDate: nil)
+            self.timerBaseDate = nowDate
         }
     }
 
     public enum Action: TCAFeatureAction, BindableAction {
         public enum ViewAction {
             case onAppear
+            case onScenePhaseActive
             case onTapDismissButton
             case onTapTrackingButton
             case onLongPressCompleteTrackingBlock
@@ -85,8 +89,11 @@ public struct TrackingFeature {
             case .view(let viewAction):
                 switch viewAction {
                 case .onAppear:
-                    state.elapsedTime = 0
                     return startTrackingTimer()
+
+                case .onScenePhaseActive:
+                    guard !state.isPaused else { return .none }
+                    return .send(.inner(.updateElapsedTime))
 
                 case .onTapDismissButton:
                     state.isPopupPresented = true
@@ -98,6 +105,7 @@ public struct TrackingFeature {
                     if state.isPaused {
                         return .cancel(id: CancelID.trackingTimer)
                     } else {
+                        state.timerBaseDate = date.now.addingTimeInterval(-state.elapsedTime)
                         return startTrackingTimer()
                     }
                     
@@ -114,13 +122,19 @@ public struct TrackingFeature {
                     return .none
 
                 case .updateElapsedTime:
-                    state.elapsedTime += 1
-                    state.totalTime += 1
+                    state.elapsedTime = date.now.timeIntervalSince(state.timerBaseDate)
+
+                    let completedTime = state.completedTrackingTimeList.reduce(0) { total, time in
+                        guard let endDate = time.endDate else { return total }
+                        return total + endDate.timeIntervalSince(time.startDate)
+                    }
+                    state.totalTime = completedTime + state.elapsedTime
 
                     if state.elapsedTime >= state.standardTime {
                         state.trackingTime.endDate = date.now
                         state.completedTrackingTimeList.append(state.trackingTime)
                         state.trackingTime = .init(startDate: date.now, endDate: nil)
+                        state.timerBaseDate = date.now
                         state.elapsedTime = 0
                     }
 
