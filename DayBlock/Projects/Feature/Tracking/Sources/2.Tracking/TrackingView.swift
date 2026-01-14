@@ -77,6 +77,12 @@ public struct TrackingView: View {
                 }
             )
         )
+        .toast(
+            isPresented: $store.isToastPresented,
+            icon: Symbol.exclamationmark_circle_fill.symbolName,
+            iconColor: DesignSystem.Colors.eventWarning.swiftUIColor,
+            message: "0.5개 이상 블럭 생산 시 등록이 가능해요"
+        )
     }
 }
 

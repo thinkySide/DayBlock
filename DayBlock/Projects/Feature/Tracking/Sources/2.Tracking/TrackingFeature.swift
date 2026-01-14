@@ -25,6 +25,7 @@ public struct TrackingFeature {
         var elapsedTime: TimeInterval = 0
         var isPaused: Bool = false
         var isPopupPresented: Bool = false
+        var isToastPresented: Bool = false
 
         public init(
             trackingGroup: BlockGroup,
@@ -75,6 +76,7 @@ public struct TrackingFeature {
 
     @Dependency(\.date) private var date
     @Dependency(\.continuousClock) private var clock
+    @Dependency(\.haptic) private var haptic
 
     public var body: some ReducerOf<Self> {
         BindingReducer()
@@ -92,6 +94,7 @@ public struct TrackingFeature {
                     
                 case .onTapTrackingButton:
                     state.isPaused.toggle()
+                    haptic.impact(.light)
                     if state.isPaused {
                         return .cancel(id: CancelID.trackingTimer)
                     } else {
@@ -99,6 +102,8 @@ public struct TrackingFeature {
                     }
                     
                 case .onLongPressCompleteTrackingBlock:
+                    state.isToastPresented = true
+                    haptic.notification(.error)
                     return .none
                 }
 
