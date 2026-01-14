@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 public struct TrackingDayBlock: View {
 
@@ -20,6 +21,9 @@ public struct TrackingDayBlock: View {
     @State private var fillWidth: CGFloat = 0
     @State private var scale: CGFloat = 1.0
     @State private var pressTask: Task<Void, Never>?
+
+    private let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+    private let notificationFeedback = UINotificationFeedbackGenerator()
 
     public init(
         title: String,
@@ -84,6 +88,8 @@ public struct TrackingDayBlock: View {
                 }
                 .onChanged { _ in
                     if fillWidth < size {
+                        impactFeedback.impactOccurred()
+
                         withAnimation(.easeInOut(duration: 0.9)) {
                             fillWidth = size
                         }
