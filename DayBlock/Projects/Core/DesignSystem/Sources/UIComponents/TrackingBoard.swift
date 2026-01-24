@@ -62,6 +62,13 @@ public struct TrackingBoard: View {
             }
             startAnimation()
         }
+        .onChange(of: activeBlocks) {
+            guard !isPaused else { return }
+            withAnimation(.none) {
+                animationOpacity = 1.0
+            }
+            startAnimation()
+        }
     }
 
     @ViewBuilder
