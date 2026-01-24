@@ -17,6 +17,7 @@ public enum Symbol: String {
     case batteryblock_fill
     case checkmark_circle_fill
     case exclamationmark_circle_fill
+    case checkmark_square_fill
 }
 
 // MARK: - Helper

@@ -29,6 +29,7 @@ public struct TrackingFeature {
         var isPaused: Bool = false
         var isPopupPresented: Bool = false
         var isToastPresented: Bool = false
+        var isCompletionAnimating: Bool = false
 
         /// 트래킹 시작하는 생성자
         public init(
@@ -85,6 +86,7 @@ public struct TrackingFeature {
             case onTapDismissButton
             case onTapTrackingButton
             case onLongPressCompleteTrackingBlock
+            case onCompletionAnimationComplete
         }
 
         public enum InnerAction {
@@ -159,9 +161,20 @@ public struct TrackingFeature {
                     }
                     
                 case .onLongPressCompleteTrackingBlock:
-                    state.isToastPresented = true
-                    haptic.notification(.error)
+                    guard !state.completedTrackingTimeList.isEmpty else {
+                        state.isToastPresented = true
+                        haptic.notification(.error)
+                        return .none
+                    }
+                    state.isCompletionAnimating = true
+                    haptic.notification(.success)
                     return .none
+                    
+                case .onCompletionAnimationComplete:
+                    return .concatenate(
+                        .cancel(id: CancelID.clockTimer),
+                        .cancel(id: CancelID.trackingTimer)
+                    )
                 }
 
             case .inner(let innerAction):

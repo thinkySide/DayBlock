@@ -90,9 +90,18 @@ public struct TrackingView: View {
             iconColor: DesignSystem.Colors.eventWarning.swiftUIColor,
             message: "0.5개 이상 블럭 생산 시 등록이 가능해요"
         )
+        .overlay {
+            if store.isCompletionAnimating {
+                TrackingCompletionOverlay(
+                    color: ColorPalette.toColor(from: store.trackingGroup.colorIndex),
+                    onAnimationComplete: {
+                        store.send(.view(.onCompletionAnimationComplete))
+                    }
+                )
+            }
+        }
     }
 }
-
 
 // MARK: - SubViews
 extension TrackingView {
