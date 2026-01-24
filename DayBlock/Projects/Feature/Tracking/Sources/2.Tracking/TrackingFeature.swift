@@ -136,6 +136,7 @@ public struct TrackingFeature {
 
                 case .onTapDismissButton:
                     state.isPopupPresented = true
+                    haptic.notification(.warning)
                     return .none
                     
                 case .onTapTrackingButton:
