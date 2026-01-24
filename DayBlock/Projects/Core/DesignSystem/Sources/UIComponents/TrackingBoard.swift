@@ -17,6 +17,8 @@ public struct TrackingBoard: View {
 
     @State private var isTracking = false
 
+    @Environment(\.scenePhase) private var scenePhase
+
     public init(
         activeBlocks: [Int: TrackingBoardBlock.Area],
         blockSize: CGFloat,
@@ -41,9 +43,7 @@ public struct TrackingBoard: View {
         .id(isPaused)
         .onAppear {
             if !isPaused {
-                withAnimation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true)) {
-                    isTracking = true
-                }
+                startAnimation()
             }
         }
         .onChange(of: isPaused) { _, newValue in
@@ -52,13 +52,15 @@ public struct TrackingBoard: View {
             }
 
             if !newValue {
-                Task { @MainActor in
-                    try? await Task.sleep(for: .milliseconds(100))
-                    withAnimation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true)) {
-                        isTracking = true
-                    }
-                }
+                startAnimation()
             }
+        }
+        .onChange(of: scenePhase) { _, newPhase in
+            guard newPhase == .active, !isPaused else { return }
+            withAnimation(.none) {
+                isTracking = false
+            }
+            startAnimation()
         }
     }
 
@@ -79,3 +81,13 @@ public struct TrackingBoard: View {
     }
 }
 
+// MARK: - Helper
+extension TrackingBoard {
+    
+    /// 무한 깜빡임 애니메이션을 시작합니다.
+    private func startAnimation() {
+        withAnimation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true)) {
+            isTracking = true
+        }
+    }
+}
