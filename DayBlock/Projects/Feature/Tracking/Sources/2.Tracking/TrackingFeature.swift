@@ -81,7 +81,7 @@ public struct TrackingFeature {
         }
 
         public enum InnerAction {
-            case setCurrentDate(Date)
+            case updateCurrentDate
             case updateElapsedTime
         }
 
@@ -103,6 +103,7 @@ public struct TrackingFeature {
 
     @CasePathable
     enum CancelID {
+        case clockTimer
         case trackingTimer
     }
 
@@ -122,9 +123,12 @@ public struct TrackingFeature {
                 case .onAppear:
                     saveTrackingSession(state)
                     if state.isPaused {
-                        return .none
+                        return startClockTimer()
                     }
-                    return startTrackingTimer()
+                    return .merge(
+                        startClockTimer(),
+                        startTrackingTimer()
+                    )
 
                 case .onScenePhaseActive:
                     guard !state.isPaused else { return .none }
@@ -154,8 +158,8 @@ public struct TrackingFeature {
 
             case .inner(let innerAction):
                 switch innerAction {
-                case .setCurrentDate(let currentDate):
-                    state.currentDate = currentDate
+                case .updateCurrentDate:
+                    state.currentDate = date.now
                     return .none
 
                 case .updateElapsedTime:
@@ -195,6 +199,7 @@ public struct TrackingFeature {
                 case .stopTracking:
                     userDefaultsService.remove(\.trackingSession)
                     return .concatenate(
+                        .cancel(id: CancelID.clockTimer),
                         .cancel(id: CancelID.trackingTimer),
                         .send(.delegate(.didDismiss))
                     )
@@ -209,6 +214,16 @@ public struct TrackingFeature {
 
 // MARK: - Shared Effect
 extension TrackingFeature {
+
+    /// 시계 타이머를 시작합니다.
+    private func startClockTimer() -> Effect<Action> {
+        .run { send in
+            for await _ in self.clock.timer(interval: .seconds(1)) {
+                await send(.inner(.updateCurrentDate))
+            }
+        }
+        .cancellable(id: CancelID.clockTimer, cancelInFlight: true)
+    }
 
     /// 트래킹 타이머를 시작합니다.
     private func startTrackingTimer() -> Effect<Action> {
