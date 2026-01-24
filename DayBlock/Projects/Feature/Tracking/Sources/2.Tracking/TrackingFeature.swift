@@ -161,20 +161,21 @@ public struct TrackingFeature {
                 case .updateElapsedTime:
                     state.elapsedTime = date.now.timeIntervalSince(state.timerBaseDate)
 
+                    while state.elapsedTime >= state.standardTime {
+                        let blockEndDate = state.timerBaseDate.addingTimeInterval(state.standardTime)
+                        state.trackingTime.endDate = blockEndDate
+                        state.completedTrackingTimeList.append(state.trackingTime)
+                        state.timerBaseDate = blockEndDate
+                        state.trackingTime = .init(startDate: blockEndDate, endDate: nil)
+                        state.elapsedTime = date.now.timeIntervalSince(state.timerBaseDate)
+                    }
+
                     let completedTime = state.completedTrackingTimeList.reduce(0) { total, time in
                         guard let endDate = time.endDate else { return total }
                         return total + endDate.timeIntervalSince(time.startDate)
                     }
                     state.totalTime = completedTime + state.elapsedTime
-
-                    if state.elapsedTime >= state.standardTime {
-                        state.trackingTime.endDate = date.now
-                        state.completedTrackingTimeList.append(state.trackingTime)
-                        state.trackingTime = .init(startDate: date.now, endDate: nil)
-                        state.timerBaseDate = date.now
-                        state.elapsedTime = 0
-                        saveTrackingSession(state)
-                    }
+                    saveTrackingSession(state)
 
                     return .none
                 }
