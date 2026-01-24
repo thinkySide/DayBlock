@@ -163,7 +163,7 @@ extension TrackingView {
     
     @ViewBuilder
     private func ProgressIndicator() -> some View {
-        let progress = store.elapsedTime / store.standardTime
+        let progress = min(max(store.elapsedTime / store.standardTime, 0), 1)
         ZStack {
             ProgressView(value: progress)
                 .progressViewStyle(
