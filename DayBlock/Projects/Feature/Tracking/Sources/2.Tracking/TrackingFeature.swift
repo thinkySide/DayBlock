@@ -21,6 +21,7 @@ public struct TrackingFeature {
         var trackingBlock: Block
         var trackingTime: TrackingData.Time
         var completedTrackingTimeList: [TrackingData.Time] = []
+        var todayCompletedTrackingTimeList: [TrackingData.Time] = []
         var currentDate: Date = .now
         var totalTime: TimeInterval = 0
         var elapsedTime: TimeInterval = 0
@@ -49,6 +50,7 @@ public struct TrackingFeature {
             trackingSession: TrackingSessionState
         ) {
             @Dependency(\.date) var date
+            @Dependency(\.calendar) var calendar
             self.trackingGroup = trackingGroup
             self.trackingBlock = trackingBlock
             self.trackingTime = .init(startDate: trackingSession.trackingStartDate, endDate: nil)
@@ -57,6 +59,11 @@ public struct TrackingFeature {
             }
             self.isPaused = trackingSession.isPaused
             self.timerBaseDate = trackingSession.timerBaseDate
+
+            let today = date.now
+            self.todayCompletedTrackingTimeList = self.completedTrackingTimeList.filter {
+                calendar.isDate($0.startDate, inSameDayAs: today)
+            }
 
             if trackingSession.isPaused {
                 self.elapsedTime = trackingSession.elapsedTime
@@ -164,6 +171,7 @@ public struct TrackingFeature {
                     return .none
 
                 case .updateElapsedTime:
+                    @Dependency(\.calendar) var calendar
                     state.elapsedTime = date.now.timeIntervalSince(state.timerBaseDate)
 
                     while state.elapsedTime >= state.standardTime {
@@ -171,7 +179,17 @@ public struct TrackingFeature {
                         state.trackingTime.endDate = blockEndDate
                         state.completedTrackingTimeList.append(state.trackingTime)
                         state.timerBaseDate = blockEndDate
-                        state.trackingTime = .init(startDate: blockEndDate, endDate: nil)
+
+                        let newTrackingTime = TrackingData.Time(startDate: blockEndDate, endDate: nil)
+                        let previousDate = state.trackingTime.startDate
+                        let newDate = newTrackingTime.startDate
+                        if !calendar.isDate(previousDate, inSameDayAs: newDate) {
+                            state.todayCompletedTrackingTimeList = []
+                        } else {
+                            state.todayCompletedTrackingTimeList.append(state.trackingTime)
+                        }
+
+                        state.trackingTime = newTrackingTime
                         state.elapsedTime = date.now.timeIntervalSince(state.timerBaseDate)
                     }
 
