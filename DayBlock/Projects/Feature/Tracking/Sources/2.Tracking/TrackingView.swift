@@ -198,7 +198,7 @@ extension TrackingView {
         let currentVariation: TrackingBoardBlock.Area.Variation = store.isPaused ? .paused : .tracking
         let trackingBlock = convertTimeToBlocks(time: store.trackingTime, color: color, variation: currentVariation)
         let completedBlocks = store.completedTrackingTimeList.reduce(into: [Int: TrackingBoardBlock.Area]()) { result, time in
-            let newBlocks = convertTimeToBlocks(time: time, color: color, variation: .stored)
+            let newBlocks = convertTimeToBlocks(time: time, color: color, variation: currentVariation)
             result = mergeBlocks(result, newBlocks, color: color)
         }
         return mergeBlocks(trackingBlock, completedBlocks, color: color)

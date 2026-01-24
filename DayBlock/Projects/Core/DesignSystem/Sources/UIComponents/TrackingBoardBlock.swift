@@ -34,20 +34,20 @@ public struct TrackingBoardBlock: View, Identifiable {
     let area: Area
     let size: CGFloat
     let cornerRadius: CGFloat
-    let isAnimating: Bool
+    let animationOpacity: Double
 
     public init(
         hour: Int,
         area: Area,
         size: CGFloat,
         cornerRadius: CGFloat,
-        isAnimating: Bool
+        animationOpacity: Double
     ) {
         self.hour = hour
         self.area = area
         self.size = size
         self.cornerRadius = cornerRadius
-        self.isAnimating = isAnimating
+        self.animationOpacity = animationOpacity
     }
     
     public var body: some View {
@@ -113,7 +113,7 @@ extension TrackingBoardBlock {
     /// Variation에 따른 Opacity를 반환합니다.
     private func opacity(for variation: Area.Variation) -> Double {
         switch variation {
-        case .tracking: isAnimating ? 0.1 : 1.0
+        case .tracking: animationOpacity
         default: 1
         }
     }

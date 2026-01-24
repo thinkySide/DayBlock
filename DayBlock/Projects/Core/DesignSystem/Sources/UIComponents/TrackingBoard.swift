@@ -15,7 +15,7 @@ public struct TrackingBoard: View {
     let spacing: CGFloat
     let isPaused: Bool
 
-    @State private var isTracking = false
+    @State private var animationOpacity: Double = 1.0
 
     @Environment(\.scenePhase) private var scenePhase
 
@@ -48,7 +48,7 @@ public struct TrackingBoard: View {
         }
         .onChange(of: isPaused) { _, newValue in
             withAnimation(.none) {
-                isTracking = false
+                animationOpacity = 1.0
             }
 
             if !newValue {
@@ -58,7 +58,7 @@ public struct TrackingBoard: View {
         .onChange(of: scenePhase) { _, newPhase in
             guard newPhase == .active, !isPaused else { return }
             withAnimation(.none) {
-                isTracking = false
+                animationOpacity = 1.0
             }
             startAnimation()
         }
@@ -74,7 +74,7 @@ public struct TrackingBoard: View {
                     area: area,
                     size: blockSize,
                     cornerRadius: blockCornerRadius,
-                    isAnimating: isTracking && !isPaused
+                    animationOpacity: isPaused ? 1.0 : animationOpacity
                 )
             }
         }
@@ -87,7 +87,7 @@ extension TrackingBoard {
     /// 무한 깜빡임 애니메이션을 시작합니다.
     private func startAnimation() {
         withAnimation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true)) {
-            isTracking = true
+            animationOpacity = 0.1
         }
     }
 }
