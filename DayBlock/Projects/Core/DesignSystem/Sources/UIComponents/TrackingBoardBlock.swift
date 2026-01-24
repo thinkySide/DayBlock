@@ -75,8 +75,11 @@ public struct TrackingBoardBlock: View, Identifiable {
                     }
 
             case .full(let color, let variation):
-                displayColor(color, for: variation)
-                    .opacity(opacity(for: variation))
+                DesignSystem.Colors.gray300.swiftUIColor
+                    .overlay {
+                        displayColor(color, for: variation)
+                            .opacity(opacity(for: variation))
+                    }
 
             case .mixed(let firstHalfColor, let firstHalfState, let secondHalfColor, let secondHalfState):
                 DesignSystem.Colors.gray300.swiftUIColor
