@@ -1,5 +1,5 @@
 //
-//  TrackingView.swift
+//  TrackingInProgressView.swift
 //  Tracking
 //
 //  Created by 김민준 on 1/10/26.
@@ -10,12 +10,12 @@ import ComposableArchitecture
 import DesignSystem
 import Domain
 
-public struct TrackingView: View {
+public struct TrackingInProgressView: View {
 
-    @Bindable private var store: StoreOf<TrackingFeature>
+    @Bindable private var store: StoreOf<TrackingInProgressFeature>
     @Environment(\.scenePhase) private var scenePhase
 
-    public init(store: StoreOf<TrackingFeature>) {
+    public init(store: StoreOf<TrackingInProgressFeature>) {
         self.store = store
     }
     
@@ -104,7 +104,7 @@ public struct TrackingView: View {
 }
 
 // MARK: - SubViews
-extension TrackingView {
+extension TrackingInProgressView {
 
     @ViewBuilder
     private func Header() -> some View {
@@ -199,7 +199,7 @@ extension TrackingView {
 }
 
 // MARK: - Helper
-extension TrackingView {
+extension TrackingInProgressView {
     
     /// TrackingBoard에 표시할 데이터를 반환합니다.
     private var activeBlocks: [Int: TrackingBoardBlock.Area] {

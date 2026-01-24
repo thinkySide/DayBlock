@@ -1,5 +1,5 @@
 //
-//  TrackingFeature.swift
+//  TrackingInProgressFeature.swift
 //  Tracking
 //
 //  Created by 김민준 on 1/10/26.
@@ -12,7 +12,7 @@ import UserDefaults
 import Util
 
 @Reducer
-public struct TrackingFeature {
+public struct TrackingInProgressFeature {
 
     @ObservableState
     public struct State: Equatable {
@@ -245,7 +245,7 @@ public struct TrackingFeature {
 }
 
 // MARK: - Shared Effect
-extension TrackingFeature {
+extension TrackingInProgressFeature {
 
     /// 시계 타이머를 시작합니다.
     private func startClockTimer() -> Effect<Action> {

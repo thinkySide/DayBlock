@@ -40,7 +40,7 @@ public struct BlockCarouselFeature {
         var deletedBlockIndex: Int?
 
         public var path = StackState<Path.State>()
-        var tracking: TrackingFeature.State?
+        var trackingInProgress: TrackingInProgressFeature.State?
         @Presents var groupSelect: GroupSelectFeature.State?
 
         public init() { }
@@ -85,7 +85,7 @@ public struct BlockCarouselFeature {
         case binding(BindingAction<State>)
         case path(StackActionOf<Path>)
         case groupSelect(PresentationAction<GroupSelectFeature.Action>)
-        case tracking(TrackingFeature.Action)
+        case trackingInProgress(TrackingInProgressFeature.Action)
     }
     
     @CasePathable
@@ -169,7 +169,7 @@ public struct BlockCarouselFeature {
                     
                     guard let block else { return .none }
                     haptic.impact(.light)
-                    state.tracking = .init(
+                    state.trackingInProgress = .init(
                         trackingGroup: state.selectedGroup,
                         trackingBlock: block
                     )
@@ -245,7 +245,7 @@ public struct BlockCarouselFeature {
                         return .none
                     }
 
-                    state.tracking = .init(
+                    state.trackingInProgress = .init(
                         trackingGroup: state.selectedGroup,
                         trackingBlock: block,
                         trackingSession: trackingSession
@@ -343,8 +343,8 @@ public struct BlockCarouselFeature {
                     startDateClock()
                 )
                 
-            case .tracking(.delegate(.didDismiss)):
-                state.tracking = nil
+            case .trackingInProgress(.delegate(.didDismiss)):
+                state.trackingInProgress = nil
                 return .none
                 
             default:
@@ -355,8 +355,8 @@ public struct BlockCarouselFeature {
         .ifLet(\.$groupSelect, action: \.groupSelect) {
             GroupSelectFeature()
         }
-        .ifLet(\.tracking, action: \.tracking) {
-            TrackingFeature()
+        .ifLet(\.trackingInProgress, action: \.trackingInProgress) {
+            TrackingInProgressFeature()
         }
     }
 }

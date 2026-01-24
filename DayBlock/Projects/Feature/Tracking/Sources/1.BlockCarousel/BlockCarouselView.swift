@@ -87,8 +87,8 @@ public struct BlockCarouselView: View {
                 .presentationDragIndicator(.visible)
         }
         .overlay {
-            if let childStore = store.scope(state: \.tracking, action: \.tracking) {
-                TrackingView(store: childStore)
+            if let childStore = store.scope(state: \.trackingInProgress, action: \.trackingInProgress) {
+                TrackingInProgressView(store: childStore)
             }
         }
         .popup(
