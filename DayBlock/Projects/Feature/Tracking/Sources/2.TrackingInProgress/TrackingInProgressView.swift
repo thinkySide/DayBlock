@@ -99,6 +99,13 @@ public struct TrackingInProgressView: View {
                     }
                 )
             }
+            if let childStore = store.scope(
+                state: \.trackingResult,
+                action: \.trackingResult
+            ) {
+                TrackingResultView(store: childStore)
+                    .transition(.opacity.animation(.easeInOut(duration: 0.5)))
+            }
         }
     }
 }

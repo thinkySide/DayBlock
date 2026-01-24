@@ -71,6 +71,8 @@ struct TrackingCompletionOverlay: View {
             // 3. 체크 아이콘 애니메이션
             isCheckSymbolAnimating = true
             
+            try? await Task.sleep(for: .seconds(1.2))
+            
             // 4. 애니메이션 완료
             onAnimationComplete?()
         }

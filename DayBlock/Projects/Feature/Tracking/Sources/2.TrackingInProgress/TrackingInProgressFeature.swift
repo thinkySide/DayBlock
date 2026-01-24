@@ -30,6 +30,8 @@ public struct TrackingInProgressFeature {
         var isPopupPresented: Bool = false
         var isToastPresented: Bool = false
         var isCompletionAnimating: Bool = false
+        
+        var trackingResult: TrackingResultFeature.State?
 
         /// 트래킹 시작하는 생성자
         public init(
@@ -108,6 +110,7 @@ public struct TrackingInProgressFeature {
         case delegate(DelegateAction)
         case popup(PopupAction)
         case binding(BindingAction<State>)
+        case trackingResult(TrackingResultFeature.Action)
     }
 
     @CasePathable
@@ -161,17 +164,19 @@ public struct TrackingInProgressFeature {
                     }
                     
                 case .onLongPressCompleteTrackingBlock:
-                    guard !state.completedTrackingTimeList.isEmpty else {
-                        state.isToastPresented = true
-                        haptic.notification(.error)
-                        return .none
-                    }
+//                    guard !state.completedTrackingTimeList.isEmpty else {
+//                        state.isToastPresented = true
+//                        haptic.notification(.error)
+//                        return .none
+//                    }
                     state.isCompletionAnimating = true
                     haptic.notification(.success)
                     return .none
                     
                 case .onCompletionAnimationComplete:
-                    return .concatenate(
+                    state.trackingResult = .init()
+                    userDefaultsService.remove(\.trackingSession)
+                    return .merge(
                         .cancel(id: CancelID.clockTimer),
                         .cancel(id: CancelID.trackingTimer)
                     )
@@ -240,6 +245,9 @@ public struct TrackingInProgressFeature {
             default:
                 return .none
             }
+        }
+        .ifLet(\.trackingResult, action: \.trackingResult) {
+            TrackingResultFeature()
         }
     }
 }
