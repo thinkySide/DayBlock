@@ -133,19 +133,20 @@ public struct BlockEditorFeature {
                     let targetGroup = state.selectedGroup
                     let targetBlock = state.editingBlock
                     return .run { [state] send in
+                        let savedBlock: Block
                         switch state.mode {
                         case .add:
-                            await blockRepository.createBlock(
+                            savedBlock = try await blockRepository.createBlock(
                                 targetGroup.id,
                                 targetBlock
                             )
                         case .edit:
-                            await blockRepository.updateBlock(
+                            savedBlock = try await blockRepository.updateBlock(
                                 targetBlock.id,
                                 targetBlock
                             )
                         }
-                        await send(.delegate(.didConfirm(targetBlock, targetGroup)))
+                        await send(.delegate(.didConfirm(savedBlock, targetGroup)))
                     }
                 }
                 

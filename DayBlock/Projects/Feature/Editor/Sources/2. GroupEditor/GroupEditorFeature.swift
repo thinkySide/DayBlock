@@ -92,8 +92,14 @@ public struct GroupEditorFeature {
                     
                 case .onTapConfirmButton:
                     let group = state.editingGroup
-                    return .run { send in
-                        let savedGroup = try await groupRepository.createGroup(group)
+                    return .run { [state] send in
+                        let savedGroup: BlockGroup
+                        switch state.mode {
+                        case .add:
+                            savedGroup = try await groupRepository.createGroup(group)
+                        case .edit:
+                            savedGroup = try await groupRepository.updateGroup(group.id, group)
+                        }
                         await send(.delegate(.didConfirm(savedGroup)))
                     }
                 }

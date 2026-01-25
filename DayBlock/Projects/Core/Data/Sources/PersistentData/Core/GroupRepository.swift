@@ -19,7 +19,7 @@ public struct GroupRepository {
         .init(id: .init(), name: "", order: 0)
     }
     public var fetchGroupList: @Sendable () async -> [BlockGroup] = { [] }
-    public var updateGroup: @Sendable (_ groupId: UUID, BlockGroup) async -> Void
+    public var updateGroup: @Sendable (_ groupId: UUID, BlockGroup) async throws -> BlockGroup
     public var deleteGroup: @Sendable (_ groupId: UUID) async -> Void
 }
 
@@ -129,25 +129,26 @@ extension GroupRepository: DependencyKey {
                 }
             },
             updateGroup: { id, group in
-                do {
-                    let descriptor = FetchDescriptor<BlockGroupSwiftData>(
-                        predicate: #Predicate { $0.id == id }
-                    )
-                    let targetGroup = try await Task { @MainActor in
-                        try modelContext.fetch(descriptor).first
-                    }.value
+                let descriptor = FetchDescriptor<BlockGroupSwiftData>(
+                    predicate: #Predicate { $0.id == id }
+                )
+                let targetGroup = try await Task { @MainActor in
+                    try modelContext.fetch(descriptor).first
+                }.value
 
-                    guard let targetGroup else {
-                        throw PersistentDataError.notFound
-                    }
-                    targetGroup.name = group.name
-                    targetGroup.order = group.order
-                    try await MainActor.run {
-                        try modelContext.save()
-                    }
-                } catch {
-                    Debug.log("SwiftData ModelContext 에러: \(error)")
+                guard let targetGroup else {
+                    throw PersistentDataError.notFound
                 }
+                targetGroup.name = group.name
+                targetGroup.order = group.order
+                try await MainActor.run {
+                    try modelContext.save()
+                }
+                return BlockGroup(
+                    id: targetGroup.id,
+                    name: targetGroup.name,
+                    order: targetGroup.order
+                )
             },
             deleteGroup: { id in
                 do {
