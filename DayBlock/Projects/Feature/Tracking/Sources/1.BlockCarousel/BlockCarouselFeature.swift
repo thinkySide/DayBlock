@@ -9,6 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 import Domain
 import Editor
+import PersistentData
 import UserDefaults
 import Util
 
@@ -25,6 +26,13 @@ public struct BlockCarouselFeature {
         case addBlock
     }
 
+    /// 트래킹 시간과 색상 정보를 함께 저장하는 구조체
+    public struct TrackingTimeEntry: Equatable {
+        public let time: TrackingTime
+        public let colorIndex: Int
+        public let sessionId: UUID
+    }
+
     @ObservableState
     public struct State: Equatable {
         var isFirstAppear: Bool = true
@@ -38,6 +46,7 @@ public struct BlockCarouselFeature {
         var shouldTriggerFocusHaptic: Bool = true
         var isPopupPresented: Bool = false
         var deletedBlockIndex: Int?
+        var todayTrackingEntries: [TrackingTimeEntry] = []
 
         public var path = StackState<Path.State>()
         var trackingInProgress: TrackingInProgressFeature.State?
@@ -64,6 +73,7 @@ public struct BlockCarouselFeature {
             case setBlockList(IdentifiedArrayOf<Block>)
             case setCurrentDate(Date)
             case setFocusedBlock(FocusedBlock?)
+            case setTodayTrackingEntries([TrackingTimeEntry])
             case completeDeleteBlock
             case updateSheetDetent(PresentationDetent)
             case restoreTrackingSession(TrackingSessionState)
@@ -97,10 +107,12 @@ public struct BlockCarouselFeature {
     public init() {}
 
     @Dependency(\.date) private var date
+    @Dependency(\.calendar) private var calendar
     @Dependency(\.continuousClock) private var clock
     @Dependency(\.haptic) private var haptic
     @Dependency(\.groupRepository) private var groupRepository
     @Dependency(\.blockRepository) private var blockRepository
+    @Dependency(\.trackingRepository) private var trackingRepository
     @Dependency(\.userDefaultsService) private var userDefaultsService
 
     public var body: some ReducerOf<Self> {
@@ -223,7 +235,11 @@ public struct BlockCarouselFeature {
                 case .setCurrentDate(let date):
                     state.currentDate = date
                     return .none
-                    
+
+                case .setTodayTrackingEntries(let entries):
+                    state.todayTrackingEntries = entries
+                    return .none
+
                 case .setFocusedBlock(let focusedBlock):
                     state.shouldTriggerFocusHaptic = false
                     state.focusedBlock = focusedBlock
@@ -390,6 +406,25 @@ extension BlockCarouselFeature {
         .run { send in
             let blockList = await blockRepository.fetchBlockList(groupId: groupId)
             await send(.inner(.setBlockList(.init(uniqueElements: blockList))))
+
+            // 오늘의 트래킹 데이터 가져오기
+            let today = date.now
+            var todayEntries: [TrackingTimeEntry] = []
+
+            for block in blockList {
+                let sessions = await trackingRepository.fetchSessions(block.id)
+                for session in sessions {
+                    let todayTimes = session.timeList.filter { time in
+                        calendar.isDate(time.startDate, inSameDayAs: today)
+                    }
+                    let entries = todayTimes.map {
+                        TrackingTimeEntry(time: $0, colorIndex: block.colorIndex, sessionId: session.id)
+                    }
+                    todayEntries.append(contentsOf: entries)
+                }
+            }
+
+            await send(.inner(.setTodayTrackingEntries(todayEntries)))
         }
     }
 

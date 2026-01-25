@@ -20,6 +20,7 @@ public struct TrackingResultFeature {
         var trackingBlock: Block
         var completedTrackingTimeList: [TrackingTime]
         var totalTime: TimeInterval
+        var sessionId: UUID
         var memoText: String = ""
 
         @Presents var memoEditor: MemoEditorFeature.State?
@@ -28,12 +29,14 @@ public struct TrackingResultFeature {
             trackingGroup: BlockGroup,
             trackingBlock: Block,
             completedTrackingTimeList: [TrackingTime],
-            totalTime: TimeInterval
+            totalTime: TimeInterval,
+            sessionId: UUID
         ) {
             self.trackingGroup = trackingGroup
             self.trackingBlock = trackingBlock
             self.completedTrackingTimeList = completedTrackingTimeList
             self.totalTime = totalTime
+            self.sessionId = sessionId
         }
     }
 

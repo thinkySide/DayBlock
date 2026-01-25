@@ -8,6 +8,7 @@
 import SwiftUI
 import ComposableArchitecture
 import DesignSystem
+import Domain
 import Editor
 
 public struct TrackingResultView: View {
@@ -124,25 +125,25 @@ extension TrackingResultView {
                 Text("블럭")
                     .brandFont(.pretendard(.bold), 18)
                     .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
-                
+
                 Text("+")
                     .brandFont(.poppins(.bold), 24)
                     .foregroundStyle(ColorPalette.toColor(from: store.trackingBlock.colorIndex))
                     .padding(.leading, 2)
-                
+
                 Text("\(store.completedTrackingTimeList.count)")
                     .brandFont(.poppins(.bold), 24)
                     .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
                     .padding(.leading, -1)
                     .padding(.trailing, 2)
-                
+
                 Text("개를 생산했어요!")
                     .brandFont(.pretendard(.bold), 18)
                     .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
             }
-            
+
             TrackingBoard(
-                activeBlocks: [:],
+                activeBlocks: completedBlocks,
                 blockSize: 32,
                 blockCornerRadius: 8,
                 spacing: 8,
@@ -152,7 +153,21 @@ extension TrackingResultView {
     }
 }
 
-import Domain
+// MARK: - Helper
+extension TrackingResultView {
+
+    /// 완료된 트래킹 데이터를 TrackingBoard에 표시할 형태로 반환합니다.
+    private var completedBlocks: [Int: TrackingBoardBlock.Area] {
+        let builder = TrackingBoardDataBuilder()
+        return builder.build(
+            timeList: store.completedTrackingTimeList,
+            color: ColorPalette.toColor(from: store.trackingBlock.colorIndex),
+            variation: .stored,
+            sessionId: store.sessionId
+        )
+    }
+}
+
 #Preview {
     TrackingResultView(
         store: .init(
@@ -160,7 +175,8 @@ import Domain
                 trackingGroup: .init(id: .init(), name: "기본그룹", order: 0),
                 trackingBlock: .init(id: .init(), name: "기본블럭", iconIndex: 4, colorIndex: 6, output: 1.5, order: 0),
                 completedTrackingTimeList: [],
-                totalTime: 1800
+                totalTime: 1800,
+                sessionId: UUID()
             ),
             reducer: {
                 TrackingResultFeature()

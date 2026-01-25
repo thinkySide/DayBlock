@@ -15,6 +15,13 @@ import Util
 @Reducer
 public struct TrackingInProgressFeature {
 
+    /// 트래킹 시간과 색상 정보를 함께 저장하는 구조체
+    public struct TrackingTimeEntry: Equatable {
+        public let time: TrackingTime
+        public let colorIndex: Int
+        public let sessionId: UUID
+    }
+
     @ObservableState
     public struct State: Equatable {
         let standardTime: TimeInterval = 1800
@@ -31,7 +38,9 @@ public struct TrackingInProgressFeature {
         var isPopupPresented: Bool = false
         var isToastPresented: Bool = false
         var isCompletionAnimating: Bool = false
-        
+        var storedTrackingEntries: [TrackingTimeEntry] = []
+        var currentSessionId: UUID = UUID()
+
         var trackingResult: TrackingResultFeature.State?
 
         /// 트래킹 시작하는 생성자
@@ -45,6 +54,7 @@ public struct TrackingInProgressFeature {
             let nowDate = date.now
             self.trackingTime = .init(startDate: nowDate, endDate: nil)
             self.timerBaseDate = nowDate
+            self.currentSessionId = UUID()
         }
 
         /// 저장된 세션에서 복원하는 생성자
@@ -95,6 +105,7 @@ public struct TrackingInProgressFeature {
         public enum InnerAction {
             case updateCurrentDate
             case updateElapsedTime
+            case setStoredTrackingEntries([TrackingTimeEntry])
         }
 
         public enum DelegateAction {
@@ -125,10 +136,12 @@ public struct TrackingInProgressFeature {
 
     @Dependency(\.uuid) private var uuid
     @Dependency(\.date) private var date
+    @Dependency(\.calendar) private var calendar
     @Dependency(\.continuousClock) private var clock
     @Dependency(\.haptic) private var haptic
-    @Dependency(\.userDefaultsService) private var userDefaultsService
+    @Dependency(\.blockRepository) private var blockRepository
     @Dependency(\.trackingRepository) private var trackingRepository
+    @Dependency(\.userDefaultsService) private var userDefaultsService
 
     public var body: some ReducerOf<Self> {
         BindingReducer()
@@ -137,13 +150,18 @@ public struct TrackingInProgressFeature {
             case .view(let viewAction):
                 switch viewAction {
                 case .onAppear:
+                    let groupId = state.trackingGroup.id
                     saveTrackingSession(state)
                     if state.isPaused {
-                        return startClockTimer()
+                        return .merge(
+                            startClockTimer(),
+                            fetchStoredTrackingData(groupId: groupId)
+                        )
                     }
                     return .merge(
                         startClockTimer(),
-                        startTrackingTimer()
+                        startTrackingTimer(),
+                        fetchStoredTrackingData(groupId: groupId)
                     )
 
                 case .onScenePhaseActive:
@@ -189,7 +207,8 @@ public struct TrackingInProgressFeature {
                         trackingGroup: state.trackingGroup,
                         trackingBlock: state.trackingBlock,
                         completedTrackingTimeList: state.completedTrackingTimeList,
-                        totalTime: state.totalTime
+                        totalTime: state.totalTime,
+                        sessionId: state.currentSessionId
                     )
                     userDefaultsService.remove(\.trackingSession)
                     return .merge(
@@ -237,6 +256,10 @@ public struct TrackingInProgressFeature {
                     state.totalTime = completedTime + state.elapsedTime
                     saveTrackingSession(state)
 
+                    return .none
+
+                case .setStoredTrackingEntries(let entries):
+                    state.storedTrackingEntries = entries
                     return .none
                 }
 
@@ -319,5 +342,29 @@ extension TrackingInProgressFeature {
         )
 
         userDefaultsService.set(\.trackingSession, session)
+    }
+
+    /// DB에 저장된 오늘의 트래킹 데이터를 가져옵니다.
+    private func fetchStoredTrackingData(groupId: UUID) -> Effect<Action> {
+        .run { send in
+            let blockList = await blockRepository.fetchBlockList(groupId: groupId)
+            let today = date.now
+            var entries: [TrackingTimeEntry] = []
+
+            for block in blockList {
+                let sessions = await trackingRepository.fetchSessions(block.id)
+                for session in sessions {
+                    let todayTimes = session.timeList.filter { time in
+                        calendar.isDate(time.startDate, inSameDayAs: today)
+                    }
+                    let blockEntries = todayTimes.map {
+                        TrackingTimeEntry(time: $0, colorIndex: block.colorIndex, sessionId: session.id)
+                    }
+                    entries.append(contentsOf: blockEntries)
+                }
+            }
+
+            await send(.inner(.setStoredTrackingEntries(entries)))
+        }
     }
 }

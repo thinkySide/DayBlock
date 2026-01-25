@@ -207,89 +207,52 @@ extension TrackingInProgressView {
 
 // MARK: - Helper
 extension TrackingInProgressView {
-    
+
     /// TrackingBoard에 표시할 데이터를 반환합니다.
     private var activeBlocks: [Int: TrackingBoardBlock.Area] {
-        let color = ColorPalette.toColor(from: store.trackingBlock.colorIndex)
-        let currentVariation: TrackingBoardBlock.Area.Variation = store.isPaused ? .paused : .tracking
-        let trackingBlock = convertTimeToBlocks(time: store.trackingTime, color: color, variation: currentVariation)
-        let completedBlocks = store.todayCompletedTrackingTimeList.reduce(into: [Int: TrackingBoardBlock.Area]()) { result, time in
-            let newBlocks = convertTimeToBlocks(time: time, color: color, variation: currentVariation)
-            result = mergeBlocks(result, newBlocks, color: color)
+        let builder = TrackingBoardDataBuilder()
+        let trackingColor = ColorPalette.toColor(from: store.trackingBlock.colorIndex)
+        let trackingVariation: TrackingBoardBlock.Area.Variation = store.isPaused ? .paused : .tracking
+        let currentSessionId = store.currentSessionId
+
+        var entries: [TrackingBoardDataBuilder.TimeEntry] = []
+
+        // 1. DB에 저장된 오늘의 트래킹 데이터 (애니메이션 X)
+        let storedEntries = store.storedTrackingEntries.map { entry in
+            TrackingBoardDataBuilder.TimeEntry(
+                time: entry.time,
+                color: ColorPalette.toColor(from: entry.colorIndex),
+                variation: .stored,
+                sessionId: entry.sessionId
+            )
         }
-        return mergeBlocks(trackingBlock, completedBlocks, color: color)
-    }
+        entries.append(contentsOf: storedEntries)
 
-    /// TrackingTime을 블럭 딕셔너리로 변환합니다.
-    private func convertTimeToBlocks(
-        time: TrackingTime,
-        color: Color,
-        variation: TrackingBoardBlock.Area.Variation
-    ) -> [Int: TrackingBoardBlock.Area] {
-        @Dependency(\.calendar) var calendar
-        let components = calendar.dateComponents([.hour, .minute], from: time.startDate)
-        guard let hour = components.hour, let minute = components.minute else { return [:] }
-
-        let isFirstHalf = minute < 30
-        let area: TrackingBoardBlock.Area = isFirstHalf
-            ? .firstHalf(color, variation)
-            : .secondHalf(color, variation)
-
-        return [hour: area]
-    }
-
-    /// 두 개의 블럭 딕셔너리를 병합합니다.
-    private func mergeBlocks(
-        _ blocks1: [Int: TrackingBoardBlock.Area],
-        _ blocks2: [Int: TrackingBoardBlock.Area],
-        color: Color
-    ) -> [Int: TrackingBoardBlock.Area] {
-        blocks2.reduce(into: blocks1) { result, entry in
-            let (hour, newArea) = entry
-            if let existingArea = result[hour] {
-                result[hour] = mergeAreas(existingArea, newArea, color: color)
-            } else {
-                result[hour] = newArea
-            }
+        // 2. 현재 세션에서 완료된 트래킹 (애니메이션 O, 같은 세션)
+        let completedEntries = store.todayCompletedTrackingTimeList.map { time in
+            TrackingBoardDataBuilder.TimeEntry(
+                time: time,
+                color: trackingColor,
+                variation: trackingVariation,
+                sessionId: currentSessionId
+            )
         }
+        entries.append(contentsOf: completedEntries)
+
+        // 3. 현재 트래킹 중인 시간 (애니메이션 O, 같은 세션)
+        let trackingEntry = TrackingBoardDataBuilder.TimeEntry(
+            time: store.trackingTime,
+            color: trackingColor,
+            variation: trackingVariation,
+            sessionId: currentSessionId
+        )
+        entries.append(trackingEntry)
+
+        return builder.build(entries: entries)
     }
 
-    /// 두 개의 Area를 병합합니다.
-    private func mergeAreas(
-        _ existing: TrackingBoardBlock.Area,
-        _ new: TrackingBoardBlock.Area,
-        color: Color
-    ) -> TrackingBoardBlock.Area {
-        switch (existing, new) {
-        case (.firstHalf(_, let existingVariation), .secondHalf(_, let newVariation)),
-             (.secondHalf(_, let newVariation), .firstHalf(_, let existingVariation)):
-            let mergedVariation = priorityVariation(existingVariation, newVariation)
-            return .full(color, mergedVariation)
-
-        default:
-            return new
-        }
-    }
-
-    /// 두 Variation 중 우선순위가 높은 것을 반환합니다.
-    /// 우선순위: tracking > paused > stored
-    private func priorityVariation(
-        _ first: TrackingBoardBlock.Area.Variation,
-        _ second: TrackingBoardBlock.Area.Variation
-    ) -> TrackingBoardBlock.Area.Variation {
-        if first == .tracking || second == .tracking {
-            return .tracking
-        } else if first == .paused || second == .paused {
-            return .paused
-        } else {
-            return .stored
-        }
-    }
-    
     /// 현재 생산량을 반환합니다.
     private var amount: Double {
-        var result: Double = 0
-        store.completedTrackingTimeList.forEach { _ in result += 0.5 }
-        return result
+        Double(store.completedTrackingTimeList.count) * 0.5
     }
 }

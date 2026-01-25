@@ -118,22 +118,36 @@ public struct BlockCarouselView: View {
 
 // MARK: - Header
 extension BlockCarouselView {
-    
+
     @ViewBuilder
     private func Header() -> some View {
         HStack {
             DateTimeInfo()
-            
+
             Spacer()
-            
+
             TrackingBoard(
-                activeBlocks: [:],
+                activeBlocks: storedBlocks,
                 blockSize: 18,
                 blockCornerRadius: 4.5,
                 spacing: 4,
                 isPaused: false
             )
         }
+    }
+
+    /// 저장된 오늘의 트래킹 데이터를 TrackingBoard에 표시할 형태로 반환합니다.
+    private var storedBlocks: [Int: TrackingBoardBlock.Area] {
+        let builder = TrackingBoardDataBuilder()
+        let entries = store.todayTrackingEntries.map { entry in
+            TrackingBoardDataBuilder.TimeEntry(
+                time: entry.time,
+                color: ColorPalette.toColor(from: entry.colorIndex),
+                variation: .stored,
+                sessionId: entry.sessionId
+            )
+        }
+        return builder.build(entries: entries)
     }
     
     @ViewBuilder
