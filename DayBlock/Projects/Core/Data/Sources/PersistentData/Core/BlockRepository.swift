@@ -16,7 +16,7 @@ import Util
 public struct BlockRepository {
     public var createBlock: @Sendable (_ groupId: UUID, Block) async throws -> Block
     public var fetchBlockList: @Sendable (_ groupId: UUID) async -> [Block] = { _ in [] }
-    public var updateBlock: @Sendable (_ blockId: UUID, Block) async throws -> Block
+    public var updateBlock: @Sendable (_ blockId: UUID, _ groupId: UUID, Block) async throws -> Block
     public var deleteBlock: @Sendable (_ blockId: UUID) async -> Void
 }
 
@@ -104,16 +104,28 @@ extension BlockRepository: DependencyKey {
                     return []
                 }
             },
-            updateBlock: { id, block in
-                let descriptor = FetchDescriptor<BlockSwiftData>(
+            updateBlock: { id, groupId, block in
+                let blockDescriptor = FetchDescriptor<BlockSwiftData>(
                     predicate: #Predicate { $0.id == id }
                 )
 
                 let targetBlock = try await Task { @MainActor in
-                    try modelContext.fetch(descriptor).first
+                    try modelContext.fetch(blockDescriptor).first
                 }.value
 
                 guard let targetBlock else {
+                    throw PersistentDataError.notFound
+                }
+
+                let groupDescriptor = FetchDescriptor<BlockGroupSwiftData>(
+                    predicate: #Predicate { $0.id == groupId }
+                )
+
+                let targetGroup = try await Task { @MainActor in
+                    try modelContext.fetch(groupDescriptor).first
+                }.value
+
+                guard let targetGroup else {
                     throw PersistentDataError.notFound
                 }
 
@@ -122,6 +134,7 @@ extension BlockRepository: DependencyKey {
                 targetBlock.colorIndex = block.colorIndex
                 targetBlock.output = block.output
                 targetBlock.order = block.order
+                targetBlock.group = targetGroup
 
                 try await MainActor.run {
                     try modelContext.save()

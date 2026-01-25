@@ -143,6 +143,7 @@ public struct BlockEditorFeature {
                         case .edit:
                             savedBlock = try await blockRepository.updateBlock(
                                 targetBlock.id,
+                                targetGroup.id,
                                 targetBlock
                             )
                         }
