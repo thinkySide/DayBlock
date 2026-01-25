@@ -296,8 +296,8 @@ public struct BlockCarouselFeature {
                 case let .element(id: _, action: .blockEditor(.delegate(.didConfirm(block, group)))):
                     state.path.removeAll()
                     state.shouldTriggerFocusHaptic = false
+                    state.focusedBlock = nil
                     state.selectedGroup = group
-                    state.focusedBlock = .block(id: block.id)
                     userDefaultsService.set(\.selectedBlockId, block.id)
                     userDefaultsService.set(\.selectedGroupId, group.id)
                     return refreshBlockList(from: state.selectedGroup.id)
@@ -402,10 +402,14 @@ extension BlockCarouselFeature {
                     await send(.inner(.setFocusedBlock(nil)))
                 }
             default:
-                if let firstId = state.blockList.first?.id {
-                    await send(.inner(.setFocusedBlock(.block(id: firstId))))
+                if let selectedBlockId = userDefaultsService.get(\.selectedBlockId) {
+                    await send(.inner(.setFocusedBlock(.block(id: selectedBlockId))))
                 } else {
-                    await send(.inner(.setFocusedBlock(nil)))
+                    if let firstId = state.blockList.first?.id {
+                        await send(.inner(.setFocusedBlock(.block(id: firstId))))
+                    } else {
+                        await send(.inner(.setFocusedBlock(nil)))
+                    }
                 }
             }
         }
