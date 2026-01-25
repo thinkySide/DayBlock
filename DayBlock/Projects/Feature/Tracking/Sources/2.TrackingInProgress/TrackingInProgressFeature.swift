@@ -8,6 +8,7 @@
 import Foundation
 import ComposableArchitecture
 import Domain
+import PersistentData
 import UserDefaults
 import Util
 
@@ -122,10 +123,12 @@ public struct TrackingInProgressFeature {
 
     public init() {}
 
+    @Dependency(\.uuid) private var uuid
     @Dependency(\.date) private var date
     @Dependency(\.continuousClock) private var clock
     @Dependency(\.haptic) private var haptic
     @Dependency(\.userDefaultsService) private var userDefaultsService
+    @Dependency(\.trackingRepository) private var trackingRepository
 
     public var body: some ReducerOf<Self> {
         BindingReducer()
@@ -175,6 +178,13 @@ public struct TrackingInProgressFeature {
                     return .none
                     
                 case .onCompletionAnimationComplete:
+                    let blockId = state.trackingBlock.id
+                    let timeList = state.completedTrackingTimeList
+                    let session = TrackingSession(
+                        id: uuid(),
+                        createdAt: date.now,
+                        timeList: timeList
+                    )
                     state.trackingResult = .init(
                         trackingGroup: state.trackingGroup,
                         trackingBlock: state.trackingBlock,
@@ -184,7 +194,10 @@ public struct TrackingInProgressFeature {
                     userDefaultsService.remove(\.trackingSession)
                     return .merge(
                         .cancel(id: CancelID.clockTimer),
-                        .cancel(id: CancelID.trackingTimer)
+                        .cancel(id: CancelID.trackingTimer),
+                        .run { _ in
+                            _ = try await trackingRepository.createSession(blockId, session)
+                        }
                     )
                 }
 
