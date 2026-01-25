@@ -8,6 +8,7 @@
 import Foundation
 import ComposableArchitecture
 import Domain
+import Editor
 import Util
 
 @Reducer
@@ -19,6 +20,9 @@ public struct TrackingResultFeature {
         var trackingBlock: Block
         var completedTrackingTimeList: [TrackingData.Time]
         var totalTime: TimeInterval
+        var memoText: String = ""
+        
+        @Presents var memoEditor: MemoEditorFeature.State?
         
         public init(
             trackingGroup: BlockGroup,
@@ -36,6 +40,7 @@ public struct TrackingResultFeature {
     public enum Action: TCAFeatureAction, BindableAction {
         public enum ViewAction {
             case onTapFinishButton
+            case onTapMemoEditor
         }
 
         public enum InnerAction {
@@ -50,6 +55,7 @@ public struct TrackingResultFeature {
         case inner(InnerAction)
         case delegate(DelegateAction)
         case binding(BindingAction<State>)
+        case memoEditor(PresentationAction<MemoEditorFeature.Action>)
     }
     
     @Dependency(\.haptic) private var haptic
@@ -65,11 +71,30 @@ public struct TrackingResultFeature {
                 case .onTapFinishButton:
                     haptic.impact(.light)
                     return .send(.delegate(.didFinish))
+                    
+                case .onTapMemoEditor:
+                    state.memoEditor = .init(
+                        memoText: state.memoText,
+                        colorIndex: state.trackingBlock.colorIndex
+                    )
+                    return .none
                 }
+                
+            case .memoEditor(.presented(.delegate(.didDismiss))):
+                state.memoEditor = nil
+                return .none
+                
+            case .memoEditor(.presented(.delegate(.didConfirm(let memoText)))):
+                state.memoText = memoText
+                state.memoEditor = nil
+                return .none
                 
             default:
                 return .none
             }
+        }
+        .ifLet(\.$memoEditor, action: \.memoEditor) {
+            MemoEditorFeature()
         }
     }
 }

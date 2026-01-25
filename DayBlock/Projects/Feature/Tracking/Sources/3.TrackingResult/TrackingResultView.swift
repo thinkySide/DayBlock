@@ -8,6 +8,7 @@
 import SwiftUI
 import ComposableArchitecture
 import DesignSystem
+import Editor
 
 public struct TrackingResultView: View {
     
@@ -50,7 +51,7 @@ public struct TrackingResultView: View {
                 StableTextEditor(
                     isFocused: .constant(false),
                     text: .constant(memoText),
-                    font: DesignSystemFontFamily.Pretendard.medium.font(size: 15),
+                    font: DesignSystemFontFamily.Pretendard.medium.font(size: 16),
                     textColor: memoText.isEmpty
                     ? DesignSystem.Colors.gray600.swiftUIColor
                     : DesignSystem.Colors.gray800.swiftUIColor,
@@ -62,9 +63,20 @@ public struct TrackingResultView: View {
                 )
                 .padding(.top, 56)
                 .ignoresSafeArea()
+                .onTapGesture {
+                    store.send(.view(.onTapMemoEditor))
+                }
             }
         }
         .background(DesignSystem.Colors.gray0.swiftUIColor)
+        .fullScreenCover(
+            item: $store.scope(
+                state: \.memoEditor,
+                action: \.memoEditor
+            )
+        ) { childStore in
+            MemoEditorView(store: childStore)
+        }
     }
 }
 
