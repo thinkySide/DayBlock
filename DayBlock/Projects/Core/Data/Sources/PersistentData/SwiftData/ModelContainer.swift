@@ -13,7 +13,9 @@ private enum ModelContainerKey: DependencyKey {
     static let liveValue: ModelContainer = {
         let schema = Schema([
             BlockGroupSwiftData.self,
-            BlockSwiftData.self
+            BlockSwiftData.self,
+            TrackingSessionSwiftData.self,
+            TrackingTimeSwiftData.self
         ])
 
         let modelConfiguration = ModelConfiguration(

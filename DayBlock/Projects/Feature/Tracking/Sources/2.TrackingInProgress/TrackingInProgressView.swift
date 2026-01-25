@@ -220,9 +220,9 @@ extension TrackingInProgressView {
         return mergeBlocks(trackingBlock, completedBlocks, color: color)
     }
 
-    /// TrackingData.Time을 블럭 딕셔너리로 변환합니다.
+    /// TrackingTime을 블럭 딕셔너리로 변환합니다.
     private func convertTimeToBlocks(
-        time: TrackingData.Time,
+        time: TrackingTime,
         color: Color,
         variation: TrackingBoardBlock.Area.Variation
     ) -> [Int: TrackingBoardBlock.Area] {

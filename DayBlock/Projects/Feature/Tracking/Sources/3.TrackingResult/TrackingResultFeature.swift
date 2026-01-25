@@ -18,16 +18,16 @@ public struct TrackingResultFeature {
     public struct State: Equatable {
         var trackingGroup: BlockGroup
         var trackingBlock: Block
-        var completedTrackingTimeList: [TrackingData.Time]
+        var completedTrackingTimeList: [TrackingTime]
         var totalTime: TimeInterval
         var memoText: String = ""
-        
+
         @Presents var memoEditor: MemoEditorFeature.State?
-        
+
         public init(
             trackingGroup: BlockGroup,
             trackingBlock: Block,
-            completedTrackingTimeList: [TrackingData.Time],
+            completedTrackingTimeList: [TrackingTime],
             totalTime: TimeInterval
         ) {
             self.trackingGroup = trackingGroup

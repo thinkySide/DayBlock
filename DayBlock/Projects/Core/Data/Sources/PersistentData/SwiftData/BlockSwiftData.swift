@@ -23,10 +23,13 @@ final class BlockSwiftData: Identifiable, Sendable {
     var colorIndex: Int
     
     var order: Int
-    
+
     @Relationship(inverse: \BlockGroupSwiftData.blockList)
     var group: BlockGroupSwiftData
-    
+
+    @Relationship(deleteRule: .cascade)
+    var trackingSessions: [TrackingSessionSwiftData]
+
     init(
         id: UUID,
         name: String,
@@ -34,7 +37,8 @@ final class BlockSwiftData: Identifiable, Sendable {
         iconIndex: Int,
         colorIndex: Int,
         order: Int,
-        group: BlockGroupSwiftData
+        group: BlockGroupSwiftData,
+        trackingSessions: [TrackingSessionSwiftData] = []
     ) {
         self.id = id
         self.name = name
@@ -43,5 +47,6 @@ final class BlockSwiftData: Identifiable, Sendable {
         self.colorIndex = colorIndex
         self.order = order
         self.group = group
+        self.trackingSessions = trackingSessions
     }
 }

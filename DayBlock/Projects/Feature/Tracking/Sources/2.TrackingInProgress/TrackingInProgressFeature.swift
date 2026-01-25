@@ -19,9 +19,9 @@ public struct TrackingInProgressFeature {
         let standardTime: TimeInterval = 1800
         var trackingGroup: BlockGroup
         var trackingBlock: Block
-        var trackingTime: TrackingData.Time
-        var completedTrackingTimeList: [TrackingData.Time] = []
-        var todayCompletedTrackingTimeList: [TrackingData.Time] = []
+        var trackingTime: TrackingTime
+        var completedTrackingTimeList: [TrackingTime] = []
+        var todayCompletedTrackingTimeList: [TrackingTime] = []
         var currentDate: Date = .now
         var totalTime: TimeInterval = 0
         var elapsedTime: TimeInterval = 0
@@ -58,7 +58,7 @@ public struct TrackingInProgressFeature {
             self.trackingBlock = trackingBlock
             self.trackingTime = .init(startDate: trackingSession.trackingStartDate, endDate: nil)
             self.completedTrackingTimeList = trackingSession.completedTrackingTimeList.map {
-                TrackingData.Time(startDate: $0.startDate, endDate: $0.endDate)
+                TrackingTime(startDate: $0.startDate, endDate: $0.endDate)
             }
             self.isPaused = trackingSession.isPaused
             self.timerBaseDate = trackingSession.timerBaseDate
@@ -204,7 +204,7 @@ public struct TrackingInProgressFeature {
                         state.completedTrackingTimeList.append(state.trackingTime)
                         state.timerBaseDate = blockEndDate
 
-                        let newTrackingTime = TrackingData.Time(startDate: blockEndDate, endDate: nil)
+                        let newTrackingTime = TrackingTime(startDate: blockEndDate, endDate: nil)
                         let previousDate = state.trackingTime.startDate
                         let newDate = newTrackingTime.startDate
                         if !calendar.isDate(previousDate, inSameDayAs: newDate) {
