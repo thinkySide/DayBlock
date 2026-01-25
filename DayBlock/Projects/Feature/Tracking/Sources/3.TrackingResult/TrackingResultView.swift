@@ -19,8 +19,112 @@ public struct TrackingResultView: View {
     
     public var body: some View {
         VStack(spacing: 0) {
-            Text("TrackingResultFeature")
+            NavigationBar()
+
+            Header()
+                .padding(.top, 20)
+            
+            DashedDivider()
+                .padding(.top, 32)
+                .frame(width: 204)
+            
+            DateInfo()
+                .padding(.top, 32)
+            
+            BoardSection()
+                .padding(.top, 44)
+            
+            Spacer()
         }
         .background(DesignSystem.Colors.gray0.swiftUIColor)
     }
+}
+
+// MARK: - SubViews
+extension TrackingResultView {
+    
+    @ViewBuilder
+    private func Header() -> some View {
+        VStack(spacing: 0) {
+            IconBlock(
+                symbol: IconPalette.toIcon(from: store.trackingBlock.iconIndex),
+                color: ColorPalette.toColor(from: store.trackingGroup.colorIndex),
+                size: 44
+            )
+            
+            Text(store.trackingGroup.name)
+                .brandFont(.pretendard(.semiBold), 15)
+                .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
+                .padding(.top, 16)
+            
+            Text(store.trackingBlock.name)
+                .brandFont(.pretendard(.bold), 20)
+                .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+                .padding(.top, 4)
+        }
+    }
+    
+    @ViewBuilder
+    private func DateInfo() -> some View {
+        VStack(spacing: 4) {
+            Text("23년 08월 25일 목요일")
+                .brandFont(.pretendard(.semiBold), 15)
+                .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
+            
+            Text("07:55-08:25")
+                .brandFont(.poppins(.bold), 28)
+                .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+        }
+    }
+    
+    @ViewBuilder
+    private func BoardSection() -> some View {
+        VStack(spacing: 6) {
+            HStack(spacing: 0) {
+                Text("블럭")
+                    .brandFont(.pretendard(.bold), 18)
+                    .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+                
+                Text("+")
+                    .brandFont(.poppins(.bold), 24)
+                    .foregroundStyle(ColorPalette.toColor(from: store.trackingGroup.colorIndex))
+                    .padding(.leading, 2)
+                
+                Text("\(store.completedTrackingTimeList.count)")
+                    .brandFont(.poppins(.bold), 24)
+                    .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+                    .padding(.leading, -1)
+                    .padding(.trailing, 2)
+                
+                Text("개를 생산했어요!")
+                    .brandFont(.pretendard(.bold), 18)
+                    .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+            }
+            
+            TrackingBoard(
+                activeBlocks: [:],
+                blockSize: 32,
+                blockCornerRadius: 8,
+                spacing: 8,
+                isPaused: false
+            )
+        }
+    }
+}
+
+import Domain
+#Preview {
+    TrackingResultView(
+        store: .init(
+            initialState: TrackingResultFeature.State(
+                trackingGroup: .init(id: .init(), name: "기본그룹", colorIndex: 6, order: 0),
+                trackingBlock: .init(id: .init(), name: "기본블럭", iconIndex: 4, output: 1.5, order: 0),
+                completedTrackingTimeList: [],
+                totalTime: 1800
+            ),
+            reducer: {
+                TrackingResultFeature()
+            }
+        )
+    )
 }

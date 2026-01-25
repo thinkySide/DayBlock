@@ -174,7 +174,12 @@ public struct TrackingInProgressFeature {
                     return .none
                     
                 case .onCompletionAnimationComplete:
-                    state.trackingResult = .init()
+                    state.trackingResult = .init(
+                        trackingGroup: state.trackingGroup,
+                        trackingBlock: state.trackingBlock,
+                        completedTrackingTimeList: state.completedTrackingTimeList,
+                        totalTime: state.totalTime
+                    )
                     userDefaultsService.remove(\.trackingSession)
                     return .merge(
                         .cancel(id: CancelID.clockTimer),
