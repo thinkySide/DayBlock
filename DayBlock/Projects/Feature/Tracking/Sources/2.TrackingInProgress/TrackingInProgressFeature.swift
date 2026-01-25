@@ -98,6 +98,7 @@ public struct TrackingInProgressFeature {
 
         public enum DelegateAction {
             case didDismiss
+            case didFinish
         }
         
         public enum PopupAction {
@@ -230,6 +231,9 @@ public struct TrackingInProgressFeature {
                 switch delegateAction {
                 case .didDismiss:
                     return .none
+                    
+                case .didFinish:
+                    return .none
                 }
                 
             case .popup(let popupAction):
@@ -246,6 +250,9 @@ public struct TrackingInProgressFeature {
                         .send(.delegate(.didDismiss))
                     )
                 }
+                
+            case .trackingResult(.delegate(.didFinish)):
+                return .send(.delegate(.didFinish))
                 
             default:
                 return .none

@@ -33,9 +33,9 @@ public struct TrackingResultFeature {
         }
     }
 
-    public enum Action: TCAFeatureAction {
+    public enum Action: TCAFeatureAction, BindableAction {
         public enum ViewAction {
-            
+            case onTapFinishButton
         }
 
         public enum InnerAction {
@@ -43,20 +43,29 @@ public struct TrackingResultFeature {
         }
 
         public enum DelegateAction {
-            
+            case didFinish
         }
 
         case view(ViewAction)
         case inner(InnerAction)
         case delegate(DelegateAction)
+        case binding(BindingAction<State>)
     }
+    
+    @Dependency(\.haptic) private var haptic
 
     public init() {}
 
     public var body: some ReducerOf<Self> {
+        BindingReducer()
         Reduce { state, action in
             switch action {
-            
+            case .view(let viewAction):
+                switch viewAction {
+                case .onTapFinishButton:
+                    haptic.impact(.light)
+                    return .send(.delegate(.didFinish))
+                }
                 
             default:
                 return .none

@@ -11,7 +11,7 @@ import DesignSystem
 
 public struct TrackingResultView: View {
     
-    private var store: StoreOf<TrackingResultFeature>
+    @Bindable private var store: StoreOf<TrackingResultFeature>
 
     public init(store: StoreOf<TrackingResultFeature>) {
         self.store = store
@@ -19,22 +19,50 @@ public struct TrackingResultView: View {
     
     public var body: some View {
         VStack(spacing: 0) {
-            NavigationBar()
+            NavigationBar(
+                trailingView: {
+                    NavigationBarButton(
+                        .text("완료"),
+                        onTap: {
+                            store.send(.view(.onTapFinishButton))
+                        }
+                    )
+                }
+            )
 
-            Header()
-                .padding(.top, 20)
-            
-            DashedDivider()
-                .padding(.top, 32)
-                .frame(width: 204)
-            
-            DateInfo()
-                .padding(.top, 32)
-            
-            BoardSection()
-                .padding(.top, 44)
-            
-            Spacer()
+            VStack(spacing: 0) {
+                Header()
+                    .padding(.top, 20)
+
+                DashedDivider()
+                    .padding(.top, 32)
+                    .frame(width: 204)
+
+                DateInfo()
+                    .padding(.top, 32)
+
+                BoardSection()
+                    .padding(.top, 44)
+
+                let memoText = store.memoText.isEmpty
+                ? "어떤 일을 했는지 메모로 남겨봐요"
+                : store.memoText
+                StableTextEditor(
+                    isFocused: .constant(false),
+                    text: .constant(memoText),
+                    font: DesignSystemFontFamily.Pretendard.medium.font(size: 15),
+                    textColor: memoText.isEmpty
+                    ? DesignSystem.Colors.gray600.swiftUIColor
+                    : DesignSystem.Colors.gray800.swiftUIColor,
+                    tintColor: ColorPalette.toColor(from: store.trackingBlock.colorIndex),
+                    backgroundColor: DesignSystem.Colors.gray100.swiftUIColor,
+                    lineSpacing: 1,
+                    contentInset: .init(top: 20, left: 20, bottom: 20, right: 20),
+                    isEditable: false
+                )
+                .padding(.top, 56)
+                .ignoresSafeArea()
+            }
         }
         .background(DesignSystem.Colors.gray0.swiftUIColor)
     }

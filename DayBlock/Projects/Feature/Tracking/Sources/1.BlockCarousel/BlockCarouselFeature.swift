@@ -349,6 +349,10 @@ public struct BlockCarouselFeature {
                 state.trackingInProgress = nil
                 return .none
                 
+            case .trackingInProgress(.delegate(.didFinish)):
+                state.trackingInProgress = nil
+                return .none
+                
             default:
                 return .none
             }
