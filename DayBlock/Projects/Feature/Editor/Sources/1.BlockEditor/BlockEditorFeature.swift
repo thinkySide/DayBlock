@@ -23,6 +23,7 @@ public struct BlockEditorFeature {
     public struct State: Equatable {
         let nameTextLimit: Int = 16
         let initialBlock: Block
+        let initialGroup: BlockGroup
 
         var mode: Mode
         var editingBlock: Block
@@ -41,6 +42,7 @@ public struct BlockEditorFeature {
             @Dependency(\.uuid) var uuid
             self.mode = mode
             self.selectedGroup = selectedGroup
+            self.initialGroup = selectedGroup
             let defaultBlock = Block(
                 id: uuid(),
                 name: "블럭 쌓기",
@@ -132,19 +134,27 @@ public struct BlockEditorFeature {
                 case .onTapConfirmButton:
                     let targetGroup = state.selectedGroup
                     let targetBlock = state.editingBlock
+                    let isGroupChanged = state.initialGroup.id != state.selectedGroup.id
+
                     return .run { [state] send in
+                        var blockToSave = targetBlock
                         let savedBlock: Block
                         switch state.mode {
                         case .add:
                             savedBlock = try await blockRepository.createBlock(
                                 targetGroup.id,
-                                targetBlock
+                                blockToSave
                             )
                         case .edit:
+                            if isGroupChanged {
+                                let blockList = await blockRepository.fetchBlockList(groupId: targetGroup.id)
+                                let lastOrder = (blockList.map(\.order).max() ?? -1) + 1
+                                blockToSave.order = lastOrder
+                            }
                             savedBlock = try await blockRepository.updateBlock(
-                                targetBlock.id,
+                                blockToSave.id,
                                 targetGroup.id,
-                                targetBlock
+                                blockToSave
                             )
                         }
                         await send(.delegate(.didConfirm(savedBlock, targetGroup)))

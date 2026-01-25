@@ -231,6 +231,7 @@ public struct BlockCarouselFeature {
                     
                 case .completeDeleteBlock:
                     state.isPopupPresented = false
+                    userDefaultsService.remove(\.selectedBlockId)
                     return refreshBlockList(from: state.selectedGroup.id)
                     
                 case .updateSheetDetent(let sheetDetent):
@@ -295,9 +296,10 @@ public struct BlockCarouselFeature {
                 case let .element(id: _, action: .blockEditor(.delegate(.didConfirm(block, group)))):
                     state.path.removeAll()
                     state.shouldTriggerFocusHaptic = false
-                    state.focusedBlock = .block(id: block.id)
                     state.selectedGroup = group
+                    state.focusedBlock = .block(id: block.id)
                     userDefaultsService.set(\.selectedBlockId, block.id)
+                    userDefaultsService.set(\.selectedGroupId, group.id)
                     return refreshBlockList(from: state.selectedGroup.id)
                     
                 default:
@@ -379,7 +381,7 @@ extension BlockCarouselFeature {
         }
     }
     
-    /// 그룹 리스트를 리프레쉬 합니다.
+    /// 블럭 리스트를 리프레쉬 합니다.
     private func refreshBlockList(from groupId: UUID) -> Effect<Action> {
         .run { send in
             let blockList = await blockRepository.fetchBlockList(groupId: groupId)
