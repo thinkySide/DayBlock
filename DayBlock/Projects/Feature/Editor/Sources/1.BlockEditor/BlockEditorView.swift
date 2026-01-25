@@ -66,15 +66,9 @@ public struct BlockEditorView: View {
             LabelSelection(
                 label: "그룹",
                 accessory: {
-                    HStack(spacing: 8) {
-                        RoundedRectangle(cornerRadius: 4)
-                            .foregroundStyle(ColorPalette.toColor(from: store.editingBlock.colorIndex))
-                            .frame(width: 16, height: 16)
-                        
-                        Text(store.selectedGroup.name)
-                            .brandFont(.pretendard(.bold), 17)
-                            .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
-                    }
+                    Text(store.selectedGroup.name)
+                        .brandFont(.pretendard(.bold), 17)
+                        .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
                 },
                 onTap: {
                     store.send(.view(.onTapGroupSelection))

@@ -14,7 +14,7 @@ import Util
 
 @DependencyClient
 public struct GroupRepository {
-    public var createGroup: @Sendable (BlockGroup) async -> Void
+    public var createGroup: @Sendable (BlockGroup) async throws -> BlockGroup
     public var fetchDefaultGroup: @Sendable () async -> BlockGroup = {
         .init(id: .init(), name: "", order: 0)
     }
@@ -35,27 +35,28 @@ extension GroupRepository: DependencyKey {
     public static var liveValue: GroupRepository {
         GroupRepository(
             createGroup: { group in
-                do {
-                    let descriptor = FetchDescriptor<BlockGroupSwiftData>()
-                    let existingGroups = try await Task { @MainActor in
-                        try modelContext.fetch(descriptor)
-                    }.value
+                let descriptor = FetchDescriptor<BlockGroupSwiftData>()
+                let existingGroups = try await Task { @MainActor in
+                    try modelContext.fetch(descriptor)
+                }.value
 
-                    let nextOrder = (existingGroups.map(\.order).max() ?? -1) + 1
+                let nextOrder = (existingGroups.map(\.order).max() ?? -1) + 1
 
-                    let swiftDataGroup = BlockGroupSwiftData(
-                        id: group.id,
-                        name: group.name,
-                        order: nextOrder,
-                        blockList: []
-                    )
-                    try await MainActor.run {
-                        modelContext.insert(swiftDataGroup)
-                        try modelContext.save()
-                    }
-                } catch {
-                    Debug.log("SwiftData ModelContext 에러: \(error)")
+                let swiftDataGroup = BlockGroupSwiftData(
+                    id: group.id,
+                    name: group.name,
+                    order: nextOrder,
+                    blockList: []
+                )
+                try await MainActor.run {
+                    modelContext.insert(swiftDataGroup)
+                    try modelContext.save()
                 }
+                return BlockGroup(
+                    id: group.id,
+                    name: group.name,
+                    order: nextOrder
+                )
             },
             fetchDefaultGroup: {
                 do {
