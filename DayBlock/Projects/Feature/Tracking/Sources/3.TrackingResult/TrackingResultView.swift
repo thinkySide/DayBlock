@@ -48,7 +48,7 @@ extension TrackingResultView {
         VStack(spacing: 0) {
             IconBlock(
                 symbol: IconPalette.toIcon(from: store.trackingBlock.iconIndex),
-                color: ColorPalette.toColor(from: store.trackingGroup.colorIndex),
+                color: ColorPalette.toColor(from: store.trackingBlock.colorIndex),
                 size: 44
             )
             
@@ -87,7 +87,7 @@ extension TrackingResultView {
                 
                 Text("+")
                     .brandFont(.poppins(.bold), 24)
-                    .foregroundStyle(ColorPalette.toColor(from: store.trackingGroup.colorIndex))
+                    .foregroundStyle(ColorPalette.toColor(from: store.trackingBlock.colorIndex))
                     .padding(.leading, 2)
                 
                 Text("\(store.completedTrackingTimeList.count)")
@@ -117,8 +117,8 @@ import Domain
     TrackingResultView(
         store: .init(
             initialState: TrackingResultFeature.State(
-                trackingGroup: .init(id: .init(), name: "기본그룹", colorIndex: 6, order: 0),
-                trackingBlock: .init(id: .init(), name: "기본블럭", iconIndex: 4, output: 1.5, order: 0),
+                trackingGroup: .init(id: .init(), name: "기본그룹", order: 0),
+                trackingBlock: .init(id: .init(), name: "기본블럭", iconIndex: 4, colorIndex: 6, output: 1.5, order: 0),
                 completedTrackingTimeList: [],
                 totalTime: 1800
             ),

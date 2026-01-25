@@ -41,7 +41,7 @@ public struct BlockEditorView: View {
                 totalAmount: store.initialBlock.output,
                 todayAmount: store.initialBlock.output,
                 symbol: IconPalette.toIcon(from: store.editingBlock.iconIndex),
-                color: ColorPalette.toColor(from: store.selectedGroup.colorIndex),
+                color: ColorPalette.toColor(from: store.editingBlock.colorIndex),
                 variation: .front
             )
             .padding(.top, 12)
@@ -68,7 +68,7 @@ public struct BlockEditorView: View {
                 accessory: {
                     HStack(spacing: 8) {
                         RoundedRectangle(cornerRadius: 4)
-                            .foregroundStyle(ColorPalette.toColor(from: store.selectedGroup.colorIndex))
+                            .foregroundStyle(ColorPalette.toColor(from: store.editingBlock.colorIndex))
                             .frame(width: 16, height: 16)
                         
                         Text(store.selectedGroup.name)
@@ -94,6 +94,20 @@ public struct BlockEditorView: View {
                 },
                 onTap: {
                     store.send(.view(.onTapIconSelection))
+                }
+            )
+            .padding(.top, 24)
+            .padding(.leading, 20)
+            
+            LabelSelection(
+                label: "색상",
+                accessory: {
+                    RoundedRectangle(cornerRadius: 4)
+                        .foregroundStyle(ColorPalette.toColor(from: store.editingBlock.colorIndex))
+                        .frame(width: 16, height: 16)
+                },
+                onTap: {
+                    store.send(.view(.onTapColorSelection))
                 }
             )
             .padding(.top, 24)
@@ -127,6 +141,16 @@ public struct BlockEditorView: View {
         ) { childStore in
             IconSelectView(store: childStore)
                 .presentationDetents([.medium, .large], selection: $store.sheetDetent)
+                .presentationDragIndicator(.visible)
+        }
+        .sheet(
+            item: $store.scope(
+                state: \.colorSelect,
+                action: \.colorSelect
+            )
+        ) { childStore in
+            ColorSelectView(store: childStore)
+                .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
         }
     }

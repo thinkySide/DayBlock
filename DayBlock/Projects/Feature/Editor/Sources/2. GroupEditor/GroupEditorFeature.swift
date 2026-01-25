@@ -27,8 +27,6 @@ public struct GroupEditorFeature {
         var nameText: String = ""
         var editingGroup: BlockGroup
         
-        @Presents var colorSelect: ColorSelectFeature.State?
-        
         public init(
             mode: Mode
         ) {
@@ -37,7 +35,7 @@ public struct GroupEditorFeature {
             switch mode {
             case .add:
                 @Dependency(\.uuid) var uuid
-                let newGroup = BlockGroup(id: uuid(), name: "", colorIndex: 4, order: 0)
+                let newGroup = BlockGroup(id: uuid(), name: "", order: 0)
                 self.initialGroup = newGroup
                 self.editingGroup = newGroup
                 
@@ -54,7 +52,6 @@ public struct GroupEditorFeature {
             case onAppear
             case onTapBackButton
             case onTapConfirmButton
-            case onTapColorSelection
         }
 
         public enum InnerAction {
@@ -70,7 +67,6 @@ public struct GroupEditorFeature {
         case inner(InnerAction)
         case delegate(DelegateAction)
         case binding(BindingAction<State>)
-        case colorSelect(PresentationAction<ColorSelectFeature.Action>)
     }
     
     @Dependency(\.groupRepository) private var groupRepository
@@ -100,24 +96,11 @@ public struct GroupEditorFeature {
                         await groupRepository.createGroup(group)
                         await send(.delegate(.didConfirm(group)))
                     }
-                    
-                case .onTapColorSelection:
-                    let colorIndex = state.editingGroup.colorIndex
-                    state.colorSelect = .init(selectedColorIndex: colorIndex)
-                    return .none
                 }
-                
-            case .colorSelect(.presented(.delegate(.didSelectColor(let selectedIndex)))):
-                state.editingGroup.colorIndex = selectedIndex
-                state.colorSelect = nil
-                return .none
                 
             default:
                 return .none
             }
-        }
-        .ifLet(\.$colorSelect, action: \.colorSelect) {
-            ColorSelectFeature()
         }
     }
 }

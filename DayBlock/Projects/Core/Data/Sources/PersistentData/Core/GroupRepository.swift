@@ -16,7 +16,7 @@ import Util
 public struct GroupRepository {
     public var createGroup: @Sendable (BlockGroup) async -> Void
     public var fetchDefaultGroup: @Sendable () async -> BlockGroup = {
-        .init(id: .init(), name: "", colorIndex: 0, order: 0)
+        .init(id: .init(), name: "", order: 0)
     }
     public var fetchGroupList: @Sendable () async -> [BlockGroup] = { [] }
     public var updateGroup: @Sendable (_ groupId: UUID, BlockGroup) async -> Void
@@ -46,7 +46,6 @@ extension GroupRepository: DependencyKey {
                     let swiftDataGroup = BlockGroupSwiftData(
                         id: group.id,
                         name: group.name,
-                        colorIndex: group.colorIndex,
                         order: nextOrder,
                         blockList: []
                     )
@@ -70,7 +69,6 @@ extension GroupRepository: DependencyKey {
                         let defaultGroup = BlockGroupSwiftData(
                             id: uuid(),
                             name: "기본 그룹",
-                            colorIndex: 4,
                             order: 0,
                             blockList: []
                         )
@@ -83,17 +81,16 @@ extension GroupRepository: DependencyKey {
                         groupList = [defaultGroup]
                     }
                     guard let firstGroup = groupList.first else {
-                        return BlockGroup(id: .init(), name: "기본 그룹", colorIndex: 4, order: 0)
+                        return BlockGroup(id: .init(), name: "기본 그룹", order: 0)
                     }
                     return BlockGroup(
                         id: firstGroup.id,
                         name: firstGroup.name,
-                        colorIndex: firstGroup.colorIndex,
                         order: firstGroup.order
                     )
                 } catch {
                     Debug.log("SwiftData ModelContext 에러: \(error)")
-                    return BlockGroup(id: .init(), name: "기본 그룹", colorIndex: 4, order: 0)
+                    return BlockGroup(id: .init(), name: "기본 그룹", order: 0)
                 }
             },
             fetchGroupList: {
@@ -108,7 +105,6 @@ extension GroupRepository: DependencyKey {
                         let defaultGroup = BlockGroupSwiftData(
                             id: uuid(),
                             name: "기본 그룹",
-                            colorIndex: 4,
                             order: 0,
                             blockList: []
                         )
@@ -123,7 +119,6 @@ extension GroupRepository: DependencyKey {
                         BlockGroup(
                             id: swiftData.id,
                             name: swiftData.name,
-                            colorIndex: swiftData.colorIndex,
                             order: swiftData.order
                         )
                     }
@@ -145,7 +140,6 @@ extension GroupRepository: DependencyKey {
                         throw PersistentDataError.notFound
                     }
                     targetGroup.name = group.name
-                    targetGroup.colorIndex = group.colorIndex
                     targetGroup.order = group.order
                     try await MainActor.run {
                         try modelContext.save()

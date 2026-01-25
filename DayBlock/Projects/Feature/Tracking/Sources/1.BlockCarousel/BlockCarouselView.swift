@@ -164,10 +164,6 @@ extension BlockCarouselView {
         } label: {
             let group = store.selectedGroup
             HStack(spacing: 6) {
-                RoundedRectangle(cornerRadius: 4)
-                    .foregroundStyle(ColorPalette.toColor(from: group.colorIndex))
-                    .frame(width: 16, height: 16)
-                
                 Text(group.name)
                     .brandFont(.pretendard(.bold), 16)
                     .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
@@ -199,7 +195,7 @@ private struct BlockCarousel: View {
                             totalAmount: block.output,
                             todayAmount: block.output,
                             symbol: IconPalette.toIcon(from: block.iconIndex),
-                            color: ColorPalette.toColor(from: store.selectedGroup.colorIndex),
+                            color: ColorPalette.toColor(from: block.colorIndex),
                             variation: store.selectedBlock?.id == block.id ? .back : .front,
                             onTapCell: {
                                 store.send(.view(.onTapBlock(block)))

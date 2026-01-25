@@ -62,10 +62,6 @@ public struct GroupSelectView: View {
             store.send(.view(.onTapGroup(group)))
         } label: {
             HStack(spacing: 8) {
-                RoundedRectangle(cornerRadius: 7)
-                    .foregroundStyle(ColorPalette.toColor(from: group.colorIndex))
-                    .frame(width: 22, height: 22)
-                
                 Text(group.name)
                     .brandFont(.poppins(.semiBold), 16)
                     .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)

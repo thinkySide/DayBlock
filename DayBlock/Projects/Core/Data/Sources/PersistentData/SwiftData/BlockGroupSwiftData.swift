@@ -16,8 +16,6 @@ final class BlockGroupSwiftData: Identifiable, Sendable {
 
     @Attribute(.unique)
     var name: String
-
-    var colorIndex: Int
     
     var order: Int
 
@@ -27,13 +25,11 @@ final class BlockGroupSwiftData: Identifiable, Sendable {
     public init(
         id: UUID,
         name: String,
-        colorIndex: Int,
         order: Int,
         blockList: [BlockSwiftData]
     ) {
         self.id = id
         self.name = name
-        self.colorIndex = colorIndex
         self.order = order
         self.blockList = blockList
     }

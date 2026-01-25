@@ -37,7 +37,7 @@ public struct TrackingInProgressView: View {
                 title: store.trackingBlock.name,
                 todayAmount: amount,
                 symbol: IconPalette.toIcon(from: store.trackingBlock.iconIndex),
-                color: ColorPalette.toColor(from: store.trackingGroup.colorIndex),
+                color: ColorPalette.toColor(from: store.trackingBlock.colorIndex),
                 isPaused: store.isPaused,
                 onLongPressComplete: {
                     store.send(.view(.onLongPressCompleteTrackingBlock))
@@ -93,7 +93,7 @@ public struct TrackingInProgressView: View {
         .overlay {
             if store.isCompletionAnimating {
                 TrackingCompletionOverlay(
-                    color: ColorPalette.toColor(from: store.trackingGroup.colorIndex),
+                    color: ColorPalette.toColor(from: store.trackingBlock.colorIndex),
                     onAnimationComplete: {
                         store.send(.view(.onCompletionAnimationComplete))
                     }
@@ -186,7 +186,7 @@ extension TrackingInProgressView {
                     CustomProgressViewStyle(
                         tint: store.isPaused
                         ? DesignSystem.Colors.gray400.swiftUIColor
-                        : ColorPalette.toColor(from: store.trackingGroup.colorIndex),
+                        : ColorPalette.toColor(from: store.trackingBlock.colorIndex),
                         background: DesignSystem.Colors.gray0.swiftUIColor,
                         height: 10
                     )
@@ -210,7 +210,7 @@ extension TrackingInProgressView {
     
     /// TrackingBoard에 표시할 데이터를 반환합니다.
     private var activeBlocks: [Int: TrackingBoardBlock.Area] {
-        let color = ColorPalette.toColor(from: store.trackingGroup.colorIndex)
+        let color = ColorPalette.toColor(from: store.trackingBlock.colorIndex)
         let currentVariation: TrackingBoardBlock.Area.Variation = store.isPaused ? .paused : .tracking
         let trackingBlock = convertTimeToBlocks(time: store.trackingTime, color: color, variation: currentVariation)
         let completedBlocks = store.todayCompletedTrackingTimeList.reduce(into: [Int: TrackingBoardBlock.Area]()) { result, time in

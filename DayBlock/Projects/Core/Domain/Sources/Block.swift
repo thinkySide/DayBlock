@@ -18,6 +18,9 @@ public struct Block: Identifiable, Equatable, Codable {
     /// 아이콘 인덱스
     public var iconIndex: Int
     
+    /// 색상 인덱스
+    public var colorIndex: Int
+    
     /// 생산량
     public var output: Double
     
@@ -28,12 +31,14 @@ public struct Block: Identifiable, Equatable, Codable {
         id: UUID,
         name: String,
         iconIndex: Int,
+        colorIndex: Int,
         output: Double,
         order: Int
     ) {
         self.id = id
         self.name = name
         self.iconIndex = iconIndex
+        self.colorIndex = colorIndex
         self.output = output
         self.order = order
     }

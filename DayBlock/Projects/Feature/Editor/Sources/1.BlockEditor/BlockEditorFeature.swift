@@ -32,6 +32,7 @@ public struct BlockEditorFeature {
 
         @Presents var groupSelect: GroupSelectFeature.State?
         @Presents var iconSelect: IconSelectFeature.State?
+        @Presents var colorSelect: ColorSelectFeature.State?
 
         public init(
             mode: Mode,
@@ -44,6 +45,7 @@ public struct BlockEditorFeature {
                 id: uuid(),
                 name: "블럭 쌓기",
                 iconIndex: 0,
+                colorIndex: 4,
                 output: 0,
                 order: 0
             )
@@ -69,6 +71,7 @@ public struct BlockEditorFeature {
             case onTapConfirmButton
             case onTapGroupSelection
             case onTapIconSelection
+            case onTapColorSelection
         }
 
         public enum InnerAction {
@@ -87,6 +90,7 @@ public struct BlockEditorFeature {
         case binding(BindingAction<State>)
         case groupSelect(PresentationAction<GroupSelectFeature.Action>)
         case iconSelect(PresentationAction<IconSelectFeature.Action>)
+        case colorSelect(PresentationAction<ColorSelectFeature.Action>)
     }
 
     public init() {}
@@ -118,6 +122,11 @@ public struct BlockEditorFeature {
                 case .onTapIconSelection:
                     let selectedIconIndex = state.editingBlock.iconIndex
                     state.iconSelect = .init(selectedIconIndex: selectedIconIndex)
+                    return .none
+                    
+                case .onTapColorSelection:
+                    let colorIndex = state.editingBlock.colorIndex
+                    state.colorSelect = .init(selectedColorIndex: colorIndex)
                     return .none
 
                 case .onTapConfirmButton:
@@ -183,6 +192,11 @@ public struct BlockEditorFeature {
                 state.iconSelect = nil
                 state.sheetDetent = .medium
                 return .none
+                
+            case .colorSelect(.presented(.delegate(.didSelectColor(let selectedIndex)))):
+                state.editingBlock.colorIndex = selectedIndex
+                state.colorSelect = nil
+                return .none
 
             default:
                 return .none
@@ -193,6 +207,9 @@ public struct BlockEditorFeature {
         }
         .ifLet(\.$iconSelect, action: \.iconSelect) {
             IconSelectFeature()
+        }
+        .ifLet(\.$colorSelect, action: \.colorSelect) {
+            ColorSelectFeature()
         }
     }
 }

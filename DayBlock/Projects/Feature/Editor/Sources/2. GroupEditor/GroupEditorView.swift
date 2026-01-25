@@ -53,20 +53,6 @@ public struct GroupEditorView: View {
                 store.send(.view(.typeNameText(value)))
             }
             
-            LabelSelection(
-                label: "색상",
-                accessory: {
-                    RoundedRectangle(cornerRadius: 4)
-                        .foregroundStyle(ColorPalette.toColor(from: store.editingGroup.colorIndex))
-                        .frame(width: 16, height: 16)
-                },
-                onTap: {
-                    store.send(.view(.onTapColorSelection))
-                }
-            )
-            .padding(.top, 24)
-            .padding(.leading, 20)
-            
             Spacer()
         }
         .background(DesignSystem.Colors.gray0.swiftUIColor)
@@ -76,16 +62,6 @@ public struct GroupEditorView: View {
         }
         .onTapGesture {
             isNameTextFieldFocused = false
-        }
-        .sheet(
-            item: $store.scope(
-                state: \.colorSelect,
-                action: \.colorSelect
-            )
-        ) { childStore in
-            ColorSelectView(store: childStore)
-                .presentationDetents([.medium, .large])
-                .presentationDragIndicator(.visible)
         }
     }
     

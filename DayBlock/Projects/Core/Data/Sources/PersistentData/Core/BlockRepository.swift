@@ -60,6 +60,7 @@ extension BlockRepository: DependencyKey {
                         name: block.name,
                         output: block.output,
                         iconIndex: block.iconIndex,
+                        colorIndex: block.colorIndex,
                         order: nextOrder,
                         group: targetGroup
                     )
@@ -88,6 +89,7 @@ extension BlockRepository: DependencyKey {
                             id: swiftData.id,
                             name: swiftData.name,
                             iconIndex: swiftData.iconIndex,
+                            colorIndex: swiftData.colorIndex,
                             output: swiftData.output,
                             order: swiftData.order
                         )
