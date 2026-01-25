@@ -367,7 +367,7 @@ public struct BlockCarouselFeature {
                 
             case .trackingInProgress(.delegate(.didFinish)):
                 state.trackingInProgress = nil
-                return .none
+                return refreshBlockList(from: state.selectedGroup.id)
                 
             default:
                 return .none
