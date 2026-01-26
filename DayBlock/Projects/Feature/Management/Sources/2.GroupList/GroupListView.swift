@@ -24,8 +24,10 @@ public struct GroupListView: View {
                 ForEach(store.groupList) { viewItem in
                     GroupCell(from: viewItem)
                 }
+                
+                AddGroupButton()
             }
-            .padding(.vertical, 12)
+            .padding(.vertical, 6)
         }
         .onAppear {
             store.send(.view(.onAppear))
@@ -66,6 +68,26 @@ extension GroupListView {
                 
                 DesignSystem.Icons.arrowRight.swiftUIImage
                     .tint(DesignSystem.Colors.gray700.swiftUIColor)
+            }
+            .frame(height: 56)
+            .padding(.horizontal, 20)
+        }
+    }
+    
+    @ViewBuilder
+    private func AddGroupButton() -> some View {
+        Button {
+            store.send(.view(.onTapAddGroupButton))
+        } label: {
+            HStack(spacing: 8) {
+                DesignSystem.Icons.addCell.swiftUIImage
+                
+                Text("그룹 추가하기")
+                    .brandFont(.pretendard(.semiBold), 15)
+                    .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
+                    .padding(.leading, 8)
+                
+                Spacer()
             }
             .frame(height: 56)
             .padding(.horizontal, 20)

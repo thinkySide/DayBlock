@@ -22,7 +22,7 @@ public struct GroupEditorView: View {
         VStack(spacing: 0) {
             NavigationBar(
                 title: navigationTitle,
-                isSheet: true,
+                isSheet: store.isSheet,
                 leadingView: {
                     NavigationBarButton(.back) {
                         store.send(.view(.onTapBackButton))

@@ -24,13 +24,16 @@ public struct GroupEditorFeature {
         let initialGroup: BlockGroup
         
         var mode: Mode
+        var isSheet: Bool
         var nameText: String = ""
         var editingGroup: BlockGroup
         
         public init(
-            mode: Mode
+            mode: Mode,
+            isSheet: Bool
         ) {
             self.mode = mode
+            self.isSheet = isSheet
 
             switch mode {
             case .add:

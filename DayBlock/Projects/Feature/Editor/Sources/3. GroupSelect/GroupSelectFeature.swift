@@ -74,7 +74,7 @@ public struct GroupSelectFeature {
                     return .send(.delegate(.didSelectGroup(group)))
 
                 case .onTapAddGroup:
-                    state.groupEditor = .init(mode: .add)
+                    state.groupEditor = .init(mode: .add, isSheet: true)
                     return .send(.delegate(.didSelectAddGroup))
                 }
                 

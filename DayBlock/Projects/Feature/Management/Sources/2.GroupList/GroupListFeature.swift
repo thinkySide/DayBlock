@@ -7,6 +7,7 @@
 
 import ComposableArchitecture
 import Domain
+import Editor
 import PersistentData
 import UserDefaults
 import Util
@@ -24,6 +25,7 @@ public struct GroupListFeature {
     public enum Action: TCAFeatureAction {
         public enum ViewAction {
             case onAppear
+            case onTapAddGroupButton
         }
 
         public enum InnerAction {
@@ -31,7 +33,7 @@ public struct GroupListFeature {
         }
 
         public enum DelegateAction {
-            
+            case pushGroupEditor
         }
 
         case view(ViewAction)
@@ -52,6 +54,9 @@ public struct GroupListFeature {
                 switch viewAction {
                 case .onAppear:
                     return fetchGroupList()
+                    
+                case .onTapAddGroupButton:
+                    return .send(.delegate(.pushGroupEditor))
                 }
 
             case .inner(let innerAction):

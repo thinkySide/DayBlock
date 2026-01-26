@@ -7,15 +7,22 @@
 
 import ComposableArchitecture
 import Domain
+import Editor
 import Util
 
 @Reducer
 public struct ManagementTabFeature {
+    
+    @Reducer
+    public enum Path {
+        case groupEditor(GroupEditorFeature)
+    }
 
     @ObservableState
     public struct State: Equatable {
         var selectedTab: Tab = .group
         
+        public var path = StackState<Path.State>()
         var groupList: GroupListFeature.State = .init()
         var blockList: BlockListFeature.State = .init()
         
@@ -27,7 +34,7 @@ public struct ManagementTabFeature {
         }
     }
 
-    public enum Action: TCAFeatureAction {
+    public enum Action: TCAFeatureAction, BindableAction {
         public enum ViewAction {
             case onTapTab(State.Tab)
         }
@@ -43,6 +50,8 @@ public struct ManagementTabFeature {
         case view(ViewAction)
         case inner(InnerAction)
         case delegate(DelegateAction)
+        case binding(BindingAction<State>)
+        case path(StackActionOf<Path>)
         case groupList(GroupListFeature.Action)
         case blockList(BlockListFeature.Action)
     }
@@ -50,6 +59,7 @@ public struct ManagementTabFeature {
     public init() {}
 
     public var body: some ReducerOf<Self> {
+        BindingReducer()
         Scope(state: \.groupList, action: \.groupList) {
             GroupListFeature()
         }
@@ -64,10 +74,32 @@ public struct ManagementTabFeature {
                     state.selectedTab = tab
                     return .none
                 }
+
+            case .groupList(.delegate(.pushGroupEditor)):
+                state.path.append(.groupEditor(.init(mode: .add, isSheet: false)))
+                return .none
                 
+            case .path(let stackAction):
+                switch stackAction {
+                case .element(id: _, action: .groupEditor(.delegate(.didPop))):
+                    state.path.removeAll()
+                    return .none
+                    
+                case .element(id: _, action: .groupEditor(.delegate(.didConfirm))):
+                    state.path.removeAll()
+                    return .none
+                    
+                default:
+                    return .none
+                }
+
             default:
                 return .none
             }
         }
+        .forEach(\.path, action: \.path)
     }
 }
+
+// MARK: - Path
+extension ManagementTabFeature.Path.State: Equatable {}

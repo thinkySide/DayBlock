@@ -8,16 +8,29 @@
 import SwiftUI
 import ComposableArchitecture
 import DesignSystem
+import Editor
 
 public struct ManagementTabView: View {
     
-    private var store: StoreOf<ManagementTabFeature>
+    @Bindable private var store: StoreOf<ManagementTabFeature>
 
     public init(store: StoreOf<ManagementTabFeature>) {
         self.store = store
     }
     
     public var body: some View {
+        NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
+            contentView
+        } destination: { store in
+            switch store.case {
+            case let .groupEditor(store):
+                GroupEditorView(store: store)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var contentView: some View {
         VStack(spacing: 0) {
             NavigationBar()
             
