@@ -27,16 +27,22 @@ public struct ManagementTabView: View {
                 get: { store.selectedTab },
                 set: { store.send(.view(.onTapTab($0))) }
             )) {
-                ForEach(ManagementTabFeature.State.Tab.allCases, id: \.self) { tab in
-                    Text(tab.hashValue.description)
-                }
+                GroupListView(
+                    store: store.scope(state: \.groupList, action: \.groupList)
+                )
+                .tag(ManagementTabFeature.State.Tab.group)
+                
+                BlockListView(
+                    store: store.scope(state: \.blockList, action: \.blockList)
+                )
+                .tag(ManagementTabFeature.State.Tab.block)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
         }
     }
 }
 
-// MARK: - SubViews
+// MARK: - Tab
 extension ManagementTabView {
     
     @ViewBuilder

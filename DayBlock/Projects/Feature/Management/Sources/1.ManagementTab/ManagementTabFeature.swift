@@ -16,6 +16,9 @@ public struct ManagementTabFeature {
     public struct State: Equatable {
         var selectedTab: Tab = .group
         
+        var groupList: GroupListFeature.State = .init()
+        var blockList: BlockListFeature.State = .init()
+        
         public init() {}
         
         public enum Tab: Equatable, CaseIterable {
@@ -40,11 +43,19 @@ public struct ManagementTabFeature {
         case view(ViewAction)
         case inner(InnerAction)
         case delegate(DelegateAction)
+        case groupList(GroupListFeature.Action)
+        case blockList(BlockListFeature.Action)
     }
 
     public init() {}
 
     public var body: some ReducerOf<Self> {
+        Scope(state: \.groupList, action: \.groupList) {
+            GroupListFeature()
+        }
+        Scope(state: \.blockList, action: \.blockList) {
+            BlockListFeature()
+        }
         Reduce { state, action in
             switch action {
             case .view(let viewAction):
