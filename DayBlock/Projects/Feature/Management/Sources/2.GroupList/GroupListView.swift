@@ -21,5 +21,8 @@ public struct GroupListView: View {
         ScrollView {
             Text("GroupList")
         }
+        .onAppear {
+            store.send(.view(.onAppear))
+        }
     }
 }
