@@ -12,6 +12,11 @@ public typealias KeyValue<T> = UserDefaultsKeyValue<T>
 // MARK: - Key Group
 public struct UserDefaultsKeyGroup {
 
+    /// 기본 그룹의 ID
+    public var defaultGroupId: KeyValue<UUID?> {
+        .init("defaultGroupId", defaultValue: nil)
+    }
+
     /// 마지막으로 선택된 그룹의 ID
     public var selectedGroupId: KeyValue<UUID?> {
         .init("selectedGroupId", defaultValue: nil)

@@ -25,6 +25,7 @@ public struct GroupListView: View {
                     GroupCell(from: viewItem)
                 }
             }
+            .padding(.vertical, 12)
         }
         .onAppear {
             store.send(.view(.onAppear))

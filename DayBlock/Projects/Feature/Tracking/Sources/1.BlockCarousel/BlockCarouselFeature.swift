@@ -389,6 +389,11 @@ extension BlockCarouselFeature {
     /// 기본 그룹을 반환합니다.
     private func fetchSelectedGroup() -> Effect<Action> {
         .run { send in
+            if userDefaultsService.get(\.defaultGroupId) == nil {
+                let defaultGroup = await groupRepository.fetchDefaultGroup()
+                userDefaultsService.set(\.defaultGroupId, defaultGroup.id)
+            }
+
             if let selectedGroupId = userDefaultsService.get(\.selectedGroupId) {
                 let groupList = await groupRepository.fetchGroupList()
                 if let selectedGroup = groupList.matchGroup(from: selectedGroupId) {

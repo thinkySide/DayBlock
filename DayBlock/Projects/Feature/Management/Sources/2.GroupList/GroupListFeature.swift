@@ -8,6 +8,7 @@
 import ComposableArchitecture
 import Domain
 import PersistentData
+import UserDefaults
 import Util
 
 @Reducer
@@ -40,6 +41,7 @@ public struct GroupListFeature {
     
     @Dependency(\.groupRepository) private var groupRepository
     @Dependency(\.blockRepository) private var blockRepository
+    @Dependency(\.userDefaultsService) private var userDefaultsService
 
     public init() {}
 
@@ -73,6 +75,7 @@ extension GroupListFeature {
     private func fetchGroupList() -> Effect<Action> {
         .run { send in
             let groupList = await groupRepository.fetchGroupList()
+            let defaultGroupId = userDefaultsService.get(\.defaultGroupId)
             var viewItems: [GroupListViewItem] = []
 
             for group in groupList {
@@ -81,7 +84,7 @@ extension GroupListFeature {
                     id: group.id,
                     name: group.name,
                     blockCount: blockList.count,
-                    isDefault: false
+                    isDefault: group.id == defaultGroupId
                 )
                 viewItems.append(viewItem)
             }
