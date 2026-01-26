@@ -9,6 +9,7 @@ let workspace = Workspace(
         "Projects/Core/Data",
         "Projects/Shared",
         "Projects/Feature/Tracking",
-        "Projects/Feature/Editor"
+        "Projects/Feature/Editor",
+        "Projects/Feature/Management"
     ]
 )
