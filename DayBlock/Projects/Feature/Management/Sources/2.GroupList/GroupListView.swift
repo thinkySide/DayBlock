@@ -41,10 +41,10 @@ extension GroupListView {
     @ViewBuilder
     private func GroupCell(from viewItem: GroupListViewItem) -> some View {
         Button {
-            
+            store.send(.view(.onTapGroupCell(viewItem)))
         } label: {
             HStack(spacing: 0) {
-                Text(viewItem.name)
+                Text(viewItem.group.name)
                     .brandFont(.pretendard(.semiBold), 16)
                     .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
                 

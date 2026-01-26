@@ -74,8 +74,12 @@ public struct ManagementTabFeature {
                     state.selectedTab = tab
                     return .none
                 }
+                
+            case .groupList(.delegate(.pushEditGroupEditor(let group))):
+                state.path.append(.groupEditor(.init(mode: .edit(group), isSheet: false)))
+                return .none
 
-            case .groupList(.delegate(.pushGroupEditor)):
+            case .groupList(.delegate(.pushAddGroupEditor)):
                 state.path.append(.groupEditor(.init(mode: .add, isSheet: false)))
                 return .none
                 

@@ -25,7 +25,7 @@ public struct GroupEditorFeature {
         
         var mode: Mode
         var isSheet: Bool
-        var nameText: String = ""
+        var nameText: String
         var editingGroup: BlockGroup
         
         public init(
@@ -41,10 +41,12 @@ public struct GroupEditorFeature {
                 let newGroup = BlockGroup(id: uuid(), name: "", order: 0)
                 self.initialGroup = newGroup
                 self.editingGroup = newGroup
+                self.nameText = ""
                 
             case .edit(let group):
                 self.initialGroup = group
                 self.editingGroup = group
+                self.nameText = group.name
             }
         }
     }

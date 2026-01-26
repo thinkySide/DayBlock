@@ -25,6 +25,7 @@ public struct GroupListFeature {
     public enum Action: TCAFeatureAction {
         public enum ViewAction {
             case onAppear
+            case onTapGroupCell(GroupListViewItem)
             case onTapAddGroupButton
         }
 
@@ -33,7 +34,8 @@ public struct GroupListFeature {
         }
 
         public enum DelegateAction {
-            case pushGroupEditor
+            case pushEditGroupEditor(BlockGroup)
+            case pushAddGroupEditor
         }
 
         case view(ViewAction)
@@ -55,8 +57,11 @@ public struct GroupListFeature {
                 case .onAppear:
                     return fetchGroupList()
                     
+                case .onTapGroupCell(let viewItem):
+                    return .send(.delegate(.pushEditGroupEditor(viewItem.group)))
+                    
                 case .onTapAddGroupButton:
-                    return .send(.delegate(.pushGroupEditor))
+                    return .send(.delegate(.pushAddGroupEditor))
                 }
 
             case .inner(let innerAction):
@@ -86,8 +91,7 @@ extension GroupListFeature {
             for group in groupList {
                 let blockList = await blockRepository.fetchBlockList(groupId: group.id)
                 let viewItem = GroupListViewItem(
-                    id: group.id,
-                    name: group.name,
+                    group: group,
                     blockCount: blockList.count,
                     isDefault: group.id == defaultGroupId
                 )

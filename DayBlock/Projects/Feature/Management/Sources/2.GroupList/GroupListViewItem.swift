@@ -6,22 +6,21 @@
 //
 
 import Foundation
+import Domain
 
 public struct GroupListViewItem: Identifiable, Equatable {
 
-    public let id: UUID
-    public var name: String
+    public var id: UUID { group.id }
+    public var group: BlockGroup
     public var blockCount: Int
     public var isDefault: Bool
     
     public init(
-        id: UUID,
-        name: String,
+        group: BlockGroup,
         blockCount: Int,
         isDefault: Bool
     ) {
-        self.id = id
-        self.name = name
+        self.group = group
         self.blockCount = blockCount
         self.isDefault = isDefault
     }
