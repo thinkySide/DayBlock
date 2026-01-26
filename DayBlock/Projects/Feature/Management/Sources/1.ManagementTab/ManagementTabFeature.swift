@@ -20,7 +20,7 @@ public struct ManagementTabFeature {
 
     @ObservableState
     public struct State: Equatable {
-        var selectedTab: Tab = .group
+        var selectedTab: Tab = .block
         
         public var path = StackState<Path.State>()
         var groupList: GroupListFeature.State = .init()
