@@ -10,6 +10,6 @@ import Foundation
 enum MainTab: Hashable {
     case tracking
     case calendar
-    case repository
+    case management
     case myInfo
 }

@@ -7,6 +7,7 @@
 
 import ComposableArchitecture
 import Tracking
+import Management
 
 @Reducer
 struct MainAppFeature {
@@ -14,18 +15,24 @@ struct MainAppFeature {
     @ObservableState
     struct State {
         var selectedTab: MainTab = .tracking
-        var trackingState: BlockCarouselFeature.State = .init()
+        
+        var tracking: BlockCarouselFeature.State = .init()
+        var management: ManagementTabFeature.State = .init()
     }
 
     enum Action: BindableAction {
         case binding(BindingAction<State>)
         case tracking(BlockCarouselFeature.Action)
+        case management(ManagementTabFeature.Action)
     }
 
     var body: some ReducerOf<Self> {
         BindingReducer()
-        Scope(state: \.trackingState, action: \.tracking) {
+        Scope(state: \.tracking, action: \.tracking) {
             BlockCarouselFeature()
+        }
+        Scope(state: \.management, action: \.management) {
+            ManagementTabFeature()
         }
         Reduce { state, action in
             switch action {
@@ -33,6 +40,9 @@ struct MainAppFeature {
                 return .none
 
             case .tracking:
+                return .none
+                
+            case .management:
                 return .none
             }
         }

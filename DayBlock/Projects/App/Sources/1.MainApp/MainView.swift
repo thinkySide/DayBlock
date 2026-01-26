@@ -8,6 +8,7 @@
 import SwiftUI
 import DesignSystem
 import Tracking
+import Management
 import ComposableArchitecture
 
 struct MainView: View {
@@ -19,14 +20,16 @@ struct MainView: View {
             switch store.selectedTab {
             case .tracking:
                 BlockCarouselView(
-                    store: store.scope(state: \.trackingState, action: \.tracking)
+                    store: store.scope(state: \.tracking, action: \.tracking)
                 )
 
             case .calendar:
                 ScrollView {}
 
-            case .repository:
-                ScrollView {}
+            case .management:
+                ManagementTabView(
+                    store: store.scope(state: \.management, action: \.management)
+                )
 
             case .myInfo:
                 ScrollView {}
@@ -47,6 +50,6 @@ extension MainView {
     
     /// TabBar가 표시되는 조건을 반환합니다.
     private var isTabBarVisible: Bool {
-        store.trackingState.path.isEmpty
+        store.tracking.path.isEmpty
     }
 }

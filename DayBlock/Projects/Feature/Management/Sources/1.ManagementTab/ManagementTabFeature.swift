@@ -14,12 +14,19 @@ public struct ManagementTabFeature {
 
     @ObservableState
     public struct State: Equatable {
+        var selectedTab: Tab = .group
+        
         public init() {}
+        
+        public enum Tab: Equatable, CaseIterable {
+            case group
+            case block
+        }
     }
 
     public enum Action: TCAFeatureAction {
         public enum ViewAction {
-            
+            case onTapTab(State.Tab)
         }
 
         public enum InnerAction {
@@ -40,7 +47,12 @@ public struct ManagementTabFeature {
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            
+            case .view(let viewAction):
+                switch viewAction {
+                case .onTapTab(let tab):
+                    state.selectedTab = tab
+                    return .none
+                }
                 
             default:
                 return .none

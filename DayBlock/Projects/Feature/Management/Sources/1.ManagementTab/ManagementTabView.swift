@@ -19,7 +19,70 @@ public struct ManagementTabView: View {
     
     public var body: some View {
         VStack(spacing: 0) {
+            NavigationBar()
             
+            ManagementTab()
+            
+            TabView(selection: Binding(
+                get: { store.selectedTab },
+                set: { store.send(.view(.onTapTab($0))) }
+            )) {
+                ForEach(ManagementTabFeature.State.Tab.allCases, id: \.self) { tab in
+                    Text(tab.hashValue.description)
+                }
+            }
+            .tabViewStyle(.page(indexDisplayMode: .never))
+        }
+    }
+}
+
+// MARK: - SubViews
+extension ManagementTabView {
+    
+    @ViewBuilder
+    private func ManagementTab() -> some View {
+        HStack(spacing: 0) {
+            ManagementTabCell(from: .group)
+            ManagementTabCell(from: .block)
+        }
+    }
+    
+    @ViewBuilder
+    private func ManagementTabCell(from tab: ManagementTabFeature.State.Tab) -> some View {
+        let isSelected = store.selectedTab == tab
+        Button {
+            store.send(.view(.onTapTab(tab)))
+        } label: {
+            Text(tabName(from: tab))
+                .brandFont(.pretendard(.semiBold), 16)
+                .foregroundStyle(
+                    isSelected
+                    ? DesignSystem.Colors.gray900.swiftUIColor
+                    : DesignSystem.Colors.gray600.swiftUIColor
+                )
+                .frame(maxWidth: .infinity)
+                .frame(height: 56)
+                .overlay(alignment: .bottom) {
+                    Rectangle()
+                        .fill(
+                            isSelected
+                            ? DesignSystem.Colors.gray900.swiftUIColor
+                            : DesignSystem.Colors.gray500.swiftUIColor
+                        )
+                        .frame(height: isSelected ? 3 : 1)
+                }
+        }
+    }
+}
+
+// MARK: - Helper
+extension ManagementTabView {
+    
+    /// Tab 이름을 반환합니다.
+    private func tabName(from tab: ManagementTabFeature.State.Tab) -> String {
+        switch tab {
+        case .group: "그룹 관리"
+        case .block: "블럭 관리"
         }
     }
 }

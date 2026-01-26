@@ -30,7 +30,7 @@ struct MainTabBar: View {
 
             TabBarItem(
                 selectedTab: $selectedTab,
-                tab: .repository,
+                tab: .management,
                 icon: DesignSystem.Icons.tabRepository,
                 label: "관리소"
             )
