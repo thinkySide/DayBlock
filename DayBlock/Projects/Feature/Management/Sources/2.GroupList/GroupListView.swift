@@ -8,6 +8,7 @@
 import SwiftUI
 import ComposableArchitecture
 import DesignSystem
+import Domain
 
 public struct GroupListView: View {
     
@@ -19,10 +20,54 @@ public struct GroupListView: View {
     
     public var body: some View {
         ScrollView {
-            Text("GroupList")
+            VStack(spacing: 0) {
+                ForEach(store.groupList) { viewItem in
+                    GroupCell(from: viewItem)
+                }
+            }
         }
         .onAppear {
             store.send(.view(.onAppear))
+        }
+    }
+}
+
+// MARK: - SubViews
+extension GroupListView {
+    
+    @ViewBuilder
+    private func GroupCell(from viewItem: GroupListViewItem) -> some View {
+        Button {
+            
+        } label: {
+            HStack(spacing: 0) {
+                Text(viewItem.name)
+                    .brandFont(.pretendard(.semiBold), 16)
+                    .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+                
+                Text("+\(viewItem.blockCount)")
+                    .brandFont(.pretendard(.semiBold), 15)
+                    .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
+                    .padding(.leading, 8)
+                
+                if viewItem.isDefault {
+                    Text("기본 그룹")
+                        .brandFont(.pretendard(.semiBold), 13)
+                        .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+                        .padding(.horizontal, 6)
+                        .frame(height: 26)
+                        .background(DesignSystem.Colors.gray100.swiftUIColor)
+                        .clipShape(Capsule())
+                        .padding(.leading, 10)
+                }
+                
+                Spacer()
+                
+                DesignSystem.Icons.arrowRight.swiftUIImage
+                    .tint(DesignSystem.Colors.gray700.swiftUIColor)
+            }
+            .frame(height: 56)
+            .padding(.horizontal, 20)
         }
     }
 }

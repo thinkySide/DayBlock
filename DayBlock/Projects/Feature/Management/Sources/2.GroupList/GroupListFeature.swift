@@ -15,7 +15,7 @@ public struct GroupListFeature {
 
     @ObservableState
     public struct State: Equatable {
-        var groupList: IdentifiedArrayOf<BlockGroup> = []
+        var groupList: IdentifiedArrayOf<GroupListViewItem> = []
 
         public init() {}
     }
@@ -26,7 +26,7 @@ public struct GroupListFeature {
         }
 
         public enum InnerAction {
-            case setGroupList(IdentifiedArrayOf<BlockGroup>)
+            case setGroupList(IdentifiedArrayOf<GroupListViewItem>)
         }
 
         public enum DelegateAction {
@@ -39,6 +39,7 @@ public struct GroupListFeature {
     }
     
     @Dependency(\.groupRepository) private var groupRepository
+    @Dependency(\.blockRepository) private var blockRepository
 
     public init() {}
 
@@ -72,7 +73,20 @@ extension GroupListFeature {
     private func fetchGroupList() -> Effect<Action> {
         .run { send in
             let groupList = await groupRepository.fetchGroupList()
-            await send(.inner(.setGroupList(.init(uniqueElements: groupList))))
+            var viewItems: [GroupListViewItem] = []
+
+            for group in groupList {
+                let blockList = await blockRepository.fetchBlockList(groupId: group.id)
+                let viewItem = GroupListViewItem(
+                    id: group.id,
+                    name: group.name,
+                    blockCount: blockList.count,
+                    isDefault: false
+                )
+                viewItems.append(viewItem)
+            }
+
+            await send(.inner(.setGroupList(.init(uniqueElements: viewItems))))
         }
     }
 }
