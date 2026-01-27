@@ -23,6 +23,8 @@ public struct BlockListView: View {
     @State private var draggingCellFrame: CGRect = .zero
     @State private var dragStartTime: Date?
     @State private var isDragActivated: Bool = false
+    @State private var dragOffset: CGSize = .zero
+    @State private var lastDropTargetUpdate: Date = .distantPast
 
     public var body: some View {
         ScrollView {
@@ -32,6 +34,7 @@ public struct BlockListView: View {
                 }
             }
             .padding(.vertical, 20)
+            .animation(.spring(response: 0.3, dampingFraction: 0.7), value: store.sectionList)
         }
         .coordinateSpace(name: "scroll")
         .overlay(alignment: .topLeading) {
@@ -41,11 +44,13 @@ public struct BlockListView: View {
                 DraggingCellOverlay(
                     block: draggingBlock,
                     group: fromGroup,
-                    offset: store.dragOffset,
+                    offset: dragOffset,
                     frame: draggingCellFrame
                 )
+                .transition(.scale.combined(with: .opacity))
             }
         }
+        .animation(.easeInOut(duration: 0.2), value: store.draggingBlock != nil)
         .onAppear {
             store.send(.view(.onAppear))
         }
@@ -63,10 +68,16 @@ extension BlockListView {
                 .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
 
             VStack(spacing: 0) {
-                // 빈 섹션일 때 드롭 영역
                 if viewItem.blockList.isEmpty {
-                    EmptyDropZone(group: viewItem.group)
-                        .padding(.top, 12)
+                    // 드래그 중이고 해당 섹션이 드롭 타겟일 때만 표시
+                    let isDropTarget = store.draggingBlock != nil && store.dropTargetGroupId == viewItem.group.id
+
+                    EmptyDropZone()
+                        .padding(.top, isDropTarget ? 12 : 0)
+                        .frame(height: isDropTarget ? 40 : 0)
+                        .opacity(isDropTarget ? 1 : 0)
+                        .scaleEffect(isDropTarget ? 1 : 0.95)
+                        .animation(.easeInOut(duration: 0.2), value: isDropTarget)
                 } else {
                     ForEach(Array(viewItem.blockList.enumerated()), id: \.element.id) { index, blockViewItem in
                         BlockListSectionCell(
@@ -109,6 +120,7 @@ extension BlockListView {
             // 드롭 인디케이터 (위)
             if isDropTarget {
                 DropIndicator()
+                    .transition(.opacity.combined(with: .scale(scale: 0.8)))
             }
 
             HStack(spacing: 14) {
@@ -133,10 +145,12 @@ extension BlockListView {
                 DesignSystem.Icons.arrowRight.swiftUIImage
                     .tint(DesignSystem.Colors.gray700.swiftUIColor)
             }
-            .frame(height: 40)
+            .frame(height: 52)
             .contentShape(Rectangle())
             .opacity(isDragging ? 0.3 : 1.0)
         }
+        .animation(.easeInOut(duration: 0.15), value: isDropTarget)
+        .animation(.easeInOut(duration: 0.15), value: isDragging)
         .background(
             GeometryReader { geo in
                 Color.clear.preference(
@@ -169,8 +183,15 @@ extension BlockListView {
                     }
 
                     if isDragActivated {
-                        store.send(.view(.onDragChanged(drag.translation)))
-                        calculateDropTarget(at: drag.location)
+                        // @State로 offset 업데이트 (store 거치지 않음)
+                        dragOffset = drag.translation
+
+                        // 드롭 타겟 계산은 throttle (60fps 기준 약 16ms마다)
+                        let now = Date()
+                        if now.timeIntervalSince(lastDropTargetUpdate) > 0.016 {
+                            lastDropTargetUpdate = now
+                            calculateDropTarget(at: drag.location)
+                        }
                     }
                 }
                 .onEnded { drag in
@@ -188,29 +209,20 @@ extension BlockListView {
                     // 상태 초기화
                     dragStartTime = nil
                     isDragActivated = false
+                    dragOffset = .zero
                 }
         )
     }
 
     @ViewBuilder
-    private func EmptyDropZone(group: BlockGroup) -> some View {
-        let isDropTarget = store.dropTargetGroupId == group.id
-
-        HStack {
-            Text("블럭을 여기로 이동하세요")
-                .brandFont(.pretendard(.medium), 14)
-                .foregroundStyle(DesignSystem.Colors.gray500.swiftUIColor)
-            Spacer()
-        }
-        .frame(height: 40)
-        .background(
-            RoundedRectangle(cornerRadius: 8)
-                .stroke(
-                    isDropTarget ? DesignSystem.Colors.gray100.swiftUIColor : Color.clear,
-                    style: StrokeStyle(lineWidth: 2, dash: [5])
-                )
-        )
-        .contentShape(Rectangle())
+    private func EmptyDropZone() -> some View {
+        RoundedRectangle(cornerRadius: 8)
+            .stroke(
+                DesignSystem.Colors.gray300.swiftUIColor,
+                style: StrokeStyle(lineWidth: 2, dash: [5])
+            )
+            .frame(height: 40)
+            .contentShape(Rectangle())
     }
 
     @ViewBuilder
@@ -273,7 +285,7 @@ extension BlockListView {
 
             Spacer()
         }
-        .frame(width: frame.width, height: 40)
+        .frame(width: frame.width, height: 52)
         .padding(.horizontal, 20)
         .background(DesignSystem.Colors.gray100.swiftUIColor)
         .cornerRadius(8)

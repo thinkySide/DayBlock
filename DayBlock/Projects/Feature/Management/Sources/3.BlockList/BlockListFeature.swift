@@ -21,7 +21,6 @@ public struct BlockListFeature {
         // 드래그 상태
         var draggingBlock: BlockListViewItem.BlockViewItem?
         var draggingFromGroup: BlockGroup?
-        var dragOffset: CGSize = .zero
         var dropTargetGroupId: UUID?
         var dropTargetIndex: Int?
 
@@ -36,7 +35,6 @@ public struct BlockListFeature {
 
             // 드래그 액션
             case onDragStarted(BlockListViewItem.BlockViewItem, BlockGroup)
-            case onDragChanged(CGSize)
             case onDragEnded
             case onDropTargetChanged(groupId: UUID?, index: Int?)
         }
@@ -79,18 +77,12 @@ public struct BlockListFeature {
                 case .onDragStarted(let block, let group):
                     state.draggingBlock = block
                     state.draggingFromGroup = group
-                    state.dragOffset = .zero
-                    return .none
-
-                case .onDragChanged(let offset):
-                    state.dragOffset = offset
                     return .none
 
                 case .onDragEnded:
                     defer {
                         state.draggingBlock = nil
                         state.draggingFromGroup = nil
-                        state.dragOffset = .zero
                         state.dropTargetGroupId = nil
                         state.dropTargetIndex = nil
                     }
