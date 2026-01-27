@@ -18,6 +18,7 @@ public struct BlockRepository {
     public var fetchBlockList: @Sendable (_ groupId: UUID) async -> [Block] = { _ in [] }
     public var updateBlock: @Sendable (_ blockId: UUID, _ groupId: UUID, Block) async throws -> Block
     public var deleteBlock: @Sendable (_ blockId: UUID) async -> Void
+    public var moveBlock: @Sendable (_ blockId: UUID, _ toGroupId: UUID, _ toOrder: Int) async -> Void
 }
 
 // MARK: - DependencyKey
@@ -165,6 +166,41 @@ extension BlockRepository: DependencyKey {
 
                     try await MainActor.run {
                         modelContext.delete(targetBlock)
+                        try modelContext.save()
+                    }
+                } catch {
+                    Debug.log("SwiftData ModelContext 에러: \(error)")
+                }
+            },
+            moveBlock: { blockId, toGroupId, toOrder in
+                do {
+                    let blockDescriptor = FetchDescriptor<BlockSwiftData>(
+                        predicate: #Predicate { $0.id == blockId }
+                    )
+
+                    let targetBlock = try await Task { @MainActor in
+                        try modelContext.fetch(blockDescriptor).first
+                    }.value
+
+                    guard let targetBlock else {
+                        throw PersistentDataError.notFound
+                    }
+
+                    let groupDescriptor = FetchDescriptor<BlockGroupSwiftData>(
+                        predicate: #Predicate { $0.id == toGroupId }
+                    )
+
+                    let targetGroup = try await Task { @MainActor in
+                        try modelContext.fetch(groupDescriptor).first
+                    }.value
+
+                    guard let targetGroup else {
+                        throw PersistentDataError.notFound
+                    }
+
+                    try await MainActor.run {
+                        targetBlock.group = targetGroup
+                        targetBlock.order = toOrder
                         try modelContext.save()
                     }
                 } catch {

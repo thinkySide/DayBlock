@@ -11,7 +11,7 @@ import Domain
 public struct BlockListViewItem: Identifiable, Equatable {
     public var id: UUID { group.id }
     let group: BlockGroup
-    let blockList: [BlockViewItem]
+    var blockList: [BlockViewItem]
     
     public init(
         group: BlockGroup,
