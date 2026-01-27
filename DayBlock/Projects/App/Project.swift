@@ -25,7 +25,8 @@ let project = Project(
             dependencies: [
                 .TCA,
                 .project(target: "DesignSystem", path: "../Core/DesignSystem"),
-                .project(target: "Tracking", path: "../Feature/Tracking")
+                .project(target: "Tracking", path: "../Feature/Tracking"),
+                .project(target: "Management", path: "../Feature/Management")
             ],
             settings: .shared
         )

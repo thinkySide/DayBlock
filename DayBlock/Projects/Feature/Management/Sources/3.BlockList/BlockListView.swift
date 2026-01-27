@@ -20,24 +20,14 @@ public struct BlockListView: View {
     public var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 40) {
-                BlockListSection(
-                    from: .init(
-                        group: .init(id: .init(), name: "멋진 그룹", order: 0),
-                        blockList: [.init(
-                            block: .init(
-                                id: .init(),
-                                name: "짱짱 블럭",
-                                iconIndex: 4,
-                                colorIndex: 13,
-                                output: 1.5,
-                                order: 0
-                            ),
-                            total: 3.5
-                        )]
-                    )
-                )
+                ForEach(store.sectionList) { section in
+                    BlockListSection(from: section)
+                }
             }
             .padding(.vertical, 20)
+        }
+        .onAppear {
+            store.send(.view(.onAppear))
         }
     }
 }
