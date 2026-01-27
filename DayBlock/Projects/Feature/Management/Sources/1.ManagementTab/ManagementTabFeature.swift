@@ -16,6 +16,7 @@ public struct ManagementTabFeature {
     @Reducer
     public enum Path {
         case groupEditor(GroupEditorFeature)
+        case blockEditor(BlockEditorFeature)
     }
 
     @ObservableState
@@ -83,6 +84,10 @@ public struct ManagementTabFeature {
                 state.path.append(.groupEditor(.init(mode: .add, isSheet: false)))
                 return .none
                 
+            case .blockList(.delegate(.pushAddBlockEditor(let group))):
+                state.path.append(.blockEditor(.init(mode: .add, selectedGroup: group)))
+                return .none
+                
             case .path(let stackAction):
                 switch stackAction {
                 case .element(id: _, action: .groupEditor(.delegate(.didPop))):
@@ -90,6 +95,14 @@ public struct ManagementTabFeature {
                     return .none
                     
                 case .element(id: _, action: .groupEditor(.delegate(.didConfirm))):
+                    state.path.removeAll()
+                    return .none
+                    
+                case .element(id: _, action: .blockEditor(.delegate(.didPop))):
+                    state.path.removeAll()
+                    return .none
+                    
+                case .element(id: _, action: .blockEditor(.delegate(.didConfirm))):
                     state.path.removeAll()
                     return .none
                     

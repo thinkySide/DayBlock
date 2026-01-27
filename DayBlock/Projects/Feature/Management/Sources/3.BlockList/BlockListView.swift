@@ -8,6 +8,7 @@
 import SwiftUI
 import ComposableArchitecture
 import DesignSystem
+import Domain
 
 public struct BlockListView: View {
 
@@ -47,7 +48,7 @@ extension BlockListView {
             }
             .padding(.top, 12)
             
-            AddBlockButton(from: viewItem)
+            AddBlockButton(from: viewItem, group: viewItem.group)
                 .padding(.top, 16)
         }
         .padding(.horizontal, 20)
@@ -85,9 +86,12 @@ extension BlockListView {
     }
     
     @ViewBuilder
-    private func AddBlockButton(from viewItem: BlockListViewItem) -> some View {
+    private func AddBlockButton(
+        from viewItem: BlockListViewItem,
+        group: BlockGroup
+    ) -> some View {
         Button {
-            
+            store.send(.view(.onTapAddBlockButton(group)))
         } label: {
             HStack(spacing: 8) {
                 DesignSystem.Icons.addCell.swiftUIImage

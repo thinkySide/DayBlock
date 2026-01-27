@@ -25,6 +25,9 @@ public struct ManagementTabView: View {
             switch store.case {
             case let .groupEditor(store):
                 GroupEditorView(store: store)
+                
+            case let .blockEditor(store):
+                BlockEditorView(store: store)
             }
         }
     }

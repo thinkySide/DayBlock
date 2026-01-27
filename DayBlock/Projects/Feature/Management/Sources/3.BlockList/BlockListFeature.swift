@@ -23,6 +23,7 @@ public struct BlockListFeature {
     public enum Action: TCAFeatureAction {
         public enum ViewAction {
             case onAppear
+            case onTapAddBlockButton(BlockGroup)
         }
 
         public enum InnerAction {
@@ -30,7 +31,7 @@ public struct BlockListFeature {
         }
 
         public enum DelegateAction {
-
+            case pushAddBlockEditor(BlockGroup)
         }
 
         case view(ViewAction)
@@ -50,6 +51,9 @@ public struct BlockListFeature {
                 switch viewAction {
                 case .onAppear:
                     return fetchSectionList()
+                    
+                case .onTapAddBlockButton(let group):
+                    return .send(.delegate(.pushAddBlockEditor(group)))
                 }
 
             case .inner(let innerAction):
