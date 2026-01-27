@@ -44,7 +44,7 @@ extension BlockListView {
                 .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
             
             ForEach(viewItem.blockList) { blockViewItem in
-                BlockListSectionCell(from: blockViewItem)
+                BlockListSectionCell(from: blockViewItem, group: viewItem.group)
             }
             .padding(.top, 12)
             
@@ -55,9 +55,12 @@ extension BlockListView {
     }
     
     @ViewBuilder
-    private func BlockListSectionCell(from viewItem: BlockListViewItem.BlockViewItem) -> some View {
+    private func BlockListSectionCell(
+        from viewItem: BlockListViewItem.BlockViewItem,
+        group: BlockGroup
+    ) -> some View {
         Button {
-            
+            store.send(.view(.onTapBlockCell(viewItem, group)))
         } label: {
             HStack(spacing: 14) {
                 IconBlock(

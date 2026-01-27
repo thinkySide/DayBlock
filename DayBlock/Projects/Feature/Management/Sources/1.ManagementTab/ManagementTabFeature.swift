@@ -84,6 +84,10 @@ public struct ManagementTabFeature {
                 state.path.append(.groupEditor(.init(mode: .add, isSheet: false)))
                 return .none
                 
+            case .blockList(.delegate(.pushEditBlockEditor(let block, let group))):
+                state.path.append(.blockEditor(.init(mode: .edit(selectedBlock: block), selectedGroup: group)))
+                return .none
+                
             case .blockList(.delegate(.pushAddBlockEditor(let group))):
                 state.path.append(.blockEditor(.init(mode: .add, selectedGroup: group)))
                 return .none
