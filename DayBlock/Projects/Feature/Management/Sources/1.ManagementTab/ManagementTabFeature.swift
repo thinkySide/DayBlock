@@ -56,6 +56,8 @@ public struct ManagementTabFeature {
         case groupList(GroupListFeature.Action)
         case blockList(BlockListFeature.Action)
     }
+    
+    @Dependency(\.haptic) private var haptic
 
     public init() {}
 
@@ -72,6 +74,7 @@ public struct ManagementTabFeature {
             case .view(let viewAction):
                 switch viewAction {
                 case .onTapTab(let tab):
+                    haptic.impact(.soft)
                     state.selectedTab = tab
                     return .none
                 }
