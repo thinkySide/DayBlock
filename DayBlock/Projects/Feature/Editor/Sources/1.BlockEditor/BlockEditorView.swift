@@ -107,6 +107,14 @@ public struct BlockEditorView: View {
             .padding(.top, 24)
             .padding(.leading, 20)
             
+            if case .edit = store.mode {
+                ActionButton(title: "삭제하기", variation: .delete) {
+                    
+                }
+                .padding(.top, 32)
+                .padding(.horizontal, 20)
+            }
+            
             Spacer()
         }
         .toolbarVisibility(.hidden, for: .navigationBar)
