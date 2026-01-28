@@ -21,7 +21,6 @@ public struct BlockListView: View {
     @State private var cellFrames: [UUID: CGRect] = [:]
     @State private var sectionFrames: [UUID: CGRect] = [:]
     @State private var draggingCellFrame: CGRect = .zero
-    @State private var dragStartTime: Date?
     @State private var isDragActivated: Bool = false
     @State private var dragOffset: CGSize = .zero
     @State private var lastDropTargetUpdate: Date = .distantPast
@@ -162,52 +161,48 @@ extension BlockListView {
         .onPreferenceChange(CellFramePreferenceKey.self) { frames in
             cellFrames.merge(frames) { _, new in new }
         }
+        .onTapGesture {
+            store.send(.view(.onTapBlockCell(viewItem, group)))
+        }
         .gesture(
-            DragGesture(minimumDistance: 0, coordinateSpace: .named("scroll"))
-                .onChanged { drag in
-                    // 드래그 시작 시간 기록
-                    if dragStartTime == nil {
-                        dragStartTime = Date()
-                    }
-
-                    // 0.3초 경과 확인
-                    let elapsed = Date().timeIntervalSince(dragStartTime ?? Date())
-
-                    if !isDragActivated && elapsed >= 0.3 {
-                        // 드래그 모드 활성화
-                        isDragActivated = true
-                        if let frame = cellFrames[viewItem.id] {
-                            draggingCellFrame = frame
+            LongPressGesture(minimumDuration: 0.3)
+                .sequenced(before: DragGesture(coordinateSpace: .named("scroll")))
+                .onChanged { value in
+                    switch value {
+                    case .first(true):
+                        // 롱프레스 진행 중 - 아직 드래그 시작하지 않음
+                        break
+                    case .second(true, let drag):
+                        // 롱프레스 완료 후 드래그 시작
+                        if !isDragActivated {
+                            isDragActivated = true
+                            if let frame = cellFrames[viewItem.id] {
+                                draggingCellFrame = frame
+                            }
+                            store.send(.view(.onDragStarted(viewItem, group)))
                         }
-                        store.send(.view(.onDragStarted(viewItem, group)))
-                    }
 
-                    if isDragActivated {
-                        // @State로 offset 업데이트 (store 거치지 않음)
-                        dragOffset = drag.translation
+                        // 드래그 중
+                        if let drag = drag {
+                            dragOffset = drag.translation
 
-                        // 드롭 타겟 계산은 throttle (60fps 기준 약 16ms마다)
-                        let now = Date()
-                        if now.timeIntervalSince(lastDropTargetUpdate) > 0.016 {
-                            lastDropTargetUpdate = now
-                            calculateDropTarget(at: drag.location)
+                            // 드롭 타겟 계산은 throttle
+                            let now = Date()
+                            if now.timeIntervalSince(lastDropTargetUpdate) > 0.016 {
+                                lastDropTargetUpdate = now
+                                calculateDropTarget(at: drag.location)
+                            }
                         }
+                    default:
+                        break
                     }
                 }
-                .onEnded { drag in
-                    let elapsed = Date().timeIntervalSince(dragStartTime ?? Date())
-                    let distance = sqrt(pow(drag.translation.width, 2) + pow(drag.translation.height, 2))
-
+                .onEnded { _ in
                     if isDragActivated {
-                        // 드래그 완료
                         store.send(.view(.onDragEnded))
-                    } else if elapsed < 0.3 && distance < 10 {
-                        // 짧은 탭으로 처리
-                        store.send(.view(.onTapBlockCell(viewItem, group)))
                     }
 
                     // 상태 초기화
-                    dragStartTime = nil
                     isDragActivated = false
                     dragOffset = .zero
                 }
