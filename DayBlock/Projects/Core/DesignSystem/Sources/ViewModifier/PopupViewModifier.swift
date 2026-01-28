@@ -65,11 +65,6 @@ public struct PopupViewModifier: ViewModifier {
                         Color.black.opacity(0.3)
                             .ignoresSafeArea()
                             .transition(.opacity)
-                            .onTapGesture {
-                                withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
-                                    isPresented = false
-                                }
-                            }
 
                         Popup(
                             title: title,
