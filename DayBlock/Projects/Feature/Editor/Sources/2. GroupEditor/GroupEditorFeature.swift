@@ -8,6 +8,7 @@
 import Foundation
 import ComposableArchitecture
 import Domain
+import UserDefaults
 import Util
 
 @Reducer
@@ -28,11 +29,13 @@ public struct GroupEditorFeature {
         var nameText: String
         var editingGroup: BlockGroup
         var isPopupPresented: Bool = false
+        var isDefaultGroup: Bool = false
 
         public init(
             mode: Mode,
             isSheet: Bool
         ) {
+            @Dependency(\.userDefaultsService) var userDefaultsService
             self.mode = mode
             self.isSheet = isSheet
 
@@ -43,11 +46,13 @@ public struct GroupEditorFeature {
                 self.initialGroup = newGroup
                 self.editingGroup = newGroup
                 self.nameText = ""
-                
+                self.isDefaultGroup = false
+
             case .edit(let group):
                 self.initialGroup = group
                 self.editingGroup = group
                 self.nameText = group.name
+                self.isDefaultGroup = userDefaultsService.get(\.defaultGroupId) == group.id
             }
         }
     }

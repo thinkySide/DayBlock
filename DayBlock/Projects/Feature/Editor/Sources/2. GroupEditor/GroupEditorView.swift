@@ -53,7 +53,7 @@ public struct GroupEditorView: View {
                 store.send(.view(.typeNameText(value)))
             }
             
-            if case .edit = store.mode {
+            if case .edit = store.mode, !store.isDefaultGroup {
                 ActionButton(title: "삭제하기", variation: .delete) {
                     store.send(.view(.onTapDeleteButton))
                 }
