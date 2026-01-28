@@ -27,7 +27,8 @@ public struct GroupEditorFeature {
         var isSheet: Bool
         var nameText: String
         var editingGroup: BlockGroup
-        
+        var isPopupPresented: Bool = false
+
         public init(
             mode: Mode,
             isSheet: Bool
@@ -57,6 +58,7 @@ public struct GroupEditorFeature {
             case onAppear
             case onTapBackButton
             case onTapConfirmButton
+            case onTapDeleteButton
         }
 
         public enum InnerAction {
@@ -66,11 +68,18 @@ public struct GroupEditorFeature {
         public enum DelegateAction {
             case didPop
             case didConfirm(BlockGroup)
+            case didDelete
+        }
+
+        public enum PopupAction {
+            case cancel
+            case deleteGroup
         }
 
         case view(ViewAction)
         case inner(InnerAction)
         case delegate(DelegateAction)
+        case popup(PopupAction)
         case binding(BindingAction<State>)
     }
     
@@ -107,8 +116,27 @@ public struct GroupEditorFeature {
                         }
                         await send(.delegate(.didConfirm(savedGroup)))
                     }
+
+                case .onTapDeleteButton:
+                    state.isPopupPresented = true
+                    return .none
                 }
-                
+
+            case .popup(let popupAction):
+                switch popupAction {
+                case .cancel:
+                    state.isPopupPresented = false
+                    return .none
+
+                case .deleteGroup:
+                    let groupId = state.editingGroup.id
+                    state.isPopupPresented = false
+                    return .run { send in
+                        await groupRepository.deleteGroup(groupId)
+                        await send(.delegate(.didDelete))
+                    }
+                }
+
             default:
                 return .none
             }

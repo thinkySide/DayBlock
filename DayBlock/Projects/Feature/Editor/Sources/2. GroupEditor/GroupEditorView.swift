@@ -53,6 +53,14 @@ public struct GroupEditorView: View {
                 store.send(.view(.typeNameText(value)))
             }
             
+            if case .edit = store.mode {
+                ActionButton(title: "삭제하기", variation: .delete) {
+                    store.send(.view(.onTapDeleteButton))
+                }
+                .padding(.top, 32)
+                .padding(.horizontal, 20)
+            }
+
             Spacer()
         }
         .background(DesignSystem.Colors.gray0.swiftUIColor)
@@ -63,6 +71,25 @@ public struct GroupEditorView: View {
         .onTapGesture {
             isNameTextFieldFocused = false
         }
+        .popup(
+            isPresented: $store.isPopupPresented,
+            title: "그룹을 삭제할까요?",
+            message: "그룹과 관련된 블럭과 정보가 모두 삭제돼요",
+            leftAction: .init(
+                title: "아니오",
+                variation: .secondary,
+                action: {
+                    store.send(.popup(.cancel))
+                }
+            ),
+            rightAction: .init(
+                title: "삭제할래요",
+                variation: .destructive,
+                action: {
+                    store.send(.popup(.deleteGroup))
+                }
+            )
+        )
     }
     
     @ViewBuilder

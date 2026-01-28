@@ -104,7 +104,11 @@ public struct ManagementTabFeature {
                 case .element(id: _, action: .groupEditor(.delegate(.didConfirm))):
                     state.path.removeAll()
                     return .none
-                    
+
+                case .element(id: _, action: .groupEditor(.delegate(.didDelete))):
+                    state.path.removeAll()
+                    return .none
+
                 case .element(id: _, action: .blockEditor(.delegate(.didPop))):
                     state.path.removeAll()
                     return .none
@@ -112,7 +116,11 @@ public struct ManagementTabFeature {
                 case .element(id: _, action: .blockEditor(.delegate(.didConfirm))):
                     state.path.removeAll()
                     return .none
-                    
+
+                case .element(id: _, action: .blockEditor(.delegate(.didDelete))):
+                    state.path.removeAll()
+                    return .none
+
                 default:
                     return .none
                 }
