@@ -30,6 +30,7 @@ public struct BlockEditorFeature {
         var nameText: String
         var selectedGroup: BlockGroup
         var sheetDetent: PresentationDetent = .medium
+        var isPopupPresented: Bool = false
 
         @Presents var groupSelect: GroupSelectFeature.State?
         @Presents var iconSelect: IconSelectFeature.State?
@@ -74,6 +75,7 @@ public struct BlockEditorFeature {
             case onTapGroupSelection
             case onTapIconSelection
             case onTapColorSelection
+            case onTapDeleteButton
         }
 
         public enum InnerAction {
@@ -84,11 +86,18 @@ public struct BlockEditorFeature {
         public enum DelegateAction {
             case didPop
             case didConfirm(Block, BlockGroup)
+            case didDelete
+        }
+        
+        public enum PopupAction {
+            case cancel
+            case deleteBlock
         }
 
         case view(ViewAction)
         case inner(InnerAction)
         case delegate(DelegateAction)
+        case popup(PopupAction)
         case binding(BindingAction<State>)
         case groupSelect(PresentationAction<GroupSelectFeature.Action>)
         case iconSelect(PresentationAction<IconSelectFeature.Action>)
@@ -159,6 +168,10 @@ public struct BlockEditorFeature {
                         }
                         await send(.delegate(.didConfirm(savedBlock, targetGroup)))
                     }
+                    
+                case .onTapDeleteButton:
+                    state.isPopupPresented = true
+                    return .none
                 }
                 
             case .inner(let innerAction):
@@ -170,6 +183,21 @@ public struct BlockEditorFeature {
                 case .updateSheetDetent(let sheetDetent):
                     state.sheetDetent = sheetDetent
                     return .none
+                }
+                
+            case .popup(let popupAction):
+                switch popupAction {
+                case .cancel:
+                    state.isPopupPresented = false
+                    return .none
+                    
+                case .deleteBlock:
+                    let blockId = state.editingBlock.id
+                    state.isPopupPresented = false
+                    return .run { send in
+                        await blockRepository.deleteBlock(blockId)
+                        await send(.delegate(.didDelete))
+                    }
                 }
 
             case .iconSelect(.presented(.delegate(.didSelectIcon(let iconIndex)))):

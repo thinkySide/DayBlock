@@ -308,7 +308,7 @@ public struct BlockCarouselFeature {
                 case .element(id: _, action: .blockEditor(.delegate(.didPop))):
                     state.path.removeAll()
                     return .none
-                    
+
                 case let .element(id: _, action: .blockEditor(.delegate(.didConfirm(block, group)))):
                     state.path.removeAll()
                     state.shouldTriggerFocusHaptic = false
@@ -317,7 +317,13 @@ public struct BlockCarouselFeature {
                     userDefaultsService.set(\.selectedBlockId, block.id)
                     userDefaultsService.set(\.selectedGroupId, group.id)
                     return refreshBlockList(from: state.selectedGroup.id)
-                    
+
+                case .element(id: _, action: .blockEditor(.delegate(.didDelete))):
+                    state.path.removeAll()
+                    state.shouldTriggerFocusHaptic = false
+                    userDefaultsService.remove(\.selectedBlockId)
+                    return refreshBlockList(from: state.selectedGroup.id)
+
                 default:
                     return .none
                 }

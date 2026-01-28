@@ -109,7 +109,7 @@ public struct BlockEditorView: View {
             
             if case .edit = store.mode {
                 ActionButton(title: "삭제하기", variation: .delete) {
-                    
+                    store.send(.view(.onTapDeleteButton))
                 }
                 .padding(.top, 32)
                 .padding(.horizontal, 20)
@@ -155,6 +155,25 @@ public struct BlockEditorView: View {
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
         }
+        .popup(
+            isPresented: $store.isPopupPresented,
+            title: "블럭을 삭제할까요?",
+            message: "블럭의 정보가 모두 삭제돼요",
+            leftAction: .init(
+                title: "아니오",
+                variation: .secondary,
+                action: {
+                    store.send(.popup(.cancel))
+                }
+            ),
+            rightAction: .init(
+                title: "삭제할래요",
+                variation: .destructive,
+                action: {
+                    store.send(.popup(.deleteBlock))
+                }
+            )
+        )
     }
 }
 
