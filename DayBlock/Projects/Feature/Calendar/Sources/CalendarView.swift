@@ -8,6 +8,7 @@
 import SwiftUI
 import ComposableArchitecture
 import DesignSystem
+import HorizonCalendar
 
 public struct CalendarView: View {
     
