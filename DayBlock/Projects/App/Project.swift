@@ -26,7 +26,8 @@ let project = Project(
                 .TCA,
                 .project(target: "DesignSystem", path: "../Core/DesignSystem"),
                 .project(target: "Tracking", path: "../Feature/Tracking"),
-                .project(target: "Management", path: "../Feature/Management")
+                .project(target: "Management", path: "../Feature/Management"),
+                .project(target: "Calendar", path: "../Feature/Calendar")
             ],
             settings: .shared
         )

@@ -9,6 +9,7 @@ import SwiftUI
 import DesignSystem
 import Tracking
 import Management
+import Calendar
 import ComposableArchitecture
 
 struct MainView: View {
@@ -23,12 +24,14 @@ struct MainView: View {
                     store: store.scope(state: \.tracking, action: \.tracking)
                 )
 
-            case .calendar:
-                ScrollView {}
-
             case .management:
                 ManagementTabView(
                     store: store.scope(state: \.management, action: \.management)
+                )
+                
+            case .calendar:
+                CalendarView(
+                    store: store.scope(state: \.calendar, action: \.calendar)
                 )
 
             case .myInfo:

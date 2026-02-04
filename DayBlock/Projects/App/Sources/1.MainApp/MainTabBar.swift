@@ -23,16 +23,16 @@ struct MainTabBar: View {
 
             TabBarItem(
                 selectedTab: $selectedTab,
-                tab: .calendar,
-                icon: DesignSystem.Icons.tabCalendar,
-                label: "캘린더"
-            )
-
-            TabBarItem(
-                selectedTab: $selectedTab,
                 tab: .management,
                 icon: DesignSystem.Icons.tabRepository,
                 label: "관리소"
+            )
+            
+            TabBarItem(
+                selectedTab: $selectedTab,
+                tab: .calendar,
+                icon: DesignSystem.Icons.tabCalendar,
+                label: "캘린더"
             )
 
             TabBarItem(

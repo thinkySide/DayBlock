@@ -8,6 +8,7 @@
 import ComposableArchitecture
 import Tracking
 import Management
+import Calendar
 
 @Reducer
 struct MainAppFeature {
@@ -18,12 +19,14 @@ struct MainAppFeature {
         
         var tracking: BlockCarouselFeature.State = .init()
         var management: ManagementTabFeature.State = .init()
+        var calendar: CalendarFeature.State = .init()
     }
 
     enum Action: BindableAction {
         case binding(BindingAction<State>)
         case tracking(BlockCarouselFeature.Action)
         case management(ManagementTabFeature.Action)
+        case calendar(CalendarFeature.Action)
     }
 
     var body: some ReducerOf<Self> {
@@ -34,6 +37,9 @@ struct MainAppFeature {
         Scope(state: \.management, action: \.management) {
             ManagementTabFeature()
         }
+        Scope(state: \.calendar, action: \.calendar) {
+            CalendarFeature()
+        }
         Reduce { state, action in
             switch action {
             case .binding:
@@ -43,6 +49,9 @@ struct MainAppFeature {
                 return .none
                 
             case .management:
+                return .none
+                
+            case .calendar:
                 return .none
             }
         }
