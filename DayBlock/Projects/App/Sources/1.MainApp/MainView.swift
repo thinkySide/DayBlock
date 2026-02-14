@@ -10,6 +10,7 @@ import DesignSystem
 import Tracking
 import Management
 import Calendar
+import MyInfo
 import ComposableArchitecture
 
 struct MainView: View {
@@ -35,7 +36,9 @@ struct MainView: View {
                 )
 
             case .myInfo:
-                ScrollView {}
+                MyInfoListView(
+                    store: store.scope(state: \.myInfo, action: \.myInfo)
+                )
             }
         }
         .overlay(alignment: .bottom) {

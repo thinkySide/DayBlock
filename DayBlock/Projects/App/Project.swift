@@ -27,7 +27,8 @@ let project = Project(
                 .project(target: "DesignSystem", path: "../Core/DesignSystem"),
                 .project(target: "Tracking", path: "../Feature/Tracking"),
                 .project(target: "Management", path: "../Feature/Management"),
-                .project(target: "Calendar", path: "../Feature/Calendar")
+                .project(target: "Calendar", path: "../Feature/Calendar"),
+                .project(target: "MyInfo", path: "../Feature/MyInfo")
             ],
             settings: .shared
         )
