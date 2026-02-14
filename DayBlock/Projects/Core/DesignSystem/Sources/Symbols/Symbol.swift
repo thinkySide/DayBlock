@@ -18,6 +18,8 @@ public enum Symbol: String {
     case checkmark_circle_fill
     case exclamationmark_circle_fill
     case checkmark_square_fill
+    case gauge_with_needle_fill
+    case flame_fill
 }
 
 // MARK: - Helper
