@@ -21,7 +21,6 @@ public struct GroupListFeature {
 
         // 드래그 상태
         var draggingGroup: GroupListViewItem?
-        var dropTargetIndex: Int?
 
         public init() {}
     }
@@ -35,7 +34,7 @@ public struct GroupListFeature {
             // 드래그 액션
             case onDragStarted(GroupListViewItem)
             case onDragEnded
-            case onDropTargetChanged(index: Int?)
+            case onSwapGroup(source: GroupListViewItem, target: GroupListViewItem)
         }
 
         public enum InnerAction {
@@ -77,26 +76,21 @@ public struct GroupListFeature {
                     return .none
 
                 case .onDragEnded:
-                    defer {
-                        state.draggingGroup = nil
-                        state.dropTargetIndex = nil
-                    }
+                    let groupList = state.groupList
+                    state.draggingGroup = nil
 
-                    guard let draggingGroup = state.draggingGroup,
-                          let targetIndex = state.dropTargetIndex else {
-                        return .none
-                    }
-
-                    // 로컬 상태 먼저 업데이트
-                    moveGroup(&state.groupList, group: draggingGroup, toIndex: targetIndex)
-
-                    // DB 업데이트
-                    return .run { [groupList = state.groupList] _ in
+                    // DB에 현재 순서 저장
+                    return .run { _ in
                         await updateGroupOrders(groupList)
                     }
 
-                case .onDropTargetChanged(let index):
-                    state.dropTargetIndex = index
+                case .onSwapGroup(let source, let target):
+                    guard let sourceIndex = state.groupList.firstIndex(where: { $0.id == source.id }),
+                          let targetIndex = state.groupList.firstIndex(where: { $0.id == target.id }),
+                          sourceIndex != targetIndex else {
+                        return .none
+                    }
+                    state.groupList.swapAt(sourceIndex, targetIndex)
                     return .none
                 }
 
@@ -141,23 +135,6 @@ extension GroupListFeature {
 
 // MARK: - Helper
 extension GroupListFeature {
-
-    /// 그룹을 다른 위치로 이동합니다.
-    private func moveGroup(
-        _ groupList: inout IdentifiedArrayOf<GroupListViewItem>,
-        group: GroupListViewItem,
-        toIndex: Int
-    ) {
-        guard let currentIndex = groupList.firstIndex(where: { $0.id == group.id }) else { return }
-
-        // 같은 위치면 무시
-        guard currentIndex != toIndex else { return }
-
-        // 이동
-        groupList.remove(at: currentIndex)
-        let clampedIndex = min(toIndex, groupList.count)
-        groupList.insert(group, at: clampedIndex)
-    }
 
     /// DB에 그룹 순서를 업데이트합니다.
     private func updateGroupOrders(_ groupList: IdentifiedArrayOf<GroupListViewItem>) async {
