@@ -55,6 +55,10 @@ public struct MyInfoListFeature {
                     return .none
                 }
                 
+            case .path(.element(_, action: .resetData(.delegate(.pop)))):
+                state.path.removeLast()
+                return .none
+
             default:
                 return .none
             }

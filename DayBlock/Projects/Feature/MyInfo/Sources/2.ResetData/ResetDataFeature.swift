@@ -19,7 +19,7 @@ public struct ResetDataFeature {
 
     public enum Action: TCAFeatureAction {
         public enum ViewAction {
-            
+            case didPop
         }
 
         public enum InnerAction {
@@ -27,7 +27,7 @@ public struct ResetDataFeature {
         }
 
         public enum DelegateAction {
-            
+            case pop
         }
 
         case view(ViewAction)
@@ -40,8 +40,12 @@ public struct ResetDataFeature {
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            
-                
+            case .view(let viewAction):
+                switch viewAction {
+                case .didPop:
+                    return .send(.delegate(.pop))
+                }
+
             default:
                 return .none
             }
