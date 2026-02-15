@@ -57,5 +57,6 @@ extension MainView {
     /// TabBar가 표시되는 조건을 반환합니다.
     private var isTabBarVisible: Bool {
         store.tracking.path.isEmpty
+        && store.management.path.isEmpty
     }
 }

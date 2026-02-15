@@ -78,7 +78,9 @@ private struct TabBarItem: View {
                         : DesignSystem.Colors.gray500.swiftUIColor
                     )
             }
-            .frame(maxWidth: 72)
+            .transaction { $0.animation = nil }
+            .frame(width: 72, height: 40)
+            .contentShape(.rect)
         }
         .buttonStyle(ScaleButtonStyle())
     }
