@@ -5,6 +5,7 @@
 //  Created by 김민준 on 1/26/26.
 //
 
+import Foundation
 import ComposableArchitecture
 import Domain
 import Editor
@@ -19,9 +20,6 @@ public struct GroupListFeature {
     public struct State: Equatable {
         var groupList: IdentifiedArrayOf<GroupListViewItem> = []
 
-        // 드래그 상태
-        var draggingGroup: GroupListViewItem?
-
         public init() {}
     }
 
@@ -30,11 +28,7 @@ public struct GroupListFeature {
             case onAppear
             case onTapGroupCell(GroupListViewItem)
             case onTapAddGroupButton
-
-            // 드래그 액션
-            case onDragStarted(GroupListViewItem)
-            case onDragEnded
-            case onSwapGroup(source: GroupListViewItem, target: GroupListViewItem)
+            case onMoveGroup(from: IndexSet, to: Int)
         }
 
         public enum InnerAction {
@@ -71,27 +65,11 @@ public struct GroupListFeature {
                 case .onTapAddGroupButton:
                     return .send(.delegate(.pushAddGroupEditor))
 
-                case .onDragStarted(let group):
-                    state.draggingGroup = group
-                    return .none
-
-                case .onDragEnded:
-                    let groupList = state.groupList
-                    state.draggingGroup = nil
-
-                    // DB에 현재 순서 저장
-                    return .run { _ in
+                case .onMoveGroup(let from, let to):
+                    state.groupList.move(fromOffsets: from, toOffset: to)
+                    return .run { [groupList = state.groupList] _ in
                         await updateGroupOrders(groupList)
                     }
-
-                case .onSwapGroup(let source, let target):
-                    guard let sourceIndex = state.groupList.firstIndex(where: { $0.id == source.id }),
-                          let targetIndex = state.groupList.firstIndex(where: { $0.id == target.id }),
-                          sourceIndex != targetIndex else {
-                        return .none
-                    }
-                    state.groupList.swapAt(sourceIndex, targetIndex)
-                    return .none
                 }
 
             case .inner(let innerAction):
