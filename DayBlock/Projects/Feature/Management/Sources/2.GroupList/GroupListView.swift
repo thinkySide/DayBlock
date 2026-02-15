@@ -71,6 +71,9 @@ extension GroupListView {
             }
 
             Spacer()
+            
+            DesignSystem.Icons.arrowRight.swiftUIImage
+                .tint(DesignSystem.Colors.gray700.swiftUIColor)
         }
         .padding(.horizontal, 20)
         .frame(height: 56)

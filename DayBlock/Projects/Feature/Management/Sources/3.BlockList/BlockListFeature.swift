@@ -18,12 +18,6 @@ public struct BlockListFeature {
     public struct State: Equatable {
         var sectionList: IdentifiedArrayOf<BlockListViewItem> = []
 
-        // 드래그 상태
-        var draggingBlock: BlockListViewItem.BlockViewItem?
-        var draggingFromGroup: BlockGroup?
-        var dropTargetGroupId: UUID?
-        var dropTargetIndex: Int?
-
         public init() {}
     }
 
@@ -32,11 +26,7 @@ public struct BlockListFeature {
             case onAppear
             case onTapBlockCell(BlockListViewItem.BlockViewItem, BlockGroup)
             case onTapAddBlockButton(BlockGroup)
-
-            // 드래그 액션
-            case onDragStarted(BlockListViewItem.BlockViewItem, BlockGroup)
-            case onDragEnded
-            case onDropTargetChanged(groupId: UUID?, index: Int?)
+            case onMoveBlock(fromSection: Int, fromIndex: Int, toSection: Int, toIndex: Int)
         }
 
         public enum InnerAction {
@@ -67,51 +57,17 @@ public struct BlockListFeature {
                     return fetchSectionList()
 
                 case .onTapBlockCell(let viewItem, let group):
-                    // 드래그 중이면 탭 무시
-                    guard state.draggingBlock == nil else { return .none }
                     return .send(.delegate(.pushEditBlockEditor(viewItem.block, group)))
 
                 case .onTapAddBlockButton(let group):
                     return .send(.delegate(.pushAddBlockEditor(group)))
 
-                case .onDragStarted(let block, let group):
-                    state.draggingBlock = block
-                    state.draggingFromGroup = group
-                    return .none
-
-                case .onDragEnded:
-                    defer {
-                        state.draggingBlock = nil
-                        state.draggingFromGroup = nil
-                        state.dropTargetGroupId = nil
-                        state.dropTargetIndex = nil
-                    }
-
-                    guard let draggingBlock = state.draggingBlock,
-                          let fromGroup = state.draggingFromGroup,
-                          let targetGroupId = state.dropTargetGroupId,
-                          let targetIndex = state.dropTargetIndex else {
-                        return .none
-                    }
-
-                    // 로컬 상태 먼저 업데이트
-                    moveBlock(
-                        &state.sectionList,
-                        block: draggingBlock,
-                        fromGroupId: fromGroup.id,
-                        toGroupId: targetGroupId,
-                        toIndex: targetIndex
-                    )
-
-                    // DB 업데이트
+                case .onMoveBlock(let fromSection, let fromIndex, let toSection, let toIndex):
+                    let block = state.sectionList[fromSection].blockList.remove(at: fromIndex)
+                    state.sectionList[toSection].blockList.insert(block, at: toIndex)
                     return .run { [sectionList = state.sectionList] _ in
                         await updateBlockOrders(sectionList)
                     }
-
-                case .onDropTargetChanged(let groupId, let index):
-                    state.dropTargetGroupId = groupId
-                    state.dropTargetIndex = index
-                    return .none
                 }
 
             case .inner(let innerAction):
@@ -159,26 +115,6 @@ extension BlockListFeature {
 
 // MARK: - Helper
 extension BlockListFeature {
-
-    /// 블럭을 다른 위치로 이동합니다.
-    private func moveBlock(
-        _ sectionList: inout IdentifiedArrayOf<BlockListViewItem>,
-        block: BlockListViewItem.BlockViewItem,
-        fromGroupId: UUID,
-        toGroupId: UUID,
-        toIndex: Int
-    ) {
-        // 원본 섹션에서 블럭 제거
-        guard var fromSection = sectionList[id: fromGroupId] else { return }
-        fromSection.blockList.removeAll { $0.id == block.id }
-        sectionList[id: fromGroupId] = fromSection
-
-        // 대상 섹션에 블럭 추가
-        guard var toSection = sectionList[id: toGroupId] else { return }
-        let clampedIndex = min(toIndex, toSection.blockList.count)
-        toSection.blockList.insert(block, at: clampedIndex)
-        sectionList[id: toGroupId] = toSection
-    }
 
     /// DB에 블럭 순서를 업데이트합니다.
     private func updateBlockOrders(_ sectionList: IdentifiedArrayOf<BlockListViewItem>) async {
