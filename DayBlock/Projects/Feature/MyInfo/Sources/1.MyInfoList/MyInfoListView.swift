@@ -11,13 +11,25 @@ import DesignSystem
 
 public struct MyInfoListView: View {
     
-    private var store: StoreOf<MyInfoListFeature>
+    @Bindable private var store: StoreOf<MyInfoListFeature>
 
     public init(store: StoreOf<MyInfoListFeature>) {
         self.store = store
     }
     
     public var body: some View {
+        NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
+            ContentView()
+        } destination: { store in
+            switch store.case {
+            case let .resetData(store):
+                ResetDataView(store: store)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func ContentView() -> some View {
         VStack(spacing: 0) {
             NavigationBar()
             
@@ -119,7 +131,7 @@ public struct MyInfoListView: View {
             
             MyInfoListCell(
                 title: "초기화",
-                onTap: { }
+                onTap: { store.send(.view(.onTapResetDataCell)) }
             )
         }
     }
@@ -151,10 +163,10 @@ public struct MyInfoListView: View {
     @ViewBuilder
     private func MyInfoListCell(
         title: String,
-        onTap: () -> Void
+        onTap: @escaping () -> Void
     ) -> some View {
         Button {
-            
+            onTap()
         } label: {
             HStack {
                 Text(title)

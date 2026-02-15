@@ -58,5 +58,6 @@ extension MainView {
     private var isTabBarVisible: Bool {
         store.tracking.path.isEmpty
         && store.management.path.isEmpty
+        && store.myInfo.path.isEmpty
     }
 }

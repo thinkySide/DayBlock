@@ -1,8 +1,8 @@
 //
-//  MyInfoListFeature.swift
+//  ResetDataFeature.swift
 //  MyInfo
 //
-//  Created by 김민준 on 2/14/26.
+//  Created by 김민준 on 2/15/26.
 //
 
 import ComposableArchitecture
@@ -10,23 +10,16 @@ import Domain
 import Util
 
 @Reducer
-public struct MyInfoListFeature {
-    
-    @Reducer
-    public enum Path {
-        case resetData(ResetDataFeature)
-    }
+public struct ResetDataFeature {
 
     @ObservableState
     public struct State: Equatable {
-        public var path = StackState<Path.State>()
         
-        public init() {}
     }
 
     public enum Action: TCAFeatureAction {
         public enum ViewAction {
-            case onTapResetDataCell
+            
         }
 
         public enum InnerAction {
@@ -40,7 +33,6 @@ public struct MyInfoListFeature {
         case view(ViewAction)
         case inner(InnerAction)
         case delegate(DelegateAction)
-        case path(StackActionOf<Path>)
     }
 
     public init() {}
@@ -48,20 +40,11 @@ public struct MyInfoListFeature {
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .view(let viewAction):
-                switch viewAction {
-                case .onTapResetDataCell:
-                    state.path.append(.resetData(.init()))
-                    return .none
-                }
+            
                 
             default:
                 return .none
             }
         }
-        .forEach(\.path, action: \.path)
     }
 }
-
-// MARK: - Path
-extension MyInfoListFeature.Path.State: Equatable {}
