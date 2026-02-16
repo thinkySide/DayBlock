@@ -11,7 +11,7 @@ import DesignSystem
 
 public struct ResetDataView: View {
     
-    private var store: StoreOf<ResetDataFeature>
+    @Bindable private var store: StoreOf<ResetDataFeature>
 
     public init(store: StoreOf<ResetDataFeature>) {
         self.store = store
@@ -23,7 +23,7 @@ public struct ResetDataView: View {
                 title: "초기화",
                 leadingView: {
                     NavigationBarButton(.back) {
-                        store.send(.view(.didPop))
+                        store.send(.view(.onTapBackButton))
                     }
                 }
             )
@@ -38,7 +38,7 @@ public struct ResetDataView: View {
                 title: "초기화하기",
                 variation: .delete,
                 action: {
-                    
+                    store.send(.view(.onTapResetDataButton))
                 }
             )
             .padding(.top, 32)
@@ -48,6 +48,25 @@ public struct ResetDataView: View {
         }
         .background(DesignSystem.Colors.gray0.swiftUIColor)
         .toolbarVisibility(.hidden, for: .navigationBar)
+        .popup(
+            isPresented: $store.isPopupPresented,
+            title: "모든 데이터를 초기화할까요?",
+            message: "그동안 생성된 데이터가 모두 삭제돼요",
+            leftAction: .init(
+                title: "아니오",
+                variation: .secondary,
+                action: {
+                    store.send(.popup(.cancel))
+                }
+            ),
+            rightAction: .init(
+                title: "초기화할래요",
+                variation: .destructive,
+                action: {
+                    store.send(.popup(.reset))
+                }
+            )
+        )
     }
 }
 

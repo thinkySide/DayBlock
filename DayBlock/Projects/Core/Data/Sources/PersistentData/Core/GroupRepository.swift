@@ -21,6 +21,7 @@ public struct GroupRepository {
     public var fetchGroupList: @Sendable () async -> [BlockGroup] = { [] }
     public var updateGroup: @Sendable (_ groupId: UUID, BlockGroup) async throws -> BlockGroup
     public var deleteGroup: @Sendable (_ groupId: UUID) async -> Void
+    public var resetAll: @Sendable () async -> Void
 }
 
 // MARK: - DependencyKey
@@ -166,6 +167,23 @@ extension GroupRepository: DependencyKey {
 
                     try await MainActor.run {
                         modelContext.delete(targetGroup)
+                        try modelContext.save()
+                    }
+                } catch {
+                    Debug.log("SwiftData ModelContext 에러: \(error)")
+                }
+            },
+            resetAll: {
+                do {
+                    let descriptor = FetchDescriptor<BlockGroupSwiftData>()
+                    let groupList = try await Task { @MainActor in
+                        try modelContext.fetch(descriptor)
+                    }.value
+
+                    try await MainActor.run {
+                        for group in groupList {
+                            modelContext.delete(group)
+                        }
                         try modelContext.save()
                     }
                 } catch {
