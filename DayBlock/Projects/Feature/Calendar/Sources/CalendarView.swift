@@ -13,6 +13,9 @@ import HorizonCalendar
 public struct CalendarView: View {
 
     @Bindable private var store: StoreOf<CalendarFeature>
+    @StateObject private var calendarProxy = CalendarViewProxy()
+
+    @Dependency(\.calendar) private var calendar
 
     public init(store: StoreOf<CalendarFeature>) {
         self.store = store
@@ -32,6 +35,24 @@ public struct CalendarView: View {
             MonthCalendar()
                 .padding(.top, -48)
                 .zIndex(-1)
+                .onAppear {
+                    if let date = calendar.date(from: store.visibleMonth) {
+                        calendarProxy.scrollToMonth(
+                            containing: date,
+                            scrollPosition: .firstFullyVisiblePosition,
+                            animated: false
+                        )
+                    }
+                }
+                .onChange(of: store.visibleMonth) { _, newMonth in
+                    if let date = calendar.date(from: newMonth) {
+                        calendarProxy.scrollToMonth(
+                            containing: date,
+                            scrollPosition: .firstFullyVisiblePosition,
+                            animated: false
+                        )
+                    }
+                }
 
             Spacer()
         }
@@ -44,6 +65,8 @@ public struct CalendarView: View {
                 .brandFont(.poppins(.bold), 22)
                 .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
 
+            Spacer()
+            
             Button {
                 store.send(.view(.onTapToday))
             } label: {
@@ -55,10 +78,8 @@ public struct CalendarView: View {
                     .background(DesignSystem.Colors.gray100.swiftUIColor)
                     .clipShape(Capsule())
             }
-            .padding(.leading, 8)
+            .padding(.trailing, 8)
             .scaleButton()
-
-            Spacer()
 
             CalendarMonthIndicator()
         }
@@ -113,7 +134,7 @@ public struct CalendarView: View {
     @ViewBuilder
     private func MonthCalendar() -> some View {
         CalendarViewRepresentable(
-            calendar: store.calendar,
+            calendar: calendar,
             visibleDateRange: store.visibleDateRange,
             monthsLayout: .horizontal(
                 options: HorizontalMonthsLayoutOptions(
@@ -123,13 +144,15 @@ public struct CalendarView: View {
                     )
                 )
             ),
-            dataDependency: store.selectedDate
+            dataDependency: store.selectedDate,
+            proxy: calendarProxy
         )
         .days { day in
             DayView(
                 dayNumber: day.day,
-                isSelected: false,
-                isToday: isToday(day)
+                isSelected: day.month.year == store.selectedDate?.year
+                && day.month.month == store.selectedDate?.month
+                && day.day == store.selectedDate?.day
             )
         }
         .dayOfWeekHeaders { _, _ in
@@ -148,30 +171,37 @@ public struct CalendarView: View {
         .horizontalDayMargin(0)
     }
 
-    private func isToday(_ day: DayComponents) -> Bool {
-        let today = store.calendar.dateComponents([.year, .month, .day], from: Date())
-        return day.month.year == today.year
-            && day.month.month == today.month
-            && day.day == today.day
-    }
 }
 
 // MARK: - Day View
 private struct DayView: View {
     let dayNumber: Int
     let isSelected: Bool
-    let isToday: Bool
 
     var body: some View {
-        VStack(spacing: 1) {
+        VStack(spacing: 0) {
             RoundedRectangle(cornerRadius: 7)
                 .foregroundStyle(DesignSystem.Colors.gray300.swiftUIColor)
                 .frame(width: 24, height: 24)
             
-            Text(dayNumber.description)
-                .brandFont(.poppins(.semiBold), 12)
-                .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
+            Circle()
+                .frame(width: 20, height: 20)
+                .foregroundStyle(
+                    isSelected
+                    ? DesignSystem.Colors.gray900.swiftUIColor
+                    : .clear
+                )
+                .padding(.top, 1)
+                .overlay {
+                    Text(dayNumber.description)
+                        .brandFont(.poppins(.semiBold), 12)
+                        .foregroundStyle(
+                            isSelected
+                            ? DesignSystem.Colors.gray0.swiftUIColor
+                            : DesignSystem.Colors.gray800.swiftUIColor
+                        )
+                }
         }
-        .frame(width: 40)
+        .frame(width: 40, height: 46)
     }
 }

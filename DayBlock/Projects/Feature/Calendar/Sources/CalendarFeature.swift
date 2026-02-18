@@ -19,23 +19,19 @@ public struct CalendarFeature {
         var visibleMonth: DateComponents
         /// 선택된 날짜
         var selectedDate: DateComponents?
-        /// 캘린더
-        let calendar: Calendar
         /// 표시 가능한 날짜 범위 (무한 스크롤을 위해 넓은 범위 설정)
         let visibleDateRange: ClosedRange<Date>
 
         public init() {
-            let calendar = Calendar.current
-            self.calendar = calendar
+            @Dependency(\.date) var date
+            @Dependency(\.calendar) var calendar
 
-            // 현재 월로 초기화
-            let today = Date()
+            let today = date.now
+            self.selectedDate = calendar.dateComponents([.year, .month, .day], from: today)
             self.visibleMonth = calendar.dateComponents([.year, .month], from: today)
-            self.selectedDate = nil
 
-            // 10년 전 ~ 10년 후 범위 설정 (무한 스크롤 효과)
-            let startDate = calendar.date(from: DateComponents(year: 2015, month: 1, day: 1))!
-            let endDate = calendar.date(from: DateComponents(year: 2035, month: 12, day: 31))!
+            let startDate = calendar.date(from: .init(year: 2015, month: 1, day: 1)) ?? today
+            let endDate = calendar.date(from: .init(year: 2035, month: 12, day: 31)) ?? today
             self.visibleDateRange = startDate...endDate
         }
     }
@@ -62,6 +58,9 @@ public struct CalendarFeature {
         case inner(InnerAction)
         case delegate(DelegateAction)
     }
+    
+    @Dependency(\.date) private var date
+    @Dependency(\.calendar) private var calendar
 
     public init() {}
 
@@ -77,23 +76,23 @@ public struct CalendarFeature {
                 return .none
 
             case .view(.onTapPreviousMonth):
-                if let currentDate = state.calendar.date(from: state.visibleMonth),
-                   let previousMonth = state.calendar.date(byAdding: .month, value: -1, to: currentDate) {
-                    state.visibleMonth = state.calendar.dateComponents([.year, .month], from: previousMonth)
+                if let currentDate = calendar.date(from: state.visibleMonth),
+                   let previousMonth = calendar.date(byAdding: .month, value: -1, to: currentDate) {
+                    state.visibleMonth = calendar.dateComponents([.year, .month], from: previousMonth)
                 }
                 return .none
 
             case .view(.onTapNextMonth):
-                if let currentDate = state.calendar.date(from: state.visibleMonth),
-                   let nextMonth = state.calendar.date(byAdding: .month, value: 1, to: currentDate) {
-                    state.visibleMonth = state.calendar.dateComponents([.year, .month], from: nextMonth)
+                if let currentDate = calendar.date(from: state.visibleMonth),
+                   let nextMonth = calendar.date(byAdding: .month, value: 1, to: currentDate) {
+                    state.visibleMonth = calendar.dateComponents([.year, .month], from: nextMonth)
                 }
                 return .none
 
             case .view(.onTapToday):
-                let today = Date()
-                state.visibleMonth = state.calendar.dateComponents([.year, .month], from: today)
-                state.selectedDate = state.calendar.dateComponents([.year, .month, .day], from: today)
+                let today = date.now
+                state.visibleMonth = calendar.dateComponents([.year, .month], from: today)
+                state.selectedDate = calendar.dateComponents([.year, .month, .day], from: today)
                 return .none
 
             default:
