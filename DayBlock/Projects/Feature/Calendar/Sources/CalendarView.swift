@@ -51,7 +51,65 @@ public struct CalendarView: View {
     }
 
     @ViewBuilder
-    private func Header() -> some View {
+    private func MonthCalendar() -> some View {
+        CalendarViewRepresentable(
+            calendar: calendar,
+            visibleDateRange: store.visibleDateRange,
+            monthsLayout: .horizontal(
+                options: HorizontalMonthsLayoutOptions(
+                    maximumFullyVisibleMonths: 1,
+                    scrollingBehavior: .paginatedScrolling(
+                        .init(
+                            restingPosition: .atIncrementsOfCalendarWidth,
+                            restingAffinity: .atPositionsAdjacentToPrevious
+                        )
+                    )
+                )
+            ),
+            dataDependency: store.selectedDate,
+            proxy: calendarProxy
+        )
+        .days { day in
+            DayView(
+                dayNumber: day.day,
+                isSelected: day.month.year == store.selectedDate?.year
+                && day.month.month == store.selectedDate?.month
+                && day.day == store.selectedDate?.day
+            )
+        }
+        .monthHeaders { month in
+            MonthHeaderView(
+                visibleMonth: month.components,
+                onTapToday: { store.send(.view(.onTapToday)) },
+                onTapPreviousMonth: { store.send(.view(.onTapPreviousMonth)) },
+                onTapNextMonth: { store.send(.view(.onTapNextMonth)) }
+            )
+            .padding(.bottom, -16)
+            .padding(.horizontal, 14)
+        }
+        .dayOfWeekHeaders { _, weekdayIndex in
+            DayOfWeekView(dayOfWeek: .init(rawValue: weekdayIndex) ?? .sunday)
+                .padding(.bottom, -24)
+        }
+        .onDaySelection { day in
+            store.send(.view(.onDaySelected(day.components)))
+        }
+        .dayAspectRatio(1)
+        .verticalDayMargin(8)
+        .horizontalDayMargin(0)
+    }
+
+}
+
+// MARK: - MonthHeader
+private struct MonthHeaderView: View {
+    
+    let visibleMonth: DateComponents
+    let onTapToday: () -> Void
+    let onTapPreviousMonth: () -> Void
+    let onTapNextMonth: () -> Void
+    
+    var body: some View {
         HStack {
             Text(headerTitle)
                 .brandFont(.poppins(.bold), 22)
@@ -60,7 +118,7 @@ public struct CalendarView: View {
             Spacer()
             
             Button {
-                store.send(.view(.onTapToday))
+                onTapToday()
             } label: {
                 Text("today")
                     .brandFont(.poppins(.bold), 13)
@@ -78,8 +136,8 @@ public struct CalendarView: View {
     }
 
     private var headerTitle: String {
-        let year = store.visibleMonth.year ?? 2025
-        let month = store.visibleMonth.month ?? 1
+        let year = visibleMonth.year ?? 2025
+        let month = visibleMonth.month ?? 1
         return String(format: "%d.%02d", year, month)
     }
 
@@ -87,7 +145,7 @@ public struct CalendarView: View {
     private func CalendarMonthIndicator() -> some View {
         HStack(spacing: 16) {
             Button {
-                store.send(.view(.onTapPreviousMonth))
+                onTapPreviousMonth()
             } label: {
                 DesignSystem.Icons.arrowLeft.swiftUIImage
                     .resizable()
@@ -96,7 +154,7 @@ public struct CalendarView: View {
             .scaleButton()
 
             Button {
-                store.send(.view(.onTapNextMonth))
+                onTapNextMonth()
             } label: {
                 DesignSystem.Icons.arrowRight.swiftUIImage
                     .resizable()
@@ -105,63 +163,6 @@ public struct CalendarView: View {
             .scaleButton()
         }
     }
-
-    @ViewBuilder
-    private func WeekdayHeader() -> some View {
-        let weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-        HStack(spacing: 0) {
-            ForEach(Array(weekdays.enumerated()), id: \.offset) { index, weekday in
-                Text(weekday)
-                    .brandFont(.poppins(.semiBold), 13)
-                    .foregroundStyle(DesignSystem.Colors.gray700.swiftUIColor)
-                    .frame(width: 40)
-                
-                if index < weekdays.count - 1 {
-                    Spacer()
-                }
-            }
-        }
-    }
-
-    @ViewBuilder
-    private func MonthCalendar() -> some View {
-        CalendarViewRepresentable(
-            calendar: calendar,
-            visibleDateRange: store.visibleDateRange,
-            monthsLayout: .horizontal(
-                options: HorizontalMonthsLayoutOptions(
-                    maximumFullyVisibleMonths: 1,
-                    scrollingBehavior: .paginatedScrolling(
-                        .init(restingPosition: .atLeadingEdgeOfEachMonth, restingAffinity: .atPositionsClosestToTargetOffset)
-                    )
-                )
-            ),
-            dataDependency: store.selectedDate,
-            proxy: calendarProxy
-        )
-        .days { day in
-            DayView(
-                dayNumber: day.day,
-                isSelected: day.month.year == store.selectedDate?.year
-                && day.month.month == store.selectedDate?.month
-                && day.day == store.selectedDate?.day
-            )
-        }
-        .dayOfWeekHeaders { _, weekdayIndex in
-            DayOfWeekView(dayOfWeek: .init(rawValue: weekdayIndex) ?? .sunday)
-                .padding(.bottom, -24)
-        }
-        .monthHeaders { _ in
-            Header()
-        }
-        .onDaySelection { day in
-            store.send(.view(.onDaySelected(day.components)))
-        }
-        .dayAspectRatio(1)
-        .verticalDayMargin(8)
-        .horizontalDayMargin(0)
-    }
-
 }
 
 // MARK: - DayOfWeek
