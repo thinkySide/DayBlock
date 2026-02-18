@@ -8,6 +8,7 @@
 import SwiftUI
 import ComposableArchitecture
 import DesignSystem
+import Domain
 import HorizonCalendar
 
 public struct CalendarView: View {
@@ -25,16 +26,7 @@ public struct CalendarView: View {
         VStack(spacing: 0) {
             NavigationBar()
 
-            Header()
-                .padding(.horizontal, 14)
-
-            WeekdayHeader()
-                .padding(.top, 12)
-                .padding(.horizontal, 8)
-
             MonthCalendar()
-                .padding(.top, -48)
-                .zIndex(-1)
                 .onAppear {
                     if let date = calendar.date(from: store.visibleMonth) {
                         calendarProxy.scrollToMonth(
@@ -155,13 +147,12 @@ public struct CalendarView: View {
                 && day.day == store.selectedDate?.day
             )
         }
-        .dayOfWeekHeaders { _, _ in
-            Color.clear
-                .frame(height: .zero)
+        .dayOfWeekHeaders { _, weekdayIndex in
+            DayOfWeekView(dayOfWeek: .init(rawValue: weekdayIndex) ?? .sunday)
+                .padding(.bottom, -24)
         }
         .monthHeaders { _ in
-            Color.clear
-                .frame(height: .zero)
+            Header()
         }
         .onDaySelection { day in
             store.send(.view(.onDaySelected(day.components)))
@@ -173,7 +164,19 @@ public struct CalendarView: View {
 
 }
 
-// MARK: - Day View
+// MARK: - DayOfWeek
+private struct DayOfWeekView: View {
+    
+    let dayOfWeek: DayOfWeek
+    
+    var body: some View {
+        Text(dayOfWeek.toString)
+            .brandFont(.poppins(.semiBold), 13)
+            .foregroundStyle(DesignSystem.Colors.gray700.swiftUIColor)
+    }
+}
+
+// MARK: - Day
 private struct DayView: View {
     let dayNumber: Int
     let isSelected: Bool
