@@ -23,20 +23,19 @@ public struct CalendarView: View {
             NavigationBar()
 
             Header()
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 14)
 
             WeekdayHeader()
-                .padding(.horizontal, 20)
-                .padding(.top, 24)
+                .padding(.top, 12)
+                .padding(.horizontal, 8)
 
             MonthCalendar()
-                .padding(.top, 8)
+                .padding(.top, -48)
+                .zIndex(-1)
 
             Spacer()
         }
     }
-
-    // MARK: - Header
 
     @ViewBuilder
     private func Header() -> some View {
@@ -94,26 +93,22 @@ public struct CalendarView: View {
         }
     }
 
-    // MARK: - Weekday Header
-
     @ViewBuilder
     private func WeekdayHeader() -> some View {
-        let weekdays = ["S", "M", "T", "W", "T", "F", "S"]
+        let weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
         HStack(spacing: 0) {
-            ForEach(weekdays.indices, id: \.self) { index in
-                Text(weekdays[index])
-                    .brandFont(.poppins(.semiBold), 14)
-                    .foregroundStyle(
-                        index == 0
-                            ? DesignSystem.Colors.eventDestructive.swiftUIColor
-                            : DesignSystem.Colors.gray500.swiftUIColor
-                    )
-                    .frame(maxWidth: .infinity)
+            ForEach(Array(weekdays.enumerated()), id: \.offset) { index, weekday in
+                Text(weekday)
+                    .brandFont(.poppins(.semiBold), 13)
+                    .foregroundStyle(DesignSystem.Colors.gray700.swiftUIColor)
+                    .frame(width: 40)
+                
+                if index < weekdays.count - 1 {
+                    Spacer()
+                }
             }
         }
     }
-
-    // MARK: - Month Calendar
 
     @ViewBuilder
     private func MonthCalendar() -> some View {
@@ -138,17 +133,17 @@ public struct CalendarView: View {
             )
         }
         .dayOfWeekHeaders { _, _ in
-            EmptyView()
+            Color.clear
+                .frame(height: .zero)
         }
         .monthHeaders { _ in
-            EmptyView()
+            Color.clear
+                .frame(height: .zero)
         }
         .onDaySelection { day in
             store.send(.view(.onDaySelected(day.components)))
         }
         .dayAspectRatio(1)
-        .layoutMargins(.zero)
-        .interMonthSpacing(0)
         .verticalDayMargin(8)
         .horizontalDayMargin(0)
     }
@@ -162,31 +157,21 @@ public struct CalendarView: View {
 }
 
 // MARK: - Day View
-
 private struct DayView: View {
     let dayNumber: Int
     let isSelected: Bool
     let isToday: Bool
 
     var body: some View {
-        ZStack {
-            if isSelected {
-                Circle()
-                    .fill(DesignSystem.Colors.gray900.swiftUIColor)
-            } else if isToday {
-                Circle()
-                    .strokeBorder(DesignSystem.Colors.gray900.swiftUIColor, lineWidth: 1.5)
-            }
-
-            Text("\(dayNumber)")
-                .brandFont(.poppins(.bold), 16)
-                .foregroundStyle(
-                    isSelected
-                        ? DesignSystem.Colors.gray0.swiftUIColor
-                        : DesignSystem.Colors.gray900.swiftUIColor
-                )
+        VStack(spacing: 1) {
+            RoundedRectangle(cornerRadius: 7)
+                .foregroundStyle(DesignSystem.Colors.gray300.swiftUIColor)
+                .frame(width: 24, height: 24)
+            
+            Text(dayNumber.description)
+                .brandFont(.poppins(.semiBold), 12)
+                .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .aspectRatio(1, contentMode: .fit)
+        .frame(width: 40)
     }
 }
