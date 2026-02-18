@@ -28,22 +28,27 @@ public struct CalendarView: View {
 
             MonthCalendar()
                 .onAppear {
-                    if let date = calendar.date(from: store.visibleMonth) {
-                        calendarProxy.scrollToMonth(
-                            containing: date,
-                            scrollPosition: .firstFullyVisiblePosition,
-                            animated: false
-                        )
-                    }
+                    scrollToMonth(true)
                 }
-                .onChange(of: store.visibleMonth) { _, newMonth in
-                    if let date = calendar.date(from: newMonth) {
-                        calendarProxy.scrollToMonth(
-                            containing: date,
-                            scrollPosition: .firstFullyVisiblePosition,
-                            animated: false
-                        )
+                .onChange(of: store.shouldUpdate) {
+                    scrollToMonth(store.shouldUpdate)
+                }
+                .overlay(alignment: .topTrailing) {
+                    Button {
+                        store.send(.view(.onTapToday))
+                    } label: {
+                        Text("today")
+                            .brandFont(.poppins(.bold), 13)
+                            .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+                            .frame(height: 26)
+                            .padding(.horizontal, 10)
+                            .background(DesignSystem.Colors.gray100.swiftUIColor)
+                            .clipShape(Capsule())
+                            .padding(.leading, 4)
+                            .padding(.trailing, 12)
+                            .background(DesignSystem.Colors.gray0.swiftUIColor)
                     }
+                    .scaleButton()
                 }
 
             Spacer()
@@ -78,14 +83,9 @@ public struct CalendarView: View {
             )
         }
         .monthHeaders { month in
-            MonthHeaderView(
-                visibleMonth: month.components,
-                onTapToday: { store.send(.view(.onTapToday)) },
-                onTapPreviousMonth: { store.send(.view(.onTapPreviousMonth)) },
-                onTapNextMonth: { store.send(.view(.onTapNextMonth)) }
-            )
-            .padding(.bottom, -16)
-            .padding(.horizontal, 14)
+            MonthHeaderView(visibleMonth: month.components)
+                .padding(.bottom, -16)
+                .padding(.horizontal, 14)
         }
         .dayOfWeekHeaders { _, weekdayIndex in
             DayOfWeekView(dayOfWeek: .init(rawValue: weekdayIndex) ?? .sunday)
@@ -98,16 +98,23 @@ public struct CalendarView: View {
         .verticalDayMargin(8)
         .horizontalDayMargin(0)
     }
-
+    
+    private func scrollToMonth(_ shouldUpdate: Bool) {
+        if shouldUpdate, let date = calendar.date(from: store.visibleMonth) {
+            calendarProxy.scrollToMonth(
+                containing: date,
+                scrollPosition: .firstFullyVisiblePosition,
+                animated: false
+            )
+            store.send(.delegate(.didScrollToMonth))
+        }
+    }
 }
 
 // MARK: - MonthHeader
 private struct MonthHeaderView: View {
     
     let visibleMonth: DateComponents
-    let onTapToday: () -> Void
-    let onTapPreviousMonth: () -> Void
-    let onTapNextMonth: () -> Void
     
     var body: some View {
         HStack {
@@ -116,22 +123,6 @@ private struct MonthHeaderView: View {
                 .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
 
             Spacer()
-            
-            Button {
-                onTapToday()
-            } label: {
-                Text("today")
-                    .brandFont(.poppins(.bold), 13)
-                    .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
-                    .frame(height: 26)
-                    .padding(.horizontal, 10)
-                    .background(DesignSystem.Colors.gray100.swiftUIColor)
-                    .clipShape(Capsule())
-            }
-            .padding(.trailing, 8)
-            .scaleButton()
-
-            CalendarMonthIndicator()
         }
     }
 
@@ -139,29 +130,6 @@ private struct MonthHeaderView: View {
         let year = visibleMonth.year ?? 2025
         let month = visibleMonth.month ?? 1
         return String(format: "%d.%02d", year, month)
-    }
-
-    @ViewBuilder
-    private func CalendarMonthIndicator() -> some View {
-        HStack(spacing: 16) {
-            Button {
-                onTapPreviousMonth()
-            } label: {
-                DesignSystem.Icons.arrowLeft.swiftUIImage
-                    .resizable()
-                    .frame(width: 24, height: 24)
-            }
-            .scaleButton()
-
-            Button {
-                onTapNextMonth()
-            } label: {
-                DesignSystem.Icons.arrowRight.swiftUIImage
-                    .resizable()
-                    .frame(width: 24, height: 24)
-            }
-            .scaleButton()
-        }
     }
 }
 

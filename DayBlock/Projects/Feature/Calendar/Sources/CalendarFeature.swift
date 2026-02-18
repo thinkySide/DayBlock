@@ -15,11 +15,10 @@ public struct CalendarFeature {
 
     @ObservableState
     public struct State: Equatable {
-        /// 현재 표시 중인 월
         var visibleMonth: DateComponents
-        /// 선택된 날짜
         var selectedDate: DateComponents?
-        /// 표시 가능한 날짜 범위 (무한 스크롤을 위해 넓은 범위 설정)
+        var shouldUpdate: Bool = false
+        
         let visibleDateRange: ClosedRange<Date>
 
         public init() {
@@ -38,21 +37,15 @@ public struct CalendarFeature {
 
     public enum Action: TCAFeatureAction {
         public enum ViewAction {
-            /// 날짜 선택
-            case onDaySelected(DateComponents)
-            /// 보이는 월이 변경됨
-            case onVisibleMonthChanged(DateComponents)
-            /// 이전 월 버튼 탭
-            case onTapPreviousMonth
-            /// 다음 월 버튼 탭
-            case onTapNextMonth
-            /// 오늘 버튼 탭
             case onTapToday
+            case onDaySelected(DateComponents)
         }
 
         public enum InnerAction {}
 
-        public enum DelegateAction {}
+        public enum DelegateAction {
+            case didScrollToMonth
+        }
 
         case view(ViewAction)
         case inner(InnerAction)
@@ -61,39 +54,32 @@ public struct CalendarFeature {
     
     @Dependency(\.date) private var date
     @Dependency(\.calendar) private var calendar
+    @Dependency(\.haptic) private var haptic
 
     public init() {}
 
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case let .view(.onDaySelected(day)):
-                state.selectedDate = day
-                return .none
-
-            case let .view(.onVisibleMonthChanged(month)):
-                state.visibleMonth = month
-                return .none
-
-            case .view(.onTapPreviousMonth):
-                if let currentDate = calendar.date(from: state.visibleMonth),
-                   let previousMonth = calendar.date(byAdding: .month, value: -1, to: currentDate) {
-                    state.visibleMonth = calendar.dateComponents([.year, .month], from: previousMonth)
-                }
-                return .none
-
-            case .view(.onTapNextMonth):
-                if let currentDate = calendar.date(from: state.visibleMonth),
-                   let nextMonth = calendar.date(byAdding: .month, value: 1, to: currentDate) {
-                    state.visibleMonth = calendar.dateComponents([.year, .month], from: nextMonth)
-                }
-                return .none
-
             case .view(.onTapToday):
+                haptic.impact(.soft)
                 let today = date.now
+                state.shouldUpdate = true
                 state.visibleMonth = calendar.dateComponents([.year, .month], from: today)
                 state.selectedDate = calendar.dateComponents([.year, .month, .day], from: today)
                 return .none
+                
+            case let .view(.onDaySelected(day)):
+                haptic.impact(.soft)
+                state.selectedDate = day
+                return .none
+                
+            case .delegate(let delegateAction):
+                switch delegateAction {
+                case .didScrollToMonth:
+                    state.shouldUpdate = false
+                    return .none
+                }
 
             default:
                 return .none
