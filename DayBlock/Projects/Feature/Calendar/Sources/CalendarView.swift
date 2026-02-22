@@ -26,35 +26,39 @@ public struct CalendarView: View {
         VStack(spacing: 0) {
             NavigationBar()
             
-            MonthCalendar()
-                .onAppear {
-                    scrollToMonth(true)
-                }
-                .onChange(of: store.shouldUpdate) {
-                    scrollToMonth(store.shouldUpdate)
-                }
-                .overlay(alignment: .topTrailing) {
-                    Button {
-                        store.send(.view(.onTapToday))
-                    } label: {
-                        Text("today")
-                            .brandFont(.poppins(.bold), 13)
-                            .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
-                            .frame(height: 26)
-                            .padding(.horizontal, 10)
-                            .background(DesignSystem.Colors.gray100.swiftUIColor)
-                            .clipShape(Capsule())
-                            .padding(.leading, 4)
-                            .padding(.trailing, 12)
-                            .background(DesignSystem.Colors.gray0.swiftUIColor)
+            ScrollView {
+                MonthCalendar()
+                    .onAppear {
+                        scrollToMonth(true)
                     }
-                    .scaleButton()
-                }
-            
-            SectionDivider()
-                .padding(.top, 20)
-            
-            Spacer()
+                    .onChange(of: store.shouldUpdate) {
+                        scrollToMonth(store.shouldUpdate)
+                    }
+                    .overlay(alignment: .topTrailing) {
+                        Button {
+                            store.send(.view(.onTapToday))
+                        } label: {
+                            Text("today")
+                                .brandFont(.poppins(.bold), 13)
+                                .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+                                .frame(height: 26)
+                                .padding(.horizontal, 10)
+                                .background(DesignSystem.Colors.gray100.swiftUIColor)
+                                .clipShape(Capsule())
+                                .padding(.leading, 4)
+                                .padding(.trailing, 12)
+                                .background(DesignSystem.Colors.gray0.swiftUIColor)
+                        }
+                        .scaleButton()
+                    }
+                
+                SectionDivider()
+                    .padding(.top, 20)
+                
+                TimelineSection()
+                    .padding(.top, 20)
+            }
+            .padding(.bottom, 56)
         }
         .background(DesignSystem.Colors.gray0.swiftUIColor)
     }
@@ -109,6 +113,87 @@ public struct CalendarView: View {
         .dayAspectRatio(1)
         .verticalDayMargin(8)
         .horizontalDayMargin(0)
+    }
+    
+    @ViewBuilder
+    private func TimelineSection() -> some View {
+        VStack(spacing: 8) {
+            TimelineHeader()
+                .padding(.horizontal, 20)
+            
+            TimelineList()
+        }
+    }
+    
+    @ViewBuilder
+    private func TimelineHeader() -> some View {
+        HStack {
+            Text("타임라인")
+                .brandFont(.pretendard(.bold), 18)
+                .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+            
+            Spacer()
+            
+            HStack(spacing: 6) {
+                Text("total")
+                    .brandFont(.pretendard(.bold), 14)
+                    .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
+                
+                Text("+3.5")
+                    .brandFont(.pretendard(.bold), 18)
+                    .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func TimelineList() -> some View {
+        VStack(spacing: 2) {
+            TimelineCell()
+            TimelineCell()
+            TimelineCell()
+            TimelineCell()
+            TimelineCell()
+            TimelineCell()
+        }
+        .padding(.horizontal, 20)
+    }
+    
+    @ViewBuilder
+    private func TimelineCell() -> some View {
+        HStack {
+            IconBlock(
+                symbol: Symbol.batteryblock_fill.symbolName,
+                color: DesignSystem.ColorPalette.blueBlock1.swiftUIColor,
+                size: 32
+            )
+            
+            VStack(alignment: .leading, spacing: 0) {
+                Text("첫번째 블럭 만들기")
+                    .brandFont(.pretendard(.bold), 16)
+                    .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+                
+                Text("07:55 ~ 08:25")
+                    .brandFont(.pretendard(.semiBold), 13)
+                    .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
+            }
+            
+            Spacer()
+            
+            Text(.buildAttributed([
+                .init(
+                    text: "+",
+                    color: DesignSystem.ColorPalette.blueBlock1.swiftUIColor,
+                    font: DesignSystemFontFamily.Poppins.bold.swiftUIFont(size: 16)
+                ),
+                .init(
+                    text: "0.5",
+                    color: DesignSystem.Colors.gray900.swiftUIColor,
+                    font: DesignSystemFontFamily.Poppins.bold.swiftUIFont(size: 16)
+                )
+            ]))
+        }
+        .frame(height: 48)
     }
     
     private func scrollToMonth(_ shouldUpdate: Bool) {

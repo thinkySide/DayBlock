@@ -7,6 +7,7 @@
 
 import SwiftUI
 import DesignSystem
+import ComposableArchitecture
 
 struct MainTabBar: View {
 
@@ -42,7 +43,8 @@ struct MainTabBar: View {
                 label: "내정보"
             )
         }
-        .frame(height: 40)
+        .frame(maxWidth: .infinity)
+        .padding(.top, 8)
     }
 }
 
@@ -50,6 +52,7 @@ struct MainTabBar: View {
 private struct TabBarItem: View {
     
     @Binding var selectedTab: MainTab
+    @Dependency(\.haptic) private var haptic
 
     let tab: MainTab
     let icon: DesignSystemImages
@@ -57,6 +60,7 @@ private struct TabBarItem: View {
 
     var body: some View {
         Button {
+            haptic.impact(.soft)
             selectedTab = tab
         } label: {
             VStack(spacing: 4) {
@@ -71,11 +75,11 @@ private struct TabBarItem: View {
                     )
 
                 Text(label)
-                    .brandFont(.pretendard(isSelected ? .bold : .medium), 10)
+                    .brandFont(.pretendard(isSelected ? .bold : .semiBold), 10)
                     .foregroundStyle(
                         isSelected
                         ? DesignSystem.Colors.gray900.swiftUIColor
-                        : DesignSystem.Colors.gray500.swiftUIColor
+                        : DesignSystem.Colors.gray600.swiftUIColor
                     )
             }
             .transaction { $0.animation = nil }

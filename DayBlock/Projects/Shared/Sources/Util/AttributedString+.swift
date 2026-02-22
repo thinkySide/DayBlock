@@ -10,22 +10,32 @@ import SwiftUI
 extension AttributedString {
 
     /// 여러 (텍스트, 컬러) 조합을 하나의 AttributedString으로 만듭니다.
-    ///
-    /// ```swift
-    /// AttributedString.build(
-    ///     ("초기화 작업 실행 시 ", Colors.gray700.swiftUIColor, nil),
-    ///     ("모든 데이터가 삭제", Colors.red.swiftUIColor, .custom("Pretendard-Bold", size: 14)),
-    ///     ("됩니다.", Colors.gray700.swiftUIColor, nil)
-    /// )
-    /// ```
-    public static func build(_ components: (String, Color, Font?)...) -> AttributedString {
+    public static func buildAttributed(_ components: [AttributedStringComponent]) -> AttributedString {
         var result = AttributedString()
-        for (text, color, font) in components {
-            var part = AttributedString(text)
-            part.foregroundColor = color
-            if let font { part.font = font }
+        for component in components {
+            var part = AttributedString(component.text)
+            part.foregroundColor = component.color
+            part.font = component.font
             result.append(part)
         }
         return result
+    }
+}
+
+// MARK: - AttributedStringComponent
+public struct AttributedStringComponent {
+    
+    let text: String
+    let color: Color
+    let font: Font
+    
+    public init(
+        text: String,
+        color: Color,
+        font: Font
+    ) {
+        self.text = text
+        self.color = color
+        self.font = font
     }
 }

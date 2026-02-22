@@ -74,22 +74,24 @@ public struct ResetDataView: View {
 extension ResetDataView {
     
     private var resetDataString: AttributedString {
-        .build(
-            (
-                "초기화 작업 실행 시 그룹 및 블럭 정보가 저장된\n",
-                DesignSystem.Colors.gray800.swiftUIColor,
-                DesignSystemFontFamily.Pretendard.medium.swiftUIFont(size: 16)
-            ),
-            (
-                "모든 트래킹 데이터가 삭제",
-                DesignSystem.Colors.eventDestructive.swiftUIColor,
-                DesignSystemFontFamily.Pretendard.semiBold.swiftUIFont(size: 16)
-            ),
-            (
-                "됩니다.",
-                DesignSystem.Colors.gray800.swiftUIColor,
-                DesignSystemFontFamily.Pretendard.medium.swiftUIFont(size: 16)
-            )
+        .buildAttributed(
+            [
+                .init(
+                    text: "초기화 작업 실행 시 그룹 및 블럭 정보가 저장된\n",
+                    color: DesignSystem.Colors.gray800.swiftUIColor,
+                    font: DesignSystemFontFamily.Pretendard.medium.swiftUIFont(size: 16)
+                ),
+                .init(
+                    text: "모든 트래킹 데이터가 삭제",
+                    color: DesignSystem.Colors.eventDestructive.swiftUIColor,
+                    font: DesignSystemFontFamily.Pretendard.semiBold.swiftUIFont(size: 16)
+                ),
+                .init(
+                    text:  "됩니다.",
+                    color: DesignSystem.Colors.gray800.swiftUIColor,
+                    font: DesignSystemFontFamily.Pretendard.medium.swiftUIFont(size: 16)
+                )
+            ]
         )
     }
 }
