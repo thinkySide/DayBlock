@@ -16,12 +16,21 @@ struct MainAppFeature {
 
     @ObservableState
     struct State {
-        var selectedTab: MainTab = .tracking
-        
         var tracking: BlockCarouselFeature.State = .init()
         var management: ManagementTabFeature.State = .init()
         var calendar: CalendarFeature.State = .init()
         var myInfo: MyInfoListFeature.State = .init()
+        
+        var selectedTab: MainTab = .tracking
+        var isTabBarHidden: Bool = false
+        
+        /// TabBar가 표시되는 조건을 반환합니다.
+        var isTabBarVisible: Bool {
+            !isTabBarHidden
+            && tracking.path.isEmpty
+            && management.path.isEmpty
+            && myInfo.path.isEmpty
+        }
     }
 
     enum Action: BindableAction {
@@ -48,19 +57,15 @@ struct MainAppFeature {
         }
         Reduce { state, action in
             switch action {
-            case .binding:
-                return .none
-
-            case .tracking:
+            case .tracking(.delegate(.didStart)):
+                state.isTabBarHidden = true
                 return .none
                 
-            case .management:
+            case .tracking(.delegate(.didFinish)):
+                state.isTabBarHidden = false
                 return .none
                 
-            case .calendar:
-                return .none
-                
-            case .myInfo:
+            default:
                 return .none
             }
         }

@@ -42,22 +42,13 @@ struct MainView: View {
             }
         }
         .overlay(alignment: .bottom) {
-            if isTabBarVisible {
-                MainTabBar(selectedTab: $store.selectedTab)
-                    .transition(.move(edge: .bottom).combined(with: .opacity))
+            Group {
+                if store.isTabBarVisible {
+                    MainTabBar(selectedTab: $store.selectedTab)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
             }
+            .animation(.spring(response: 0.3, dampingFraction: 0.8), value: store.isTabBarVisible)
         }
-        .animation(.spring(response: 0.3, dampingFraction: 0.8), value: isTabBarVisible)
-    }
-}
-
-// MARK: - Helper
-extension MainView {
-    
-    /// TabBar가 표시되는 조건을 반환합니다.
-    private var isTabBarVisible: Bool {
-        store.tracking.path.isEmpty
-        && store.management.path.isEmpty
-        && store.myInfo.path.isEmpty
     }
 }

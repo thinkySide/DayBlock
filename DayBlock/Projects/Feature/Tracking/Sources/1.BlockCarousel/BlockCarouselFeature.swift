@@ -80,7 +80,8 @@ public struct BlockCarouselFeature {
         }
         
         public enum DelegateAction {
-            
+            case didStart
+            case didFinish
         }
         
         public enum PopupAction {
@@ -185,7 +186,7 @@ public struct BlockCarouselFeature {
                         trackingGroup: state.selectedGroup,
                         trackingBlock: block
                     )
-                    return .none
+                    return .send(.delegate(.didStart))
                 }
                 
             case .inner(let innerAction):
@@ -369,11 +370,14 @@ public struct BlockCarouselFeature {
                 
             case .trackingInProgress(.delegate(.didDismiss)):
                 state.trackingInProgress = nil
-                return .none
+                return .send(.delegate(.didFinish))
                 
             case .trackingInProgress(.delegate(.didFinish)):
                 state.trackingInProgress = nil
-                return refreshBlockList(from: state.selectedGroup.id)
+                return .merge(
+                    refreshBlockList(from: state.selectedGroup.id),
+                    .send(.delegate(.didFinish))
+                )
                 
             default:
                 return .none
