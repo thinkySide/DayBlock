@@ -25,7 +25,7 @@ public struct CalendarView: View {
     public var body: some View {
         VStack(spacing: 0) {
             NavigationBar()
-
+            
             MonthCalendar()
                 .onAppear {
                     scrollToMonth(true)
@@ -50,9 +50,13 @@ public struct CalendarView: View {
                     }
                     .scaleButton()
                 }
-
+            
+            SectionDivider()
+                .padding(.top, 20)
+            
             Spacer()
         }
+        .background(DesignSystem.Colors.gray0.swiftUIColor)
     }
 
     @ViewBuilder
@@ -90,6 +94,14 @@ public struct CalendarView: View {
         .dayOfWeekHeaders { _, weekdayIndex in
             DayOfWeekView(dayOfWeek: .init(rawValue: weekdayIndex) ?? .sunday)
                 .padding(.bottom, -24)
+        }
+        .monthBackgrounds { context in
+            AdjacentMonthDaysView(
+                month: context.month,
+                daysAndFrames: context.daysAndFrames,
+                bounds: context.bounds,
+                calendar: calendar
+            )
         }
         .onDaySelection { day in
             store.send(.view(.onDaySelected(day.components)))
@@ -155,7 +167,7 @@ private struct DayView: View {
             RoundedRectangle(cornerRadius: 7)
                 .foregroundStyle(DesignSystem.Colors.gray300.swiftUIColor)
                 .frame(width: 24, height: 24)
-            
+
             Circle()
                 .frame(width: 20, height: 20)
                 .foregroundStyle(
