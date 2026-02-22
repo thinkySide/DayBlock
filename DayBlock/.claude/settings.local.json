@@ -6,7 +6,8 @@
       "Bash(mv:*)",
       "Bash(find:*)",
       "Bash(cat:*)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(tuist generate:*)"
     ],
     "deny": [],
     "ask": []

@@ -10,6 +10,7 @@ import ComposableArchitecture
 import DesignSystem
 import Domain
 import HorizonCalendar
+import Util
 
 public struct CalendarView: View {
 
@@ -30,6 +31,7 @@ public struct CalendarView: View {
                 MonthCalendar()
                     .onAppear {
                         scrollToMonth(true)
+                        store.send(.view(.onAppear))
                     }
                     .onChange(of: store.shouldUpdate) {
                         scrollToMonth(store.shouldUpdate)
@@ -131,69 +133,86 @@ public struct CalendarView: View {
             Text("타임라인")
                 .brandFont(.pretendard(.bold), 18)
                 .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
-            
+
             Spacer()
-            
-            HStack(spacing: 6) {
-                Text("total")
-                    .brandFont(.pretendard(.bold), 14)
-                    .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
-                
-                Text("+3.5")
-                    .brandFont(.pretendard(.bold), 18)
-                    .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+
+            if store.totalOutput > 0 {
+                HStack(spacing: 6) {
+                    Text("total")
+                        .brandFont(.pretendard(.bold), 14)
+                        .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
+
+                    Text(store.totalOutput.toValueString())
+                        .brandFont(.pretendard(.bold), 18)
+                        .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+                }
             }
         }
     }
     
     @ViewBuilder
     private func TimelineList() -> some View {
-        VStack(spacing: 2) {
-            TimelineCell()
-            TimelineCell()
-            TimelineCell()
-            TimelineCell()
-            TimelineCell()
-            TimelineCell()
+        if store.timelineEntries.isEmpty {
+            Text("생산된 블럭이 없어요 😴")
+                .brandFont(.pretendard(.semiBold), 14)
+                .foregroundStyle(DesignSystem.Colors.gray500.swiftUIColor)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 32)
+        } else {
+            VStack(spacing: 2) {
+                ForEach(store.timelineEntries) { entry in
+                    TimelineCell(entry: entry)
+                }
+            }
+            .padding(.horizontal, 20)
         }
-        .padding(.horizontal, 20)
     }
-    
+
     @ViewBuilder
-    private func TimelineCell() -> some View {
+    private func TimelineCell(entry: TimelineEntry) -> some View {
+        let blockColor = ColorPalette.toColor(from: entry.colorIndex)
+
         HStack {
             IconBlock(
-                symbol: Symbol.batteryblock_fill.symbolName,
-                color: DesignSystem.ColorPalette.blueBlock1.swiftUIColor,
+                symbol: IconPalette.toIcon(from: entry.iconIndex),
+                color: blockColor,
                 size: 32
             )
-            
+
             VStack(alignment: .leading, spacing: 0) {
-                Text("첫번째 블럭 만들기")
+                Text(entry.blockName)
                     .brandFont(.pretendard(.bold), 16)
                     .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
-                
-                Text("07:55 ~ 08:25")
+
+                Text(timeRangeText(entry: entry))
                     .brandFont(.pretendard(.semiBold), 13)
                     .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
             }
-            
+
             Spacer()
-            
+
             Text(.buildAttributed([
                 .init(
                     text: "+",
-                    color: DesignSystem.ColorPalette.blueBlock1.swiftUIColor,
+                    color: blockColor,
                     font: DesignSystemFontFamily.Poppins.bold.swiftUIFont(size: 16)
                 ),
                 .init(
-                    text: "0.5",
+                    text: entry.output.toValueString(),
                     color: DesignSystem.Colors.gray900.swiftUIColor,
                     font: DesignSystemFontFamily.Poppins.bold.swiftUIFont(size: 16)
                 )
             ]))
         }
         .frame(height: 48)
+    }
+
+    private func timeRangeText(entry: TimelineEntry) -> String {
+        let start = entry.startDate.formattedTime24Hour
+        if let endDate = entry.endDate {
+            return "\(start) ~ \(endDate.formattedTime24Hour)"
+        }
+        return "\(start) ~"
     }
     
     private func scrollToMonth(_ shouldUpdate: Bool) {
