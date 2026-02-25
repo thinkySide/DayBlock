@@ -44,7 +44,7 @@ public struct BlockCarouselFeature {
         var todayTrackingEntries: [TrackingTimeEntry] = []
 
         @Presents var blockEditor: BlockEditorFeature.State?
-        var trackingInProgress: TrackingInProgressFeature.State?
+        @Presents var trackingInProgress: TrackingInProgressFeature.State?
         @Presents var groupSelect: GroupSelectFeature.State?
 
         public init() { }
@@ -92,7 +92,7 @@ public struct BlockCarouselFeature {
         case binding(BindingAction<State>)
         case blockEditor(PresentationAction<BlockEditorFeature.Action>)
         case groupSelect(PresentationAction<GroupSelectFeature.Action>)
-        case trackingInProgress(TrackingInProgressFeature.Action)
+        case trackingInProgress(PresentationAction<TrackingInProgressFeature.Action>)
     }
     
     @CasePathable
@@ -359,11 +359,11 @@ public struct BlockCarouselFeature {
                     startDateClock()
                 )
                 
-            case .trackingInProgress(.delegate(.didDismiss)):
+            case .trackingInProgress(.presented(.delegate(.didDismiss))):
                 state.trackingInProgress = nil
                 return .send(.delegate(.didFinish))
-                
-            case .trackingInProgress(.delegate(.didFinish)):
+
+            case .trackingInProgress(.presented(.delegate(.didFinish))):
                 state.trackingInProgress = nil
                 return .merge(
                     refreshBlockList(from: state.selectedGroup.id),
@@ -380,7 +380,7 @@ public struct BlockCarouselFeature {
         .ifLet(\.$groupSelect, action: \.groupSelect) {
             GroupSelectFeature()
         }
-        .ifLet(\.trackingInProgress, action: \.trackingInProgress) {
+        .ifLet(\.$trackingInProgress, action: \.trackingInProgress) {
             TrackingInProgressFeature()
         }
     }

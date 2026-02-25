@@ -58,7 +58,7 @@ public struct BlockCarouselView: View {
                     store.send(.view(.onTapTrackingButton))
                 }
             )
-            .padding(.top, 56)
+            .padding(.top, 40)
         }
         .background(DesignSystem.Colors.gray0.swiftUIColor)
         .navigationBarTitleDisplayMode(.inline)
@@ -100,13 +100,13 @@ public struct BlockCarouselView: View {
                 .presentationDetents([.medium, .large], selection: $store.sheetDetent)
                 .presentationDragIndicator(.visible)
         }
-        .overlay {
-            if let childStore = store.scope(
+        .fullScreenCover(
+            item: $store.scope(
                 state: \.trackingInProgress,
                 action: \.trackingInProgress
-            ) {
-                TrackingInProgressView(store: childStore)
-            }
+            )
+        ) { childStore in
+            TrackingInProgressView(store: childStore)
         }
         .popup(
             isPresented: $store.isPopupPresented,
