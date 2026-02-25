@@ -10,9 +10,12 @@ import Tracking
 import Management
 import Calendar
 import MyInfo
+import Util
 
 @Reducer
 struct MainAppFeature {
+
+    @Dependency(\.haptic) private var haptic
 
     @ObservableState
     struct State {
@@ -22,15 +25,6 @@ struct MainAppFeature {
         var myInfo: MyInfoListFeature.State = .init()
         
         var selectedTab: MainTab = .tracking
-        var isTabBarHidden: Bool = false
-        
-        /// TabBar가 표시되는 조건을 반환합니다.
-        var isTabBarVisible: Bool {
-            !isTabBarHidden
-            && tracking.path.isEmpty
-            && management.path.isEmpty
-            && myInfo.path.isEmpty
-        }
     }
 
     enum Action: BindableAction {
@@ -57,14 +51,10 @@ struct MainAppFeature {
         }
         Reduce { state, action in
             switch action {
-            case .tracking(.delegate(.didStart)):
-                state.isTabBarHidden = true
+            case .binding(\.selectedTab):
+                haptic.impact(.soft)
                 return .none
-                
-            case .tracking(.delegate(.didFinish)):
-                state.isTabBarHidden = false
-                return .none
-                
+
             default:
                 return .none
             }
