@@ -34,8 +34,6 @@ public struct BlockCarouselView: View {
     @ViewBuilder
     private var contentView: some View {
         VStack(spacing: 0) {
-            NavigationBar()
-            
             Header()
                 .padding(.top, 16)
                 .padding(.horizontal, 20)
@@ -67,6 +65,18 @@ public struct BlockCarouselView: View {
             .padding(.bottom, 124)
         }
         .background(DesignSystem.Colors.gray0.swiftUIColor)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Menu {
+                    Text("와우")
+                } label: {
+                    Image(systemName: Symbol.questionmark_circle_fill.symbolName)
+                        .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+                }
+
+            }
+        }
         .onLoad {
             store.send(.view(.onLoad))
         }

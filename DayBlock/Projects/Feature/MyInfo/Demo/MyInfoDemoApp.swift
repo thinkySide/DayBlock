@@ -22,7 +22,7 @@ struct MyInfoDemoApp: App {
     @Dependency(\.modelContainer) private var modelContainer
     
     init() {
-        DesignSystemFontFamily.registerAllCustomFonts()
+        DesignSystemConfiguration.configure()
     }
     
     var body: some Scene {

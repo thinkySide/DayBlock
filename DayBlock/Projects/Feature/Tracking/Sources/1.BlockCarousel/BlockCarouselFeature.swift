@@ -66,6 +66,7 @@ public struct BlockCarouselFeature {
             case onTapBlockEditButton(Block)
             case onTapAddBlock
             case onTapTrackingButton
+            case onTapHelpButton
         }
         
         public enum InnerAction {
@@ -187,8 +188,11 @@ public struct BlockCarouselFeature {
                         trackingBlock: block
                     )
                     return .send(.delegate(.didStart))
+
+                case .onTapHelpButton:
+                    return .none
                 }
-                
+
             case .inner(let innerAction):
                 switch innerAction {
                 case .setSelectedGroup(let group):

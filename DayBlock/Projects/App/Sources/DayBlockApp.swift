@@ -17,7 +17,7 @@ struct DayBlockApp: App {
     }
 
     init() {
-        DesignSystemFontFamily.registerAllCustomFonts()
+        DesignSystemConfiguration.configure()
     }
 
     var body: some Scene {

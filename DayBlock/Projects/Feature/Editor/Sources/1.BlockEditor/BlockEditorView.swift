@@ -21,21 +21,6 @@ public struct BlockEditorView: View {
 
     public var body: some View {
         VStack(spacing: 0) {
-            NavigationBar(
-                title: store.mode == .add ? "블럭 생성" : "블럭 편집",
-                leadingView: {
-                    NavigationBarButton(.back) {
-                        store.send(.view(.onTapBackButton))
-                    }
-                },
-                trailingView: {
-                    NavigationBarButton(.text("확인")) {
-                        store.send(.view(.onTapConfirmButton))
-                    }
-                    .disabledToolBarItem(store.nameText.isEmpty)
-                }
-            )
-            
             CarouselDayBlock(
                 title: blockTitle,
                 totalAmount: store.initialBlock.output,
@@ -117,7 +102,20 @@ public struct BlockEditorView: View {
             
             Spacer()
         }
-        .toolbarVisibility(.hidden, for: .navigationBar)
+        .navigationTitle(store.mode == .add ? "블럭 생성" : "블럭 편집")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    store.send(.view(.onTapConfirmButton))
+                } label: {
+                    Text("확인")
+                        .brandFont(.pretendard(.bold), 15)
+                        .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+                }
+                .disabled(store.nameText.isEmpty)
+            }
+        }
         .background(DesignSystem.Colors.gray0.swiftUIColor)
         .onAppear {
             store.send(.view(.onAppear))
