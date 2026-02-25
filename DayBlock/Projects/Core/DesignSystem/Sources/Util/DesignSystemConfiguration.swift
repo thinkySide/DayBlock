@@ -23,7 +23,9 @@ public enum DesignSystemConfiguration {
 
     private static func configureNavigationBarAppearance() {
         let appearance = UINavigationBarAppearance()
-        appearance.configureWithDefaultBackground()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = DesignSystem.Colors.gray0.color
+        appearance.shadowColor = .clear
 
         let titleFont = UIFont(
             name: BrandFont.Pretendard.bold.fontName,

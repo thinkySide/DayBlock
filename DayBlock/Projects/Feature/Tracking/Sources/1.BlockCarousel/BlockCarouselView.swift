@@ -21,13 +21,11 @@ public struct BlockCarouselView: View {
     }
 
     public var body: some View {
-        NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
-            contentView
-        } destination: { store in
-            switch store.case {
-            case let .blockEditor(store):
-                BlockEditorView(store: store)
+        NavigationStack {
+            GeometryReader { _ in
+                contentView
             }
+            .ignoresSafeArea(.keyboard, edges: .all)
         }
     }
 
@@ -53,8 +51,6 @@ public struct BlockCarouselView: View {
                 .multilineTextAlignment(.center)
                 .lineSpacing(2)
             
-            Spacer()
-            
             TrackingButton(
                 state: .play,
                 isDisabled: store.focusedBlock == .addBlock || store.focusedBlock == nil,
@@ -62,7 +58,7 @@ public struct BlockCarouselView: View {
                     store.send(.view(.onTapTrackingButton))
                 }
             )
-            .padding(.bottom, 124)
+            .padding(.top, 56)
         }
         .background(DesignSystem.Colors.gray0.swiftUIColor)
         .navigationBarTitleDisplayMode(.inline)
@@ -85,6 +81,14 @@ public struct BlockCarouselView: View {
         }
         .onDisappear {
             store.send(.view(.onDisappear))
+        }
+        .sheet(
+            item: $store.scope(
+                state: \.blockEditor,
+                action: \.blockEditor
+            )
+        ) { childStore in
+            BlockEditorView(store: childStore)
         }
         .sheet(
             item: $store.scope(

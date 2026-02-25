@@ -16,11 +16,6 @@ import Util
 @Reducer
 public struct BlockCarouselFeature {
 
-    @Reducer
-    public enum Path {
-        case blockEditor(BlockEditorFeature)
-    }
-    
     public enum FocusedBlock: Hashable, Equatable {
         case block(id: UUID)
         case addBlock
@@ -48,7 +43,7 @@ public struct BlockCarouselFeature {
         var deletedBlockIndex: Int?
         var todayTrackingEntries: [TrackingTimeEntry] = []
 
-        public var path = StackState<Path.State>()
+        @Presents var blockEditor: BlockEditorFeature.State?
         var trackingInProgress: TrackingInProgressFeature.State?
         @Presents var groupSelect: GroupSelectFeature.State?
 
@@ -95,7 +90,7 @@ public struct BlockCarouselFeature {
         case delegate(DelegateAction)
         case popup(PopupAction)
         case binding(BindingAction<State>)
-        case path(StackActionOf<Path>)
+        case blockEditor(PresentationAction<BlockEditorFeature.Action>)
         case groupSelect(PresentationAction<GroupSelectFeature.Action>)
         case trackingInProgress(TrackingInProgressFeature.Action)
     }
@@ -154,20 +149,18 @@ public struct BlockCarouselFeature {
                     return .none
 
                 case .onTapBlockEditButton(let block):
-                    let blockEditorState = BlockEditorFeature.State(
+                    state.blockEditor = BlockEditorFeature.State(
                         mode: .edit(selectedBlock: block),
                         selectedGroup: state.selectedGroup
                     )
-                    state.path.append(.blockEditor(blockEditorState))
                     state.selectedBlock = nil
                     return .none
-                    
+
                 case .onTapAddBlock:
-                    let blockEditorState = BlockEditorFeature.State(
+                    state.blockEditor = BlockEditorFeature.State(
                         mode: .add,
                         selectedGroup: state.selectedGroup
                     )
-                    state.path.append(.blockEditor(blockEditorState))
                     return .none
                     
                 case .onTapTrackingButton:
@@ -308,30 +301,24 @@ public struct BlockCarouselFeature {
 
                 return .none
 
-            case .path(let stackAction):
-                switch stackAction {
-                case .element(id: _, action: .blockEditor(.delegate(.didPop))):
-                    state.path.removeAll()
-                    return .none
+            case .blockEditor(.presented(.delegate(.didPop))):
+                state.blockEditor = nil
+                return .none
 
-                case let .element(id: _, action: .blockEditor(.delegate(.didConfirm(block, group)))):
-                    state.path.removeAll()
-                    state.shouldTriggerFocusHaptic = false
-                    state.focusedBlock = nil
-                    state.selectedGroup = group
-                    userDefaultsService.set(\.selectedBlockId, block.id)
-                    userDefaultsService.set(\.selectedGroupId, group.id)
-                    return refreshBlockList(from: state.selectedGroup.id)
+            case let .blockEditor(.presented(.delegate(.didConfirm(block, group)))):
+                state.blockEditor = nil
+                state.shouldTriggerFocusHaptic = false
+                state.focusedBlock = nil
+                state.selectedGroup = group
+                userDefaultsService.set(\.selectedBlockId, block.id)
+                userDefaultsService.set(\.selectedGroupId, group.id)
+                return refreshBlockList(from: state.selectedGroup.id)
 
-                case .element(id: _, action: .blockEditor(.delegate(.didDelete))):
-                    state.path.removeAll()
-                    state.shouldTriggerFocusHaptic = false
-                    userDefaultsService.remove(\.selectedBlockId)
-                    return refreshBlockList(from: state.selectedGroup.id)
-
-                default:
-                    return .none
-                }
+            case .blockEditor(.presented(.delegate(.didDelete))):
+                state.blockEditor = nil
+                state.shouldTriggerFocusHaptic = false
+                userDefaultsService.remove(\.selectedBlockId)
+                return refreshBlockList(from: state.selectedGroup.id)
                 
             case .groupSelect(.presented(.delegate(.didSelectGroup(let group)))):
                 state.selectedGroup = group
@@ -387,7 +374,9 @@ public struct BlockCarouselFeature {
                 return .none
             }
         }
-        .forEach(\.path, action: \.path)
+        .ifLet(\.$blockEditor, action: \.blockEditor) {
+            BlockEditorFeature()
+        }
         .ifLet(\.$groupSelect, action: \.groupSelect) {
             GroupSelectFeature()
         }
@@ -492,6 +481,3 @@ extension BlockCarouselFeature {
         .cancellable(id: CancelID.dateClock, cancelInFlight: true)
     }
 }
-
-// MARK: - Path
-extension BlockCarouselFeature.Path.State: Equatable {}

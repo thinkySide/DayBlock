@@ -20,7 +20,8 @@ public struct BlockEditorView: View {
     }
 
     public var body: some View {
-        VStack(spacing: 0) {
+        NavigationStack {
+            VStack(spacing: 0) {
             CarouselDayBlock(
                 title: blockTitle,
                 totalAmount: store.initialBlock.output,
@@ -105,6 +106,14 @@ public struct BlockEditorView: View {
         .navigationTitle(store.mode == .add ? "블럭 생성" : "블럭 편집")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    store.send(.view(.onTapBackButton))
+                } label: {
+                    Image(systemName: Symbol.xmark.symbolName)
+                        .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+                }
+            }
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     store.send(.view(.onTapConfirmButton))
@@ -172,6 +181,7 @@ public struct BlockEditorView: View {
                 }
             )
         )
+        }
     }
 }
 
