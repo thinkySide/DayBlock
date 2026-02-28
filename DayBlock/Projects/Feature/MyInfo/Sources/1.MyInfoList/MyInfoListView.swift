@@ -50,6 +50,9 @@ public struct MyInfoListView: View {
         .background(DesignSystem.Colors.gray0.swiftUIColor)
         .navigationBarTitleDisplayMode(.inline)
         .toolbarVisibility(.visible, for: .navigationBar)
+        .onAppear {
+            store.send(.view(.onAppear))
+        }
     }
     
     @ViewBuilder
@@ -151,7 +154,7 @@ public struct MyInfoListView: View {
                 
                 Spacer()
                 
-                Text("1.0.0")
+                Text(store.appVersion)
                     .brandFont(.poppins(.semiBold), 14)
                     .foregroundStyle(DesignSystem.Colors.gray700.swiftUIColor)
             }

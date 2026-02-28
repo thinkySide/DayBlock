@@ -21,12 +21,14 @@ public struct MyInfoListFeature {
     @ObservableState
     public struct State: Equatable {
         public var path = StackState<Path.State>()
-        
+        var appVersion: String = ""
+
         public init() {}
     }
 
     public enum Action: TCAFeatureAction {
         public enum ViewAction {
+            case onAppear
             case onTapInquiryCell
             case onTapResetDataCell
             case onTapDeveloperInfoCell
@@ -49,12 +51,17 @@ public struct MyInfoListFeature {
     public init() {}
 
     @Dependency(\.urlClient) private var urlClient
+    @Dependency(\.appInfoClient) private var appInfoClient
 
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .view(let viewAction):
                 switch viewAction {
+                case .onAppear:
+                    state.appVersion = appInfoClient.version
+                    return .none
+
                 case .onTapInquiryCell:
                     urlClient.open(.inquiry)
                     return .none
