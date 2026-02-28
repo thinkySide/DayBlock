@@ -6,8 +6,7 @@ import PackageDescription
 
     let packageSettings = PackageSettings(
         productTypes: [
-            "ComposableArchitecture": .framework,
-            "HorizonCalendar": .framework
+            "ComposableArchitecture": .framework
         ]
     )
 #endif
@@ -18,10 +17,6 @@ let package = Package(
         .package(
             url: "https://github.com/pointfreeco/swift-composable-architecture.git",
             from: "1.23.1"
-        ),
-        .package(
-            url: "https://github.com/airbnb/HorizonCalendar",
-            from: "2.0.0"
         )
     ]
 )

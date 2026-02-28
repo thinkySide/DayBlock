@@ -9,7 +9,9 @@
       "WebFetch(domain:github.com)",
       "Bash(tuist generate:*)",
       "WebSearch",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(xargs kill)",
+      "Bash(tuist install:*)"
     ],
     "deny": [],
     "ask": []

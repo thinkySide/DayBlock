@@ -12,7 +12,6 @@ let project = Project(
             buildableFolders: ["Sources"],
             dependencies: [
                 .TCA,
-                .HorizonCalendar,
                 .project(target: "DesignSystem", path: "../../Core/DesignSystem"),
                 .project(target: "Domain", path: "../../Core/Domain"),
                 .project(target: "PersistentData", path: "../../Core/Data"),

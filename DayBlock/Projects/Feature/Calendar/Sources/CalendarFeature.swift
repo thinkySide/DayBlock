@@ -30,16 +30,14 @@ public struct CalendarFeature {
 
     @ObservableState
     public struct State: Equatable {
+        var currentPageID: Int?
         var visibleMonth: DateComponents
         var selectedDate: DateComponents?
-        var shouldUpdate: Bool = false
         var timelineEntries: [TimelineEntry] = []
 
         var totalOutput: Double {
             timelineEntries.reduce(0) { $0 + $1.output }
         }
-
-        let visibleDateRange: ClosedRange<Date>
 
         public init() {
             @Dependency(\.date) var date
@@ -49,30 +47,30 @@ public struct CalendarFeature {
             self.selectedDate = calendar.dateComponents([.year, .month, .day], from: today)
             self.visibleMonth = calendar.dateComponents([.year, .month], from: today)
 
-            let startDate = calendar.date(from: .init(year: 2015, month: 1, day: 1)) ?? today
-            let endDate = calendar.date(from: .init(year: 2035, month: 12, day: 31)) ?? today
-            self.visibleDateRange = startDate...endDate
+            let year = calendar.component(.year, from: today)
+            let month = calendar.component(.month, from: today)
+            self.currentPageID = CalendarMonthGenerator.monthOffset(year: year, month: month)
         }
     }
 
-    public enum Action: TCAFeatureAction {
+    public enum Action: TCAFeatureAction, BindableAction {
         public enum ViewAction {
             case onAppear
             case onTapToday
-            case onDaySelected(DateComponents)
+            case onDaySelected(CalendarDay)
+            case onPageChanged(Int?)
         }
 
         public enum InnerAction {
             case setTimelineEntries([TimelineEntry])
         }
 
-        public enum DelegateAction {
-            case didScrollToMonth
-        }
+        public enum DelegateAction {}
 
         case view(ViewAction)
         case inner(InnerAction)
         case delegate(DelegateAction)
+        case binding(BindingAction<State>)
     }
 
     @Dependency(\.date) private var date
@@ -85,6 +83,8 @@ public struct CalendarFeature {
     public init() {}
 
     public var body: some ReducerOf<Self> {
+        BindingReducer()
+
         Reduce { state, action in
             switch action {
             case .view(.onAppear):
@@ -94,7 +94,9 @@ public struct CalendarFeature {
             case .view(.onTapToday):
                 haptic.impact(.soft)
                 let today = date.now
-                state.shouldUpdate = true
+                let year = calendar.component(.year, from: today)
+                let month = calendar.component(.month, from: today)
+                state.currentPageID = CalendarMonthGenerator.monthOffset(year: year, month: month)
                 state.visibleMonth = calendar.dateComponents([.year, .month], from: today)
                 let todayComponents = calendar.dateComponents([.year, .month, .day], from: today)
                 state.selectedDate = todayComponents
@@ -102,19 +104,33 @@ public struct CalendarFeature {
 
             case let .view(.onDaySelected(day)):
                 haptic.impact(.soft)
-                state.selectedDate = day
-                return fetchTimeline(for: day)
+                state.selectedDate = day.dateComponents
+
+                // 전월/차월 일 탭 시 해당 월로 페이지 이동
+                if day.ownership != .currentMonth,
+                   let year = day.dateComponents.year,
+                   let month = day.dateComponents.month {
+                    state.currentPageID = CalendarMonthGenerator.monthOffset(year: year, month: month)
+                    state.visibleMonth = DateComponents(year: year, month: month)
+                }
+
+                return fetchTimeline(for: day.dateComponents)
+
+            case let .view(.onPageChanged(pageID)):
+                guard let pageID else { return .none }
+                let ym = CalendarMonthGenerator.yearMonth(from: pageID)
+                state.visibleMonth = DateComponents(year: ym.year, month: ym.month)
+                return .none
 
             case let .inner(.setTimelineEntries(entries)):
                 state.timelineEntries = entries
                 return .none
 
-            case .delegate(let delegateAction):
-                switch delegateAction {
-                case .didScrollToMonth:
-                    state.shouldUpdate = false
-                    return .none
-                }
+            case .delegate:
+                return .none
+
+            case .binding:
+                return .none
             }
         }
     }
