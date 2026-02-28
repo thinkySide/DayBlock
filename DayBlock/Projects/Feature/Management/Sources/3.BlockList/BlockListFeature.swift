@@ -31,6 +31,7 @@ public struct BlockListFeature {
 
         public enum InnerAction {
             case setSectionList(IdentifiedArrayOf<BlockListViewItem>)
+            case refreshList
         }
 
         public enum DelegateAction {
@@ -75,6 +76,9 @@ public struct BlockListFeature {
                 case .setSectionList(let sectionList):
                     state.sectionList = sectionList
                     return .none
+
+                case .refreshList:
+                    return fetchSectionList()
                 }
 
             default:

@@ -97,11 +97,17 @@ public struct ManagementTabFeature {
 
             case .groupEditor(.presented(.delegate(.didConfirm))):
                 state.groupEditor = nil
-                return .none
+                return .merge(
+                    .send(.groupList(.inner(.refreshList))),
+                    .send(.blockList(.inner(.refreshList)))
+                )
 
             case .groupEditor(.presented(.delegate(.didDelete))):
                 state.groupEditor = nil
-                return .none
+                return .merge(
+                    .send(.groupList(.inner(.refreshList))),
+                    .send(.blockList(.inner(.refreshList)))
+                )
 
             case .blockEditor(.presented(.delegate(.didPop))):
                 state.blockEditor = nil
@@ -109,11 +115,17 @@ public struct ManagementTabFeature {
 
             case .blockEditor(.presented(.delegate(.didConfirm))):
                 state.blockEditor = nil
-                return .none
+                return .merge(
+                    .send(.groupList(.inner(.refreshList))),
+                    .send(.blockList(.inner(.refreshList)))
+                )
 
             case .blockEditor(.presented(.delegate(.didDelete))):
                 state.blockEditor = nil
-                return .none
+                return .merge(
+                    .send(.groupList(.inner(.refreshList))),
+                    .send(.blockList(.inner(.refreshList)))
+                )
 
             default:
                 return .none

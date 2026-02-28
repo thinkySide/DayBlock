@@ -33,6 +33,7 @@ public struct GroupListFeature {
 
         public enum InnerAction {
             case setGroupList(IdentifiedArrayOf<GroupListViewItem>)
+            case refreshList
         }
 
         public enum DelegateAction {
@@ -77,6 +78,9 @@ public struct GroupListFeature {
                 case .setGroupList(let groupList):
                     state.groupList = groupList
                     return .none
+
+                case .refreshList:
+                    return fetchGroupList()
                 }
 
             default:
