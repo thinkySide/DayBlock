@@ -71,6 +71,7 @@ public struct BlockCarouselFeature {
             case setTodayTrackingEntries([TrackingTimeEntry])
             case completeDeleteBlock
             case restoreTrackingSession(TrackingSessionState)
+            case refreshData
         }
         
         public enum DelegateAction {
@@ -245,6 +246,12 @@ public struct BlockCarouselFeature {
                     userDefaultsService.remove(\.selectedBlockId)
                     return refreshBlockList(from: state.selectedGroup.id)
                     
+                case .refreshData:
+                    state.shouldTriggerFocusHaptic = false
+                    state.focusedBlock = nil
+                    state.selectedBlock = nil
+                    return fetchSelectedGroup()
+
                 case .restoreTrackingSession(let trackingSession):
                     guard trackingSession.trackingGroupId == state.selectedGroup.id,
                           let block = state.blockList.first(where: { $0.id == trackingSession.trackingBlockId })

@@ -53,6 +53,9 @@ struct MainAppFeature {
             switch action {
             case .binding(\.selectedTab):
                 haptic.impact(.soft)
+                if state.selectedTab == .tracking {
+                    return .send(.tracking(.inner(.refreshData)))
+                }
                 return .none
 
             default:

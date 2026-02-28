@@ -155,7 +155,7 @@ public struct CalendarView: View {
         if store.timelineEntries.isEmpty {
             Text("생산된 블럭이 없어요 😴")
                 .brandFont(.pretendard(.semiBold), 14)
-                .foregroundStyle(DesignSystem.Colors.gray500.swiftUIColor)
+                .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 32)
         } else {
