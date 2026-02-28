@@ -15,6 +15,7 @@ public enum DesignSystemConfiguration {
     public static func configure() {
         registerFonts()
         configureNavigationBarAppearance()
+        configureTabBarAppearance()
     }
 
     private static func registerFonts() {
@@ -40,5 +41,25 @@ public enum DesignSystemConfiguration {
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
         UINavigationBar.appearance().compactAppearance = appearance
+    }
+
+    private static func configureTabBarAppearance() {
+        let gray900 = DesignSystem.Colors.gray900.color
+
+        let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = DesignSystem.Colors.gray0.color
+        appearance.shadowColor = .clear
+
+        let normalAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: gray900]
+        let selectedAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: gray900]
+
+        appearance.stackedLayoutAppearance.normal.iconColor = gray900
+        appearance.stackedLayoutAppearance.normal.titleTextAttributes = normalAttributes
+        appearance.stackedLayoutAppearance.selected.iconColor = gray900
+        appearance.stackedLayoutAppearance.selected.titleTextAttributes = selectedAttributes
+
+        UITabBar.appearance().standardAppearance = appearance
+        UITabBar.appearance().scrollEdgeAppearance = appearance
     }
 }

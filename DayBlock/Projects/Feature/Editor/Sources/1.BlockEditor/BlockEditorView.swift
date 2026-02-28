@@ -120,7 +120,11 @@ public struct BlockEditorView: View {
                 } label: {
                     Text("확인")
                         .brandFont(.pretendard(.bold), 15)
-                        .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+                        .foregroundStyle(
+                            store.nameText.isEmpty
+                            ? DesignSystem.Colors.gray500.swiftUIColor
+                            : DesignSystem.Colors.gray900.swiftUIColor
+                        )
                 }
                 .disabled(store.nameText.isEmpty)
             }

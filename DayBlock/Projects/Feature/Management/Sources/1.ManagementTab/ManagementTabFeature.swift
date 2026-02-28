@@ -16,7 +16,6 @@ public struct ManagementTabFeature {
     @Reducer
     public enum Path {
         case groupEditor(GroupEditorFeature)
-        case blockEditor(BlockEditorFeature)
     }
 
     @ObservableState
@@ -24,6 +23,7 @@ public struct ManagementTabFeature {
         var selectedTab: Tab = .group
         
         public var path = StackState<Path.State>()
+        @Presents var blockEditor: BlockEditorFeature.State?
         var groupList: GroupListFeature.State = .init()
         var blockList: BlockListFeature.State = .init()
         
@@ -53,6 +53,7 @@ public struct ManagementTabFeature {
         case delegate(DelegateAction)
         case binding(BindingAction<State>)
         case path(StackActionOf<Path>)
+        case blockEditor(PresentationAction<BlockEditorFeature.Action>)
         case groupList(GroupListFeature.Action)
         case blockList(BlockListFeature.Action)
     }
@@ -88,11 +89,11 @@ public struct ManagementTabFeature {
                 return .none
                 
             case .blockList(.delegate(.pushEditBlockEditor(let block, let group))):
-                state.path.append(.blockEditor(.init(mode: .edit(selectedBlock: block), selectedGroup: group)))
+                state.blockEditor = .init(mode: .edit(selectedBlock: block), selectedGroup: group)
                 return .none
-                
+
             case .blockList(.delegate(.pushAddBlockEditor(let group))):
-                state.path.append(.blockEditor(.init(mode: .add, selectedGroup: group)))
+                state.blockEditor = .init(mode: .add, selectedGroup: group)
                 return .none
                 
             case .path(let stackAction):
@@ -109,27 +110,30 @@ public struct ManagementTabFeature {
                     state.path.removeAll()
                     return .none
 
-                case .element(id: _, action: .blockEditor(.delegate(.didPop))):
-                    state.path.removeAll()
-                    return .none
-                    
-                case .element(id: _, action: .blockEditor(.delegate(.didConfirm))):
-                    state.path.removeAll()
-                    return .none
-
-                case .element(id: _, action: .blockEditor(.delegate(.didDelete))):
-                    state.path.removeAll()
-                    return .none
-
                 default:
                     return .none
                 }
+
+            case .blockEditor(.presented(.delegate(.didPop))):
+                state.blockEditor = nil
+                return .none
+
+            case .blockEditor(.presented(.delegate(.didConfirm))):
+                state.blockEditor = nil
+                return .none
+
+            case .blockEditor(.presented(.delegate(.didDelete))):
+                state.blockEditor = nil
+                return .none
 
             default:
                 return .none
             }
         }
         .forEach(\.path, action: \.path)
+        .ifLet(\.$blockEditor, action: \.blockEditor) {
+            BlockEditorFeature()
+        }
     }
 }
 

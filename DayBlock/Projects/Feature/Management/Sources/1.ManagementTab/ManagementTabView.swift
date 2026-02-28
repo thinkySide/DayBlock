@@ -25,9 +25,6 @@ public struct ManagementTabView: View {
             switch store.case {
             case let .groupEditor(store):
                 GroupEditorView(store: store)
-                
-            case let .blockEditor(store):
-                BlockEditorView(store: store)
             }
         }
     }
@@ -54,6 +51,14 @@ public struct ManagementTabView: View {
                 .tag(ManagementTabFeature.State.Tab.block)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
+        }
+        .sheet(
+            item: $store.scope(
+                state: \.blockEditor,
+                action: \.blockEditor
+            )
+        ) { childStore in
+            BlockEditorView(store: childStore)
         }
     }
 }
