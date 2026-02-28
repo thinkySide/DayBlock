@@ -16,6 +16,8 @@ let project = Project(
                         "UIImageName": "",
                     ],
                     "CFBundleDisplayName": "DayBlock",
+                    "CFBundleShortVersionString": "1.0.0",
+                    "CFBundleVersion": "1",
                 ]
             ),
             buildableFolders: [
