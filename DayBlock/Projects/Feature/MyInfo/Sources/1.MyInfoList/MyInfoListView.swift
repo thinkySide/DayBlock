@@ -126,7 +126,7 @@ public struct MyInfoListView: View {
             
             MyInfoListCell(
                 title: "문의 및 제보",
-                onTap: { }
+                onTap: { store.send(.view(.onTapInquiryCell)) }
             )
             
             MyInfoListCell(

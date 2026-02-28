@@ -26,6 +26,7 @@ public struct MyInfoListFeature {
 
     public enum Action: TCAFeatureAction {
         public enum ViewAction {
+            case onTapInquiryCell
             case onTapResetDataCell
         }
 
@@ -45,11 +46,17 @@ public struct MyInfoListFeature {
 
     public init() {}
 
+    @Dependency(\.urlClient) private var urlClient
+
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .view(let viewAction):
                 switch viewAction {
+                case .onTapInquiryCell:
+                    urlClient.open(.inquiry)
+                    return .none
+
                 case .onTapResetDataCell:
                     state.path.append(.resetData(.init()))
                     return .none
