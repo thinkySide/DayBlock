@@ -5,7 +5,6 @@
 //  Created by 김민준 on 12/21/25.
 //
 
-import SwiftUI
 import ComposableArchitecture
 import Domain
 import Util
@@ -29,7 +28,6 @@ public struct BlockEditorFeature {
         var editingBlock: Block
         var nameText: String
         var selectedGroup: BlockGroup
-        var sheetDetent: PresentationDetent = .medium
         var isPopupPresented: Bool = false
 
         @Presents var groupSelect: GroupSelectFeature.State?
@@ -80,7 +78,6 @@ public struct BlockEditorFeature {
 
         public enum InnerAction {
             case setDefaultGroup(BlockGroup)
-            case updateSheetDetent(PresentationDetent)
         }
 
         public enum DelegateAction {
@@ -179,10 +176,6 @@ public struct BlockEditorFeature {
                 case .setDefaultGroup(let group):
                     state.selectedGroup = group
                     return .none
-                    
-                case .updateSheetDetent(let sheetDetent):
-                    state.sheetDetent = sheetDetent
-                    return .none
                 }
                 
             case .popup(let popupAction):
@@ -203,34 +196,23 @@ public struct BlockEditorFeature {
             case .iconSelect(.presented(.delegate(.didSelectIcon(let iconIndex)))):
                 state.editingBlock.iconIndex = iconIndex
                 state.iconSelect = nil
-                state.sheetDetent = .medium
                 return .none
-                
+
             case .groupSelect(.presented(.delegate(.didSelectGroup(let group)))):
                 state.selectedGroup = group
                 state.groupSelect = nil
-                state.sheetDetent = .medium
                 return .none
-                
-            case .groupSelect(.presented(.delegate(.didSelectAddGroup))):
-                state.sheetDetent = .medium
-                return updateSheetDetent(.large)
-                
-            case .groupSelect(.presented(.groupEditor(.presented(.delegate(.didPop))))):
-                return updateSheetDetent(.medium)
-                
+
             case .groupSelect(.presented(.groupEditor(.presented(.delegate(.didConfirm(let group)))))):
                 state.selectedGroup = group
-                return updateSheetDetent(.medium)
+                return .none
 
             case .groupSelect(.dismiss):
                 state.groupSelect = nil
-                state.sheetDetent = .medium
                 return .none
 
             case .iconSelect(.dismiss):
                 state.iconSelect = nil
-                state.sheetDetent = .medium
                 return .none
                 
             case .colorSelect(.presented(.delegate(.didSelectColor(let selectedIndex)))):
@@ -254,14 +236,3 @@ public struct BlockEditorFeature {
     }
 }
 
-// MARK: - Shared Effect
-extension BlockEditorFeature {
-    
-    /// 자연스러운 애니메이션을 위해 딜레이 후 SheetDetent를 업데이트합니다.
-    private func updateSheetDetent(_ sheetDetent: PresentationDetent) -> Effect<Action> {
-        .run { send in
-            try await Task.sleep(for: .seconds(0.4))
-            await send(.inner(.updateSheetDetent(sheetDetent)))
-        }
-    }
-}

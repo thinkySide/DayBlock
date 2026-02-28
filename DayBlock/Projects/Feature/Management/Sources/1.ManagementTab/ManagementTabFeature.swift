@@ -13,16 +13,11 @@ import Util
 @Reducer
 public struct ManagementTabFeature {
     
-    @Reducer
-    public enum Path {
-        case groupEditor(GroupEditorFeature)
-    }
-
     @ObservableState
     public struct State: Equatable {
         var selectedTab: Tab = .group
-        
-        public var path = StackState<Path.State>()
+
+        @Presents var groupEditor: GroupEditorFeature.State?
         @Presents var blockEditor: BlockEditorFeature.State?
         var groupList: GroupListFeature.State = .init()
         var blockList: BlockListFeature.State = .init()
@@ -52,7 +47,7 @@ public struct ManagementTabFeature {
         case inner(InnerAction)
         case delegate(DelegateAction)
         case binding(BindingAction<State>)
-        case path(StackActionOf<Path>)
+        case groupEditor(PresentationAction<GroupEditorFeature.Action>)
         case blockEditor(PresentationAction<BlockEditorFeature.Action>)
         case groupList(GroupListFeature.Action)
         case blockList(BlockListFeature.Action)
@@ -81,11 +76,11 @@ public struct ManagementTabFeature {
                 }
                 
             case .groupList(.delegate(.pushEditGroupEditor(let group))):
-                state.path.append(.groupEditor(.init(mode: .edit(group), isSheet: false)))
+                state.groupEditor = .init(mode: .edit(group))
                 return .none
 
             case .groupList(.delegate(.pushAddGroupEditor)):
-                state.path.append(.groupEditor(.init(mode: .add, isSheet: false)))
+                state.groupEditor = .init(mode: .add)
                 return .none
                 
             case .blockList(.delegate(.pushEditBlockEditor(let block, let group))):
@@ -96,23 +91,17 @@ public struct ManagementTabFeature {
                 state.blockEditor = .init(mode: .add, selectedGroup: group)
                 return .none
                 
-            case .path(let stackAction):
-                switch stackAction {
-                case .element(id: _, action: .groupEditor(.delegate(.didPop))):
-                    state.path.removeAll()
-                    return .none
-                    
-                case .element(id: _, action: .groupEditor(.delegate(.didConfirm))):
-                    state.path.removeAll()
-                    return .none
+            case .groupEditor(.presented(.delegate(.didPop))):
+                state.groupEditor = nil
+                return .none
 
-                case .element(id: _, action: .groupEditor(.delegate(.didDelete))):
-                    state.path.removeAll()
-                    return .none
+            case .groupEditor(.presented(.delegate(.didConfirm))):
+                state.groupEditor = nil
+                return .none
 
-                default:
-                    return .none
-                }
+            case .groupEditor(.presented(.delegate(.didDelete))):
+                state.groupEditor = nil
+                return .none
 
             case .blockEditor(.presented(.delegate(.didPop))):
                 state.blockEditor = nil
@@ -130,12 +119,11 @@ public struct ManagementTabFeature {
                 return .none
             }
         }
-        .forEach(\.path, action: \.path)
+        .ifLet(\.$groupEditor, action: \.groupEditor) {
+            GroupEditorFeature()
+        }
         .ifLet(\.$blockEditor, action: \.blockEditor) {
             BlockEditorFeature()
         }
     }
 }
-
-// MARK: - Path
-extension ManagementTabFeature.Path.State: Equatable {}

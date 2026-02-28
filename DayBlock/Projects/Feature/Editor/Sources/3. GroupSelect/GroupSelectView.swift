@@ -27,17 +27,17 @@ public struct GroupSelectView: View {
                     .padding(.top, 18)
             }
             .background(DesignSystem.Colors.gray0.swiftUIColor)
-            .navigationDestination(
-                item: $store.scope(
-                    state: \.groupEditor,
-                    action: \.groupEditor
-                )
-            ) { store in
-                GroupEditorView(store: store)
-            }
         }
         .onAppear {
             store.send(.view(.onAppear))
+        }
+        .sheet(
+            item: $store.scope(
+                state: \.groupEditor,
+                action: \.groupEditor
+            )
+        ) { childStore in
+            GroupEditorView(store: childStore)
         }
     }
     

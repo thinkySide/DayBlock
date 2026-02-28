@@ -25,19 +25,14 @@ public struct GroupEditorFeature {
         let initialGroup: BlockGroup
         
         var mode: Mode
-        var isSheet: Bool
         var nameText: String
         var editingGroup: BlockGroup
         var isPopupPresented: Bool = false
         var isDefaultGroup: Bool = false
 
-        public init(
-            mode: Mode,
-            isSheet: Bool
-        ) {
+        public init(mode: Mode) {
             @Dependency(\.userDefaultsService) var userDefaultsService
             self.mode = mode
-            self.isSheet = isSheet
 
             switch mode {
             case .add:

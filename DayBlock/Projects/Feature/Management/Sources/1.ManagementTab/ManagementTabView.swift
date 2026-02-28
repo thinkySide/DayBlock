@@ -19,13 +19,8 @@ public struct ManagementTabView: View {
     }
     
     public var body: some View {
-        NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
+        NavigationStack {
             contentView
-        } destination: { store in
-            switch store.case {
-            case let .groupEditor(store):
-                GroupEditorView(store: store)
-            }
         }
     }
     
@@ -51,6 +46,14 @@ public struct ManagementTabView: View {
                 .tag(ManagementTabFeature.State.Tab.block)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
+        }
+        .sheet(
+            item: $store.scope(
+                state: \.groupEditor,
+                action: \.groupEditor
+            )
+        ) { childStore in
+            GroupEditorView(store: childStore)
         }
         .sheet(
             item: $store.scope(

@@ -62,17 +62,7 @@ public struct BlockCarouselView: View {
         }
         .background(DesignSystem.Colors.gray0.swiftUIColor)
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Menu {
-                    Text("와우")
-                } label: {
-                    Image(systemName: Symbol.questionmark_circle_fill.symbolName)
-                        .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
-                }
-
-            }
-        }
+        .toolbarBackground(.visible, for: .navigationBar)
         .onLoad {
             store.send(.view(.onLoad))
         }
@@ -97,7 +87,7 @@ public struct BlockCarouselView: View {
             )
         ) { childStore in
             GroupSelectView(store: childStore)
-                .presentationDetents([.medium, .large], selection: $store.sheetDetent)
+                .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
         }
         .fullScreenCover(

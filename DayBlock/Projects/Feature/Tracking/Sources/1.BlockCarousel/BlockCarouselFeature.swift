@@ -5,7 +5,7 @@
 //  Created by 김민준 on 12/21/25.
 //
 
-import SwiftUI
+import Foundation
 import ComposableArchitecture
 import Domain
 import Editor
@@ -36,7 +36,6 @@ public struct BlockCarouselFeature {
         var selectedBlock: Block?
         var focusedBlock: FocusedBlock?
         var previousFocusedBlock: FocusedBlock?
-        var sheetDetent: PresentationDetent = .medium
         var currentDate: Date = .now
         var shouldTriggerFocusHaptic: Bool = true
         var isPopupPresented: Bool = false
@@ -71,7 +70,6 @@ public struct BlockCarouselFeature {
             case setFocusedBlock(FocusedBlock?)
             case setTodayTrackingEntries([TrackingTimeEntry])
             case completeDeleteBlock
-            case updateSheetDetent(PresentationDetent)
             case restoreTrackingSession(TrackingSessionState)
         }
         
@@ -98,7 +96,6 @@ public struct BlockCarouselFeature {
     @CasePathable
     enum CancelID {
         case dateClock
-        case updateSheetDetent
     }
 
     public init() {}
@@ -248,10 +245,6 @@ public struct BlockCarouselFeature {
                     userDefaultsService.remove(\.selectedBlockId)
                     return refreshBlockList(from: state.selectedGroup.id)
                     
-                case .updateSheetDetent(let sheetDetent):
-                    state.sheetDetent = sheetDetent
-                    return .none
-
                 case .restoreTrackingSession(let trackingSession):
                     guard trackingSession.trackingGroupId == state.selectedGroup.id,
                           let block = state.blockList.first(where: { $0.id == trackingSession.trackingBlockId })
@@ -323,7 +316,6 @@ public struct BlockCarouselFeature {
             case .groupSelect(.presented(.delegate(.didSelectGroup(let group)))):
                 state.selectedGroup = group
                 state.groupSelect = nil
-                state.sheetDetent = .medium
 
                 if let firstBlockId = state.blockList.first?.id {
                     state.shouldTriggerFocusHaptic = false
@@ -331,33 +323,15 @@ public struct BlockCarouselFeature {
                 }
 
                 userDefaultsService.set(\.selectedGroupId, group.id)
+                return refreshBlockList(from: group.id)
 
-                return .merge(
-                    .cancel(id: CancelID.updateSheetDetent),
-                    refreshBlockList(from: group.id)
-                )
-                
-            case .groupSelect(.presented(.delegate(.didSelectAddGroup))):
-                state.sheetDetent = .medium
-                return updateSheetDetent(.large)
-                
-            case .groupSelect(.presented(.groupEditor(.presented(.delegate(.didPop))))):
-                return updateSheetDetent(.medium)
-                
             case .groupSelect(.presented(.groupEditor(.presented(.delegate(.didConfirm(let group)))))):
                 state.selectedGroup = group
                 userDefaultsService.set(\.selectedGroupId, group.id)
-                return .merge(
-                    updateSheetDetent(.medium),
-                    refreshBlockList(from: group.id)
-                )
-                
+                return refreshBlockList(from: group.id)
+
             case .groupSelect(.dismiss):
-                state.sheetDetent = .medium
-                return .concatenate(
-                    .cancel(id: CancelID.updateSheetDetent),
-                    startDateClock()
-                )
+                return startDateClock()
                 
             case .trackingInProgress(.presented(.delegate(.didDismiss))):
                 state.trackingInProgress = nil
@@ -460,15 +434,6 @@ extension BlockCarouselFeature {
                 }
             }
         }
-    }
-
-    /// 자연스러운 애니메이션을 위해 딜레이 후 SheetDetent를 업데이트합니다.
-    private func updateSheetDetent(_ sheetDetent: PresentationDetent) -> Effect<Action> {
-        .run { send in
-            try await clock.sleep(for: .seconds(0.4))
-            await send(.inner(.updateSheetDetent(sheetDetent)))
-        }
-        .cancellable(id: CancelID.updateSheetDetent, cancelInFlight: true)
     }
 
     /// 현재 시간을 주기적으로 업데이트합니다.

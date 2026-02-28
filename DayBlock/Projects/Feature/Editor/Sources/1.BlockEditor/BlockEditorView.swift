@@ -143,7 +143,7 @@ public struct BlockEditorView: View {
             )
         ) { childStore in
             GroupSelectView(store: childStore)
-                .presentationDetents([.medium, .large], selection: $store.sheetDetent)
+                .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
         }
         .sheet(
@@ -153,7 +153,7 @@ public struct BlockEditorView: View {
             )
         ) { childStore in
             IconSelectView(store: childStore)
-                .presentationDetents([.medium, .large], selection: $store.sheetDetent)
+                .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
         }
         .sheet(

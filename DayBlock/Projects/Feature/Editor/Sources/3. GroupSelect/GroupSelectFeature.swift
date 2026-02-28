@@ -47,7 +47,6 @@ public struct GroupSelectFeature {
 
         public enum DelegateAction {
             case didSelectGroup(BlockGroup)
-            case didSelectAddGroup
         }
 
         case view(ViewAction)
@@ -74,8 +73,8 @@ public struct GroupSelectFeature {
                     return .send(.delegate(.didSelectGroup(group)))
 
                 case .onTapAddGroup:
-                    state.groupEditor = .init(mode: .add, isSheet: true)
-                    return .send(.delegate(.didSelectAddGroup))
+                    state.groupEditor = .init(mode: .add)
+                    return .none
                 }
                 
             case .inner(let innerAction):
