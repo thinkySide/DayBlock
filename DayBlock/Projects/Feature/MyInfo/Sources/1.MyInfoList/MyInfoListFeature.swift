@@ -32,6 +32,7 @@ public struct MyInfoListFeature {
             case onTapInquiryCell
             case onTapResetDataCell
             case onTapDeveloperInfoCell
+            case onTapOpenChatCell
         }
 
         public enum InnerAction {
@@ -72,6 +73,10 @@ public struct MyInfoListFeature {
                     
                 case .onTapDeveloperInfoCell:
                     state.path.append(.developerInfo(.init()))
+                    return .none
+                    
+                case .onTapOpenChatCell:
+                    urlClient.open(.openChat)
                     return .none
                 }
                 

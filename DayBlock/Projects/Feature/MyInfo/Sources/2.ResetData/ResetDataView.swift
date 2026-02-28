@@ -38,7 +38,7 @@ public struct ResetDataView: View {
             Spacer()
         }
         .background(DesignSystem.Colors.gray0.swiftUIColor)
-        .navigationTitle("초기화")
+        .navigationTitle("데이터 초기화")
         .navigationBarTitleDisplayMode(.inline)
         .popup(
             isPresented: $store.isPopupPresented,

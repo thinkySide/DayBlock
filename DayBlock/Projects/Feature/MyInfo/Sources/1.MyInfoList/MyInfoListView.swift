@@ -123,17 +123,12 @@ public struct MyInfoListView: View {
     private func HelpSection() -> some View {
         VStack(spacing: 0) {
             MyInfoListCell(
-                title: "도움말",
+                title: "사용 방법 가이드",
                 onTap: { }
             )
             
             MyInfoListCell(
-                title: "문의 및 제보",
-                onTap: { store.send(.view(.onTapInquiryCell)) }
-            )
-            
-            MyInfoListCell(
-                title: "초기화",
+                title: "데이터 초기화",
                 onTap: { store.send(.view(.onTapResetDataCell)) }
             )
         }
@@ -143,12 +138,22 @@ public struct MyInfoListView: View {
     private func DevelopmentSection() -> some View {
         VStack(spacing: 0) {
             MyInfoListCell(
+                title: "문의 및 제보",
+                onTap: { store.send(.view(.onTapInquiryCell)) }
+            )
+            
+            MyInfoListCell(
+                title: "데이블럭 오픈채팅",
+                onTap: { store.send(.view(.onTapOpenChatCell)) }
+            )
+            
+            MyInfoListCell(
                 title: "개발자 정보",
                 onTap: { store.send(.view(.onTapDeveloperInfoCell)) }
             )
             
             HStack {
-                Text("버전")
+                Text("앱 버전")
                     .brandFont(.pretendard(.semiBold), 16)
                     .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
                 

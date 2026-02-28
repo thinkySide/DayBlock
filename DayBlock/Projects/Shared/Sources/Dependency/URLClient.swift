@@ -11,11 +11,12 @@ import Dependencies
 // MARK: - AppURL
 public enum AppURL {
     case inquiry
+    case openChat
 
     public var url: URL {
         switch self {
-        case .inquiry:
-            URL(string: "https://open.kakao.com/o/sotwoMii")!
+        case .inquiry: URL(string: "https://open.kakao.com/o/sotwoMii")!
+        case .openChat: URL(string: "https://open.kakao.com/o/gMiONMii")!
         }
     }
 }
