@@ -22,8 +22,8 @@ public struct MyInfoListView: View {
             ContentView()
         } destination: { store in
             switch store.case {
-            case let .resetData(store):
-                ResetDataView(store: store)
+            case let .resetData(store): ResetDataView(store: store)
+            case let .developerInfo(store): DeveloperInfoView(store: store)
             }
         }
     }
@@ -141,7 +141,7 @@ public struct MyInfoListView: View {
         VStack(spacing: 0) {
             MyInfoListCell(
                 title: "개발자 정보",
-                onTap: { }
+                onTap: { store.send(.view(.onTapDeveloperInfoCell)) }
             )
             
             HStack {

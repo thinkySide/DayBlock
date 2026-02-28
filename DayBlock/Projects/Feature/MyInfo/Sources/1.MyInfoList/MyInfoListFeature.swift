@@ -15,6 +15,7 @@ public struct MyInfoListFeature {
     @Reducer
     public enum Path {
         case resetData(ResetDataFeature)
+        case developerInfo(DeveloperInfoFeature)
     }
 
     @ObservableState
@@ -28,6 +29,7 @@ public struct MyInfoListFeature {
         public enum ViewAction {
             case onTapInquiryCell
             case onTapResetDataCell
+            case onTapDeveloperInfoCell
         }
 
         public enum InnerAction {
@@ -59,6 +61,10 @@ public struct MyInfoListFeature {
 
                 case .onTapResetDataCell:
                     state.path.append(.resetData(.init()))
+                    return .none
+                    
+                case .onTapDeveloperInfoCell:
+                    state.path.append(.developerInfo(.init()))
                     return .none
                 }
                 
