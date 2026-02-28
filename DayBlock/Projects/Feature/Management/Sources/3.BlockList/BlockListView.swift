@@ -32,13 +32,14 @@ private struct BlockListTableView: UIViewControllerRepresentable {
     let store: StoreOf<BlockListFeature>
 
     func makeUIViewController(context: Context) -> UITableViewController {
-        let vc = UITableViewController(style: .plain)
+        let vc = UITableViewController(style: .grouped)
         vc.tableView.dataSource = context.coordinator
         vc.tableView.delegate = context.coordinator
         vc.tableView.dragDelegate = context.coordinator
         vc.tableView.dropDelegate = context.coordinator
         vc.tableView.dragInteractionEnabled = true
         vc.tableView.separatorStyle = .none
+        vc.tableView.backgroundColor = DesignSystem.Colors.gray0.color
         vc.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "BlockCell")
         vc.tableView.register(
             UITableViewHeaderFooterView.self,
@@ -110,7 +111,7 @@ extension BlockListTableView {
                             .brandFont(.pretendard(.bold), 16)
                             .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
 
-                        Text("total +\(viewItem.total)")
+                        Text("total +\(viewItem.total.toValueString())")
                             .brandFont(.poppins(.semiBold), 13)
                             .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
                     }
@@ -143,11 +144,13 @@ extension BlockListTableView {
                 HStack {
                     Text(group.name)
                         .brandFont(.pretendard(.bold), 18)
-                        .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+                        .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
 
                     Spacer()
                 }
-                .padding(.horizontal, 20)
+                .padding(.leading, 22)
+                .padding(.trailing, 20)
+                .padding(.top, 8)
             }
             .margins(.all, 0)
             .background(DesignSystem.Colors.gray0.swiftUIColor)
@@ -159,7 +162,7 @@ extension BlockListTableView {
             _ tableView: UITableView,
             heightForHeaderInSection section: Int
         ) -> CGFloat {
-            40
+            48
         }
 
         // MARK: - Section Footer (Add Button)
@@ -179,6 +182,7 @@ extension BlockListTableView {
                 } label: {
                     HStack(spacing: 8) {
                         DesignSystem.Icons.addCell.swiftUIImage
+                            .padding(.leading, 4)
 
                         Text("블럭 추가하기")
                             .brandFont(.pretendard(.semiBold), 15)

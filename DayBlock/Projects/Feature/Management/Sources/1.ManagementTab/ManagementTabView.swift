@@ -80,29 +80,27 @@ extension ManagementTabView {
     @ViewBuilder
     private func ManagementTabCell(from tab: ManagementTabFeature.State.Tab) -> some View {
         let isSelected = store.selectedTab == tab
-        Text(tabName(from: tab))
-            .brandFont(.pretendard(.semiBold), 16)
-            .foregroundStyle(
-                isSelected
-                ? DesignSystem.Colors.gray900.swiftUIColor
-                : DesignSystem.Colors.gray600.swiftUIColor
-            )
-            .frame(maxWidth: .infinity)
-            .frame(height: 56)
-            .overlay(alignment: .bottom) {
-                Rectangle()
-                    .fill(DesignSystem.Colors.gray500.swiftUIColor)
-                    .frame(height: 1)
-            }
-            .overlay(alignment: .bottom) {
-                Capsule()
-                    .fill(DesignSystem.Colors.gray900.swiftUIColor)
-                    .padding(.horizontal, 32)
-                    .frame(height: isSelected ? 3 : 0)
-            }
-            .onTapGesture {
-                store.send(.view(.onTapTab(tab)))
-            }
+        Button {
+            store.send(.view(.onTapTab(tab)))
+        } label: {
+            Text(tabName(from: tab))
+                .brandFont(.pretendard(isSelected ? .bold : .semiBold), 16)
+                .foregroundStyle(
+                    isSelected
+                    ? DesignSystem.Colors.gray900.swiftUIColor
+                    : DesignSystem.Colors.gray600.swiftUIColor
+                )
+                .frame(maxWidth: .infinity)
+                .frame(height: 56)
+                .background(DesignSystem.Colors.gray0.swiftUIColor)
+        }
+        .overlay(alignment: .bottom) {
+            Capsule()
+                .fill(DesignSystem.Colors.gray900.swiftUIColor)
+                .padding(.horizontal, 20)
+                .frame(height: isSelected ? 3 : 0)
+        }
+        .scaleButton()
     }
 }
 
