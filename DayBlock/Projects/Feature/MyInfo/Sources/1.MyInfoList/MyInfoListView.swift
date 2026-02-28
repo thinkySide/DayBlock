@@ -31,8 +31,6 @@ public struct MyInfoListView: View {
     @ViewBuilder
     private func ContentView() -> some View {
         VStack(spacing: 0) {
-            NavigationBar()
-            
             Header()
             
             SectionDivider()
@@ -50,6 +48,8 @@ public struct MyInfoListView: View {
             Spacer()
         }
         .background(DesignSystem.Colors.gray0.swiftUIColor)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbarVisibility(.visible, for: .navigationBar)
     }
     
     @ViewBuilder

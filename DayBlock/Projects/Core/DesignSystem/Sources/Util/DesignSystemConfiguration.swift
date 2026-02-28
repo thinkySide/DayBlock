@@ -24,8 +24,7 @@ public enum DesignSystemConfiguration {
 
     private static func configureNavigationBarAppearance() {
         let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = DesignSystem.Colors.gray0.color
+        appearance.configureWithDefaultBackground()
         appearance.shadowColor = .clear
 
         let titleFont = UIFont(

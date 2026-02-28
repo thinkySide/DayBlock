@@ -19,21 +19,12 @@ public struct ResetDataView: View {
     
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            NavigationBar(
-                title: "초기화",
-                leadingView: {
-                    NavigationBarButton(.back) {
-                        store.send(.view(.onTapBackButton))
-                    }
-                }
-            )
-            
             Text(resetDataString)
                 .brandFont(.pretendard(.medium), 16)
                 .lineSpacing(3)
                 .padding(.top, 24)
                 .padding(.horizontal, 24)
-            
+
             ActionButton(
                 title: "초기화하기",
                 variation: .delete,
@@ -47,7 +38,8 @@ public struct ResetDataView: View {
             Spacer()
         }
         .background(DesignSystem.Colors.gray0.swiftUIColor)
-        .toolbarVisibility(.hidden, for: .navigationBar)
+        .navigationTitle("초기화")
+        .navigationBarTitleDisplayMode(.inline)
         .popup(
             isPresented: $store.isPopupPresented,
             title: "모든 데이터를 초기화할까요?",
