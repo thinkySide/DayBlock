@@ -53,10 +53,14 @@ struct MainAppFeature {
             switch action {
             case .binding(\.selectedTab):
                 haptic.impact(.soft)
-                if state.selectedTab == .tracking {
+                switch state.selectedTab {
+                case .tracking:
                     return .send(.tracking(.inner(.refreshData)))
+                case .calendar:
+                    return .send(.calendar(.inner(.refreshData)))
+                default:
+                    return .none
                 }
-                return .none
 
             default:
                 return .none

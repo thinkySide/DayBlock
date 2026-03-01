@@ -63,6 +63,7 @@ public struct CalendarFeature {
         }
 
         public enum InnerAction {
+            case refreshData
             case setTimelineEntries([TimelineEntry])
             case setDailyBlockColors([String: [Int]])
         }
@@ -90,12 +91,12 @@ public struct CalendarFeature {
         Reduce { state, action in
             switch action {
             case .view(.onAppear):
-                let today = date.now
-                let todayComponents = calendar.dateComponents([.year, .month, .day], from: today)
-                let year = calendar.component(.year, from: today)
-                let month = calendar.component(.month, from: today)
+                let year = state.visibleMonth.year ?? calendar.component(.year, from: date.now)
+                let month = state.visibleMonth.month ?? calendar.component(.month, from: date.now)
+                let selectedDate = state.selectedDate
+                    ?? calendar.dateComponents([.year, .month, .day], from: date.now)
                 return .merge(
-                    fetchTimeline(for: todayComponents),
+                    fetchTimeline(for: selectedDate),
                     fetchMonthlyColors(year: year, month: month)
                 )
 
@@ -129,6 +130,17 @@ public struct CalendarFeature {
                 let ym = CalendarMonthGenerator.yearMonth(from: pageID)
                 state.visibleMonth = DateComponents(year: ym.year, month: ym.month)
                 return fetchMonthlyColors(year: ym.year, month: ym.month)
+
+            case .inner(.refreshData):
+                let year = state.visibleMonth.year ?? calendar.component(.year, from: date.now)
+                let month = state.visibleMonth.month ?? calendar.component(.month, from: date.now)
+                if let selectedDate = state.selectedDate {
+                    return .merge(
+                        fetchTimeline(for: selectedDate),
+                        fetchMonthlyColors(year: year, month: month)
+                    )
+                }
+                return fetchMonthlyColors(year: year, month: month)
 
             case let .inner(.setTimelineEntries(entries)):
                 state.timelineEntries = entries

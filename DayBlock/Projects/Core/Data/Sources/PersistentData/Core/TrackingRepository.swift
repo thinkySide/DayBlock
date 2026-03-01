@@ -83,24 +83,23 @@ extension TrackingRepository: DependencyKey {
                     )
                     descriptor.sortBy = [SortDescriptor(\.createdAt, order: .reverse)]
 
-                    let sessionList = try await Task { @MainActor in
-                        try modelContext.fetch(descriptor)
+                    return try await Task { @MainActor in
+                        let sessionList = try modelContext.fetch(descriptor)
+                        return sessionList.map { swiftData in
+                            TrackingSession(
+                                id: swiftData.id,
+                                memo: swiftData.memo,
+                                createdAt: swiftData.createdAt,
+                                timeList: swiftData.timeList.map { timeData in
+                                    TrackingTime(
+                                        id: timeData.id,
+                                        startDate: timeData.startDate,
+                                        endDate: timeData.endDate
+                                    )
+                                }
+                            )
+                        }
                     }.value
-
-                    return sessionList.map { swiftData in
-                        TrackingSession(
-                            id: swiftData.id,
-                            memo: swiftData.memo,
-                            createdAt: swiftData.createdAt,
-                            timeList: swiftData.timeList.map { timeData in
-                                TrackingTime(
-                                    id: timeData.id,
-                                    startDate: timeData.startDate,
-                                    endDate: timeData.endDate
-                                )
-                            }
-                        )
-                    }
                 } catch {
                     Debug.log("SwiftData ModelContext 에러: \(error)")
                     return []
@@ -119,24 +118,23 @@ extension TrackingRepository: DependencyKey {
                     throw PersistentDataError.notFound
                 }
 
-                targetSession.memo = session.memo
-
-                try await MainActor.run {
+                return try await MainActor.run {
+                    targetSession.memo = session.memo
                     try modelContext.save()
-                }
 
-                return TrackingSession(
-                    id: targetSession.id,
-                    memo: targetSession.memo,
-                    createdAt: targetSession.createdAt,
-                    timeList: targetSession.timeList.map { timeData in
-                        TrackingTime(
-                            id: timeData.id,
-                            startDate: timeData.startDate,
-                            endDate: timeData.endDate
-                        )
-                    }
-                )
+                    return TrackingSession(
+                        id: targetSession.id,
+                        memo: targetSession.memo,
+                        createdAt: targetSession.createdAt,
+                        timeList: targetSession.timeList.map { timeData in
+                            TrackingTime(
+                                id: timeData.id,
+                                startDate: timeData.startDate,
+                                endDate: timeData.endDate
+                            )
+                        }
+                    )
+                }
             },
             deleteSession: { sessionId in
                 do {
