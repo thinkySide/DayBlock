@@ -12,6 +12,7 @@ let workspace = Workspace(
         "Projects/Feature/Editor",
         "Projects/Feature/Management",
         "Projects/Feature/Calendar",
-        "Projects/Feature/MyInfo"
+        "Projects/Feature/MyInfo",
+        "Projects/Feature/Onboarding"
     ]
 )
