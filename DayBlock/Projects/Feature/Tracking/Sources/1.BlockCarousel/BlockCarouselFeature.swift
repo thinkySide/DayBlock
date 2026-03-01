@@ -5,7 +5,7 @@
 //  Created by 김민준 on 12/21/25.
 //
 
-import Foundation
+import SwiftUI
 import ComposableArchitecture
 import Domain
 import Editor
@@ -278,11 +278,15 @@ public struct BlockCarouselFeature {
                         return .none
                     }
 
-                    state.trackingInProgress = .init(
-                        trackingGroup: state.selectedGroup,
-                        trackingBlock: block,
-                        trackingSession: trackingSession
-                    )
+                    var transaction = Transaction()
+                    transaction.disablesAnimations = true
+                    withTransaction(transaction) {
+                        state.trackingInProgress = .init(
+                            trackingGroup: state.selectedGroup,
+                            trackingBlock: block,
+                            trackingSession: trackingSession
+                        )
+                    }
                     return .none
                 }
                 
