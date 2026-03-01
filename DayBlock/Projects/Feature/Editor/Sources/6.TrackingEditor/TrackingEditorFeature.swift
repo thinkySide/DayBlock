@@ -19,19 +19,42 @@ public struct TrackingEditorFeature {
         case calendarDetail
     }
 
+    public struct SessionPage: Equatable, Identifiable {
+        public let id: UUID
+        public let trackingTimeList: [TrackingTime]
+        public let totalTime: TimeInterval
+        public var memoText: String
+
+        public init(
+            id: UUID,
+            trackingTimeList: [TrackingTime],
+            totalTime: TimeInterval,
+            memoText: String = ""
+        ) {
+            self.id = id
+            self.trackingTimeList = trackingTimeList
+            self.totalTime = totalTime
+            self.memoText = memoText
+        }
+    }
+
     @ObservableState
     public struct State: Equatable {
         let presentationMode: PresentationMode
         var trackingGroup: BlockGroup
         var trackingBlock: Block
-        var completedTrackingTimeList: [TrackingTime]
-        var totalTime: TimeInterval
-        var sessionId: UUID
-        var memoText: String = ""
+        var sessionPages: [SessionPage]
+        var currentPageId: UUID?
         var isPopupPresented: Bool = false
 
         @Presents var memoEditor: MemoEditorFeature.State?
 
+        var currentPage: SessionPage? {
+            guard let currentPageId else { return sessionPages.first }
+            return sessionPages.first(where: { $0.id == currentPageId })
+        }
+
+        /// calendarDetail용 init (단일 세션)
         public init(
             presentationMode: PresentationMode,
             trackingGroup: BlockGroup,
@@ -44,10 +67,27 @@ public struct TrackingEditorFeature {
             self.presentationMode = presentationMode
             self.trackingGroup = trackingGroup
             self.trackingBlock = trackingBlock
-            self.completedTrackingTimeList = completedTrackingTimeList
-            self.totalTime = totalTime
-            self.sessionId = sessionId
-            self.memoText = memoText
+            let page = SessionPage(
+                id: sessionId,
+                trackingTimeList: completedTrackingTimeList,
+                totalTime: totalTime,
+                memoText: memoText
+            )
+            self.sessionPages = [page]
+            self.currentPageId = page.id
+        }
+
+        /// trackingComplete용 init (다중 세션 페이지)
+        public init(
+            trackingGroup: BlockGroup,
+            trackingBlock: Block,
+            sessionPages: [SessionPage]
+        ) {
+            self.presentationMode = .trackingComplete
+            self.trackingGroup = trackingGroup
+            self.trackingBlock = trackingBlock
+            self.sessionPages = sessionPages
+            self.currentPageId = sessionPages.first?.id
         }
     }
 
@@ -106,8 +146,9 @@ public struct TrackingEditorFeature {
                     return .none
 
                 case .onTapMemoEditor:
+                    let currentMemo = state.currentPage?.memoText ?? ""
                     state.memoEditor = .init(
-                        memoText: state.memoText,
+                        memoText: currentMemo,
                         colorIndex: state.trackingBlock.colorIndex
                     )
                     return .none
@@ -121,7 +162,8 @@ public struct TrackingEditorFeature {
 
                 case .deleteSession:
                     state.isPopupPresented = false
-                    let sessionId = state.sessionId
+                    guard let page = state.sessionPages.first else { return .none }
+                    let sessionId = page.id
                     return .run { send in
                         await trackingRepository.deleteSession(sessionId)
                         await send(.delegate(.didDelete))
@@ -133,7 +175,10 @@ public struct TrackingEditorFeature {
                 return .none
 
             case .memoEditor(.presented(.delegate(.didConfirm(let memoText)))):
-                state.memoText = memoText
+                if let currentPageId = state.currentPageId,
+                   let index = state.sessionPages.firstIndex(where: { $0.id == currentPageId }) {
+                    state.sessionPages[index].memoText = memoText
+                }
                 state.memoEditor = nil
                 return .none
 
@@ -149,14 +194,16 @@ public struct TrackingEditorFeature {
     // MARK: - Private
 
     private func saveMemoAndFinish(state: State) -> Effect<Action> {
-        let sessionId = state.sessionId
-        let memoText = state.memoText
+        let blockId = state.trackingBlock.id
+        let pages = state.sessionPages
         return .concatenate(
             .run { _ in
-                let sessions = await trackingRepository.fetchSessions(state.trackingBlock.id)
-                guard var session = sessions.first(where: { $0.id == sessionId }) else { return }
-                session.memo = memoText
-                _ = try await trackingRepository.updateSession(sessionId, session)
+                let sessions = await trackingRepository.fetchSessions(blockId)
+                for page in pages {
+                    guard var session = sessions.first(where: { $0.id == page.id }) else { continue }
+                    session.memo = page.memoText
+                    _ = try await trackingRepository.updateSession(page.id, session)
+                }
             },
             .send(.delegate(.didFinish))
         )

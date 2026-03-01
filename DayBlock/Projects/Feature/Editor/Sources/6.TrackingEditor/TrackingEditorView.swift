@@ -29,19 +29,21 @@ public struct TrackingEditorView: View {
                     .padding(.top, 32)
                     .frame(width: 204)
 
-                DateInfo()
-                    .padding(.top, 32)
+                SessionCarousel()
 
-                BoardSection()
-                    .padding(.top, 44)
+                if store.sessionPages.count > 1 {
+                    PageIndicator()
+                        .padding(.top, 20)
+                }
 
-                let memoText = store.memoText.isEmpty
+                let currentMemo = store.currentPage?.memoText ?? ""
+                let memoText = currentMemo.isEmpty
                 ? "어떤 일을 했는지 메모로 남겨봐요"
-                : store.memoText
+                : currentMemo
                 StableTextEditor(
                     isFocused: .constant(false),
                     text: .constant(memoText),
-                    textColor: store.memoText.isEmpty
+                    textColor: currentMemo.isEmpty
                     ? DesignSystem.Colors.gray600.swiftUIColor
                     : DesignSystem.Colors.gray800.swiftUIColor,
                     tintColor: ColorPalette.toColor(from: store.trackingBlock.colorIndex),
@@ -50,7 +52,7 @@ public struct TrackingEditorView: View {
                     contentInset: .init(top: 20, left: 20, bottom: 20, right: 20),
                     isEditable: false
                 )
-                .padding(.top, 56)
+                .padding(.top, store.sessionPages.count > 1 ? 20 : 56)
                 .ignoresSafeArea()
                 .onTapGesture {
                     store.send(.view(.onTapMemoEditor))
@@ -151,14 +153,51 @@ extension TrackingEditorView {
     }
 
     @ViewBuilder
-    private func DateInfo() -> some View {
+    private func SessionCarousel() -> some View {
+        ScrollView(.horizontal) {
+            HStack(spacing: 0) {
+                ForEach(store.sessionPages) { page in
+                    VStack(spacing: 0) {
+                        DateInfo(page: page)
+                            .padding(.top, 32)
+
+                        BoardSection(page: page)
+                            .padding(.top, 44)
+                    }
+                    .containerRelativeFrame(.horizontal, count: 1, spacing: 0)
+                }
+            }
+            .scrollTargetLayout()
+        }
+        .scrollPosition(id: $store.currentPageId)
+        .scrollTargetBehavior(.viewAligned)
+        .scrollIndicators(.hidden)
+    }
+
+    @ViewBuilder
+    private func PageIndicator() -> some View {
+        HStack(spacing: 6) {
+            ForEach(store.sessionPages) { page in
+                Circle()
+                    .fill(
+                        page.id == store.currentPageId
+                        ? ColorPalette.toColor(from: store.trackingBlock.colorIndex)
+                        : DesignSystem.Colors.gray300.swiftUIColor
+                    )
+                    .frame(width: 6, height: 6)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func DateInfo(page: TrackingEditorFeature.SessionPage) -> some View {
         VStack(spacing: 4) {
-            if let firstTime = store.completedTrackingTimeList.first {
+            if let firstTime = page.trackingTimeList.first {
                 Text(firstTime.startDate.formattedDateWithWeekday)
                     .brandFont(.pretendard(.semiBold), 15)
                     .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
 
-                Text(timeRangeText)
+                Text(timeRangeText(for: page))
                     .brandFont(.poppins(.bold), 28)
                     .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
             }
@@ -166,7 +205,7 @@ extension TrackingEditorView {
     }
 
     @ViewBuilder
-    private func BoardSection() -> some View {
+    private func BoardSection(page: TrackingEditorFeature.SessionPage) -> some View {
         VStack(spacing: 6) {
             HStack(spacing: 0) {
                 Text("블럭")
@@ -178,7 +217,7 @@ extension TrackingEditorView {
                     .foregroundStyle(ColorPalette.toColor(from: store.trackingBlock.colorIndex))
                     .padding(.leading, 2)
 
-                Text(outputValue.toValueString())
+                Text(outputValue(for: page).toValueString())
                     .brandFont(.poppins(.bold), 24)
                     .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
                     .padding(.leading, -1)
@@ -190,7 +229,7 @@ extension TrackingEditorView {
             }
 
             TrackingBoard(
-                activeBlocks: completedBlocks,
+                activeBlocks: completedBlocks(for: page),
                 blockSize: 32,
                 blockCornerRadius: 8,
                 spacing: 8,
@@ -204,15 +243,15 @@ extension TrackingEditorView {
 extension TrackingEditorView {
 
     /// 생산량을 반환합니다. (TrackingTime 1개 = 0.5 블럭)
-    private var outputValue: Double {
-        Double(store.completedTrackingTimeList.count) * 0.5
+    private func outputValue(for page: TrackingEditorFeature.SessionPage) -> Double {
+        Double(page.trackingTimeList.count) * 0.5
     }
 
     /// 트래킹 시간 범위 텍스트를 반환합니다.
-    private var timeRangeText: String {
-        guard let first = store.completedTrackingTimeList.first else { return "" }
+    private func timeRangeText(for page: TrackingEditorFeature.SessionPage) -> String {
+        guard let first = page.trackingTimeList.first else { return "" }
         let start = first.startDate.formattedTime24Hour
-        if let last = store.completedTrackingTimeList.last,
+        if let last = page.trackingTimeList.last,
            let endDate = last.endDate {
             return "\(start)-\(endDate.formattedTime24Hour)"
         }
@@ -220,13 +259,13 @@ extension TrackingEditorView {
     }
 
     /// 완료된 트래킹 데이터를 TrackingBoard에 표시할 형태로 반환합니다.
-    private var completedBlocks: [Int: TrackingBoardBlock.Area] {
+    private func completedBlocks(for page: TrackingEditorFeature.SessionPage) -> [Int: TrackingBoardBlock.Area] {
         let builder = TrackingBoardDataBuilder()
         return builder.build(
-            timeList: store.completedTrackingTimeList,
+            timeList: page.trackingTimeList,
             color: ColorPalette.toColor(from: store.trackingBlock.colorIndex),
             variation: .stored,
-            sessionId: store.sessionId
+            sessionId: page.id
         )
     }
 }
@@ -235,12 +274,11 @@ extension TrackingEditorView {
     TrackingEditorView(
         store: .init(
             initialState: TrackingEditorFeature.State(
-                presentationMode: .trackingComplete,
                 trackingGroup: .init(id: .init(), name: "기본그룹", order: 0),
                 trackingBlock: .init(id: .init(), name: "기본블럭", iconIndex: 4, colorIndex: 6, output: 1.5, order: 0),
-                completedTrackingTimeList: [],
-                totalTime: 1800,
-                sessionId: UUID()
+                sessionPages: [
+                    .init(id: UUID(), trackingTimeList: [], totalTime: 1800)
+                ]
             ),
             reducer: {
                 TrackingEditorFeature()

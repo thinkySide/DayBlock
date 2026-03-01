@@ -200,25 +200,48 @@ public struct TrackingInProgressFeature {
                 case .onCompletionAnimationComplete:
                     let blockId = state.trackingBlock.id
                     let timeList = state.completedTrackingTimeList
-                    let session = TrackingSession(
-                        id: uuid(),
-                        createdAt: date.now,
-                        timeList: timeList
-                    )
+
+                    // 날짜별로 TrackingTime 그룹핑
+                    var groupedByDay: [Date: [TrackingTime]] = [:]
+                    for time in timeList {
+                        let dayKey = calendar.startOfDay(for: time.startDate)
+                        groupedByDay[dayKey, default: []].append(time)
+                    }
+                    let sortedDays = groupedByDay.keys.sorted()
+
+                    // 날짜별 TrackingSession 생성 + SessionPage 구성
+                    var sessionPages: [TrackingEditorFeature.SessionPage] = []
+                    var sessionsToCreate: [(UUID, TrackingSession)] = []
+                    for day in sortedDays {
+                        let dayTimeList = groupedByDay[day] ?? []
+                        let sessionId = uuid()
+                        let session = TrackingSession(
+                            id: sessionId,
+                            createdAt: day,
+                            timeList: dayTimeList
+                        )
+                        sessionsToCreate.append((blockId, session))
+                        let totalTime = dayTimeList.reduce(0) { $0 + $1.duration }
+                        sessionPages.append(.init(
+                            id: sessionId,
+                            trackingTimeList: dayTimeList,
+                            totalTime: totalTime
+                        ))
+                    }
+
                     state.trackingEditor = .init(
-                        presentationMode: .trackingComplete,
                         trackingGroup: state.trackingGroup,
                         trackingBlock: state.trackingBlock,
-                        completedTrackingTimeList: state.completedTrackingTimeList,
-                        totalTime: state.totalTime,
-                        sessionId: state.currentSessionId
+                        sessionPages: sessionPages
                     )
                     userDefaultsService.remove(\.trackingSession)
                     return .merge(
                         .cancel(id: CancelID.clockTimer),
                         .cancel(id: CancelID.trackingTimer),
                         .run { _ in
-                            _ = try await trackingRepository.createSession(blockId, session)
+                            for (blockId, session) in sessionsToCreate {
+                                _ = try await trackingRepository.createSession(blockId, session)
+                            }
                         },
                         .run { send in
                             try? await clock.sleep(for: .milliseconds(600))
