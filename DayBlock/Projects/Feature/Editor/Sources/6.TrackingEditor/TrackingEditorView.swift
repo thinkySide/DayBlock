@@ -19,18 +19,7 @@ public struct TrackingEditorView: View {
     }
 
     public var body: some View {
-        VStack(spacing: 0) {
-            NavigationBar(
-                trailingView: {
-                    NavigationBarButton(
-                        .text("완료"),
-                        onTap: {
-                            store.send(.view(.onTapFinishButton))
-                        }
-                    )
-                }
-            )
-
+        NavigationStack {
             VStack(spacing: 0) {
                 Header()
                     .padding(.top, 20)
@@ -51,7 +40,6 @@ public struct TrackingEditorView: View {
                 StableTextEditor(
                     isFocused: .constant(false),
                     text: .constant(memoText),
-                    font: DesignSystemFontFamily.Pretendard.medium.font(size: 16),
                     textColor: memoText.isEmpty
                     ? DesignSystem.Colors.gray600.swiftUIColor
                     : DesignSystem.Colors.gray800.swiftUIColor,
@@ -67,8 +55,32 @@ public struct TrackingEditorView: View {
                     store.send(.view(.onTapMemoEditor))
                 }
             }
+            .background(DesignSystem.Colors.gray0.swiftUIColor)
+            .ignoresSafeArea(.keyboard, edges: .bottom)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                switch store.presentationMode {
+                case .trackingComplete:
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("완료") {
+                            store.send(.view(.onTapFinishButton))
+                        }
+                        .brandFont(.pretendard(.semiBold), 16)
+                        .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+                    }
+
+                case .calendarDetail:
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button {
+                            store.send(.view(.onTapDismissButton))
+                        } label: {
+                            Image(systemName: Symbol.xmark.symbolName)
+                                .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+                        }
+                    }
+                }
+            }
         }
-        .background(DesignSystem.Colors.gray0.swiftUIColor)
         .fullScreenCover(
             item: $store.scope(
                 state: \.memoEditor,
@@ -171,6 +183,7 @@ extension TrackingEditorView {
     TrackingEditorView(
         store: .init(
             initialState: TrackingEditorFeature.State(
+                presentationMode: .trackingComplete,
                 trackingGroup: .init(id: .init(), name: "기본그룹", order: 0),
                 trackingBlock: .init(id: .init(), name: "기본블럭", iconIndex: 4, colorIndex: 6, output: 1.5, order: 0),
                 completedTrackingTimeList: [],

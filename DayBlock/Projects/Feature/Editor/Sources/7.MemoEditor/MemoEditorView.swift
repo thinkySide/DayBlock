@@ -19,26 +19,10 @@ public struct MemoEditorView: View {
     }
     
     public var body: some View {
-        VStack(spacing: 0) {
-            NavigationBar(
-                title: "메모 수정",
-                backgroundColor: DesignSystem.Colors.gray100.swiftUIColor,
-                leadingView: {
-                    NavigationBarButton(.dismiss) {
-                        store.send(.view(.onTapDismissButton))
-                    }
-                },
-                trailingView: {
-                    NavigationBarButton(.text("확인")) {
-                        store.send(.view(.onTapConfirmButton))
-                    }
-                }
-            )
-            
+        NavigationStack {
             StableTextEditor(
                 isFocused: $isMemoEditorFocused,
                 text: $store.memoText,
-                font: DesignSystemFontFamily.Pretendard.medium.font(size: 16),
                 textColor: DesignSystem.Colors.gray900.swiftUIColor,
                 tintColor: ColorPalette.toColor(from: store.colorIndex),
                 backgroundColor: DesignSystem.Colors.gray100.swiftUIColor,
@@ -46,8 +30,38 @@ public struct MemoEditorView: View {
                 contentInset: .init(top: 0, left: 20, bottom: 20, right: 20)
             )
             .padding(.top, 32)
+            .background(DesignSystem.Colors.gray100.swiftUIColor)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("메모 수정")
+                        .brandFont(.pretendard(.bold), 15)
+                        .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+                }
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        store.send(.view(.onTapDismissButton))
+                    } label: {
+                        Image(systemName: Symbol.xmark.symbolName)
+                            .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        store.send(.view(.onTapConfirmButton))
+                    } label: {
+                        Text("확인")
+                            .brandFont(.pretendard(.semiBold), 15)
+                            .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+                    }
+                }
+            }
+            .toolbarBackground(
+                DesignSystem.Colors.gray100.swiftUIColor,
+                for: .navigationBar
+            )
+            .toolbarBackground(.visible, for: .navigationBar)
         }
-        .background(DesignSystem.Colors.gray100.swiftUIColor)
         .onTapGesture {
             isMemoEditorFocused = false
         }

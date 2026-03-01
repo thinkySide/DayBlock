@@ -205,6 +205,7 @@ public struct TrackingInProgressFeature {
                         timeList: timeList
                     )
                     state.trackingEditor = .init(
+                        presentationMode: .trackingComplete,
                         trackingGroup: state.trackingGroup,
                         trackingBlock: state.trackingBlock,
                         completedTrackingTimeList: state.completedTrackingTimeList,

@@ -13,8 +13,14 @@ import Util
 @Reducer
 public struct TrackingEditorFeature {
 
+    public enum PresentationMode: Equatable {
+        case trackingComplete
+        case calendarDetail
+    }
+
     @ObservableState
     public struct State: Equatable {
+        let presentationMode: PresentationMode
         var trackingGroup: BlockGroup
         var trackingBlock: Block
         var completedTrackingTimeList: [TrackingTime]
@@ -25,12 +31,14 @@ public struct TrackingEditorFeature {
         @Presents var memoEditor: MemoEditorFeature.State?
 
         public init(
+            presentationMode: PresentationMode,
             trackingGroup: BlockGroup,
             trackingBlock: Block,
             completedTrackingTimeList: [TrackingTime],
             totalTime: TimeInterval,
             sessionId: UUID
         ) {
+            self.presentationMode = presentationMode
             self.trackingGroup = trackingGroup
             self.trackingBlock = trackingBlock
             self.completedTrackingTimeList = completedTrackingTimeList
@@ -42,6 +50,7 @@ public struct TrackingEditorFeature {
     public enum Action: TCAFeatureAction, BindableAction {
         public enum ViewAction {
             case onTapFinishButton
+            case onTapDismissButton
             case onTapMemoEditor
         }
 
@@ -71,6 +80,10 @@ public struct TrackingEditorFeature {
             case .view(let viewAction):
                 switch viewAction {
                 case .onTapFinishButton:
+                    haptic.impact(.light)
+                    return .send(.delegate(.didFinish))
+
+                case .onTapDismissButton:
                     haptic.impact(.light)
                     return .send(.delegate(.didFinish))
 

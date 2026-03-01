@@ -157,6 +157,7 @@ public struct CalendarFeature {
 
             case let .view(.onTapTimelineEntry(entry)):
                 state.trackingEditor = TrackingEditorFeature.State(
+                    presentationMode: .calendarDetail,
                     trackingGroup: entry.group,
                     trackingBlock: entry.block,
                     completedTrackingTimeList: entry.trackingTimeList,

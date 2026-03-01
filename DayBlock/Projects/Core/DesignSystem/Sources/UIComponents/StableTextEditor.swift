@@ -27,7 +27,8 @@ public struct StableTextEditor: UIViewRepresentable {
     public init(
         isFocused: Binding<Bool>,
         text: Binding<String>,
-        font: UIFont,
+        brandFont: BrandFont = .pretendard(.medium),
+        fontSize: CGFloat = 16,
         textColor: Color,
         tintColor: Color,
         backgroundColor: Color,
@@ -38,7 +39,12 @@ public struct StableTextEditor: UIViewRepresentable {
     ) {
         self._isFocused = isFocused
         self._text = text
-        self.font = font
+        switch brandFont {
+        case .pretendard(let weight):
+            self.font = UIFont(name: weight.fontName, size: fontSize) ?? .systemFont(ofSize: fontSize)
+        case .poppins(let weight):
+            self.font = UIFont(name: weight.fontName, size: fontSize) ?? .systemFont(ofSize: fontSize)
+        }
         self.textColor = UIColor(textColor)
         self.tintColor = UIColor(tintColor)
         self.backgroundColor = UIColor(backgroundColor)
