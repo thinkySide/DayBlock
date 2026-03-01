@@ -70,6 +70,7 @@ public struct CalendarView: View {
                     CalendarGridView(
                         page: page,
                         selectedDate: store.selectedDate,
+                        dailyBlockColors: store.dailyBlockColors,
                         onDayTapped: { day in
                             store.send(.view(.onDaySelected(day)))
                         }

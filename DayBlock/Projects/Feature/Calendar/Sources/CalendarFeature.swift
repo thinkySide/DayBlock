@@ -34,6 +34,7 @@ public struct CalendarFeature {
         var visibleMonth: DateComponents
         var selectedDate: DateComponents?
         var timelineEntries: [TimelineEntry] = []
+        var dailyBlockColors: [String: [Int]] = [:]
 
         var totalOutput: Double {
             timelineEntries.reduce(0) { $0 + $1.output }
@@ -63,6 +64,7 @@ public struct CalendarFeature {
 
         public enum InnerAction {
             case setTimelineEntries([TimelineEntry])
+            case setDailyBlockColors([String: [Int]])
         }
 
         public enum DelegateAction {}
@@ -88,8 +90,14 @@ public struct CalendarFeature {
         Reduce { state, action in
             switch action {
             case .view(.onAppear):
-                let todayComponents = calendar.dateComponents([.year, .month, .day], from: date.now)
-                return fetchTimeline(for: todayComponents)
+                let today = date.now
+                let todayComponents = calendar.dateComponents([.year, .month, .day], from: today)
+                let year = calendar.component(.year, from: today)
+                let month = calendar.component(.month, from: today)
+                return .merge(
+                    fetchTimeline(for: todayComponents),
+                    fetchMonthlyColors(year: year, month: month)
+                )
 
             case .view(.onTapToday):
                 haptic.impact(.soft)
@@ -120,10 +128,14 @@ public struct CalendarFeature {
                 guard let pageID else { return .none }
                 let ym = CalendarMonthGenerator.yearMonth(from: pageID)
                 state.visibleMonth = DateComponents(year: ym.year, month: ym.month)
-                return .none
+                return fetchMonthlyColors(year: ym.year, month: ym.month)
 
             case let .inner(.setTimelineEntries(entries)):
                 state.timelineEntries = entries
+                return .none
+
+            case let .inner(.setDailyBlockColors(colors)):
+                state.dailyBlockColors = colors
                 return .none
 
             case .delegate:
@@ -136,6 +148,53 @@ public struct CalendarFeature {
     }
 
     // MARK: - Private
+
+    private func fetchMonthlyColors(year: Int, month: Int) -> Effect<Action> {
+        .run { send in
+            guard let monthStart = calendar.date(from: DateComponents(year: year, month: month, day: 1)),
+                  let nextMonthStart = calendar.date(byAdding: .month, value: 1, to: monthStart)
+            else { return }
+
+            let groupList = await groupRepository.fetchGroupList()
+            // day key -> [(blockID, colorIndex, earliestTime)]
+            var dayData: [String: [(UUID, Int, Date)]] = [:]
+
+            for group in groupList {
+                let blockList = await blockRepository.fetchBlockList(group.id)
+                for block in blockList {
+                    let sessions = await trackingRepository.fetchSessions(block.id)
+                    for session in sessions {
+                        for time in session.timeList {
+                            guard time.startDate >= monthStart && time.startDate < nextMonthStart else { continue }
+
+                            let day = calendar.component(.day, from: time.startDate)
+                            let key = CalendarMonthGenerator.dayKey(year: year, month: month, day: day)
+
+                            if dayData[key] == nil {
+                                dayData[key] = []
+                            }
+
+                            if let idx = dayData[key]!.firstIndex(where: { $0.0 == block.id }) {
+                                if time.startDate < dayData[key]![idx].2 {
+                                    dayData[key]![idx] = (block.id, block.colorIndex, time.startDate)
+                                }
+                            } else {
+                                dayData[key]!.append((block.id, block.colorIndex, time.startDate))
+                            }
+                        }
+                    }
+                }
+            }
+
+            var result: [String: [Int]] = [:]
+            for (key, entries) in dayData {
+                let sorted = entries.sorted { $0.2 < $1.2 }
+                result[key] = Array(sorted.map { $0.1 }.prefix(5))
+            }
+
+            await send(.inner(.setDailyBlockColors(result)))
+        }
+    }
 
     private func fetchTimeline(for dateComponents: DateComponents) -> Effect<Action> {
         .run { send in

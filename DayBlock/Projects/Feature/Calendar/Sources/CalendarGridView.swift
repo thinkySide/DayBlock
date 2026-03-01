@@ -11,6 +11,7 @@ struct CalendarGridView: View {
 
     let page: MonthPage
     let selectedDate: DateComponents?
+    let dailyBlockColors: [String: [Int]]
     let onDayTapped: (CalendarDay) -> Void
 
     private let columns = Array(repeating: GridItem(.flexible(), spacing: 0), count: 7)
@@ -20,7 +21,8 @@ struct CalendarGridView: View {
             ForEach(page.days) { day in
                 CalendarDayCell(
                     day: day,
-                    isSelected: isSelected(day)
+                    isSelected: isSelected(day),
+                    trackingColors: trackingColors(for: day)
                 )
                 .contentShape(Rectangle())
                 .onTapGesture {
@@ -35,5 +37,14 @@ struct CalendarGridView: View {
         return day.dateComponents.year == selected.year
             && day.dateComponents.month == selected.month
             && day.dateComponents.day == selected.day
+    }
+
+    private func trackingColors(for day: CalendarDay) -> [Int] {
+        guard day.ownership == .currentMonth,
+              let year = day.dateComponents.year,
+              let month = day.dateComponents.month,
+              let d = day.dateComponents.day
+        else { return [] }
+        return dailyBlockColors[CalendarMonthGenerator.dayKey(year: year, month: month, day: d)] ?? []
     }
 }

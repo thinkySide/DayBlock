@@ -25,6 +25,11 @@ enum CalendarMonthGenerator {
         return (year, month)
     }
 
+    /// 날짜 키 생성 (딕셔너리 룩업용)
+    static func dayKey(year: Int, month: Int, day: Int) -> String {
+        "\(year)-\(month)-\(day)"
+    }
+
     /// 42셀 그리드 생성 (전월 trailing + 당월 + 차월 leading)
     static func generate(year: Int, month: Int, calendar: Calendar) -> MonthPage {
         let offset = monthOffset(year: year, month: month)
