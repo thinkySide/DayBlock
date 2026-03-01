@@ -167,7 +167,7 @@ extension BlockCarouselView {
                 .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
                 .padding(.top, -8)
 
-            Text("today +0.5")
+            Text("today +\(store.todayTotalOutput.toValueString())")
                 .brandFont(.poppins(.bold), 23)
                 .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
                 .padding(.leading, 4)
@@ -208,10 +208,11 @@ private struct BlockCarousel: View {
             ScrollView(.horizontal) {
                 HStack(spacing: 24) {
                     ForEach(store.blockList) { block in
+                        let output = store.blockOutputs[block.id]
                         CarouselDayBlock(
                             title: block.name,
-                            totalAmount: block.output,
-                            todayAmount: block.output,
+                            totalAmount: output?.total ?? 0,
+                            todayAmount: output?.today ?? 0,
                             symbol: IconPalette.toIcon(from: block.iconIndex),
                             color: ColorPalette.toColor(from: block.colorIndex),
                             variation: store.selectedBlock?.id == block.id ? .back : .front,

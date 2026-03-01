@@ -28,6 +28,12 @@ public struct BlockCarouselFeature {
         public let sessionId: UUID
     }
 
+    /// 블럭별 생산량 정보
+    public struct BlockOutput: Equatable {
+        public let total: Double
+        public let today: Double
+    }
+
     @ObservableState
     public struct State: Equatable {
         var isFirstAppear: Bool = true
@@ -41,6 +47,8 @@ public struct BlockCarouselFeature {
         var isPopupPresented: Bool = false
         var deletedBlockIndex: Int?
         var todayTrackingEntries: [TrackingTimeEntry] = []
+        var blockOutputs: [UUID: BlockOutput] = [:]
+        var todayTotalOutput: Double = 0
 
         @Presents var blockEditor: BlockEditorFeature.State?
         @Presents var trackingInProgress: TrackingInProgressFeature.State?
@@ -69,6 +77,8 @@ public struct BlockCarouselFeature {
             case setCurrentDate(Date)
             case setFocusedBlock(FocusedBlock?)
             case setTodayTrackingEntries([TrackingTimeEntry])
+            case setBlockOutputs([UUID: BlockOutput])
+            case setTodayTotalOutput(Double)
             case completeDeleteBlock
             case restoreTrackingSession(TrackingSessionState)
             case refreshData
@@ -236,6 +246,14 @@ public struct BlockCarouselFeature {
                     state.todayTrackingEntries = entries
                     return .none
 
+                case .setBlockOutputs(let outputs):
+                    state.blockOutputs = outputs
+                    return .none
+
+                case .setTodayTotalOutput(let output):
+                    state.todayTotalOutput = output
+                    return .none
+
                 case .setFocusedBlock(let focusedBlock):
                     state.shouldTriggerFocusHaptic = false
                     state.focusedBlock = focusedBlock
@@ -396,24 +414,51 @@ extension BlockCarouselFeature {
             let blockList = await blockRepository.fetchBlockList(groupId: groupId)
             await send(.inner(.setBlockList(.init(uniqueElements: blockList))))
 
-            // 오늘의 트래킹 데이터 가져오기
             let today = date.now
             var todayEntries: [TrackingTimeEntry] = []
+            var outputs: [UUID: BlockOutput] = [:]
 
             for block in blockList {
                 let sessions = await trackingRepository.fetchSessions(block.id)
+                var totalCount = 0
+                var todayCount = 0
+
                 for session in sessions {
+                    totalCount += session.timeList.count
                     let todayTimes = session.timeList.filter { time in
                         calendar.isDate(time.startDate, inSameDayAs: today)
                     }
+                    todayCount += todayTimes.count
                     let entries = todayTimes.map {
                         TrackingTimeEntry(time: $0, colorIndex: block.colorIndex, sessionId: session.id)
                     }
                     todayEntries.append(contentsOf: entries)
                 }
+
+                outputs[block.id] = BlockOutput(
+                    total: Double(totalCount) * 0.5,
+                    today: Double(todayCount) * 0.5
+                )
             }
 
             await send(.inner(.setTodayTrackingEntries(todayEntries)))
+            await send(.inner(.setBlockOutputs(outputs)))
+
+            // 모든 그룹/블럭의 오늘 총 생산량 계산
+            let allGroups = await groupRepository.fetchGroupList()
+            var totalTodayCount = 0
+            for group in allGroups {
+                let groupBlocks = await blockRepository.fetchBlockList(groupId: group.id)
+                for block in groupBlocks {
+                    let sessions = await trackingRepository.fetchSessions(block.id)
+                    for session in sessions {
+                        totalTodayCount += session.timeList.filter { time in
+                            calendar.isDate(time.startDate, inSameDayAs: today)
+                        }.count
+                    }
+                }
+            }
+            await send(.inner(.setTodayTotalOutput(Double(totalTodayCount) * 0.5)))
         }
     }
 
