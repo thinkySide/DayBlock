@@ -8,10 +8,12 @@
 import Foundation
 
 public enum Symbol: String {
+    case ellipsis
     case play_fill
     case pause_fill
     case party_popper_fill
     case plus_circle_fill
+    case trash
     case trash_fill
     case pencil
     case batteryblock_fill

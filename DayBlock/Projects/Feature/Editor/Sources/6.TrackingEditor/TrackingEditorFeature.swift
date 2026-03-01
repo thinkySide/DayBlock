@@ -28,6 +28,7 @@ public struct TrackingEditorFeature {
         var totalTime: TimeInterval
         var sessionId: UUID
         var memoText: String = ""
+        var isPopupPresented: Bool = false
 
         @Presents var memoEditor: MemoEditorFeature.State?
 
@@ -54,6 +55,7 @@ public struct TrackingEditorFeature {
         public enum ViewAction {
             case onTapFinishButton
             case onTapDismissButton
+            case onTapDeleteButton
             case onTapMemoEditor
         }
 
@@ -63,11 +65,18 @@ public struct TrackingEditorFeature {
 
         public enum DelegateAction {
             case didFinish
+            case didDelete
+        }
+
+        public enum PopupAction {
+            case cancel
+            case deleteSession
         }
 
         case view(ViewAction)
         case inner(InnerAction)
         case delegate(DelegateAction)
+        case popup(PopupAction)
         case binding(BindingAction<State>)
         case memoEditor(PresentationAction<MemoEditorFeature.Action>)
     }
@@ -91,12 +100,32 @@ public struct TrackingEditorFeature {
                     haptic.impact(.light)
                     return saveMemoAndFinish(state: state)
 
+                case .onTapDeleteButton:
+                    state.isPopupPresented = true
+                    haptic.notification(.warning)
+                    return .none
+
                 case .onTapMemoEditor:
                     state.memoEditor = .init(
                         memoText: state.memoText,
                         colorIndex: state.trackingBlock.colorIndex
                     )
                     return .none
+                }
+
+            case .popup(let popupAction):
+                switch popupAction {
+                case .cancel:
+                    state.isPopupPresented = false
+                    return .none
+
+                case .deleteSession:
+                    state.isPopupPresented = false
+                    let sessionId = state.sessionId
+                    return .run { send in
+                        await trackingRepository.deleteSession(sessionId)
+                        await send(.delegate(.didDelete))
+                    }
                 }
 
             case .memoEditor(.presented(.delegate(.didDismiss))):

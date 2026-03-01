@@ -172,6 +172,10 @@ public struct CalendarFeature {
                 state.trackingEditor = nil
                 return .send(.inner(.refreshData))
 
+            case .trackingEditor(.presented(.delegate(.didDelete))):
+                state.trackingEditor = nil
+                return .send(.inner(.refreshData))
+
             case .trackingEditor:
                 return .none
 

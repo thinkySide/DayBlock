@@ -41,7 +41,7 @@ public struct TrackingEditorView: View {
                 StableTextEditor(
                     isFocused: .constant(false),
                     text: .constant(memoText),
-                    textColor: memoText.isEmpty
+                    textColor: store.memoText.isEmpty
                     ? DesignSystem.Colors.gray600.swiftUIColor
                     : DesignSystem.Colors.gray800.swiftUIColor,
                     tintColor: ColorPalette.toColor(from: store.trackingBlock.colorIndex),
@@ -79,6 +79,20 @@ public struct TrackingEditorView: View {
                                 .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
                         }
                     }
+                    
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Menu {
+                            Button(role: .destructive) {
+                                store.send(.view(.onTapDeleteButton))
+                            } label: {
+                                Label("삭제하기", systemImage: Symbol.trash.symbolName)
+                            }
+                            .tint(.red)
+                        } label: {
+                            Image(systemName: Symbol.ellipsis.symbolName)
+                                .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+                        }
+                    }
                 }
             }
         }
@@ -90,6 +104,25 @@ public struct TrackingEditorView: View {
         ) { childStore in
             MemoEditorView(store: childStore)
         }
+        .popup(
+            isPresented: $store.isPopupPresented,
+            title: "기록을 삭제할까요?",
+            message: "해당 트래킹 기록이 영구적으로 삭제돼요",
+            leftAction: .init(
+                title: "아니오",
+                variation: .secondary,
+                action: {
+                    store.send(.popup(.cancel))
+                }
+            ),
+            rightAction: .init(
+                title: "삭제할래요",
+                variation: .destructive,
+                action: {
+                    store.send(.popup(.deleteSession))
+                }
+            )
+        )
     }
 }
 
