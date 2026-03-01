@@ -31,7 +31,7 @@ public struct CalendarView: View {
                         Spacer()
                         TodayButton()
                     }
-                    .padding(.horizontal, 14)
+                    .padding(.horizontal, 28)
 
                     DayOfWeekHeader()
                         .padding(.horizontal, 14)
