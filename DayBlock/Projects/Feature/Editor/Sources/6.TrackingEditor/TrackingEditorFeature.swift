@@ -8,6 +8,7 @@
 import Foundation
 import ComposableArchitecture
 import Domain
+import PersistentData
 import Util
 
 @Reducer
@@ -36,7 +37,8 @@ public struct TrackingEditorFeature {
             trackingBlock: Block,
             completedTrackingTimeList: [TrackingTime],
             totalTime: TimeInterval,
-            sessionId: UUID
+            sessionId: UUID,
+            memoText: String = ""
         ) {
             self.presentationMode = presentationMode
             self.trackingGroup = trackingGroup
@@ -44,6 +46,7 @@ public struct TrackingEditorFeature {
             self.completedTrackingTimeList = completedTrackingTimeList
             self.totalTime = totalTime
             self.sessionId = sessionId
+            self.memoText = memoText
         }
     }
 
@@ -70,6 +73,7 @@ public struct TrackingEditorFeature {
     }
 
     @Dependency(\.haptic) private var haptic
+    @Dependency(\.trackingRepository) private var trackingRepository
 
     public init() {}
 
@@ -81,11 +85,11 @@ public struct TrackingEditorFeature {
                 switch viewAction {
                 case .onTapFinishButton:
                     haptic.impact(.light)
-                    return .send(.delegate(.didFinish))
+                    return saveMemoAndFinish(state: state)
 
                 case .onTapDismissButton:
                     haptic.impact(.light)
-                    return .send(.delegate(.didFinish))
+                    return saveMemoAndFinish(state: state)
 
                 case .onTapMemoEditor:
                     state.memoEditor = .init(
@@ -111,5 +115,21 @@ public struct TrackingEditorFeature {
         .ifLet(\.$memoEditor, action: \.memoEditor) {
             MemoEditorFeature()
         }
+    }
+
+    // MARK: - Private
+
+    private func saveMemoAndFinish(state: State) -> Effect<Action> {
+        let sessionId = state.sessionId
+        let memoText = state.memoText
+        return .concatenate(
+            .run { _ in
+                let sessions = await trackingRepository.fetchSessions(state.trackingBlock.id)
+                guard var session = sessions.first(where: { $0.id == sessionId }) else { return }
+                session.memo = memoText
+                _ = try await trackingRepository.updateSession(sessionId, session)
+            },
+            .send(.delegate(.didFinish))
+        )
     }
 }

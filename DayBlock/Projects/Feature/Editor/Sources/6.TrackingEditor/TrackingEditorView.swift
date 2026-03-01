@@ -9,6 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 import DesignSystem
 import Domain
+import Util
 
 public struct TrackingEditorView: View {
 
@@ -119,13 +120,15 @@ extension TrackingEditorView {
     @ViewBuilder
     private func DateInfo() -> some View {
         VStack(spacing: 4) {
-            Text("23년 08월 25일 목요일")
-                .brandFont(.pretendard(.semiBold), 15)
-                .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
+            if let firstTime = store.completedTrackingTimeList.first {
+                Text(firstTime.startDate.formattedDateWithWeekday)
+                    .brandFont(.pretendard(.semiBold), 15)
+                    .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
 
-            Text("07:55-08:25")
-                .brandFont(.poppins(.bold), 28)
-                .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+                Text(timeRangeText)
+                    .brandFont(.poppins(.bold), 28)
+                    .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
+            }
         }
     }
 
@@ -142,7 +145,7 @@ extension TrackingEditorView {
                     .foregroundStyle(ColorPalette.toColor(from: store.trackingBlock.colorIndex))
                     .padding(.leading, 2)
 
-                Text("\(store.completedTrackingTimeList.count)")
+                Text(outputValue.toValueString())
                     .brandFont(.poppins(.bold), 24)
                     .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
                     .padding(.leading, -1)
@@ -166,6 +169,22 @@ extension TrackingEditorView {
 
 // MARK: - Helper
 extension TrackingEditorView {
+
+    /// 생산량을 반환합니다. (TrackingTime 1개 = 0.5 블럭)
+    private var outputValue: Double {
+        Double(store.completedTrackingTimeList.count) * 0.5
+    }
+
+    /// 트래킹 시간 범위 텍스트를 반환합니다.
+    private var timeRangeText: String {
+        guard let first = store.completedTrackingTimeList.first else { return "" }
+        let start = first.startDate.formattedTime24Hour
+        if let last = store.completedTrackingTimeList.last,
+           let endDate = last.endDate {
+            return "\(start)-\(endDate.formattedTime24Hour)"
+        }
+        return "\(start)-"
+    }
 
     /// 완료된 트래킹 데이터를 TrackingBoard에 표시할 형태로 반환합니다.
     private var completedBlocks: [Int: TrackingBoardBlock.Area] {

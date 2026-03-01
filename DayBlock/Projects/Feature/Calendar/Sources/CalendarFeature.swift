@@ -23,6 +23,7 @@ public struct TimelineEntry: Equatable, Identifiable {
     public let output: Double
     public let trackingTimeList: [TrackingTime]
     public let totalTime: TimeInterval
+    public let memo: String
 }
 
 // MARK: - CalendarFeature
@@ -162,13 +163,14 @@ public struct CalendarFeature {
                     trackingBlock: entry.block,
                     completedTrackingTimeList: entry.trackingTimeList,
                     totalTime: entry.totalTime,
-                    sessionId: entry.id
+                    sessionId: entry.id,
+                    memoText: entry.memo
                 )
                 return .none
 
             case .trackingEditor(.presented(.delegate(.didFinish))):
                 state.trackingEditor = nil
-                return .none
+                return .send(.inner(.refreshData))
 
             case .trackingEditor:
                 return .none
@@ -262,7 +264,8 @@ public struct CalendarFeature {
                             endDate: matchingTimes.last!.endDate,
                             output: Double(matchingTimes.count) * 0.5,
                             trackingTimeList: matchingTimes,
-                            totalTime: matchingTimes.reduce(0) { $0 + $1.duration }
+                            totalTime: matchingTimes.reduce(0) { $0 + $1.duration },
+                            memo: session.memo
                         )
                         entries.append(entry)
                     }
