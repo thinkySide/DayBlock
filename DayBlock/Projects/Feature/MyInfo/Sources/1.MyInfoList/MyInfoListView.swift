@@ -30,28 +30,36 @@ public struct MyInfoListView: View {
     
     @ViewBuilder
     private func ContentView() -> some View {
-        VStack(spacing: 0) {
-            Header()
-            
-            SectionDivider()
-                .padding(.top, 24)
-            
-            HelpSection()
-                .padding(.top, 20)
-            
-            SectionDivider()
-                .padding(.top, 20)
-            
-            DevelopmentSection()
-                .padding(.top, 20)
-            
-            Spacer()
-        }
-        .background(DesignSystem.Colors.gray0.swiftUIColor)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbarVisibility(.visible, for: .navigationBar)
-        .onAppear {
-            store.send(.view(.onAppear))
+        ScrollView {
+            VStack(spacing: 0) {
+                Header()
+                
+                SectionDivider()
+                    .padding(.top, 24)
+                
+                HelpSection()
+                    .padding(.top, 20)
+                
+                SectionDivider()
+                    .padding(.top, 20)
+                
+                CommunitySection()
+                    .padding(.top, 20)
+                
+                SectionDivider()
+                    .padding(.top, 20)
+                
+                DevelopmentSection()
+                    .padding(.top, 20)
+                
+                Spacer()
+            }
+            .background(DesignSystem.Colors.gray0.swiftUIColor)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarVisibility(.visible, for: .navigationBar)
+            .onAppear {
+                store.send(.view(.onAppear))
+            }
         }
     }
     
@@ -135,10 +143,15 @@ public struct MyInfoListView: View {
     }
     
     @ViewBuilder
-    private func DevelopmentSection() -> some View {
+    private func CommunitySection() -> some View {
         VStack(spacing: 0) {
             MyInfoListCell(
-                title: "문의 및 제보",
+                title: "앱스토어 리뷰 작성",
+                onTap: { store.send(.view(.onTapAppStoreReviewCell)) }
+            )
+            
+            MyInfoListCell(
+                title: "기능 요청 및 개선사항 제안",
                 onTap: { store.send(.view(.onTapInquiryCell)) }
             )
             
@@ -146,7 +159,12 @@ public struct MyInfoListView: View {
                 title: "데이블럭 오픈채팅",
                 onTap: { store.send(.view(.onTapOpenChatCell)) }
             )
-            
+        }
+    }
+    
+    @ViewBuilder
+    private func DevelopmentSection() -> some View {
+        VStack(spacing: 0) {
             MyInfoListCell(
                 title: "개발자 정보",
                 onTap: { store.send(.view(.onTapDeveloperInfoCell)) }

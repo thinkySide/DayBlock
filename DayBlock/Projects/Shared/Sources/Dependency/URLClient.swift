@@ -10,11 +10,15 @@ import Dependencies
 
 // MARK: - AppURL
 public enum AppURL {
+    static let appId = "6474824210"
+    
+    case appStoreReview
     case inquiry
     case openChat
 
     public var url: URL {
         switch self {
+        case .appStoreReview: URL(string: "https://apps.apple.com/app/id\(Self.appId)?action=write-review")!
         case .inquiry: URL(string: "https://open.kakao.com/o/sotwoMii")!
         case .openChat: URL(string: "https://open.kakao.com/o/gMiONMii")!
         }

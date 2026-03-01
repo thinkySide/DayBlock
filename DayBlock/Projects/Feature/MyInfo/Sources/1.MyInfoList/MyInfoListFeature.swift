@@ -36,6 +36,7 @@ public struct MyInfoListFeature {
             case onAppear
             case onTapInquiryCell
             case onTapResetDataCell
+            case onTapAppStoreReviewCell
             case onTapDeveloperInfoCell
             case onTapOpenChatCell
         }
@@ -79,6 +80,10 @@ public struct MyInfoListFeature {
 
                 case .onTapResetDataCell:
                     state.path.append(.resetData(.init()))
+                    return .none
+                    
+                case .onTapAppStoreReviewCell:
+                    urlClient.open(.appStoreReview)
                     return .none
                     
                 case .onTapDeveloperInfoCell:
