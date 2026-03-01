@@ -8,6 +8,7 @@
 import Foundation
 import ComposableArchitecture
 import Domain
+import Editor
 import PersistentData
 import UserDefaults
 import Util
@@ -41,7 +42,7 @@ public struct TrackingInProgressFeature {
         var storedTrackingEntries: [TrackingTimeEntry] = []
         var currentSessionId: UUID = UUID()
 
-        var trackingResult: TrackingResultFeature.State?
+        var trackingEditor: TrackingEditorFeature.State?
 
         /// 트래킹 시작하는 생성자
         public init(
@@ -123,7 +124,7 @@ public struct TrackingInProgressFeature {
         case delegate(DelegateAction)
         case popup(PopupAction)
         case binding(BindingAction<State>)
-        case trackingResult(TrackingResultFeature.Action)
+        case trackingEditor(TrackingEditorFeature.Action)
     }
 
     @CasePathable
@@ -203,7 +204,7 @@ public struct TrackingInProgressFeature {
                         createdAt: date.now,
                         timeList: timeList
                     )
-                    state.trackingResult = .init(
+                    state.trackingEditor = .init(
                         trackingGroup: state.trackingGroup,
                         trackingBlock: state.trackingBlock,
                         completedTrackingTimeList: state.completedTrackingTimeList,
@@ -287,15 +288,15 @@ public struct TrackingInProgressFeature {
                     )
                 }
                 
-            case .trackingResult(.delegate(.didFinish)):
+            case .trackingEditor(.delegate(.didFinish)):
                 return .send(.delegate(.didFinish))
                 
             default:
                 return .none
             }
         }
-        .ifLet(\.trackingResult, action: \.trackingResult) {
-            TrackingResultFeature()
+        .ifLet(\.trackingEditor, action: \.trackingEditor) {
+            TrackingEditorFeature()
         }
     }
 }

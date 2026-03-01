@@ -9,6 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 import DesignSystem
 import Domain
+import Editor
 import Util
 
 public struct CalendarView: View {
@@ -50,6 +51,14 @@ public struct CalendarView: View {
             .background(DesignSystem.Colors.gray0.swiftUIColor)
             .navigationBarTitleDisplayMode(.inline)
             .toolbarVisibility(.visible, for: .navigationBar)
+            .sheet(
+                item: $store.scope(
+                    state: \.trackingEditor,
+                    action: \.trackingEditor
+                )
+            ) { childStore in
+                TrackingEditorView(store: childStore)
+            }
         }
     }
 
@@ -170,7 +179,12 @@ public struct CalendarView: View {
         } else {
             VStack(spacing: 2) {
                 ForEach(store.timelineEntries) { entry in
-                    TimelineCell(entry: entry)
+                    Button {
+                        store.send(.view(.onTapTimelineEntry(entry)))
+                    } label: {
+                        TimelineCell(entry: entry)
+                    }
+                    .buttonStyle(.plain)
                 }
             }
             .padding(.bottom, 16)
@@ -180,17 +194,17 @@ public struct CalendarView: View {
 
     @ViewBuilder
     private func TimelineCell(entry: TimelineEntry) -> some View {
-        let blockColor = ColorPalette.toColor(from: entry.colorIndex)
+        let blockColor = ColorPalette.toColor(from: entry.block.colorIndex)
 
         HStack {
             IconBlock(
-                symbol: IconPalette.toIcon(from: entry.iconIndex),
+                symbol: IconPalette.toIcon(from: entry.block.iconIndex),
                 color: blockColor,
                 size: 32
             )
 
             VStack(alignment: .leading, spacing: 0) {
-                Text(entry.blockName)
+                Text(entry.block.name)
                     .brandFont(.pretendard(.bold), 16)
                     .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
 
@@ -215,6 +229,7 @@ public struct CalendarView: View {
             ]))
         }
         .frame(height: 48)
+        .background(DesignSystem.Colors.gray0.swiftUIColor)
     }
 
     private func timeRangeText(entry: TimelineEntry) -> String {

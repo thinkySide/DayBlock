@@ -1,6 +1,6 @@
 //
-//  TrackingResultView.swift
-//  Tracking
+//  TrackingEditorView.swift
+//  Editor
 //
 //  Created by 김민준 on 1/24/26.
 //
@@ -9,16 +9,15 @@ import SwiftUI
 import ComposableArchitecture
 import DesignSystem
 import Domain
-import Editor
 
-public struct TrackingResultView: View {
-    
-    @Bindable private var store: StoreOf<TrackingResultFeature>
+public struct TrackingEditorView: View {
 
-    public init(store: StoreOf<TrackingResultFeature>) {
+    @Bindable private var store: StoreOf<TrackingEditorFeature>
+
+    public init(store: StoreOf<TrackingEditorFeature>) {
         self.store = store
     }
-    
+
     public var body: some View {
         VStack(spacing: 0) {
             NavigationBar(
@@ -82,8 +81,8 @@ public struct TrackingResultView: View {
 }
 
 // MARK: - SubViews
-extension TrackingResultView {
-    
+extension TrackingEditorView {
+
     @ViewBuilder
     private func Header() -> some View {
         VStack(spacing: 0) {
@@ -92,32 +91,32 @@ extension TrackingResultView {
                 color: ColorPalette.toColor(from: store.trackingBlock.colorIndex),
                 size: 44
             )
-            
+
             Text(store.trackingGroup.name)
                 .brandFont(.pretendard(.semiBold), 15)
                 .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
                 .padding(.top, 16)
-            
+
             Text(store.trackingBlock.name)
                 .brandFont(.pretendard(.bold), 20)
                 .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
                 .padding(.top, 4)
         }
     }
-    
+
     @ViewBuilder
     private func DateInfo() -> some View {
         VStack(spacing: 4) {
             Text("23년 08월 25일 목요일")
                 .brandFont(.pretendard(.semiBold), 15)
                 .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
-            
+
             Text("07:55-08:25")
                 .brandFont(.poppins(.bold), 28)
                 .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
         }
     }
-    
+
     @ViewBuilder
     private func BoardSection() -> some View {
         VStack(spacing: 6) {
@@ -154,7 +153,7 @@ extension TrackingResultView {
 }
 
 // MARK: - Helper
-extension TrackingResultView {
+extension TrackingEditorView {
 
     /// 완료된 트래킹 데이터를 TrackingBoard에 표시할 형태로 반환합니다.
     private var completedBlocks: [Int: TrackingBoardBlock.Area] {
@@ -169,9 +168,9 @@ extension TrackingResultView {
 }
 
 #Preview {
-    TrackingResultView(
+    TrackingEditorView(
         store: .init(
-            initialState: TrackingResultFeature.State(
+            initialState: TrackingEditorFeature.State(
                 trackingGroup: .init(id: .init(), name: "기본그룹", order: 0),
                 trackingBlock: .init(id: .init(), name: "기본블럭", iconIndex: 4, colorIndex: 6, output: 1.5, order: 0),
                 completedTrackingTimeList: [],
@@ -179,7 +178,7 @@ extension TrackingResultView {
                 sessionId: UUID()
             ),
             reducer: {
-                TrackingResultFeature()
+                TrackingEditorFeature()
             }
         )
     )

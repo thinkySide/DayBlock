@@ -9,6 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 import DesignSystem
 import Domain
+import Editor
 
 public struct TrackingInProgressView: View {
 
@@ -100,10 +101,10 @@ public struct TrackingInProgressView: View {
                 )
             }
             if let childStore = store.scope(
-                state: \.trackingResult,
-                action: \.trackingResult
+                state: \.trackingEditor,
+                action: \.trackingEditor
             ) {
-                TrackingResultView(store: childStore)
+                TrackingEditorView(store: childStore)
                     .transition(.opacity.animation(.easeInOut(duration: 0.5)))
             }
         }

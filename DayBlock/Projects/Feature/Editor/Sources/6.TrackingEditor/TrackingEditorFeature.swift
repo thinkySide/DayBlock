@@ -1,6 +1,6 @@
 //
-//  TrackingResultFeature.swift
-//  Tracking
+//  TrackingEditorFeature.swift
+//  Editor
 //
 //  Created by 김민준 on 1/24/26.
 //
@@ -8,11 +8,10 @@
 import Foundation
 import ComposableArchitecture
 import Domain
-import Editor
 import Util
 
 @Reducer
-public struct TrackingResultFeature {
+public struct TrackingEditorFeature {
 
     @ObservableState
     public struct State: Equatable {
@@ -60,7 +59,7 @@ public struct TrackingResultFeature {
         case binding(BindingAction<State>)
         case memoEditor(PresentationAction<MemoEditorFeature.Action>)
     }
-    
+
     @Dependency(\.haptic) private var haptic
 
     public init() {}
@@ -74,7 +73,7 @@ public struct TrackingResultFeature {
                 case .onTapFinishButton:
                     haptic.impact(.light)
                     return .send(.delegate(.didFinish))
-                    
+
                 case .onTapMemoEditor:
                     state.memoEditor = .init(
                         memoText: state.memoText,
@@ -82,16 +81,16 @@ public struct TrackingResultFeature {
                     )
                     return .none
                 }
-                
+
             case .memoEditor(.presented(.delegate(.didDismiss))):
                 state.memoEditor = nil
                 return .none
-                
+
             case .memoEditor(.presented(.delegate(.didConfirm(let memoText)))):
                 state.memoText = memoText
                 state.memoEditor = nil
                 return .none
-                
+
             default:
                 return .none
             }

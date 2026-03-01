@@ -11,7 +11,8 @@
       "WebSearch",
       "Bash(grep:*)",
       "Bash(xargs kill)",
-      "Bash(tuist install:*)"
+      "Bash(tuist install:*)",
+      "Bash(ls:*)"
     ],
     "deny": [],
     "ask": []

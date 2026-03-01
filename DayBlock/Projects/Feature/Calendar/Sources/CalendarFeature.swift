@@ -7,6 +7,7 @@
 
 import ComposableArchitecture
 import Domain
+import Editor
 import Foundation
 import PersistentData
 import Util
@@ -15,12 +16,13 @@ import Util
 
 public struct TimelineEntry: Equatable, Identifiable {
     public let id: UUID
-    public let blockName: String
-    public let iconIndex: Int
-    public let colorIndex: Int
+    public let block: Block
+    public let group: BlockGroup
     public let startDate: Date
     public let endDate: Date?
     public let output: Double
+    public let trackingTimeList: [TrackingTime]
+    public let totalTime: TimeInterval
 }
 
 // MARK: - CalendarFeature
@@ -35,6 +37,7 @@ public struct CalendarFeature {
         var selectedDate: DateComponents?
         var timelineEntries: [TimelineEntry] = []
         var dailyBlockColors: [String: [Int]] = [:]
+        @Presents var trackingEditor: TrackingEditorFeature.State?
 
         var totalOutput: Double {
             timelineEntries.reduce(0) { $0 + $1.output }
@@ -60,6 +63,7 @@ public struct CalendarFeature {
             case onTapToday
             case onDaySelected(CalendarDay)
             case onPageChanged(Int?)
+            case onTapTimelineEntry(TimelineEntry)
         }
 
         public enum InnerAction {
@@ -74,6 +78,7 @@ public struct CalendarFeature {
         case inner(InnerAction)
         case delegate(DelegateAction)
         case binding(BindingAction<State>)
+        case trackingEditor(PresentationAction<TrackingEditorFeature.Action>)
     }
 
     @Dependency(\.date) private var date
@@ -150,12 +155,32 @@ public struct CalendarFeature {
                 state.dailyBlockColors = colors
                 return .none
 
+            case let .view(.onTapTimelineEntry(entry)):
+                state.trackingEditor = TrackingEditorFeature.State(
+                    trackingGroup: entry.group,
+                    trackingBlock: entry.block,
+                    completedTrackingTimeList: entry.trackingTimeList,
+                    totalTime: entry.totalTime,
+                    sessionId: entry.id
+                )
+                return .none
+
+            case .trackingEditor(.presented(.delegate(.didFinish))):
+                state.trackingEditor = nil
+                return .none
+
+            case .trackingEditor:
+                return .none
+
             case .delegate:
                 return .none
 
             case .binding:
                 return .none
             }
+        }
+        .ifLet(\.$trackingEditor, action: \.trackingEditor) {
+            TrackingEditorFeature()
         }
     }
 
@@ -230,12 +255,13 @@ public struct CalendarFeature {
 
                         let entry = TimelineEntry(
                             id: session.id,
-                            blockName: block.name,
-                            iconIndex: block.iconIndex,
-                            colorIndex: block.colorIndex,
+                            block: block,
+                            group: group,
                             startDate: matchingTimes.first!.startDate,
                             endDate: matchingTimes.last!.endDate,
-                            output: Double(matchingTimes.count) * 0.5
+                            output: Double(matchingTimes.count) * 0.5,
+                            trackingTimeList: matchingTimes,
+                            totalTime: matchingTimes.reduce(0) { $0 + $1.duration }
                         )
                         entries.append(entry)
                     }
