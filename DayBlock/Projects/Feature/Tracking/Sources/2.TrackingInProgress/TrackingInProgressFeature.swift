@@ -107,6 +107,7 @@ public struct TrackingInProgressFeature {
             case updateCurrentDate
             case updateElapsedTime
             case setStoredTrackingEntries([TrackingTimeEntry])
+            case hideCompletionOverlay
         }
 
         public enum DelegateAction {
@@ -218,6 +219,10 @@ public struct TrackingInProgressFeature {
                         .cancel(id: CancelID.trackingTimer),
                         .run { _ in
                             _ = try await trackingRepository.createSession(blockId, session)
+                        },
+                        .run { send in
+                            try? await clock.sleep(for: .milliseconds(600))
+                            await send(.inner(.hideCompletionOverlay))
                         }
                     )
                 }
@@ -262,6 +267,10 @@ public struct TrackingInProgressFeature {
 
                 case .setStoredTrackingEntries(let entries):
                     state.storedTrackingEntries = entries
+                    return .none
+
+                case .hideCompletionOverlay:
+                    state.isCompletionAnimating = false
                     return .none
                 }
 
