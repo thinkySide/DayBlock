@@ -66,21 +66,21 @@ public struct MyInfoListView: View {
             HStack(spacing: 24) {
                 HeaderInfoCell(
                     title: "total",
-                    value: 72.5,
+                    value: store.totalOutput,
                     symbolName: Symbol.batteryblock_fill.symbolName,
                     color: DesignSystem.ColorPalette.blueBlock4.swiftUIColor
                 )
-                
+
                 HeaderInfoCell(
                     title: "today",
-                    value: 2.5,
+                    value: store.todayOutput,
                     symbolName: Symbol.gauge_with_needle_fill.symbolName,
                     color: DesignSystem.ColorPalette.greenBlock4.swiftUIColor
                 )
-                
+
                 HeaderInfoCell(
                     title: "streaks",
-                    value: 13,
+                    value: Double(store.streaks),
                     symbolName: Symbol.flame_fill.symbolName,
                     color: DesignSystem.ColorPalette.redBlock5.swiftUIColor
                 )
