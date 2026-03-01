@@ -475,7 +475,8 @@ extension BlockCarouselFeature {
                     await send(.inner(.setFocusedBlock(nil)))
                 }
             default:
-                if let selectedBlockId = userDefaultsService.get(\.selectedBlockId) {
+                if let selectedBlockId = userDefaultsService.get(\.selectedBlockId),
+                   state.blockList.contains(where: { $0.id == selectedBlockId }) {
                     await send(.inner(.setFocusedBlock(.block(id: selectedBlockId))))
                 } else {
                     if let firstId = state.blockList.first?.id {
