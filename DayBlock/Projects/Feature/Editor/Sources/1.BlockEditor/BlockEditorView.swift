@@ -38,6 +38,7 @@ public struct BlockEditorView: View {
                         isTextFieldFocused: $isNameTextFieldFocused,
                         label: "작업명",
                         placeholder: store.initialBlock.name,
+                        tintColor: ColorPalette.toColor(from: store.editingBlock.colorIndex),
                         accessory: {
                             Text("\(store.nameText.count)/\(store.nameTextLimit)")
                                 .brandFont(.pretendard(.semiBold), 14)
