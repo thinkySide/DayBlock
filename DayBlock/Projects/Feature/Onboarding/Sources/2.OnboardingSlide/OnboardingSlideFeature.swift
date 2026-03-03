@@ -14,34 +14,29 @@ public struct OnboardingSlideFeature {
 
     @ObservableState
     public struct State: Equatable {
+        var currentPage: Int = 0
         public init() {}
     }
 
-    public enum Action: TCAFeatureAction {
-        public enum ViewAction {
-            
-        }
+    public enum Action: TCAFeatureAction, BindableAction {
+        public enum ViewAction {}
 
-        public enum InnerAction {
+        public enum InnerAction {}
 
-        }
-
-        public enum DelegateAction {
-            
-        }
+        public enum DelegateAction {}
 
         case view(ViewAction)
         case inner(InnerAction)
         case delegate(DelegateAction)
+        case binding(BindingAction<State>)
     }
 
     public init() {}
 
     public var body: some ReducerOf<Self> {
+        BindingReducer()
         Reduce { state, action in
             switch action {
-            
-                
             default:
                 return .none
             }

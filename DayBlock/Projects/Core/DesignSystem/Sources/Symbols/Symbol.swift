@@ -24,6 +24,7 @@ public enum Symbol: String {
     case gauge_with_needle_fill
     case flame_fill
     case xmark
+    case chevron_forward
 }
 
 // MARK: - Helper
