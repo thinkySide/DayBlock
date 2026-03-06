@@ -19,78 +19,20 @@ public struct OnboardingSlideView: View {
 
     public var body: some View {
         VStack(spacing: 0) {
-            PageIndicator(currentPage: store.currentPage, totalPages: 4)
+            PageIndicator(
+                currentPage: store.currentPage,
+                totalPages: store.onboardingItems.count
+            )
 
             TabView(selection: $store.currentPage) {
-                OnboardingPage(
-                    text: .buildAttributed(
-                        [
-                            .init(
-                                text: "데이블럭의 하루에는\n",
-                                color: DesignSystem.Colors.gray900.swiftUIColor,
-                                font: DesignSystemFontFamily.Pretendard.medium.swiftUIFont(size: 20)
-                            ),
-                            .init(
-                                text: "24개의 빈 블럭이 있어요",
-                                color: DesignSystem.Colors.gray900.swiftUIColor,
-                                font: DesignSystemFontFamily.Pretendard.bold.swiftUIFont(size: 20)
-                            )
-                        ]
-                    ),
-                    image: DesignSystem.Images.onboarding1.swiftUIImage,
-                    subtitle: "“00:00분부터 23:59분까지가 하루에요”"
-                )
-                .tag(0)
-
-                OnboardingPage(
-                    text: .buildAttributed(
-                        [
-                            .init(
-                                text: "블럭은",
-                                color: DesignSystem.Colors.gray900.swiftUIColor,
-                                font: DesignSystemFontFamily.Pretendard.medium.swiftUIFont(size: 20)
-                            ),
-                            .init(
-                                text: "30분에 반 개\n60분에 한 개",
-                                color: DesignSystem.Colors.gray900.swiftUIColor,
-                                font: DesignSystemFontFamily.Pretendard.bold.swiftUIFont(size: 20)
-                            ),
-                            .init(
-                                text: "씩 생산할 수 있어요",
-                                color: DesignSystem.Colors.gray900.swiftUIColor,
-                                font: DesignSystemFontFamily.Pretendard.medium.swiftUIFont(size: 20)
-                            )
-                        ]
-                    ),
-                    image: DesignSystem.Images.onboarding2.swiftUIImage,
-                    subtitle: "“최소 30분 이상 생산해야 블럭이 생겨요“"
-                )
-                .tag(1)
-                
-                OnboardingPage(
-                    text: .buildAttributed(
-                        [
-                            .init(
-                                text: "직접 만든 블럭으로",
-                                color: DesignSystem.Colors.gray900.swiftUIColor,
-                                font: DesignSystemFontFamily.Pretendard.medium.swiftUIFont(size: 20)
-                            ),
-                            .init(
-                                text: "생산성을\n얼마나 발휘 했는지 트래킹",
-                                color: DesignSystem.Colors.gray900.swiftUIColor,
-                                font: DesignSystemFontFamily.Pretendard.bold.swiftUIFont(size: 20)
-                            ),
-                            .init(
-                                text: "해요",
-                                color: DesignSystem.Colors.gray900.swiftUIColor,
-                                font: DesignSystemFontFamily.Pretendard.medium.swiftUIFont(size: 20)
-                            )
-                        ]
-                    ),
-                    image: DesignSystem.Images.onboarding3.swiftUIImage,
-                    subtitle: "“공부, 운동, 독서 어떤 작업이든 트래킹해요”"
-                )
-                .tag(2)
+                ForEach(store.onboardingItems) { item in
+                    OnboardingPage(
+                        text: item.text,
+                        image: item.image,
+                        subtitle: item.subtitle
+                    )
+                    .tag(item.id)
+                }
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             .padding(.top, 24)
