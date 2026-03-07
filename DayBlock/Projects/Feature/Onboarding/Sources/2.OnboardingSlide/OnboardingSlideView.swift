@@ -18,29 +18,46 @@ public struct OnboardingSlideView: View {
         self.store = store
     }
 
+    private var isOnboarding: Bool {
+        store.mode == .onboarding
+    }
+
+    private var totalPages: Int {
+        isOnboarding ? onboardingItems.count + 1 : onboardingItems.count
+    }
+
     public var body: some View {
-        TabView(selection: $store.currentPage) {
-            ForEach(onboardingItems) { item in
-                OnboardingPage(
-                    text: item.text,
-                    image: item.image,
-                    subtitle: item.subtitle
+        GeometryReader { geometry in
+            VStack(spacing: 24) {
+                Spacer()
+                
+                PageIndicator(
+                    currentPage: store.currentPage,
+                    totalPages: totalPages
                 )
-                .tag(item.id)
+
+                TabView(selection: $store.currentPage) {
+                    ForEach(onboardingItems) { item in
+                        OnboardingPage(
+                            text: item.text,
+                            image: item.image,
+                            subtitle: item.subtitle
+                        )
+                        .tag(item.id)
+                    }
+
+                    if isOnboarding {
+                        TutorialPage()
+                            .tag(onboardingItems.count)
+                    }
+                }
+                .tabViewStyle(.page(indexDisplayMode: .never))
+                .frame(height: geometry.size.height * 0.75)
             }
-            
-            TutorialPage()
-                .tag(onboardingItems.count)
+            .frame(alignment: .center)
         }
-        .tabViewStyle(.page(indexDisplayMode: .never))
-        .padding(.top, 24)
-        .navigationBarBackButtonHidden()
-        .overlay(alignment: .top) {
-            PageIndicator(
-                currentPage: store.currentPage,
-                totalPages: onboardingItems.count + 1
-            )
-        }
+        .navigationTitle(isOnboarding ? "" : "사용 방법 가이드")
+        .navigationBarBackButtonHidden(isOnboarding)
         .overlay {
             if store.isCompletionAnimating {
                 TrackingCompletionOverlay(
@@ -77,6 +94,7 @@ public struct OnboardingSlideView: View {
                 .brandFont(.pretendard(.medium), 15)
                 .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
         }
+        .frame(maxHeight: .infinity, alignment: .top)
     }
     
     @ViewBuilder
@@ -95,7 +113,6 @@ public struct OnboardingSlideView: View {
                 )
             ]))
             .multilineTextAlignment(.center)
-            .padding(.top, 32)
 
             TrackingDayBlock(
                 title: store.tutorialBlockName,
@@ -129,6 +146,7 @@ public struct OnboardingSlideView: View {
                 .foregroundStyle(DesignSystem.Colors.gray600.swiftUIColor)
                 .padding(.top, 12)
         }
+        .frame(maxHeight: .infinity, alignment: .top)
     }
 }
 
@@ -140,24 +158,18 @@ private struct PageIndicator: View {
     let totalPages: Int
 
     var body: some View {
-        VStack(spacing: 0) {
-            Rectangle()
-                .foregroundStyle(.clear)
-                .frame(height: 200)
-
-            HStack(spacing: 8) {
-                ForEach(0..<totalPages, id: \.self) { index in
-                    Circle()
-                        .fill(
-                            index == currentPage
-                            ? DesignSystem.Colors.gray900.swiftUIColor
-                            : DesignSystem.Colors.gray300.swiftUIColor
-                        )
-                        .frame(width: 8, height: 8)
-                }
+        HStack(spacing: 8) {
+            ForEach(0..<totalPages, id: \.self) { index in
+                Circle()
+                    .fill(
+                        index == currentPage
+                        ? DesignSystem.Colors.gray900.swiftUIColor
+                        : DesignSystem.Colors.gray300.swiftUIColor
+                    )
+                    .frame(width: 8, height: 8)
             }
-            .animation(.easeInOut(duration: 0.2), value: currentPage)
         }
+        .animation(.easeInOut(duration: 0.2), value: currentPage)
     }
 }
 

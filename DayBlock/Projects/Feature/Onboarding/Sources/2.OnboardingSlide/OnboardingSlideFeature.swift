@@ -17,8 +17,14 @@ import Util
 @Reducer
 public struct OnboardingSlideFeature {
 
+    public enum Mode: Equatable {
+        case onboarding
+        case usageGuide
+    }
+
     @ObservableState
     public struct State: Equatable {
+        let mode: Mode
         var currentPage: Int = 0
         var isCompletionAnimating: Bool = false
         var trackingEditor: TrackingEditorFeature.State?
@@ -28,7 +34,9 @@ public struct OnboardingSlideFeature {
         let tutorialBlockColor: Int = 4
         let tutorialBlockAmount: Double = 0.5
 
-        public init() {}
+        public init(mode: Mode = .onboarding) {
+            self.mode = mode
+        }
     }
 
     public enum Action: TCAFeatureAction, BindableAction {

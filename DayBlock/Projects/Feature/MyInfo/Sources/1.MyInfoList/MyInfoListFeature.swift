@@ -8,6 +8,7 @@
 import Foundation
 import ComposableArchitecture
 import Domain
+import Onboarding
 import PersistentData
 import Util
 
@@ -18,6 +19,7 @@ public struct MyInfoListFeature {
     public enum Path {
         case resetData(ResetDataFeature)
         case developerInfo(DeveloperInfoFeature)
+        case onboardingSlide(OnboardingSlideFeature)
     }
 
     @ObservableState
@@ -34,6 +36,7 @@ public struct MyInfoListFeature {
     public enum Action: TCAFeatureAction {
         public enum ViewAction {
             case onAppear
+            case onTapUsageGuideCell
             case onTapInquiryCell
             case onTapResetDataCell
             case onTapAppStoreReviewCell
@@ -76,6 +79,10 @@ public struct MyInfoListFeature {
 
                 case .onTapInquiryCell:
                     urlClient.open(.inquiry)
+                    return .none
+
+                case .onTapUsageGuideCell:
+                    state.path.append(.onboardingSlide(.init(mode: .usageGuide)))
                     return .none
 
                 case .onTapResetDataCell:

@@ -8,6 +8,7 @@
 import SwiftUI
 import ComposableArchitecture
 import DesignSystem
+import Onboarding
 
 public struct MyInfoListView: View {
     
@@ -24,6 +25,7 @@ public struct MyInfoListView: View {
             switch store.case {
             case let .resetData(store): ResetDataView(store: store)
             case let .developerInfo(store): DeveloperInfoView(store: store)
+            case let .onboardingSlide(store): OnboardingSlideView(store: store)
             }
         }
     }
@@ -132,7 +134,7 @@ public struct MyInfoListView: View {
         VStack(spacing: 0) {
             MyInfoListCell(
                 title: "사용 방법 가이드",
-                onTap: { }
+                onTap: { store.send(.view(.onTapUsageGuideCell)) }
             )
             
             MyInfoListCell(
