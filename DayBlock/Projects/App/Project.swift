@@ -30,7 +30,8 @@ let project = Project(
                 .project(target: "Tracking", path: "../Feature/Tracking"),
                 .project(target: "Management", path: "../Feature/Management"),
                 .project(target: "Calendar", path: "../Feature/Calendar"),
-                .project(target: "MyInfo", path: "../Feature/MyInfo")
+                .project(target: "MyInfo", path: "../Feature/MyInfo"),
+                .project(target: "Onboarding", path: "../Feature/Onboarding")
             ],
             settings: .shared
         )

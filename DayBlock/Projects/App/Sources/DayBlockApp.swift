@@ -13,7 +13,7 @@ import ComposableArchitecture
 struct DayBlockApp: App {
 
     @State private var store = Store(initialState: .init()) {
-        MainAppFeature()
+        RootFeature()
     }
 
     init() {
@@ -22,7 +22,7 @@ struct DayBlockApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MainView(store: store)
+            RootView(store: store)
         }
     }
 }

@@ -26,7 +26,9 @@ public struct OnboardingStartFeature {
 
         public enum InnerAction {}
 
-        public enum DelegateAction {}
+        public enum DelegateAction {
+            case didCompleteOnboarding
+        }
 
         case view(ViewAction)
         case inner(InnerAction)
@@ -45,6 +47,10 @@ public struct OnboardingStartFeature {
                 haptic.impact(.soft)
                 state.slide = OnboardingSlideFeature.State()
                 return .none
+
+            case .slide(.presented(.delegate(.didCompleteOnboarding))):
+                state.slide = nil
+                return .send(.delegate(.didCompleteOnboarding))
 
             default:
                 return .none

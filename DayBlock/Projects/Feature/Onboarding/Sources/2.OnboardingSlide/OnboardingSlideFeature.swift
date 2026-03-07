@@ -11,6 +11,7 @@ import DesignSystem
 import Domain
 import Editor
 import PersistentData
+import UserDefaults
 import Util
 
 @Reducer
@@ -41,7 +42,9 @@ public struct OnboardingSlideFeature {
             case setTrackingEditor(TrackingEditorFeature.State)
         }
 
-        public enum DelegateAction {}
+        public enum DelegateAction {
+            case didCompleteOnboarding
+        }
 
         case view(ViewAction)
         case inner(InnerAction)
@@ -57,6 +60,7 @@ public struct OnboardingSlideFeature {
     @Dependency(\.groupRepository) private var groupRepository
     @Dependency(\.blockRepository) private var blockRepository
     @Dependency(\.trackingRepository) private var trackingRepository
+    @Dependency(\.userDefaultsService) private var userDefaultsService
 
     public init() {}
 
@@ -86,7 +90,8 @@ public struct OnboardingSlideFeature {
 
             case .trackingEditor(.delegate(.didFinish)):
                 state.trackingEditor = nil
-                return .none
+                userDefaultsService.set(\.isOnboardingCompleted, true)
+                return .send(.delegate(.didCompleteOnboarding))
 
             default:
                 return .none

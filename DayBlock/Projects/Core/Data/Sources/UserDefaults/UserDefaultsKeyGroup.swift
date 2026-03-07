@@ -27,6 +27,11 @@ public struct UserDefaultsKeyGroup {
         .init("selectedBlockId", defaultValue: nil)
     }
 
+    /// 온보딩 완료 여부
+    public var isOnboardingCompleted: KeyValue<Bool> {
+        .init("isOnboardingCompleted", defaultValue: false)
+    }
+
     /// 트래킹 세션 상태
     public var trackingSession: KeyValue<TrackingSessionState?> {
         .init("trackingSession", defaultValue: nil)
