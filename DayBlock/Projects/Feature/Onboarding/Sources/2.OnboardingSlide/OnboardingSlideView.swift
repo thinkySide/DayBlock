@@ -8,6 +8,7 @@
 import SwiftUI
 import ComposableArchitecture
 import DesignSystem
+import Editor
 
 public struct OnboardingSlideView: View {
 
@@ -39,6 +40,23 @@ public struct OnboardingSlideView: View {
                 currentPage: store.currentPage,
                 totalPages: onboardingItems.count + 1
             )
+        }
+        .overlay {
+            if store.isCompletionAnimating {
+                TrackingCompletionOverlay(
+                    color: DesignSystem.Colors.gray900.swiftUIColor,
+                    onAnimationComplete: {
+                        store.send(.view(.onCompletionAnimationComplete))
+                    }
+                )
+            }
+            if let childStore = store.scope(
+                state: \.trackingEditor,
+                action: \.trackingEditor
+            ) {
+                TrackingEditorView(store: childStore)
+                    .transition(.opacity.animation(.easeInOut(duration: 0.5)))
+            }
         }
     }
     
@@ -87,7 +105,7 @@ public struct OnboardingSlideView: View {
                 size: 180,
                 isPaused: true,
                 onLongPressComplete: {
-                    
+                    store.send(.view(.onLongPressCompleteTutorialBlock))
                 }
             )
             .padding(.top, 40)
