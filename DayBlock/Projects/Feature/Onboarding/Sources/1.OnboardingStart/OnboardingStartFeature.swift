@@ -49,7 +49,6 @@ public struct OnboardingStartFeature {
                 return .none
 
             case .slide(.presented(.delegate(.didCompleteOnboarding))):
-                state.slide = nil
                 return .send(.delegate(.didCompleteOnboarding))
 
             default:

@@ -14,12 +14,17 @@ struct RootView: View {
     let store: StoreOf<RootFeature>
 
     var body: some View {
-        if store.isOnboardingCompleted {
-            MainView(store: store.scope(state: \.main, action: \.main))
-        } else {
-            OnboardingStartView(
-                store: store.scope(state: \.onboarding, action: \.onboarding)
-            )
+        Group {
+            if store.isOnboardingCompleted {
+                MainView(store: store.scope(state: \.main, action: \.main))
+                    .transition(.opacity)
+            } else {
+                OnboardingStartView(
+                    store: store.scope(state: \.onboarding, action: \.onboarding)
+                )
+                .transition(.opacity)
+            }
         }
+        .animation(.easeInOut(duration: 0.5), value: store.isOnboardingCompleted)
     }
 }

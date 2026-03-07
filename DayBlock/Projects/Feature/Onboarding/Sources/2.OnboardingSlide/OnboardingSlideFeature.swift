@@ -89,7 +89,6 @@ public struct OnboardingSlideFeature {
                 return .none
 
             case .trackingEditor(.delegate(.didFinish)):
-                state.trackingEditor = nil
                 userDefaultsService.set(\.isOnboardingCompleted, true)
                 return .send(.delegate(.didCompleteOnboarding))
 
