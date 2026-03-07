@@ -98,10 +98,10 @@ public struct OnboardingSlideView: View {
             .padding(.top, 32)
 
             TrackingDayBlock(
-                title: "튜토리얼 블럭",
-                todayAmount: 0.5,
-                symbol: Symbol.party_popper_fill.symbolName,
-                color: DesignSystem.Colors.gray900.swiftUIColor,
+                title: store.tutorialBlockName,
+                todayAmount: store.tutorialBlockAmount,
+                symbol: store.tutorialBlockSymbol,
+                color: ColorPalette.toColor(from: store.tutorialBlockColor),
                 size: 180,
                 isPaused: true,
                 onLongPressComplete: {

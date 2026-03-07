@@ -7,8 +7,10 @@
 
 import Foundation
 import ComposableArchitecture
+import DesignSystem
 import Domain
 import Editor
+import PersistentData
 import Util
 
 @Reducer
@@ -19,6 +21,11 @@ public struct OnboardingSlideFeature {
         var currentPage: Int = 0
         var isCompletionAnimating: Bool = false
         var trackingEditor: TrackingEditorFeature.State?
+
+        let tutorialBlockName: String = "튜토리얼 블럭"
+        let tutorialBlockSymbol: String = Symbol.party_popper_fill.symbolName
+        let tutorialBlockColor: Int = 4
+        let tutorialBlockAmount: Double = 0.5
 
         public init() {}
     }
@@ -31,6 +38,7 @@ public struct OnboardingSlideFeature {
 
         public enum InnerAction {
             case hideCompletionOverlay
+            case setTrackingEditor(TrackingEditorFeature.State)
         }
 
         public enum DelegateAction {}
@@ -42,8 +50,13 @@ public struct OnboardingSlideFeature {
         case trackingEditor(TrackingEditorFeature.Action)
     }
 
+    @Dependency(\.date) private var date
+    @Dependency(\.uuid) private var uuid
     @Dependency(\.haptic) private var haptic
     @Dependency(\.continuousClock) private var clock
+    @Dependency(\.groupRepository) private var groupRepository
+    @Dependency(\.blockRepository) private var blockRepository
+    @Dependency(\.trackingRepository) private var trackingRepository
 
     public init() {}
 
@@ -61,22 +74,11 @@ public struct OnboardingSlideFeature {
                 return .none
 
             case .view(.onCompletionAnimationComplete):
-                let now = Date()
-                let startDate = now.addingTimeInterval(-1800)
-                let trackingTime = TrackingTime(startDate: startDate, endDate: now)
-                let sessionId = UUID()
+                return createTutorialData(state)
 
-                state.trackingEditor = .init(
-                    trackingGroup: .init(id: UUID(), name: "튜토리얼", order: 0),
-                    trackingBlock: .init(id: UUID(), name: "튜토리얼 블럭", iconIndex: 0, colorIndex: 0, output: 0.5, order: 0),
-                    sessionPages: [
-                        .init(id: sessionId, trackingTimeList: [trackingTime], totalTime: 1800)
-                    ]
-                )
-                return .run { send in
-                    try? await clock.sleep(for: .milliseconds(600))
-                    await send(.inner(.hideCompletionOverlay))
-                }
+            case .inner(.setTrackingEditor(let editorState)):
+                state.trackingEditor = editorState
+                return .none
 
             case .inner(.hideCompletionOverlay):
                 state.isCompletionAnimating = false
@@ -92,6 +94,60 @@ public struct OnboardingSlideFeature {
         }
         .ifLet(\.trackingEditor, action: \.trackingEditor) {
             TrackingEditorFeature()
+        }
+    }
+}
+
+// MARK: - Shared Effect
+extension OnboardingSlideFeature {
+
+    private func createTutorialData(_ state: State) -> Effect<Action> {
+        let name = state.tutorialBlockName
+        let colorIndex = state.tutorialBlockColor
+        let amount = state.tutorialBlockAmount
+
+        return .run { send in
+            let defaultGroup = await groupRepository.fetchDefaultGroup()
+
+            let blockId = uuid()
+            let tutorialBlock = try await blockRepository.createBlock(
+                defaultGroup.id,
+                Block(
+                    id: blockId,
+                    name: name,
+                    iconIndex: 0,
+                    colorIndex: colorIndex,
+                    output: amount,
+                    order: 0
+                )
+            )
+
+            let now = date.now
+            let startDate = now.addingTimeInterval(-1800)
+            let trackingTime = TrackingTime(startDate: startDate, endDate: now)
+            let sessionId = uuid()
+            let session = TrackingSession(
+                id: sessionId,
+                createdAt: now,
+                timeList: [trackingTime]
+            )
+            _ = try await trackingRepository.createSession(tutorialBlock.id, session)
+
+            let editorState = TrackingEditorFeature.State(
+                trackingGroup: defaultGroup,
+                trackingBlock: tutorialBlock,
+                sessionPages: [
+                    .init(
+                        id: sessionId,
+                        trackingTimeList: [trackingTime],
+                        totalTime: 1800
+                    )
+                ]
+            )
+            await send(.inner(.setTrackingEditor(editorState)))
+
+            try? await clock.sleep(for: .milliseconds(600))
+            await send(.inner(.hideCompletionOverlay))
         }
     }
 }
