@@ -17,6 +17,8 @@ struct MyInfoDemoApp: App {
     
     let store = Store(initialState: .init()) {
         OnboardingStartFeature()
+    } withDependencies: {
+        $0.context = .live
     }
     
     @Dependency(\.modelContainer) private var modelContainer

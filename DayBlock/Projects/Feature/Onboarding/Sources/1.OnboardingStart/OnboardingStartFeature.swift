@@ -7,6 +7,7 @@
 
 import ComposableArchitecture
 import Domain
+import PersistentData
 import Util
 
 @Reducer
@@ -34,11 +35,14 @@ public struct OnboardingStartFeature {
     }
 
     public init() {}
+    
+    @Dependency(\.haptic) private var haptic
 
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .view(.startButtonTapped):
+                haptic.impact(.soft)
                 state.slide = OnboardingSlideFeature.State()
                 return .none
 

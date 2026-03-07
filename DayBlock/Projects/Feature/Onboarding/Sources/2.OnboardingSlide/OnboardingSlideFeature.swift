@@ -32,12 +32,18 @@ public struct OnboardingSlideFeature {
         case binding(BindingAction<State>)
     }
 
+    @Dependency(\.haptic) private var haptic
+
     public init() {}
 
     public var body: some ReducerOf<Self> {
         BindingReducer()
         Reduce { state, action in
             switch action {
+            case .binding(\.currentPage):
+                haptic.impact(.light)
+                return .none
+
             default:
                 return .none
             }
