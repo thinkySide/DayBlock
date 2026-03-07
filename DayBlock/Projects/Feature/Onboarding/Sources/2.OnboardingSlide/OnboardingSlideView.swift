@@ -18,26 +18,28 @@ public struct OnboardingSlideView: View {
     }
 
     public var body: some View {
-        VStack(spacing: 0) {
+        TabView(selection: $store.currentPage) {
+            ForEach(onboardingItems) { item in
+                OnboardingPage(
+                    text: item.text,
+                    image: item.image,
+                    subtitle: item.subtitle
+                )
+                .tag(item.id)
+            }
+            
+            TutorialPage()
+                .tag(onboardingItems.count)
+        }
+        .tabViewStyle(.page(indexDisplayMode: .never))
+        .padding(.top, 24)
+        .navigationBarBackButtonHidden()
+        .overlay(alignment: .top) {
             PageIndicator(
                 currentPage: store.currentPage,
-                totalPages: store.onboardingItems.count
+                totalPages: onboardingItems.count + 1
             )
-
-            TabView(selection: $store.currentPage) {
-                ForEach(store.onboardingItems) { item in
-                    OnboardingPage(
-                        text: item.text,
-                        image: item.image,
-                        subtitle: item.subtitle
-                    )
-                    .tag(item.id)
-                }
-            }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            .padding(.top, 24)
         }
-        .navigationBarBackButtonHidden()
     }
     
     @ViewBuilder
@@ -49,7 +51,7 @@ public struct OnboardingSlideView: View {
         VStack(spacing: 0) {
             Text(text)
                 .multilineTextAlignment(.center)
-            
+
             image
                 .padding(.horizontal, 48)
             
@@ -57,7 +59,58 @@ public struct OnboardingSlideView: View {
                 .brandFont(.pretendard(.medium), 15)
                 .foregroundStyle(DesignSystem.Colors.gray800.swiftUIColor)
         }
-        .frame(maxHeight: .infinity, alignment: .top)
+    }
+    
+    @ViewBuilder
+    private func TutorialPage() -> some View {
+        VStack(spacing: 0) {
+            Text(.buildAttributed([
+                .init(
+                    text: "하루하루 데이블럭과 함께\n",
+                    color: DesignSystem.Colors.gray900.swiftUIColor,
+                    font: DesignSystemFontFamily.Pretendard.bold.swiftUIFont(size: 20)
+                ),
+                .init(
+                    text: "블럭을 채워나가볼까요?",
+                    color: DesignSystem.Colors.gray900.swiftUIColor,
+                    font: DesignSystemFontFamily.Pretendard.medium.swiftUIFont(size: 20)
+                )
+            ]))
+            .multilineTextAlignment(.center)
+            .padding(.top, 32)
+
+            TrackingDayBlock(
+                title: "튜토리얼 블럭",
+                todayAmount: 0.5,
+                symbol: Symbol.party_popper_fill.symbolName,
+                color: DesignSystem.Colors.gray900.swiftUIColor,
+                size: 180,
+                isPaused: true,
+                onLongPressComplete: {
+                    
+                }
+            )
+            .padding(.top, 40)
+            
+            Text(.buildAttributed([
+                .init(
+                    text: "“블럭을 길-게 눌러",
+                    color: DesignSystem.Colors.gray900.swiftUIColor,
+                    font: DesignSystemFontFamily.Pretendard.bold.swiftUIFont(size: 15)
+                ),
+                .init(
+                    text: "첫 생산을 완료해요“",
+                    color: DesignSystem.Colors.gray800.swiftUIColor,
+                    font: DesignSystemFontFamily.Pretendard.medium.swiftUIFont(size: 15)
+                )
+            ]))
+            .padding(.top, 40)
+            
+            Text("* 튜토리얼을 위해 30분짜리 블럭을 미리 생산해뒀어요!")
+                .brandFont(.pretendard(.semiBold), 13)
+                .foregroundStyle(DesignSystem.Colors.gray600.swiftUIColor)
+                .padding(.top, 12)
+        }
     }
 }
 
@@ -87,5 +140,88 @@ private struct PageIndicator: View {
             }
             .animation(.easeInOut(duration: 0.2), value: currentPage)
         }
+    }
+}
+
+// MARK: - Items
+extension OnboardingSlideView {
+    
+    public struct OnboardingSlideItem: Identifiable {
+        public let id: Int
+        let text: AttributedString
+        let image: Image
+        let subtitle: String
+    }
+    
+    private var onboardingItems: [OnboardingSlideItem] {
+        [
+            OnboardingSlideItem(
+                id: 0,
+                text: .buildAttributed(
+                    [
+                        .init(
+                            text: "데이블럭의 하루에는\n",
+                            color: DesignSystem.Colors.gray900.swiftUIColor,
+                            font: DesignSystemFontFamily.Pretendard.medium.swiftUIFont(size: 20)
+                        ),
+                        .init(
+                            text: "24개의 빈 블럭이 있어요",
+                            color: DesignSystem.Colors.gray900.swiftUIColor,
+                            font: DesignSystemFontFamily.Pretendard.bold.swiftUIFont(size: 20)
+                        )
+                    ]
+                ),
+                image: DesignSystem.Images.onboarding1.swiftUIImage,
+                subtitle: "“00:00분부터 23:59분까지가 하루에요“"
+            ),
+            OnboardingSlideItem(
+                id: 1,
+                text: .buildAttributed(
+                    [
+                        .init(
+                            text: "블럭은",
+                            color: DesignSystem.Colors.gray900.swiftUIColor,
+                            font: DesignSystemFontFamily.Pretendard.medium.swiftUIFont(size: 20)
+                        ),
+                        .init(
+                            text: "30분에 반 개\n60분에 한 개",
+                            color: DesignSystem.Colors.gray900.swiftUIColor,
+                            font: DesignSystemFontFamily.Pretendard.bold.swiftUIFont(size: 20)
+                        ),
+                        .init(
+                            text: "씩 생산할 수 있어요",
+                            color: DesignSystem.Colors.gray900.swiftUIColor,
+                            font: DesignSystemFontFamily.Pretendard.medium.swiftUIFont(size: 20)
+                        )
+                    ]
+                ),
+                image: DesignSystem.Images.onboarding2.swiftUIImage,
+                subtitle: "“최소 30분 이상 생산해야 블럭이 생겨요“"
+            ),
+            OnboardingSlideItem(
+                id: 2,
+                text: .buildAttributed(
+                    [
+                        .init(
+                            text: "직접 만든 블럭으로",
+                            color: DesignSystem.Colors.gray900.swiftUIColor,
+                            font: DesignSystemFontFamily.Pretendard.medium.swiftUIFont(size: 20)
+                        ),
+                        .init(
+                            text: "생산성을\n얼마나 발휘 했는지 트래킹",
+                            color: DesignSystem.Colors.gray900.swiftUIColor,
+                            font: DesignSystemFontFamily.Pretendard.bold.swiftUIFont(size: 20)
+                        ),
+                        .init(
+                            text: "해요",
+                            color: DesignSystem.Colors.gray900.swiftUIColor,
+                            font: DesignSystemFontFamily.Pretendard.medium.swiftUIFont(size: 20)
+                        )
+                    ]
+                ),
+                image: DesignSystem.Images.onboarding3.swiftUIImage,
+                subtitle: "“공부, 운동, 독서 어떤 작업이든 트래킹해요“"
+            )
+        ]
     }
 }

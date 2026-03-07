@@ -14,6 +14,7 @@ public struct TrackingDayBlock: View {
     let todayAmount: Double
     let symbol: String
     let color: Color
+    let size: CGFloat
     let isPaused: Bool
     let onLongPressComplete: () -> Void
 
@@ -30,6 +31,7 @@ public struct TrackingDayBlock: View {
         todayAmount: Double,
         symbol: String,
         color: Color,
+        size: CGFloat = 250,
         isPaused: Bool,
         onLongPressComplete: @escaping () -> Void = {}
     ) {
@@ -37,13 +39,19 @@ public struct TrackingDayBlock: View {
         self.todayAmount = todayAmount
         self.symbol = symbol
         self.color = color
+        self.size = size
         self.isPaused = isPaused
         self.onLongPressComplete = onLongPressComplete
     }
     
     public var body: some View {
-        let size: CGFloat = 250
-        let symbolTopPadding: CGFloat = 72
+        let ratio = size / 250
+        let cornerRadius: CGFloat = 36 * ratio
+        let labelPadding: CGFloat = 24 * ratio
+        let tagTrailing: CGFloat = 40 * ratio
+        let symbolSize: CGFloat = 68 * ratio
+        let symbolTopPadding: CGFloat = 72 * ratio
+        let titleFontSize: CGFloat = 22 * ratio
 
         ZStack(alignment: .leading) {
             DesignSystem.Colors.gray100.swiftUIColor
@@ -52,20 +60,20 @@ public struct TrackingDayBlock: View {
             color.opacity(0.2)
                 .frame(width: fillWidth, height: size)
         }
-        .clipShape(RoundedRectangle(cornerRadius: 36))
+        .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
         .overlay(alignment: .topLeading) {
-            AmountLabel()
-                .padding(.top, 24)
-                .padding(.leading, 24)
+            AmountLabel(ratio: ratio)
+                .padding(.top, labelPadding)
+                .padding(.leading, labelPadding)
         }
         .overlay(alignment: .topTrailing) {
-            Tag()
-                .padding(.trailing, 40)
+            Tag(ratio: ratio)
+                .padding(.trailing, tagTrailing)
         }
         .overlay(alignment: .top) {
             SFSymbol(
                 symbol: symbol,
-                size: 68,
+                size: symbolSize,
                 color: DesignSystem.Colors.gray900.swiftUIColor,
                 isAnimating: !isPaused,
                 animationType: .bounce
@@ -74,12 +82,12 @@ public struct TrackingDayBlock: View {
         }
         .overlay(alignment: .top) {
             Text(title)
-                .brandFont(.pretendard(.bold), 22)
+                .brandFont(.pretendard(.bold), titleFontSize)
                 .lineLimit(2)
                 .multilineTextAlignment(.center)
                 .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
                 .frame(maxWidth: size - (16 * 2))
-                .padding(.top, symbolTopPadding + symbolTopPadding + 16)
+                .padding(.top, symbolTopPadding + symbolTopPadding + 16 * ratio)
         }
         .gesture(
             DragGesture(minimumDistance: 0)
@@ -122,26 +130,26 @@ public struct TrackingDayBlock: View {
 extension TrackingDayBlock {
 
     @ViewBuilder
-    private func AmountLabel() -> some View {
+    private func AmountLabel(ratio: CGFloat) -> some View {
         HStack(spacing: 0) {
             Text("+")
                 .foregroundStyle(color)
-            
+
             Text(toLabelString(todayAmount))
                 .foregroundStyle(DesignSystem.Colors.gray900.swiftUIColor)
         }
-        .brandFont(.poppins(.bold), 24)
+        .brandFont(.poppins(.bold), 24 * ratio)
     }
-    
+
     @ViewBuilder
-    private func Tag() -> some View {
+    private func Tag(ratio: CGFloat) -> some View {
         UnevenRoundedRectangle(
             topLeadingRadius: 0,
-            bottomLeadingRadius: 12,
-            bottomTrailingRadius: 12,
+            bottomLeadingRadius: 12 * ratio,
+            bottomTrailingRadius: 12 * ratio,
             topTrailingRadius: 0
         )
-        .frame(width: 26, height: 38)
+        .frame(width: 26 * ratio, height: 38 * ratio)
         .foregroundStyle(color)
     }
 }
