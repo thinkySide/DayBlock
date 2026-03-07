@@ -145,7 +145,12 @@ extension OnboardingSlideFeature {
                     .init(
                         id: sessionId,
                         trackingTimeList: [trackingTime],
-                        totalTime: 1800
+                        totalTime: 1800,
+                        memoText: """
+                        튜토리얼을 위해
+                        데이블럭이 미리 생산해둔
+                        30분짜리 블럭이에요 🥳
+                        """
                     )
                 ]
             )
